@@ -1,0 +1,20 @@
+Datasets for Machine Learning
+Learning Qualitative Structure Activity Relationships (QSARs)
+
+Two sets of dataset are given: pyrimidines and triazines.
+
+All datasets can be freely distributed as long as appropriate references 
+are given to the papers mentioned.
+
+Ross D. King
+Biomolecular Modelling Laboratory
+Imperial Cancer Research Fund
+P.O. Box 123
+44 Lincoln's Inn Fields
+London WC2A 3PX
+U.K.
++44-71-242-0200 x3023
+rd_king@icrf.ac.uk
+
+Note: drug_data is a tar file.  Use "tar xvf drug_data" to extract.
+

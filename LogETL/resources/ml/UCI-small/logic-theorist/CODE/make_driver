@@ -1,0 +1,3 @@
+doit(X) :- tell(X), fail.
+doit(_) :- r(X,Y), write('lt('), write(X), write(',200).'), nl, nl, fail.
+doit(_) :- told, tell(user).

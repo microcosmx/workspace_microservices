@@ -1,0 +1,63 @@
+\section{end_of_file}
+
+\begin{tabular}{|r||c|c|} \hline \hline
+\# & EBL ? ROTE \\ \hline
+2.06	>	@{P orsign Q} bar orsign ( {{Q} bar orsign R} bar orsign ( P orsign R ) )@	@P/{p} bar, Q/q, R/r, @
+2.08	=	@P implies P@	@@
+2.11	=	@P orsign {P} bar@	@@
+2.14	=	@{{P} bar} bar implies P@	@@
+2.16	>	@P orsign Q implies {{Q} bar} bar orsign P@	@P/{p} bar, Q/q, @
+2.17	>	@{{P} bar} bar orsign Q implies Q orsign P@	@P/p, Q/{q} bar, @
+2.18	=	@( {P} bar implies P ) implies P@	@@
+2.2	=	@P implies P orsign Q@	@@
+2.24	>	@P orsign ( {P} bar orsign Q )@	@P/{p} bar, Q/q, @
+2.25	=	@P orsign ( P orsign Q implies Q )@	@@
+2.3	=	@P orsign ( Q orsign R ) implies P orsign ( R orsign Q )@	@@
+2.31	=	@P orsign ( Q orsign R ) implies ( P orsign Q ) orsign R@	@@
+2.32	=	@( P orsign Q ) orsign R implies P orsign ( Q orsign R )@	@@
+2.36	=	@( P implies Q ) implies ( R orsign P implies Q orsign R )@	@@
+2.37	=	@( P implies Q ) implies ( P orsign R implies R orsign Q )@	@@
+2.38	=	@( P implies Q ) implies ( P orsign R implies Q orsign R )@	@@
+2.4	=	@P orsign ( P orsign Q ) implies P orsign Q@	@@
+2.41	=	@P orsign ( Q orsign P ) implies Q orsign P@	@@
+2.45	=	@{P orsign Q} bar implies {P} bar@	@@
+2.46	=	@{P orsign Q} bar implies {Q} bar@	@@
+2.47	>	@{P orsign Q} bar implies {P} bar orsign R@	@P/p, Q/q, R/q, @
+2.48	>	@{P orsign Q} bar implies R orsign {Q} bar@	@P/p, Q/q, R/p, @
+2.521	>	@{{P orsign Q} bar} bar orsign ( {Q} bar orsign R )@	@P/{p} bar, Q/q, R/p, @
+2.53	=	@P orsign Q implies ( {P} bar implies Q )@	@@
+2.54	=	@( {P} bar implies Q ) implies P orsign Q@	@@
+2.55	=	@{P} bar implies ( P orsign Q implies Q )@	@@
+2.56	=	@{P} bar implies ( Q orsign P implies Q )@	@@
+2.6	>	@P orsign ( {Q} bar orsign ( R orsign Q ) )@	@P/{{p} bar} bar, Q/q, R/{{p} bar orsign q} bar, @
+2.61	>	@P orsign Q implies {{P} bar orsign Q} bar orsign Q@	@P/{p} bar, Q/q, @
+2.621	=	@( P implies Q ) implies ( P orsign Q implies Q )@	@@
+2.64	=	@P orsign Q implies ( P orsign {Q} bar implies P )@	@@
+2.67	>	@{{P orsign Q} bar orsign R} bar orsign ( {P} bar orsign R )@	@P/p, Q/q, R/q, @
+2.68	>	@{{{P} bar orsign Q} bar orsign R} bar orsign ( P orsign R )@	@P/p, Q/q, R/q, @
+2.69	>	@{{P} bar orsign Q} bar orsign R implies {{R} bar orsign P} bar orsign P@	@P/p, Q/q, R/q, @
+2.73	=	@( P implies Q ) implies ( ( P orsign Q ) orsign R implies Q orsign R )@	@@
+2.76	=	@P orsign ( Q implies R ) implies ( P orsign Q implies P orsign R )@	@@
+2.81	=	@( P implies ( Q implies R ) ) implies ( S orsign P implies ( S orsign Q implies S orsign R ) )@	@@
+2.83	>	@{P orsign ( Q orsign R )} bar orsign ( {P orsign ( {R} bar orsign S )} bar orsign ( P orsign ( Q orsign S ) ) )@	@P/{p} bar, Q/{q} bar, R/r, S/s, @
+2.85	>	@{P orsign Q} bar orsign ( R orsign S ) implies R orsign ( {Q} bar orsign S )@	@P/p, Q/q, R/p, S/r, @
+3.12	>	@P orsign ( Q orsign {P orsign Q} bar )@	@P/{p} bar, Q/{q} bar, @
+3.21	>	@P orsign ( Q orsign {Q orsign P} bar )@	@P/{p} bar, Q/{q} bar, @
+3.22	>	@{{P orsign Q} bar} bar orsign {Q orsign P} bar@	@P/{p} bar, Q/{q} bar, @
+3.24	>	@{{P orsign {P} bar} bar} bar@	@P/{p} bar, @
+3.26	>	@{{{P} bar orsign Q} bar} bar orsign P@	@P/p, Q/{q} bar, @
+3.27	>	@{{P orsign {Q} bar} bar} bar orsign Q@	@P/{p} bar, Q/q, @
+3.3	>	@{{P orsign Q} bar} bar orsign R implies P orsign ( Q orsign R )@	@P/{p} bar, Q/{q} bar, R/r, @
+3.31	>	@P orsign ( Q orsign R ) implies {{P orsign Q} bar} bar orsign R@	@P/{p} bar, Q/{q} bar, R/r, @
+3.33	>	@{{{P orsign Q} bar orsign {{Q} bar orsign R} bar} bar} bar orsign ( P orsign R )@	@P/{p} bar, Q/q, R/r, @
+3.34	>	@{{{{P} bar orsign Q} bar orsign {R orsign P} bar} bar} bar orsign ( R orsign Q )@	@P/p, Q/q, R/{r} bar, @
+3.35	>	@{{P orsign {P orsign Q} bar} bar} bar orsign Q@	@P/{p} bar, Q/q, @
+3.37	>	@{{P orsign Q} bar} bar orsign R implies {{P orsign {{R} bar} bar} bar} bar orsign Q@	@P/{p} bar, Q/{q} bar, R/r, @
+3.4	>	@{{P orsign {Q} bar} bar} bar orsign ( R orsign Q )@	@P/{p} bar, Q/q, R/{p} bar, @
+3.41	>	@{{P} bar orsign Q} bar orsign ( {{{P} bar orsign R} bar} bar orsign Q )@	@P/p, Q/q, R/{r} bar, @
+3.42	>	@{{P} bar orsign Q} bar orsign ( {{R orsign {P} bar} bar} bar orsign Q )@	@P/p, Q/q, R/{r} bar, @
+3.43	>	@{{{P orsign Q} bar orsign {P orsign R} bar} bar} bar orsign ( P orsign {{Q} bar orsign {R} bar} bar )@	@P/{p} bar, Q/q, R/r, @
+3.45	>	@P orsign Q implies {{P orsign R} bar} bar orsign {{Q} bar orsign R} bar@	@P/{p} bar, Q/q, R/{r} bar, @
+ \hline
+\end{tabular}
+

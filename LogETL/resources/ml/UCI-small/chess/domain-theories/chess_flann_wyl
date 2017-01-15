@@ -1,0 +1,830 @@
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+% CHESS DOMAIN THEORY 
+% GENERATES LEGAL MOVES
+% Designed by flann@cs.orst.edu for Wyl work
+
+%STATE REPRESENTATION:
+%*********************
+%In this domain theory each initial board state is denoted by a constant 
+%such as state1.  The squares on the board are also denoted by
+%constants, such as a8, and b2. Finally, the pieces are each given names, 
+%such as wr1 for the white rook and bk1 for the black king.  Empty squares 
+%are represented by an imaginary piece called empty (essentially
+%a null value).  With this representation, a board configuration is
+%represented by 64 assertions. For example, the board configuration 
+%in Figure4(a) (in Flann & Dietterich, 1989) includes the following facts:
+
+%square(state1,h1,wr1).
+%square(state1,a4,empty).
+%square(state1,d8,bk1).
+
+%In addition, the structure of the chess board is represented as the
+%topology of the squares via the connected relation given at the end 
+%of this file. Examples are given below:
+
+%connected(a7,a8,n).
+%connected(a7,b7,e).
+%connected(a7,b8,ne).
+
+%The constants n, e, ne, and so on represent the eight directions of 
+%the compass points.  In all, 372 connected assertions are needed.
+
+%PIECE REPRESENTATION:
+%*********************
+%Information about each of the pieces is needed in order to define
+%the legal moves.  In particular, we identify certain pieces (e.g., wn1, 
+%wr1) as all being white pieces via the side relation. Similarly, we 
+%define groups of pieces (e.g., wn1, bn2) as being of the same type
+%via the type relation:
+
+
+%kings
+side(bk1,black).
+type(bk1,king).
+side(wk1,white).
+type(wk1,king).
+
+%queens
+side(bq1,black).
+type(bq1,queen).
+side(bq2,black).
+type(bq2,queen).
+
+side(wq1,white).
+type(wq1,queen).
+side(wq2,white).
+type(wq2,queen).
+
+%rooks
+side(br1,black).
+type(br1,rook).
+side(br2,black).
+type(br2,rook).
+
+side(wr1,white).
+type(wr1,rook).
+side(wr2,white).
+type(wr2,rook).
+
+%bishops
+side(bb1,black).
+type(bb1,bishop).
+side(bb2,black).
+type(bb2,bishop).
+
+side(wb1,white).
+type(wb1,bishop).
+side(wb2,white).
+type(wb2,bishop).
+
+%knights
+side(bn1,black).
+type(bn1,knight).
+side(bn2,black).
+type(bn2,knight).
+
+side(wn1,white).
+type(wn1,knight).
+side(wn2,white).
+type(wn2,knight).
+
+%%%%%%%%%%%
+%We also include the fact that the two sides black and white are opposite:
+opposite_side(black,white).
+opposite_side(white,black).
+
+%%%%%%%%%%%
+%For each piece type we declare the directions that it can legally move
+%and the maximum distance that it can travel via the legal direction relation:
+
+
+%KING
+legaldirection(black,king,n,1).
+legaldirection(black,king,ne,1).
+legaldirection(black,king,e,1).
+legaldirection(black,king,se,1).
+legaldirection(black,king,s,1).
+legaldirection(black,king,sw,1).
+legaldirection(black,king,w,1).
+legaldirection(black,king,nw,1).
+
+legaldirection(white,king,n,1).
+legaldirection(white,king,ne,1).
+legaldirection(white,king,e,1).
+legaldirection(white,king,se,1).
+legaldirection(white,king,s,1).
+legaldirection(white,king,sw,1).
+legaldirection(white,king,w,1).
+legaldirection(white,king,nw,1).
+
+%QUEEN
+legaldirection(black,queen,n,8).
+legaldirection(black,queen,ne,8).
+legaldirection(black,queen,e,8).
+legaldirection(black,queen,se,8).
+legaldirection(black,queen,s,8).
+legaldirection(black,queen,sw,8).
+legaldirection(black,queen,w,8).
+legaldirection(black,queen,nw,8).
+
+legaldirection(white,queen,n,8).
+legaldirection(white,queen,ne,8).
+legaldirection(white,queen,e,8).
+legaldirection(white,queen,se,8).
+legaldirection(white,queen,s,8).
+legaldirection(white,queen,sw,8).
+legaldirection(white,queen,w,8).
+legaldirection(white,queen,nw,8).
+
+%BISHOP
+legaldirection(black,bishop,ne,8).
+legaldirection(black,bishop,se,8).
+legaldirection(black,bishop,sw,8).
+legaldirection(black,bishop,nw,8).
+
+legaldirection(white,bishop,ne,8).
+legaldirection(white,bishop,se,8).
+legaldirection(white,bishop,sw,8).
+legaldirection(white,bishop,nw,8).
+
+%ROOK
+legaldirection(black,rook,n,8).
+legaldirection(black,rook,e,8).
+legaldirection(black,rook,s,8).
+legaldirection(black,rook,w,8).
+
+legaldirection(white,rook,n,8).
+legaldirection(white,rook,e,8).
+legaldirection(white,rook,s,8).
+legaldirection(white,rook,w,8).
+
+%KNIGHT
+legaldirection(black,knight,knen,1).
+legaldirection(black,knight,knne,1).
+legaldirection(black,knight,knes,1).
+legaldirection(black,knight,knse,1).
+legaldirection(black,knight,knws,1).
+legaldirection(black,knight,knsw,1).
+legaldirection(black,knight,knwn,1).
+legaldirection(black,knight,knnw,1).
+
+legaldirection(white,knight,knen,1).
+legaldirection(white,knight,knne,1).
+legaldirection(white,knight,knes,1).
+legaldirection(white,knight,knse,1).
+legaldirection(white,knight,knws,1).
+legaldirection(white,knight,knsw,1).
+legaldirection(white,knight,knwn,1).
+legaldirection(white,knight,knnw,1).
+
+%LEGAL MOVES
+%***********
+%We are now ready to declare the rule that generates legal moves:
+%A legal move is a pseudo move which does not result in check for the 
+%moving side
+
+legal_move(State,Newstate,Side):-
+	   pseudo_move(State,Newstate,Side),
+	   \+ in_check(Newstate,Side).
+
+%pseudo move
+%%%%%%%%%%%%%
+%This rule checks to see that the piece to move, Piecem, is located
+%on the source square From, that Piecet is located on the destination 
+%square To, and that the indicated direction and number of squares is 
+%legal for the kind of piece being moved.  In particular, the movedirection
+%predicate (given below) recursively decrements the Count as it traverses
+%connected squares in the indicated direction.  It checks that all 
+%intervening squares are empty. 
+
+pseudo_move(State,do(op(From,To,Playerm,Playert),State),Side1):-
+	   opposite_side(Side1,Side2),
+	   side(Playerm,Side1),
+	   type(Playerm,Type),
+	   square(State,From,Playerm),
+	   legaldirection(Side1,Type,Direct,Count),
+	   connected(From,Next,Direct),
+	   movedirection(State,Count,Direct,Next,To,Playert,Type2,Side2).
+
+
+%movedirection
+%%%%%%%%%%%%%%
+%movedirection terminates when ever the count is 0, it has reached an
+%empty square or a piece occupied by an opponent's piece
+
+
+:- dynamic movedirection/8.
+movedirection(State,Count,Direct,Next,To,Playert,Type2,Side2):-
+	   Count=0,
+	   fail.
+
+%terminate with empty square
+movedirection(State,Count,Direct,Next,To,Playert,Type2,Side2):-
+   Count\==0,
+	   To=Next,
+	   Playert=empty,
+	   Type2=empty,
+	   square(State,To,empty).
+
+%terminate with take move
+movedirection(State,Count,Direct,Next,To,Playert,Type2,Side2):-
+	   Count\==0,
+   To=Next,
+	   square(State,To,Playert),
+	   type(Playert,Type2),
+	   side(Playert,Side2),
+	   !.
+	
+
+%recursive case
+movedirection(State,Count,Direct,Next,To,Playert,Type2,Side2):-
+	   square(State,Next,empty),
+	   Ncount is Count - 1,
+	   Ncount \== 0,
+	   connected(Next,NextNext,Direct),
+	   movedirection(State,Ncount,Direct,NextNext,To,Playert,Type2,Side2).
+
+%in check
+%%%%%%%%%
+%The in_check rule is very like the psuedo move rule above. 
+%A check is defined as a possible take move of the king by the opponent:
+
+
+in_check(State,Side1):-
+	   opposite_side(Side1,Side2),
+	   type(Playerk,king),
+	   side(Playerk,Side1),
+	   square(State,Kingsq,Playerk),
+	   side(Playertaking,Side2),
+	   type(Playertaking,Typet),
+	   square(State,From,Playertaking),
+	   legaldirection(Side2,Typet,Direct,Count),
+	   connected(From,Next,Direct),
+	   movedirection(State,Count,Direct,Next,Kingsq,Playerk,king,Side1).
+
+%FRAME AXIOMS
+%************
+%These are written for the square facts that define the initial state:
+
+%when we have just moved into square T:
+square(St,T,Pm):-
+	   St=do(op(F,T,Pm,Pt),S),
+	   square(S,T,Pt).
+
+%when we have just moves out of square F:
+square(St,F,P):-
+	   St=do(op(F,T,Pm,Pt),S),
+	   P=empty,
+	   square(S,F,Pm).
+
+%frame all other players forward.
+square(St,Sq,Pl):-
+	   St=do(op(F,T,Pm,Pt),S),
+	   square(S,Sq,Pl),
+	   Sq\==F,
+	   Sq\==T.
+
+%BOARD TOPOLOGY
+%**************
+
+connected(a1,a2,n).
+connected(a1,b2,ne).
+connected(a1,b1,e).
+connected(a2,a3,n).
+connected(a2,b3,ne).
+connected(a2,b2,e).
+connected(a2,b1,se).
+connected(a2,a1,s).
+connected(a3,a4,n).
+connected(a3,b4,ne).
+connected(a3,b3,e).
+connected(a3,b2,se).
+connected(a3,a2,s).
+connected(a4,a5,n).
+connected(a4,b5,ne).
+connected(a4,b4,e).
+connected(a4,b3,se).
+connected(a4,a3,s).
+connected(a5,a6,n).
+connected(a5,b6,ne).
+connected(a5,b5,e).
+connected(a5,b4,se).
+connected(a5,a4,s).
+connected(a6,a7,n).
+connected(a6,b7,ne).
+connected(a6,b6,e).
+connected(a6,b5,se).
+connected(a6,a5,s).
+connected(a7,a8,n).
+connected(a7,b8,ne).
+connected(a7,b7,e).
+connected(a7,b6,se).
+connected(a7,a6,s).
+connected(a8,b8,e).
+connected(a8,b7,se).
+connected(a8,a7,s).
+connected(b1,b2,n).
+connected(b1,c2,ne).
+connected(b1,c1,e).
+connected(b1,a1,w).
+connected(b1,a2,nw).
+connected(b2,b3,n).
+connected(b2,c3,ne).
+connected(b2,c2,e).
+connected(b2,c1,se).
+connected(b2,b1,s).
+connected(b2,a1,sw).
+connected(b2,a2,w).
+connected(b2,a3,nw).
+connected(b3,b4,n).
+connected(b3,c4,ne).
+connected(b3,c3,e).
+connected(b3,c2,se).
+connected(b3,b2,s).
+connected(b3,a2,sw).
+connected(b3,a3,w).
+connected(b3,a4,nw).
+connected(b4,b5,n).
+connected(b4,c5,ne).
+connected(b4,c4,e).
+connected(b4,c3,se).
+connected(b4,b3,s).
+connected(b4,a3,sw).
+connected(b4,a4,w).
+connected(b4,a5,nw).
+connected(b5,b6,n).
+connected(b5,c6,ne).
+connected(b5,c5,e).
+connected(b5,c4,se).
+connected(b5,b4,s).
+connected(b5,a4,sw).
+connected(b5,a5,w).
+connected(b5,a6,nw).
+connected(b6,b7,n).
+connected(b6,c7,ne).
+connected(b6,c6,e).
+connected(b6,c5,se).
+connected(b6,b5,s).
+connected(b6,a5,sw).
+connected(b6,a6,w).
+connected(b6,a7,nw).
+connected(b7,b8,n).
+connected(b7,c8,ne).
+connected(b7,c7,e).
+connected(b7,c6,se).
+connected(b7,b6,s).
+connected(b7,a6,sw).
+connected(b7,a7,w).
+connected(b7,a8,nw).
+connected(b8,c8,e).
+connected(b8,c7,se).
+connected(b8,b7,s).
+connected(b8,a7,sw).
+connected(b8,a8,w).
+connected(c1,c2,n).
+connected(c1,d2,ne).
+connected(c1,d1,e).
+connected(c1,b1,w).
+connected(c1,b2,nw).
+connected(c2,c3,n).
+connected(c2,d3,ne).
+connected(c2,d2,e).
+connected(c2,d1,se).
+connected(c2,c1,s).
+connected(c2,b1,sw).
+connected(c2,b2,w).
+connected(c2,b3,nw).
+connected(c3,c4,n).
+connected(c3,d4,ne).
+connected(c3,d3,e).
+connected(c3,d2,se).
+connected(c3,c2,s).
+connected(c3,b2,sw).
+connected(c3,b3,w).
+connected(c3,b4,nw).
+connected(c4,c5,n).
+connected(c4,d5,ne).
+connected(c4,d4,e).
+connected(c4,d3,se).
+connected(c4,c3,s).
+connected(c4,b3,sw).
+connected(c4,b4,w).
+connected(c4,b5,nw).
+connected(c5,c6,n).
+connected(c5,d6,ne).
+connected(c5,d5,e).
+connected(c5,d4,se).
+connected(c5,c4,s).
+connected(c5,b4,sw).
+connected(c5,b5,w).
+connected(c5,b6,nw).
+connected(c6,c7,n).
+connected(c6,d7,ne).
+connected(c6,d6,e).
+connected(c6,d5,se).
+connected(c6,c5,s).
+connected(c6,b5,sw).
+connected(c6,b6,w).
+connected(c6,b7,nw).
+connected(c7,c8,n).
+connected(c7,d8,ne).
+connected(c7,d7,e).
+connected(c7,d6,se).
+connected(c7,c6,s).
+connected(c7,b6,sw).
+connected(c7,b7,w).
+connected(c7,b8,nw).
+connected(c8,d8,e).
+connected(c8,d7,se).
+connected(c8,c7,s).
+connected(c8,b7,sw).
+connected(c8,b8,w).
+connected(d1,d2,n).
+connected(d1,e2,ne).
+connected(d1,e1,e).
+connected(d1,c1,w).
+connected(d1,c2,nw).
+connected(d2,d3,n).
+connected(d2,e3,ne).
+connected(d2,e2,e).
+connected(d2,e1,se).
+connected(d2,d1,s).
+connected(d2,c1,sw).
+connected(d2,c2,w).
+connected(d2,c3,nw).
+connected(d3,d4,n).
+connected(d3,e4,ne).
+connected(d3,e3,e).
+connected(d3,e2,se).
+connected(d3,d2,s).
+connected(d3,c2,sw).
+connected(d3,c3,w).
+connected(d3,c4,nw).
+connected(d4,d5,n).
+connected(d4,e5,ne).
+connected(d4,e4,e).
+connected(d4,e3,se).
+connected(d4,d3,s).
+connected(d4,c3,sw).
+connected(d4,c4,w).
+connected(d4,c5,nw).
+connected(d5,d6,n).
+connected(d5,e6,ne).
+connected(d5,e5,e).
+connected(d5,e4,se).
+connected(d5,d4,s).
+connected(d5,c4,sw).
+connected(d5,c5,w).
+connected(d5,c6,nw).
+connected(d6,d7,n).
+connected(d6,e7,ne).
+connected(d6,e6,e).
+connected(d6,e5,se).
+connected(d6,d5,s).
+connected(d6,c5,sw).
+connected(d6,c6,w).
+connected(d6,c7,nw).
+connected(d7,d8,n).
+connected(d7,e8,ne).
+connected(d7,e7,e).
+connected(d7,e6,se).
+connected(d7,d6,s).
+connected(d7,c6,sw).
+connected(d7,c7,w).
+connected(d7,c8,nw).
+connected(d8,e8,e).
+connected(d8,e7,se).
+connected(d8,d7,s).
+connected(d8,c7,sw).
+connected(d8,c8,w).
+connected(e1,e2,n).
+connected(e1,f2,ne).
+connected(e1,f1,e).
+connected(e1,d1,w).
+connected(e1,d2,nw).
+connected(e2,e3,n).
+connected(e2,f3,ne).
+connected(e2,f2,e).
+connected(e2,f1,se).
+connected(e2,e1,s).
+connected(e2,d1,sw).
+connected(e2,d2,w).
+connected(e2,d3,nw).
+connected(e3,e4,n).
+connected(e3,f4,ne).
+connected(e3,f3,e).
+connected(e3,f2,se).
+connected(e3,e2,s).
+connected(e3,d2,sw).
+connected(e3,d3,w).
+connected(e3,d4,nw).
+connected(e4,e5,n).
+connected(e4,f5,ne).
+connected(e4,f4,e).
+connected(e4,f3,se).
+connected(e4,e3,s).
+connected(e4,d3,sw).
+connected(e4,d4,w).
+connected(e4,d5,nw).
+connected(e5,e6,n).
+connected(e5,f6,ne).
+connected(e5,f5,e).
+connected(e5,f4,se).
+connected(e5,e4,s).
+connected(e5,d4,sw).
+connected(e5,d5,w).
+connected(e5,d6,nw).
+connected(e6,e7,n).
+connected(e6,f7,ne).
+connected(e6,f6,e).
+connected(e6,f5,se).
+connected(e6,e5,s).
+connected(e6,d5,sw).
+connected(e6,d6,w).
+connected(e6,d7,nw).
+connected(e7,e8,n).
+connected(e7,f8,ne).
+connected(e7,f7,e).
+connected(e7,f6,se).
+connected(e7,e6,s).
+connected(e7,d6,sw).
+connected(e7,d7,w).
+connected(e7,d8,nw).
+connected(e8,f8,e).
+connected(e8,f7,se).
+connected(e8,e7,s).
+connected(e8,d7,sw).
+connected(e8,d8,w).
+connected(f1,f2,n).
+connected(f1,g2,ne).
+connected(f1,g1,e).
+connected(f1,e1,w).
+connected(f1,e2,nw).
+connected(f2,f3,n).
+connected(f2,g3,ne).
+connected(f2,g2,e).
+connected(f2,g1,se).
+connected(f2,f1,s).
+connected(f2,e1,sw).
+connected(f2,e2,w).
+connected(f2,e3,nw).
+connected(f3,f4,n).
+connected(f3,g4,ne).
+connected(f3,g3,e).
+connected(f3,g2,se).
+connected(f3,f2,s).
+connected(f3,e2,sw).
+connected(f3,e3,w).
+connected(f3,e4,nw).
+connected(f4,f5,n).
+connected(f4,g5,ne).
+connected(f4,g4,e).
+connected(f4,g3,se).
+connected(f4,f3,s).
+connected(f4,e3,sw).
+connected(f4,e4,w).
+connected(f4,e5,nw).
+connected(f5,f6,n).
+connected(f5,g6,ne).
+connected(f5,g5,e).
+connected(f5,g4,se).
+connected(f5,f4,s).
+connected(f5,e4,sw).
+connected(f5,e5,w).
+connected(f5,e6,nw).
+connected(f6,f7,n).
+connected(f6,g7,ne).
+connected(f6,g6,e).
+connected(f6,g5,se).
+connected(f6,f5,s).
+connected(f6,e5,sw).
+connected(f6,e6,w).
+connected(f6,e7,nw).
+connected(f7,f8,n).
+connected(f7,g8,ne).
+connected(f7,g7,e).
+connected(f7,g6,se).
+connected(f7,f6,s).
+connected(f7,e6,sw).
+connected(f7,e7,w).
+connected(f7,e8,nw).
+connected(f8,g8,e).
+connected(f8,g7,se).
+connected(f8,f7,s).
+connected(f8,e7,sw).
+connected(f8,e8,w).
+connected(g1,g2,n).
+connected(g1,h2,ne).
+connected(g1,h1,e).
+connected(g1,f1,w).
+connected(g1,f2,nw).
+connected(g2,g3,n).
+connected(g2,h3,ne).
+connected(g2,h2,e).
+connected(g2,h1,se).
+connected(g2,g1,s).
+connected(g2,f1,sw).
+connected(g2,f2,w).
+connected(g2,f3,nw).
+connected(g3,g4,n).
+connected(g3,h4,ne).
+connected(g3,h3,e).
+connected(g3,h2,se).
+connected(g3,g2,s).
+connected(g3,f2,sw).
+connected(g3,f3,w).
+connected(g3,f4,nw).
+connected(g4,g5,n).
+connected(g4,h5,ne).
+connected(g4,h4,e).
+connected(g4,h3,se).
+connected(g4,g3,s).
+connected(g4,f3,sw).
+connected(g4,f4,w).
+connected(g4,f5,nw).
+connected(g5,g6,n).
+connected(g5,h6,ne).
+connected(g5,h5,e).
+connected(g5,h4,se).
+connected(g5,g4,s).
+connected(g5,f4,sw).
+connected(g5,f5,w).
+connected(g5,f6,nw).
+connected(g6,g7,n).
+connected(g6,h7,ne).
+connected(g6,h6,e).
+connected(g6,h5,se).
+connected(g6,g5,s).
+connected(g6,f5,sw).
+connected(g6,f6,w).
+connected(g6,f7,nw).
+connected(g7,g8,n).
+connected(g7,h8,ne).
+connected(g7,h7,e).
+connected(g7,h6,se).
+connected(g7,g6,s).
+connected(g7,f6,sw).
+connected(g7,f7,w).
+connected(g7,f8,nw).
+connected(g8,h8,e).
+connected(g8,h7,se).
+connected(g8,g7,s).
+connected(g8,f7,sw).
+connected(g8,f8,w).
+connected(h1,h2,n).
+connected(h1,g1,w).
+connected(h1,g2,nw).
+connected(h2,h3,n).
+connected(h2,h1,s).
+connected(h2,g1,sw).
+connected(h2,g2,w).
+connected(h2,g3,nw).
+connected(h3,h4,n).
+connected(h3,h2,s).
+connected(h3,g2,sw).
+connected(h3,g3,w).
+connected(h3,g4,nw).
+connected(h4,h5,n).
+connected(h4,h3,s).
+connected(h4,g3,sw).
+connected(h4,g4,w).
+connected(h4,g5,nw).
+connected(h5,h6,n).
+connected(h5,h4,s).
+connected(h5,g4,sw).
+connected(h5,g5,w).
+connected(h5,g6,nw).
+connected(h6,h7,n).
+connected(h6,h5,s).
+connected(h6,g5,sw).
+connected(h6,g6,w).
+connected(h6,g7,nw).
+connected(h7,h8,n).
+connected(h7,h6,s).
+connected(h7,g6,sw).
+connected(h7,g7,w).
+connected(h7,g8,nw).
+connected(h8,h7,s).
+connected(h8,g7,sw).
+connected(h8,g8,w).
+
+%knight connected facts are defined in terms of primitives
+
+%to the north
+connected(S1,S2,knne):-
+	   connected(S1,Sa,n),
+	   connected(Sa,Sb,n),
+	   connected(Sb,S2,e).
+
+connected(S1,S2,knnw):-
+	   connected(S1,Sa,n),
+	   connected(Sa,Sb,n),
+	   connected(Sb,S2,w).
+
+%to the east
+connected(S1,S2,knen):-
+   	connected(S1,Sa,e),
+	   connected(Sa,Sb,e),
+	   connected(Sb,S2,n).
+
+connected(S1,S2,knes):-
+	   connected(S1,Sa,e),
+	   connected(Sa,Sb,e),
+	   connected(Sb,S2,s).
+
+%to the south
+connected(S1,S2,knse):-
+	   connected(S1,Sa,s),
+	   connected(Sa,Sb,s),
+	   connected(Sb,S2,e).
+
+connected(S1,S2,knsw):-
+	   connected(S1,Sa,s),
+	   connected(Sa,Sb,s),
+	   connected(Sb,S2,w).
+
+
+%to the west
+connected(S1,S2,knwn):-
+	   connected(S1,Sa,w),
+	   connected(Sa,Sb,w),
+	   connected(Sb,S2,n).
+
+connected(S1,S2,knws):-
+	   connected(S1,Sa,w),
+	   connected(Sa,Sb,w),
+	   connected(Sb,S2,s).
+
+
+%EXAMPLE STATE
+%*********************
+
+%Example of state, called state1 from Flann & Dietterich, 1989 Figure 4(d)
+%Suitable for use with the chess_flann_wyl domain theory
+
+square(state1,a1,wr1).
+square(state1,b1,empty).
+square(state1,c1,empty).
+square(state1,d1,empty).
+square(state1,e1,empty).
+square(state1,f1,empty).
+square(state1,g1,empty).
+square(state1,h1,empty).
+square(state1,a2,wp1).
+square(state1,b2,empty).
+square(state1,c2,wk1).
+square(state1,d2,empty).
+square(state1,e2,empty).
+square(state1,f2,wp2).
+square(state1,g2,empty).
+square(state1,h2,empty).
+square(state1,a3,empty).
+square(state1,b3,wp3).
+square(state1,c3,empty).
+square(state1,d3,empty).
+square(state1,e3,wq1).
+square(state1,f3,empty).
+square(state1,g3,empty).
+square(state1,h3,empty).
+square(state1,a4,empty).
+square(state1,b4,empty).
+square(state1,c4,empty).
+square(state1,d4,empty).
+square(state1,e4,empty).
+square(state1,f4,empty).
+square(state1,g4,wn1).
+square(state1,h4,empty).
+square(state1,a5,empty).
+square(state1,b5,empty).
+square(state1,c5,empty).
+square(state1,d5,empty).
+square(state1,e5,empty).
+square(state1,f5,empty).
+square(state1,g5,empty).
+square(state1,h5,empty).
+square(state1,a6,bp1).
+square(state1,b6,empty).
+square(state1,c6,br1).
+square(state1,d6,empty).
+square(state1,e6,empty).
+square(state1,f6,empty).
+square(state1,g6,empty).
+square(state1,h6,empty).
+square(state1,a7,empty).
+square(state1,b7,empty).
+square(state1,c7,empty).
+square(state1,d7,empty).
+square(state1,e7,empty).
+square(state1,f7,empty).
+square(state1,g7,bp2).
+square(state1,h7,empty).
+square(state1,a8,br2).
+square(state1,b8,empty).
+square(state1,c8,bb1).
+square(state1,d8,empty).
+square(state1,e8,empty).
+square(state1,f8,empty).
+square(state1,g8,bk1).
+square(state1,h8,empty).
+

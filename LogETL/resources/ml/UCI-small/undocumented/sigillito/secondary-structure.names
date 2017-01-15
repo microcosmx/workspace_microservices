@@ -1,0 +1,24 @@
+(Message vsigillito:17)
+Received: from aplcen.apl.jhu.edu by ICS.UCI.EDU id aa21208; 9 May 90 7:21 PDT
+Received: by aplcen.apl.jhu.edu (5.57/Ultrix2.4-XDccg)
+	id AA10291; Wed, 9 May 90 10:22:20 EDT
+Date: Wed, 9 May 90 10:22:20 EDT
+From: "Vince G. Sigillito APL x6231" <vgs@aplcen.apl.jhu.edu>
+Message-Id: <9005091422.AA10291@aplcen.apl.jhu.edu>
+To: aha@ICS.UCI.EDU
+
+David, I can only send you the protein data because the pima indian
+and radar data are only on my suns and they are not on the network and
+during a temporary move. I have asked steve to send them to you. I have
+recently had to make a temporary office move and some of my stuff is 
+still in boxes and I am about to leave on a two week vacation. I will
+send you descriptive material as soon as I can.
+on the protein data ignore the first ten or so numbers, they are parameters
+for the networks. the '<' is used as a spacer between proteins and to mark
+the beginning and end. the three chars (GLY) are the 3 char codes for
+the amino acids (there are 20). the E stands for beta-sheet, the H for
+helix and the _ for 'other' or 'coil'. Ignore the numbers that follow
+they are biophysical constant that we found did not help and so we stopped
+using them.
+
+Vince

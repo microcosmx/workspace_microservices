@@ -1,0 +1,65 @@
+/* This set of predicates prints an expression in Troff format.  There is an
+	implicit precedence implied in the operators, to reduce the number
+	of parenthesis required.  The order, from tightest to loosest bindings
+	is:
+		~, or, and, =>, and <==>.
+
+    To print an expression in Troff format, simply say pprint(Exp), where
+	Exp is the expression to be printed.  Output goes to the standard
+	output, but can be redirected with tell(X), where X is bound to a 
+	file name.  When done writing to the file, tell(user) should be
+	executed. 
+*/
+
+
+doit(A,B,Op,P) :- pprint(A,P), Op, pprint(B,P).
+
+pprint(A) :- write('@'), pprint(A,-1), write('@'), !.
+
+pprint(A <==> B, P) :- smutual, 
+		      	(( P < 0, doit(A,B,mutual,0));
+			 (open, doit(A,B,mutual,0), close)),
+			emutual.
+
+pprint(A => B, P) :- simplies,
+		      	(( P < 1, doit(A,B,implies,1));
+			 (open, doit(A,B,implies,1), close)),
+			eimplies.
+
+pprint(A and B, P) :- sand,
+		      	(( P < 2, doit(A,B,andcode,2));
+			 (open, doit(A,B,andcode,2), close)),
+		  	eand.
+
+pprint(A or B, P) :- sor,
+		      	(( P < 3, doit(A,B,orcode,3));
+			 (open, doit(A,B,orcode,3), close)),
+			eor.
+
+pprint(~B, P) :- snot, pprint(B,-1), enot. 
+pprint(X,_) :- write(X).
+
+open :- write('( ').
+close :- write(' )').
+
+snot :- write('{').
+enot :- write('} bar'). 
+
+orcode :- write(' orsign ').
+sor :- true.
+eor :- true.
+
+andcode :- write(' andsign ').
+sand :- true.
+eand :- true.
+
+implies :- write(' implies ').
+simplies :- true.
+eimplies :- true.
+
+mutual :- write(' equiv ').
+smutual :- true.
+emutual :- true.
+
+
+

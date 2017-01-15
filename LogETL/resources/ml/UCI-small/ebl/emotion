@@ -1,0 +1,17 @@
+/* ====================================================== */
+/*  Domain Theory and Training Example from Pople's Paper */
+/* ====================================================== */
+assumable(likes(_,_),likes(_,_)).
+
+distressed(P) :- wants(P,E), believes(P,not(E)).
+wants(P,happy(Q)) :- likes(P,Q).
+wants(P,E) :- wants(P,S), causes(E,S).
+
+/* Facts */
+believes(john,not(pass(mary,exam))).
+causes(pass(mary,exam),happy(mary)).
+
+/* Starting Query. */
+query :-
+  explain_and_learn((distressed(john)),
+                    (distressed(X))).

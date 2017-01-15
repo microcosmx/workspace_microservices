@@ -1,0 +1,11 @@
+collectvars(A,R,R) :- A ==[],!.
+collectvars(A,R,NewR) :- var(A), !, strict_union(A,R,NewR).
+collectvars(A,R,R) :- atom(A), !.
+collectvars([A|B],R,NewR) :- !, collectvars(A,R,R2), collectvars(B,R2,NewR).
+collectvars(A,R,NewR) :- A =.. [Op|Args], collectvars(Args,R,NewR).
+
+strict_union(A,R,R) :- strict_member(A,R),!. 
+strict_union(A,R,[A|R]) :- !.
+
+strict_member(X,[Y|Z]) :- X == Y ; strict_member(X,Z).
+

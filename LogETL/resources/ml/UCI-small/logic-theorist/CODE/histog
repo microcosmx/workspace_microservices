@@ -1,0 +1,110 @@
+:- dynamic selector/1, resolution/1, outputdev/1.
+selector(all).
+resolution(50).
+outputdev(user).
+
+/* the next line generates a histogram of problems created */
+show(c,N,B) :- bagof(X,
+		(A,B,C,D,E,F)^vitalstats(A,B,X,C,D,E,F),Y), histog(Y,N).
+
+/* the next line generates a histogram of problems expanded */
+show(e,N,B) :- bagof(X,
+		(A,B,C,D,E,F)^vitalstats(A,B,C,X,D,E,F),Y), histog(Y,N).
+
+/* the next line generates a histogram of problem depths */
+show(d,N,B) :- bagof(X,
+		(A,B,C,D,E,F)^vitalstats(A,B,C,D,X,E,F),Y), histog(Y,N).
+
+/* the next line generates a histogram of effective branches */
+show(i,N,B) :- bagof(X,
+		(A,B,C,D,E,F)^vitalstats(A,B,C,D,E,X,F),Y), histog(Y,N).
+
+/* the next line generates a histogram of average branches */
+show(a,N,B) :- bagof(X,
+		(A,B,C,D,E,F)^vitalstats(A,B,C,D,E,F,X),Y), histog(Y,N).
+
+show(_,_,_).
+
+genhists :- nl, nl,
+	    write('c:  number of problems created'),nl,
+	    write('e:  number of problems expanded'),nl,
+	    write('d:  depth of problems'),nl,
+	    write('i:  effect branching factor'),nl,
+	    write('a:  averave branching factor'), nl,
+	    write('-------------------------------'),nl,
+	    write('s:  set resolution of plots'),nl,
+	    write('x:  change selection for plots, i.e., solved/~solved'),nl,
+	    write('o:  change output destination'),nl,
+	    write('q:  quit'),nl,
+	    read(X), 
+	    actions(X),
+	    genhists.
+
+actions(X) :- resolution(N), selector(S), howto(S,B), !,
+	      ((nonvar(X), member(X,[c,e,d,i,a]), show(X,N,B), !)
+	      ; (X == 's', changeres, !)
+	      ; (X == 'x', changesel, !)
+	      ; (X == 'o', changeout, !)
+	      ; (X == 'q',!,fail)
+	      ; (nl, nl, write('Huh?'), nl)).
+	      
+
+howto(all,_) :- !.
+howto(X,X) :- !.
+
+member(X,[X|_]).
+member(X,[_|Y]) :- member(X,Y).
+
+changeres :- write('Enter the new value for resolution:  '), nl,
+	     read(X), retractall(resolution(_)), asserta(resolution(X)),
+	     write('The resolution has been changed to '), write(X), nl,nl.
+changesel :- write('Enter the new selector {yup, nope, all}:  '), nl,
+	     read(X), member(X,[yup,nope,all]),
+	     retractall(selectior(S)), asserta(selector(X)),
+	     write('The selector has been changed to '), write(X), nl,nl.
+changesel :- write('That is not a valid option!'), nl, nl.
+changeout :- retract(outputdev(X)), 
+		write('Currently the output is directed to : '),
+		write(X), nl, nl,
+		write('Enter the New output destination:  '), read(Y),
+		asserta(outputdev(Y)).
+
+
+
+show(e,N) :- bagof(X,
+		(A,B,C,D,E,F)^vitalstats(A,B,C,X,D,E,F),Y), 
+		outputdev(X), tell(X), histog(Y,N), told, tell(user).
+
+
+histog(X,Div) :- outputdev(B), tell(B),
+		 quisortx(X,Y,[]), Y = [Min|Tail], max([Min|Tail],Min,Max), 
+			Range is Max - Min,
+			Inc is Range/Div,
+			Start is Min/Inc,
+			Z is integer(Start),
+			loopover(Inc,Z,Y),
+			told, tell(user).
+
+loopover(_,_,[]).
+loopover(Inc,Z,Y) :- A is integer(Z*Inc), format('~d',A), write(':	'),
+			all(A,Y,R), Z2 is Z + 1, loopover(Inc,Z2,R).
+
+all(A,[H],R) :-  H > A, !, R = [H], nl.
+all(A,[H],[]) :- write('*'). 
+all(A,[H|T],R) :- H > A, !, R = [H|T], nl.
+all(A,[H|T],R) :- write('*'), all(A,T,R).
+
+max([],I,I) :- !.
+max([H|T], I, Max) :- ((I >= H, max(T,I,Max),!); (max(T,H,Max),!)).
+
+min([],I,I) :- !.
+min([H|T], I, Min) :- ((I =< H, min(T,I,Min),!); (min(T,H,Min),!)).
+
+
+split(H,[A|X],[A|Y],Z) :- A =< H, split(H,X,Y,Z).
+split(H,[A|X],Y,[A|Z]) :- A > H, split(H,X,Y,Z).
+split(_,[],[],[]).
+
+quisortx([H|T],S,X) :-
+	split(H,T,A,B), quisortx(A,S,[H|Y]), quisortx(B,Y,X).
+quisortx([],X,X).

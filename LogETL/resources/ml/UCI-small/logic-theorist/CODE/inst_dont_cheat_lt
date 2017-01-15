@@ -1,0 +1,515 @@
+:- dynamic maad/1, breadth_limit/1, solved/6, not_solved/5,ticks/1.
+:- dynamic num_goals_generated/1, current_num/2.
+
+/*-------------------------------------------------------------- 
+	lt(Problem_name, Search_limit) takes the name of the problem
+	to be solved (usually a list, like [2,1,3], etc.) which is
+	stored in the prolog database in the form r(Pname,Pform).
+	It then checks to see that there is a valid learning mode
+	set, and then checks to see if the problem is an instance 
+	of a problem that has already been solved (or is a theorem 
+	in the no learning version).  In the case that it is not a
+	already known, then lt_solve is called.
+----------------------------------------------------------------*/
+lt(_,_) 		:- mode_not_ok, !, fail.
+lt(_,Limit) 		:- reset_lt, assertz(breadth_limit(Limit)), fail.
+lt(P_name, Limit) 	:- r(P_name, P_form),
+			   Problem = [P_form,[]],
+			   known_solution(Problem, P_sol),
+			   P_sol = [solved,[Sol]],
+			   write('I got a solution'), write(Sol), nl, !,
+			   get_body(Sol,Sol_body), con(Sol_body,Sol_form),
+			   do_generalization([t(Sol_form)],P_name,Limit), !.
+	% if the problem is an instance of a known theorem, do no work
+
+lt(P_name, Limit) 	:- r(P_name, P_form),
+			lt_solve(P_name, Limit, [ [P_form,[]] | X ]-X).
+	% otherwise, start applying schema's to the problem.
+
+
+/*-------------------------------------------------------------- 
+	give_up(Problem_Name,NextSubGoal) 
+	is the routine called if lt is unable to
+	prove a given problem.  It's primary function is to assert
+	that the problem was not solved, and in the case of rote or
+	novel (EBL) learning modes, assert the unproven as a learned
+	theorem, as well as to remember the depth of the proof we were
+	at, which is computable from the problem history of the next
+	subgoal.
+----------------------------------------------------------------*/
+give_up(P_name,[_|Phist]) :- r(P_name,P_form),
+		   write('Could not solve '), write(P_name), !,
+		   not_solved_stuff(P_name,Phist),
+		   getnewthm(P_form,Newtheorem),
+		   assert(learned_theorem(P_name,Newtheorem)).
+
+
+/*-------------------------------------------------------------- 
+	not_solved_stuff(Problem_name,Phist) is called when a problem is
+	not solved.  It records the status of the search when the 
+	search limit was reached, and if the mode was no learning, will
+	fail.  Otherwise it returns true.  Phist is used to compute the
+	depth of the proof at the time of failure.
+----------------------------------------------------------------*/
+not_solved_stuff(P_Name,[Phist]) :-
+		maad(Ctrl), num_goals_generated(X), breadth_limit(Y),
+		getdepth(Phist,D),
+		assert(not_solved(Ctrl,P_Name,X,Y,D)), !, die_if_no_learn(Ctrl).
+
+
+/*-------------------------------------------------------------- 
+	die_if_no_learn(X) fails if X is unifiable with no_learning.
+----------------------------------------------------------------*/
+die_if_no_learn(no_learning) :- !, fail.
+die_if_no_learn(_) :- !,fail.  %prevents assumption of non provens
+die_if_no_learn(_) :- true.
+
+
+/*-------------------------------------------------------------- 
+	lt_solve(Name, Time_left, SubProblem_Queue) attempts to prove
+	a logic problem consistent.  If time left is 0, lt gives up.
+	Otherwise, LT will apply the detachment, chaining backwards,
+	and chaining forwards schemas to the problem, place the new
+	subproblems on the queue, and attempt to solve the next
+	goal on the queue.
+
+	In the event that the SubProblem_Queue is empty, lt notifies
+	the user, and gives up.
+----------------------------------------------------------------*/
+lt_solve(_,X,_) :- tick(X), fail.
+lt_solve(P_name, 0, [A|_]-_) :- !,give_up(P_name,A).
+	% if limit has expired, die.
+
+lt_solve(P_name, Limit, [Prob_Q_head | Prob_Q_tail] - X) :-
+		lt_loop(Sub_probs, Prob_Q_head, Solved_flag), !,
+		lt_ctrl(Sub_probs, P_name, Limit, 
+				Prob_Q_tail - X,Solved_flag).
+	% try applying dt, cf and cb with lt_loop, and then
+	% decide what to do next with lt_ctrl.
+
+lt_solve(P_name,X,_) :- write('Out of elements on Queue'), nl,
+			write('with '), write(X), write('states outstanding'),
+			!,give_up(P_name,[]).
+
+
+/*-------------------------------------------------------------- 
+	lt_ctrl(Subgoals, Problem_name, Time, Tail_of_queue, Solved_flag)
+	takes a list of Subgoals.  If this list is empty, lt_ctrl simply
+	calls lt_solve, which causes the next Subgoal on the queue to be
+	examined.  Otherwise, if Solved_flag is set, then the solution
+	is generalized, and learned if required.  Otherwise, the new 
+	Subgoals are concatenated onto the end of the queue, the Time
+	is decremented, and lt_solve is called to examine the next
+	Subgoal on the queue.
+----------------------------------------------------------------*/
+lt_ctrl([], Name, Limit, Tail, _) :- !,
+		L1 is Limit - 1, lt_solve(Name, L1, Tail).
+	% if goal could not be reduced with any rule, just forget about it
+	% and try the next solution on the queue.
+
+lt_ctrl(_, N, L, _, [Tag,Sol]) :- Tag == solved,
+		!,
+		do_generalization(Sol,N,L).
+	% if a solution is found, generalize the proof, and add to the global
+	% database.
+
+lt_ctrl(New_Q, N, L, Tail, _) :- !,
+		concat(Tail,New_Q,More_problems), L1 is L -1,
+		lt_solve(N, L1, More_problems).
+	% append the new queue created to the tail of the old queue,
+	% then try to solve with lt_solve.
+
+
+/*-------------------------------------------------------------- 
+	lt_loop(Subgoals, Problem_form, Solved_flag) takes a problem
+	form and its history, and applies the three known schema to
+	the problem form.  If any of the applications of a schema and
+	a theorem result in a known theorem, Solved_flag == solved.
+	Subgoals returns as the list of all applications of the schema
+	to the problem form, which contains a list of lists, each list
+	containing a problem form and a new history.
+----------------------------------------------------------------*/
+lt_loop(Big_Q, Curr_prob, Solved_flag) :-
+		apply_scheme(dt,Curr_prob, Q, Solved_flag),
+		apply_scheme(cf,Curr_prob, Q1, Solved_flag),
+		apply_scheme(cb,Curr_prob, Q2, Solved_flag),
+		munch(Q,Q1,Q2,Big_Q).
+
+
+/*-------------------------------------------------------------- 
+	apply_scheme(Schema, Prob_form, Queue, Solved_flag) takes
+	a Schema which is a member of {dt, cf, cb} and applies it
+	to the Prob_form.  If Solved_flag is already set, no work is done,
+	otherwise, Queue contains all possible applications of a 
+	given schema.
+----------------------------------------------------------------*/
+apply_scheme(_,_,[],Solved_flag) :- Solved_flag = [X,_], X == solved, !.
+		%if solved by dt.
+apply_scheme(X,[Prob_patt,Prob_hist], Q - END, Solved_flag) :-
+		collectvars(Prob_patt,[],ExistentialVars),
+		bagof(THM/RES, 
+		  ExistentialVars^transform_via_schema(X, Prob_patt, THM, RES),
+			Thm_list), !,
+		examine_results(X,Thm_list, Solved_flag, Q, Prob_hist,END).
+apply_scheme(_,_,[],_) :- !.  % in case bagof fails.
+
+
+/*-------------------------------------------------------------- 
+	transform_via_schema(Schema, Prob_pattern, Thm_name, Subgoal)
+	applies a given Schema to a Problem pattern.  It returns with
+	the Thm_name instantiated to the name of the theorem applied,
+	and with Subgoal bound to the subgoal created by applying the
+	schema.  The commented out lines force the patterns matched to
+	be implications, which is not necessary.  It does provide the
+	system with different behavior though.
+----------------------------------------------------------------*/
+transform_via_schema(dt, Prob_Pattern, N2, Subproblem) :-
+		!,
+		schema(dt, Trigger, H, Subproblem),
+		match(Prob_Pattern,H),
+		/* thm(N2,T), T = A => B, match(T,Trigger). */
+		thm(N2,T), match(T,Trigger).
+
+transform_via_schema(N, Prob_Pattern, N2, Subproblem) :-
+		/* Prob_Pattern = A => B, */
+		schema(N, Trigger, H, Subproblem),
+		match(Prob_Pattern,H),
+		/* thm(N2,T), T = Q => R, match(T,Trigger). */
+		thm(N2,T), match(T,Trigger). 
+
+
+/*-------------------------------------------------------------- 
+	examine_results(Schema, Thm_list, Solved-flag, Queue, Prob_hist, Q-mark)
+	takes a Thm_list of the form [T/R|...] where T is the name of the 
+	theorem applied and R is the resulting subgoal, and builds a queue
+	of solutions for apply_scheme.  If a subgoal is found to be a known
+	solution while building the queue, this process stops, and control
+	is passed to the learning mechanisms by known_solution(...) and 
+	the program succeeds at this point.  Otherwise, the global queue lengh
+	is incremented, and if the current number of elements on the queue
+	is less than the search limit, then the new subgoal is added to the
+	queue.  This is an efficiency measure only.  It does not affect 
+	results.
+----------------------------------------------------------------*/
+examine_results(_,[],_,X,_,X).  
+	%if we're out of solutions, the result Q is empty.
+examine_results(Schema,[T/R|_], Solved_Flag, X, Prob_hist,X) :-
+	% con(R,Fixed_R), 
+	known_solution([R, [T,Schema|Prob_hist]],Solved_Flag), !.
+	% bail and do real AI if we find something that's a known solution.
+examine_results(Schema,[T/R|Tail], Solved_Flag, Q, Prob_hist, END) :-
+	inc_q_length(X), breadth_limit(Limit),
+	X >  Limit 
+	   -> examine_results(Schema,Tail,Solved_Flag,The_Rest,Prob_hist,END)
+ 	   ;  ( examine_results(Schema,Tail,Solved_Flag,The_Rest,Prob_hist,END),
+			Q = [ [R,[T,Schema|Prob_hist]] | The_Rest]).
+
+
+/*-------------------------------------------------------------- 
+	known_solution(X,Y) expects X to be a list composed of the
+	form of the problem remaining to be solved, followed by the
+	history of the derivation.  If the form of the problem is
+	matchable with any theorem in the theorem database, it returns
+	with Y bound to [solved, [theorem #| history of derivation]].
+----------------------------------------------------------------*/
+known_solution([P_form,P_hist], [solved,[N|P_hist]]) :-
+		thm(N,Theorem), match(P_form,Theorem).
+
+
+/*-------------------------------------------------------------- 
+	do_generalization(Solution, Problem_Number, Steps remaining)
+	reports to the standard output, the Solution for a given
+	Problem_Number, along with the number of steps it took
+	to get that solution.  It passes that information, along
+	with the global Control_var which dictates the learning
+	method used, to the learning_control module.
+----------------------------------------------------------------*/
+do_generalization(Solution,N,L) :- write(Solution), nl, write('for '),
+		write(N), write(' in '), 
+		breadth_limit(X2), L1 is X2 - L, write(L1), 
+		write(' steps.'), nl,
+		maad(Control_var),
+		num_goals_generated(X), 
+		learning_control(Control_var,Solution,N,L1,X).
+
+
+/*-------------------------------------------------------------- 
+	learning_control(Mode, Solution, Name, Steps, Goals_generated)
+	will record the state the problem solver was in when the solution
+	was found, that is it will record the Solution, the Name of the
+	problem, the Number of subgoals examined, and the number of 
+	subgoals generated.  If the Mode is novel learning (EBL),
+	then the solution is generalized, and added as a new theorem.  
+	If the Mode is rote, the original problem is variablized and
+	added as a new theorem.
+----------------------------------------------------------------*/
+
+learning_control(no_learning, S, N, L, X) :-
+	assert(solved(no_learning, N, S, X, L)), !.
+learning_control(rote, S,N, L,X) :-
+	assert(solved(rote, N, S, X , L)),
+%	L > 0,!, /* this prevents learning one step theorems */
+	r(N, Prob_Form),
+/* the next line prevents rote from learning instances */
+        (S = [t(_)] -> fail; true),
+	getnewthm(Prob_Form, Newtheorem),
+	assert(learned_theorem(N,Newtheorem)),!.
+learning_control(novel,S,N,L,X) :-
+	make_general(S,Res),
+	con(Res,Res2),
+	assert(solved(novel, N,S,X,L)),
+	write('generalized the theorem'),nl,
+	(known_solution([Res2,_],_) -> fail; true),
+	write('novel theorem added'),nl,
+	assert(learned_theorem(N,Res)),!.
+learning_control(_,_,_,_,_) :- !.
+
+
+/*-------------------------------------------------------------- 
+	wipeout will retract all information generated by the 
+	program, allowing us to start with a clean slate.  It does 
+	not reset gensym variables however.
+----------------------------------------------------------------*/
+wipeout :- retract(learned_theorem(_,_)), wipeout.
+wipeout :- retract(solved(_,_,_,_,_)), wipeout.
+wipeout :- retract(not_solved(_,_,_,_,_)), wipeout.
+wipeout :- !.
+
+
+
+/*-------------------------------------------------------------- 
+	inc_q_length(Count) expects count to be uninstantiated.
+	Upon return, Count is bound to the new length of the queue
+	of problem states to be looked at.  It uses the global fact
+	num_goals_generated(X) which stores the current length of 
+	the queue.
+----------------------------------------------------------------*/
+inc_q_length(New_Count) :- retract(num_goals_generated(X)), !, 
+		New_Count is X + 1, asserta(num_goals_generated(New_Count)).
+
+
+/*-------------------------------------------------------------- 
+	reset_lt resets the queue length to zero, and retracts any
+	other interpretation, as well as retracting any previous 
+	breadth limit.		
+----------------------------------------------------------------*/
+reset_lt :- retract(num_goals_generated(_)), fail.
+reset_lt :- retract(breadth_limit(_)), fail.
+reset_lt :- asserta(num_goals_generated(0)).
+
+
+/*-------------------------------------------------------------- 
+	mode_not_ok will fail if maad(_) is unsatisfiable.  This
+	guarantees learning control will know what to do with
+	solutions.
+----------------------------------------------------------------*/
+mode_not_ok :- maad(_), !, fail.
+mode_not_ok :- write('The maad must be set to one of'), nl,
+		write('rote, novel or no_learning').
+
+
+/*-------------------------------------------------------------- 
+	setmaad(X) expects X to be bound to a valid mode.  It must
+	be called before any LT proof is attempted, or mode_not_ok
+	will be called.  setmaad(X) retracts any previous modes.
+----------------------------------------------------------------*/
+setmaad(_) :- retract(maad(_)), fail.
+setmaad(X) :- (X == rote ; X==novel; X==no_learning) -> asserta(maad(X)) 
+              ; (write('There is no mode named '), write(X), nl, fail).
+
+
+/*-------------------------------------------------------------- 
+	schema(Name, Trig, Hyp, Subgoal) contains the three schema
+	known to LT.  If Trig is found to match the problem, and Hyp
+	is known, then try to prove Subgoal is the most common way
+	this is used.
+----------------------------------------------------------------*/
+schema(dt, X => Y, Y, X).
+schema(cf, X => Y, X => Z, Y => Z).
+schema(cb, Y => Z, X => Z, X => Y).
+
+
+/*-------------------------------------------------------------- 
+	make_general(Res,GenRes) will compute the generalization of
+	the derivation Res, and return it in GenRes.
+----------------------------------------------------------------*/
+make_general(Res,GenRes) :- reverse(Res,[],RevRes),
+			    mg2(RevRes,GenRes).
+
+
+
+/*-------------------------------------------------------------- 
+	reverse(A,B,C) expects A to be a list, B to be the empty
+	list, and C to be uninstantiated.  C returns bound to the
+	reverse of A 'cons'ed onto P.
+----------------------------------------------------------------*/
+reverse([X],P,[X|P]).
+reverse([X|Y],P,Rev) :- reverse(Y,[X|P],Rev).
+
+
+/*-------------------------------------------------------------- 
+	mg2(Derivation,Res) computes the generalization of Derivation
+	by constraint propagation.  The generalized result is in Res.
+----------------------------------------------------------------*/
+mg2([X],Z) :- get_body(X,Z).
+mg2([Schema,R1|Rest],Res) :-
+	schema(Schema,Trig,Hyp,Subgoal),
+	get_body(R1,Thm), match(Trig,Thm),
+	mg2(Rest,Res2),   match(Subgoal,Res2),
+	Res = Hyp, !.
+
+/*-------------------------------------------------------------- 
+ get_body(X,Y) is intended to have X instatiated.  It returns 
+ with Y instantiated to the body of the theorem referenced by X.
+----------------------------------------------------------------*/
+get_body(t(X),X) :- !.
+get_body(X,Body) :- thm(X,Body).
+
+
+/*-------------------------------------------------------------- 
+	con(X,Y) expects X to be an expression and Y to be unbound.
+	Y returns as a constantized version of X.  That is, all
+	variables found in X are replaced uniformly with constants
+	in Y.
+----------------------------------------------------------------*/
+con(X,Y) :- asserta(retter_den(X)), retract(retter_den(Z)), !, con2(Z,Y).
+
+con2(X,X) :- atomic(X),!.
+con2(X,X) 			:- var(X), gensym([97,114,98|Y]-Y,X),!. 
+					% generate symbols of form 'arbX'
+					% where X is a number.  e.g. arb1547
+con2(~X, ~Y) 			:- con2(X,Y),!.
+con2( X => Y, W => Z) 		:- con2(X,W), con2(Y,Z),!.
+con2( X or Y, W or Z) 		:- con2(X,W), con2(Y,Z),!.
+con2( X and Y, W and Z)	 	:- con2(X,W), con2(Y,Z),!.
+con2( X <==> Y, W <==> Z) 	:- con2(X,W), con2(Y,Z),!.
+
+
+/*-------------------------------------------------------------- 
+	getnewthm(Old, New) expects Old to be an expression, and New
+	to be unbound.  It returns with New bound to an expression
+	where all of the constants have been replaced uniformly with
+	variables.  This is used by the rote learning routines.
+----------------------------------------------------------------*/
+getnewthm(Old,New) :- newthm(New,_,[],Old).
+newthm(X,Newbind,Oldbind,Exp) 	 :- atom(Exp),variablize(X,Newbind,Oldbind,Exp).
+newthm(~X,Newbind,Oldbind, ~Exp) :- newthm(X,Newbind,Oldbind, Exp).
+newthm(Z,N,O,E) :- 	E=..[Op,EArg1,EArg2],
+			newthm(Arg1,N1,O,EArg1),
+			newthm(Arg2,N,N1,EArg2),
+			Z =..[Op,Arg1,Arg2].
+
+/*-------------------------------------------------------------- 
+	variablize(Newexp, Newbindlist, Oldbindlist, Oldexp)
+	takes an atom 'Oldexp', and returns the variable assigned
+	to that atom in 'Newexp' if there was one, or assigns a new
+	variable and updates the bindings list if this is the first
+	time that atom was seen
+----------------------------------------------------------------*/
+variablize(X,Old,Old,Exp) :- member([Exp,X],Old),!.  
+		             % get old binding of  constant to var
+variablize(X,[[Exp,X]|Old], Old, Exp) :- !.  % else make up a new var.
+
+/*-------------------------------------------------------------- 
+	member(X,Y) is satisfied if X is a member of the list Y
+----------------------------------------------------------------*/
+member(X,[X|_]).
+member(X,[_|Z]) :- member(X,Z).
+
+/*-------------------------------------------------------------- 
+	concat(A, B, C) takes a list A and a list B, and concat-
+	enates them into list C.  It does this through the use of 
+	tail pointers, so splicing is easy and non-recursive.
+----------------------------------------------------------------*/
+concat([],Z1-Z2, Z1-Z2).    	% null on front is old list
+concat(A1-Z1,[], A1-Z1).	% null on end is old list
+concat(A1-Z1, Z1-Z2, A1-Z2).    % otherwise newlist is from A1-Z2
+
+
+/*-------------------------------------------------------------- 
+	munch(A,B,C,Res) concatenates three lists to form a fourth
+----------------------------------------------------------------*/
+munch(A,B,C,Res) :- concat(A,B,Temp), concat(Temp,C,Res).
+
+
+/*-------------------------------------------------------------- 
+	gensym(X-Y,Atom) takes a string in the form of
+	[char,char,char,...|Z]-Z and returns a unique atom
+	beginning with that string.
+----------------------------------------------------------------*/
+gensym(Root-Tail,Atom) :- 	get_num(Root,Num), 
+			  	number_chars(Num,Tail), name(Atom,Root).
+
+get_num(Root,Num) :-		retract(current_num(Root,Num1)), 
+				!, Num is Num1+1, 
+				 asserta(current_num(Root,Num)).
+get_num(Root,1) :- 		asserta(current_num(Root,1)).
+				% in case Root is a new string.
+
+
+/*-------------------------------------------------------------- 
+	save_state(X) expects X to be bound to an output device or
+	file.  It will send save all of the learned_theorem(X,Y)s,
+	the solved(...)s, and the not_solved(...)s to the output device
+	in a prolog consultable format.  It replaces solved(...) and
+	not_solved(...) predicates with solved2([...]) and
+	not_solved2([...]) predicates.  
+----------------------------------------------------------------*/
+save_state(X) :- tell(X), fail.
+save_state(_) :- learned_theorem(X,Y), write('learned_theorem('),
+			write(X), write(','), write(Y), write(').'),
+			nl, fail.
+save_state(_) :- solved(A,B,C,D,E), write('solved2('), write([A,B,C,D,E]),
+			write(').'), nl, fail.
+save_state(_) :- not_solved(C,P,X,Y,Z), write('not_solved2('), 
+			write([C,P,X,Y,Z]),
+			write(').'), nl, fail.
+save_state(_) :- told, tell(user).
+
+
+/*-------------------------------------------------------------- 
+	restore_state(X,Z) expects X to be bound to an input device or
+	file.  It will echo the file to the standard output, and
+	assert all of the learned_theorem(X,Y)s in the file into the
+	database.  This allows us to return to a previously saved state
+	of learning.  No record of derivations is kept however.
+	Z is expected to be the problem to restore to.  Thus, all theorems
+	learned up until that problem are restored.
+----------------------------------------------------------------*/
+restore_state(X,Z) 		:- seeing(Y), see(X), do_restore(Z), seen, 
+					see(Y).
+do_restore(Z) 			:- read(W), write(W), nl, process(W,Z).
+process(learned_theorem(X,Y),Z)	:- less_than(X,Z), !,
+				   assert(learned_theorem(X,Y)), 
+				   do_restore(Z).
+process(learned_theorem(_,_),_) :- !.
+process(end_of_file,_) 		:- !.
+process(_,Z) 			:- do_restore(Z).
+
+
+less_than([],[_|_]).
+less_than([X|Z1],[Y|Z2])	:- (X < Y) ;
+				   ((X == Y) , less_than(Z1,Z2)).
+
+
+tick(_) :- ticks(off),!.
+tick(X) :- ticks(Y), 0 is X mod Y, write(X), nl.
+tick(_) :- !.
+
+getdepth([],0).
+getdepth([A|R],Val) :- getdepth(R,Val2), !,
+		       (((A = dt ; A = cb ; A = cf) , Val is Val2 + 1 ) 
+						   ; Val is Val2).
+
+
+collectvars(A,R,R) :- A ==[],!.
+collectvars(A,R,NewR) :- var(A), !, strict_union(A,R,NewR).
+collectvars(A,R,R) :- atom(A), !.
+collectvars([A|B],R,NewR) :- !, collectvars(A,R,R2), collectvars(B,R2,NewR).
+collectvars(A,R,NewR) :- A =.. [Op|Args], collectvars(Args,R,NewR).
+
+strict_union(A,R,R) :- strict_member(A,R),!. 
+strict_union(A,R,[A|R]) :- !.
+
+strict_member(X,[Y|Z]) :- X == Y ; strict_member(X,Z).
+

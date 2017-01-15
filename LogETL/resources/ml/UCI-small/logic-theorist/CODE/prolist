@@ -1,0 +1,10 @@
+wr(X,Y):- r(Y, X), print(Y), print(' XXX '), pprint(X), nl.
+
+nicely :- wr(X,Y), fail.
+nicely :- true.
+
+wr2(X,Y):- thm(Y, X), print(Y), print(' XXX '), pprint(X), nl.
+
+nicely2 :- wr2(X,Y), fail.
+nicely2 :- true.
+

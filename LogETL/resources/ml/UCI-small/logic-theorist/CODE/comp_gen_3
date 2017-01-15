@@ -1,0 +1,157 @@
+:- dynamic currentnum/2.
+:- compile(match).
+
+/*-------------------------------------------------------------- 
+	con(X,Y) expects X to be an expression and Y to be unbound.
+	Y returns as a constantized version of X.  That is, all
+	variables found in X are replaced uniformly with constants
+	in Y.
+----------------------------------------------------------------*/
+con(X,Y) :- asserta(retter_den(X)), retract(retter_den(Z)), 
+		retractall(state(X)), asserta(state(0)), !, con2(Z,Y).
+
+con2(X,X) :- atomic(X),!.
+con2(X,X) 			:- var(X), getconst(X),!. 
+					% generate symbols of form 'arbX'
+					% where X is a number.  e.g. arb1547
+con2(~X, ~Y) 			:- con2(X,Y),!.
+con2( X => Y, W => Z) 		:- con2(X,W), con2(Y,Z),!.
+con2( X or Y, W or Z) 		:- con2(X,W), con2(Y,Z),!.
+con2( X and Y, W and Z)	 	:- con2(X,W), con2(Y,Z),!.
+con2( X <==> Y, W <==> Z) 	:- con2(X,W), con2(Y,Z),!.
+
+:- dynamic sofar/1.
+report(X) :- retract(sofar(X)), fail.
+report(X) :- asserta(sofar(-1)),
+	     gettitle(Y), tell(X), balign(Y), beginnicely, 
+			compgen(ebl,rote), endnicely,
+			ealign, told, tell(user).
+beginnicely :- write('\begin{tabular}{|r||c|c|} \hline \hline'),nl,
+	       write('\# & EBL ? ROTE \\ \hline'),nl.
+endnicely :- write(' \hline'), nl, write('\end{tabular}'), nl.
+
+balign(Y) :- write('\section{'), write(Y), write('}'), nl,
+             	nl.
+ealign :- nl.
+
+gettitle(Y) :- write('Enter the title of table in quotes now'), 
+		nl, write('Terminate with a period'), nl,
+		write('Title?  '),  read(Y).
+
+
+write_list([A|B]) :- write(A), write('.'), write_list2(B).
+write_list2([]).
+write_list2([A|B]) :- write(A), write_list2(B).
+
+
+	
+/* ---------------------------------------------------------------- 
+	This routine will read in a final report from a run of lt named
+by the second argument, and assert each fact in the report into the database 
+tagged with the first argument 
+---------------------------------------------------------------------- */
+
+loadafile(Tag,Fname) :- seeing(X), see(Fname), assertall(Tag), seen, see(X).
+
+assertall(Tag) :- read(X), (X == end_of_file; 
+			(assertz(fact(Tag,X)), assertall(Tag))).
+
+
+
+
+/* ---------------------------------------------------------------- 
+	compgen(X,Y) will compare the generality of all theorems learned
+by X to those learned by Y.  In order for the comparison to mean anything, only
+theorems which have been learned by proof, not by assumption will be compared.
+---------------------------------------------------------------------- */
+
+compgen(X,Y) :- fact(X,learned_theorem(NumX,FormX)),
+		fact(X,solved2([_,NumX,_,_,_])),
+		fact(Y,learned_theorem(NumX,FormY)),
+		comp(FormX,FormY,R,Theta,I), I = I2-_,
+		write_list(NumX), 
+		write('	'), write(R), write('	'), pprint(I2), write('	'),
+		write('@'), printbind(Theta), write('@'), nl, purty,
+		fail.
+compgen(_,_) :- !.
+
+
+purty :- retract(sofar(Z)),
+		( ( Z > 80, endnicely, nl, beginnicely,
+		    asserta(sofar(0))); F is Z + 1, asserta(sofar(F))), !.
+
+
+
+
+
+
+comp(X,Y,R,Theta,I) :- con(X,XC), con(Y,YC),
+		subsumes(Y,XC,R1,Theta1,I1),
+		subsumes(X,YC,R2,Theta2,I2),
+		get_generality(R2,R1,R,Theta2,Theta1,Theta,I2,I1,I).
+
+subsumes(X,Y,'>',R,I-Vars) :- collectvars2(X,[]-[],R), asserta(squirrel(X-R)),
+			retract(squirrel(Thm-Vars)), instantiate(Thm,Vars,I),
+			match(X,Y), !.
+subsumes(_,_,'<>',[],[]-[]) :- !.
+get_generality('>','>','=',_,_,[],_,X,X).
+get_generality('>','<>','>',R,_,R,X,_,X).
+get_generality('<>','>','<',_,R,R,_,X,X).
+get_generality('<>','<>','<>',_,_,[],_,_,[]).
+
+instantiate(Thm, Vars-Consts,Thm) :- Vars=Consts.
+
+/*-------------------------------------------------------------- 
+	getconst(X) instantiates X based on the global fact 
+	state(Y).  
+----------------------------------------------------------------*/
+getconst(X) :- retract(state(Y)), Z is Y + 1, 
+		arg(Z,constants(p,q,r,s,t,u,v,w,x,y,z),X),
+		asserta(state(Z)).
+getfakevar(X) :- retract(state(Y)), Z is Y+1,
+	arg(Z,constants('P','Q','R','S','T','U','V','W','X','Y','Z'),X),
+	asserta(state(Z)).
+
+
+/*-------------------------------------------------------------- 
+	printbind(V-B) will print out the bindings in LaTeX format
+	where V is the 'variable' and B is the 'binding' lists.  
+	It reverses the list, and jams them all on one line of LaTeX
+	output for inclusion in a table.
+----------------------------------------------------------------*/
+printbind([]).
+printbind([]-[]).
+printbind([VH|VT]-[BH|BT]) :- printbind(VT-BT),
+			      write(BH), write('/'),
+			      pprint(VH,-1), !,write(', ').
+
+/*-------------------------------------------------------------- 
+	gensym(X-Y,Atom) takes a string in the form of
+	[char,char,char,...|Z]-Z and returns a unique atom
+	beginning with that string.
+----------------------------------------------------------------*/
+
+gensym(Root-Tail,Atom) :- 	get_num(Root,Num), 
+			  	number_chars(Num,Tail), name(Atom,Root).
+
+get_num(Root,Num) :-		retract(current_num(Root,Num1)), 
+				!, Num is Num1+1, 
+				 asserta(current_num(Root,Num)).
+get_num(Root,1) :- 		asserta(current_num(Root,1)).
+				% in case Root is a new string.
+
+
+collectvars2(A,B,C) :- retractall(state(X)), asserta(state(0)), 
+			collectvars(A,B,C).
+
+collectvars(A,R,R) :- A ==[],!.
+collectvars(A,R,NewR) :- var(A), !, strict_union(A,R,NewR).
+collectvars(A,R,R) :- atom(A), !.
+collectvars([A|B],R,NewR) :- !, collectvars(A,R,R2), collectvars(B,R2,NewR).
+collectvars(A,R,NewR) :- A =.. [Op|Args], collectvars(Args,R,NewR).
+
+strict_union(A,R-X,R-X) :- strict_member(A,R),!. 
+strict_union(A,R-X,[A|R]-[B|X]) :- getfakevar(B), !.
+
+strict_member(X,[Y|Z]) :- X == Y ; strict_member(X,Z).
+

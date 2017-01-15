@@ -1,0 +1,12 @@
+compare proofs given by LT to those found in Principia
+	in cases where LT found a much more general proof
+what's happening in chs4 and 5?
+	is LT getting lost in search (branching factor too large)?
+what happens to dumb rote when you put learned theorems in front?
+incorporate measure like Minton's utility into EBL LT?
+...
+change control structure so LT isn't forced to produce linear trees
+
+experiment with an EBL version of LT that stores macro operators
+	forget about known theorems used
+	just store compositions of chaining and dt

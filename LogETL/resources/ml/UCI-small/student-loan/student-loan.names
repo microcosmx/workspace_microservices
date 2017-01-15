@@ -1,0 +1,50 @@
+
+1. Title: Student Loan Relational Domain
+
+2. Sources: 
+   (a) Donors: Michael J. Pazzani 
+               University of California, Irvine
+               Irvine, CA USA
+   (b) Date:   January 1993
+
+3. Past Usage:
+
+   Pazzani, M., & Brunk, C. (1991). Detecting and correcting errors in
+   rule-based expert systems: an integration of empirical and explanation-based
+   learning. Knowledge Acquisition, 3, 157-173.
+
+4. Relevant Information:
+
+   The predicate no_payment_due/1 is true for those people who are
+   not required to repay a student loan.  Auxiliary relations 
+   can be used to fully discriminate positive from negative
+   instances of no_payment_due/1.  Closed world assumption applies
+   to all auxiliary relations.
+
+5. Target Relation:
+
+   - no_payment_due(Person)
+
+   - Number of positive instances: 643
+
+   - Negative instances correspond to the relation: 
+
+       - payment_due(Person).
+
+       - Number of negative instances: 357
+  
+
+6. Auxiliary Relations:
+
+   male(Person).
+   longest_absense_from_school(Person, Number_of_Months).
+   enrolled(Person,School,Units).
+   enlist(Person,Organization).
+   unemployed(Person).
+   filed_for_bankrupcy(Person).
+   disabled(Person).
+   school(School).
+   armed_forces(Organization).
+   peace_corps(Organization).
+
+

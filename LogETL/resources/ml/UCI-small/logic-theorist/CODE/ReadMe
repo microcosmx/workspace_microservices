@@ -1,0 +1,5 @@
+lt		    no implies restriction
+imp_lt		    implies restriction
+inst_lt		    no implies restriction, no instances
+dont_cheat_lt	    no assumption of non provens, no implies restriction
+inst_dont_cheat_lt  no assumption of non provens, no implies restriction, no instances

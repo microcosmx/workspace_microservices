@@ -1,0 +1,305 @@
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+% CHESS DOMAIN THEORY 
+% GENERATES LEGAL MOVES
+% Designed by vijay@cs.orst.edu for representation work
+
+
+%/* This file contains the rules of chess. The following chess rules are
+%included :   1. legal_move     _ will perform the legal move in a state.
+%             2. possible_move  _ indicates which moves are possible in a %state.
+%             3. in_check       _ detects a side in check.
+%	      4. move-pattern   - encodes generation of all possible moves given a
+%				  piece.
+%	      5. pos_move_dirs  - encodes only the primitive moves (1 step) of a
+%				  piece.
+%	      6. other-moves    - called by 4. to generate all moves.
+
+
+
+%STATE REPRESENTATION:
+%*********************
+%In this domain theory each initial board state is denoted by a constant 
+%such as state1.  The squares on the board are represented in a single dimension.
+%They are numbered from 1 to 71 from row-wise, left to right i.e at the end of each
+%row, numbering is continued from the leftmost square on the next row. The edge
+%constraint (detecting end of board) is encoded by leaving a `hole' (leaving a number
+%out in the numbering) at the end of each row. This missing number represents the
+%end of the each row. (The representation of the board can be visualized as a long
+%string of numbers in increasing order (rowwise) with holes at the end of each set
+%of 8 numbers. The pieces are represented as generic pieces such as  black_bishop,
+%black_king. Empty squares are represented by an imaginary piece called empty
+%(essentially a null value). With this representation, a board configuration
+%is represented by 64 assertions for example, `on(state1,1,white_rook)'.
+
+%Direction is encoded as a number (having a sign and magnitude). For example one
+%possible move of a king can be made by -10 displacement.
+
+%%PIECE REPRESENTATION:
+%*********************
+%Information about each of the pieces is needed in order to define legal moves. 
+%The side and type properties of a piece are encoded through the obj_props
+%relation.
+
+obj_props(black_bishop,black,bishop).
+obj_props(black_rook,black,rook).
+obj_props(black_queen,black,queen).
+obj_props(black_king,black,king).
+
+obj_props(white_bishop,white,bishop).
+obj_props(white_rook,white,rook).
+obj_props(white_queen,white,queen).
+obj_props(white_king,white,king).
+obj_props(white_knight,white,knight).
+
+%Opposite side
+%%%%%%%%%%%%%%
+%We also include the fact that the two sides black and white are opposite:
+
+opposite_side(white,black).
+opposite_side(black,white).
+
+%Possible move directions
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%Directions along which pieces can move are now encoded as moves along the
+%single dimension. Pos_move_dirs encodes the move-directions for all pieces
+%except pawns. 
+
+pos_move_dirs(king,1).
+pos_move_dirs(king,-1).
+pos_move_dirs(king,9).
+pos_move_dirs(king,-9).
+pos_move_dirs(king,10).
+pos_move_dirs(king,-10).
+pos_move_dirs(king,8).
+pos_move_dirs(king,-8).
+
+pos_move_dirs(bishop,8).
+pos_move_dirs(bishop,-8).
+pos_move_dirs(bishop,10).
+pos_move_dirs(bishop,-10).
+
+pos_move_dirs(rook,1).
+pos_move_dirs(rook,-1).
+pos_move_dirs(rook,9).
+pos_move_dirs(rook,-9).
+
+pos_move_dirs(knight,7).
+pos_move_dirs(knight,-7).
+pos_move_dirs(knight,11).
+pos_move_dirs(knight,-11).
+pos_move_dirs(knight,17).
+pos_move_dirs(knight,-17).
+pos_move_dirs(knight,19).
+pos_move_dirs(knight,-19).
+
+
+%%%%%%%%
+%LEGAL MOVES
+%***********
+%We are now ready to declare the rule that generates legal moves:
+%A legal move is a possible move which does not result in check for the 
+%moving side.
+
+legal_move(S,NS,Side):-
+	possible_move(S,NS,Side),
+       \+ in_check(NS,Side).
+
+%possible move
+%%%%%%%%%%%%%
+%This rule checks to see that the piece to move, Piecem, is located
+%on the source square From, that Piecet is located on the destination 
+%square To, and that the indicated direction and number of squares is 
+%legal for the kind of piece being moved. Moves are considered possible
+%only if the To location generated is valid i.e is either empty are contains
+%a piece of the opposite side on it. It checks that all intervening squares
+%are empty. 
+
+possible_move(S,do(op(Loc,NewLoc,ObjM,ObjT),S),Side) :-
+	on(S,Loc,ObjM),
+	obj_props(ObjM,Side,Type),
+	move_pattern(S,Type,Loc,X), 
+	NewLoc is Loc + X,
+	valid_squares(S,NewLoc,Side,Type),
+	on(S,NewLoc,ObjT).
+
+%move patterns
+%%%%%%%%%%%%%%
+%move pattern terminates when the To square generated lies outside the board.
+%In the following set of rules each piece's single step moves is followed by
+%rules generating multiple moves for that piece. Generation of multiple rules
+%is done by the rule other_moves. Other_moves checks for an empty intervening squares.
+%Variable X represents a displacement to be added to Loc to generate the
+%destination location.
+
+move_pattern(S,king,Loc,X) :-
+	pos_move_dirs(king,X).
+
+move_pattern(S,queen,Loc,X) :-
+	pos_move_dirs(king,X).
+
+move_pattern(S,queen,Loc,X) :-
+	pos_move_dirs(king,C),
+	NewLoc is Loc + C,
+	on(S,NewLoc,empty),
+	other_moves(S,queen,Loc,C,C,X).
+
+move_pattern(S,bishop,Loc,X):-
+	pos_move_dirs(bishop,X).
+
+move_pattern(S,bishop,Loc,X):-
+	pos_move_dirs(bishop,C),
+	NewLoc is Loc + C,
+	on(S,NewLoc,empty),
+	other_moves(S,bishop,Loc,C,C,X).
+
+move_pattern(S,rook,Loc,X):-
+	pos_move_dirs(rook,X).
+
+move_pattern(S,rook,Loc,X):-
+	pos_move_dirs(rook,C),
+	NewLoc is Loc + C,
+	on(S,NewLoc,empty),
+	other_moves(S,rook,Loc,C,C,X).
+
+move_pattern(S,knight,Loc,X):-
+	pos_move_dirs(knight,X).
+
+%Other moves
+%%%%%%%%%%%%
+%Other moves are generated by keeping track of the current location
+%variable E and adding the direction vector C to it to generate the
+%next square in the same direction. Variable X is bound only if intervening
+%squares are empty. Note that all of these variables represent displacement
+%vectors from the initial location Loc. Hence the additions to generate
+%particular squares on the board!
+
+other_moves(S,Obj,Loc,E,C,X):-
+	X is E + C.
+
+other_moves(S,Obj,Loc,E,C,X) :-
+	NewE is E + C,
+	NewLoc is Loc + NewE,
+	on(S,NewLoc,empty),
+	other_moves(S,Obj,Loc,NewE,C,X).
+
+%in check
+%%%%%%%%%
+%The in_check rule tries to find out if there exists a piece of the opponent
+%that can make a possible move to the location of the king of side `Side'.
+%i.e a check is defined as a possible take move of the king by the opponent.
+
+in_check(S,Side):-
+	  opposite_side(Side,Opp_side),
+	  on(S,FromLoc,ObjC), 
+  obj_props(ObjC,Opp_side,_),
+	  on(S,ToLoc,ObjK), 
+  obj_props(ObjK,Side,king),
+	  possible_move(S,do(op(FromLoc,ToLoc,ObjC,ObjK),S),Opp_side).
+
+
+%valid moves
+%%%%%%%%%%%%
+%A valid move is one in which the Newloc location generated is within the board
+%limits and is empty or is occupied by an opponent's piece.
+
+valid_squares(S,NewLoc,Side,Type) :-
+	on(S,NewLoc,empty).
+
+valid_squares(S,NewLoc,Side,Type) :-
+	on(S,NewLoc,Obj),
+	obj_props(Obj,Opp_side,_),
+	opposite_side(Side,Opp_side).
+
+
+%FRAME AXIOMS
+%************
+%These are written for the square facts that define the initial state:
+
+%when we have just moved into square T:
+on(St,T,Pm):-
+	   St=do(op(F,T,Pm,Pt),S),
+	   on(S,T,Pt).
+
+%when we have just moves out of square F:
+on(St,F,P):-
+	   St=do(op(F,T,Pm,Pt),S),
+	   P=empty,
+	   on(S,F,Pm).
+
+%frame all other players forward.
+on(St,Sq,Pl):-
+	   St=do(op(F,T,Pm,Pt),S),
+	   on(S,Sq,Pl),
+	   Sq\==F,
+	   Sq\==T.
+
+
+%EXAMPLE STATE1
+%*********************
+%Example of state, called state1 from Flann & Dietterich, 1989 Figure 4(d).
+
+on(state1,1,white_rook).
+on(state1,2,empty).
+on(state1,3,empty).
+on(state1,4,empty).
+on(state1,5,empty).
+on(state1,6,empty).
+on(state1,7,empty).
+on(state1,8,empty).
+on(state1,10,white_pawn).
+on(state1,11,empty).
+on(state1,12,white_king).
+on(state1,13,empty).
+on(state1,14,empty).
+on(state1,15,white_pawn).
+on(state1,16,empty).
+on(state1,17,empty).
+on(state1,19,empty).
+on(state1,20,white_pawn).
+on(state1,21,empty).
+on(state1,22,empty).
+on(state1,23,white_queen).
+on(state1,24,empty).
+on(state1,25,empty).
+on(state1,26,empty).
+on(state1,28,empty).
+on(state1,29,empty).
+on(state1,30,empty).
+on(state1,31,empty).
+on(state1,32,empty).
+on(state1,33,empty).
+on(state1,34,white_knight).
+on(state1,35,empty).
+on(state1,37,empty).
+on(state1,38,empty).
+on(state1,39,empty).
+on(state1,40,empty).
+on(state1,41,empty).
+on(state1,42,empty).
+on(state1,43,empty).
+on(state1,44,empty).
+on(state1,46,black_pawn).
+on(state1,47,empty).
+on(state1,48,black_rook).
+on(state1,49,empty).
+on(state1,50,empty).
+on(state1,51,empty).
+on(state1,52,empty).
+on(state1,53,empty).
+on(state1,55,empty).
+on(state1,56,empty).
+on(state1,57,empty).
+on(state1,58,empty).
+on(state1,59,empty).
+on(state1,60,empty).
+on(state1,61,black_pawn).
+on(state1,62,empty).
+on(state1,64,black_rook).
+on(state1,65,empty).
+on(state1,66,black_bishop).
+on(state1,67,empty).
+on(state1,68,empty).
+on(state1,69,empty).
+on(state1,70,black_king).
+on(state1,71,empty).

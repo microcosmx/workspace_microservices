@@ -1,0 +1,42 @@
+1. Title of Database: LED display domain + 17 irrelevant attributes
+
+2. Sources:
+   (a) Breiman,L., Friedman,J.H., Olshen,R.A., & Stone,C.J. (1984). 
+       Classification and Regression Trees.  Wadsworth International
+       Group: Belmont, California.  (see pages 43-49).
+   (b) Donor: David Aha 
+   (c) Date: 11/10/1988
+
+3. Past Usage: (many)
+     1. CART book (above):
+        -- Optimal Bayes classification rate: 74%
+        -- CART decision tree algorithm: 70%
+           -- 200 training and 5000 test instances
+        -- nearest neighbor algorithm: 41%
+     2. Aha,D.W., & Kibler,D. (1988). Unpublished data.
+        -- NTgrowth+ instance-based learning algorithm: (500 test instances)
+           -- 700 training instances: 70.7%
+           -- 1000 training instances: 71.5%
+
+4. Relevant Information Paragraph:
+     See the file names create-led.names.  This is an extension of the
+     LED display problem, but an additional 17 irrelevant attributes
+     are added to the instance space.  Their values are randomly
+     assigned the values 0 or 1.  Not an easy problem!
+
+5. Number of Instances: chosen by the user.
+
+6. Number of Attributes: 24 (all Boolean-valued)
+
+7. Attribute Information:
+   -- All attribute values are either 0 or 1, according to whether
+      the corresponding light is on or not for the decimal digit.
+   -- Each attribute (excluding the class attribute, which is an
+      integer ranging between 0 and 9 inclusive) has a 10% percent
+      chance of being inverted.
+
+8. Missing Attribute Values: None
+
+9. Class Distribution: 10% (Theoretical)
+   -- Each concept (digit) has the same theoretical probability
+      distribution.  The program randomly selects the attribute.

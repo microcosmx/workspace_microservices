@@ -1,0 +1,37 @@
+/* ======================================================== */
+/* Authors: From Mitchell, Keller, & Kedar-Cabelli (1986)   */
+/* ======================================================== */
+
+/* Goal Concept */
+cup(Cup) :- liftable(Cup), stable(Cup), open_vessel(Cup).
+
+/* Training Example */
+owner(object1,edgar).
+part_of(concavity1,object1).
+concavity(concavity1).
+upward_pointing(concavity1).
+light(object1).
+part_of(handle1,object1).
+handle(handle1).
+part_of(flatbottom1,object1).
+bottom(flatbottom1).
+flat(flatbottom1).
+
+/* Domain Theory */
+liftable(Object) :- 
+   light(Object), 
+   part_of(Handle,Object),
+   handle(Handle).
+
+stable(Object) :-
+   part_of(FlatBottom,Object),
+   bottom(FlatBottom),
+   flat(FlatBottom).
+
+open_vessel(Object) :-
+   part_of(Concavity,Object),
+   concavity(Concavity),
+   upward_pointing(Concavity).   
+   
+/* Query */
+query :- explain_and_store(cup(object1),cup(X)).

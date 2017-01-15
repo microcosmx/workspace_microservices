@@ -1,0 +1,417 @@
+% CHESS DOMAIN THEORY 
+% GENERATES LEGAL MOVES
+% Translated to prolog by flann@cs.orst.edu 
+% from ``The compleat guide to MRS by Stuart Rusell''
+% With FRAME AXIOMS
+
+%STATE REPRESENTATION:
+%*********************
+%In this domain theory each board state is denoted by a constant such 
+%as state1. However, it differs from flann's domain theory in that the 
+%squares on the board are represented as two coordinates, the first giving 
+%the column of the square, the second giving the row of the square.
+%It also differs in how the playing pieces on a square are represented.
+%Rather than employing a single object a playing piece is represented 
+%by its properties: type and side.
+%Empty squares are represented by assigning the type and side to 
+%empty (essentially a null value).
+%With this representation, a board configuration is represented by 64
+%asertions. For example, the board configuration in Figure4(a) (in Flann &
+% Dietterich, 1989) includes the following facts:
+
+%on(state1,white,rook,8,1).
+%on(state1,empty,empty,1,4).
+%on(state1,black,king,4,8).
+
+%The structure of the board is represented by the nextto relation that
+%defines how each location Col,Row on the board is connected to each 
+%other location NewCol,NewRow via a vector Cv,Rv defined as:
+%NewCol is Col + Cv,
+%NewRow is Row + Rv
+nextto(Col,Row,Cv,Rv,NewCol,NewRow):-
+	   NewCol is Col + Cv,
+	   NewCol > 0,
+	   NewCol < 9,
+	   NewRow is Row + Rv,
+	   NewRow > 0,
+	   NewRow < 9.
+
+%PIECE REPRESENTATION:
+%*********************
+%The pieces are defined by a list of properties. The types of pieces
+%that can move through multiple squares are defined as multipiece's:
+
+multipiece(bishop).
+multipiece(rook).
+multipiece(queen).
+
+%%%%%%%%%%%
+%We also include the fact that the two sides black and white are opposite:
+opponent(white,black).
+opponent(black,white).
+
+%In order to define the legal moves for each piece we include the 
+%directions (represented as a column vector and a row vector) in 
+%which the piece types can move:
+
+%knight
+movevector(knight,S, 1, 2).
+movevector(knight,S, 2, 1).
+movevector(knight,S, 2,-1).
+movevector(knight,S, 1,-2).
+movevector(knight,S,-1,-2).
+movevector(knight,S,-2,-1).
+movevector(knight,S,-2, 1).
+movevector(knight,S,-1, 2).
+	
+%bishop
+movevector(bishop,S, 1, 1).
+movevector(bishop,S, 1,-1).
+movevector(bishop,S,-1,-1).
+movevector(bishop,S,-1, 1).
+
+%rook
+movevector(rook,S, 1, 0).
+movevector(rook,S, 0, 1).
+movevector(rook,S,-1, 0).
+movevector(rook,S, 0,-1).
+
+%queen
+movevector(queen,S, 1, 1).
+movevector(queen,S, 1,-1).
+movevector(queen,S,-1,-1).
+movevector(queen,S,-1, 1).
+movevector(queen,S, 1, 0).
+movevector(queen,S, 0, 1).
+movevector(queen,S,-1, 0).
+movevector(queen,S, 0,-1).
+
+%king
+movevector(king,S, 1, 1).
+movevector(king,S, 1,-1).
+movevector(king,S,-1,-1).
+movevector(king,S,-1, 1).
+movevector(king,S, 1, 0).
+movevector(king,S, 0, 1).
+movevector(king,S,-1, 0).
+movevector(king,S, 0,-1).
+
+
+%LEGAL MOVES
+%***********
+%We are now ready to declare the rule that generates legal moves:
+%A legal move is defined in terms of the  side to move (BW), the 
+%from square ( Cf,Rf), the to square (Ct,Rt), the type of 
+%piece moved ( Pm), and the type ( Pt) of piece taken and 
+%side ( St) of the  piece taken.
+%Three rules define different cases of legal moves: the first covers 
+%the case when one is not in check and the king is not moved; the 
+%second covers the case where the king is moved; the final covers 
+%the case where the king is in check and generates moves that remove 
+%the check threat.
+
+legal_move(State,Newstate,BW):-
+	   Newstate = do(op(s(Cf,Rf),s(Ct,Rt),p(Pm,BW),p(Pt,St)),State),
+	   legalmove1(State,BW,Cf,Rf,Ct,Rt,Pm,Pt,St).
+
+
+% normal move, not the king and no discovered check
+legalmove1(State,BW,Cf,Rf,Ct,Rt,Pm,Pt,St):-
+	   \+ incheck_r(State,BW),
+	   move_r(State,BW,Cf,Rf,Ct,Rt,Pm,Pt,St),
+	   Pm\==king,
+	   \+ discoveredcheck(State,BW,Cf,Rf,Ct,Rt).
+
+
+%king move is safe
+legalmove1(State,BW,Cf,Rf,Ct,Rt,Pm,Pt,St):-
+	   on(State,BW,king,Cf,Rf),
+	   move_r(State,BW,Cf,Rf,Ct,Rt,Pm,Pt,St),
+	   opponent(BW,WB),
+	   \+ attacking(State,WB,Ct,Rt),
+	   Cv is Ct - Cf,
+	   Rv is Rt - Rf,
+	   \+ multiattacksalong(State,WB,Cf,Rf,Cv,Rv).
+
+
+%we are in check--generates moves that to get out of check
+legalmove1(State,BW,Cf,Rf,Ct,Rt,Pm,Pt,St):-
+	   incheck_r(State,BW),
+	   opponent(BW,WB),
+	   on(State,BW,king,Kcol,Krow),
+	   attacks(State,WB,P,Pcol,Prow,Kcol,Krow),
+	   escapescheck(State,Pcol,Prow,BW,Cf,Rf,Ct,Rt,Pm,Pt,St).
+
+%%%%%%%%%%
+%incheck
+incheck_r(State,BW):-
+	   opponent(BW,WB),
+	   on(State,WB,Piece,C1,R1),
+	   attacks(State,WB,Piece,C1,R1,C2,R2),
+	   on(State,BW,king,C2,R2).
+
+
+%%%%%%%%%%
+%escapescheck
+escapescheck(State,Pcol,Prow,BW,Col,Row,NewCol,NewRow,Pm,Pt,St):-
+	   move_r(State,BW,Col,Row,NewCol,NewRow,Pm,Pt,St),
+	   \+ on(State,BW,king,Col,Row),
+	   \+ discoveredcheck(State,BW,Col,Row,NewCol,NewRow),
+	   on(State,BW,king,Kcol,Krow),
+	   stopcheck(Pcol,Prow,NewCol,NewRow,Kcol,Krow).
+
+%%%%%%%%%%
+%move can be inbetween the check threat
+stopcheck(Pcol,Prow,NewCol,NewRow,Kcol,Krow):-
+	   between(NewCol,NewRow,Kcol,Krow,Pcol,Prow).
+
+%move can take the checking piece
+stopcheck(Pcol,Prow,NewCol,NewRow,Kcol,Krow):-
+	   NewCol=Pcol,
+	   NewRow=Prow.
+
+
+%%%%%%%%%%
+%nornal move 
+:- dynamic move_r/9.
+move_r(State,BW,C1,R1,C2,R2,Pm,Pt,St):-
+	   on(State,BW,Pm,C1,R1),
+	   attacks(State,BW,Pm,C1,R1,C2,R2),
+	   opponent(BW,WB),
+	   destinationsquare(State,WB,C2,R2,Pt,St).
+
+%move is a take move
+destinationsquare(State,WB,C2,R2,Pt,St):-
+	   on(State,WB,Pt,C2,R2),
+	   St=WB,
+	   !.
+
+%move is to an empty square
+destinationsquare(State,WB,C2,R2,Pt,St):-
+	   Pt=empty,
+	   St=empty,
+	   on(State,empty,empty,C2,R2).
+
+%%%%%%%%%%
+%discovered check
+%does move from (Col,Row) to (NewCol,NewRow)
+%allow a discovered check?
+:- dynamic discoveredcheck/6.
+discoveredcheck(State,BW,Col,Row,NewCol,NewRow):-
+	   pinned(State,BW,Col,Row,Pcol,Prow),
+	   Cv1 is NewCol - Col,
+	   Rv1 is NewRow - Row,
+	   Cv2 is Pcol - Col,
+	   Rv2 is Prow - Row,
+	   \+ parallel(Cv1,Rv1,Cv2,Rv2).
+ 
+%%%%%%%%%%
+%pinned 
+:- dynamic pinned/6.
+pinned(State,BW,Col,Row,Pcol,Prow):-
+	   on(State,BW,king,Kcol,Krow),
+	   unitvector(Col,Row,Kcol,Krow,Cv,Rv),
+	   Ncol is Col + Cv,
+	   Nrow is Row + Rv,
+	   route(State,Ncol,Nrow,Kcol,Krow,Cv,Rv),
+	   opponent(BW,WB),
+	   attacksalong(State,WB,Piece,Pcol,Prow,Col,Row,Cv,Rv),
+	   multipiece(Piece).
+
+%%%%%%%%%%
+%type of attacts along when the piece type is a sliding piece
+:- dynamic multiattacksalong/6.
+multiattacksalong(State,WB,Col,Row,Cv,Rv):-
+	   attacksalong(State,WB,Piece,Pcol,Prow,Col,Row,Cv,Rv),
+	   multipiece(Piece).
+
+
+%%%%%%%%%%
+%different kinds of attacts
+:- dynamic attacks/7.
+attacks(State,BW,P,C1,R1,C2,R2):-
+	   attacksalong(State,BW,P,C1,R1,C2,R2,Cv,Rv).
+
+%something is attacking the piece at C2, R2
+:- dynamic attacking/4.
+attacking(State,BW,C2,R2):-
+	   attacks(State,BW,P,C1,R1,C2,R2).
+
+:- dynamic attacksdirectly/9.
+attacksdirectly(State,BW,Piece,Col,Row,NewCol,NewRow,Cv,Rv):-
+	   on(State,BW,Piece,Col,Row),
+	   movevector(Piece,BW,Cv,Rv),
+	   nextto(Col,Row,Cv,Rv,NewCol,NewRow).
+
+:- dynamic attacksalong/9.
+attacksalong(State,BW,Piece,Col,Row,NewCol,NewRow,Cv,Rv):-
+	   attacksdirectly(State,BW,Piece,Col,Row,NewCol,NewRow,Cv,Rv),
+	   \+ multipiece(Piece).
+
+attacksalong(State,BW,Piece,Col,Row,NewCol,NewRow,Cv,Rv):-
+	   on(State,BW,Piece,Col,Row),
+	   multipiece(Piece),
+	   attacksdirectly(State,BW,Piece,Col,Row,Col2,Row2,Cv,Rv),
+	   route(State,Col2,Row2,NewCol,NewRow,Cv,Rv).
+
+%%%%%%%%%%
+%route sees if there is a clear path from one
+%square to another along a given vector
+recursivefunctor(route).
+:- dynamic route/7.
+route(State,Col,Row,NewCol,NewRow,Cv,Rv):-
+	   Col=NewCol,
+	   Row=NewRow.
+
+route(State,Col,Row,NewCol,NewRow,Cv,Rv):-
+	   on(State,empty,empty,Col,Row),
+	   nextto(Col,Row,Cv,Rv,Col2,Row2),
+	   route(State,Col2,Row2,NewCol,NewRow,Cv,Rv).
+
+%%%%%%%%%%
+%vector arithmetic
+%parallel vectors
+
+:- dynamic parallel/4.
+parallel(Cv1,Rv1,Cv2,Rv2):-
+	   0 is Cv1 * Rv2 - Cv2 * Rv1.
+
+%unit vector finds the approreate vector to get between
+%two squares
+primitivefunctor(unitvector).
+
+unitvector(Col1,Row1,Col2,Row2,Cv,Rv):-
+	   Mcv is Col2 - Col1,
+	   Mrv is Row2 - Row1,
+	   sign(Mcv,Cv),
+	   sign(Mrv,Rv).
+
+primitivefunctor(sign).
+
+sign(Mv,V):-
+	   Mv > 0,
+	   V = 1.
+
+sign(Mv,V):-
+	   Mv < 0,
+	   V = -1.
+
+sign(Mv,V):-
+	   Mv = 0,
+	   V = 0.
+	
+
+% between sees if a square x is between two others
+between(Xc,Xr,Yc,Yr,Zc,Zr):-
+	   Cv1 is Zc - Xc,
+	   Rv1 is Zr - Xr,
+	   Cv2 is Yc - Xc,
+	   Rv2 is Yr - Xr,
+	   parallel(Cv1,Rv1,Cv2,Rv2),
+	   Dot is Cv1 * Cv2 + Rv1 * Rv2,
+	   Dot < 0.
+
+
+%FRAME AXIOMS
+%************
+%rules to FRAME the on facts
+%operators are of the form 
+%do(op(s(Cf,Rf),s(Ct,Rt),p(Tm,Sm),p(Tt,St)),S)
+%where Cf,Rf is the coordinates of the from square
+%where Ct,Rt is the coordinates of the to square
+%where Tm,Sm is the type and side of the moving player
+%where Tt,St is the type and side of the taken player
+%If the destination square is empty then both the type and side are
+%empty
+
+%when we have just moved INTO square  s(Ct,Rt),
+on(State,Sm,Tm,Ct,Rt):-
+	   State=do(op(s(Cf,Rf),s(Ct,Rt),p(Tm,Sm),p(Tt,St)),NS),
+	   on(NS,St,Tt,Ct,Rt).
+
+%when we have just moved FROM square s(Cf,Rf),
+on(State,S,T,Cf,Rf):-
+	   State=do(op(s(Cf,Rf),s(Ct,Rt),p(Tm,Sm),Pt),NS),
+	   S=empty,
+	   T=empty,
+	   on(NS,Sm,Tm,Cf,Rf).
+
+
+%when the operator does not affect the square
+on(State,S,T,C,R):-
+	   State=do(op(s(Cf,Rf),s(Ct,Rt),Pm,Pt),NS),
+	   on(NS,S,T,C,R),
+	   s(C,R)\==s(Cf,Rf),
+	   s(C,R)\==s(Ct,Rt).
+
+
+%EXAMPLE STATE  
+%****************
+%Example of state, called state1 from Flann & Dietterich, 1989 Figure 4(d)
+%Suitable for use with the chess_russell_wyl domain theory
+
+on(state1,white,rook,1,1).
+on(state1,empty,empty,2,1).
+on(state1,empty,empty,3,1).
+on(state1,empty,empty,4,1).
+on(state1,empty,empty,5,1).
+on(state1,empty,empty,6,1).
+on(state1,empty,empty,7,1).
+on(state1,empty,empty,8,1).
+on(state1,white,pawn,1,2).
+on(state1,empty,empty,2,2).
+on(state1,white,king,3,2).
+on(state1,empty,empty,4,2).
+on(state1,empty,empty,5,2).
+on(state1,white,pawn,6,2).
+on(state1,empty,empty,7,2).
+on(state1,empty,empty,8,2).
+on(state1,empty,empty,1,3).
+on(state1,white,pawn,2,3).
+on(state1,empty,empty,3,3).
+on(state1,empty,empty,4,3).
+on(state1,white,queen,5,3).
+on(state1,empty,empty,6,3).
+on(state1,empty,empty,7,3).
+on(state1,empty,empty,8,3).
+on(state1,empty,empty,1,4).
+on(state1,empty,empty,2,4).
+on(state1,empty,empty,3,4).
+on(state1,empty,empty,4,4).
+on(state1,empty,empty,5,4).
+on(state1,empty,empty,6,4).
+on(state1,white,knight,7,4).
+on(state1,empty,empty,8,4).
+on(state1,empty,empty,1,5).
+on(state1,empty,empty,2,5).
+on(state1,empty,empty,3,5).
+on(state1,empty,empty,4,5).
+on(state1,empty,empty,5,5).
+on(state1,empty,empty,6,5).
+on(state1,empty,empty,7,5).
+on(state1,empty,empty,8,5).
+on(state1,black,pawn,1,6).
+on(state1,empty,empty,2,6).
+on(state1,black,rook,3,6).
+on(state1,empty,empty,4,6).
+on(state1,empty,empty,5,6).
+on(state1,empty,empty,6,6).
+on(state1,empty,empty,7,6).
+on(state1,empty,empty,8,6).
+on(state1,empty,empty,1,7).
+on(state1,empty,empty,2,7).
+on(state1,empty,empty,3,7).
+on(state1,empty,empty,4,7).
+on(state1,empty,empty,5,7).
+on(state1,empty,empty,6,7).
+on(state1,black,pawn,7,7).
+on(state1,empty,empty,8,7).
+on(state1,black,rook,1,8).
+on(state1,empty,empty,2,8).
+on(state1,black,bishop,3,8).
+on(state1,empty,empty,4,8).
+on(state1,empty,empty,5,8).
+on(state1,empty,empty,6,8).
+on(state1,black,king,7,8).
+on(state1,empty,empty,8,8).
+

@@ -1,0 +1,521 @@
+                   THE SECOND DATA GENERATION PROGRAM - DGP/2
+
+
+                                Powell Benedict
+                        University of Illinois at Urbana
+                            Inductive Learning Group
+                               Beckman Institute
+                                Urbana, IL 61801
+                              tel: (217) 244-1620
+                          E-mail: benedict@cs.uiuc.edu
+
+/*************************************************************************/
+/*************************************************************************/
+/*                                                                       */
+/*                    DATA GENERATION PROGRAM/2 V1.0                     */
+/*                                                                       */
+/* Copyright: Powell Benedict, Larry Rendell, and the University of      */
+/*            Illinois, 1990                                             */
+/*                                                                       */
+/* Author   : Powell Benedict                                            */
+/*            Inductive Learning Group                                   */
+/*            Beckman Institute for Advanced Technology and Sciences     */
+/*            University of Illinois at Urbana                           */
+/*                                                                       */
+/* This program and any results obtained may be freely used for any      */
+/* purpose provided the above author's reference is appropraitely made.  */
+/* If this program is modified then that should be stated in the         */
+/* reference.                                                            */
+/*                                                                       */
+/* Please send comments, suggestions, bug reports, and requests for      */
+/* updates to:                                                           */
+/*            Powell Benedict                                            */
+/*            benedict@cs.uiuc.edu                                       */
+/*                                                                       */
+/* This program was written and compiled under Borland Turbo C++. It does*/
+/* not, however, use any C++ or Borland specific code and should compile */
+/* under any standard C, with the possible exception of                  */
+/* READ_INPUT_PARAMETERS (see comments in that function).                */
+/*************************************************************************/
+/*************************************************************************/
+
+
+          1. INTRODUCTION.
+
+DGP/2 is a generation program for constructing synthetic application domains
+for inductive learning systems.  DGP/2 was motivated by the relative scarcity
+of natural application domains which tends to restrict experimentation in the
+development and improvement of inductive learning systems and techniques such
+as constructive induction and bias optimization.  By generating data
+synthetically we can test experimental techniques and assumptions on thousands
+of application domains covering a wide range of problem space.  Quite naturally
+the first question to ask is can synthetic data provide a meaningful simulation
+of the real world.  We qualify this concern with four questions:
+
+
+               1.  What measurable features of problem space are
+                   most useful to synthesize (i.e. for
+                   predicting the performance of induction
+                   algorithms ?
+
+
+               2.  To the extent that some of these features are
+                   not measurable without knowledge of the
+                   target concept, how can we estimate them ?
+
+
+               3.  How much training is actually needed ? In
+                   other words, how thoroughly must the
+                   synthetic problem space be explored to
+                   significantly improve performance on natural
+                   induction problems ?
+
+
+               4.  What assumptions in DGP/2 are valid for
+                   natural problems ?
+
+
+In order to begin to answer these questions several empirical studies have been
+performed making use of DGP/2 (and its predecessor DGP) which demonstrate the
+usefulness of synthetic data (see Rendell 1988,1989 and Benedict 1990).  This
+write-up begins by defining terms to provide a common understanding, discusses
+previous work DGP/2 has been used in, gives an account of the program,
+including parameter definitions, program operation, a user's guide, and finally
+a general discussion.  Readers who are interested in a more detailed discussion
+of the experimental work DGP/2 has been used in, as well as the motivation for
+DGP/2, are encouraged to read the aforementioned papers which can be obtained
+by sending me e-mail.
+
+
+          2. DEFINITIONS OF TERMS USED IN THIS WRITE-UP.
+
+In this section we define terms associated with attribute based concept
+learning (which we will simply call inductive learning), and present an
+overview of the strategy.
+
+
+          2.1 Instances, features, classes, target concepts.
+
+The starting point for induction algorithms is a space of instances of a
+application domain.  For our purposes, each instance is simply a point in an
+N-dimensional space.  These dimensions represent features of the problem
+space.  Instances are often referred to as events, points or just data.
+
+Each instance is labeled with a class value which we often take to be boolean.
+The goal is to produce a decision function, characterized as rules, which
+describes the target concept by generalizing the set of instances.  Concepts,
+then, are members of the algebra of subsets defined over the instances in the
+space.
+
+
+          2.2 Problem spaces and application domains.
+
+A problem space represents a generalization of the features of individual
+application domains, where the generalized features are the dimensions of the
+problem space.  Application domains are specific instantiations of points in
+the problem space.  For example,  consider a problem space having 'number of
+instances' and 'number of features' as its dimensions.  Each point, (x,y), in
+this space corresponds to all those application domains having x number of
+instances and y number of features.  Note that a single point in problem space
+can map to multiple applications domains.  A given application domain (e.g.,
+diagnosing soybean diseases) represents a single problem for an inductive
+learning system.
+
+
+          2.3 Inductive concept formation, training and testing sets.
+
+Inductive concept formation is, trivially, the process of partitioning a set of
+instances into subsets, whose compact descriptions represent the desired target
+concepts.  This process permits the classification of unseen data based on the
+features of the observed data.  As the induction proceeds, candidate class
+descriptions, called candidate hypotheses, are constructed and evaluated in
+terms of their ability to accurately describe the target concept. Induction
+stops when a hypothesis is found which describes the target concept, or no
+suitable hypothesis is found.  We may view this form of induction as a search
+through hypothesis space for a hypothesis which accurately describes the target
+concept.
+
+The data presented to the learning algorithm for concept formation is called
+the training set.  The training set consists of instances with associated class
+values.  In the boolean case the class values are said to be positive or
+negative, indicating whether or not they are examples of the target concept.
+The induction generalizes the positive instances into a class description,
+expressed as rules, which excludes all or most all negative instances.
+Accuracy of the resultant class description is computed with the testing set.
+The testing set, of identical format to the training set, is passed through the
+rules, measuring the number of false positives, Fp, (i.e., negative instances
+classified as positive) and false negatives, Fn, (i.e., positive instances
+classified as negative).  The accuracy, a, is defined as: a = 1 - (Fp + Fn) / T
+, where T is the total number of instances in the testing set.  The error rate,
+e, is defined as: e = 1 - a.
+
+We construct the training and testing sets by partitioning the initial sample
+of instances into two sets. Several strategies exist for selecting the
+partition.  Since our intent is to have the composition of the training and
+testing sets reflect the distribution of positive and negative instances in the
+initial sample, we construct a partition which insures that the ratio of
+positive and negative instances is preserved. Furthermore, to determine a
+statistically reliable accuracy, we partition (randomly selecting positive and
+negative instances in the correct ratio), train, and test several times, and
+average the individual accuracies.
+
+
+          3. PREVIOUS WORK USING DGP/2.
+
+My primary reason for developing DGP/2 is to study bias optimization in
+inductive learning systems.  Mitchell (1980) first defined inductive bias as
+anything which causes an inductive algorithm to choose one concept over another
+aside from strict consistency with the training set.  Mitchell states that all
+tractable inductive algorithms must be biased because the number of possible
+concepts is too large to be searched directly.  For example, we may reduce the
+hypothesis space by only allowing certain classes of hypotheses to be
+investigated.  Additionally, we may reduce the feature set (e.g., through
+abstraction without loss of information) which in turn reduces the complexity
+of the hypothesis space. Inductive bias can be expressed as feature
+abstraction, restrictions on the language of concept expression, search
+operators, feature construction operators, etc.
+
+Typically, biases are implicit in the design and implementation of the
+induction algorithm. Such systems are said to represent a fixed bias.  Biases,
+however, necessarily restrict the applicability of the induction system, by
+reducing the domains over which the algorithm is effective. For example, if we
+limit the language of concept expression to conjunctive terms we could never
+express disjunctive concepts, which in turn, reduces the number of domains for
+which this bias is effective. Fixed bias systems, consequently, restrict the
+application domain independent applicability of induction algorithm.
+
+Utgoff (Utgoff & Mitchell, 1982; Utgoff, 1986) states that learning algorithms
+can achieve better performance if they dynamically alter their biases. Such
+systems are said to represent dynamic bias.  His novel STABB (Search Towards a
+Better Bias) lead to significant research in bias management.  Further work,
+such as Russell & Grosof (1990) and Rendell et. Al (1987) emphasizes that
+algorithms can only alter their biases dynamically if these bias are made
+explicit and the algorithm has a built in control structure for intelligently
+selecting these biases. The focus of this paper is in learning efficient bias
+selection rules from synthetic data for selecting biases in dynamic bias
+systems.
+
+We may dynamically select biases by using a mapping between application domains
+and biases found to be effective for that domain.  In order to create this
+mapping, we must define an efficient characterization of the problem space, and
+biases must be identified which are effective for application domains in this
+space.  A new application domain is then located in problem space and the
+appropriate biases selected.
+
+The Variable Bias Management System (VBMS) (Rendell, 1989) does just this. VBMS
+learns this mapping by applying multiple bias sets to natural application
+domains and measuring subsequent classification rule accuracies.  VBMS
+characterizes the problem space by the number of training instances and the
+number of features in the data.  Three learning systems, PLS (Rendell, 1983),
+AQ15 (Michalski et. Al, 1986), ASSISTANT (Kononenko et. Al, 1984), represent
+the bias sets.  VBMS constructs its mapping by measuring the performance of
+each of the three learning systems on the data sets.  The results given for
+VBMS clearly show the effectiveness of variable bias management.
+
+An inherent difficulty in this scheme, however, is that its performance depends
+on a robust training set of natural application domains to produce an effective
+mapping.  Although Rendell et. Al  (1987) reported favorable results for VBMS,
+subsequent experimentation by his research group confirmed that VBMS learns too
+slow, that is, it is not easy to find enough natural data sets that have a
+broad enough distribution in the problem space to result in effective
+learning.  Although many application domains have thousands of instances (e.g.,
+see Seshu et. Al, 1989), the fact is that researchers don't have access to
+thousands (or even hundreds) of these domains.
+
+This problem begs the use of a program like DGP/2 to overcome the limitation of
+scare natural application domains.  In Benedict (1990) DGP/2 was used
+in two separate experiments to assess the validity of learning bias
+optimization rules with synthetic data.  The first experiment demonstrates
+similar performance between a natural application domain and a synthetic
+application domain in response to varying biases.  The second experiment
+generates multiple synthetic application domains, runs a hill-climbing based
+bias optimizer, converts the results into bias selection rules, and measures
+their accuracy using the training/testing set methodology.  The results are
+very encouraging.  Current work in progress, though not reported here, is
+measuring the performance of these bias selection rules on natural application
+domains.  In addition, in an unpublished manuscript I have used DGP/2 to
+generate application domains for a back-propogation network in an attempt to
+learn bias selection rules for setting net parameters such as learning rate.
+Again, the experiments have yielded encouraging results.
+
+DGP/2's ancestor was also used in Rendell et. Al (1988). The objective was to
+compare the performance of different learning systems on various application
+domains.  Although a number of widely used data sets were analyzed, they also
+found that a program which generated quasi-random application domains could
+help in the analysis.  This program, the first Data Generation Program (DGP)
+had the ability to generate application domains based on specific parameters.
+For example, the user could specify the proportion of positive to negative
+instances or the number of features.  DGP generated instances around peaks and
+allowed for specification of the mean and standard deviations in the normally
+distributed data.  Interestingly, the performance conclusions drawn from the
+experiments involving synthetic and natural data were similar, indicating that
+synthetic data behaves like natural data.
+
+DGP was used again in Rendell & Cho (1989) to survey the effect of varying
+certain characteristics of the target concept on learning algorithms.  For
+example, the results showed that highly disjunctive concepts require more data
+to learn; a result which is consistent with theoretically derived computational
+bounds on learning sample sizes for PAC learning (see, e.g. Ehrenfeuct,
+Haussler, Kearns, & Valiant, 1988).
+
+
+          4. DGP/2 PARAMETERS.
+
+DGP/2 is an improvement of DGP.  It allows for additional parameters and
+automates the setting of the standard deviation parameter, which is not easily
+done by the user.  In particular, DGP/2 allows for variation in the number of
+instances, the number of features, the range of feature values, the number of
+peaks, the percent of positive instances desired and a radius around the peaks
+that these instances will fall within (this controls instance density, and
+determines the standard deviation value for the normal distribution function).
+The best way to explain DGP/2's parameters is to give an example of an actual
+parameter file.
+
+
+
+;***************************************************************************
+; Sample parameter file for DGP/2 Version 1.0
+; Author: Powell Benedict
+;***************************************************************************
+; This is a sample parameter file for DGP/2 V1.0.  Notice first that comments
+; begin with a semi-colon.  Next, blank lines are allowed anywhere.  No line
+; in this file may be more than 80 characters long.  Finally, comments may
+; be placed at the end of an actual parameter line.
+
+; Parameter format is:
+;     parm_name = parm_value
+
+; You may have any number of intervening spaces between the fields of a
+; parm line, provided it doesn't add up to more than 80 characters total.
+; You may specify the parameters in any order.  Parameters which are absent,
+; or which are incorrectly formed will be pointed out by DGP/2.  DGP/2 does
+; in no case supply default values.
+
+num_features      = 6    ; Number of features
+max_feature_value = 10   ; Maximum feature value
+num_peaks         = 1    ; Number of peaks in the final space
+num_instances     = 100  ; Number of instances generated
+proto_seed        = 2398 ; Initial random seed
+range             = 3    ; Range for positive class membership
+percentage        = 67   ; Percentage of positive instances
+trunc_flag        = 0    ; Out of range instance disposition flag
+out_file_name     = test.out ; Filename for instances
+stat_file_name    = stat.out ; Filename for run statistics
+
+; End of parm file
+
+
+
+num_features - This parameter allows the user to specify the number of features
+desired in the final instance set (equivalent to the number of dimensions).
+
+max_feature_value - This value specifies the maximum feature space value for
+all features, 0 being the minimum.  Note that because the instances are
+generated with a normal distribution about pre-selected peaks, it is possible
+for a feature value to be outside of the range [0,max_feautre_value].  The
+disposition of these instances is specified by the trunc_flag parameter.
+
+num_peaks - This specifies the number of peaks in the positive data.  Peaks may
+be thought of as distinct concentrations of positive instances.  The height of
+the peak corresponds to the density of the positive instances about the
+centroid of the peak.  For example, if we had an instance set of men, where the
+features were height and weight, we could have three peaks corresponding to the
+norm for men (the highest peak), basketball players, and football players.
+Each peak has a centroid which is the average of the instances in the given
+peak.  In DGP/2, one centroid point is generated for each peak requested.  The
+centroids are used as the mean values in the normal distribution function for
+generating instances.  Placement of the centroids is currently done by DGP/2.
+Centroid generation is constrained to a region  from -0.5 * max_feature_value
+to +0.5 * max_feature_value.  This prevents centroids from being to close to
+the instance space boundaries, which would cause many out of range instances
+(see the discussion of the parameter trunc_flag).
+
+num_instances - This parameter allows you to specify the number of instances in
+the total sample, both positive and negative.
+
+proto_seed - The random number generator used in DGP/2 is taken from The
+Communications of the ACM (see the code for an exact reference).  It requires
+three seeds.  I have, however, for user convenience only requested a single
+seed, the proto_seed.  This seed is used to seed the Turbo-C random number
+generator, which then generates the three seeds required by DGP/2's random
+number generator (see the code for detail).  Note that the operation of DGP/2
+is completely deterministic on the proto_seed.  The same proto_seed and
+parameter settings will produce the same instance file.
+
+range - This values specifies a range around the centroids, within which
+instances will be positive.  This range along with percentage (number of
+positive instances requested), determines the standard deviation value in the
+normal distribution function.  Using a low range, with say 67% positive, will
+produce a higher peak, a larger range produces a flatter peak.  Note also that
+a large range with respect to max_feature_value causes overlaps in the positive
+instances from each peak.  I generally set range to be about 10-20% of
+max_feature_value.
+
+percentage - This allows you to specify what percentage of num_instances are to
+be positive.  The positive instances are divided evenly across the number of
+peaks.  The actual value of positive instances generated can vary slightly (the
+exact value generated is reported in the stats file).  Variation can be due to
+the random nature of generation, but usually occurs because of range overlap.
+If the centroids are too close and/or the range is too large, then a given
+instance which is negative with respect to the peak it was generated about may
+be picked up as a positive instance by another peak.  If DGP/2 refused to let
+another peak pick up this instance then we could wind up with negative
+instances right in the middle of a peak.  In general, based on my
+experimentation, this error is very low (+- 0.1%), but does vary as a function
+of the rest of the parameters.
+
+trunc_flag - This parameter controls the disposition of instances which have
+one or more feature values which lie outside the bounds of the instance space:
+[0,max_feature_value].  Because we use a true normal distribution function,
+which is asymptotic to y=0, we can produce feature values which are out of
+bounds.  Trunc_flag can assume a value of 0,1 or 2.  A value of 0 causes DGP/2
+to allow those out of bound instances to be included in the final instance set.
+Note that because of the constraints on the placement of the centroids the
+majority of out of bound instances will be negative instances (given a
+reasonable value for range).  A value of 1 causes DGP/2 to simply delete the
+offending instance.  This preserves a correct distribution but can result in
+fewer instances in the final instance set.  A value of 2 causes the out of
+bound feature value to be re-generated until it is in bounds.  This preserves
+the correct number of instances, but can corrupt the distribution resulting in
+more positive instances than requested.  Note that because of the randomness of
+generation this is the same as regenerating the whole instance.  Exactly what
+occurs due to the value of trunc_flag is printed in the stats file.
+
+out_file_name - This allows you to specify the name of the final instance
+file.  The format of this file is completely controlled by the function
+print_instances.  That function is extensively documented as to the current
+format and how the format can be changed.
+
+stat_file_name - This allows you to specify the name of the run statistics
+file.  This file contains complete information about the given run.  Across
+repeated runs this file is appended to, allowing a collection of run
+statistics.  To prevent this file from being kept, the null device can be
+specified as the file name.
+
+
+          5. DGP/2 OPERATION.
+
+DGP/2 operates by generating n peak centroids within a subrange of the total
+instance space range (as determined by the range of feature values) and divides
+the total number of instances across the n peaks.  Feature values are randomly
+generated whose frequency of occurrence (done on a feature by feature basis)
+around the corresponding peak centroid value have a normal distribution.
+Specification of what percentage of instances should fall within a given range
+of the peak centroids (making them positive instances) automatically adjusts
+the standard deviation value in the normal distribution function (the mean is
+determined by the location of the peak centroids).  Instances outside this
+distance are assigned to the negative class. Note that the uniform range, which
+is used as a standard n-space Euclidean distance measure, value results in
+hyper-sphere clusters of instances around the peaks.  This, combined with the
+distance between peaks, allows accurate specification of positive instance
+densities.
+
+The main routine in the code is extremely simple and reads exactly as it runs.
+The code has been thoroughly commented to facilitate understanding and
+modification as needed.  It is suggested that the code be read through to the
+level of the comments.
+
+
+          6. USER'S GUIDE (such as it is).
+
+DGP/2 takes the name of the parameter file from the command line.  If no
+parameter file name is given it defaults to PARMS.DGP.  The parameter file
+contains all run information.  For example, if DGP/2 were compiled to DGP2.EXE
+then DGP2 MYPARMS.TXT, would run DGP/2 using the file MYPARMS.TXT as the
+parameter file.
+
+Typically, the only modifications required to the DGP/2 code will be in the
+function print_instances.  Since this function prints the instances, along with
+their class membership, it will have to be modified to reflect individual
+user's needs.  The function is extensively commented, indicating both the
+current form of the instance file as well as where modifications would most
+likely have to be made.  Additionally, this function has the responsibility of
+rounding the instance values.  All instance, and centroid, values are generated
+as reals.  For my application I required integers.  To this effect, my version
+of print instances rounds feature values based on whether they are positive or
+negative and their location relative to the peak they belong to.  Again, the
+code contains extensive documentation about this.
+
+
+          7. GENERAL INFORMATION.
+
+DGP/2 was written in C using Borland's Turbo C++ compiler, although no C++
+functions were used.  I have used only ANSI supported functions to enhance
+portability, with the single exception of the Turbo C++ random number generator
+(the code is appropriately documented  to indicate where this area is).  The
+only other C compiler I have used is GCC (Gnu's C Compiler).  Although the code
+required a few modifications is was reasonably straight forward to convert.
+
+I have to the best of my ability debugged this code and I am fairly sure it
+works correctly.  Like any proud parent I may have overlooked something.  In
+all cases I would appreciate any and all correspondence regarding DGP/2.  This
+includes bugs (and hopefully, fixes), suggestions for improvements, etc.  In
+particular, if this code is translated to run under different compilers I would
+be very interested in obtaining a copy.  In fact anything you might want to say
+can be said to benedict@cs.uiuc.edu.
+
+I will make periodic updates to this program.  As they become available I will
+post them to any central place this code has been posted.  I am keeping a list
+of people requesting updates.  If you would like to be on this list please let
+me know.
+
+          [PB]REFERENCES
+
+
+Benedict, P.A., The Use of Synthetic Data in Dynamic Bias Selection, Proc. Of
+the 6th Aerospace Applications of Artificial Intelligence Conference, Dayton,
+Ohio, October, 1990.
+
+
+Ehrenfeucht, A., Haussler, D., Kearns, M,  Valiant, L. A general lower bound on
+the number of examples needed for learning.  Proc. Computational Learning
+Theory, 1988, 139-154.
+
+
+Kononenko, I., Bratko, I., Roskar, E., Experiments in Automatic Learning of
+Medical Diagnostic Rules (Ljubljana, Yugoslavia: Jozef Stefan Institute, 1984).
+
+
+Michalski, R.S., Mozetic, I., Hong, J., Lavrac, N., The Multipurpose
+Incremental Learning System AQ15 and Its Testing Application to Three Medical
+Domains, Proc. Of the Fifth National Conference on Artificial Intelligence, Pp.
+1041-1045, Morgan Kaufman, Los Altos, Ca, 1986.
+
+
+Mitchell, T. M. The need for biases in learning generalizations.  Technical
+Report CBM-TR-117, May 1980.
+
+
+Rendell, L.A., A New Basis for State Space Learning Systems and a Successful
+Implementation, Artificial Intelligence 20(1983):369-392.
+
+
+Rendell, L. A.,  Cho, H. H. The effect of data character on empirical  concept
+learning in  Proc. Fifth International Conference on Artificial  Intelligence
+Applications, March, 1989.
+
+
+Rendell, L. A., Benedict, P. A., Cho, H. H.,  Seshu, Improving the design of
+rule-learning systems,  Proceedings of the Seventh  International Conference on
+Expert Systems and their Applications, June, 1988.
+
+
+Rendell, L.,  Seshu, R., Learning hard concepts, to appear in Computational
+Intelligence, 1990.
+
+
+Rendell, L. A., Seshu, R. M.,  Tcheng, D. K. Layered concept learning and
+dynamically-variable bias management.  Proceedings of the Tenth  International
+Joint Conference on Artificial Intelligence, 1987.
+
+
+Russell, S.,  Grosof, B. Declarative bias: An overview, in P. Benjamin  (Ed.),
+Change of Representation and Inductive Bias. Kluwer Academic  Press, 1990.
+
+
+Utgoff, P. E. Shift of bias for inductive concept learning.  Machine Learning:
+An Artificial Intelligence Approach,  1986,  III.
+
+
+Utgoff, P. E.,  Mitchell, T. M., Acquisition of appropriate bias for inductive
+concept learning,  Proc. National Conference on Artificial  Intelligence, 1982.

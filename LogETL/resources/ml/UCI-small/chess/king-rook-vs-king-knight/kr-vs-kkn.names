@@ -1,0 +1,60 @@
+1. Title: Knight Pin Chess End-Game Database Creator
+
+2. Sources:
+    (a) Database originally described by Ross Quinlan.
+    (b) Donor/Coder: Jeff Schlimmer (Jeff.Schlimmer@cs.cmu.edu)
+    (c) Date: 3 October 1988
+
+3. Past Usage:
+     Quinlan, J.R. (1983).  Learning Efficient Classification Procedures and
+     Their Application to Chess End Games.  In R.S. Michalski, J.G. Carbonell,
+     & T.M. Mitchell (Eds.), Machine Learning -- An Artificial Intelligence
+     Approach, 463-482, Palo Alto: Tioga.
+
+4. Relevant Information:
+    The companion file is a Common Lisp demonstration file that generates
+    knight-pin Chess end-game samples.  Start up Lisp and load the file.
+    It generates 100 end-games and writes them to a separate file.  Look
+    at the end of the file to see how to change it so that it will
+    produce more end-games, or use the file for output that you wish.
+
+    The code is released for experimental, confidential use only.
+    See the end of the file for load-time commands that generate a file of
+    examples in Quinlan's format.
+
+    Note: this program generates duplicates.  In one run, there were about
+    370 duplicates in the first 1000 instances (i.e., 630 distinct examples).
+
+5. Number of Instances: chosen by user
+
+6. Number of Attributes: 22 possible
+
+7. Attribute Summaries:
+    Class: knight's side is lost in n-ply (n=2, 3, etc)
+    1. distance from black king to knight		    1, 2, >2
+    2. distance from black king to rook			    1, 2, >2
+    3. distance from black king to white king		    1, 2, >2
+    4. distance from white king to knight		    1, 2, >2
+    5. distance from white king to rook			    1, 2, >2
+    6. distance from rook to knight (ADDED)		    1, 2, >2
+    7. board relationship of black king and knight (ADDED)  diag, rect, other
+    8. board relationship of black king and rook (ADDED)    diag, rect, other
+    9. board relationship of black king and white king (ADDED) diag,rect,other
+   10. board relationship of white king and knight (ADDED)  diag, rect, other
+   11. board relationship of white king and rook (ADDED)    diag, rect, other
+   12. board relationship of white rook and knight (ADDED)  diag, rect, other
+   13. type of black king's initial square		    corner, edge, open
+   14. type of black knight's initial square (ADDED)	    corner, edge, open
+   15. type of white king's initial square (ADDED)	    corner, edge, open
+   16. type of white rook's initial square (ADDED)	    corner, edge, open
+   17. rook checks black king (OMITTED, always f)	    t, f
+   18. rook threatens knight (OMITTED, always t)	    t, f
+   19. knight threatens rook (OMITTED, always f)	    t, f
+   20. black king, knight, rook in line (OMITTED, always t) t, f
+   21. black king can move adjacent to knight (OMITTED)	    t, f
+   22. knight can interpose adjacent to king (OMITTED)	    t, f
+
+8. Missing Attributes: --
+
+9. Class Distribution: See the reference, page 472.
+

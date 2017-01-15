@@ -1,0 +1,409 @@
+Received: from ai.iit.nrc.ca by paris.ics.uci.edu id aa25214; 9 Apr 96 6:03 PDT
+Received: from ksl0j.ai.iit.nrc.ca by deeitis1.ai.iit.nrc.ca (SMI-8.6/SMI-SVR4)
+	id JAA07371; Tue, 9 Apr 1996 09:04:08 -0400
+Received: by ksl0j.ai.iit.nrc.ca (5.x/SMI-SVR4)
+	id AA17463; Tue, 9 Apr 1996 08:03:52 -0500
+Date: Tue, 9 Apr 1996 08:03:52 -0500
+From: Peter Turney <peter@ai.iit.nrc.ca>
+Message-Id: <9604091303.AA17463@ksl0j.ai.iit.nrc.ca>
+To: cmerz@saanen.ICS.UCI.EDU
+Subject: Re: UCI repository news
+Cc: peter@ai.iit.nrc.ca
+X-Sun-Charset: US-ASCII
+
+*** EOOH ***
+Date: Tue, 9 Apr 1996 08:03:52 -0500
+From: Peter Turney <peter@ai.iit.nrc.ca>
+To: cmerz@saanen.ICS.UCI.EDU
+Subject: Re: UCI repository news
+Cc: peter@ai.iit.nrc.ca
+X-Sun-Charset: US-ASCII
+
+
+Dear Chris:
+
+> This message is to announce that I will be taking over the duties of
+> the UCI Machine Learning Database Repository coordinator. At this time
+> I'd like to thank the previous coordinator, Pat Murphy, for his
+> efforts to improve upon the repository, and I invite new ideas from
+> those of you using the repository so that I may do the same. This
+> includes constructive criticism as well as new databases!
+
+This is intended to supplement the "trains" data in
+"ftp://ftp.ics.uci.edu/pub/machine-learning-databases/trains/".
+
+When I donated the material relating to the "East-West Challenge",
+for the ML Repository, I neglected to mention that Donald Michie
+held another train contest. This later contest involved 24 trains,
+12 eastbound and 12 westbound. Below is some information on this
+contest. You might like to include this information in the ML Repository.
+
+Best wishes,
+Peter.
+
+
+
+================================================================================
+
+
+	24 TRAINS: THE PROBLEM
+	----------------------
+
+From: fred4@cse.unsw.edu.au
+To: peter@ai.iit.nrc.ca
+Date: Thu, 24 Nov 94 11:12:43 +1100
+Subject: Trains
+
+
+Dear Peter
+
+David Page sent me a copy of your email to him. I would be very interested
+in seeing a copy of your draft paper for IJCAI-95.
+
+You may want to know of a 12 versus 12 trains-discrimination problem that I
+published on 18th November for brains-only entrants from the readers of
+Computing magazine. Yesterday I sent copies of the problem to Bernhard
+Pfahringer and to Ryszard Michalski's group, from both of which I had
+received expressions of interest. There is a secret rule for the OK
+property, which will be used as default oracle in judging my brains-only
+entrants. This time I will be mildly surprised if ILP treatment yields
+anything simpler from this material than this "official rule", but
+immensely interested if such an improved rule is found. The problem is as
+follows:
+
+:-not_OK([c(1,u_shaped,short,not_double,none,2,l(triangle,1)),
+          c(2,bucket,short,not_double,none,2,l(circle,1)),
+          c(3,rectangle,short,not_double,none,2,l(triangle,1)),
+          c(4,u_shaped,short,not_double,none,2,l(circle,1))]).
+
+:-not_OK([c(1,rectangle,long,not_double,jagged,2,l(circle,1)),
+          c(2,rectangle,short,double,none,2,l(diamond,1)),
+          c(3,rectangle,long,not_double,jagged,2,l(rectangle,1)),
+          c(4,rectangle,long,not_double,flat,3,l(rectangle,1))]).
+
+:-not_OK([c(1,u_shaped,short,not_double,none,2,l(circle,1)),
+          c(2,bucket,short,not_double,flat,2,l(triangle,1)),
+          c(3,u_shaped,short,not_double,none,2,l(circle,1)),
+          c(4,u_shaped,short,not_double,none,2,l(rectangle,1))]).
+
+:-not_OK([c(1,ellipse,short,not_double,arc,2,l(rectangle,1)),
+          c(2,rectangle,long,not_double,none,3,l(hexagon,2))]).
+
+:-not_OK([c(1,u_shaped,short,not_double,none,2,l(circle,1)),
+          c(2,rectangle,short,not_double,none,2,l(triangle,1)),
+          c(3,rectangle,long,not_double,none,2,l(rectangle,3)),
+          c(4,u_shaped,short,not_double,none,2,l(diamond,1))]).
+
+:-not_OK([c(1,u_shaped,short,not_double,none,2,l(triangle,1)),
+          c(2,rectangle,short,not_double,none,2,l(circle,1)),
+          c(3,u_shaped,short,not_double,none,2,l(rectangle,1))]).
+
+:-not_OK([c(1,rectangle,long,not_double,none,2,l(utriangle,1)),
+          c(2,u_shaped,short,not_double,flat,2,l(triangle,2)),
+          c(3,hexagon,short,not_double,flat,2,l(circle,1))]).
+
+:-not_OK([c(1,bucket,short,not_double,none,2,l(triangle,1)),
+          c(2,rectangle,long,not_double,none,2,l(rectangle,1)),
+          c(3,u_shaped,short,not_double,none,2,l(triangle,1))]).
+
+:-not_OK([c(1,u_shaped,short,not_double,none,2,l(triangle,1)),
+          c(2,u_shaped,short,not_double,none,2,l(circle,1)),
+          c(3,u_shaped,short,not_double,none,2,l(triangle,2))]).
+
+:-not_OK([c(1,rectangle,long,not_double,none,3,l(rectangle,3)),
+          c(2,hexagon,short,not_double,flat,2,l(diamond,1)),
+          c(3,rectangle,short,not_double,none,2,l(triangle,1)),
+          c(4,hexagon,short,not_double,flat,2,l(circle,1))]).
+
+:-not_OK([c(1,rectangle,long,not_double,none,2,l(none,0)),
+          c(2,rectangle,short,not_double,none,2,l(rectangle,2)),
+          c(3,u_shaped,short,not_double,none,2,l(circle,1))]).
+
+:-not_OK([c(1,rectangle,long,not_double,none,2,l(rectangle,1)),
+          c(2,u_shaped,short,not_double,flat,2,l(circle,1)),
+          c(3,rectangle,long,not_double,none,2,l(rectangle,1)),
+          c(4,u_shaped,short,not_double,none,2,l(circle,1))]).
+
+:-OK([c(1,rectangle,long,not_double,flat,3,l(rectangle,1)),
+         c(2,rectangle,long,not_double,flat,2,l(none,0)),
+         c(3,rectangle,short,double,none,2,l(circle,1)),
+         c(4,rectangle,short,not_double,none,2,l(circle,1))]).
+
+:-OK([c(1,rectangle,short,double,none,2,l(circle,1)),
+         c(2,u_shaped,short,not_double,none,2,l(circle,1)),
+         c(3,bucket,short,not_double,none,2,l(triangle,1))]).
+
+:-OK([c(1,u_shaped,short,not_double,none,2,l(circle,1)),
+        c(2,u_shaped,short,not_double,peaked,2,l(rectangle,1)),
+        c(3,bucket,short,not_double,none,2,l(diamond,1))]).
+
+:-OK([c(1,rectangle,short,double,none,2,l(circle,1)),
+        c(2,rectangle,short,not_double,none,2,l(circle,2))]).
+
+:-OK([c(1,rectangle,long,not_double,flat,3,l(none,0)),
+        c(2,rectangle,long,not_double,flat,2,l(rectangle,1)),
+        c(3,u_shaped,short,not_double,peaked,2,l(circle,1)),
+        c(4,rectangle,short,not_double,none,2,l(circle,1))]).
+
+:-OK([c(1,rectangle,short,double,none,2,l(rectangle,1)),
+        c(2,rectangle,short,not_double,peaked,2,l(circle,1))]).
+
+:-OK([c(1,rectangle,long,not_double,jagged,2,l(circle,1)),
+        c(2,rectangle,short,not_double,none,2,l(circle,1)),
+        c(3,u_shaped,short,not_double,flat,2,l(triangle,1)),
+        c(4,rectangle,short,not_double,peaked,2,l(triangle,1))]).
+
+:-OK([c(1,rectangle,long,not_double,jagged,3,l(hexagon,1)),
+        c(2,bucket,short,not_double,peaked,2,l(triangle,1)),
+        c(3,rectangle,short,not_double,none,2,l(triangle,1)),
+        c(4,u_shaped,short,not_double,none,2,l(triangle,1))]).
+
+:-OK([c(1,rectangle,long,not_double,flat,2,l(rectangle,1)),
+        c(2,rectangle,long,not_double,flat,2,l(hexagon,1)),
+        c(3,rectangle,short,not_double,none,2,l(circle,1)),
+        c(4,bucket,short,not_double,none,2,l(circle,1))]).
+
+:-OK([c(1,rectangle,short,double,none,2,l(triangle,1)),
+          c(2,u_shaped,short,not_double,none,2,l(triangle,1)),
+          c(3,rectangle,short,not_double,none,2,l(triangle,1))]).
+
+:-OK([c(1,rectangle,short,not_double,none,2,l(rectangle,1)),
+         c(2,u_shaped,short,not_double,none,2,l(circle,1)),
+         c(3,u_shaped,short,not_double,none,2,l(circle,1)),
+         c(4,rectangle,short,double,none,2,l(rectangle,2))]).
+
+:-OK([c(1,rectangle,short,double,peaked,2,l(circle,2)),
+        c(2,u_shaped,short,not_double,none,2,l(triangle,1)),
+        c(3,rectangle,short,not_double,flat,2,l(triangle,1)),
+        c(4,rectangle,long,not_double,flat,2,l(rectangle,2))]).
+
+With best wishes
+
+
+Donald Michie
+
+
+
+
+
+================================================================================
+
+
+	24 TRAINS: THE RESULTS
+	----------------------
+
+
+From: fred4@cse.unsw.edu.au
+To: peter@ai.iit.nrc.ca
+Date: Mon, 5 Dec 94 15:25:46 +1100
+Subject: Results on trains
+
+
+Dear Peter
+
+I emailed today to Computing magazine my  adjudication of the 
+new trains competition, and reproduce below the  notes I made 
+for it. The results have several points of interest. Your rule 
+beat all brains-only creations on Trolog  complexity, and all 
+but  the   "official"  rule   (and  its   single-substitution   
+lookalike) on Trenglish. The high Trenglish complexity of the 
+remarkable Pfahringer4 rule is paralleled by its opacity to 
+human comprehension, in turn  attributable to the  nesting of 
+one if-then-else  inside  another.  Machine execution  is  no  
+problem, but  for  human  execution  such  a  structure  puts  
+non-trivial strain on working memory.
+
+A conspicuous feature is that there is still a multiplicity of 
+near-optimal solutions. I'll expand the next competition to 16 
+versus 16 discrimination. Beyond that, I run into problems with 
+the amount of page-space  allotted me by Computing.  But, who 
+knows, 32  trains may  represent  a sufficient  combinatorial  
+escalation to  thin out chance near misses to  the point  that 
+theory-discovery takes  over  from  theory-invention.  I  use  
+"discovery" rather than "invention" when only one rule is both 
+succinct and consistent with the data.
+
+This Trenglish vehicle has a long way to go.  As a first step 
+towards mechanization, I have made it into a DCG grammar, 
+perforce once more enhanced  in response to  Pfahringer4. The 
+cases where discepancies between the  two complexity measures 
+are most  extreme  do seem  to  correlate with  corresponding  
+variations in human-intelligibility. So to that extent I feel 
+encouraged. My hope is that  it may become a useful  form for 
+human-style domain knowledge into which statistical as well as 
+logical regularities can be incrementally absorbed.
+
+TOP  BRAINS-ONLY  ENTRIES:  DESCENDING  ORDER   OF  TRENGLISH  
+SCORES
+
+Spenceley's rule (Computing magazine entry) in Trenglish:
+
+[If] [a train] [has]
+[a] [car] [with] [a peaked roof]
+[or] [a sequence of] [cars] [with] [a circular load]
+[or] [a sequence of] [three] [cars] [with] [a triangular load]
+[then OK] [otherwise not_OK].  Trenglish: 20
+                                  Trolog: 35
+
+Spenceley's rule in Trolog follows:
+
+ok(T):- has_car(T,C), arg(5,C,peaked);
+  infront(T,C1,C2), infront(T,C2,C3), 
+  (has_load0(C1,circle), has_load0(C2,circle);
+  has_load0(C1,triangle), has_load0(C2,triangle),                
+   has_load0(C3,triangle)).
+
+Pennifold's rule (Computing magazine entry) in Trenglish:
+
+[If] [a train] [has]
+[a] [car] [with]
+[either] [a peaked roof]
+[or] [a triangular load] [and] [a double wall]
+[or] [a sequence of] [two] [cars] [with] [a circular load]
+[then OK] [otherwise not_OK].  Trenglish: 20
+                                  Trolog: 27
+
+Pennifold's rule in Trolog follows:
+
+ok(T):- has_car(T,C), (arg(5,C,peaked);
+ has_load0(C,triangle), double(C));
+ infront(T,C1,C2), has_load0(C1,circle), hasload0(C2,circle).
+
+Shaw's rule (Computing magazine entry) in Trenglish:
+
+[If] [a train] [has]
+[a first] [car] [with] [a double wall]
+[or] [a] [car] [with] [a peaked roof]
+[or] [a sequence of] [two] [cars] [with] [a circular load]
+[then OK] [otherwise not_OK].  Trenglish: 20
+                                  Trolog: 27
+
+Shaw's rule in Trolog follows:
+
+ok(T):- arg(1,T,C), double(C);
+ has_car(T,C), arg(5,C,peaked);
+ infront(T,C1,C2), has_load0(C1,circle), has_load0(C2,circle).
+
+"Official rule" in Trenglish (Computing magazine entry from N. 
+Howell was equivalent):
+
+[If] [a train] [has]
+[a] [car] [with] [a peaked.roof]
+[or]  [a  sequence  of] [short] [cars] [with] [the sameload_shape]
+[then OK] [otherwise not_OK].  Trenglish 15
+                                  Trolog 25
+
+Official rule in Trolog follows:
+
+ok(T):- has_car(T,C), arg(5,C,peaked);
+ infront(T,C1,C2), short(C1),  short(C2), has_load0(C1,Shape),  
+ has_load0(C2,Shape).
+
+One Computing magazine entry, from G.  Little, was equivalent 
+to the  above  rule  with  "open"  substituted  for  "short",  
+yielding an equally complete and correct solution.
+
+PROGRAM-GENERATED SOLUTIONS: DESCENDING ORDER OF TROLOG SCORES
+
+Pfahringer1 rule in Trenglish:
+
+[If] [a train] [has] 
+[a first car] [with]
+[either] [a double wall]
+[or] [a flat roof]
+[or] [a short body] [and] [a rectangle shape]
+[or] [a] [successor] [with] [a peaked roof]
+[then OK] [otherwise not_OK].  Trenglish 20
+                                  Trolog 25
+
+Pfahringer1 rule in Trolog follows:
+
+ok([X|L]):- (double(X);
+  arg(5,X,flat);
+  short(X), rectangle(X);
+  has_car(L,Y), arg(5,Y,peaked)).
+
+Turney1 rule in Trenglish:
+
+[If] [a train] [has]
+[a] [car] [with]
+[either] [a peaked roof]
+[or] [a double wall] [and] [a non_][diamond load]
+[or] [a hexagonal load] [and] [a closed form]
+[then OK] [otherwise not_OK].  Trenglish 19
+                                  Trolog 23
+
+Turney1 rule in Trolog follows:
+
+ok(T):- has_car(T,C), (arg(5,C,peaked);
+ double(C), not has_load0(C,diamond);
+ has_load0(C,hexagon), closed(C)).
+
+Pfahringer2 rule in Trenglish:
+
+[If] [a train] [has]
+[a first]  [car]  [with] [either]  [a  short  body] [and]
+ [a rectangle shape]
+[or] [a flat roof]
+[or] [a] [successor] [with] [a peaked roof]
+[then OK] [otherwise not_OK].  Trenglish 19
+                                  Trolog 22
+
+Pfahringer2 rule in Trolog follows:
+
+ok([X|L]):- short(X), rectangle(X);
+  arg(5,X,flat);
+  has_car(L,Y), arg(5,Y,peaked).
+
+Pfahringer3 rule in Trenglish:
+
+[If] [a train] [has]
+[a first]  [car]  [with] [either]  [a  short  body] [and]  [a  
+rectangle shape]
+[or] [either] [a closed form] 
+[or] [a sequence of] [successors] [with] [a non_first]
+[car] [with] [a bucket shape]
+[then OK] [otherwise not_OK].  Trenglish 23
+                                  Trolog 21
+
+Pfahringer3 rule in Trolog follows:
+
+ok(X|L):- short(X), rectangle(X);
+  infront(L,_,Z), short(Z), (bucket(Z);closed (X)).
+
+Pfahringer4  rule   in   pseudo-Trenglish  (ad   hoc   syntax   
+extension):
+
+[If] [a train] [has]
+[a diamond load] [then] [if] [it has] [exactly] [three] [cars]
+[then OK] [otherwise not_OK]
+[otherwise if] [it has] [a] [rectangular] [first] [car] [with]
+[either] [a short body]
+[or] [a closed form]
+[then OK] [otherwise not_OK].  Trenglish 25
+                                  Trolog 20
+
+Pfahringer rule in Trolog follows:
+
+ok([X|L]):- has_load1(L,diamond) ->  len1(L,2); rectangle(X), 
+  (short(X); closed(X)).
+
+I am  very  delighted that  you  tried  your system  on  this  
+material, and hope  you will  again next  time round. As  the 
+combinatorial space increases it is unclear to me whether this 
+will preferentially favour your system or  Pfahringer's. I am 
+fairly, but not absolutely, certain that it will disfavour the 
+unaided brains of Computing's readers. We shall see.
+
+I hope within the next few days to send you some comments on your 
+interesting paper.
+
+Best wishes
+
+Donald Michie.
+
+
+================================================================================
+
+
+

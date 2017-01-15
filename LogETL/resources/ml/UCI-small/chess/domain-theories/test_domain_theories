@@ -1,0 +1,54 @@
+%%% Tests the individual chess domain theories with the 
+%%% included state
+[chess_flann_new].
+legal_move(state1,NS,black).
+legal_move(state1,NS,white).
+
+[chess_flann_wyl].
+legal_move(state1,Newstate,black).
+legal_move(state1,Newstate,white).
+
+[chess_russell_wyl].
+legal_move(state1,Newstate,black).
+legal_move(state1,Newstate,white).
+
+[chess_vijay_1].
+legal_move(state1,Newstate,black).
+legal_move(state1,Newstate,white).
+
+[chess_vijay_2].
+legal_move(state1,Newstate,black).
+legal_move(state1,Newstate,white).
+
+[chess_vijay_3].
+legal_move(state1,Newstate,black).
+legal_move(state1,Newstate,white).
+
+%%% Tests the state generation routine in support_code
+%%% by generating the state illustrated in Figure 4(c) from Flann & Dietterich (1989)
+
+compile(support_code).
+
+generate_initial_state_standard(chess_flann_new,State,
+[(b4,white,queen),(b5,black,pawn),(c7,black,pawn),(d2,white,knight),(e3,white,pawn),
+ (e4,white,king), (e6,black,pawn),(e8,black,king),(f6,black,queen),(h4,black,rook)]).
+
+generate_initial_state_standard(chess_flann_wyl,State,
+[(b4,white,queen),(b5,black,pawn),(c7,black,pawn),(d2,white,knight),(e3,white,pawn),
+ (e4,white,king), (e6,black,pawn),(e8,black,king),(f6,black,queen),(h4,black,rook)]).
+
+generate_initial_state_standard(chess_russell_wyl,State,
+[(b4,white,queen),(b5,black,pawn),(c7,black,pawn),(d2,white,knight),(e3,white,pawn),
+ (e4,white,king), (e6,black,pawn),(e8,black,king),(f6,black,queen),(h4,black,rook)]).
+
+generate_initial_state_standard(chess_vijay_1,State,
+[(b4,white,queen),(b5,black,pawn),(c7,black,pawn),(d2,white,knight),(e3,white,pawn),
+ (e4,white,king), (e6,black,pawn),(e8,black,king),(f6,black,queen),(h4,black,rook)]).
+
+generate_initial_state_standard(chess_vijay_2,State,
+[(b4,white,queen),(b5,black,pawn),(c7,black,pawn),(d2,white,knight),(e3,white,pawn),
+ (e4,white,king), (e6,black,pawn),(e8,black,king),(f6,black,queen),(h4,black,rook)]).
+
+generate_initial_state_standard(chess_vijay_3,State,
+[(b4,white,queen),(b5,black,pawn),(c7,black,pawn),(d2,white,knight),(e3,white,pawn),
+ (e4,white,king), (e6,black,pawn),(e8,black,king),(f6,black,queen),(h4,black,rook)]).

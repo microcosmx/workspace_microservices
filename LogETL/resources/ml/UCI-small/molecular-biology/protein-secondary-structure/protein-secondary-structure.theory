@@ -1,0 +1,286 @@
+
+    PREDICTING SECONDARY STRUCTURES OF PROTEINS: A Domain Theory
+
+An important problem in molecular biology is that of predicting "protein
+secondary structure."  Briefly, the task is:
+ 
+  for each element in a protein sequence (drawn from a 20-letter alphabet), 
+      assign it to one of three classes (alpha helix, beta sheet, or coil).  
+
+Qian and Sejnowski [3] produced a set of examples 
+protein-secondary-structure.[train,test] (this directory).  Originally via 
+anonymous ftp from spice.cs.cmu.edu; cd to /afs/cs/project/connect/bench.
+
+We present here an imperfect "state-based" domain theory for this problem,
+which closely implements the algorithm of Chou and Fasman [1].  Further
+details can be found in [2] (available via anonymous ftp from
+steves.cs.wisc.edu (128.105.2.201) in pub/maclin.fskbann.ps.Z).
+
+Should you use this dataset, please reference [2], and kindly inform us
+of any interesting results you obtain.
+
+					Sincerely,
+
+					Rich Maclin (maclin@cs.wisc.edu)
+					Jude Shavlik (shavlik@cs.wisc.edu)
+
+					Computer Sciences Department
+					University of Wisconsin
+					1210 W. Dayton Street
+					Madison, WI  53706
+
+
+
+                         The Chou-Fasman Domain Theory
+			 -----------------------------
+
+The Chou-Fasman algorithm [1] involves three activities: 
+	(1) recognizing "nucleation" sites, 
+        (2) extending these sites, and 
+        (3) resolving overlapping predictions.
+We provide in this file more details of these three steps and describe our
+representation of their algorithm as a collection of rules.
+
+To recognize nucleation sites, Chou and Fasman assign two conformation
+values to each of the 20 amino acids.  The conformation values represent how 
+likely an amino acid is to be part of either a helix or sheet structure, with 
+higher values being more likely.  They also group the amino acids into classes 
+of similar conformation value.  The classes for helix are formers, 
+high-indifferent, indifferent, and breakers.  Those for sheet are formers, 
+indifferent, and breakers.  Table 1 defines the values for the various types of
+breakers and formers.
+
+Table 2 contains the rules we use to represent the Chou-Fasman algorithm; 
+"x@N" is true if x is the amino acid N positions from the one whose secondary 
+structure the algorithm is predicting.  It predicts an alpha-helix nucleation
+site if for some consecutive set of six amino acids, at least four are helix 
+formers and less than two are helix breakers.  (Two helix high-indifferent amino
+acids count as a helix former.)  A rule to determine if a location is a 
+nucleation site simply adds the helix-former and helix-breaker values for a 
+window of amino acids six wide, and if the totals are greater than four and less
+than two respectively, predicts a helix nucleation site (proposition init-helix
+in our rules).  Nucleation of beta-sheets is similar to alpha-helix nucleation,
+except that the window is only five amino acids wide and a sheet nucleation site
+is predicted if there at least three sheet formers and less than two sheet
+breakers.
+
+The third step of the algorithm - resolving overlaps - is the reason we use
+the numbers in Table 1 rather than making the formers and breakers Boolean 
+properties.  Chou and Fasman suggest that the conformation values of regions be
+compared to resolve overlaps.  This is done in our domain theory by weighting the 
+links from various amino acids according to the numbers in Table 1.  For
+example, a combination of four alanines (A's) will produce a higher activation 
+of the init-helix unit than a combination of four phenylalanines (F's).
+
+The Chou-Fasman algorithm continues to predict alpha-helix as long as the 
+predicate cont-helix is true.  The rules define cont-helix mostly in terms of 
+helix-breaking rules - a helix continues as long as a break region is not 
+encountered.  An alpha-helix break region occurs when an helix-breaker amino 
+acid is immediately followed by either another helix-breaker or a 
+helix-indifferent amino acid.  A helix is also broken when encountering the 
+amino acid proline (P).  The process of extending beta-sheet structures works 
+similarly.  The algorithm predicts coil as the default.
+
+Results (from [2]) using data from Qian and Sejnowski's study [3] are
+presented in Table 3.  Results are shown for the Chou-Fasman domain theory,
+standard neural networks (ANN), and the Chou-Fasman domain theory after
+refinement by neural networks.
+
+
+                                                                   
+            Table 1.  Former and breaker values for the amino acids [*].
+	    -------------------------------------------------------
+
+helix-former(E)       =  1.37  helix-former(A)  =  1.29  helix-former(L)  =  1.20
+helix-former(H)       =  1.11  helix-former(M)  =  1.07  helix-former(Q)  =  1.04
+helix-former(W)       =  1.02  helix-former(V)  =  1.02  helix-former(F)  =  1.00
+helix-former(K)       =  0.54  helix-former(I)  =  0.50
+helix-former(others)  =  0.00
+
+helix-breaker(N)       =  1.00  helix-breaker(Y)  =  1.20  helix-breaker(P)  =  1.24
+helix-breaker(G)       =  1.38
+helix-breaker(others)  =  0.00
+
+sheet-former(M)       =  1.40  sheet-former(V)  =  1.39  sheet-former(I)  =  1.34
+sheet-former(C)       =  1.09  sheet-former(Y)  =  1.08  sheet-former(F)  =  1.07
+sheet-former(Q)       =  1.03  sheet-former(L)  =  1.02  sheet-former(T)  =  1.01
+sheet-former(W)       =  1.00
+sheet-former(others)  =  0.00
+
+sheet-breaker(K)       =  1.00  sheet-breaker(S)  =  1.03  sheet-breaker(H)  =  1.04
+sheet-breaker(N)       =  1.14  sheet-breaker(P)  =  1.19  sheet-breaker(E)  =  2.00
+sheet-breaker(others)  =  0.00
+
+-----
+[*] We produced these values using the tables reported by Chou and Fasman 
+[1, pg. 51].  We normalized the values for formers by dividing the conformation
+value of the given former by the conformation value of the weakest former.  So
+for example, the helix former value of alanine (A) is 1.29 since the helix 
+conformation value of alanine is 1.45 and the conformation value of the weakest
+helix former phenylalanine (F) is 1.12.  Breaker values work similarly except
+that the value used to calculate the breaker value is the multiplicative
+inverse of the conformation value.
+
+We did not directly use the values of Chou and Fasman for two reasons.  
+One, we wanted smaller values, to decrease the number of times three very strong
+helix-formers would add up to more than 4 (and similarly for sheets).  Two, 
+breaker conformation values tend to be numbers between 0 and 1 with the stronger
+breakers being close to 0.  We wanted the breaker value to be larger the 
+stronger the breaker, so we used the inverse of the breaker's conformation 
+value (restricting the result to not exceed 2).
+
+
+
+
+Table 2.  The Chou-Fasman algorithm expressed as inference rules.
+-----------------------------------------------------------------
+
+/* As formulated, the structure-prediction task is to look at a 13-element
+   "window" in a protein sequence and categorize the center element.  This
+   window is slid down the sequence until all elements (amino acids) are
+   classified.  The ends are padded with an 21st element ("solvent")
+   so that the window is always full.  */
+
+/* This is a "state-based" domain theory, by which we mean that
+   the outputs (states) from one window position form part of the
+   input when classifying the next element.  More explicitly,
+   the outputs of this domain theory are:
+	helix(output), sheet(output), coil(output).
+   The previous outputs are part of the input and are noted as:
+	helix(input), sheet(input), coil(input). */
+
+/* The domain-theory syntax is roughly Prolog (no variables are used).
+   Some non-standard syntax is used for summing the values in Table 1. */
+
+/* Rules for recognizing nucleation sites. */
+
+       init-helix	:-  position=5
+				__
+				>  helix-former(amino-acid@position)    >  4 
+				--
+			    position=0
+
+				AND
+
+			    position=5
+				__
+				>  helix-breaker(amino-acid@position)   <  2 
+				--
+			    position=0
+
+
+
+	init-sheet	:-  position=4
+				__
+				>  sheet-former(amino-acid@position)    >  3 
+				--
+			    position=0
+
+				AND
+
+			    position=4
+				__
+				>  sheet-breaker(amino-acid@position)   <  2 
+				--
+			    position=0
+
+
+
+/* Rules for pairs of amino acids that terminate helix structures. */
+
+	helix-break@0	:-	N@0.
+	helix-break@0	:-	Y@0.
+	helix-break@0	:-	P@0.
+	helix-break@0	:-	G@0.
+	helix-break@1	:-	N@1.
+	helix-break@1	:-	Y@1.
+	helix-break@1	:-	P@1.
+	helix-break@1	:-	G@1.
+	helix-indiff@1	:-	K@1.
+	helix-indiff@1	:-	I@1.
+	helix-indiff@1	:-	D@1.
+	helix-indiff@1	:-	T@1.
+	helix-indiff@1	:-	S@1.
+	helix-indiff@1	:-	R@1.
+	helix-indiff@1	:-	C@1.
+
+	break-helix	:-	helix-break@0, helix-break@1.
+	break-helix	:-	helix-break@0, helix-indiff@1.
+
+
+/* Rules for pairs of amino acids that terminate sheet structures. */
+
+	sheet-break@0	:-	K@0.
+	sheet-break@0	:-	S@0.
+	sheet-break@0	:-	H@0.
+	sheet-break@0	:-	N@0.
+	sheet-break@0	:-	P@0.
+	sheet-break@0	:-	E@0.
+	sheet-break@1	:-	K@1.
+	sheet-break@1	:-	S@1.
+	sheet-break@1	:-	H@1.
+	sheet-break@1	:-	N@1.
+	sheet-break@1	:-	P@1.
+	sheet-break@1	:-	E@1.
+	sheet-indiff@1	:-	A@1.
+	sheet-indiff@1	:-	R@1.
+	sheet-indiff@1	:-	G@1.
+	sheet-indiff@1	:-	D@1.
+
+	break-sheet	:-	sheet-break@0, sheet-break@1.
+	break-sheet	:-	sheet-break@0, sheet-indiff@1.
+
+
+/* Rules for continuing structures. */
+
+	cont-helix	:-	not P@0, not break-helix.
+	cont-sheet	:-	not P@0, not E@0, not break-sheet.
+
+
+/* Rules for predicting helix: either by nucleation or propagating the last state. */
+
+	helix(output)	:-	init-helix.
+	helix(output)	:-	helix(input), cont-helix.
+
+
+/* Rules for predicting sheet: either by nucleation or propagating the last state. */
+
+	sheet(output)	:-	init-sheet.
+	sheet(output)	:-	sheet(input), cont-sheet.
+
+
+/* Rules for predicting coil (the default). */
+
+	coil(output)	:-	helix(input), break-helix.
+	coil(output)	:-	sheet(input), break-sheet.
+	coil(output)	:-	coil(input), not init-helix, not init-sheet.
+
+
+
+             Table 3.  Results from different predictions methods.
+             ----------------------------------------------------
+
+   -------------------------------------------------------------------------
+   |            |       Testset Accuracy        | Correlation Coefficients |
+   |            ------------------------------------------------------------
+   |   Method   | Total | Helix | Sheet | Coil  |  Helix |  Sheet |  Coil  |
+   -------------------------------------------------------------------------
+   |Chou-Fasman | 57.3% | 31.7% | 36.9% | 76.1% |  0.24  |  0.23  |  0.26  |
+   |    ANN     | 61.8  | 43.6  | 18.6  | 86.3  |  0.35  |  0.25  |  0.31  |
+   |  FSkbann   | 63.4  | 45.9  | 35.1  | 81.9  |  0.37  |  0.33  |  0.35  |
+   -------------------------------------------------------------------------
+
+
+                                   References
+				   ----------
+[1] Chou, P. and Fasman, G., "Prediction of the secondary structure of proteins
+      from their amino acid sequence", Advanced Enzymology 47 (1978), pp 45-148.
+
+[2] Maclin, R. and Shavlik, J., "Refining algorithms with knowledge-based
+      neural networks:  Improving the Chou-Fasman algorithm for protein folding",
+      Working Paper 91-2, Computer Sciences Dept., Univ. of Wisconsin - Madison,
+      1991.
+
+[3] Qian, N. and Sejnowski, T., "Predicting the secondary structure of globular
+      proteins using neural network models", J. of Molecular Biology 202 (1988),
+      pp 865-884.

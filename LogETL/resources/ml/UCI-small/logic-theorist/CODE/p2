@@ -1,0 +1,116 @@
+:- dynamic r/2.
+:-op(190,xfx,<==>).
+:-op(180,xfx,=>).
+:-op(150,fx,~).
+:-op(160,xfx,and).
+:-op(170,xfx,or).
+:-dynamic learned_theorem/2.
+
+thm( [1,2],	A or A  		=> A).
+thm( [1,3], 	A 			=> B or A).
+thm( [1,4], 	A or B 			=> B or A).
+thm( [1,5],	A or (B or C) 		=> B or (A or C)).
+thm( [1,6], 	(A => B) 		=> (C or A => C or B)).
+thm( X, Y) :- learned_theorem(X,Y).
+
+r( [2,0,1], 	(p => ~p)		=> ~p).
+r( [2,0,2], 	q			=> (p => q)).
+r( [2,0,3], 	(p => ~q)		=> (q => ~p)).
+r( [2,0,4], 	(p => (q => r))		=> (q => (p => r))).
+r( [2,0,5], 	(q => r) 		=> ((p => q) => (p => r))).
+r( [2,0,6], 	(p => q) 		=> ((q => r) => (p => r))).
+r( [2,0,7], 	p			=> p or p).
+r( [2,0,8], 	p			=> p).
+
+r( [2,1],	~p			or	p).
+r( [2,1,1],	p			or	~p).
+r( [2,1,2],	p			=> ~ (~p)).
+r( [2,1,3],	p			or	~ (~(~p))).
+r( [2,1,4], 	~ (~ p)			=> p).
+r( [2,1,5],	(~p => q)		=> (~q => p)).
+r( [2,1,6],	(p => q)		=> (~q => ~p)).
+r( [2,1,7],	(~q => ~p) 		=> (p => q)).
+r( [2,1,8],	(~p => p)		=> p).
+
+r( [2,2],	p			=> p or q).
+r( [2,2,1],	~p			=> (p => q)).
+r( [2,2,4],	p			=> (~p => q)).
+r( [2,2,5],	p			or (p or q => q)).
+r( [2,2,6],	~p			or ((p => q) => q)).
+r( [2,2,7],	p 			=> ((p => q) => q)).
+
+r( [2,3],	p or (q or r)		=> (p or (r or q))).
+r( [2,3,1],	p or (q or r)		=> (p or q) or r).
+r( [2,3,2],	(p or q) or r		=> p or (q or r)).
+r( [2,3,6],	(q => r)		=> (p or q => r or p)).
+r( [2,3,7],	(q => r)		=> (q or p => p or r)).
+r( [2,3,8],	(q => r) 		=> (q or p => r or p)).
+
+r( [2,4],	p or (p or q)		=> p or q).
+r( [2,4,1],	q or (p or q)		=> p or q).
+r( [2,4,2],	~p or (p => q)		=> (p => q)).
+r( [2,4,3],	(p => (p => q))		=> (p => q)).
+r( [2,4,5],	~(p or q)		=> ~p).
+r( [2,4,6],	~(p or q)		=> ~q).
+r( [2,4,7],	~(p or q)		=> ~p or q).
+r( [2,4,8],	~(p or q) 		=> p or ~q).
+r( [2,4,9],	~(p or q)		=> ~p or ~q).
+
+r( [2,5],	~(p => q)		=> (~p => q)).
+r( [2,5,1],	~(p => q)		=> (p => ~q)).
+r( [2,5,2],	~(p => q)		=> (~p => ~q)).
+r( [2,5,2,1],	~(p => q)		=> (q => p)).
+r( [2,5,3],	p or q			=> (~p => q)).
+r( [2,5,4],	(~p => q)		=> p or q).
+r( [2,5,5],	~p			=> (p or q => q)).
+r( [2,5,6],	~q			=> (p or q => p)).
+
+r( [2,6],	~p			=> (q => ((p => q) =>q))).
+r( [2,6,1],	(p => q)		=> ((~p => q) => q)).
+r( [2,6,2],	p or q			=> ((p => q) => q)).
+r( [2,6,2,1],	(p => q)		=> (p or q => q)).
+r( [2,6,3],	p or q 			=> (~p or q => q)).
+r( [2,6,4],	p or q			=> (p or ~q => p)).
+r( [2,6,5],	(p => q)		=> ((p => ~q) => ~p)).
+r( [2,6,7],	(p or q => q)		=> (p => q)).
+r( [2,6,8],	((p => q) => q)		=> p or q).
+r( [2,6,9],	((p => q) => q)		=> ((q => p) => p)).
+
+r( [2,7,3],	(p => q)		=> ((p or q) or r => q or r)).
+r( [2,7,4],	(q => p)		=> ((p or q) or r => p or r)).
+r( [2,7,5],	p or q			=> (p or (q => r) => p or r)).
+r( [2,7,6],	(p or (q => r))		=> (p or q => p or r)).
+r( [2,7,7],	(p => (q => r))		=> ((p => q) => (p => r))).
+
+r( [2,8],	q or r			=> (~r or s => q or s)).
+r( [2,8,1],	(q => (r => s))		=> ( p or q => ((p or r) => (p or s)))).
+r( [2,8,2],     ((p or q) or r)         => (((p or ~r) or s) => ((p or q) or s))).
+r( [2,8,3], 	(p => (q => r))		=> ((p => (r => s)) => (p => (q => s)))).
+r( [2,8,5],	(p or q => p or r)	=> p or (q => r)).
+r( [2,8,6],	((p => q) => (p => r))	=> (p => (q => r))). /* corrected by Pfahringer 4-14-89 */
+
+r([3,1], 	(p and q) => ~(~p or ~q)).
+r([3,1,1],	~(~p or ~q) => (p and q)).
+r([3,1,2],	~p or (~q or (p and q))).
+r([3,1,3],	~(p and q) => (~p or ~q)).
+r([3,1,4],	(~p or ~q) => ~(p and q)).
+r([3,2],	p => (q => (p and q))).
+r([3,2,1],	q => (p => (p and q))).
+r([3,2,2],	(p and q) => (q and p)).
+r([3,2,4],	~(p and ~p)).
+r([3,2,6],	(p and q) => p).
+r([3,2,7],	(p and q) => q).
+r([3,3],	((p and q) => r) => (p => (q => r))).
+r([3,3,1],	(p => (q => r)) => ((p and q) => r)).
+r([3,3,3],	((p => q) and (q => r)) => (p => r)).
+r([3,3,4],	((q => r) and (p => q)) => (p => r)).
+r([3,3,5],	(p and (p => q)) => q).
+r([3,3,7],	((p and q) => r) => ((p and ~r) => ~q)).
+r([3,4],	(p and q) => (p => q)).
+r([3,4,1],	(p => r) => ((p and q) => r)).
+r([3,4,2],	(q => r) => ((p and q) => r)).
+r([3,4,3],	((p => q) and (p => r)) => (p => (q and r))).
+r([3,4,4],	((q => p) and (r => p)) => ((q or r) => p)).
+r([3,4,5],	(p => q) => ((p and r) => (q and r))).
+r([3,4,7],	((p => r) and (q => s)) => ((p and q) => (r and s))).
+r([3,4,8],	((p => r) and (q => s)) => ((p or q) => (r or s))).

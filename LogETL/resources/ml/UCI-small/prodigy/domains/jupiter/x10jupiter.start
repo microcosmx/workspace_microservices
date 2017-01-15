@@ -1,0 +1,5 @@
+clear
+echo
+echo             Starting the Jupiter Master....  (RT & CLISP)
+/../schubert/usr/worldm/src/master/master -n jupiter &
+/../schubert/usr/worldm/src/user/x10user -u /../schubert/usr/worldm/domains/jupiter.ui &

@@ -1,0 +1,27 @@
+(Message inbox:15)
+Received: from saturn.cs.jhu.edu by ICS.UCI.EDU id aa09762; 9 May 90 14:42 PDT
+Received: by saturn.cs.jhu.edu ; Wed, 9 May 90 17:48:41 -0400
+Date: Wed, 9 May 90 17:48:41 -0400
+From: Steven Salzberg <salzberg%saturn@saturn.cs.jhu.edu>
+Full-Name: Steven Salzberg
+Sender: salzberg@saturn.cs.jhu.edu
+To: aha@ICS.UCI.EDU
+In-Reply-To: "David W. Aha"'s message of Wed, 09 May 90 14:14:51 -0700 <9005091414.aa08166@ICS.UCI.EDU>
+Subject: Documentation request
+Message-ID:  <9005091442.aa09762@ICS.UCI.EDU>
+
+
+I'll send you an article on the Pima Indians which I think explains the
+data (I've read the article, but I haven't looked at or run the data yet).
+
+The protein data has a single * in it.  My understanding is that this
+asterisk marks the division between the test set and the training set
+as used by Qian and Sejnowski in their study with this data: 
+
+Qian, N. and T. Sejnowski (1988)
+Predicting the secondary structure of globular proteins using
+neural network models.  {\it Journal of Molecular Biology, 202},
+865-884.
+
+It's also the same test/training division that my student, Scott Cost,
+and I used for our study, which has been submitted to a conference.

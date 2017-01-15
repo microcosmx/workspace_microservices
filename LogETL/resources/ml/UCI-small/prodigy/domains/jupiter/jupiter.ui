@@ -1,0 +1,26 @@
+Initialization IS
+--just call several C routines after putting the appropriate parameters 
+--on the stack
+    BLOCK
+	SetSphereRes:
+		6
+		5
+	SetCylinderRes:
+		6
+	SetCircleRes:
+		8
+
+JupiterWorld IS
+    BLOCK
+	twod:
+	loadview:
+	  "jelloworld/view"
+	USetAtmosphericViscosity:
+		35
+		10
+	LoadObjects:
+		"jelloworld/objects"
+		"ALL"
+		0
+
+INCLUDE "shared.ui"

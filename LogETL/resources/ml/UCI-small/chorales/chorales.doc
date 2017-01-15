@@ -1,0 +1,106 @@
+1. Title of Database: Bach Chorales (time-series).
+
+2. Sources:
+
+   (a) Chorales: Mainous and Ottman edition.
+            Mainous, Frank D. and Robert W. Ottman, eds. 1966.
+            The 371 Bach Chorales.  Holt, Rinehart and Winston, New York.
+
+   (b) Original owners of database: 
+            Darrell Conklin
+            ZymoGenetics Inc.
+            1201 Eastlake Avenue East
+            Seattle WA, 98102
+            conklin@zgi.com
+
+   (c) Donor of database:
+            Same as owner.  Ann Blombach of Ohio State University originally
+            supplied me with 4-voice encodings of 100 chorales.  The present
+            database is the soprano line, converted into Lisp-readable form, 
+            and extensively corrected.
+
+3. Past Usage:
+
+Conklin, Darrell and Witten, Ian.  1995.  Multiple Viewpoint Systems
+for Music Prediction.  Journal of New Music Research.  24(1):51-73.
+
+(Successfully coded chorales in a test set with an average of ~1.8 bits
+per pitch.  Used a learning technique called Multiple Viewpoints.)
+            
+Abstract:
+
+This paper examines the prediction and generation of music using a
+multiple viewpoint system, a collection of independent views of the
+musical surface each of which models a specific type of musical
+phenomena.  Both the general style and a particular piece are modeled
+using dual short-term and long-term theories, and the model is created
+using machine learning techniques on a corpus of musical examples.
+
+The models are used for analysis and prediction, and we conjecture
+that highly predictive theories will also generate original,
+acceptable, works.  Although the quality of the works generated is
+hard to quantify objectively, the predictive power of models can be
+measured by the notion of entropy, or unpredictability.  Highly
+predictive theories will produce low-entropy estimates of a musical
+language.
+
+The methods developed are applied to the Bach chorale melodies.
+Multiple-viewpoint systems are learned from a sample of 95 chorales,
+estimates of entropy are produced, and a predictive theory is used to
+generate new, unseen pieces."
+
+4. Dataset synopsis
+
+Sequential (time-series) domain.  Single-line melodies of 100 Bach
+chorales (originally 4 voices).  The melody line can be studied
+independently of other voices.  The grand challenge is to learn a
+generative grammar for stylistically valid chorales (see references
+and discussion in "Multiple Viewpoint Systems for Music Prediction").
+
+5. Number of Instances: 100 Chorales, each with ~45 events
+
+6. Number of Attributes: 6 (nominal) per event
+
+            (a) start-time, measured in 16th notes from 
+                chorale beginning (time 0)
+            (b) pitch, MIDI number (60 = C4, 61 = C#4, 72 = C5, etc.)
+            (c) duration, measured in 16th notes
+            (d) key signature, number of sharps or flats,
+                positive if key signature has sharps, 
+                negative if key signature has flats
+            (e) time signature, in 16th notes per bar
+            (f) fermata, true or false depending on whether
+                event is under a fermata
+
+7. Attribute domains (all integers): 
+
+            (a) {0,1,2,...}
+            (b) {60,...,75}
+            (c) {1,...,16}
+            (d) {-4,...,+4}
+            (e) {12,16}
+            (f) {0,1}
+
+8. Missing Attribute Values: none, repeated sections (|: :|) are 
+            not re-encoded, i.e., |:A:|B is encoded as AB.
+
+9. Class Distribution: one class
+
+10. The grammar describing the chorale dataset:
+
+            Dataset -> Chorale*
+            Chorale -> (Chorale_Number (Events))
+            Events  -> Event Events
+            Events  -> Event
+            Event   -> (Attributes)
+            Attributes -> (st S) (pitch N) (dur D) 
+                          (keysig K) (timesig T) (fermata F)
+
+                         (see 7. above for attribute domains)
+
+
+
+
+
+
+

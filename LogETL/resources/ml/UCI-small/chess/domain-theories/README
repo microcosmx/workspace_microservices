@@ -1,0 +1,59 @@
+This directory contains domain theories for generating the legal moves 
+of chess. Six different encodings written in pure prolog are included.
+
+The six encoding are briefly described below:
+
+1) chess_flann_new: Written by flann@cs.orst.edu. Employs a geometric 
+   representation for states, with each square designated by an X,Y 
+   coordinate and square connectivity computed by vectors. Generates 
+   legal moves by first generating peusdo moves then eliminating those 
+   that result in the moving player being in check.
+
+2) chess_flann_wyl: Written by flann@cs.orst.edu. Employs a relational
+   representation for states, with each square given a unique name and 
+   square connectivity computed by an enumeration of connected relations.
+   Generates legal moves by first generating peusdo moves then eliminating
+   those that result in the moving player being in check.
+
+3) chess_russell_wyl: Originally written by Stuart Russell in MRS, 
+   translated into prolog by flann@cs.orst.edu. Employs a geometric 
+   representation for states, with each square designated by an X,Y 
+   coordinate and square connectivity computed by vectors. Generates 
+   legal moves by determining whether the moving side is in check.
+   If the moving side is in check, moves are generated that destroy the
+   check threat. If the moving side is not in check, moves are generated 
+   that do not create a check threat. Note that if the moving side 
+   is in check from multiple threats then the domain theory generates 
+   incorrect moves.
+
+4) chess_vijay_1: Written by vijay@cs.orst.edu. Employs a relational
+   representation for states, with each square given a unique name and 
+   square connectivity computed by an enumeration of connected relations.
+   Generates legal moves by first generating peusdo moves then eliminating
+   those that result in the moving player being in check.
+
+5) chess_vijay_2: Written by vijay@cs.orst.edu. Employs a geometric 
+   representation for states, with each square designated by an X,Y 
+   coordinate and square connectivity computed by vectors. Generates 
+   legal moves by first generating peusdo moves then eliminating those 
+   that result in the moving player being in check.
+
+6) chess_vijay_3: Written by vijay@cs.orst.edu. Employs a special linear
+   representation for states, with each square designated by a single number
+   and square connectivity computed by a single delta value. Generates 
+   legal moves by first generating peusdo moves then eliminating those 
+   that result in the moving player being in check.
+
+Each domain theory includes a sample state called state1 that describes
+the board position illustrated as Figure 4(d) in Flann and Dietterich,
+"A study of explanation-based methods for inductive learning" in 
+Machine Learning, 4 187-226. See file test_domain_theories for an example
+of loading and running the domain theories.
+
+In addition to the domain theories, a file called support_code is 
+included that contains some useful prolog routines. One routine
+takes a generic chess board description and a domain theory name, and
+produces a prolog state description suitable for use with the given 
+domain theory. See file test_domain_theories for an example of 
+generating state descriptions.
+

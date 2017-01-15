@@ -1,0 +1,6 @@
+[pstart].
+[comp_gen_3].
+[pprint_troff].
+loadafile(rote,'~/LT/NEW_experiments/RESULTS/state11').
+loadafile(ebl,'~/LT/NEW_experiments/RESULTS/state12').
+report(testing).

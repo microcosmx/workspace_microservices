@@ -1,0 +1,252 @@
+(Message inbox:12)
+Received: from uunet.uu.net by ICS.UCI.EDU id aa17880; 18 Nov 88 13:19 PST
+Received: from mnetor.UUCP by uunet.UU.NET (5.59/1.14) with UUCP 
+	id AA03459; Fri, 18 Nov 88 16:17:56 EST
+Received: by mnetor.UUCP (smail2.3)
+	id AA14328; 18 Nov 88 15:54:38 EST (Fri)
+Received: by dciem.UUCP (smail2.5)
+	id AA06974; 18 Nov 88 14:17:20 EST (Fri)
+Received: from csih.UofO.EDU (uotcsih.ARPA) 
+	by csi2.UofO.EDU (4.12/smail2.5/09-29-87)
+	id AA29672; Tue, 15 Nov 88 15:41:01 est
+Received: by csih.UofO.EDU (3.2/smail2.5/09-29-87)
+	id AA23069; Tue, 15 Nov 88 15:44:50 EST
+Date: Tue, 15 Nov 88 15:44:50 EST
+From: stan <stan@csi2.UofO.EDU>
+Message-Id: <8811152044.AA23069@csih.UofO.EDU>
+To: aha@ICS.UCI.EDU
+
+Learn set
+
+
+parameters
+run mode ambig trim wts echo evtcovd
+1   dc   empty gen  all  all yes
+
+domaintypes
+type levels name
+lin   5     dur
+lin   51    wage
+nom   3     cola
+lin   50  hrs
+nom   3  pension
+lin   20  stby_pay
+lin   26  shift_diff
+nom    2  boolean
+lin   20   holidays
+nom   3  vacation
+nom   3  dntl_ins
+nom   3  empl_hplan
+
+variables
+#   name
+1   dur
+2   wage1.wage
+3   wage2.wage
+4   wage3.wage
+5   cola
+6   hours.hrs
+7   pension
+8   stby_pay
+9   shift_diff
+10    educ_allw.boolean
+11   holidays
+12   vacation
+13   lngtrm_disabil.boolean
+14   dntl_ins
+15   bereavement.boolean
+16   empl_hplan
+
+
+wage-names
+value name
+0  2.0
+1   2.1
+2   2.3
+3   2.4
+4   2.5
+5   2.6
+6   2.7
+7   2.8
+8   2.9
+9   3.0
+10   3.1
+11   3.2
+12   3.3
+13   3.4
+14   3.5
+15   3.6
+16   3.7
+17   3.8
+18   3.9
+19   4.0
+20   4.1
+21   4.2
+22   4.3
+23   4.4
+24   4.5
+25   4.6
+26   4.7
+27   4.8
+28   4.9
+29   5.0
+30   5.1
+31   5.2
+32   5.3
+33   5.4
+34   5.5
+35   5.6
+36   5.7
+37   5.8
+38   5.9
+39   6.0
+40   6.1
+41   6.2
+42   6.3
+43   6.4
+44   6.5
+45   6.6
+46   6.7
+47   6.8
+48   6.9
+49   7.0
+
+
+
+cola-names
+value name
+0   none
+1   tcf
+2   tc
+
+pension-names
+value name
+0   none
+1   ret_allw
+2   empl_contr
+
+
+vacation-names
+value name
+0   ba
+1   avg
+2   gnr
+
+dntl_ins-names
+value name
+0   none
+1   half
+2   full
+
+empl_hplan-names
+value name
+0   none
+1   half
+2   full
+
+boolean-names
+value name
+0   false
+1   true
+
+good-events
+#   dur  wage1  wage2  wage3  cola  hours   pension
+1   2    3.0    7.0     *     *     38      *
+2   2    4.0    5.0     *     tcf   35      *
+3   2    4.5    5.8     *     *     35      ret_allw
+4   2    7.0    5.3     *     *     *       *
+5   2    4.3    4.4     *     *     38      *
+6   3    3.7    4.0    5.0    tc    *       *
+7   3    4.0    5.0    5.0    tc    *       empl_contr
+8   2    4.5    4.5     *     tcf   *       *
+9   1    2.8    *       *     *     35      *
+10  1    5.0      *       *     *     40      *
+11  3    6.9    4.8    2.3    *     40      *
+12  2    6.4    6.4     *     *     38      *
+13  2    2.0    2.5     *     *     35      *
+14  1    6.0    *       *     *     38      *
+15  3    6.0    6.0    4.0    *     35      *
+16  2    4.5    4.0     *     *     40      *
+17  3    5.0    5.0    5.0    *     40      *
+18  2    4.6    4.6    *      tcf   38      *
+
+good-events
+#   stby_pay  shift_diff  educ_allw  holidays  vacation  
+1   12        25          true       11        ba
+2   13         5          *          15        gnr
+3   *          *          true       11         ba
+4   *          *          *          11         *
+5   *          4          *          12        gnr
+6   *          *          true        *        *
+7   *          *          *          12        gnr
+8   *          *          true       10        ba
+9   *          2         *          12        ba
+10  *          2         *          11        avg
+11  *          3          *          12        ba
+12  *          4         *          15        *
+13  *          6          true      12         avg
+14  8          3          *          9         gnr
+15  *          14          *         9         gnr
+16  *          4           *        10         gnr
+17  *          *          *         12         avg
+18  *          *          *          *          *
+
+good-events
+#   lngtrm_disabil  dntl_ins  bereavement  empl_hplan
+1   true             half            true    *
+2   *                *                  *    *
+3   *                full               *    full
+4   true             full               *    *
+5   *                full               *    full
+6   *                   *            true    *
+7   true             none            true    half
+8   true             none               *    half
+9   *                  *                *    *
+10  *                  *             true    *
+11  *                  *                *    *
+12  *                full               *    *
+13  *                *                  *    *
+14  *                *                  *    *
+15  true             full            true    full
+16  *                half               *    full
+17  *                half            true    half
+18  true             half               *    half
+ 
+
+bad-events
+#   dur   wage1   wage2  wage3  cola  hours  pension
+1   2      2.0    3.0    *      none    38   empl_contr
+2   1      4.0    *      *      none    *    none
+3   3      3.0    2.0    2.5     tc    40   none
+4   2      2.5    3.0    *       *     40    none
+5   2      2.5    2.5    *       *     38    empl_contr
+6   2      4.0    5.0    *       none  40    none
+7   1      2.8     *     *       none  38    empl_contr
+8   3      2.0    2.5    *       *     35    none
+9   2      4.5    4.0    *       *     40    *
+     
+bad-events
+#  stby_pay  shift_diff   educ_allw  holidays  vacation
+1   *           *         true         12        gnr
+2   *           *          true         11        avg
+3   *           5         false         10       ba
+4   *           *          *            11       ba
+5   *           *          *            10       avg
+6   *           3          false        10       ba
+7   2           3         false         9        ba
+8   *           *         *             10       avg
+9   *           2         false         10       ba
+
+bad-events
+#   lngtrm_disabil  dntl_ins  bereavement  empl_hplan
+1   true            none      true          full
+2   false           none      false         none
+3   true            half      true          full
+4    *              *          *            *
+5    *              *          *             *
+6    false          none       *            none
+7   true            half       *             none
+8   *               *          true         full
+9   false           half       *            half
+
+

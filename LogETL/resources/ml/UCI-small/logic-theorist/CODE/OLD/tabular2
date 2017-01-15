@@ -1,0 +1,98 @@
+:- dynamic sofar/1,avg/1,effective/1.
+report(X) :- retract(sofar(X)), fail.
+report(X) :- asserta(sofar(-1)),
+	     gettitle(Y), tell(X), balign(Y), beginnicely, nicely, endnicely,
+			ealign, cleanup, told, tell(user).
+beginnicely :- write('\begin{tabular}{|r||c|r|r|r|r|r|} \hline \hline'),nl,
+	       write('\#&S&C&V&D&IB&AB\\ \hline'),nl.
+endnicely :- write(' \hline'), nl, write('\end{tabular}'), nl.
+
+balign(Y) :- write('\section{'), write(Y), write('}'), nl,
+             	write('\centerline{'), nl.
+ealign :- write('}'), nl.
+
+gettitle(Y) :- write('Enter the title of table in quotes now'), 
+		nl, write('Terminate with a period'), nl,
+		write('Title?  '),  read(Y).
+nicely :- r(X,_), process(X), fail.
+nicely :- true.
+
+cleanup :- dostats, killstats, write('\clearpage'), nl.
+
+dostats :- write('\begin{tabular}{lrrr}'), nl,
+	   write('&Mean & Standard Dev& Sample Size\\'), nl,
+	   write('Ratio &'),  nl, bagof(X,avg(X),Y), compute(Y),
+	   write('Effective Branch &'), nl,
+	   bagof(Z,effective(Z),A), compute(A), 
+	   write('\end{tabular}'),!.
+killstats :- retract(avg(X)), fail.
+killstats :- retract(effective(X)), fail.
+killstats :- true.
+
+
+process(Q) :- retract(sofar(X)),
+	 ( ( X>44, endnicely, write('\hfil'), nl, beginnicely,
+	     asserta(sofar(0))); Y is X+1, asserta(sofar(Y))), process2(Q),!.
+
+process2(X) :- solved2([_,X,Y,Goals,HowFar2]), getdepth(Y,Depth),
+		HowFar is HowFar2 + 1,
+		guess(Guess,HowFar,Goals),
+		compute_ideal_breadth(Guess, Depth, Goals, 0.0001, Breadth),
+		write_list(X), write('&+&'), write(Goals), write('&'),
+		write(HowFar), write('&'), 
+		write(Depth), write('&'),
+		format('~2f',Breadth), write('&'), 
+		format('~2f',Guess), write('\\'), nl, 
+		asserta(avg(Guess)), asserta(effective(Breadth)),
+		asserta(vitalstats(X,yup,Goals,HowFar,Depth,Breadth,Guess)).
+
+process2(X) :- not_solved2([_,X,Goals,HowFar2,Depth]),
+		HowFar is HowFar2 + 1,
+		guess(Guess, HowFar , Goals),
+		compute_ideal_breadth(10000,Depth,Goals, 0.0001, Breadth),
+		asserta(avg(Guess)), asserta(effective(Breadth)),
+		write_list(X), write('&-&'), write(Goals), write('&'),
+		write(HowFar), write('&'),
+		write(Depth), write('&'),
+		format('~2f',Breadth), write('&'), 
+		format('~2f',Guess), write('\\'), nl,
+		asserta(vitalstats(X,nope,Goals,HowFar,Depth,Breadth,Guess)).
+
+
+write_list([A|B]) :- write(A), write('.'), write_list2(B).
+write_list2([]).
+write_list2([A|B]) :- write(A), write_list2(B).
+
+
+	
+getdepth([],0).
+getdepth([A|R],Val) :- getdepth(R,Val2), !,
+		       (((A = dt ; A = cb ; A = cf) , Val is Val2 + 1 ) 
+						   ; Val is Val2).
+
+guess(Guess, Expanded, Total) :- Guess is Total/Expanded.
+
+
+
+
+sum([],0,0,0).
+sum([H|T], Xsquared, X, Len) :- !,
+	sum(T, Xsquared2, X2, Len2),
+	Xsquared is Xsquared2 + (H * H),
+	X is X2 + H,
+	Len is Len2 + 1.
+
+
+stats(Xsquared, X, Num, Mean, Stddev) :-
+	Mean is X / Num,
+	Stddev2 is (Xsquared - ((X * X)/Num))/(Num - 1.0),
+	sqrt(Stddev2,Stddev).
+
+
+compute(L) :-
+	sum(L,X2,X,N), stats(X2, X, N, M, S),
+	write(M), write('&'), nl,
+	write(S), write('&'), nl,
+	write(N), write('\\'), nl.
+
+

@@ -1,0 +1,77 @@
+1. Title: Quadruped Mammals
+
+2. Sources: 
+   -- Gennari, J.~H., Langley, P, \& Fisher, D. (1989). Models of
+      incremental concept formation. {\it Artificial Intelligence\/},
+      {\it 40\/}, 11--61.
+   -- Donor: John H. Gennari (gennari@camis.stanford.edu 8/1992)
+   -- Date: 25 August 1992
+
+3. Past Usage: 
+     -- See reference above
+        -- CLASSIT recorded 95% accuracy after only 35 instances.  Many other
+           evaluations of CLASSIT using this domain are also described.
+
+4. Relevant Information:
+     The file animals.c is a data generator of structured instances
+     representing quadruped animals as used by Gennari, Langley, and Fisher
+     (1989) to evaluate the CLASSIT unsupervised learning algorithm. Instances
+     have 8 components: neck, four legs, torso, head, and tail.  Each 
+     component is represented as a simplified/generalized cylinder (i.e.,
+     inspired by David Marr's work in "Vision: A Computational Investigation 
+     Into the Human Representation  and Processing of Visual Information",
+     published by Freeman in 1982). Each cylinder is itself described by 9
+     attributes: location x 3, axis x 3, height, radius, and texture.  This
+     code generates instances in one of four classes: dogs, cats, horses,
+     and giraffes.  The program generates instances by selecting a class
+     according to a distribution determined by function rand4().  Each
+     class has a prototype; the prototype of the selected class is
+     perturbed according to a distribution described in the code for the
+     four classes (i.e., parameterized means with Guassian distributions are  
+     used to represent prototypes and perturbation distributions, where the
+     means are used to distinguish the four classes).
+
+     From John Gennari: (1990)
+	The only notes I have about it is that I don't use the data format
+     it creates any more. To change this, modify "printpart()". Also, it uses a
+     very rough approximation for a bell-shaped distribution. Currently, I use
+     a much more sophisticated random number generator. To fix this, just
+     replace "bellrand()" with a real bell shaped distribution.
+
+5. Number of Instances: unlimited
+
+6. Number of Attributes: 72
+
+7. Attribute Information: 
+     A. Eight components per instances/animal:
+        1. Head
+        2. Tail
+        3. 4 legs
+        4. torso
+        5. neck   
+     B. Nine attributes per component:
+        1. Location 1
+        2. Location 2
+	3. Location 3
+	4. Axis 1
+	5. Axis 2
+	6. Axis 3
+	7. Height
+	8. Radius
+	9. Texture
+
+8. Missing Attribute Values: none
+
+9. Class Distribution: See definition in rand4(). Easily modifiable.
+   -- I used this program, as is, to generate 5000 instances.  The
+      class distribution was as follows:
+
+        Giraffe 1273 25.46%
+        Dog     1275 25.50%
+        Cat     1234 24.68%
+        Horse   1218 24.36%
+                ----
+                5000
+
+   -- Thus, the program is currently set up to generate classes with 
+      approximately the same probability. [from David Aha, 25 August 1992]

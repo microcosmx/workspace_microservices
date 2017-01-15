@@ -1,0 +1,53 @@
+Wed, 05 Apr 89 
+From: Gary Bradshaw
+
+  We measure performance using signal detection measurements.  Specifically,
+we are using a', which is a non-parametric measure of signal detection.
+For the C class, we get a' values of about 0.71.  For the M class, 0.78,
+and for the X class, 0.90.  (X are easy because they are so rare in the
+database.)  By the way, a' ranges in value between 0.5 and 1.0.  (You could
+get a value less than 0.5, but you'd have to work hard to do that.)  It's NOT
+a linear function, so it is much harder to move from 0.9 to 0.95 than to
+move from 0.5 to 0.55.
+
+  If you make a prediction that is a probability of flare occurrence for
+each item in the test database, you can compute a' in a reasonably
+straightforward manner.  Assume you have a threshold of 5%.  Any prediction
+over 5% is a prediction of a flare.  Each prediction under 5% is a prediction
+of no flare.  Then you can enter all items in the following table:
+
+			flare		no flare
+			predicted	predicted
+
+flare occurred		  hit		miss
+
+no flare occurred	false alarm	correct rejection
+
+
+Only two numbers from this table are actually used: the hits, and the false
+alarms.  These frequencies are turned into probabilities.  These data can 
+then be plotted on the following graph:
+
+		|
+		|
+	p(hit)	|
+		|
+		|
+		------------------
+			p(false alarm)
+
+The next step is to generate an ROC curve.  This is done by moving the
+threshold up (by 10% or so), and repeating the process.  You should generate
+a set of points where the probability of a hit is matched against the 
+probability of a false alarm.  a' is the area under the ROC curve.  We are
+interpolating a curve between the points, but you can simply fit triangles
+and find the area of the triangle.  It won't make much difference.
+
+Right now, we split the database into two, train on half, and test on the
+other half.  There is a larger database that has recently become available,
+but we don't understand the record structure yet.  I'll let you know when
+we get it figured out.  The new database is very large.  As I recall, it's
+about 10 MBytes worth of data, but I could be way off.
+
+					Gary
+

@@ -1,0 +1,512 @@
+/******************************************************************************
+       Domain theory for Othello in Prolog.
+       (actual dialect is Quintus Prolog, but little is dialect specific).
+
+       Tom Fawcett (fawcett@cs.umass.edu)
+       COINS Deptartment, LGRC
+       University of Massachusetts
+       Amherst, MA  10373
+       February, 1992.
+
+References:
+	"Automatic Feature Generation for Problem Solving Systems"
+	T. Fawcett and P. Utgoff.  
+	Ninth International Conference on Machine Learning
+	Aberdeen, Scotland. 1992.  pp 144-153.
+
+
+=============================================================================
+  Primitives:
+
+        State-independent:
+  square(S) - S is a square
+  direction(D) - D is a direction
+  player(P) - P is a player (x and o)
+  neighbor(S1,Dir,S2) - The neighbor of square S1 is S2 in direction Dir.
+  opponent(A,B) - the opponent of A is B.
+
+        State-specific:
+  owns(P,S) - player P owns square S.
+  blank(S) - square S is blank.
+
+==============================================================================
+
+Notes about the representation here:
+
+1) There is no explicit 'board' parameter of these state-specific predicates.
+They are all relative to the 'current board', which is state-specific and may
+be set via set_current_board.  The implementation of these operational
+primitives is irrelevant to the domain theory, but they are defined in
+veclowlevel.pl.
+
+2) Similarly, the MOVE operator, when executed, performs a state change.
+Rather than passing back a structure denoting the effect of the operator, it
+actually *changes* the current board.  Therefore, the caller must copy the
+current board before applying the operator, if the previous board is to be
+preserved. 
+
+This "state change" approach was taken to avoid having to append board
+parameters to every primitive in the domain theory.  However, I don't think
+it would make a difference to Zenith one way or another, as I don't think
+anything that depends on this representation.
+
+******************************************************************************/
+
+
+%  Meta-info about predicates:
+
+%  Standard mode information
+:- mode 
+	win(?),
+	score(?, ?),
+	opponent(?, ?),
+	player(?),
+	blank(?),
+	owns(?, ?),
+	direction(?),
+	square(?),
+	neighbor(?, ?, ?),
+	legal_move(?, ?),
+	bs(?, ?, ?),
+	span(?, ?, ?, ?),
+	in_line(?, ?, ?),
+	line(?, ?, ?),
+	\+(+).
+
+%  Determinacy of predicates.  Arguments are either bound or var (unbound).
+:- determinate
+	owns(bound, bound),
+	score(bound, var),
+	opponent(bound, var), opponent(var, bound),
+	neighbor(bound, bound, var), neighbor(var, bound, bound), 
+	            neighbor(bound, var, bound),
+	bs(bound, bound, var),
+	span(bound, var, bound, var),	% Dir is redundant in this case.
+	line(bound, bound, var).
+
+
+
+%  Operationality information
+operational(square).
+operational(direction).
+operational(neighbor).
+operational(player).
+operational(opponent).
+operational(owns).
+operational(blank).
+
+%  Declaration of state-specific predicates
+state_specific_pred(owns).
+state_specific_pred(blank).
+state_specific_pred(bs).
+
+%  Calls to these will be used to compute feature cost, when feature cost
+%  is measured by predicate calls rather than CPU time.
+counted_predicate(square).
+counted_predicate(direction).
+counted_predicate(neighbor).
+counted_predicate(player).
+counted_predicate(opponent).
+counted_predicate(owns).
+counted_predicate(blank).
+
+/*****************************************************************
+
+The following facts should be asserted about every operator:
+	OPERATOR(Op)
+	PRECONDITIONS(Op, Preconds)
+        EFFECTS(Op, Postconds)
+	ZENITH_OPERATOR(Op)
+	OPPONENT_OPERATOR(Op)
+	AGENT_OPERATOR(Op)
+
+where Op is a term specifying the operator and its arguments,
+Preconds is an expression specifying the conditions under which Op is legal,
+and Postconds specify the postconditions of the operator.
+
+Both Preconds and Postconds should be callable, as they cause a state change
+as side-effects.
+*****************************************************************/
+
+/************  The MOVE operator  **********/
+operator(move(_Player,_Square)).
+zenith_operator(move(x, _Square)).
+opponent_operator(move(o, _Square)).
+
+preconditions(move(MP,MS),
+	      legal_move(MS,MP)).
+
+%  A specification of the effects.  Note that this states that EVERY piece
+%  in the span ends up owned by MP, which is redundant because
+%  if multiple spans are included, then the move square will be set
+%  multiple times.
+%
+%  In this specification, MP is the player making the move, MS is the square
+%  of the move, S2 is the last piece in the span (before the bracket),
+%  and FlipSq is a flipped square.
+effects(move(MP,MS),
+	(forall(bs(MS,S2,MP),			% For every bracketed span
+	       forall(in_line(FlipSq,MS,S2),	% For every square in the span
+		      set_owns(MP,FlipSq))      %  change ownership to move player
+			))).
+
+%  Calling this executes the move.
+do(move(MP,MS)) :- 
+	preconditions(move(MP,MS),Preconditions),
+	call(Preconditions),		% Make sure preconds are satisfied.
+	effects(move(MP,MS), Effects),
+	call(Effects).			% Create the effects.
+
+
+
+%   WIN(P) - Player P has won on the current board.
+win(P) :-
+	end_of_game,                % Used to have a cut here
+	player(P),
+	opponent(P,Opp),
+	score(P,PDiscs),
+	score(Opp,OppDiscs),
+	PDiscs > OppDiscs.
+
+%  SCORE(Player,Score) - Player has Score on the current board.
+score(Player,Score) :- 	count([Move], owns(Player,Move), Score).
+
+
+%   END_OF_GAME - The current board designates the end of a game.
+end_of_game :-
+	\+legal_move(_,x),
+	\+legal_move(_,o).
+
+
+%   LEGAL_MOVE(?Square, ?Player)
+%   Square is a legal move for Player if it is blank and there is a bracketed
+%   span emanating from Square.
+legal_move(Square, Player) :-
+	square(Square),
+	bs(Square, _, Player).
+
+legal_moves(Player,X) :- setof(M,legal_move(M,Player),X), !.
+legal_moves(_Player,[]).			  % If no proofs of legal_move
+
+
+%  BS(?S1, ?S3, ?P) - There is a bracketed span from S1 to S4.
+%                A bracketed span of a player is an empty square, followed by
+%                a span of discs owned by the opponent, followed by a disc 
+%                owned by the player. 
+%                NOTE that S1 is the BLANK square, and S3 is the LAST
+%                square owned by the opponent.  The final bracketing piece is
+%                not included in the span.
+bs(S1,S3,P) :-
+	blank(S1),
+	opponent(P,Opp),
+	direction(Dir),
+	neighbor(S1,Dir,S2),
+	span(S2,S3,Dir,Opp),
+	neighbor(S3,Dir,S4),
+	owns(P,S4).
+
+
+%  SPAN(?S1, ?S2, ?Dir, ?Owner)
+%  There is a span from S1 to S2 in direction Dir owned by Owner.  Note that
+%  Dir could be inferred from S1 and S2, but is included explicitly for
+%  convenience.  Note also that a span has length>=1.
+%
+%  This returns the longest spans first.
+span(S1, S2, Dir, Owner) :-
+	owns(Owner, S1),
+	neighbor(S1, Dir, S3),
+	span(S3, S2, Dir, Owner).
+span(S, S, _, Owner) :- owns(Owner,S).
+
+
+%  IN_LINE(S, Start, End)
+%
+%  Square S is in the span from Start to End.  Note that this is 
+%  state independent because it doesn't consider ownership of squares.
+%
+in_line(S, Start, End) :-
+	direction(Dir),
+	line(Start, S, Dir),		% There is a line from Start to S,
+	line(S, End, Dir).		%  and there is a line from S to End.
+
+
+%  LINE(?From, ?To, ?Dir)
+%
+%  There is a line of squares from From to To in direction Dir.
+%  A line can contain only one square, in which case From=To.
+%  Note that this is state independent.
+%
+line(From, From, _).
+line(From, To, Dir) :-
+	neighbor(From, Dir, Next),
+	line(Next, To, Dir).
+
+
+%  FORALL(p(...),q(...)) - 
+%  For every satisfaction of p, satisfy q.  Succeeds once.
+%
+%  This looks to be equivalent to the forall utility in the Quintus library
+%  package library(foreach).
+%
+forall(P, Q) :- call(P), \+call(Q), !, fail.
+forall(_P,_Q).
+
+
+/**********************************************************************
+      These define the board topology
+**********************************************************************/
+%  The directions
+direction(n). 
+direction(ne).  
+direction(e).  
+direction(se).  
+direction(s).
+direction(sw).  
+direction(w).  
+direction(nw).
+
+%  The squares
+square(a1).  square(a2).  square(a3).  square(a4).  square(a5).
+square(a6).  square(a7).  square(a8).  square(b1).  square(b2).
+square(b3).  square(b4).  square(b5).  square(b6).  square(b7).
+square(b8).  square(c1).  square(c2).  square(c3).  square(c4).
+square(c5).  square(c6).  square(c7).  square(c8).  square(d1).
+square(d2).  square(d3).  square(d4).  square(d5).  square(d6).
+square(d7).  square(d8).  square(e1).  square(e2).  square(e3).
+square(e4).  square(e5).  square(e6).  square(e7).  square(e8).
+square(f1).  square(f2).  square(f3).  square(f4).  square(f5).
+square(f6).  square(f7).  square(f8).  square(g1).  square(g2).
+square(g3).  square(g4).  square(g5).  square(g6).  square(g7).
+square(g8).  square(h1).  square(h2).  square(h3).  square(h4).
+square(h5).  square(h6).  square(h7).  square(h8).
+
+%  NEIGHBOR(S1, Dir, S2) 
+%  Square S2 is the neighbor of S1 in the Dir direction.
+%
+neighbor(a1,e,b1). neighbor(a1,se,b2). neighbor(a1,s,a2). neighbor(b1,e,c1).
+neighbor(b1,se,c2). neighbor(b1,s,b2).  neighbor(b1,sw,a2). neighbor(b1,w,a1).
+neighbor(c1,e,d1).  neighbor(c1,se,d2). neighbor(c1,s,c2). neighbor(c1,sw,b2).
+neighbor(c1,w,b1). neighbor(d1,e,e1). neighbor(d1,se,e2).  neighbor(d1,s,d2).
+neighbor(d1,sw,c2). neighbor(d1,w,c1).  neighbor(e1,e,f1). neighbor(e1,se,f2).
+neighbor(e1,s,e2).  neighbor(e1,sw,d2). neighbor(e1,w,d1). neighbor(f1,e,g1).
+neighbor(f1,se,g2). neighbor(f1,s,f2). neighbor(f1,sw,e2).  neighbor(f1,w,e1).
+neighbor(g1,e,h1). neighbor(g1,se,h2).  neighbor(g1,s,g2). neighbor(g1,sw,f2).
+neighbor(g1,w,f1).  neighbor(h1,s,h2). neighbor(h1,sw,g2). neighbor(h1,w,g1).
+neighbor(a2,n,a1). neighbor(a2,ne,b1). neighbor(a2,e,b2).  neighbor(a2,se,b3).
+neighbor(a2,s,a3). neighbor(b2,n,b1).  neighbor(b2,ne,c1). neighbor(b2,e,c2).
+neighbor(b2,se,c3).  neighbor(b2,s,b3). neighbor(b2,sw,a3). neighbor(b2,w,a2).
+neighbor(b2,nw,a1). neighbor(c2,n,c1). neighbor(c2,ne,d1).  neighbor(c2,e,d2).
+neighbor(c2,se,d3). neighbor(c2,s,c3).  neighbor(c2,sw,b3). neighbor(c2,w,b2).
+neighbor(c2,nw,b1).  neighbor(d2,n,d1). neighbor(d2,ne,e1). neighbor(d2,e,e2).
+neighbor(d2,se,e3). neighbor(d2,s,d3). neighbor(d2,sw,c3).  neighbor(d2,w,c2).
+neighbor(d2,nw,c1). neighbor(e2,n,e1).  neighbor(e2,ne,f1). neighbor(e2,e,f2).
+neighbor(e2,se,f3).  neighbor(e2,s,e3). neighbor(e2,sw,d3). neighbor(e2,w,d2).
+neighbor(e2,nw,d1). neighbor(f2,n,f1). neighbor(f2,ne,g1).  neighbor(f2,e,g2).
+neighbor(f2,se,g3). neighbor(f2,s,f3).  neighbor(f2,sw,e3). neighbor(f2,w,e2).
+neighbor(f2,nw,e1).  neighbor(g2,n,g1). neighbor(g2,ne,h1). neighbor(g2,e,h2).
+neighbor(g2,se,h3). neighbor(g2,s,g3). neighbor(g2,sw,f3).  neighbor(g2,w,f2).
+neighbor(g2,nw,f1). neighbor(h2,n,h1).  neighbor(h2,s,h3). neighbor(h2,sw,g3).
+neighbor(h2,w,g2).  neighbor(h2,nw,g1). neighbor(a3,n,a2). neighbor(a3,ne,b2).
+neighbor(a3,e,b3). neighbor(a3,se,b4). neighbor(a3,s,a4).  neighbor(b3,n,b2).
+neighbor(b3,ne,c2). neighbor(b3,e,c3).  neighbor(b3,se,c4). neighbor(b3,s,b4).
+neighbor(b3,sw,a4).  neighbor(b3,w,a3). neighbor(b3,nw,a2). neighbor(c3,n,c2).
+neighbor(c3,ne,d2). neighbor(c3,e,d3). neighbor(c3,se,d4).  neighbor(c3,s,c4).
+neighbor(c3,sw,b4). neighbor(c3,w,b3).  neighbor(c3,nw,b2). neighbor(d3,n,d2).
+neighbor(d3,ne,e2).  neighbor(d3,e,e3). neighbor(d3,se,e4). neighbor(d3,s,d4).
+neighbor(d3,sw,c4). neighbor(d3,w,c3). neighbor(d3,nw,c2).  neighbor(e3,n,e2).
+neighbor(e3,ne,f2). neighbor(e3,e,f3).  neighbor(e3,se,f4). neighbor(e3,s,e4).
+neighbor(e3,sw,d4).  neighbor(e3,w,d3). neighbor(e3,nw,d2). neighbor(f3,n,f2).
+neighbor(f3,ne,g2). neighbor(f3,e,g3). neighbor(f3,se,g4).  neighbor(f3,s,f4).
+neighbor(f3,sw,e4). neighbor(f3,w,e3).  neighbor(f3,nw,e2). neighbor(g3,n,g2).
+neighbor(g3,ne,h2).  neighbor(g3,e,h3). neighbor(g3,se,h4). neighbor(g3,s,g4).
+neighbor(g3,sw,f4). neighbor(g3,w,f3). neighbor(g3,nw,f2).  neighbor(h3,n,h2).
+neighbor(h3,s,h4). neighbor(h3,sw,g4).  neighbor(h3,w,g3). neighbor(h3,nw,g2).
+neighbor(a4,n,a3).  neighbor(a4,ne,b3). neighbor(a4,e,b4). neighbor(a4,se,b5).
+neighbor(a4,s,a5). neighbor(b4,n,b3). neighbor(b4,ne,c3).  neighbor(b4,e,c4).
+neighbor(b4,se,c5). neighbor(b4,s,b5).  neighbor(b4,sw,a5). neighbor(b4,w,a4).
+neighbor(b4,nw,a3).  neighbor(c4,n,c3). neighbor(c4,ne,d3). neighbor(c4,e,d4).
+neighbor(c4,se,d5). neighbor(c4,s,c5). neighbor(c4,sw,b5).  neighbor(c4,w,b4).
+neighbor(c4,nw,b3). neighbor(d4,n,d3).  neighbor(d4,ne,e3). neighbor(d4,e,e4).
+neighbor(d4,se,e5).  neighbor(d4,s,d5). neighbor(d4,sw,c5). neighbor(d4,w,c4).
+neighbor(d4,nw,c3). neighbor(e4,n,e3). neighbor(e4,ne,f3).  neighbor(e4,e,f4).
+neighbor(e4,se,f5). neighbor(e4,s,e5).  neighbor(e4,sw,d5). neighbor(e4,w,d4).
+neighbor(e4,nw,d3).  neighbor(f4,n,f3). neighbor(f4,ne,g3). neighbor(f4,e,g4).
+neighbor(f4,se,g5). neighbor(f4,s,f5). neighbor(f4,sw,e5).  neighbor(f4,w,e4).
+neighbor(f4,nw,e3). neighbor(g4,n,g3).  neighbor(g4,ne,h3). neighbor(g4,e,h4).
+neighbor(g4,se,h5).  neighbor(g4,s,g5). neighbor(g4,sw,f5). neighbor(g4,w,f4).
+neighbor(g4,nw,f3). neighbor(h4,n,h3). neighbor(h4,s,h5).  neighbor(h4,sw,g5).
+neighbor(h4,w,g4). neighbor(h4,nw,g3).  neighbor(a5,n,a4). neighbor(a5,ne,b4).
+neighbor(a5,e,b5).  neighbor(a5,se,b6). neighbor(a5,s,a6). neighbor(b5,n,b4).
+neighbor(b5,ne,c4). neighbor(b5,e,c5). neighbor(b5,se,c6).  neighbor(b5,s,b6).
+neighbor(b5,sw,a6). neighbor(b5,w,a5).  neighbor(b5,nw,a4). neighbor(c5,n,c4).
+neighbor(c5,ne,d4).  neighbor(c5,e,d5). neighbor(c5,se,d6). neighbor(c5,s,c6).
+neighbor(c5,sw,b6). neighbor(c5,w,b5). neighbor(c5,nw,b4).  neighbor(d5,n,d4).
+neighbor(d5,ne,e4). neighbor(d5,e,e5).  neighbor(d5,se,e6). neighbor(d5,s,d6).
+neighbor(d5,sw,c6).  neighbor(d5,w,c5). neighbor(d5,nw,c4). neighbor(e5,n,e4).
+neighbor(e5,ne,f4). neighbor(e5,e,f5). neighbor(e5,se,f6).  neighbor(e5,s,e6).
+neighbor(e5,sw,d6). neighbor(e5,w,d5).  neighbor(e5,nw,d4). neighbor(f5,n,f4).
+neighbor(f5,ne,g4).  neighbor(f5,e,g5). neighbor(f5,se,g6). neighbor(f5,s,f6).
+neighbor(f5,sw,e6). neighbor(f5,w,e5). neighbor(f5,nw,e4).  neighbor(g5,n,g4).
+neighbor(g5,ne,h4). neighbor(g5,e,h5).  neighbor(g5,se,h6). neighbor(g5,s,g6).
+neighbor(g5,sw,f6).  neighbor(g5,w,f5). neighbor(g5,nw,f4). neighbor(h5,n,h4).
+neighbor(h5,s,h6). neighbor(h5,sw,g6). neighbor(h5,w,g5).  neighbor(h5,nw,g4).
+neighbor(a6,n,a5). neighbor(a6,ne,b5).  neighbor(a6,e,b6). neighbor(a6,se,b7).
+neighbor(a6,s,a7).  neighbor(b6,n,b5). neighbor(b6,ne,c5). neighbor(b6,e,c6).
+neighbor(b6,se,c7). neighbor(b6,s,b7). neighbor(b6,sw,a7).  neighbor(b6,w,a6).
+neighbor(b6,nw,a5). neighbor(c6,n,c5).  neighbor(c6,ne,d5). neighbor(c6,e,d6).
+neighbor(c6,se,d7).  neighbor(c6,s,c7). neighbor(c6,sw,b7). neighbor(c6,w,b6).
+neighbor(c6,nw,b5). neighbor(d6,n,d5). neighbor(d6,ne,e5).  neighbor(d6,e,e6).
+neighbor(d6,se,e7). neighbor(d6,s,d7).  neighbor(d6,sw,c7). neighbor(d6,w,c6).
+neighbor(d6,nw,c5).  neighbor(e6,n,e5). neighbor(e6,ne,f5). neighbor(e6,e,f6).
+neighbor(e6,se,f7). neighbor(e6,s,e7). neighbor(e6,sw,d7).  neighbor(e6,w,d6).
+neighbor(e6,nw,d5). neighbor(f6,n,f5).  neighbor(f6,ne,g5). neighbor(f6,e,g6).
+neighbor(f6,se,g7).  neighbor(f6,s,f7). neighbor(f6,sw,e7). neighbor(f6,w,e6).
+neighbor(f6,nw,e5). neighbor(g6,n,g5). neighbor(g6,ne,h5).  neighbor(g6,e,h6).
+neighbor(g6,se,h7). neighbor(g6,s,g7).  neighbor(g6,sw,f7). neighbor(g6,w,f6).
+neighbor(g6,nw,f5).  neighbor(h6,n,h5). neighbor(h6,s,h7). neighbor(h6,sw,g7).
+neighbor(h6,w,g6). neighbor(h6,nw,g5). neighbor(a7,n,a6).  neighbor(a7,ne,b6).
+neighbor(a7,e,b7). neighbor(a7,se,b8).  neighbor(a7,s,a8). neighbor(b7,n,b6).
+neighbor(b7,ne,c6).  neighbor(b7,e,c7). neighbor(b7,se,c8). neighbor(b7,s,b8).
+neighbor(b7,sw,a8). neighbor(b7,w,a7). neighbor(b7,nw,a6).  neighbor(c7,n,c6).
+neighbor(c7,ne,d6). neighbor(c7,e,d7).  neighbor(c7,se,d8). neighbor(c7,s,c8).
+neighbor(c7,sw,b8).  neighbor(c7,w,b7). neighbor(c7,nw,b6). neighbor(d7,n,d6).
+neighbor(d7,ne,e6). neighbor(d7,e,e7). neighbor(d7,se,e8).  neighbor(d7,s,d8).
+neighbor(d7,sw,c8). neighbor(d7,w,c7).  neighbor(d7,nw,c6). neighbor(e7,n,e6).
+neighbor(e7,ne,f6).  neighbor(e7,e,f7). neighbor(e7,se,f8). neighbor(e7,s,e8).
+neighbor(e7,sw,d8). neighbor(e7,w,d7). neighbor(e7,nw,d6).  neighbor(f7,n,f6).
+neighbor(f7,ne,g6). neighbor(f7,e,g7).  neighbor(f7,se,g8). neighbor(f7,s,f8).
+neighbor(f7,sw,e8).  neighbor(f7,w,e7). neighbor(f7,nw,e6). neighbor(g7,n,g6).
+neighbor(g7,ne,h6). neighbor(g7,e,h7). neighbor(g7,se,h8).  neighbor(g7,s,g8).
+neighbor(g7,sw,f8). neighbor(g7,w,f7).  neighbor(g7,nw,f6). neighbor(h7,n,h6).
+neighbor(h7,s,h8).  neighbor(h7,sw,g8). neighbor(h7,w,g7). neighbor(h7,nw,g6).
+neighbor(a8,n,a7). neighbor(a8,ne,b7). neighbor(a8,e,b8).  neighbor(b8,n,b7).
+neighbor(b8,ne,c7). neighbor(b8,e,c8).  neighbor(b8,w,a8). neighbor(b8,nw,a7).
+neighbor(c8,n,c7).  neighbor(c8,ne,d7). neighbor(c8,e,d8). neighbor(c8,w,b8).
+neighbor(c8,nw,b7). neighbor(d8,n,d7). neighbor(d8,ne,e7).  neighbor(d8,e,e8).
+neighbor(d8,w,c8). neighbor(d8,nw,c7).  neighbor(e8,n,e7). neighbor(e8,ne,f7).
+neighbor(e8,e,f8).  neighbor(e8,w,d8). neighbor(e8,nw,d7). neighbor(f8,n,f7).
+neighbor(f8,ne,g7). neighbor(f8,e,g8). neighbor(f8,w,e8).  neighbor(f8,nw,e7).
+neighbor(g8,n,g7). neighbor(g8,ne,h7).  neighbor(g8,e,h8). neighbor(g8,w,f8).
+neighbor(g8,nw,f7).  neighbor(h8,n,h7). neighbor(h8,w,g8). neighbor(h8,nw,g7).
+
+
+%  Player facts
+player(x).  
+player(o).
+opponent(x, o).
+opponent(o, x).
+
+%  Goal information
+zenith_goal(win(x)).
+
+%  These are used to instantiate operators for regress_conditions.
+%  There should be one fact for each agent.  
+agent_operator(move(x, _Move)).
+agent_operator(move(o, _Move)).
+
+
+%  Goal regression information.  Format is:
+%
+%     PREIMAGE(+Condition, +Operation, -Preimage)
+%
+%  Regress.pl uses these preimage facts.
+%
+%  The simplifier understands the basic form of
+%  Prolog if-then and if-then-else constructs, eg
+%     p(X) -> q(X) | r(X)
+%  becomes
+%     (p(X) ^ q(X)) | (\+p(X) ^ r(X))
+%
+%  This translation is inaccurate if p is not determinate.
+%  
+
+%  OWNS
+preimage(owns(Player,Square),
+	 move(MP,MS),				  % Move player, Move square
+	 ( 
+         %% Case 1: Player is the Move Player
+	 Player=MP ->
+	  ( Square=MS -> legal_move(Square,Player)
+	  | otherwise -> 
+		( owns(Player,Square)      % Either Player owned it already
+		| (opponent(Player,Opp),   %  or the opponent owned it and
+		   owns(Opp,Square),       %   it was flipped.
+		   bs(MS,S2,Player),
+		   in_line(Square,MS,S2)
+		  )
+	        )
+	  )
+        %%  Case 2:  Player is NOT the move player
+	 | opponent(Player, MP) ->
+	       ( owns(Player,Square),
+		 \+((bs(MS,S2,MP), in_line(Square,MS,S2)))
+	       )
+	 )
+	 ).   % end of OWNS preimage
+
+%  A blank remains a blank only if it was blank before and
+%   the move was not made into it.
+preimage(blank(S), move(_,MS), (blank(S), MS\==S) ).
+
+%  Preimages of SPAN(Begin,End,Dir,Owner)
+% Case 1: Mover is the Owner
+preimage(span(Begin,End,Dir,Owner),
+	 move(Mover,MS),
+	 ( Owner=Mover ->
+	       ( span_with_hole(Begin,End,Dir,Owner,Mover,MS)
+	       | span_with_subspan(Begin,End,Dir,Owner,Mover,MS)
+	       | span(Begin,End,Dir,Owner)
+	       )
+	 | otherwise ->  span(Begin,End,Dir,Owner)
+	 )).
+
+%  Almost the preconditons for owns(Owner,Square)
+hole(Square, Owner, MoveSquare) :-
+      ( Square=MoveSquare,
+	legal_move(Square, _Player)
+      )
+  ; ( opponent(Owner, Opp),
+      owns(Opp, Square),
+      bs(MS, S2, Owner),
+      in_line(Square, MS, S2)
+  ).
+
+%  Same as span but can be of length zero.
+span_star(Begin, End, Dir, Owner) :- 
+	( span(Begin, End, Dir, Owner) | Begin=End).
+
+span_with_hole(Begin, End, Dir, Owner, Mover, MS) :-
+	span_star(Begin, Hole, Dir, Owner),
+	hole(Hole, Mover, MS),
+	neighbor(Hole, Dir, Next),
+	span_star(Next, End, Dir, Owner).
+
+span_with_subspan(Begin, End, Dir, Owner, Mover, MS) :-
+	span_star(Begin, MS, Dir, Owner),
+	bs(MS, BSend, Mover),
+	span_star(BSend, End, Dir, Owner).
+
+
+
+/**********************************************************
+  OWNS(Player, Square) and BLANK(Square).
+
+  These are operational predicates, and their definitions shouldn't be
+  in here because they refer to the implementation of boards as
+  vectors.  They are in this file so that compile_dt will attach
+  counters to them; they are operational and should be counted.
+************************************************************/
+owns(Player, Square) :- 
+	player_nc(Player),
+	square_nc(Square),
+	squarenum(Square, Num),
+	current_board(Board),
+	vector_element(Num, Board, Ownernum),
+	ownernum(Player, Ownernum).
+
+blank(Square) :-
+	square_nc(Square),
+	current_board(Board),
+	squarenum(Square, Num),
+	vector_element(Num, Board, 0).
+

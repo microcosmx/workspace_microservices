@@ -1,0 +1,1763 @@
+/********************************/
+
+/* THYROID HORMONE RULES  	*/
+
+/* DATE		9/11/89		*/
+
+/********************************/
+
+
+	IF 	NOTEMPTY(st_tsh) 
+	THEN	DOCONTEXT(tsh_rules)
+
+	IF 	NOTEMPTY(st_t3) 
+	THEN	DOCONTEXT(t3_rules)
+
+	IF 	NOTEMPTY(st_tt4) 
+	THEN	DOCONTEXT(tt4_rules)
+
+	IF 	NOTEMPTY(st_t4u) 
+	THEN	DOCONTEXT(t4u_rules)
+
+	IF 	NOTEMPTY(st_tbg) 
+	THEN	DOCONTEXT(tbg_rules)
+
+	IF 	NOTEMPTY(st_fti) 
+	THEN	DOCONTEXT(fti_rules)
+
+	IF	NOTEMPTY(st_ft4)
+	THEN	DOCONTEXT(ft4_rules)
+
+	IF	NOTEMPTY(st_fti) 
+		and NOTEMPTY(st_t4u) 
+		and NOTEMPTY(st_tt4)
+	THEN	DOCONTEXT(fti_check)
+
+CONTEXT(tsh_rules)
+
+	FLOAT(tsh_value)
+	tsh_value=VALUE(st_tsh)
+	
+	IF THEN TSH_BORD = not_ready
+	IF	tsh_value <10  and tsh_value > 6  
+	THEN	TSH_BORD = high
+	
+	IF		TOO_LOW(st_tsh)
+	THEN		TSH = undetect
+	ELSE IF		tsh_value == 0	
+	THEN		TSH=not_ready
+	ELSE IF		tsh_value <0.2 and tsh_value >0
+	THEN		TSH=low
+	ELSE IF		tsh_value <= 6 and  tsh_value >= 0.2
+	THEN		TSH=normal
+	ELSE IF		TOO_HIGH(st_tsh) or (tsh_value > 6)  
+	THEN		TSH=high
+
+CONTEXT(ft4_rules)
+	
+	FLOAT(ft4_value)
+	ft4_value=VALUE(st_ft4)
+
+	IF THEN	FT4_BORD = not_ready
+	IF	ft4_value <= 28 and ft4_value > 20 
+	THEN	FT4_BORD= high
+	ELSE IF ft4_value < 13 and ft4_value > 9 
+	THEN	FT4_BORD = low
+	
+	IF 	ft4_value is 0
+	THEN	FT4 = not_ready
+	ELSE IF TOO_LOW(st_ft4) or (ft4_value < 11 and ft4_value > 0) 
+	THEN	FT4=low
+	ELSE IF TOO_LOW(st_ft4) or (ft4_value > 22 )
+	THEN	FT4=high
+	ELSE IF ft4_value >= 11 and ft4_value <= 22
+	THEN	FT4=normal
+
+CONTEXT(fti_rules)
+
+	FLOAT(fti_value)
+	fti_value=VALUE(st_fti)
+
+	IF THEN	FTI_BORD = not_ready
+	IF fti_value <= 170 and fti_value > 140 
+	THEN		FTI_BORD= high
+	ELSE IF fti_value > 59 and fti_value < 71 
+	THEN	FTI_BORD = low
+
+	IF	fti_value is 0
+	THEN	FTI = not_ready
+	ELSE IF TOO_LOW(st_fti) or (fti_value < 65 and fti_value > 0) 
+	THEN	FTI=low
+	ELSE IF TOO_HIGH(st_fti) or (fti_value > 155) 
+	THEN	FTI=high
+	ELSE IF fti_value >= 65 and fti_value <= 155
+	THEN	FTI=normal
+
+
+CONTEXT(t3_rules)
+
+	FLOAT(t3_value)
+	t3_value=VALUE(st_t3)
+
+
+	IF THEN	T3_BORD = not_ready
+	IF 	t3_value <3.2 and t3_value > 2.6 
+	THEN	T3_BORD= high
+	ELSE IF 	t3_value <1.4 and t3_value > 1.0 
+	THEN	T3_BORD = low
+		
+	IF 	TOO_LOW(st_t3) or ( t3_value < 1.2 and t3_value >0)
+	THEN	T3=low
+	ELSE IF t3_value is 0
+	THEN	T3 = not_ready
+	ELSE IF t3_value > 2.8
+	THEN	T3=high
+	ELSE IF t3_value >= 1.2 and t3_value <= 2.8
+	THEN	T3=normal
+CONTEXT(tt4_rules)
+	
+	FLOAT(tt4_value)
+	tt4_value=VALUE(st_tt4)
+
+	IF THEN	TT4_BORD = not_ready
+	IF 	tt4_value < 160 and tt4_value > 140 
+	THEN	TT4_BORD = high
+	ELSE IF 	tt4_value < 70 and tt4_value > 50
+	THEN	TT4_BORD = low
+	
+	IF 	TOO_LOW(st_tt4) or (tt4_value <60 and tt4_value > 0)
+	THEN	TT4=low
+	ELSE IF tt4_value is 0
+	THEN	TT4 = not_ready
+	ELSE IF tt4_value > 150
+	THEN	TT4 = high
+	ELSE IF  tt4_value >=60 && tt4_value <=150
+	THEN	TT4 = normal
+
+CONTEXT(tbg_rules)
+
+	FLOAT(tbg_value)
+	tbg_value=VALUE(st_tbg)
+
+
+	IF THEN	TBG_BORD = not_ready
+	IF tbg_value < 33 and tbg_value >27
+	THEN	TBG_BORD = high
+	ELSE IF tbg_value <14 and tbg_value >10
+	THEN	TBG_BORD = low
+
+	IF      TOO_LOW(st_tbg) or( tbg_value <12 and tbg_value >0)
+	THEN	TBG=low
+	ELSE IF tbg_value is 0
+	THEN	TBG=not_ready
+	ELSE IF tbg_value >30	
+	THEN	TBG=high
+	ELSE IF tbg_value >= 12 and tbg_value <= 30 
+	THEN  	TBG=normal
+
+CONTEXT(t4u_rules)
+
+	FLOAT(t4u_value)
+	t4u_value=VALUE(st_t4u)
+
+	IF THEN	T4U_BORD = not_ready
+	IF 	t4u_value < 1.35 and t4u_value > 1.15 
+	THEN	T4U_BORD = high
+	ELSE IF 	t4u_value > .5 and t4u_value < .7
+	THEN	T4U_BORD = low
+	
+IF 	TOO_LOW(st_t4u) or ( t4u_value <.6 and t4u_value > 0)
+	THEN	T4U=low
+	ELSE IF t4u_value is 0
+	THEN	T4U = not_ready
+	ELSE IF t4u_value > 1.25
+	THEN	T4U = high
+	ELSE IF  t4u_value >=.6 and t4u_value <=1.25
+	THEN	T4U = normal
+
+CONTEXT(fti_check) /* has the fti been calculated correctly from tt4 & t4u */
+		   /* have to consider rounding errors for each */
+	FLOAT(t4u_v)
+	FLOAT(fti_v)
+	FLOAT(tt4_v)
+
+	fti_v = VALUE(st_fti)
+	t4u_v = VALUE(st_t4u)
+	tt4_v = VALUE(st_tt4)
+
+	IF	not (TOO_LOW(st_fti) or TOO_LOW(st_t4u) or TOO_LOW(st_tt4))
+		and (fti_v isnt 0 and t4u_v isnt 0 and t4u_v isnt 0 
+	        	and tt4_v isnt 0)
+				and ((fti_v  > (tt4_v / t4u_v)*1.05)
+				     or
+				     (fti_v < (tt4_v / t4u_v)*0.95))
+	THEN DIAGNOSIS("The FTI does not equal TT4/T4U")
+
+
+
+
+/*******************************/
+/* COMMENT RULES	etc   	*/
+/* DATE	9/11/89			*/
+/*******************************/
+
+
+/* thyroxin replacement */
+
+RULE(500)    COMMENT CLASS(01)
+IF	not COMMENT("not on t4")
+	and (COMMENT("t4,t3,thyroxin,throxin,thryoxin,replacement")
+	or COMMENT("hypo rx,orox,treated hypo,dxrt,rx"))
+THEN	on_t4 NOW TRUE
+
+RULE(600)    COMMENT CLASS(02)
+IF	COMMENT("panhypo,acromeg,post op,craniophoryngioma,phoryngioma,post pit,pituitary surg")
+THEN	query_t4 NOW TRUE
+
+/* on antithyroid drug */
+
+RULE(800)    COMMENT CLASS(03)
+IF	COMMENT("n/m,neomerca,nmz,treated toxic,pvt ,ptv ,ptu , pvt, ptv, ptu,propyl")
+	or COMMENT("antithyroid")
+THEN	antithyroid NOW TRUE
+
+/* sick euthyroid states */
+
+RULE(1200)    COMMENT CLASS(04)
+IF	COMMENT("CRF,crf,chronic renal failure,infarct,fever,diabet,anaemia")
+	or COMMENT("insulin,stroke")
+THEN	sick NOW TRUE
+
+/* pregnant */
+	
+RULE(1300)    COMMENT CLASS(05)
+IF	COMMENT("preg,toxemia,natal")
+THEN	pregnant NOW TRUE
+
+/* surgery or I131 */
+
+RULE(1400)    COMMENT CLASS(06)
+IF	COMMENT("thyroidectomy,thryoidectomy,thyroid surgery,thryoid surgery,thyroid lobectomy,thryoid lobectomy")
+THEN	surgery NOW TRUE
+
+RULE(1500)    COMMENT CLASS(07)
+IF	COMMENT("i/131,i131,i_131,I131,131I,i 131")
+THEN	i131 NOW TRUE
+
+/* hypothyroid */
+
+RULE(2000)    COMMENT CLASS(08)
+IF	not COMMENT("not hypothyroid")
+	and COMMENT("hypothyroid,thyroiditis,hashi,subthy")
+THEN	hypothyroid NOW TRUE
+
+/* hyperthyroid */
+
+RULE(2200)    COMMENT CLASS(09)
+IF	not COMMENT("not hyperthyroid,not toxic")
+	and (COMMENT("tachycardia,hyperthyroid,toxic,graves,guaves,gaves")
+	or COMMENT("thyroiditis,thyroid nodule"))
+THEN	hyperthyroid NOW TRUE
+
+/* odd drugs etc */
+
+RULE(2500)    COMMENT CLASS(10)
+IF	COMMENT("lithium")
+THEN    lithium NOW TRUE
+
+RULE(2600)    COMMENT CLASS(11)
+IF	COMMENT("tumour,hyperprolac,prolac,galac")
+THEN    tumour NOW TRUE
+
+RULE(2700)    COMMENT CLASS(12)
+IF	COMMENT("goitre")
+THEN    goitre NOW TRUE
+
+RULE(2800)    COMMENT CLASS(13)
+IF	COMMENT("panhypopit,hypopit")
+THEN	hypopit NOW TRUE
+
+RULE(2900)    COMMENT CLASS(14)
+IF	COMMENT("manic,depress,schizo,psych")
+THEN	psych NOW TRUE
+
+RULE(3000)    COMMENT CLASS(15)
+IF	COMMENT("sarcoidosis")
+THEN	antibs NOW TRUE
+
+RULE(3100)    COMMENT CLASS(16)
+IF	tumour or hypopit
+THEN	query_t4 NOW TRUE
+
+RULE(3200)    COMMENT CLASS(17)
+IF	COMMENT("treat,therap")
+THEN	treated NOW TRUE
+
+RULE(3300)    COMMENT CLASS(01)
+IF	treated
+	and hypothyroid
+THEN	on_t4 NOW TRUE
+
+RULE(3400)    COMMENT CLASS(03)
+IF	treated
+	and hyperthyroid
+THEN	antithyroid NOW TRUE
+
+/* nothing worthy in comment */
+
+RULE(99)
+IF	not(on_t4 or query_t4 or antithyroid or pregnant or surgery 
+	or hyperthyroid or hypothyroid or tumour or lithium or goitre 
+	or sick or hypopit or psych)
+THEN	no_comment NOW TRUE
+
+/*************************************/
+/*  these rules moved from thsys.r1  */
+/*************************************/
+
+RULE(10000)
+IF      surgery and goitre
+THEN    goitre NOW FALSE
+
+RULE(10100)
+IF      psych
+THEN    screening NOW TRUE
+
+RULE(10200)
+IF      SOURCE("#WEST")
+THEN    SHORTEN_COMMENT NOW TRUE
+
+
+/********************************/
+/*moved from 2nd section 10/2/88*/
+/********************************/
+
+RULE(10210)
+IF      ((AGE greater than 13 and AGE less than 48) or AGE is 0)
+        and SEX is female
+THEN    ovulatory NOW TRUE
+
+RULE(10220)
+IF      ((((AGE greater than 13 and AGE less than 48) or AGE is 0)
+        and SEX isnt male)
+        or ovulatory)
+        and SOURCE("#STMW")
+THEN    pregnant NOW TRUE
+
+RULE(10230)
+IF      SOURCE("#SVHC")
+THEN    screening NOW TRUE
+
+RULE(10240)
+IF      SOURCE("#SVI")
+THEN    sick NOW TRUE
+
+RULE(10250)
+IF      SOURCE("#SVHD")
+THEN    sick NOW TRUE
+
+RULE(10260)
+IF      AGE greater than 70
+THEN    sick NOW TRUE
+
+/*******************************/
+/* THYROID RULES SECTION 1	*/
+/* DATE	9/11/89			*/
+/*******************************/
+/* a section of rules from here has been moved to the comment section*/
+
+/******************************************/
+/* following rules group FTI,TT4 and FT4  */
+/******************************************/
+ 
+RULE(10300)
+IF	FTI isnt missing
+	and TT4 isnt missing
+THEN	USE("FTI & T4")
+
+RULE(10310)
+IF	FT4 isnt missing
+	and TT4 isnt missing
+THEN	USE("FT4 & T4")
+
+RULE(10311)
+IF	FTI is missing	
+	and TT4 isnt missing
+	and FT4 is missing 
+THEN	USE("T4")
+
+RULE(10320)
+IF	FTI isnt missing
+	and TT4 is missing
+THEN	USE("FTI")
+
+RULE(10330)
+IF	FT4 isnt missing
+	and TT4 is missing
+THEN	USE("FT4")
+
+RULE(10500)
+IF	FT4 is missing and 
+	((FTI is high and TT4 is high) or
+	(FTI is high and TT4 is missing) or
+	(FTI is missing and TT4 is high))
+THEN 	hithy NOW TRUE
+
+RULE(10510)
+IF	FTI is missing and 
+	((FT4 is high and TT4 is high) or
+	(FT4 is high and TT4 is missing) or
+	(FT4 is missing and TT4 is high))
+THEN	hithy NOW TRUE
+
+RULE(10520)
+IF	FTI is high and
+	(TT4 isnt high and TT4_BORD is high)
+THEN	borthy NOW TRUE
+
+RULE(10530)
+IF	((FT4 is high and FT4_BORD isnt high) or
+	(FTI is high and FTI_BORD isnt high))
+THEN	vhthy NOW TRUE
+
+RULE(10540)
+IF	FT4 is missing and
+	((FTI is normal and TT4 is normal) or
+	(FTI is normal and TT4_BORD is low) or
+	(FTI is normal and TT4 is missing) or
+	(FTI is missing and TT4 is normal))
+THEN	northy NOW TRUE
+
+RULE(10550)
+IF	FTI is missing and
+	((FT4 is normal and TT4 is normal) or
+	(FT4 is normal and TT4 is missing) or
+	(FT4 is missing and FT4 is normal))
+THEN	northy NOW TRUE
+
+RULE(10560)
+IF	FT4 is missing and
+	((FTI is low and TT4 is low) or
+	(FTI is low and TT4 is missing) or
+	(FTI is missing and TT4 is low))
+THEN	lothy NOW TRUE
+
+RULE(10570)
+IF	FTI is missing and	
+	((FT4 is low and TT4 is low) or
+	(FT4 is low and TT4 is missing) or
+	(FT4 is missing and TT4 is low))
+THEN    lothy NOW TRUE
+
+RULE(10580)
+IF	FT4 is missing and
+	(T4U is high or FTI is normal)
+	and TT4 is high
+THEN	discthy NOW TRUE
+
+/************************************/
+/* classic thyrotoxic patterns  etc	*/
+/************************************/
+
+
+RULE(11100)	DIAGNOSIS CLASS(01)
+IF 	 T3 is high 
+	 and hithy
+	 and  TSH is missing
+	 and (TBG isnt high and T4U isnt high)
+	 and (not on_t4 or surgery)
+THEN DIAGNOSIS("The T3 and THY are elevated consistent with thyrotoxicosis")
+
+RULE(11110)	DIAGNOSIS CLASS(02)
+IF 	 T3 is high 
+	 and hithy
+	 and  TSH is missing
+	 and (TBG is high or T4U is high)
+	 and (not on_t4 or surgery)
+THEN DIAGNOSIS("The T3 and THY are elevated consistent with thyrotoxicosis and elevated binding protein")
+
+RULE(11200)
+IF 	 T3 is high
+	 and hithy
+	 and  (TSH is undetect or TSH is low)
+THEN 	 ht3t4_utsh NOW TRUE
+
+RULE(11300)		
+IF	T3 is high
+	and northy
+	and  TSH is missing
+THEN    e2_mtsh NOW TRUE
+
+/*******************************/
+/* elevated FT4/T4 patterns etc*/
+/*******************************/
+
+
+RULE(11400)	DIAGNOSIS CLASS(011)
+IF 	(TSH is undetect or TSH is low) 
+	and T3 is high and FTI is high
+	and TT4 is normal
+	and hyperthyroid
+THEN DIAGNOSIS("Elevated FTI and T3, suppressed TSH consistent with thyrotoxicosis")
+
+RULE(11400)	DIAGNOSIS CLASS(01)
+IF      (TSH is undetect or TSH is low)
+        and T3 is high and FTI is high
+        and TT4 is normal
+        and hyperthyroid
+THEN DIAGNOSIS("Elevated FTI and T3, suppressed TSH consistent with thyrotoxicosis")
+
+
+ 
+RULE(11500)
+IF 	T3 is high
+	and lothy
+	and (TSH is undetect or TSH is low)
+THEN	ht3_lt4 NOW TRUE
+
+RULE(11800)
+IF	hithy
+	and T3 is low and T3_BORD isnt low
+	and (TSH is undetect or TSH is low)
+THEN	ethy_vlt3_utsh NOW TRUE
+
+RULE(11810)
+IF	hithy 
+	and T3 is low and T3_BORD is low
+	and (TSH is undetect or TSH is low)
+THEN	ethy_blt3_utsh NOW TRUE
+
+RULE(12000)
+IF	T3 is normal
+	and hithy
+	and (TSH is missing or (TSH is undetect or TSH is low))
+THEN	ethy_utsh NOW TRUE
+
+RULE(12500)	DIAGNOSIS CLASS(55)
+IF 	T3 is high
+	and hithy
+	and TSH is high
+	and (T4U isnt high and not antibs)
+THEN DIAGNOSIS("Elevated T3,THY and TSH consistent with peripheral resistance, or secondary hyperthyroidism")
+
+
+RULE(12501)	DIAGNOSIS CLASS(55)
+IF      (T3 is normal or T3 is missing) 
+        and (hithy or vhthy)
+        and TSH is high
+        and (T4U isnt high and not antibs)
+THEN DIAGNOSIS("Elevated THY and TSH; possible drug interference, peripheral resistance, or secondary hyperthyroidism")
+
+RULE(12502)	DIAGNOSIS CLASS(56)
+IF      T3 is high
+        and (hithy or vhthy)
+        and TSH is high
+        and (T4U is high or antibs)
+THEN DIAGNOSIS("Elevated T3,THY and TSH consistent with antibodies, peripheral resistance, or secondary hyperthyroidism")
+
+RULE(12503)	DIAGNOSIS CLASS(58)
+IF      T3 is high
+        and TT4 is high and FTI is normal
+        and TSH is high
+        and (T4U is high or antibs)
+	and not pregnant and not on_t4 
+THEN DIAGNOSIS("Elevated T3,TT4 and TSH consistent with antibodies")
+
+
+RULE(12520)	DIAGNOSIS CLASS(25)
+IF	lothy
+	and (T3 is missing or T3 is normal)
+	and TSH is missing
+	and (tumour or hypopit or query_t4)
+THEN DOUBLE_DIAGNOSIS("Low THY. ", "consistent with secondary hypothyroidism ")
+
+/************************************/
+/* elevated FT4 or FTI no T3  etc	*/
+/************************************/
+
+RULE(13000)
+IF	(TSH is undetect or TSH is low)
+	and ((FT4 is high and FT4_BORD isnt high)
+	or (FTI is high and FTI_BORD isnt high))
+	and T3 is missing
+	and (TT4 is high or TT4 is missing)
+THEN	utsh_vhft4 NOW TRUE
+
+RULE(13100)
+IF	(TSH is undetect or TSH is low)
+	and ((FT4 is high and FT4_BORD is high)
+	or (FTI is high and FTI_BORD isnt high))
+	and T3 is missing
+	and (TT4 is high or TT4 is missing)
+THEN 	utsh_bhft4 NOW TRUE
+
+/*****************************/
+/* hypothyroid rules  etc    */
+/*****************************/
+
+RULE(14000)
+IF	TSH is high
+	and T3 is normal and T3_BORD is low
+	and lothy
+THEN 	hpo_htsh NOW TRUE
+
+RULE(14100)
+IF 	TSH is high 
+	and T3 is normal and T3_BORD isnt low
+	and lothy
+THEN	lt4nt3htsh NOW TRUE
+
+RULE(14200)
+IF	TSH is high 
+	and T3 is normal
+	and northy
+THEN	nt4t3_htsh NOW TRUE
+
+RULE(14400)
+IF 	T3 is low
+ 	and northy
+	and TSH is high
+THEN	lt3nt4htsh NOW TRUE
+
+
+RULE(14600)
+IF 	lothy
+	and T3 is normal and T3_BORD isnt low 
+	and ( TSH is normal or (TSH is undetect or TSH is low))
+THEN	lft4 NOW TRUE
+
+RULE(14610)	DIAGNOSIS CLASS(32)
+IF	lothy
+	and T3 is missing
+	and TSH is normal
+THEN DIAGNOSIS("Low THY consistent with the sick euthyroid state.")
+
+RULE(14700)	DIAGNOSIS CLASS(13)
+IF	lothy
+	and (T3 is missing or T3 is normal)
+	and TSH is missing
+	and not hypopit and not query_t4
+THEN DOUBLE_DIAGNOSIS("Low THY. ", "The diagnosis of primary hypothyroidism depends upon TSH")
+
+RULE(14800)
+IF 	lothy
+	and T3 is missing
+	and TSH is high
+THEN	lft4_htsh NOW TRUE
+
+RULE(14900)
+IF 	northy
+	and T3 is missing
+	and TSH is high
+THEN nft4_htsh NOW TRUE
+
+RULE(15000)	
+IF	lothy
+	and T3 is low
+	and TSH is missing
+THEN	hypo_sick NOW TRUE
+
+RULE(15100)
+IF	TSH is high
+	and TT4 is missing
+	and FT4 is missing
+	and FTI is missing
+	and (T3 is missing or T3 is low)
+THEN	htsh NOW TRUE
+
+RULE(15200)
+IF 	lothy
+	and T3 is low
+	and TSH is high and TSH_BORD isnt high
+THEN	lt4t3_htsh NOW TRUE
+
+RULE(15300)
+IF 	lothy
+	and T3 is low
+	and TSH_BORD is high 
+THEN	bhtsh_lt4t3 NOW TRUE
+
+RULE(15400)
+IF	TSH is high
+	and T3 is high
+	and northy
+THEN	htsh_ht3nt4 NOW TRUE
+
+/**********************************/
+/*  sick euthyroid rules etc      */
+/**********************************/
+
+RULE(16000)
+IF	T3 is normal and T3_BORD is low
+	and lothy
+	and (TSH is normal or (TSH is undetect or TSH is low))
+THEN	sick_euthy NOW TRUE
+
+RULE(16100)
+IF 	T3 is low 
+	and lothy
+	and (TSH is normal or (TSH is undetect or TSH is low))
+THEN	sick_euthy NOW TRUE
+
+RULE(16400)
+IF 	T3 is low 
+	and northy
+	and (TSH is normal or (TSH is undetect or TSH is low) or TSH is missing)
+THEN    lt3 NOW TRUE
+
+RULE(16500)	DIAGNOSIS CLASS(33)
+IF	T3 is low
+	and (TSH is normal or (TSH is undetect or TSH is low) )
+	and TT4 is missing
+	and FT4 is missing
+	and FTI is missing
+THEN DIAGNOSIS("The T3 is low suggestive of the sick euthyroid state")
+
+RULE(16600)	DIAGNOSIS CLASS(13)
+IF	T3 is low
+	and TT4 is missing
+	and FT4 is missing
+	and FTI is missing
+	and TSH is missing
+THEN DIAGNOSIS("Low T3 diagnosis of hypothyroidism depends on TSH")
+
+
+RULE(16700)	DIAGNOSIS CLASS(32)
+IF	(TSH is undetect or TSH is low)
+	and T3 is low and T3_BORD isnt low
+	and TT4 is high and TT4_BORD is high
+THEN DIAGNOSIS("This profile consistent with sick euthyroid state")
+
+/********************************/
+/* discordant patterns etc	 */
+/********************************/
+RULE(17000)	DIAGNOSIS CLASS(30)
+IF	T4U is low
+	and TT4 is low
+	and FTI is normal
+	and T3 is low
+	and TSH isnt high
+THEN DIAGNOSIS("low T4, T3 and T4U indicative of low binding protein")
+
+RULE(17001)	DIAGNOSIS CLASS(30)
+IF	T4U is low
+	and TT4 is low
+	and T3 isnt low
+	and FTI is normal
+	and (TSH isnt high or TSH is missing)
+THEN DIAGNOSIS("low T4 and T4U indicative of low binding protein")
+
+RULE(17002)	DIAGNOSIS CLASS(35)
+IF	T4U is low 
+	and T3 is low
+	and FTI is high
+	and (TSH is normal or TSH is missing)
+THEN DIAGNOSIS("this profile is consistent with the sick euthyroid state with concurrent low binding protein")
+
+RULE(17010)	DIAGNOSIS CLASS(40)
+IF	T4U is low
+	and TT4 is low
+	and T3 is low
+	and FTI is high
+	and on_t4
+THEN DIAGNOSIS("low T4, T3 and T4U indicative of low binding protein. Elevated FTI due to thyroxine therapy")
+
+RULE(17100)
+IF      hithy
+        and T3 is low
+        and TSH is high
+THEN    say_discordant NOW TRUE
+
+RULE(17020)	DIAGNOSIS CLASS(40)
+IF	T4U is low
+	and TT4 is low
+	and FTI is high
+	and on_t4
+THEN DIAGNOSIS("low T4 and T4U indicative of low binding protein. Elevated FTI due to thyroxine therapy")
+
+
+RULE(17200)
+IF	((FT4 isnt missing and FT4 is low)
+	or (FTI isnt missing and FTI is low))
+	and T3 is high and T3_BORD is missing
+	and TSH is normal
+	and (TT4 is missing or TT4 is normal)
+THEN 	say_discordant NOW TRUE
+
+RULE(17300)	DIAGNOSIS CLASS(31)
+IF	TT4 is low and TT4_BORD is missing
+	and T4U isnt low
+	and (FT4 is normal or FTI is normal)
+	and (T3 is normal or T3 is missing)
+	and ((TSH is undetect or TSH is low) or TSH is normal or TSH is missing)
+THEN DIAGNOSIS("The T4 is low . Query low binding protein.")
+
+/*******************/
+/* normal TSH 	etc */
+/*******************/
+
+RULE(17310)
+IF 	T3 is high 
+	and ((FT4 is normal or FT4 is low) 
+	or (FTI is normal or FTI is low))
+	and TSH is normal 
+THEN	e2_ntsh NOW TRUE
+
+RULE(17340)
+IF	T3 is high 
+	and ((((FT4 is normal or FT4 is low) and FTI is missing)
+	    or ((FTI is normal or FTI is low) and FT4 is missing))
+	  or ((TT4 is normal or TT4 is low)
+	    and FTI is missing and FT4 is missing))
+	and (TSH is undetect or TSH is low)
+THEN 	e2_utsh NOW TRUE
+
+RULE(17500)
+IF	hithy
+	and TSH is normal
+	and (T3 is missing or T3 is low or T3 is normal)
+THEN 	hthy_ntsh NOW TRUE
+
+
+RULE(18000)
+IF	TSH is normal
+	and T3 is high
+	and hithy
+THEN	hthyt3_ntsh NOW TRUE
+
+/***********************************************/
+/*  TBG and rules relating to elevated T4U etc */
+/***********************************************/
+
+RULE(19000)	DIAGNOSIS CLASS(52)
+IF	TBG is high
+	and T3 is missing
+	and TSH is missing
+	and FTI is missing
+	and FT4 is missing
+	and TT4 is missing
+THEN DIAGNOSIS("Elevated TBG.")
+
+
+/********************************/
+/* THYROID RULES SECTION 2      */
+/* DATE		9/11/89		*/
+/********************************/
+
+	
+/******************************************/
+/* rules relating to sick_euthyroid space */
+/******************************************/
+
+
+RULE(20200)	DIAGNOSIS CLASS(26)
+IF 	sick_euthy 
+	and lothy
+	and no_comment
+	and not screening and not sick
+THEN DIAGNOSIS("The T3 and THY are low consistent with the sick euthyroid state.  Secondary hypothyroidism is also possible but unlikely")
+
+RULE(20201)	DIAGNOSIS CLASS(32)
+IF 	sick_euthy 
+	and lothy
+	and T3 isnt normal
+	and not screening and sick
+THEN DIAGNOSIS("The T3 and THY are low consistent with the sick euthyroid state.  ")
+
+RULE(20205)	DIAGNOSIS CLASS(32)
+IF	sick_euthy
+	and lothy
+	and T3 isnt low
+	and sick
+	and not (screening or on_t4 or tumour or surgery or antithyroid or hyperthyroid)
+THEN DIAGNOSIS("Low THY consistent with the sick euthyroid state")
+
+RULE(20210)	DIAGNOSIS CLASS(32)
+IF 	sick_euthy 
+	and not lothy
+	and no_comment
+	and not screening
+THEN DIAGNOSIS("The T3 is low consistent with the sick euthyroid state")
+
+RULE(20400)	DIAGNOSIS CLASS(49)	/* possibly wrong see ken */
+IF 	sick_euthy
+	and lothy
+	and surgery
+	and not screening
+THEN DIAGNOSIS("Low THY and T3 consistent with surgery")
+
+RULE(20401)	DIAGNOSIS CLASS(50)	/* possibly wrong see ken */
+IF 	sick_euthy
+	and lothy
+	and i131
+	and not screening
+THEN DIAGNOSIS("Low THY and T3 consistent with I131 treatment")
+
+RULE(20410)	DIAGNOSIS CLASS(49)/* possibly wrong see ken */
+IF 	sick_euthy
+	and not lothy
+	and surgery
+	and not screening
+THEN DIAGNOSIS("Low T3 consistent with surgery")
+
+RULE(20411)	DIAGNOSIS CLASS(50)	/* possibly wrong see ken */
+IF 	sick_euthy
+	and not lothy
+	and i131
+	and not screening
+THEN DIAGNOSIS("Low T3 consistent with I131 treatment")
+
+RULE(20500)	DIAGNOSIS CLASS(32)	/* possibly wrong see ken */
+IF 	sick_euthy
+	and T3 isnt normal
+	and screening
+THEN DIAGNOSIS("Profile consistent with sick euthyroid state")
+
+RULE(20600)	DIAGNOSIS CLASS(46)
+IF	sick_euthy
+        and lothy
+	and (hyperthyroid or antithyroid)
+	and not screening
+	and not on_t4
+THEN DIAGNOSIS("Low THY and T3 consistent with antithyroid medication")
+
+RULE(20601)	DIAGNOSIS CLASS(41)
+IF	sick_euthy
+	and lothy
+	and on_t4
+THEN DIAGNOSIS("Low THY and T3 consistent with under-replacement")
+
+RULE(20610)	DIAGNOSIS CLASS(46)
+IF	sick_euthy
+        and not lothy
+	and (hyperthyroid or antithyroid)
+	and not screening
+THEN DIAGNOSIS("Low T3 consistent with antithyroid medication")
+ 
+RULE(20700)	DIAGNOSIS CLASS(32)
+IF      lt3
+        and lithium
+THEN DIAGNOSIS("low T3 consistent with the sick euthyroid state")
+
+RULE(20710)	DIAGNOSIS CLASS(32)
+IF      lt3
+        and screening
+        and not lithium
+THEN DIAGNOSIS("The T3 level is low. Consistent with the sick euthyroid state.")
+
+RULE(20720)	DIAGNOSIS CLASS(32)
+IF      lt3
+        and (sick or tumour)
+        and not lithium
+        and not screening
+THEN DIAGNOSIS("The T3 level is low. Consistent with the sick euthyroid state.")
+
+/***************************************/
+/*   elevated ft4 (eft4_utsh,et4_utsh) */
+/***************************************/
+
+
+RULE(21200)	DIAGNOSIS CLASS(45)
+IF 	((ethy_utsh 
+	and on_t4
+	and not screening)
+	or
+	(ht3t4_utsh
+	and on_t4)
+	or
+	((hithy or vhthy or borthy)
+	and (T3 is high or T3_BORD is high)
+	and on_t4))
+	and (((FTI_BORD isnt high and FTI is high)
+	or (FT4_BORD isnt high and FT4 is high))
+	and (TT4_BORD isnt high and TT4 is high))
+	and (TSH is undetect or TSH is low)
+THEN DIAGNOSIS("Elevated thyroid hormones consistent with over-replacement")
+
+RULE(21210)	DIAGNOSIS CLASS(36)
+IF 	((ethy_utsh 
+	and on_t4
+	and not screening)
+	or 
+	(ht3t4_utsh
+	and on_t4)
+	or
+	((hithy or vhthy or borthy)
+	and (T3 is high or T3_BORD is high)
+	and (TSH is undetect or TSH is low)
+	and on_t4))
+	and ((FTI_BORD is high or FT4_BORD is high)
+	and (TT4_BORD is high or TT4 is missing))
+THEN DIAGNOSIS("Slightly elevated thyroid hormones consistent with thyroxine therapy")
+
+RULE(21400)	DIAGNOSIS CLASS(36)
+IF	FTI is high and FTI_BORD isnt high
+	and TT4 is normal and T4U is normal
+	and (TSH is undetect or TSH is low)
+	and on_t4
+THEN DIAGNOSIS("Elevated FTI consistent with thyroxine medication")
+
+RULE(21401)	DIAGNOSIS CLASS(36)
+IF      FTI is high and FTI_BORD is high
+        and TT4 is normal and T4U is normal
+        and on_t4
+THEN DIAGNOSIS("Marginally elevated FTI consistent with thyroxine medication")
+
+RULE(21450)	DIAGNOSIS CLASS(36)
+IF	T3 is normal
+	and TT4 is high
+	and 
+	((FTI isnt low and FT4 isnt low
+	and TSH isnt undetect and TSH isnt high)
+	or (TSH is undetect and FTI is missing and FT4 is missing))
+	and on_t4 and not sick
+THEN DIAGNOSIS("Elevated T4 consistent with thyroxine medication")
+
+
+RULE(21500)	DIAGNOSIS CLASS(39)
+IF	(((ethy_utsh or ht3t4_utsh 
+	or hithy or borthy or vhthy)
+	and T3 isnt missing)
+	or hthy_ntsh)
+	and (surgery or query_t4 or tumour)
+	and not on_t4
+	and not screening
+THEN DIAGNOSIS("Elevated THY query thyroxine medication.")
+
+RULE(21600)	DIAGNOSIS CLASS(39)
+IF	discthy
+	and query_t4
+	and not pregnant
+THEN DIAGNOSIS("Eleveated T4 query thyroxine therapy")
+
+RULE(21700)	DIAGNOSIS CLASS(03)
+IF 	ethy_utsh
+	and (TSH isnt undetect and TSH isnt low)
+	and hyperthyroid
+	and not screening
+	and not on_t4
+THEN DIAGNOSIS("Elevated THY normal T3. Profile seen in a toxic patient with coexisting non-thyroidal illness.")
+
+RULE(21710)	DIAGNOSIS CLASS(01)
+IF	ethy_utsh
+	and antithyroid
+	and not screening
+	and not on_t4
+THEN DIAGNOSIS("Elevated THY normal T3. Profile consistent with toxicosis.")
+
+RULE(21800)	DIAGNOSIS CLASS(03)
+IF	ethy_utsh and (TSH is undetect or TSH is low)
+	and ((FT4_BORD is missing and FTI_BORD is missing)
+	or (TT4 is high and TT4_BORD is missing))
+	and (no_comment 
+	or ((sick or hyperthyroid) 
+	and not (on_t4 or query_t4 or surgery or tumour))) 
+	and not screening
+THEN DIAGNOSIS("Elevated THY, low TSH, normal T3. Consistent with toxicosis with a concurrent non-thyroidal illness.")
+
+RULE(21801)
+IF	ethy_utsh and ((TSH is undetect or TSH is low) or TSH is missing)
+	and (FT4_BORD is high or FTI_BORD is high)
+	and (TT4_BORD is high or TT4 is missing)
+	and T3_BORD isnt high
+	and (no_comment 
+	or (sick and not (on_t4 or query_t4 or surgery or tumour))) 
+THEN 	say_discordant NOW TRUE
+
+RULE(21802)	DIAGNOSIS CLASS(37)
+IF	T3 is low
+	and TSH is normal
+	and FTI is high
+	and sick and on_t4
+THEN DIAGNOSIS("Low T3, high FTI, normal TSH consistent with non-thyroidal illness and t4 therapy")
+
+RULE(21810)	DIAGNOSIS CLASS(04)
+IF	ethy_utsh and TSH is missing
+	and ((FT4_BORD is missing and FTI_BORD is missing)
+	or (TT4 is high and TT4_BORD is missing))
+	and (no_comment or (sick and not (on_t4 or query_t4 or surgery))) 
+	and not screening
+THEN DIAGNOSIS("Elevated THY and normal T3. Query toxicosis in a patient with a concurrent non-thyroidal illness.")
+
+RULE(21820)
+IF	ethy_utsh
+	and ((FT4_BORD is high or (FT4 is missing and TT4_BORD is high))
+	or (FTI_BORD is high or (FTI is missing and TT4_BORD is high)))
+	and no_comment and screening
+THEN 	say_discordant NOW TRUE
+
+RULE(22100)	DIAGNOSIS CLASS(01)
+IF	(ht3t4_utsh
+	and not on_t4)
+	or 
+	((hithy or borthy)
+	and (T3 is high or T3_BORD is high)
+	and (TSH is undetect or TSH is low)
+	and not on_t4)
+THEN DIAGNOSIS("Elevated thyroid hormones consistent with thyrotoxicosis")
+
+RULE(22200)	DIAGNOSIS CLASS(36)
+IF	T3 is missing 
+	and TSH is missing 
+	and hithy and not vhthy
+	and (on_t4 or surgery)
+THEN DIAGNOSIS("Elevated FTI consistent with thyroxine replacement")
+
+RULE(22210)	DIAGNOSIS CLASS(36)
+IF	T3 is missing 
+	and TSH is missing and TT4 isnt low
+	and vhthy 
+	and (on_t4 or surgery)
+THEN DIAGNOSIS("Elevated FTI consistent with thyroxine replacement.")
+
+RULE(22220)	DIAGNOSIS CLASS(39)
+IF	T3 is missing 
+	and TSH is missing 
+	and (vhthy or (discthy and not (pregnant or ovulatory)))
+	and query_t4 and not on_t4
+THEN DIAGNOSIS("Elevated THY. Query thyroxine replacement.")
+
+RULE(22300)	DIAGNOSIS CLASS(53)
+IF	((T3 is missing ) or ( T3 is low and T3_BORD is low)) 
+	and TSH is missing 
+	and hithy and not vhthy
+	and not (query_t4 or on_t4 or surgery 
+	or antithyroid or hypothyroid or hyperthyroid)
+THEN DIAGNOSIS("Elevated THY.")
+
+RULE(22310)	DIAGNOSIS CLASS(01)
+IF	((((T3 is missing ) or ( T3 is low and T3_BORD is low)) 
+	and TSH is missing 
+	and vhthy
+	and not (query_t4 or on_t4 or surgery or tumour
+	or antithyroid or hypothyroid or hyperthyroid))
+	or(
+	(((utsh_bhft4 or 
+	(hithy and T3 is missing and TSH is missing))
+	and (antithyroid or hyperthyroid))
+	or
+	utsh_vhft4
+	or
+	((hithy or borthy)
+	and T3 is missing
+	and (TSH is undetect or TSH is low))
+	)and 
+	not on_t4 and not (query_t4 or tumour or surgery)
+	))
+	and (TT4 isnt low or T4U isnt low)
+THEN DIAGNOSIS("Elevated THY consistent with thyrotoxicosis")
+
+/**************************/
+/* elevated FT4 no T3 etc	*/
+/**************************/
+
+RULE(22400)	DIAGNOSIS CLASS(39)
+IF	utsh_vhft4
+	and not on_t4
+	and (query_t4 or tumour or surgery)
+THEN DIAGNOSIS("Elevated THY suppressed TSH . Query thyroxin therapy.")
+
+RULE(22410)	DIAGNOSIS CLASS(45)
+IF	utsh_vhft4
+	and not (query_t4 or tumour)
+	and on_t4
+THEN DIAGNOSIS("Elevated THY suppressed TSH. consistent with over-replacement of thyroxine.")
+
+RULE(22450)	DIAGNOSIS CLASS(36)
+IF	((utsh_bhft4
+	and on_t4)
+	or
+	((hithy or borthy)
+	and T3 is missing
+	and (TSH is undetect or TSH is low)
+	and on_t4))
+	and not utsh_vhft4
+THEN DIAGNOSIS("Elevated THY consistent with thyroxine therapy")
+
+RULE(23000)
+IF	hthy_ntsh
+	and not (on_t4 or query_t4)
+THEN 	say_discordant NOW TRUE
+
+RULE(23010)	DIAGNOSIS CLASS(36)
+IF	hthy_ntsh 
+	and on_t4
+	and (FTI isnt missing or FT4 isnt missing)
+THEN DIAGNOSIS("Elevated THY consistent with thyroxine replacement.")
+
+
+
+/*******************************/
+/* THYROID RULES SECTION 3     */
+/* DATE		11/9/84		*/
+/*******************************/
+
+
+
+/****************************************************/
+/* rules relating to discordant/oestrogen effect etc*/
+/****************************************************/
+
+RULE(30000)	DIAGNOSIS CLASS(28)
+IF 	(((e2_utsh or e2_ntsh or e2_mtsh)
+	and not htsh_ht3nt4
+	and TT4 isnt high
+	and pregnant)
+	or 
+	(northy
+	and T3 is high
+	and T4U is high
+	and pregnant))
+	and not goitre
+THEN DIAGNOSIS("Elevated T3 consistent with increased binding protein ")
+
+RULE(31000)	DIAGNOSIS CLASS(29)
+IF	hthyt3_ntsh
+	and no_comment and not screening 
+THEN DIAGNOSIS("Elevated THY and T3 normal TSH. Query increased binding protein")
+
+RULE(32000)	DIAGNOSIS CLASS(29)
+IF 	(((e2_utsh or e2_ntsh)
+	and ovulatory and not pregnant)
+	or
+	(northy
+	and (TSH is normal or TSH is missing)
+	and T3 is high
+	and ovulatory and not pregnant))
+	and (no_comment or (goitre and T3_BORD is high))
+	and T4U isnt high and T4U_BORD isnt high
+THEN DIAGNOSIS("Elevated T3 consistent with oestrogen effect. Query increased binding protein")
+
+RULE(32010)	DIAGNOSIS CLASS(28)
+IF 	(((e2_utsh or e2_ntsh)
+	and ovulatory and not pregnant)
+	or
+	(northy
+	and (TSH is normal or TSH is missing)
+	and T3 is high
+	and ovulatory and not pregnant))
+	and (no_comment or (goitre and T3_BORD isnt high))
+	and T4U is high
+THEN DIAGNOSIS("Elevated T3 consistent with increased binding protein")
+
+RULE(32100)	DIAGNOSIS CLASS(44)
+IF	TSH is high
+	and TT4 is normal and FTI is low
+	and T3 is high
+	and on_t4 and pregnant
+THEN DIAGNOSIS("Elevated T3 consistent with increased binding protein. Elevated TSH and low FTI suggest underreplacement")
+
+RULE(32200)
+IF 	(e2_utsh or e2_ntsh)
+	and not discthy
+	and (T3_BORD isnt high or lothy)
+	and SEX is male
+	and no_comment
+THEN 	say_discordant NOW TRUE
+
+RULE(32300)	DIAGNOSIS CLASS(28)
+IF	discthy
+	and TT4_BORD isnt high and FTI_BORD isnt high
+	and (T3 is missing or T3 is normal)
+	and not pregnant and not on_t4 and not query_t4
+THEN DIAGNOSIS("Elevated T4 consistent with increased binding protein")
+
+RULE(32301)	DIAGNOSIS CLASS(28)
+IF      discthy and not hithy
+        and not e2_ntsh
+        and T3 is high
+        and ((TSH is normal)
+        or (TSH is missing and not hyperthyroid))
+        and not pregnant and not on_t4 and not query_t4 and not ovulatory
+THEN DIAGNOSIS("Elevated T3 and T4 consistent with increased binding protein")
+
+RULE(32302)	DIAGNOSIS CLASS(28)
+IF	discthy and e2_ntsh
+	and not pregnant and not on_t4 and not query_t4
+THEN DIAGNOSIS("Elevated T3, T4 and T4U consistent with increased binding protein")
+	
+RULE(32304)	DIAGNOSIS CLASS(28)
+IF	northy
+	and T3 is missing
+	and T4U is high
+	and TSH isnt high
+THEN DIAGNOSIS("Elevated T4U consistent with increased binding protein")
+
+RULE(32305)	DIAGNOSIS CLASS(28)
+IF 	T4U is high 
+	and FTI is low
+	and TT4 is normal
+	and TSH isnt high
+THEN DIAGNOSIS("Elevated T4U consistent with increased binding protein")
+
+RULE(32310)	DIAGNOSIS CLASS(28)
+IF	northy
+	and T3 is high
+	and T4U is high
+	and not pregnant and not on_t4 and not query_t4 and not ovulatory
+	and not goitre
+THEN DIAGNOSIS("Elevated T3 and T4U consistent with increased binding protein")
+
+RULE(32311)	DIAGNOSIS CLASS(01)
+IF      hyperthyroid
+        and T3 is high
+        and TT4 is high
+        and T4U isnt high
+        and TBG isnt high
+	and TSH is missing
+THEN DIAGNOSIS("Elevated T3 and T4 consistent with thyrotoxicosis")
+
+RULE(32320)	DIAGNOSIS CLASS(28)
+IF	discthy
+	and T3 is missing
+	and pregnant
+THEN DIAGNOSIS("Elevated T4 and T4U consistent with increased binding protein ")
+
+RULE(32321)	DIAGNOSIS CLASS(28)
+IF	discthy
+	and T3 is high
+	and TSH isnt high
+	and pregnant and not goitre
+THEN DIAGNOSIS("Elevated T4 and T3 consistent with increased binding protein ")
+
+RULE(32322)	DIAGNOSIS CLASS(07)
+IF	discthy
+	and T3 is high
+	and TSH isnt high
+	and pregnant and goitre
+THEN DIAGNOSIS("Elevated T4 and T3 consistent with a goitre but are more likely due to increased binding protein")
+
+RULE(32323)	DIAGNOSIS CLASS(44)
+IF	discthy
+	and T3 is high
+	and TSH is high
+	and pregnant and on_t4 
+THEN DIAGNOSIS("Elevated T4 and T3 consistent with increased binding protein. Elevated TSH suggests underreplacement")
+
+RULE(32800)	DIAGNOSIS CLASS(05)
+IF	e2_mtsh
+	and T3_BORD isnt high
+	and (not pregnant or no_comment) 
+	and not (ovulatory and SOURCE("#STMW"))
+THEN DIAGNOSIS("The T3 is elevated and T4 is normal consistent with T3 toxicosis")
+
+RULE(32820)	DIAGNOSIS CLASS(05)
+IF	e2_utsh
+	and T4U isnt high
+	and not lothy
+	and 
+	((T3_BORD isnt high
+	and not ovulatory and not pregnant )
+	or
+	(not pregnant 
+	and hyperthyroid))
+	and not goitre
+THEN DIAGNOSIS("Elevated T3 and normal THY with suppressed TSH is consistent with T3-toxicosis.")
+
+RULE(32830)	DIAGNOSIS CLASS(51)
+IF	e2_mtsh
+	and screening
+THEN DIAGNOSIS("Elevated T3 and normal THY. Query drug interaction")
+
+RULE(32900)	DIAGNOSIS CLASS(06)
+IF      (e2_utsh or e2_ntsh or e2_mtsh)
+        and goitre 
+	and not pregnant 
+	and (not ovulatory or (ovulatory and T3_BORD isnt high))
+THEN DIAGNOSIS("Elevated T3 and normal THY is consistent with a goitre")
+
+RULE(32910)	DIAGNOSIS CLASS(07)
+IF      (e2_utsh or e2_ntsh or e2_mtsh)
+	and not discthy
+        and goitre 
+	and pregnant 
+THEN DIAGNOSIS("Elevated T3 and normal THY is consistent with a goitre but is more likely due to increased binding protein")
+
+
+/********************************/
+/* THYROID RULES SECTION 4    	 */
+/* DATE		9/11/89		 */
+/********************************/
+
+/*****************************************/
+/* rules relating to hypothyroid spaces  */
+/*****************************************/
+
+RULE(43000)	DIAGNOSIS CLASS(46)
+IF	(hpo_htsh or lt4t3_htsh or bhtsh_lt4t3 
+	 or lt4nt3htsh)
+	and antithyroid 
+THEN DIAGNOSIS("Low THY and elevated TSH consistent with antithyroid treatment")
+
+RULE(43001)	DIAGNOSIS CLASS(46)
+IF	(lft4 or hypo_sick)
+	and antithyroid
+THEN DIAGNOSIS("Low THY consistent with antithyroid treatment")
+
+RULE(43002)	DIAGNOSIS CLASS(46)
+IF      lt3
+        and antithyroid
+THEN DIAGNOSIS("Low T3 consistent with antithyroid treatment")
+
+RULE(43010)	DIAGNOSIS CLASS(49)
+IF	(hpo_htsh or lt4t3_htsh or bhtsh_lt4t3 
+	 or lt4nt3htsh)
+	and surgery
+	and TSH_BORD is high
+THEN DIAGNOSIS("Low THY and elevated TSH consistent with thyroid surgery")
+
+RULE(43011)	DIAGNOSIS CLASS(59)
+IF      (hpo_htsh or lt4t3_htsh or bhtsh_lt4t3
+         or lt4nt3htsh)
+        and surgery
+        and TSH_BORD isnt high
+THEN DIAGNOSIS("Low THY and elevated TSH consistent with hypothyroidism following thyroid surgery")
+
+RULE(43012)	DIAGNOSIS CLASS(49)
+IF	(lft4 or hypo_sick)
+	and surgery
+THEN DIAGNOSIS("Low THY consistent with thyroid surgery")
+
+RULE(43013)	DIAGNOSIS CLASS(49)
+IF      lt3
+        and surgery
+THEN DIAGNOSIS("Low T3 consistent with thyroid surgery")
+
+RULE(43020)	DIAGNOSIS CLASS(50)
+IF	(hpo_htsh or lt4t3_htsh or bhtsh_lt4t3 
+	 or lt4nt3htsh)
+	and i131
+	and TSH_BORD is high
+THEN DIAGNOSIS("Low THY and elevated TSH consistent with I131 treatment")
+
+RULE(43021)	DIAGNOSIS CLASS(60)
+IF      (hpo_htsh or lt4t3_htsh or bhtsh_lt4t3
+         or lt4nt3htsh)
+        and i131
+	and TSH_BORD isnt high
+THEN DIAGNOSIS("Low THY and elevated TSH consistent with hypothyroidism following I131 treatment")
+
+
+RULE(43022)	DIAGNOSIS CLASS(50)
+IF	(lft4 or hypo_sick)
+	and i131
+THEN DIAGNOSIS("Low THY consistent with I131 treatment")
+
+RULE(43023)	DIAGNOSIS CLASS(50)
+IF      lt3
+        and i131
+THEN DIAGNOSIS("Low T3 consistent with I131 treatment")
+
+RULE(43100)	DIAGNOSIS CLASS(11)
+IF	hpo_htsh
+	and not (antithyroid or surgery or i131)
+THEN DIAGNOSIS("Low THY elevated TSH consistent with primary hypothyroidism")
+
+RULE(43110)	DIAGNOSIS CLASS(11)
+IF	TSH is high and TSH_BORD is missing
+	and TT4 is normal
+	and FTI is low and FTI_BORD is missing
+	and T3 isnt high and T3_BORD isnt high
+THEN DIAGNOSIS("Elevated TSH and low FTI consistent with primary hypothyroidism")
+
+RULE(43200)	DIAGNOSIS CLASS(14)
+IF 	hypo_sick and sick
+	and not (antithyroid or surgery) and hypothyroid
+THEN DIAGNOSIS("The THY and T3 are low. Need TSH to distinguish hypothyroidism and sick-euthyroidism")
+
+RULE(43210)	DIAGNOSIS CLASS(10)
+IF 	hypo_sick and not sick
+	and not (antithyroid or surgery)
+	and hypothyroid
+THEN DIAGNOSIS("The THY and T3 are low consistent with hypothyroidism")
+
+RULE(43300)	DIAGNOSIS CLASS(11)
+IF	lt4nt3htsh
+	and not (antithyroid or surgery)
+THEN DIAGNOSIS("Low THY elevated TSH consistent with primary hypothyroidism")
+
+RULE(43400)	DIAGNOSIS CLASS(18)
+IF 	lt3nt4htsh
+	and TSH_BORD isnt high
+	and not (screening or sick)
+	and not on_t4
+THEN DIAGNOSIS("Profile consistent with compensated hypothyroidism and coexistent non-thyroidal illness")
+
+RULE(43405)	DIAGNOSIS CLASS(19)
+IF 	lt3nt4htsh
+	and TSH_BORD is high
+	and not (screening or sick)
+	and not on_t4
+THEN DIAGNOSIS("Low T3 consistent with sick euthyroid state.  Slightly elevated TSH suggests compensated hypothyroidism")
+
+RULE(43410)	DIAGNOSIS CLASS(43)
+IF	lt3nt4htsh
+	and on_t4
+THEN DIAGNOSIS("Elevated TSH low T3 consistent with under-replacement of thyroxine and a coexisting non-thyroidal illness.")
+ 
+RULE(43420)	DIAGNOSIS CLASS(18)
+IF      lt3nt4htsh
+	and TSH_BORD isnt high
+        and not on_t4
+        and (screening or sick)
+THEN DIAGNOSIS("Consistent with compensated hypothyroidism. Low T3 suggests a concurrent non thyroidal illness")
+
+RULE(43430)	DIAGNOSIS CLASS(19)
+IF      lt3nt4htsh
+	and TSH_BORD is high
+        and not on_t4
+        and (screening or sick)
+THEN DIAGNOSIS("Low T3 consistent with a non-thyroidal illness.  Slightly elevated TSH suggests compensated hypothyroidism")
+
+RULE(43500)	DIAGNOSIS CLASS(41)
+IF 	htsh and on_t4
+THEN DIAGNOSIS("Elevated TSH consistent with underreplacement")
+
+RULE(43600)	DIAGNOSIS CLASS(12)
+IF 	htsh and not on_t4
+THEN DIAGNOSIS("Elevated TSH suggestive of hypothyroidism")
+
+RULE(43610)	DIAGNOSIS CLASS(13)
+IF	T3 is low and TT4 is low and FTI is low
+	and TSH is not_ready
+	and not (i131 or surgery or antithyroid)
+	and not (hypothyroid or query_t4 or on_t4)
+	and not sick
+THEN DIAGNOSIS("low thyroid hormones suggest hypothyroidism, requires TSH for full interpretation")
+
+RULE(43611)	DIAGNOSIS CLASS(14)
+IF      T3 is low and TT4 is low and FTI is low
+        and TSH is not_ready
+        and not (i131 or surgery or antithyroid)
+        and not (hypothyroid or query_t4 or on_t4)
+	and sick
+THEN DIAGNOSIS("low thyroid hormones suggest hypothyroidism or possible sick-euthyroidism, requires TSH for full interpretation")
+
+RULE(43700)	DIAGNOSIS CLASS(49)
+IF	(nt4t3_htsh or lt3nt4htsh)
+	and surgery and not on_t4
+THEN DIAGNOSIS("This profile consistent with thyroid surgery")
+
+RULE(43710)	DIAGNOSIS CLASS(50)
+IF	(nt4t3_htsh or lt3nt4htsh)
+	and i131 and not on_t4
+THEN DIAGNOSIS("This profile consistent with I131 treatment")
+
+RULE(43800)	DIAGNOSIS CLASS(42)
+IF 	nt4t3_htsh and on_t4
+THEN DIAGNOSIS("The TSH is elevated suggesting inadequate thyroxine replacement.")
+
+RULE(44000)	DIAGNOSIS CLASS(11)
+IF 	(lt4t3_htsh
+        and not (antithyroid or surgery or i131))
+	or
+	(bhtsh_lt4t3
+        and hypothyroid and not sick)
+THEN DIAGNOSIS("Low THY and T3 with elevated TSH, consistent with primary hypothyroidism")
+
+RULE(44010)	DIAGNOSIS CLASS(15)
+IF      bhtsh_lt4t3 and sick
+THEN DIAGNOSIS("Elevated TSH. Low T3 & THY.  This profile may occur in a hypothyroid patient with concurrent non-thyroidal illness.")
+
+RULE(44100)	DIAGNOSIS CLASS(10)
+IF 	lft4 and surgery
+	and not sick
+THEN DIAGNOSIS("Low THY consistent with hypothyroidism.")
+
+RULE(44200)	DIAGNOSIS CLASS(27)	
+IF 	lft4 and hypothyroid
+	and not sick
+THEN DIAGNOSIS("Low THY normal T3 & TSH. This may be seen in 2nd-hypothyroidism but more likley discordant")
+
+RULE(44201)	DIAGNOSIS CLASS(25)
+IF	((lothy
+	and (T3 is low or T3 is missing)
+	and (TSH is undetect or TSH is low))
+	or sick_euthy)
+	and (tumour or query_t4)
+THEN DIAGNOSIS("Low thyroid hormones without elevated TSH. consistent with secondary hypothyroidism")
+
+RULE(44210)
+IF	lft4 
+	and (no_comment or goitre)
+	and not sick
+THEN 	say_discordant NOW TRUE
+
+RULE(44220)	DIAGNOSIS CLASS(34)
+IF	lft4 and FT4_BORD isnt low
+	and sick and not on_t4
+THEN DIAGNOSIS("Low THY may sometimes occur in the sick euthyroid state")
+
+RULE(44230)
+IF	lft4 and FT4_BORD is low
+	and sick
+THEN 	say_discordant NOW TRUE
+
+RULE(44300)	DIAGNOSIS CLASS(41)
+IF	lft4 and on_t4
+	and not sick
+THEN DIAGNOSIS("Profile consistent with underreplacement")
+
+RULE(44400)	DIAGNOSIS CLASS(46)
+IF 	lft4_htsh and antithyroid
+THEN DIAGNOSIS("Low THY high TSH consistent with antithyroid medication")
+
+RULE(45000)	DIAGNOSIS CLASS(11)
+IF	lft4_htsh and not antithyroid	
+THEN DIAGNOSIS("Low THY and elevated TSH.  This profile is consistent with primary hypothyroidism")
+
+RULE(45100)	DIAGNOSIS CLASS(41)
+IF	nft4_htsh
+	and on_t4
+THEN DIAGNOSIS("Normal THY elevated TSH under-replaced thyroxine")
+
+RULE(45110)	DIAGNOSIS CLASS(16)
+IF	(nft4_htsh or nt4t3_htsh)
+	and (TT4 isnt low or TT4 is missing)
+	and TSH_BORD isnt high
+	and not on_t4 and not surgery
+THEN DIAGNOSIS("Normal thyroid hormones with elevated TSH consistent with compensated hypothyroidism")
+
+RULE(45115)	DIAGNOSIS CLASS(17)
+IF	(nft4_htsh or nt4t3_htsh)
+	and (TT4 isnt low or TT4 is missing)
+	and TSH_BORD is high
+	and not on_t4 and not surgery and not i131
+THEN DIAGNOSIS("Normal thyroid hormones.  Slightly elevated TSH suggests compensated hypothyroidism")
+
+RULE(45120)	DIAGNOSIS CLASS(16)
+IF	T3 is normal
+	and TSH is high
+	and TT4 is missing and FTI is missing and FT4 is missing
+	and TSH_BORD isnt high
+	and not on_t4
+THEN DIAGNOSIS("Normal T3 with elevated TSH is consistent with compensated hypothyroidism")
+
+RULE(45125)	DIAGNOSIS CLASS(17)
+IF	T3 is normal
+	and TSH is high
+	and TT4 is missing and FTI is missing and FT4 is missing
+	and TSH_BORD is high
+	and not on_t4
+THEN DIAGNOSIS("Normal T3. Slightly elevated TSH suggests compensated hypothyroidism")
+
+RULE(45130)	DIAGNOSIS CLASS(16)
+IF	nt4t3_htsh
+	and TT4 is low
+	and TSH_BORD isnt high
+	and not on_t4
+THEN DIAGNOSIS("Normal T3 and low T4 with elevated TSH consistent with compensated hypothyroidism")
+
+RULE(45135)	DIAGNOSIS CLASS(17)
+IF	nt4t3_htsh
+	and TT4 is low
+	and TSH_BORD is high
+	and not on_t4
+THEN DIAGNOSIS("Normal T3 and low T4. Slightly elevated TSH suggests compensated hypothyroidism")
+
+RULE(45200)	DIAGNOSIS CLASS(22)
+IF	htsh_ht3nt4
+	and TSH_BORD isnt high
+	and (ovulatory or pregnant)
+	and not antithyroid
+THEN DIAGNOSIS("Elevated TSH & T3 and normal T4 may occur in compensated hypothyroidism with concurrent increased binding protein")
+
+RULE(45205)	DIAGNOSIS CLASS(23)
+IF	htsh_ht3nt4
+	and TSH_BORD is high
+	and (ovulatory or pregnant)
+	and not antithyroid
+THEN DIAGNOSIS("Slightly elevated TSH suggests compensated hypothyroidism. Elevated T3 consistent with increased binding protein. ") 
+
+RULE(45207)	DIAGNOSIS CLASS(24)
+IF	htsh_ht3nt4
+	and TSH_BORD is high
+	and not (ovulatory or pregnant)
+	and not antithyroid
+THEN DIAGNOSIS("Slightly elevated TSH suggests compensated hypothyroidism. Elevated T3; query binding protein abnormality. ") 
+
+RULE(45210)	DIAGNOSIS CLASS(48)
+IF	htsh_ht3nt4
+	and (ovulatory or pregnant)
+	and antithyroid
+THEN DIAGNOSIS("Elevated TSH & T3 and normal T4 may occur in compensated hypothyroidism after antithyroid treatment with concurrent increased binding protein")
+
+RULE(45220)	DIAGNOSIS CLASS(46)
+IF	htsh_ht3nt4
+	and not (ovulatory or pregnant)
+	and antithyroid
+THEN DIAGNOSIS("Elevated TSH & T3 and normal THY may occur after antithyroid medication")
+
+RULE(45300)	DIAGNOSIS CLASS(21)
+IF	TSH is high and TSH_BORD isnt high
+	and TT4 is low
+	and T3 is low
+	and FTI is normal
+	and T4U is low
+THEN DIAGNOSIS("Low T3 suggests a non thyroidal illness, elevated TSH suggests compensated hypothyroidism and low T4U suggests low binding protein")
+
+/**********************************************/
+/* rules relating to high T3 and low TT4 etc	*/
+/**********************************************/
+
+RULE(46000)	DIAGNOSIS CLASS(01)
+IF      ht3_lt4 and not pregnant
+	and not antithyroid
+THEN DIAGNOSIS("Elevated T3 consistent with toxicosis")
+
+RULE(47100)	DIAGNOSIS CLASS(47)
+IF 	ht3_lt4 and antithyroid
+THEN DIAGNOSIS("Low T4 consistent with antithyroid medication. Elevated T3 consistent with T3-toxicosis ")
+
+RULE(47200)	DIAGNOSIS CLASS(28)
+IF 	ht3_lt4 and pregnant
+THEN DIAGNOSIS("This profile consistent with increased binding protein")
+
+/**********************************************/
+/* rules relating to eft4_lt3_utsh spaces  etc*/
+/**********************************************/
+
+RULE(48000)	DIAGNOSIS CLASS(38)
+IF 	ethy_vlt3_utsh 
+	and on_t4
+THEN DIAGNOSIS("Elevated THY low T3. Profile seen in a patient on thyroxine with coexisting non-thyroidal illness.")
+
+RULE(48200)	DIAGNOSIS CLASS(54)
+IF	ethy_vlt3_utsh
+	and (no_comment or hyperthyroid)
+THEN DIAGNOSIS("Elevated THY low T3. Profile may be seen in a toxic patient with coexisting non-thyroidal illness.")
+
+/**********************************************/
+/* rules relating to eft4_blt3_utsh spaces etc*/
+/**********************************************/
+
+RULE(49000)	DIAGNOSIS CLASS(36)
+IF	ethy_blt3_utsh
+	and on_t4
+THEN DIAGNOSIS("Elevated THY consistent with thyroxine medication.")
+
+RULE(49100)
+IF	hthyt3_ntsh
+	and screening
+THEN	say_discordant NOW TRUE
+
+RULE(49200)
+IF	ethy_blt3_utsh
+	and (no_comment or hyperthyroid)
+THEN 	say_discordant NOW TRUE
+
+RULE(49300)
+IF	T3 is normal and TT4 is normal
+	and FTI is high 
+	and not (on_t4 or query_t4 or surgery)
+THEN 	say_discordant NOW TRUE
+
+RULE(49400)
+IF	T3 is normal
+	and lothy
+	and (psych or screening)
+THEN	say_discordant NOW TRUE
+
+RULE(49900)	DIAGNOSIS CLASS(51)
+IF	say_discordant
+THEN DIAGNOSIS("Discordant thyroid function tests. This profile consistent with drug interference. See attached list.")

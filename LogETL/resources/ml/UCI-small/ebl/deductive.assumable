@@ -1,0 +1,141 @@
+/* ================================================================== */
+/* Examples where you want to assume some deductively provable goals. */
+/* ================================================================== */
+
+/* =====================================================================
+                Example 1: Paramedic Evaluation  
+   
+   Suppose you're a paramedic rushing to the O'Rorke residence.  Paul's
+   ill and spread-eagled on the floor.  You check for signs of heart
+   failure (perhaps he's just reviewed Aha's latest modifications to the
+   AMAL research program).  One of the symptoms of heart failure might
+   be a poor EKG reading.  Do you check your equipment at this time?
+   Perhaps, if you're not fond of Paul, you'd check your ekg machine's
+   batteries, monitor, and other components.  The more intelligent choice,
+   however, is to save UCI's leading researcher before he knocks off.
+   Thus you ASSUME that your ekg machine is in good shape.
+
+   Note: It doesn't matter whether the machine can be prove deductively
+   to be in good shape.
+   ====================================================================== */
+
+/*==== Domain Theory 1. ====*/
+assumable(ekg_machine_works_properly(_),
+          ekg_machine_works_properly(_)).
+
+having_heart_attack(Person) :-
+   bad_ekg_reading(Person),
+   not_breathing(Person).
+
+bad_ekg_reading(Person) :-
+   my_ekg_machine(MyEkgMachine),
+   ekg_machine_works_properly(MyEkgMachine),
+   bad_reading(Person,MyEkgMachine).
+ekg_machine_works_properly(Machine) :-
+   good_batteries(Machine),
+   good_monitor(Machine).
+
+not_breathing(Person) :-
+   no_pulse(Person),
+   diagphram_not_moving(Person).
+
+/*==== Example 1. ====*/
+my_ekg_machine(machine1).
+bad_reading(paul,machine1).
+no_pulse(paul).
+diagphram_not_moving(Person).
+good_batteries(machine1),
+good_monitor(machine1).
+
+/*==== Query 1. ====*/
+query1 :- 
+  explain_and_learn((having_heart_attack(paul)),
+                    (having_heart_attack(Anyone))).
+
+
+/* ====================================================================== 
+                Example 2: Flu detector
+
+   This is NOT an especially good example to prove my point that some
+   deductively provable goals should be assumable.  In this case, we assume
+   that if a person's head feels warm and they are dizzy, don't bother to 
+   check whether they have a high temperature before assuming that they have
+   the flu.
+   ====================================================================== */
+
+/*==== Domain Theory 2. ====*/
+assumable(high_temperature(_),high_temperature(_)).
+   
+has_flu(Person) :- 
+   runny_nose(Person),
+   fever(Person).
+fever(Person) :-
+   head_feels_warm(Person),
+   dizzy(Person),
+   high_temperature(Person).
+high_temperature(Person) :-
+   temperature(Person,Temperature),
+   Temperature > 98.6.
+
+/*==== Example 2. ====*/
+runny_nose(david).
+head_feels_warm(david).
+dizzy(david).
+temperature(david,500.0).
+
+/*==== Starting Query 2. ====*/
+query2 :-
+  explain_and_learn((has_flu(david)),
+                    (has_flu(GreatPerson))).
+
+
+/* ======================================================================
+               Example 3: Frustration Examplified
+
+   Suppose you're answering an innocent little question that you're little
+   runt-of-a-kid comes up with.  He's not satisfied and asks another.  Then
+   another.  And another.  Until you're steamed up so much that you tell him
+   there are some things you just don't know.  At least he can assume some
+   things.  The point: you may be able to explain things forever...given
+   infinite time, but you're tired and want to put the little kid to bed.
+   ====================================================================== */
+
+/*==== Domain Theory 3. ====*/
+assumable(lots_of_lakes_west_of_here,lots_of_lakes_west_of_here).
+assumable(wind_due_to_earth_rotation,wind_due_to_earth_rotation).
+assumable(daddy_said_so,daddy_said_so).
+
+/*==== (Read: "It rains because...the skies are cloudy."
+        Then the kid asks: "Where do clouds come from?" 
+        You answer: "Clouds come from lakes west of here and the winds
+                     come from the west."
+        He responds: "Why do the winds come from the west?" (assuming that,
+                      yes indeed, there are lakes west of here)
+        And it continues.
+  ====*/ 
+why_it_rains :- cloudy_sky.
+cloudy_sky :- 
+   lots_of_lakes_west_of_here,
+   winds_come_from_west.
+winds_come_from_west :-
+   earth_rotates,
+   wind_due_to_earth_rotation.
+earth_rotates :- 
+   earth_has_gravitational_attraction_to_sun.
+earth_has_gravitational_attraction_to_sun :-
+   einstein_said_so.
+einstein_said_so :-
+   einstein_studied_gravitation.
+einstein_studied_gravitation :-
+   daddy_said_so.
+
+/*==== Thus, for example, you give up at some point, saying that Einstein 
+       studied gravitation because "Daddy said so". Of course, the kid
+       has an unusual explanation for his original question, but he knows
+       when to stop (because you yelled at him last time after this point)
+  ====*/
+
+/*==== Starting Query 3. (The kid's original question.) ====*/
+query3 :- why_does_it_rain.
+why_does_it_rain :- explain_and_learn(why_it_rains,why_it_rains).
+

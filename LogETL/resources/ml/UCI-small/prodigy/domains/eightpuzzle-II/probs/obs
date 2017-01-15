@@ -1,0 +1,15 @@
+naive encoding yields:
+--automatic gen of tile names and correct gen wrt to the blank
+(appropriate encoding of inference rules!!!)
+
+--no generalization over operator names.
+
+--conjunctions equivalent to "lower left corner".
+
+--could optimize search by halving state length and writing the
+operators only in terms of right-of and top-of.
+
+***after s1.lisp prodigy/ebl is able to place the blank anywhere!
+(this is actually trivial. Once it learns not to repeat itself right
+away it just randomly traverses the 3x3 board until it reaches the
+initial state. 

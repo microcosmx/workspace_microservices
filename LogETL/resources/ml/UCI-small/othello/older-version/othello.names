@@ -1,0 +1,23 @@
+1. Title of Domain Theory:
+       Domain theory for Othello in Prolog.
+
+       Used in research on generating features for inductive learning 
+       systems.
+
+2. Sources:
+       Tom Fawcett (fawcett@cs.umass.edu)
+       COINS Deptartment, LGRC
+       University of Massachusetts
+       Amherst, MA  10373
+       February, 1991.
+
+3. Past Usage:
+       "A Hybrid Empirical/Analytical Method for Feature Generation",
+       COINS Technical Report 91-8, University of Massachusetts, 
+       Amherst, MA
+
+4. Relevant Information Paragraph:
+       The Code ("othello.theory") is well documented.
+
+5. Type of Domain: Relational
+

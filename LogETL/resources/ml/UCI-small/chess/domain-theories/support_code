@@ -1,0 +1,192 @@
+%%% Support code for using the chess domain theories
+
+%%% Generate initial chess states
+%%% Takes a chess domain theory name and a genetic chess position description
+%%% and produces a state description suitable for use by the given domain 
+%%% theory
+%%% Generic chess positions are described by a list of (location side type)
+%%% tuples, where location is specified by the standard chess notation,
+%%% a two character atom where the lower left corner is denoted a1 and
+%%% the lower right corner is denoted h1
+generate_initial_state_standard(DomainTheory,StateName,InitialDes):-
+   change_to_coor(InitialDes,CoorDes),
+   make_new_state_name(StateName),
+   generate_all_locations(1,1,DomainTheory,StateName,CoorDes).
+
+%%% As above, but takes a chess position described as a list of (X Y side type)
+%%% where 1 1 is the lower left corner and 8 1 is the lower right corner
+generate_initial_state_standard(DomainTheory,StateName,CoorDes):-
+   make_new_state_name(StateName),
+   generate_all_locations(1,1,DomainTheory,StateName,CoorDes).
+
+generate_all_locations(X,Y,DomainTheory,StateName,CoorDes):-
+   (Y is 9 ->
+    (X is 8 -> %terminate
+     true
+    |otherwise ->
+     NX is X + 1,
+     generate_all_locations(NX,1,DomainTheory,StateName,CoorDes)
+    )
+   |otherwise ->
+    make_theory_fact(X,Y,DomainTheory,StateName,CoorDes,Fact),
+    assert(Fact),
+    print(Fact),nl,
+    NY is Y + 1,
+    generate_all_locations(X,NY,DomainTheory,StateName,CoorDes)
+   ).
+
+make_theory_fact(X,Y,DomainTheory,StateName,CoorDes,Fact):-
+   (DomainTheory = chess_flann_new ->
+    get_flann_new_location_contents(X,Y,CoorDes,Contents),
+    Fact = on(StateName,(X,Y),Contents)
+   |DomainTheory = chess_flann_wyl ->
+    get_flann_wyl_location_contents(X,Y,CoorDes,Contents),
+    make_standard_location(X,Y,Loc),
+    Fact = square(StateName,Loc,Contents)
+   |DomainTheory = chess_russell_wyl ->
+    get_russell_wyl_location_contents(X,Y,CoorDes,Side,Type),
+    Fact = on(StateName,Side,Type,X,Y)
+   |DomainTheory = chess_vijay_1 ->
+    get_vijay_location_contents(X,Y,CoorDes,Contents),
+    make_standard_location(X,Y,Loc),
+    Fact = on(StateName,Loc,Contents)
+   |DomainTheory = chess_vijay_2 ->
+    get_vijay_location_contents(X,Y,CoorDes,Contents),
+    Fact = on(StateName,loc(X,Y),Contents)
+   |DomainTheory = chess_vijay_3 ->
+    get_vijay_location_contents(X,Y,CoorDes,Contents),
+    make_vijay_3_location(X,Y,Loc),
+    Fact = on(StateName,Loc,Contents)
+   |otherwise ->
+    format('Unknown Domain theory???~N',[]),
+    fail
+   ).
+
+%%% Domain specific code
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% gets the contents of this location in flann_new form
+get_flann_new_location_contents(X,Y,CoorDes,Contents):-
+   (get_location_content(X,Y,CoorDes,Side,Type) ->
+    Contents = [Type,Side]
+   |otherwise ->
+    Contents = empty
+   ).
+
+%%% gets the contents of this location in flann_wyl form
+get_flann_wyl_location_contents(X,Y,CoorDes,Contents):-
+   (get_location_content(X,Y,CoorDes,Side,Type) ->
+    make_atomic_piece_name(Side,Type,Contents)
+   |otherwise ->
+    Contents = empty
+   ).
+
+make_atomic_piece_name(Side,Type,Contents):-
+   get_this_piece_number(Side,Type,Number),
+   side_type_to_short_name(Side,Type,Name),
+   concat(Name,Number,Contents).
+
+get_this_piece_number(Side,Type,Number):-
+   (retract('$flann_wyl'(Side,Type,OldN)) ->
+    Number is OldN + 1,
+    assert('$flann_wyl'(Side,Type,Number))
+   |otherwise ->
+    Number is 1,
+    assert('$flann_wyl'(Side,Type,Number))
+   ).
+
+side_type_to_short_name(black,king,bk).
+side_type_to_short_name(black,queen,bq).
+side_type_to_short_name(black,rook,br).
+side_type_to_short_name(black,bishop,bb).
+side_type_to_short_name(black,knight,bn).
+side_type_to_short_name(black,pawn,bp).
+side_type_to_short_name(white,king,wk).
+side_type_to_short_name(white,queen,wq).
+side_type_to_short_name(white,rook,wr).
+side_type_to_short_name(white,bishop,wb).
+side_type_to_short_name(white,knight,wn).
+side_type_to_short_name(white,pawn,wp).
+
+%%% gets the contents of this location in russell_wyl form
+get_russell_wyl_location_contents(X,Y,CoorDes,Side,Type):-
+   (get_location_content(X,Y,CoorDes,Side,Type) ->
+    true
+   |otherwise ->
+    Side = empty,
+    Type = empty
+   ).
+
+%%% gets the contents of this location in vijay_* form
+get_vijay_location_contents(X,Y,CoorDes,Contents):-
+   (get_location_content(X,Y,CoorDes,Side,Type) ->
+    concat(Side,'_',C1),
+    concat(C1,Type,Contents)
+   |otherwise ->
+    Contents = empty
+   ).
+
+%%% makes the location for vijay_3 theory
+make_vijay_3_location(X,Y,Loc):-
+   Loc is 9 * (Y - 1) + X.
+
+%% General support code
+%%%%%%%%%%%%%%%%%%%%%%%
+
+make_standard_location(X,Y,Loc):-
+   x_to_letter(X,Letter),
+   concat(Letter,Y,Loc).
+
+x_to_letter(1,a).
+x_to_letter(2,b).
+x_to_letter(3,c).
+x_to_letter(4,d).
+x_to_letter(5,e).
+x_to_letter(6,f).
+x_to_letter(7,g).
+x_to_letter(8,h).
+
+get_location_content(X,Y,[],Side,Type):-
+   fail.
+get_location_content(X,Y,[(X,Y,Side,Type)|CoorDesR],Side,Type):-
+   !.
+get_location_content(X,Y,[Piece|CoorDesR],Side,Type):-
+   get_location_content(X,Y,CoorDesR,Side,Type).
+
+change_to_coor([],[]).
+change_to_coor([(Loc,Side,Type)|IR],[(X,Y,Side,Type)|CR]):-
+   loc_to_coor(Loc,X,Y),
+   change_to_coor(IR,CR).
+
+loc_to_coor(Loc,X,Y):-
+   atom_chars(Loc,[Xc,Yc]),
+   atom_chars('a',[Xi]),
+   number_chars(1,[Yi]),
+   X is Xc - Xi + 1,
+   Y is Yc - Yi + 1.
+
+make_new_state_name(NewState):-
+   retractall('$flann_wyl'(_,_,_)),
+   gensym(N),
+   concat('s',N,NewState).
+
+%concat(X,Y,Z)
+concat(X,Y,Z):-
+	   name(X,Xl),
+	   name(Y,Yl),
+	   append(Xl,Yl,Zl),
+	   name(Z,Zl).
+
+%append
+append([],Y,Y).
+append([F|R],Y,[F|Z]):-
+	   append(R,Y,Z).
+
+:- dynamic gensymnumber/1.
+gensym(X):-
+	   gensymnumber(X),
+	   retract(gensymnumber(X)),
+	   Newcount is X + 1,
+	   assert(gensymnumber(Newcount)).
+
+gensymnumber(0).

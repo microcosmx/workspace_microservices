@@ -1,0 +1,47 @@
+NAME: Secondary Structure of Globular Proteins 
+
+SUMMARY: This is a data set used by Ning Qian and Terry Sejnowski in their
+study using a neural net to predict the secondary structure of certain
+globular proteins [1].  The idea is to take a linear sequence of amino
+acids and to predict, for each of these amino acids, what secondary
+structure it is a part of within the protein.  There are three choices:
+alpha-helix, beta-sheet, and random-coil.  The data set contains both a
+large set of training data and a distinct set of data that can be used for
+testing the resulting network.  Qian and Sejnowski use a Nettalk-like
+approach and report an accuracy of 64.3% on the test set, and they
+speculate that this is about the best that can be done using only local
+context.
+
+SOURCE: The data set was contributed to the benchmark collection by Terry
+Sejnowski, now at the Salk Institute and the University of California at
+San Deigo.  The data set was developed in collaboration with Ning Qian of
+Johns-Hopkins University.
+
+COPYRIGHT STATUS: The data files carry the following copyright notice:
+
+Copyright (C) 1988 by Terrence J. Sejnowski.  Permission is hereby given to
+use the included data for non-commercial research purposes.  Contact The
+Johns Hopkins University, Cognitive Science Center, Baltimore MD, USA for
+information on commercial use.
+
+MAINTAINER: Scott E. Fahlman
+
+PROBLEM DESCRIPTION:  
+
+<< Summary not yet written. See [1] for details. >>
+
+METHODOLOGY: 
+
+This data set can be used in a number of different ways to test learning
+speed, quality of ultimate learning, ability to generalize, or combinations
+of these factors.
+
+RESULTS: 
+
+<< Summary not yet written. See [1] for details. >>
+
+REFERENCES: 
+
+1. Ning Qian and Terrnece J. Sejnowski (1988), "Predicting the Secondary Structure
+of Globular Proteins Using Neural Network Models" in Journal of Molecular
+Biology 202, 865-884.  Academic Press.

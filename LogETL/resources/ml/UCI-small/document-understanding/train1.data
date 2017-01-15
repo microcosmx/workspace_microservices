@@ -1,0 +1,2807 @@
+
+;;;______________________________________________________
+;;; Types
+
+(def-type ELEMENT
+A1
+A2
+A3
+A4
+A5
+A6
+A7
+A8
+A9
+A10
+A11
+B1
+B2
+B3
+B4
+B5
+B6
+B7
+B8
+B9
+B10
+B11
+B12
+B13
+B14
+C1
+C2
+C3
+C4
+C5
+C6
+C7
+C8
+C9
+C10
+C11
+C12
+C13
+C14
+C15
+C16
+D1
+D2
+D3
+D4
+D5
+D6
+D7
+D8
+D9
+D10
+D11
+D12
+E1
+E2
+E3
+E4
+E5
+E6
+E7
+E8
+E9
+E10
+E11
+E12
+E13
+E14
+E15
+E16
+F1
+F2
+F3
+F4
+F5
+F6
+F7
+F8
+F9
+F10
+F11
+F12
+F13
+G1
+G2
+G3
+G4
+G5
+G6
+G7
+G8
+G9
+G10
+G11
+G12
+G13
+H1
+H2
+H3
+H4
+H5
+H6
+H7
+H8
+H9
+H10
+H11
+H12
+H13
+H14
+H15
+H16
+I1
+I2
+I3
+I4
+I5
+I6
+I7
+I8
+I9
+I10
+I11
+I12
+I13
+J1
+J2
+J3
+J4
+J5
+J6
+J7
+J8
+J9
+J10
+J11
+J12
+J13
+J14
+K1
+K2
+K3
+K4
+K5
+K6
+K7
+K8
+K9
+K10
+K11
+K12
+L1
+L2
+L3
+L4
+L5
+L6
+L7
+L8
+L9
+L10
+L11
+L12
+L13
+L14
+L15
+M1
+M2
+M3
+M4
+M5
+M6
+M7
+M8
+M9
+M10
+M11
+M12
+N1
+N2
+N3
+N4
+N5
+N6
+N7
+N8
+N9
+N10
+N11
+N12
+O1
+O2
+O3
+O4
+O5
+O6
+O7
+O8
+O9
+O10
+O11
+O12
+O13
+P1
+P2
+P3
+P4
+P5
+P6
+P7
+P8
+P9
+P10
+P11
+P12
+Q1
+Q2
+Q3
+Q4
+Q5
+Q6
+Q7
+Q8
+Q9
+Q10
+Q11
+Q12
+Q13
+Q14
+Q15
+R1
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+R10
+R11
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+S8
+S9
+S10
+S11
+S12
+S13
+S14
+S15
+S16
+S17
+S18
+S19
+T1
+T2
+T3
+T4
+T5
+T6
+T7
+T8
+T9
+T10
+T11
+T12
+T13
+T14
+T15
+ )
+
+;;;______________________________________________________
+;;; Predicates - Extensionally Defined Relations
+
+(def-pred LOGIC_TYPE-SENDER
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A2)
+(B3)
+(C2)
+(C3)
+(D2)
+(D3)
+(E2)
+(F2)
+(G2)
+(H2)
+(H3)
+(I2)
+(J2)
+(K2)
+(L2)
+(L3)
+(L4)
+(M2)
+(N2)
+(O2)
+(P2)
+(Q2)
+(R2)
+(S2)
+(T2)
+)
+  :neg   :COMPUTED
+  :induction    NIL
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred LOGIC_TYPE-RECEIVER
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A3)
+(B4)
+(C5)
+(D4)
+(D5)
+(D6)
+(E3)
+(E4)
+(E5)
+(F3)
+(F4)
+(G3)
+(G4)
+(H4)
+(I4)
+(J4)
+(K4)
+(L5)
+(M4)
+(N4)
+(O4)
+(P4)
+(P5)
+(Q4)
+(R4)
+(S4)
+(S5)
+(T4)
+)
+  :neg   :COMPUTED
+  :induction    NIL
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred LOGIC_TYPE-LOGO
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A4)
+(B5)
+(C6)
+(D7)
+(E6)
+(F5)
+(G5)
+(H5)
+(I5)
+(J5)
+(K5)
+(L6)
+(M5)
+(N5)
+(O5)
+(P6)
+(Q5)
+(R5)
+(S6)
+(T5)
+)
+  :neg   :COMPUTED
+  :induction    NIL
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred LOGIC_TYPE-REF
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A5) 
+(A6)
+(B6)
+(B7)
+(C7)
+(D9)
+(E7)
+(E10)
+(F7)
+(F8)
+(G8)
+(H6)
+(H7)
+(I7)
+(J6)
+(K6)
+(L7)
+(L9)
+(M6)
+(N6)
+(N7)
+(O6)
+(O7)
+(P7)
+(Q6)
+(Q7)
+(Q9)
+(R6)
+(S10)
+(S9)
+(T7)
+(T8)
+(T9)
+)
+  :neg   :COMPUTED
+  :induction    NIL
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred LOGIC_TYPE-DATE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A7)
+(B8)
+(C8)
+(D8)
+(E8)
+(E9)
+(F6)
+(G6)
+(H8)
+(H9)
+(I8)
+(J7)
+(K7)
+(L8)
+(M7)
+(N8)
+(O8)
+(P8)
+(Q8)
+(R7)
+(S8)
+(S7)
+(T6)
+(T10)
+)
+  :neg   :COMPUTED
+  :induction    NIL
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-VERY-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(B13)
+(C4)
+(E16)
+(H8)
+(H15)
+(I3)
+(I12)
+(I13)
+(J3)
+(J10)
+(K3)
+(M3)
+(N3)
+(O3)
+(P3)
+(Q3)
+(R3)
+(S3)
+(T3)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A5)
+(A6)
+(B6)
+(B7)
+(D6)
+(D9)
+(E4)
+(E5)
+(E7)
+(E8)
+(E10)
+(E11)
+(F7)
+(F8)
+(G8)
+(G13)
+(H7)
+(L7)
+(N7)
+(O7)
+(Q6)
+(Q7)
+(Q13)
+(S8)
+(S9)
+(S10)
+(T8)
+(T9)
+(T10)
+(T15)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-MEDIUM-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A7)
+(A11)
+(B14)
+(C8)
+(C9)
+(C10)
+(C14)
+(C16)
+(D5)
+(E9)
+(F4)
+(F9)
+(F10)
+(F13)
+(G6)
+(G9)
+(H9)
+(H12)
+(H16)
+(I6)
+(J7)
+(J8)
+(J12)
+(K7)
+(K11)
+(L9)
+(M7)
+(N6)
+(O6)
+(O8)
+(O10)
+(P5)
+(P8)
+(P9)
+(Q9)
+(Q10)
+(S7)
+(S11)
+(S12)
+(S13)
+(S14)
+(S15)
+(S16)
+(S19)
+(T6)
+(T7)
+(T11)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-MEDIUM
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A2)
+(A4)
+(B3)
+(B5)
+(B8)
+(C2)
+(C3)
+(C6)
+(D2)
+(D3)
+(D7)
+(D8)
+(D10)
+(E2)
+(E3)
+(E6)
+(E12)
+(F2)
+(F3)
+(F5)
+(F6)
+(G2)
+(G3)
+(G4)
+(G5)
+(G12)
+(H3)
+(H5)
+(H10)
+(H11)
+(I2)
+(I5)
+(I8)
+(J2)
+(J5)
+(K2)
+(K5)
+(L2)
+(L3)
+(L4)
+(L5)
+(L6)
+(L8)
+(L10)
+(L12)
+(L14)
+(M2)
+(M5)
+(M8)
+(N2)
+(N5)
+(N8)
+(O2)
+(O4)
+(O5)
+(O9)
+(P2)
+(P6)
+(Q5)
+(Q8)
+(Q12)
+(R2)
+(R5)
+(R7)
+(S2)
+(S4)
+(S5)
+(S6)
+(T2)
+(T5)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-MEDIUM-LARGE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A3)
+(A8)
+(B2)
+(B4)
+(B9)
+(B10)
+(C5)
+(C7)
+(C11)
+(C13)
+(C15)
+(D4)
+(D12)
+(E14)
+(F12)
+(G7)
+(G11)
+(H2)
+(H4)
+(H14)
+(I4)
+(I7)
+(I11)
+(J4)
+(J6)
+(J9)
+(J13)
+(J14)
+(K4)
+(K6)
+(K8)
+(K12)
+(L11)
+(L15)
+(M4)
+(M6)
+(M11)
+(M12)
+(N4)
+(N9)
+(N12)
+(O11)
+(O13)
+(P4)
+(P7)
+(P10)
+(P12)
+(Q4)
+(Q11)
+(Q15)
+(R4)
+(R6)
+(R9)
+(R11)
+(S18)
+(T4)
+(T14)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-LARGE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A9)
+(A10)
+(B11)
+(B12)
+(C12)
+(D11)
+(E13)
+(F11)
+(G10)
+(H13)
+(K9)
+(L13)
+(M9)
+(N10)
+(R8)
+(S17)
+(T12)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred WIDTH-VERY-LARGE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(I9)
+(I10)
+(J11)
+(K10)
+(M10)
+(N11)
+(O12)
+(P11)
+(Q14)
+(R10)
+(T13)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-SMALLEST
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A8)
+(A11)
+(B2)
+(B9)
+(B10)
+(B13)
+(B14)
+(C4)
+(C9)
+(C10)
+(C11)
+(C16)
+(D10)
+(E8)
+(E10)
+(E11)
+(E12)
+(F8)
+(F9)
+(F10)
+(F13)
+(G8)
+(G9)
+(G13)
+(H8)
+(H10)
+(H11)
+(H12)
+(H16)
+(I3)
+(I6)
+(I9)
+(I12)
+(J3)
+(J8)
+(J9)
+(J10)
+(J12)
+(K3)
+(K8)
+(K9)
+(L10)
+(L11)
+(M3)
+(M8)
+(M9)
+(N3)
+(N9)
+(N10)
+(O3)
+(O9)
+(O10)
+(O11)
+(P3)
+(P9)
+(P10)
+(Q3)
+(Q10)
+(Q11)
+(Q12)
+(Q13)
+(R3)
+(R8)
+(R9)
+(S3)
+(S11)
+(S12)
+(S13)
+(S14)
+(S15)
+(S16)
+(S19)
+(T3)
+(T11)
+(T12)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-VERY-VERY-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A5)
+(A6)
+(A7)
+(B6)
+(B7)
+(B8)
+(C7)
+(C8)
+(C13)
+(C14)
+(D5)
+(D6)
+(D8)
+(D9)
+(E4)
+(E5)
+(E7)
+(E9)
+(E14)
+(E16)
+(F4)
+(F6)
+(F7)
+(G4)
+(G6)
+(G11)
+(H6)
+(H7)
+(H9)
+(H15)
+(I7)
+(I8)
+(I13)
+(J6)
+(J7)
+(J14)
+(K6)
+(K7)
+(K11)
+(L3)
+(L7)
+(L8)
+(L9)
+(L12)
+(L14)
+(M6)
+(M7)
+(M12)
+(N6)
+(N7)
+(N8)
+(O6)
+(O7)
+(O8)
+(P5)
+(P7)
+(P8)
+(Q6)
+(Q7)
+(Q8)
+(Q9)
+(R6)
+(R7)
+(S5)
+(S7)
+(S8)
+(S9)
+(S10)
+(T6)
+(T7)
+(T8)
+(T9)
+(T10)
+(T15)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-VERY-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A4)
+(B5)
+(C6)
+(D4)
+(D7)
+(E6)
+(F5)
+(G3)
+(G5)
+(G7)
+(H5)
+(I5)
+(J5)
+(K5)
+(L6)
+(M5)
+(N5)
+(O5)
+(P6)
+(Q5)
+(R5)
+(S4)
+(S6)
+(T5)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A3)
+(B4)
+(E3)
+(F3)
+(F12)
+(G12)
+(H4)
+(H14)
+(I4)
+(J4)
+(J13)
+(M4)
+(N4)
+(O4)
+(P4)
+(Q4)
+(R4)
+(S18)
+(T4)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-MEDIUM-SMALL
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(C2)
+(C3)
+(C5)
+(D2)
+(D3)
+(D12)
+(E15)
+(H2)
+(H3)
+(H13)
+(I11)
+(K12)
+(L2)
+(L4)
+(L5)
+(L15)
+(M11)
+(N12)
+(O13)
+(P12)
+(Q15)
+(R11)
+(T14)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-MEDIUM
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A9)
+(B11)
+(D11)
+(E13)
+(F11)
+(G10)
+(I10)
+(M10)
+(N11)
+(O12)
+(P11)
+(Q14)
+(R10)
+(S17)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-MEDIUM-LARGE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A2)
+(B3)
+(E2)
+(F2)
+(G2)
+(I2)
+(J2)
+(K2)
+(M2)
+(N2)
+(O2)
+(P2)
+(Q2)
+(R2)
+(S2)
+(T2)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred HEIGHT-LARGE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A10)
+(B12)
+(C12)
+(J11)
+(K10)
+(L13)
+(T13)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred TYPE-TEXT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A2)
+(A3)
+(A5)
+(A6)
+(A7)
+(A9)
+(A11)
+(B2)
+(B3)
+(B4)
+(B6)
+(B7)
+(B8)
+(B9)
+(B10)
+(B11)
+(B13)
+(B14)
+(C2)
+(C3)
+(C4)
+(C5)
+(C7)
+(C8)
+(C9)
+(C10)
+(C11)
+(C12)
+(C13)
+(C14)
+(C16)
+(D2)
+(D3)
+(D4)
+(D5)
+(D6)
+(D8)
+(D9)
+(D10)
+(D11)
+(E2)
+(E3)
+(E4)
+(E5)
+(E7)
+(E8)
+(E9)
+(E10)
+(E11)
+(E12)
+(E13)
+(E14)
+(E16)
+(F2)
+(F3)
+(F4)
+(F6)
+(F7)
+(F8)
+(F9)
+(F10)
+(F11)
+(F13)
+(G2)
+(G3)
+(G4)
+(G6)
+(G7)
+(G8)
+(G9)
+(G10)
+(G11)
+(G13)
+(H2)
+(H3)
+(H4)
+(H6)
+(H7)
+(H8)
+(H9)
+(H10)
+(H11)
+(H12)
+(H13)
+(H15)
+(H16)
+(I2)
+(I3)
+(I4)
+(I7)
+(I8)
+(I10)
+(I12)
+(I13)
+(J2)
+(J3)
+(J4)
+(J6)
+(J7)
+(J8)
+(J9)
+(J10)
+(J11)
+(J12)
+(J14)
+(K2)
+(K3)
+(K4)
+(K6)
+(K7)
+(K10)
+(K11)
+(L2)
+(L3)
+(L4)
+(L5)
+(L7)
+(L8)
+(L9)
+(L10)
+(L12)
+(L13)
+(L14)
+(M2)
+(M3)
+(M4)
+(M6)
+(M7)
+(M8)
+(M10)
+(M12)
+(N2)
+(N3)
+(N4)
+(N6)
+(N7)
+(N8)
+(N9)
+(N11)
+(O2)
+(O3)
+(O4)
+(O6)
+(O7)
+(O8)
+(O10)
+(O12)
+(P2)
+(P3)
+(P4)
+(P5)
+(P7)
+(P8)
+(P9)
+(P11)
+(Q2)
+(Q3)
+(Q4)
+(Q6)
+(Q7)
+(Q8)
+(Q9)
+(Q10)
+(Q12)
+(Q13)
+(Q14)
+(R2)
+(R3)
+(R4)
+(R6)
+(R7)
+(R8)
+(R10)
+(S2)
+(S3)
+(S4)
+(S5)
+(S7)
+(S8)
+(S9)
+(S10)
+(S11)
+(S12)
+(S15)
+(S16)
+(S17)
+(S19)
+(T2)
+(T3)
+(T4)
+(T6)
+(T7)
+(T8)
+(T9)
+(T10)
+(T11)
+(T13)
+(T15)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred TYPE-HOR-LINE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A8)
+(I6)
+(I9)
+(K8)
+(K9)
+(L11)
+(M9)
+(N10)
+(O9)
+(O11)
+(P10)
+(Q11)
+(R9)
+(S13)
+(S14)
+(T12)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred TYPE-PICTURE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A4)
+(B5)
+(C6)
+(D7)
+(E6)
+(F5)
+(G5)
+(H5)
+(I5)
+(J5)
+(K5)
+(L6)
+(M5)
+(N5)
+(O5)
+(P6)
+(Q5)
+(R5)
+(S6)
+(T5)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred TYPE-GRAPHIC
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(E15)
+(F12)
+(G12)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred TYPE-MIXTURE
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A10)
+(B12)
+(C15)
+(D12)
+(H14)
+(I11)
+(J13)
+(K12)
+(L15)
+(M11)
+(N12)
+(O13)
+(P12)
+(Q15)
+(R11)
+(S18)
+(T14)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred PARTOF
+  :vars  (?BLOCK ?BLOCK)
+  :type  (ELEMENT ELEMENT)
+  :mode  NIL
+  :pos   (
+(A1 A2)
+(A1 A3)
+(A1 A4)
+(A1 A5)
+(A1 A6)
+(A1 A7)
+(A1 A8)
+(A1 A9)
+(A1 A10)
+(A1 A11)
+(B1 B2)
+(B1 B3)
+(B1 B4)
+(B1 B5)
+(B1 B6)
+(B1 B7)
+(B1 B8)
+(B1 B9)
+(B1 B10)
+(B1 B11)
+(B1 B12)
+(B1 B13)
+(B1 B14)
+(C1 C2)
+(C1 C3)
+(C1 C4)
+(C1 C5)
+(C1 C6)
+(C1 C7)
+(C1 C8)
+(C1 C9)
+(C1 C10)
+(C1 C11)
+(C1 C12)
+(C1 C13)
+(C1 C14)
+(C1 C15)
+(C1 C16)
+(D1 D2)
+(D1 D3)
+(D1 D4)
+(D1 D5)
+(D1 D6)
+(D1 D7)
+(D1 D8)
+(D1 D9)
+(D1 D10)
+(D1 D11)
+(D1 D12)
+(E1 E2)
+(E1 E3)
+(E1 E4)
+(E1 E5)
+(E1 E6)
+(E1 E7)
+(E1 E8)
+(E1 E9)
+(E1 E10)
+(E1 E11)
+(E1 E12)
+(E1 E13)
+(E1 E14)
+(E1 E15)
+(E1 E16)
+(F1 F2)
+(F1 F3)
+(F1 F4)
+(F1 F5)
+(F1 F6)
+(F1 F7)
+(F1 F8)
+(F1 F9)
+(F1 F10)
+(F1 F11)
+(F1 F12)
+(F1 F13)
+(G1 G2)
+(G1 G3)
+(G1 G4)
+(G1 G5)
+(G1 G6)
+(G1 G7)
+(G1 G8)
+(G1 G9)
+(G1 G10)
+(G1 G11)
+(G1 G12)
+(G1 G13)
+(H1 H2)
+(H1 H3)
+(H1 H4)
+(H1 H5)
+(H1 H6)
+(H1 H7)
+(H1 H8)
+(H1 H9)
+(H1 H10)
+(H1 H11)
+(H1 H12)
+(H1 H13)
+(H1 H14)
+(H1 H15)
+(H1 H16)
+(I1 I2)
+(I1 I3)
+(I1 I4)
+(I1 I5)
+(I1 I6)
+(I1 I7)
+(I1 I8)
+(I1 I9)
+(I1 I10)
+(I1 I11)
+(I1 I12)
+(I1 I13)
+(J1 J2)
+(J1 J3)
+(J1 J4)
+(J1 J5)
+(J1 J6)
+(J1 J7)
+(J1 J8)
+(J1 J9)
+(J1 J10)
+(J1 J11)
+(J1 J12)
+(J1 J13)
+(J1 J14)
+(K1 K2)
+(K1 K3)
+(K1 K4)
+(K1 K5)
+(K1 K6)
+(K1 K7)
+(K1 K8)
+(K1 K9)
+(K1 K10)
+(K1 K11)
+(K1 K12)
+(L1 L2)
+(L1 L3)
+(L1 L4)
+(L1 L5)
+(L1 L6)
+(L1 L7)
+(L1 L8)
+(L1 L9)
+(L1 L10)
+(L1 L11)
+(L1 L12)
+(L1 L13)
+(L1 L14)
+(L1 L15)
+(M1 M2)
+(M1 M3)
+(M1 M4)
+(M1 M5)
+(M1 M6)
+(M1 M7)
+(M1 M8)
+(M1 M9)
+(M1 M10)
+(M1 M11)
+(M1 M12)
+(N1 N2)
+(N1 N3)
+(N1 N4)
+(N1 N5)
+(N1 N6)
+(N1 N7)
+(N1 N8)
+(N1 N9)
+(N1 N10)
+(N1 N11)
+(N1 N12)
+(O1 O2)
+(O1 O3)
+(O1 O4)
+(O1 O5)
+(O1 O6)
+(O1 O7)
+(O1 O8)
+(O1 O9)
+(O1 O10)
+(O1 O11)
+(O1 O12)
+(O1 O13)
+(P1 P2)
+(P1 P3)
+(P1 P4)
+(P1 P5)
+(P1 P6)
+(P1 P7)
+(P1 P8)
+(P1 P9)
+(P1 P10)
+(P1 P11)
+(P1 P12)
+(Q1 Q2)
+(Q1 Q3)
+(Q1 Q4)
+(Q1 Q5)
+(Q1 Q6)
+(Q1 Q7)
+(Q1 Q8)
+(Q1 Q9)
+(Q1 Q10)
+(Q1 Q11)
+(Q1 Q12)
+(Q1 Q13)
+(Q1 Q14)
+(Q1 Q15)
+(R1 R2)
+(R1 R3)
+(R1 R4)
+(R1 R5)
+(R1 R6)
+(R1 R7)
+(R1 R8)
+(R1 R9)
+(R1 R10)
+(R1 R11)
+(S1 S2)
+(S1 S3)
+(S1 S4)
+(S1 S5)
+(S1 S6)
+(S1 S7)
+(S1 S8)
+(S1 S9)
+(S1 S10)
+(S1 S11)
+(S1 S12)
+(S1 S13)
+(S1 S14)
+(S1 S15)
+(S1 S16)
+(S1 S17)
+(S1 S18)
+(S1 S19)
+(T1 T2)
+(T1 T3)
+(T1 T4)
+(T1 T5)
+(T1 T6)
+(T1 T7)
+(T1 T8)
+(T1 T9)
+(T1 T10)
+(T1 T11)
+(T1 T12)
+(T1 T13)
+(T1 T14)
+(T1 T15)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-TOP-LEFT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A2)
+(A4)
+(A5)
+(B3)
+(B5)
+(B6)
+(C2)
+(C3)
+(C4)
+(C6)
+(C9)
+(C10)
+(D2)
+(D3)
+(D7)
+(D9)
+(E2)
+(E6)
+(E10)
+(F2)
+(F5)
+(F7)
+(G2)
+(G5)
+(G8)
+(G9)
+(H2)
+(H3)
+(H5)
+(H6)
+(H12)
+(I2)
+(I3)
+(I5)
+(J2)
+(J3)
+(J5)
+(K2)
+(K3)
+(K5)
+(L2)
+(L3)
+(L4)
+(L6)
+(L9)
+(M2)
+(M3)
+(M5)
+(N2)
+(N3)
+(N5)
+(N6)
+(O2)
+(O3)
+(O5)
+(O6)
+(P2)
+(P3)
+(P6)
+(Q2)
+(Q3)
+(Q5)
+(Q6)
+(Q9)
+(R2)
+(R3)
+(R5)
+(S2)
+(S3)
+(S6)
+(S10)
+(S15)
+(S16)
+(T2)
+(T3)
+(T5)
+(T7)
+(T8)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-TOP
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A3)
+(A6)
+(B4)
+(B7)
+(C7)
+(D4)
+(E3)
+(E7)
+(F3)
+(F8)
+(G3)
+(G7)
+(H4)
+(H7)
+(H11)
+(I4)
+(I6)
+(I7)
+(J4)
+(J6)
+(K4)
+(K6)
+(L5)
+(L7)
+(M6)
+(N4)
+(N7)
+(O4)
+(O7)
+(P4)
+(P7)
+(Q4)
+(Q7)
+(R4)
+(R6)
+(S4)
+(S9)
+(S13)
+(S14)
+(T9)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-TOP-RIGHT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A2)
+(A7)
+(B2)
+(B8)
+(C5)
+(C8)
+(C11)
+(D5)
+(D6)
+(D8)
+(E4)
+(E5)
+(E8)
+(E9)
+(E11)
+(E12)
+(F4)
+(F6)
+(F9)
+(F10)
+(G4)
+(G6)
+(H8)
+(H9)
+(H10)
+(I8)
+(J7)
+(K7)
+(L8)
+(L10)
+(M4)
+(M7)
+(N8)
+(O8)
+(P5)
+(P8)
+(Q8)
+(R7)
+(S5)
+(S7)
+(S8)
+(S11)
+(S12)
+(T4)
+(T6)
+(T10)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-LEFT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(J8)
+(J12)
+(K9)
+(L11)
+(M8)
+(N9)
+(O9)
+(P9)
+(Q10)
+(Q11)
+(R8)
+(T11)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-CENTER
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A8)
+(A9)
+(B9)
+(B11)
+(C12)
+(D11)
+(D12)
+(E13)
+(E16)
+(F11)
+(G10)
+(H13)
+(H14)
+(H15)
+(I9)
+(I10)
+(I11)
+(J11)
+(K10)
+(L12)
+(L13)
+(M10)
+(M11)
+(M12)
+(N10)
+(N11)
+(O10)
+(O12)
+(P11)
+(Q12)
+(Q14)
+(R10)
+(R11)
+(S17)
+(T12)
+(T13)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-RIGHT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(B10)
+(D10)
+(E14)
+(F12)
+(G11)
+(G12)
+(J9)
+(J10)
+(K8)
+(M9)
+(N12)
+(O11)
+(O13)
+(P10)
+(P12)
+(Q13)
+(Q15)
+(R9)
+(S18)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-BOTTOM-LEFT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(B13)
+(C14)
+(K11)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-BOTTOM
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A10)
+(B12)
+(C13)
+(C15)
+(J13)
+(J14)
+(L14)
+(T14)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred POSITION-BOTTOM-RIGHT
+  :vars  (?BLOCK)
+  :type  (ELEMENT)
+  :mode  NIL
+  :pos   (
+(A11)
+(B14)
+(C16)
+(E15)
+(F13)
+(G13)
+(H16)
+(I12)
+(I13)
+(K12)
+(L15)
+(S19)
+(T15)
+)
+  :neg   NIL
+  :induction    T
+  :constraint   NIL
+  :commutative  NIL
+  )
+
+(def-pred ON-TOP
+  :vars  (?BLOCK ?BLOCK)
+  :type  (ELEMENT ELEMENT)
+  :mode  NIL
+  :pos   (
+(A5 A9)
+(A6 A8)
+(A6 A9)
+(A7 A9)
+(A8 A9)
+(A9 A10)
+(B6 B9)
+(B6 B11)
+(B7 B9)
+(B7 B11)
+(B8 B10)
+(B8 B11)
+(B9 B11)
+(B10 B11)
+(B11 B12)
+(C2 C3)
+(C5 C8)
+(C6 C9)
+(C7 C10)
+(C7 C12)
+(C8 C11)
+(C8 C12)
+(C10 C12)
+(C11 C12)
+(C12 C13)
+(C13 C14)
+(D2 D3)
+(D5 D8)
+(D6 D8)
+(D8 D10)
+(D11 D12)
+(E)
+(D5
+(I1 E1 8)
+(K18)
+(K182)
+(C12 2)
+(C12 25)
+(B162ER
+ E)
+5yp8yEMENT)
+  MENT)
+  Mommuommuo)
+(M6)3,3oD8)
+Ø)4)
+(L14)
+(L1410)
+(C110)
+(C11)
+(H1 H141NT)
+  50   N)M9)
+, N :pos8M;;;8  GN;H166G   (
+(A8   (
+(A8 13)  A9)A9)AdefLAtative   E12 E12 os 8)
+(P58)
+(P58L
+  :in8)
+(R18)
+(R183)
+(A3)
+(A3TYPE-Pr
+3E14)E1E1EH15) T T  T1
+S8)
+(Q88)
+(Q881 R91 R91SM9
+K7 A13)
+(T4(8S11)937)
+(Q8E1 E1 J71 J71
+(O8
+(O8
+  :iL5)6)
+(D46)
+(D4610)
+(Rvars  (ction
+(L13)
+(I1 I4)
+(T6)4)
+(T6)4
+(O8
+(O8
+ELEMENT3)
+(C10)
+(Q1)
+(E1418)18)111)
+(N1B8 S3K2K2KF13F13F1 O1 O1
+(F1) )T1MEDIUM1 O
+  :vars  (?BL1)
+(EP7
+S1
+(O8O12)12)
+(T2)
+(A72)
+(A722)
+(E6(G1
+EE1 ESM9
+K7 AS - - C11)
+T 12)
+(T4 NIL
+  )
+
+(dH5)8)
+(R1LLLLL2)
+(L2ucL)
+  :tF2
+  :typ,2))
+(F)
+(F) F1i)S2)
+S2)
+Sindindi(def-preN6ti)
+(L6)_TY1 R91 R91-SE1 EE1 EE6)
+(6E
+(S
+6  )    
+ C14 C14 (G(G(:co,(H2)
+(NIL
+  )
+
+(d)
+(H1 H
+(H2
+(H2
+1)
+(G1LEMEN E12G2)E-I4)
+(DA3)
+(F4CECEC8)
+(R18)
+(R189)
+(F10)
+(S7)
+(S7)    T
+
+)8)
+(L91 Q1ns7)
+(L8de  NI C14 C14 ve  NILD1 9)
+(A1
+(M12onst3)
+(H153)
+(P13)
+(P13œ7
+B7
+B71 R111 R111
+(H13
+(H13
+L2)
+(K1)
+(K1)LLL9)
+(O9)
+(L15) TY TY E13 18    (
+(EPA-L11)
+(B111)
+(B11JJ H1de o J
+(O8
+14)0D )7d)
+(S4)
+H-LH-LH C13 C13 S2)
+S2)
+S1 F1 F18 10)
+(R1 C14 Q12
+  :vars  7)
+(N8)
+ F1i c2
+(HonstraonstraoH16)H16)HI8)I8)ID8)
+D8)
+D1 G37))D4)
+(N1417)
+(L8)
+7
+46 IH
+7onstra76R11R11RWIDTHWIDTHWE)W1)
+(E1)
+(E1    1J14, aint   NI6)
+(J6)
+(J65)
+(Q36T2)T2)TNT)
+  :)T
+E1
+E1
+1 Q6 )
+ductioA
+
+1PH4d15)
+)OP2
+S2
+S2E18 8 8LARG8W8
+;;T13)T13)T
+(H2
+(H2
+9)
+)D
+D C14(def-pre13)
+(M113)
+(M11int   NIi11L10)L10)LJ4)8D,75tL)
+(O5   T
+ 6)
+(D1 D6)
+(D1 D6D1 D1 D C14type 5
+QNTE :mode D5)
+(PEPEP B5 PP)
+(E63 7)
+(Ddef-preddef-preddd )
+(H1 HtraiM4M4M3)
+(H93M7
+M)
+(E1 O26
+M3)
+(D55)
+(Q35 (?H16))
+(I7OGOGOmomom9
+Q3m
+(L13J5)9)9)9NIL9PEPEPO6))
+  :ne)
+  :mode )
+  :mode )1 K81 8),)CECEC2)
+(G22)
+(G22¥¥ 2)
+(G12Y
+
+¥ID2)
+(E1 E1ECC_C_CHT-MX7Cg   N
+
+H-R-R-)
+(A7)
+(A7)6)
+(Q7neg  neg  n
+  :va
+  :va
+f-p1
+D1(?BLOCKL
+  :vL
+  :vL2)
+(G
+(P26)
+(F1J3)J3)J)
+(D7)
+(D7)E1 ES4)2)
+(G
+(F3))
+  :t)
+  :t)1 R11nductionnductionn-D9)
+(M2)
+(F52)
+(R3t   NIL
+ tra4)
+(I44)
+(I44
+(K1 K)
+(O9
+
+(de5)
+(C1J4‡3)
+(J1 MEDIUMEDIUM9)
+(N13Mommutat  9NIL
+  :pos ___________(K5G2)   (
+(A1 S18L
+ ,P6 (?NIL
+ NIL
+ N7)
+(N,N
+(B5d07G12)G12)G)
+(B3pG4)
+(E3)9)
+(P98 1type  (E1)
+(SCEC1 B121 B1214)
+(L141116)
+(Q76)
+(Q765)
+(Q358)
+(Q9JJ HI6
+PNTENTEN)
+(B53NT
+  :co
+  :vars  (?BLO
+  :vars  (?BLO
+   U
+TYPTYPT,PtiT)
+(M6)3,3,7)
+(J47)
+(J47yp8DC76)
+(M5A9y0)
+(N0)
+(N08)
+(G9)
+)0M9))
+8)
+(S17yMde  de  d A9)
+ A9)
+ ef-predef-prede7)
+(J47)
+(J47)
+(S4)
+H
+K7 AS)
+(S4)
+H
+K7 AS)7)
+(E1a1G27)
+(E1a1G27
+(H2
+6,7 NIL
+  :ind NIL
+  :ind 
+(C14Õ2)
+(E1 E1êTy2)
+(L3  :co E126)
+(F6
+N6
+N6L28
+R8
+R8LEFT,8eg 42L F13-e5)
+(KÒÒÒ1)
+(G1)
+(G1:c:c:JJ HJJJ HJJ)
+)
+53H8JM78   LM78   LM7
+M7
+M7  (EL  (EL 2
+Scti12)
+(Q7)
+(E1a1G7)
+(E1a1G7OCOCO7)
+(T123OA4)
+(&7D8)
+ØAC8)
+UDred  C9)
+)D7 rLOCK 1EL)9I11I11Ios   (os   (o1
+K11
+K11)
+)
+  :neg   NI01, t19)
+(S E127)
+(Q87)
+(Q87f-pMAMAMtraiLEM1 A8ëëë)
+(C4)
+)
+  :neg   NI6)
+(B7egNT)
+  :F7))
+  :neg)
+  :neg)6)
+(G2)
+(S4))
+(S4))7)
+(Ig   N NIL
+  :cOSI4)
+(J6)(
+(A8T11)
+(A5d POSO6)TTOTTOTT14)T14)Teg  8)
+(R711)
+(H6f-pred1)
+(P71T)
+  P10)
+M4M3)
+(P6)
+(F24)
+(L1rs  (?Brs  (?Br8 8 8-LAommuo13)
+(M1113)
+(M111t   N641COM1t  )CN6N6N  :c10)
+(R110)
+(R11–––7)
+(HK– NIL
+  :ind P7TED   D3 D3 1
+P)O  NIL
+  :)181
+(S
+
+d 1 Q7E
+1)
+(P711)
+(P7111)
+(v1B3i P1 1 I13)BT15)7 7)
+(H11ITIOITIOI2)
+(L32)
+(L32SESESCEQ12)Q12)Q7)
+(S7)
+(S7CE(E13)
+(P43)
+(P432
+M1
+T1
+T19
+BGHT
+raintPOSPOSPA81
+T1
+T11)
+(Q1MENT)
+G3)
+18)118)11-S-S-)
+(P100
+R9)
+(I1L410)
+( A9)9)
+(L1R11)M7)
+J47)
+(E1a1G27)
+(E1a1G279
+Q0)52L1217
+  :constrai 9
+  :mode  N
+  :mode  N
+9)
+(T17C6
+  T(93
+J4)16 10)
+(10)
+(1T (91)
+(C1511)
+(S11)
+(S1(OK11)
+(O90)
+(L)
+(F4(C11
+(E13F8)
+
+(GO12)O12)O1
+S2yp8DCyyp8DCyy)
+  :)
+  :)3)
+(C13)
+(C139)
+(M19)
+(M19d Pd PdS10)S10)S)
+(O7mSO2)
+ductioductiod
+  :constr8dNS
+5)
+(Q3N6
+PNC53 T1inducinduciP6e  NIL
+ )
+(Q14D
+Dint   NIi1i3
+G43
+G437
+M)7
+M)7)
+(C5)
+(C5)ÌÌÌ5)
+(P85)
+(P85
+(G1)5mode s  (?Bative A2)1)
+(F)
+(L6
+  :inK8)12)
+(F412)
+(F41)
+(S4)
+H
+u1)
+  :neg   NIL3)
+(O9)
+(B
+A6
+A6
+def-preddD5
+7)
+(Hconstvarsvarsv
+(E13)
+  :mode 2)
+(D35)
+(L1T
+  :vaT
+  :vaT
+(def-pr
+(def-pr
+0
+H6)
+(H7)1 F3)
+(O2C9)5)traLOGIC5 D5 D5)
+(O5)3 5EIGHTEIGHTE2)
+(R3t EdefL2Q4)
+(Q4)
+(Q0)
+(ENEi5Q1 H901 R17111
+D1ntntn)
+(O516
+S16
+S1OSITIO8)
+(E48)
+(E48K6 81)
+(vFKQ11Q11QR11)M
+Q8)
+(J1 ER)
+(C4)1eg8D81
+Q1WIDT(?BLOCK)
+(G4AR8)
+(J1  B11) B11) defL-7P 1 T16d2)
+(Q2 18)
+(H)
+(T1 T19)
+(A1
+)
+(A4    T
+)
+(O5 )
+(O5 ))
+(O7s  (?B4)
+(E5IL
+  :in9)
+(N1 G1 G11)
+(KHEIGH6)
+(J7T14)T0)
+(E1
+(D2 Q12
+
+  :constr8
+5)
+(H1 5)
+(H1 5ons15)
+(A (
+oC13C13C K61Ce  NI7 91 1
+E1
+E1ed POed POeint   NIi1i3R6))
+(E9))
+(E9))12
+IM5)
+(LEMENT)C8)
+C8)
+C   (
+(A8 7)
+(T14)
+(L5)L
+  :posinduct3)
+(P63)
+(P6311)
+)173 (?H (?H 1 F39)
+(J1ITF11F11F(E15FB2)2)
+(D35E16)G3)
+()
+(G12Y
+
+))
+(G12Y
+
+))8)
+(G9)
+)8 1)6)
+(B,   "46)
+(B,   "46 E12 E12 6)
+(F1J E2 E2 onstraonstrao)
+(J6)L
+ o  NIL
+  )
+
+5)
+(D6o8nductionnductionnENTENTE1 M1HEI6)31eg 42I12)
+(C12)
+(C11 G1 G1C4)7)
+(R15)
+(O15)
+(O15N12) 
+59)
+(I1L51e9)
+(I1L51e97)
+(T86,?9Q4)
+ 
+7T24Q
+(S
+
+O3)
+(H1 HC_C7
+LPOS3
+S1  :ENDF
+)
+))
+))15),))
+(I1 I)
+(I1 I)ve  NIve  NIv)
+  :)
+  :)   T
+ 1
+I11
+I11O11TOint    NIL   NIL B2)B2)BNT)
+  :)N
+(def
+(def
+NL
+
+11)
+(S1RN)
+  :ne)A1NT )3)
+)1 Ntion   33ion    Tion    Ti4)
+(E34)
+(E34dction  1 P911)
+(K6)
+(B, 
+œœœpeD4)ECP4ars  (?A4)
+A4)
+A2)
+(E1 ETOiTOiT1 T98T11)
+11)
+1B2)B2)B2
+E2
+E2(O2)
+(O13Q3)12)
+12)
+15)
+(D9)
+(M29)
+(M29 B5 P
+094)
+(L5)LARG82f(O14
+19)
+
+(L1
+(L1
+ :mMENT)
+  0)
+(B6B12)EIGHT(F11
+F G136)
+(L111)
+(B1 C14  C14  2)
+(O3)11)
+(B111)
+(K111)
+(K11
+  :vars  (?BLO
+N2)
+(R6))8)
+(P14)
+(L1r4)
+(L1r4L
+  :pos54C8)
+C69EN
+1S)
+(I83)
+)1 3O2)
+dååå
+(E13)LÃåde o1de o1dOF8)AdF
+,O:const9F7
+B77
+B77  NIL
+  :induí7)
+(R: I6)3))
+(N6
+ 
+1v)1K
+7)
+(N6
+ 
+1v)1K
+7)11)
+1)O4)O4)O5)
+(D6o80OL10)L,5H76L Q12 Q12 1
+I19)
+()
+(Q67)
+(J8 :pos8 R6)14
+Kxtxtx6 Dq5)
+(I1 B1 P7)
+(S11-M-M-7)
+(R1EC5)
+(I14)
+(O9)
+(K0 67  NIL
+)
+  :ne)
+  :ne) A9)
+ A9)
+ 4
+I4
+I49)
+(K0 )9)
+(K0 )9 :pos ,911)
+(N1B7)
+(S6
+P6
+P6
+(A3
+(A3
+D-B
+6)
+(D1 ))D)
+(J2)
+(J2)11)
+(N1Bp222s  (?:- Imo8)
+(EF11)(L5(L5(7)
+(Hc5
+B5
+B54)
+(H6E4)9)
+(H19)
+(H19S17)
+(S6
+(L13JctiEH9)2)
+(D35E2)
+(D35E2R6))8  NIL
+ 3)
+(C1316)
+ëK)14)
+(CR2)ITIO12
+F12
+F1e  NIL
+  :de  NI1 R99)
+(M9)
+(M94)
+(M74)
+(M74rd144)
+)
+ K1 OCK)
+ J9O8)O8)O(I2
+(O10F1F1F4)
+(R6
+(I1

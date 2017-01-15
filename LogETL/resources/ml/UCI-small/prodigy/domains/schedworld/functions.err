@@ -1,0 +1,49 @@
+Error output from /usr1/prodigy/domains/schedworld/functions.lisp 19-Jul-89 13:06:26.
+Compiled on 19-Jul-89 13:17:09 by CLC version M1.6 (12-Oct-88).
+
+sprayable compiled.
+have-paint-for-immersion compiled.
+have-bit compiled.
+Warning in is-punchable:
+  obj bound but not referenced.
+is-punchable compiled.
+Warning in is-drillable:
+  obj bound but not referenced.
+is-drillable compiled.
+regular-shape compiled.
+has-clamp compiled.
+Warning in composite-shape:
+  ob bound but not referenced.
+Warning in composite-shape:
+  or bound but not referenced.
+Warning in composite-shape:
+  s1 bound but not referenced.
+composite-shape compiled.
+Warning in composite-object:
+  or bound but not referenced.
+composite-object compiled.
+Warning in can-be-welded:
+  o1 bound but not referenced.
+Warning in can-be-welded:
+  o2 bound but not referenced.
+can-be-welded compiled.
+Warning in can-be-bolted:
+  o1 bound but not referenced.
+Warning in can-be-bolted:
+  o2 bound but not referenced.
+can-be-bolted compiled.
+is-width compiled.
+cul-de-sac compiled.
+less-than compiled.
+times-before compiled.
+times-after compiled.
+before compiled.
+later compiled.
+is-time compiled.
+binding-list compiled.
+mult-binding-list compiled.
+
+Finished compilation of file "/usr1/prodigy/domains/schedworld/functions.lisp".
+0 Errors, 10 Warnings.
+Elapsed time 0:00:10, run time 0:00:06.
+

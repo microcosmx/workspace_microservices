@@ -1,0 +1,48 @@
+bind([]).
+bind([A|B]) :- ground(A), bind(B).
+
+ground(t).
+ground(f).
+
+eval(t,t) :- !.
+eval(f,f) :- !.
+eval(~X,R) :- eval(X,R2), do(~,R2,R), !.
+eval(X,R)  :- X =.. [A,Y,Z], eval(Y,R1), eval(Z,R2), do(A,R1,R2,R),!.
+
+do(~, t, f).
+do(~, f, t).
+
+do(or, t, _, t).
+do(or, _, Z, Z).
+
+do(and, t, t, t).
+
+do(=>, t, f, f).
+do(=>, _, _, t).
+
+do(<==>, X, X, t).
+
+do(_,_,_,f).
+
+solve(EXP1,THM) :- newthm(EXP, Vars1, [], EXP1), write(THM), nl,
+	       strip(Vars1, Vars), bind(Vars), eval(EXP, Y), Y=f, !, 
+		write('Not true --'), write(THM), nl, fail.
+solve(_,_) :- fail.
+
+strip([],[]).
+strip([[A,B]|T],[B|X]) :- strip(T,X).
+
+getnewthm(Old,New) :- newthm(New,_,[],Old).
+newthm(X,Newbindings,Oldbindings,Exp) :-
+	atom(Exp), variablize(X,Newbindings,Oldbindings, Exp).
+newthm(~X,New_bind, Old_bind, ~Exp) :-
+	newthm(X,New_bind,Old_bind, Exp).
+newthm(Z,N,O,E) :- 	E=..[Op,EArg1,EArg2],
+			newthm(Arg1,N1,O,EArg1),
+			newthm(Arg2,N,N1,EArg2),
+			Z =..[Op,Arg1,Arg2].
+
+variablize(X,Old,Old,Exp) :- member([Exp,X],Old),!.  % get old binding of
+						 % constant to var
+variablize(X,[[Exp,X]|Old], Old, Exp) :- !.  % else make up a new var.
+
