@@ -17,20 +17,17 @@ public class AccountController {
     }
 
     @RequestMapping(path = "/findAccount/{accountId}", method = RequestMethod.GET)
-    public Account findAccount(@PathVariable int accountId){
-        System.out.println("[FindAccount] Id:" + accountId);
+    public Account findAccount(@PathVariable long accountId){
         return accountService.findById(accountId);
     }
 
     @RequestMapping(path = "/createNewAccount", method = RequestMethod.POST)
     public Account createNewAccount(@RequestBody Account newAccount){
-        System.out.println("[CreateAccount] Name:" + newAccount.getName());
         return accountService.create(newAccount);
     }
 
     @RequestMapping(path = "/saveAccountInfo", method = RequestMethod.PUT)
     public Account saveAccountInfo(@RequestBody Account account){
-        System.out.println("[SaveAccountInfo] Id:" + account.getId());
         return accountService.saveChanges(account);
     }
 

@@ -4,7 +4,7 @@ import accounts.domain.Account;
 
 public interface AccountService {
 
-    Account findById(int id);
+    Account findById(long id);
 
     Account create(Account account);
 

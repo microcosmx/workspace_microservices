@@ -18,20 +18,17 @@ public class ContactsController {
     }
 
     @RequestMapping(path = "/findContacts/{accountId}", method = RequestMethod.GET)
-    public ArrayList<Contacts> findContactsByAccountId(@PathVariable int accountId){
-        System.out.println("[FindContacts] AccountId:" + accountId);
+    public ArrayList<Contacts> findContactsByAccountId(@PathVariable long accountId){
         return contactsService.findContactsByAccountId(accountId);
     }
 
     @RequestMapping(path = "/createNewContacts", method = RequestMethod.POST)
     public Contacts createNewAccount(@RequestBody Contacts newContacts){
-        System.out.println("[CreateContacts] Name:" + newContacts.getName());
         return contactsService.create(newContacts);
     }
 
     @RequestMapping(path = "/saveContactsInfo", method = RequestMethod.PUT)
     public Contacts saveAccountInfo(@RequestBody Contacts contacts){
-        System.out.println("[SaveContactsInfo] Id:" + contacts.getId());
         return contactsService.saveChanges(contacts);
     }
 
