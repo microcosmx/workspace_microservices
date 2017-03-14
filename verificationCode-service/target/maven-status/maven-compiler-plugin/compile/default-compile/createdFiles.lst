@@ -1,0 +1,4 @@
+com\trainticket\verificationcode\service\VerificationCodeService.class
+com\trainticket\verificationcode\controller\VerificationCodeController.class
+com\trainticket\verificationcode\service\VerificationCodeServiceImpl.class
+com\trainticket\verificationcode\VerificationCodeApplication.class
