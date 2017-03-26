@@ -5,7 +5,7 @@ The MongoDB environment consistes of the following docker containers
 
  - **mongosrs(1-3)n(1-3)**: Mongod data server with three replica sets containing 3 nodes each (9 containers)
  - **mongocfg(1-3)**: Stores metadata for sharded data distribution (3 containers)
- - **mongos(1-2)**: Mongo routing service to connect to the cluster through (1 container)
+ - **mongos(1-2)**: Mongo routing login.service to connect to the cluster through (1 container)
 
 ## Caveats
 
@@ -19,7 +19,7 @@ The MongoDB environment consistes of the following docker containers
     sudo apt-get install -y apparmor lxc cgroup-lite curl
     wget -qO- https://get.docker.com/ | sh
     sudo usermod -aG docker YourUserNameHere
-    sudo service docker restart
+    sudo login.service docker restart
 
 ### Install Docker-compose (1.4.2+)
 
@@ -28,7 +28,7 @@ The MongoDB environment consistes of the following docker containers
     chmod +x /usr/local/bin/docker-compose
     exit
 
-### Check out the repository
+### Check out the login.repository
 
     git clone git@github.com:singram/mongo-docker-compose.git
     cd mongo-docker-compose

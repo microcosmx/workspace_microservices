@@ -61,7 +61,7 @@
    - Additional "background" knowledge is supplied that provides a partial
      ordering on some of the attribute values.
    - We are providing this dataset both in its original form and in a form
-     similar to the more typical propositional datasets in our repository.
+     similar to the more typical propositional datasets in our login.repository.
      Since the trains dataset records relations between attributes, this
      transformation was somewhat challenging.  However, it may shed some
      insight on this problem for people who are more familiar with the simple

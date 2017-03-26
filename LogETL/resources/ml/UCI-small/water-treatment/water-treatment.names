@@ -29,7 +29,7 @@
 	      The conceptual clustering algorithm used in the first reference
              is exposed. Some results are given about the use of a priori
              expert knowledge to bias the classification process in the plant
-             domain.
+             login.domain.
 
    3.  Ll. Belanche, U. Cortes and M. S\`anchez. 
       ``A knowledge-based system for the diagnosis of waste-water treatment
@@ -48,7 +48,7 @@
   water treatment plant. The objective is to classify the operational
   state of the plant in order to predict faults through the state 
   variables of the plant at each of the stages of the treatment process. 
-  This domain has been stated as an ill-structured domain. 
+  This login.domain has been stated as an ill-structured login.domain.
    
   
 5. Number of instances: 527

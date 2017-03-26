@@ -6,8 +6,8 @@
 
 %STATE REPRESENTATION:
 %*********************
-%In this domain theory each board state is denoted by a constant such 
-%as state1. However, it differs from flann's domain theory in that the 
+%In this login.domain theory each board state is denoted by a constant such
+%as state1. However, it differs from flann's login.domain theory in that the
 %squares on the board are represented as two coordinates, the first giving 
 %the column of the square, the second giving the row of the square.
 %It also differs in how the playing pieces on a square are represented.
@@ -348,7 +348,7 @@ on(State,S,T,C,R):-
 %EXAMPLE STATE  
 %****************
 %Example of state, called state1 from Flann & Dietterich, 1989 Figure 4(d)
-%Suitable for use with the chess_russell_wyl domain theory
+%Suitable for use with the chess_russell_wyl login.domain theory
 
 on(state1,white,rook,1,1).
 on(state1,empty,empty,2,1).

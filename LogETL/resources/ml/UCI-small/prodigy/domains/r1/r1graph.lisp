@@ -20,9 +20,9 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 *******************************************************************************|#
 
 
-; general domain graphics routines....
+; general login.domain graphics routines....
 
-(defun reset-domain-graphics-parameters ()
+(defun reset-login.domain-graphics-parameters ()
   (psetq *NODE-MSG-X*  NIL 
 	 *NODE-MSG-Y*  NIL
 	 *STATE-MSG-X* NIL 
@@ -30,7 +30,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 	 *WIDTH*       NIL))     ; maximum width of an object
 
 
-(defun determine-domain-graphics-parameters (problem)
+(defun determine-login.domain-graphics-parameters (problem)
   (let ((*WIDTH* 0))
     (setq *NODE-MSG-X*  10)
     (setq *NODE-MSG-Y*  30)
@@ -38,12 +38,12 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
     (setq *STATE-MSG-Y* 30))
 
 
-(defun draw-domain-background ())
+(defun draw-login.domain-background ())
 
 
-(defun delete-domain-graphic-objects (state-predicates))
+(defun delete-login.domain-graphic-objects (state-predicates))
 
 
-(defun add-domain-graphic-objects (state-predicates))
+(defun add-login.domain-graphic-objects (state-predicates))
 
-(defun draw-domain-foreground ())
+(defun draw-login.domain-foreground ())

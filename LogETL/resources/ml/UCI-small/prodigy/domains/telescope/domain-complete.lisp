@@ -22,9 +22,9 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 
 
-; FILE: domain-complete.lisp
+; FILE: login.domain-complete.lisp
 
-;  Telescope domain.  yg 10/22/87
+;  Telescope login.domain.  yg 10/22/87
 
 
 (setq *OPERATORS* '(

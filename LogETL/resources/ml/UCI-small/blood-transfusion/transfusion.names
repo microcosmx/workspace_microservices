@@ -35,7 +35,7 @@ Data Set Information:
 
 To demonstrate the RFMTC marketing model (a modified version of RFM), this study 
 adopted the donor database of Blood Transfusion Service Center in Hsin-Chu City 
-in Taiwan. The center passes their blood transfusion service bus to one 
+in Taiwan. The center passes their blood transfusion login.service bus to one
 university in Hsin-Chu City to gather blood donated about every three months. To 
 build a FRMTC model, we selected 748 donors at random from the donor database. 
 These 748 donor data, each one included R (Recency - months since last 

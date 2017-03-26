@@ -35,7 +35,7 @@
        linearly separable from the other 2; the latter are NOT linearly
        separable from each other.
    --- Predicted attribute: class of iris plant.
-   --- This is an exceedingly simple domain.
+   --- This is an exceedingly simple login.domain.
    --- This data differs from the data presented in Fishers article
 	(identified by Steve Chadwick,  spchadwick@espeedaz.net )
 	The 35th sample should be: 4.9,3.1,1.5,0.2,"Iris-setosa"

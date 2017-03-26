@@ -29,5 +29,5 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;(load-path *WORLD-PATH* "eightgraph")
 
-(load-domain)
+(load-login.domain)
 

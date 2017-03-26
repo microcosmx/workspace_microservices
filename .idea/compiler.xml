@@ -6,19 +6,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="account-login-service" />
+        <module name="account-register-service" />
         <module name="account-service" />
         <module name="contacts-service" />
         <module name="order-service" />
         <module name="orderservice" />
+        <module name="query_crh" />
         <module name="rest-client" />
         <module name="rest-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="account-login-service" target="1.8" />
+      <module name="account-register-service" target="1.8" />
       <module name="account-service" target="1.8" />
       <module name="contacts-service" target="1.8" />
       <module name="order-service" target="1.8" />
       <module name="orderservice" target="1.5" />
+      <module name="query_crh" target="1.8" />
       <module name="rest-client" target="1.8" />
       <module name="rest-service" target="1.8" />
     </bytecodeTargetLevel>

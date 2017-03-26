@@ -47,6 +47,10 @@
         <option value="$PROJECT_DIR$/orderservice/pom.xml" />
         <option value="$PROJECT_DIR$/order-service/pom.xml" />
         <option value="$PROJECT_DIR$/contacts-service/pom.xml" />
+        <option value="$PROJECT_DIR$/querycrh-service/pom.xml" />
+        <option value="$PROJECT_DIR$/account-regist-service/pom.xml" />
+        <option value="$PROJECT_DIR$/account-register-service/pom.xml" />
+        <option value="$PROJECT_DIR$/account-login-service/pom.xml" />
       </list>
     </option>
   </component>

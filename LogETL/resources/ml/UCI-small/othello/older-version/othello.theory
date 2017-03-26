@@ -33,7 +33,7 @@ Notes about the representation here:
 1) There is no explicit 'board' parameter of these state-specific predicates.
 They are all relative to the 'current board', which is state-specific and may
 be set via set_current_board.  The implementation of these operational
-primitives is (or should be) irrelevant to the domain theory, but they are
+primitives is (or should be) irrelevant to the login.domain theory, but they are
 defined in veclowlevel.pl.
 
 2) Similarly, the MOVE operator, when executed, performs a state change.
@@ -43,7 +43,7 @@ current board before applying the operator, if the previous board is to be
 preserved. 
 
 This "state change" approach was taken to avoid having to append board
-parameters to every primitive in the domain theory.  However, I don't think
+parameters to every primitive in the login.domain theory.  However, I don't think
 it would make a difference to Zenith one way or another, as I don't think
 anything that depends on this representation.
 
@@ -53,7 +53,7 @@ anything that depends on this representation.
     so that the term_expansion above can use it.
 */
 
-%  Eventually move these out since they aren't domain-specific.
+%  Eventually move these out since they aren't login.domain-specific.
 arith_comp(=:=).
 arith_comp(=\=).
 arith_comp(<).

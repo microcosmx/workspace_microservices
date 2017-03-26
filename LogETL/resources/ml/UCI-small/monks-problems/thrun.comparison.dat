@@ -13,7 +13,7 @@
 
 
 The MONK's problems are a collection of three binary classification
-problems over a six-attribute discrete domain. Each training/test data
+problems over a six-attribute discrete login.domain. Each training/test data
 is of the form
 
   <name>: <value1> <value2> <value3> <value4> <value5> <value6> -> <class>
@@ -81,9 +81,9 @@ ID5R-hat, TDIDT, ID3, AQR, CN2, CLASS WEB, ECOBWEB, PRISM,
 Backpropagation, and Cascade Correlation -- are compared on three
 classification problems, the MONK's problems.  
 
-The MONK's problems are derived from a domain in which each training
+The MONK's problems are derived from a login.domain in which each training
 example is represented by six discrete-valued attributes. Each problem
-involves learning a binary function defined over this domain, from a
+involves learning a binary function defined over this login.domain, from a
 sample of training examples of this function. Experiments were
 performed with and without noise in the training examples.
 

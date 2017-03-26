@@ -82,7 +82,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
   (prove-cond t)
   (known-cond (holding <r5>)))
 
-; more than one object in domain.
+; more than one object in login.domain.
  (rule9
    (p-exp (is-equal <r9a> <r9b>)) 
    (q-exp nil)

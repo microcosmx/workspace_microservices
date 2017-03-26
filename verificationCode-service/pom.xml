@@ -4,17 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.trainticket</groupId>
-	<artifactId>verificationCode-service</artifactId>
+	<artifactId>verificationCode-login.service</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>verificationCode-service</name>
+	<name>verificationCode-login.service</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from login.repository -->
 	</parent>
 
 	<properties>
@@ -96,7 +96,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>verificationCode-service</finalName>
+					<finalName>verificationCode-login.service</finalName>
 				</configuration>
 			</plugin>
 			<plugin>
