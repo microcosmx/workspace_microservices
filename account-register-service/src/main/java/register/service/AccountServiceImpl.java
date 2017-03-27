@@ -1,4 +1,5 @@
 package register.service;
+
 import register.domain.Account;
 import register.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account create(Account account){
         accountRepository.save(account);
+        account.setPassword("");
         return account;
     }
 

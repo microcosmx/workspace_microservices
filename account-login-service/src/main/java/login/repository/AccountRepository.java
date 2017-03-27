@@ -6,5 +6,7 @@ import login.domain.Account;
 
 @Repository
 public interface AccountRepository extends MongoRepository<Account, String> {
+
     Account findById(long id);
+
 }

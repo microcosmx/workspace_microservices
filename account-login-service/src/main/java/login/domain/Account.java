@@ -11,6 +11,8 @@ public class Account {
     @Id
     private int id;
 
+    private String password;
+
     private int gender;
 
     private String name;
@@ -24,6 +26,7 @@ public class Account {
     public Account(){
         id = 0;
         gender = Gender.OTHER.getCode();
+        password = "defaultPassword";
         name = "None";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
@@ -36,6 +39,14 @@ public class Account {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getGender() {

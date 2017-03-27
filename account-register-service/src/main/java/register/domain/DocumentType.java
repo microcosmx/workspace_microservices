@@ -32,4 +32,5 @@ public enum DocumentType {
         }
         return documentTypeSet[0].getName();
     }
+
 }

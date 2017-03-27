@@ -1,5 +1,6 @@
 package login.controller;
 
+import login.domain.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import login.domain.Account;
@@ -16,9 +17,9 @@ public class AccountController {
         return "Welcome to [ Accounts Login Service ] !";
     }
 
-    @RequestMapping(path = "/findAccount/{accountId}", method = RequestMethod.GET)
-    public Account findAccount(@PathVariable long accountId){
-        return accountService.findById(accountId);
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public Account login(@RequestBody LoginInfo li){
+        return accountService.login(li);
     }
 
 }
