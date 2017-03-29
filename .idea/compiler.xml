@@ -19,6 +19,9 @@
         <module name="query_crh" />
         <module name="rest-client" />
         <module name="rest-service" />
+        <module name="test-all-account-service" />
+        <module name="test-all-contacts-service" />
+        <module name="test-all-order-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -35,6 +38,9 @@
       <module name="query_crh" target="1.8" />
       <module name="rest-client" target="1.8" />
       <module name="rest-service" target="1.8" />
+      <module name="test-all-account-service" target="1.8" />
+      <module name="test-all-contacts-service" target="1.8" />
+      <module name="test-all-order-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

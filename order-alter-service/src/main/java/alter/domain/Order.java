@@ -15,6 +15,8 @@ public class Order {
 
     private Date boughtDate;
 
+    private Date travelDate;
+
     private long accountId;
 
     private TrainNumber trainNumber;
@@ -53,6 +55,14 @@ public class Order {
 
     public void setBoughtDate(Date boughtDate) {
         this.boughtDate = boughtDate;
+    }
+
+    public Date getTravelDate() {
+        return travelDate;
+    }
+
+    public void setTravelDate(Date travelDate) {
+        this.travelDate = travelDate;
     }
 
     public TrainNumber getTrainNumber() {

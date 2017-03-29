@@ -3,7 +3,6 @@ package query.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Date;
 
 @Document(collection = "orders")
@@ -12,6 +11,8 @@ public class Order {
 
     @Id
     private long id;
+
+    private Date travelDate;
 
     private Date boughtDate;
 
@@ -45,6 +46,14 @@ public class Order {
 
     public void setAccountId(long accountId) {
         this.accountId = accountId;
+    }
+
+    public Date getTravelDate() {
+        return travelDate;
+    }
+
+    public void setTravelDate(Date travelDate) {
+        this.travelDate = travelDate;
     }
 
     public Date getBoughtDate() {
