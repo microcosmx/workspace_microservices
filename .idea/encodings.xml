@@ -5,6 +5,9 @@
     <file url="file://$PROJECT_DIR$/account-register-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/account-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/contacts-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-alter-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-cancel-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-query-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/querycrh-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rest-client" charset="UTF-8" />

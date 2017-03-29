@@ -51,6 +51,10 @@
         <option value="$PROJECT_DIR$/account-regist-service/pom.xml" />
         <option value="$PROJECT_DIR$/account-register-service/pom.xml" />
         <option value="$PROJECT_DIR$/account-login-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-endrose-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-alter-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-query-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-cancel-service/pom.xml" />
       </list>
     </option>
   </component>

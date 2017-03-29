@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>account-login-login.service</name>
+    <name>account-login-service</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -6,6 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/account-register-service/account-register-service.iml" filepath="$PROJECT_DIR$/account-register-service/account-register-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-service/account-service.iml" filepath="$PROJECT_DIR$/account-service/account-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/contacts-service/contacts-service.iml" filepath="$PROJECT_DIR$/contacts-service/contacts-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-alter-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-alter-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" filepath="$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-query-service/order-query-service.iml" filepath="$PROJECT_DIR$/order-query-service/order-query-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/orderservice/orderservice.iml" filepath="$PROJECT_DIR$/orderservice/orderservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/querycrh-service/query_crh.iml" filepath="$PROJECT_DIR$/querycrh-service/query_crh.iml" />

@@ -2,7 +2,7 @@ package register.service;
 
 import register.domain.Account;
 
-public interface AccountService {
+public interface RegisterService {
 
     Account create(Account account);
 

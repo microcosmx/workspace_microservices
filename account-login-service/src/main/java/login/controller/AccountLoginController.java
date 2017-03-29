@@ -4,13 +4,13 @@ import login.domain.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import login.domain.Account;
-import login.service.AccountService;
+import login.service.AccountLoginService;
 
 @RestController
-public class AccountController {
+public class AccountLoginController {
 
     @Autowired
-    private AccountService accountService;
+    private AccountLoginService accountService;
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private AccountRepository accountRepository;

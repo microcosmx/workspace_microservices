@@ -7,7 +7,7 @@ import login.domain.Account;
 import login.repository.AccountRepository;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountLoginServiceImpl implements AccountLoginService {
 
     @Autowired
     private AccountRepository accountRepository;
