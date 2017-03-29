@@ -1,0 +1,30 @@
+package com.trainticket.query_ordinary.controller;
+
+import com.trainticket.query_ordinary.domain.Information;
+import com.trainticket.query_ordinary.domain.Item;
+import com.trainticket.query_ordinary.service.QueryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * Created by Chenjie Xu on 2017/3/1.
+ */
+
+@RestController
+public class QueryController {
+
+    @Autowired
+    private QueryService queryService;
+
+    @RequestMapping(path = "/queryordinary",method = RequestMethod.POST)
+    public List<Item> query(@RequestBody Information info){
+
+        return queryService.query(info);
+    }
+
+}
