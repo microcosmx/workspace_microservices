@@ -3,6 +3,7 @@ package query.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
 @Document(collection = "orders")
@@ -12,9 +13,9 @@ public class Order {
     @Id
     private long id;
 
-    private Date travelDate;
-
     private Date boughtDate;
+
+    private Date travelDate;
 
     private long accountId;
 
@@ -32,6 +33,24 @@ public class Order {
 
     private int status;
 
+    public Order(){
+        id = 1;
+        boughtDate = new Date(System.currentTimeMillis());
+        travelDate = new Date(System.currentTimeMillis());
+        accountId = 313173918;
+        trainNumber = new TrainNumber();
+        trainNumber.setType(TrainType.GAOTIE.getCode());
+        trainNumber.setNumber(2001);
+        coachNumber = 5;
+        seatClass = SeatClass.FIRSTCLASS.getCode();
+        seatNumber = new SeatNumber();
+        seatNumber.setLineNum(5);
+        seatNumber.setPosition('A');
+        from = "上海虹桥";
+        to = "南京南";
+        status = OrderStatus.PAID.getCode();
+    }
+
     public long getId() {
         return id;
     }
@@ -48,20 +67,20 @@ public class Order {
         this.accountId = accountId;
     }
 
-    public Date getTravelDate() {
-        return travelDate;
-    }
-
-    public void setTravelDate(Date travelDate) {
-        this.travelDate = travelDate;
-    }
-
     public Date getBoughtDate() {
         return boughtDate;
     }
 
     public void setBoughtDate(Date boughtDate) {
         this.boughtDate = boughtDate;
+    }
+
+    public Date getTravelDate() {
+        return travelDate;
+    }
+
+    public void setTravelDate(Date travelDate) {
+        this.travelDate = travelDate;
     }
 
     public TrainNumber getTrainNumber() {

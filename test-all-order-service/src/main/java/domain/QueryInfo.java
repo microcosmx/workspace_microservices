@@ -1,4 +1,4 @@
-package query.domain;
+package domain;
 
 import java.util.Date;
 

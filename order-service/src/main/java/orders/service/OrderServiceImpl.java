@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService{
         }else{
             oldOrder.setAccountId(order.getAccountId());
             oldOrder.setBoughtDate(order.getBoughtDate());
+            oldOrder.setTravelDate(order.getTravelDate());
             oldOrder.setCoachNumber(order.getCoachNumber());
             oldOrder.setSeatClass(order.getSeatClass());
             oldOrder.setSeatNumber(order.getSeatNumber());
