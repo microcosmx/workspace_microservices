@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: rest-service-update
+
+server:
+  port: 15100
