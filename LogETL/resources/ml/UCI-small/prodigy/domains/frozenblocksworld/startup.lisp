@@ -27,10 +27,10 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;  No functions file!
 
-(load-path *WORLD-PATH* "domain")
+(load-path *WORLD-PATH* "login.domain")
 (load-path *WORLD-PATH* "sc-rules")
 (load-path *WORLD-PATH* "blocksgraph")
-(load-domain)
+(load-login.domain)
 
 
 

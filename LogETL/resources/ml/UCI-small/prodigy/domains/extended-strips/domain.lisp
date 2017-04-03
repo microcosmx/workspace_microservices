@@ -20,7 +20,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 *******************************************************************************|#
 
 
-; oops - noticed by -- domain allows pushing an
+; oops - noticed by -- login.domain allows pushing an
 ; object through the door while your holding another.
 ; Screws up putdown...
 

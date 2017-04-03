@@ -17,7 +17,7 @@
       -- Steve applied his EACH program to predict survival (i.e., life
          or death), did not use the wall-motion attribute, and recorded 87 
          correct and 29 incorrect in an incremental application to this
-         database.  He also showed that, by tuning EACH to this domain,
+         database.  He also showed that, by tuning EACH to this login.domain,
          EACH was able to derive (non-incrementally) a set of 28 
          hyper-rectangles that could perfectly classify 119 instances.
    -- 2. Kan, G., Visser, C., Kooler, J., & Dunning, A. (1986).  Short

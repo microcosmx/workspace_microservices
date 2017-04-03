@@ -6,7 +6,7 @@
 
 %STATE REPRESENTATION:
 %*********************
-%In this domain theory each initial board state is denoted by a constant 
+%In this login.domain theory each initial board state is denoted by a constant
 %such as state1.  The squares on the board are also denoted by
 %constants, such as a8, and b2. Finally, the pieces are each given names, 
 %such as wr1 for the white rook and bk1 for the black king.  Empty squares 
@@ -761,7 +761,7 @@ connected(S1,S2,knws):-
 %*********************
 
 %Example of state, called state1 from Flann & Dietterich, 1989 Figure 4(d)
-%Suitable for use with the chess_flann_wyl domain theory
+%Suitable for use with the chess_flann_wyl login.domain theory
 
 square(state1,a1,wr1).
 square(state1,b1,empty).

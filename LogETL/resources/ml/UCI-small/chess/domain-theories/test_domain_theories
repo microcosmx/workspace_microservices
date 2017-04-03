@@ -1,4 +1,4 @@
-%%% Tests the individual chess domain theories with the 
+%%% Tests the individual chess login.domain theories with the
 %%% included state
 [chess_flann_new].
 legal_move(state1,NS,black).

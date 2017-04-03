@@ -21,8 +21,8 @@
            pages={to appear}}
    (b) Indication of what attribute(s) were being predicted 
        Salary greater or less than 50,000.
-   (b) Indication of study's results (i.e. Is it a good domain to use?)
-       Hard domain with a nice number of records.
+   (b) Indication of study's results (i.e. Is it a good login.domain to use?)
+       Hard login.domain with a nice number of records.
        The following results obtained using MLC++ with default settings
        for the algorithms mentioned below.
         
@@ -67,7 +67,7 @@ fnlwgt: continuous.
 education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool.
 education-num: continuous.
 marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse.
-occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces.
+occupation: Tech-support, Craft-repair, Other-login.service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces.
 relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried.
 race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black.
 sex: Female, Male.

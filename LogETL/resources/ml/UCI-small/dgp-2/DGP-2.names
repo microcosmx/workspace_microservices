@@ -97,7 +97,7 @@ overview of the strategy.
           2.1 Instances, features, classes, target concepts.
 
 The starting point for induction algorithms is a space of instances of a
-application domain.  For our purposes, each instance is simply a point in an
+application login.domain.  For our purposes, each instance is simply a point in an
 N-dimensional space.  These dimensions represent features of the problem
 space.  Instances are often referred to as events, points or just data.
 
@@ -117,7 +117,7 @@ the problem space.  For example,  consider a problem space having 'number of
 instances' and 'number of features' as its dimensions.  Each point, (x,y), in
 this space corresponds to all those application domains having x number of
 instances and y number of features.  Note that a single point in problem space
-can map to multiple applications domains.  A given application domain (e.g.,
+can map to multiple applications domains.  A given application login.domain (e.g.,
 diagnosing soybean diseases) represents a single problem for an inductive
 learning system.
 
@@ -182,7 +182,7 @@ reducing the domains over which the algorithm is effective. For example, if we
 limit the language of concept expression to conjunctive terms we could never
 express disjunctive concepts, which in turn, reduces the number of domains for
 which this bias is effective. Fixed bias systems, consequently, restrict the
-application domain independent applicability of induction algorithm.
+application login.domain independent applicability of induction algorithm.
 
 Utgoff (Utgoff & Mitchell, 1982; Utgoff, 1986) states that learning algorithms
 can achieve better performance if they dynamically alter their biases. Such
@@ -196,10 +196,10 @@ selection rules from synthetic data for selecting biases in dynamic bias
 systems.
 
 We may dynamically select biases by using a mapping between application domains
-and biases found to be effective for that domain.  In order to create this
+and biases found to be effective for that login.domain.  In order to create this
 mapping, we must define an efficient characterization of the problem space, and
 biases must be identified which are effective for application domains in this
-space.  A new application domain is then located in problem space and the
+space.  A new application login.domain is then located in problem space and the
 appropriate biases selected.
 
 The Variable Bias Management System (VBMS) (Rendell, 1989) does just this. VBMS
@@ -226,8 +226,8 @@ This problem begs the use of a program like DGP/2 to overcome the limitation of
 scare natural application domains.  In Benedict (1990) DGP/2 was used
 in two separate experiments to assess the validity of learning bias
 optimization rules with synthetic data.  The first experiment demonstrates
-similar performance between a natural application domain and a synthetic
-application domain in response to varying biases.  The second experiment
+similar performance between a natural application login.domain and a synthetic
+application login.domain in response to varying biases.  The second experiment
 generates multiple synthetic application domains, runs a hill-climbing based
 bias optimizer, converts the results into bias selection rules, and measures
 their accuracy using the training/testing set methodology.  The results are

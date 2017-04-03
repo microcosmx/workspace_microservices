@@ -25,16 +25,16 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ;
 ; Locked by:  none.                                      Modified: 4/4/88
 ; 
-; Purpose:    To standardize domain graphics for Prodigy.
+; Purpose:    To standardize login.domain graphics for Prodigy.
 ;
 ;==========================================================================
 ; This was written by dkahn in june and july 1989.
-; The user must be careful not to use more blocks in the domain then can fit
+; The user must be careful not to use more blocks in the login.domain then can fit
 ; on the graphics window, otherwise the graphics will not work well, although
 ; I don't think it will crash.  The objects scale automatically to the width
 ; and height of the characters used to label them.  The height is, of course, 
 ; determined by the font used, but the width may be controlled by the user
-; when writing the problems for the domain.
+; when writing the problems for the login.domain.
 
 (require 'pg-system)
 (use-package (symbol-name 'pg))
@@ -63,7 +63,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ;; graphics window should be set to null in this function.
 ;;
 
-(defun reset-domain-graphics-parameters ()
+(defun reset-login.domain-graphics-parameters ()
   (psetq *NODE-MSG-X*  NIL 
 	 *NODE-MSG-Y*  NIL
 	 *STATE-MSG-X* NIL 
@@ -80,12 +80,12 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ;--------------------------------------------------------------------------
 
 ;; DETERMINE-DOMAIN-GRAPHICS-PARAMETERS SETS the variables used in drawing 
-;; the domain graphics for a given problem. This routine should also 
+;; the login.domain graphics for a given problem. This routine should also
 ;; determine the location of the node and state messages: i.e., set the
 ;; variables (*NODE-MSG-Y*, *NODE-MSG-X*, *STATE-MSG-X*, *STATE-MSG-Y*).
 ;;
 
-(defun determine-domain-graphics-parameters (problem)
+(defun determine-login.domain-graphics-parameters (problem)
   (setq *GRAPHICS-INFO* (init-a-list problem))
 ;  (fill-in-graphics-info *start-state*)
   (setq *WIDTH* 0
@@ -144,7 +144,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ; In pos-data the x-pos and y-pos are the position of the 
 ; object in space.  rest-position is the value to give to x-pos
 ; when the object is on-table.  Y-pos is 0 when the object is
-; on-table.  Unchanged-flag is used by add-domain-graphic-objects to
+; on-table.  Unchanged-flag is used by add-login.domain-graphic-objects to
 ; keep track of which objects aren't in the updata list.
 
 (defstruct pos-data
@@ -236,23 +236,23 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 )
 ;--------------------------------------------------------------------------
 
-;; DRAW-DOMAIN-BACKGROUND uses domain graphics parameters to draw the
-;; rear plane for the given domain -- drawn before any domain objects
-;; are added to the domain graphics window. 
+;; DRAW-DOMAIN-BACKGROUND uses login.domain graphics parameters to draw the
+;; rear plane for the given login.domain -- drawn before any login.domain objects
+;; are added to the login.domain graphics window.
 ;;
 
-(defun draw-domain-background ())
+(defun draw-login.domain-background ())
 
 
 ;--------------------------------------------------------------------------
 
-;; DELETE-DOMAIN-GRAPHIC-OBJECTS erases objects from the domain window. 
+;; DELETE-DOMAIN-GRAPHIC-OBJECTS erases objects from the login.domain window.
 ;; The argument to this function is a list containing predicates to delete.
 ;; The function must parse the relevant graphics predicates and devise some
-;; method for removing them from the domain window.
+;; method for removing them from the login.domain window.
 ;;
 
-(defun delete-domain-graphic-objects (state-preds)
+(defun delete-login.domain-graphic-objects (state-preds)
    (unless (null state-preds)
    (let ((pred (caar state-preds)))
      (cond ((eq 'on-table pred) (erase-block (cadar state-preds)))
@@ -261,7 +261,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
            (t nil)
      )
    )
-   (delete-domain-graphic-objects (cdr state-preds))
+   (delete-login.domain-graphic-objects (cdr state-preds))
    )
 
 )
@@ -269,11 +269,11 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;--------------------------------------------------------------------------
 
-;; ADD-DOMAIN-GRAPHIC-OBJECTS adds objects to the domain window. This 
-;; function is the complement of (delete-domain-graphic-objects). The 
+;; ADD-DOMAIN-GRAPHIC-OBJECTS adds objects to the login.domain window. This
+;; function is the complement of (delete-login.domain-graphic-objects). The
 ;; argument to this function may contain predicates irrelevant to graphics, 
 ;; therefore the function must devise a method to parse relevant predicates
-;; and add the appropriate objects to the domain window. 
+;; and add the appropriate objects to the login.domain window.
 ;; 
 ; This function is yucky.  The state-preds list can contain the relations of 
 ; objects in an arbitrary order.  Thus the ON predicate could occur before
@@ -284,7 +284,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ; This would be much more elegant with circular lists, but I don't want to 
 ; fool with them now.
 	
-(defun add-domain-graphic-objects (state-preds)
+(defun add-login.domain-graphic-objects (state-preds)
   (do ((good-a-list nil)
        (unchanged-a-list (flag-unchanged-objects state-preds))
        (incvar)
@@ -367,11 +367,11 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;--------------------------------------------------------------------------
 
-;; DRAW-DOMAIN-FOREGROUND uses domain graphics parameters to draw the 
-;; foremost plane of graphics -- drawn after the domain objects.
+;; DRAW-DOMAIN-FOREGROUND uses login.domain graphics parameters to draw the
+;; foremost plane of graphics -- drawn after the login.domain objects.
 ;;
 
- (defun draw-domain-foreground ()
+ (defun draw-login.domain-foreground ()
          (pg-draw-line *DOMAIN-WINDOW* 5 *START-Y* (- *DOMAIN-WIDTH* 5) 
 								*START-Y*) 
 	(draw (get-x-point *HAND-DATA*) (get-y-point *HAND-DATA*) (cdr *HAND-DATA*))

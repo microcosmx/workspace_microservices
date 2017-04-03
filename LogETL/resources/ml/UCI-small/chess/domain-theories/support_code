@@ -1,8 +1,8 @@
-%%% Support code for using the chess domain theories
+%%% Support code for using the chess login.domain theories
 
 %%% Generate initial chess states
-%%% Takes a chess domain theory name and a genetic chess position description
-%%% and produces a state description suitable for use by the given domain 
+%%% Takes a chess login.domain theory name and a genetic chess position description
+%%% and produces a state description suitable for use by the given login.domain
 %%% theory
 %%% Generic chess positions are described by a list of (location side type)
 %%% tuples, where location is specified by the standard chess notation,

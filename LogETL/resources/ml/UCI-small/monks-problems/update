@@ -67,9 +67,9 @@ Assistant Professional, mFOIL, ID5R, IDL, ID5R-hat, TDIDT, ID3, AQR, CN2,
 CLASSWEB, PRISM, Backpropagation, and Cascade Correlation - are compared on
 three classification problems, the MONK's problems.
 
-The MONK's problems are derived from a domain in which each training example
+The MONK's problems are derived from a login.domain in which each training example
 is represented by six discrete-valued attributes.  Each problem involves
-learning a binary function defined over this domain, from a sample of
+learning a binary function defined over this login.domain, from a sample of
 training examples of this function.  Experiments were performed with and
 without noise in the training examples.
 

@@ -48,7 +48,7 @@
 
    There are three MONK's problems.  The domains for all MONK's problems
    are the same (described below).  One of the MONK's problems has noise
-   added. For each problem, the domain has been partitioned into a train
+   added. For each problem, the login.domain has been partitioned into a train
    and test set.
 
 5. Number of Instances: 432

@@ -22,11 +22,11 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 (setq *WORLD-PATH* (pathname "/usr/prodigy/version2/domains/extended-strips/"))
 
-(load-path *WORLD-PATH* "domain")
+(load-path *WORLD-PATH* "login.domain")
 ; no functions file!
 ; (load-path *WORLD-PATH* "functions")
 (load-path *WORLD-PATH* "sc-rules")
 (load-path *WORLD-PATH* "ebl-axioms")
-(load-domain)
+(load-login.domain)
 
 

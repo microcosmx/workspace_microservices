@@ -1,0 +1,24 @@
+package register.controller;
+
+import register.domain.Account;
+import register.service.RegisterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class AccountRegisterController {
+
+    @Autowired
+    private RegisterService accountService;
+
+    @RequestMapping(path = "/welcome", method = RequestMethod.GET)
+    public String home() {
+        return "Welcome to [ Accounts Register Service ] !";
+    }
+
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public Account createNewAccount(@RequestBody Account newAccount){
+        return accountService.create(newAccount);
+    }
+
+}

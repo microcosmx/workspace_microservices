@@ -49,7 +49,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ;=========================================================================
 
   
-  (defun reset-domain-graphics-parameters ()
+  (defun reset-login.domain-graphics-parameters ()
     (psetq 
      	   *X-DIM*       NIL     ; number of slots along x-axis
 	   *Y-DIM*       NIL     ; number of slots along y-axis
@@ -69,14 +69,14 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 	   *DOMAIN-CHAR-HEIGHT* NIL
 	   *DOMAIN-CHAR-WIDTH* NIL ))
 
-  ;; do not initialize *start-state* or *domain-window*
+  ;; do not initialize *start-state* or *login.domain-window*
   
-  (reset-domain-graphics-parameters)
+  (reset-login.domain-graphics-parameters)
 
 ;-------------------------------------------------------------------------
 
 
-  (defun determine-domain-graphics-parameters (problem)
+  (defun determine-login.domain-graphics-parameters (problem)
     (let ((set-x (null *X-DIM*))
 	  (set-y (null *Y-DIM*))
 	  (set-z (null *Z-DIM*))
@@ -135,17 +135,17 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
   
 ;-------------------------------------------------------------------------
 
-  (defun draw-domain-background ())
+  (defun draw-login.domain-background ())
 
 
 ;-------------------------------------------------------------------------
   
-  (defun delete-domain-graphic-objects (idels)
+  (defun delete-login.domain-graphic-objects (idels)
     (cond ((null idels))
 	  ((not (eq 'at (get-pred (car idels))))
-	   (delete-domain-graphic-objects (cdr idels)))
+	   (delete-login.domain-graphic-objects (cdr idels)))
 	  (t (display-words *SPACES*  (get-location (car idels)))
-	     (delete-domain-graphic-objects (cdr idels)))))
+	     (delete-login.domain-graphic-objects (cdr idels)))))
   
   
   (defun get-pred (pred) (car pred))
@@ -154,13 +154,13 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
   
 ;-------------------------------------------------------------------------
   
-  (defun add-domain-graphic-objects (iadds)
+  (defun add-login.domain-graphic-objects (iadds)
     (cond ((null iadds))
 	  ((not (eq 'at (get-pred (car iadds))))
-	   (add-domain-graphic-objects (cdr iadds)))
+	   (add-login.domain-graphic-objects (cdr iadds)))
 	  (t (display-words (princ-to-string (get-name (car iadds)))
 			    (get-location (car iadds)))
-	     (add-domain-graphic-objects (cdr iadds)))))
+	     (add-login.domain-graphic-objects (cdr iadds)))))
   
   
   (defun get-name (at)  (cadr at))
@@ -168,7 +168,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;-------------------------------------------------------------------------
 
-  (defun draw-domain-foreground ()
+  (defun draw-login.domain-foreground ()
     ;; prints out the grid for gridworld.  The grid is drawn last because the 
     ;; lines are erased when the objects are added. 
     (draw-vertical *X-OR*  *Y-OR*  *X-DIM*  *Y-DIM* *Z-DIM* *WIDTH*)
@@ -332,4 +332,4 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ;=========================================================================
   
 
-(provide 'pg-domain)
+(provide 'pg-login.domain)

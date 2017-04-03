@@ -21,7 +21,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 
 ;;
-;; this is the domain theory for a Left-associative Parser...
+;; this is the login.domain theory for a Left-associative Parser...
 ;;
 ;;
 
@@ -50,7 +50,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 
 ;; possibly solve this problem hierarchically, the following operators
-;; form a [complete?] domain theory. They talk about transformations 
+;; form a [complete?] login.domain theory. They talk about transformations
 ;; between ...
 
 

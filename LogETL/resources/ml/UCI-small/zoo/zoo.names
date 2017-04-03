@@ -42,7 +42,7 @@
 
 6. Number of Attributes: 18 (animal name, 15 Boolean attributes, 2 numerics)
 
-7. Attribute Information: (name of attribute and type of value domain)
+7. Attribute Information: (name of attribute and type of value login.domain)
    1. animal name:      Unique for each instance
    2. hair		Boolean
    3. feathers		Boolean

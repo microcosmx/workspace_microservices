@@ -18,7 +18,7 @@
 
 %STATE REPRESENTATION:
 %*********************
-%In this domain theory each initial board state is denoted by a constant 
+%In this login.domain theory each initial board state is denoted by a constant
 %such as state1.  The squares on the board are denoted by an X,Y coordinate
 %with (1,1) being the lower left corner. The pieces are represented by 
 %a generic pieces such as  black_bishop, black_king. Empty squares are

@@ -15,7 +15,7 @@
 
 	Chess endgames are complex domains which are enumerable. Endgame
    databases are tables of stored game-theoretic values for the enumerated
-   elements (legal positions) of the domain. The game-theoretic values stored
+   elements (legal positions) of the login.domain. The game-theoretic values stored
    denote whether or not positions are won for either side, or include also
    the depth of win (number of moves) assuming minimax-optimal play. From the
    point of view of experiments on computer induction such databases provide
@@ -38,7 +38,7 @@
    used as negatives. Quinlan (1994) applied Foil to learn a complete and
    correct solution for this task.
 
-   	The typical complexity of induced classifiers in this domain suggest
+   	The typical complexity of induced classifiers in this login.domain suggest
    that the task is demanding when background knowledge is restricted.
 
 
@@ -55,7 +55,7 @@
    as lost 2-ply or lost 3-ply. The framework is similar in that the example
    positions supply only low-grade data. An important difference is that
    additional background predicates of the kind supplied in the KRKN study via
-   hand-crafted attributes are not provided for this KRK domain.
+   hand-crafted attributes are not provided for this KRK login.domain.
 
 5. Number of Instances: 28056
 

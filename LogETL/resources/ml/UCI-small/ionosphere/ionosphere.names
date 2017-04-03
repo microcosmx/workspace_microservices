@@ -21,7 +21,7 @@
       attained 92%, and backprop an average of over 96% accuracy on the 
       remaining 150 test instances, consisting of 123 "good" and only 24 "bad"
       instances.  (There was a counting error or some mistake somewhere; there
-      are a total of 351 rather than 350 instances in this domain.) Accuracy
+      are a total of 351 rather than 350 instances in this login.domain.) Accuracy
       on "good" instances was much higher than for "bad" instances.  Backprop
       was tested with several different numbers of hidden units (in [0,15])
       and incremental results were also reported (corresponding to how well

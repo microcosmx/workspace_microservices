@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Account {
 
     @Id
-    private int id;
+    private long id;
+
+    private String password;
 
     private int gender;
 
@@ -24,18 +26,27 @@ public class Account {
     public Account(){
         id = 0;
         gender = Gender.OTHER.getCode();
+        password = "defaultPassword";
         name = "暂无";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
         phoneNum = "0123456789";
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getGender() {

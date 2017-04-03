@@ -30,9 +30,9 @@ predicate.
 
 
 (gethash predicate state) =>  (predicate 
-			       (term-1 (value (domain values...)))
-			       (term-2 (value (domain values...)))
-			       (term-3 (value (domain values...))))
+			       (term-1 (value (login.domain values...)))
+			       (term-2 (value (login.domain values...)))
+			       (term-3 (value (login.domain values...))))
 
 
 Alternatively, each predicate can maintain its own values for the entire
@@ -40,10 +40,10 @@ planning process, although this could be hairy to decipher...
 
 
 (predicate
- (term-1 (state-1  (domain values...))
-	 (state-2  (domain values...)))
- (term-2 (state-1  (domain values...))
-	 (state-2  (domain values...))))
+ (term-1 (state-1  (login.domain values...))
+	 (state-2  (login.domain values...)))
+ (term-2 (state-1  (login.domain values...))
+	 (state-2  (login.domain values...))))
 
 
 
@@ -124,43 +124,43 @@ In general...
 
 
 (<operator>
- (is-a (value (domain operator))))
- (params (value (domain <var1> <var2>)))
- (preconds (value (domain (and (foo bar baz)
+ (is-a (value (login.domain operator))))
+ (params (value (login.domain <var1> <var2>)))
+ (preconds (value (login.domain (and (foo bar baz)
 			       (baz foo <var1>)
 			       (bar <var2> baz)))))
- (effects (value (domain ((del (foo bar baz))
+ (effects (value (login.domain ((del (foo bar baz))
 			  (add (foo <var2> <var1>)))))))
 
 
 (<inference-rule>
- (is-a (value (domain inference-rule)))
- (params (value (domain <var1>)))
- (preconds (value (domain (and (foo <var1> baz)
+ (is-a (value (login.domain inference-rule)))
+ (params (value (login.domain <var1>)))
+ (preconds (value (login.domain (and (foo <var1> baz)
 			       (bar foo <var1>)))))
- (effects (value (domain ((add (baz <var1> foo)))))))
+ (effects (value (login.domain ((add (baz <var1> foo)))))))
 
 
 
 (<sc-rule>
- (is-a (value (domain search-control-rule)))
- (criticality (value (domain nil)))
- (params (value (domain <node> <goal> <oper>)))
- (lhs (value (domain (and (current-node <node>)
+ (is-a (value (login.domain search-control-rule)))
+ (criticality (value (login.domain nil)))
+ (params (value (login.domain <node> <goal> <oper>)))
+ (lhs (value (login.domain (and (current-node <node>)
 			  (current-goal <node> <goal>)
 			  (is-first-goal <node>  <goal>)))))
- (rhs (value (domain (select goal <goal>)))))
+ (rhs (value (login.domain (select goal <goal>)))))
 
 
 
 I
 (<predicate>
- (is-a (value (domain predicate))))
+ (is-a (value (login.domain predicate))))
 
 
 
 (<atom> 
- (is-a (value (domain atom))))
+ (is-a (value (login.domain atom))))
 
 
 

@@ -161,7 +161,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 		      (known <node> (under-loc <loc1> <loc2>))))
 	    (rhs (reject node <node>)))
 
-; This rule is no longer needed because the domain rules for clear was
+; This rule is no longer needed because the login.domain rules for clear was
 ; such that it would never attempt to clear my picking up the block.  This
 ; was done by changing the universal quantifier to an existential quantifier
 ; and as such it no longer attemps to make the set empty by removing the object.
