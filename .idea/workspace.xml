@@ -2,49 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_test_jar_tests_1_2_0_BUILD_SNAPSHOT.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/account-service/src/test/java/testChangePassword.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/account-service/src/test/java/testFindByPhoneNumber.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/account-service/src/test/java/testResetPassword.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/controller/AccountController.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/controller/AccountController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/Account.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/Account.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/DocumentType.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/DocumentType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/Gender.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/Gender.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/NewPasswordInfo.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/domain/NewPasswordInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/repository/AccountRepository.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/repository/AccountRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/service/AccountService.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/service/AccountService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/target/classes/accounts/service/AccountServiceImpl.class" afterPath="$PROJECT_DIR$/account-service/target/classes/accounts/service/AccountServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_1_2_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_1_2_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_1_2_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_1_2_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_core_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_core_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_client_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_client_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_server_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_server_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_1_2_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_1_2_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_archaius_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_archaius_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_eureka_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_eureka_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_eureka_server_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_eureka_server_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_feign_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_feign_1_3_0_BUILD_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_ribbon_1_3_0_BUILD_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_ribbon_1_3_0_BUILD_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/AddContactsInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contacts-service/src/test/java/testModifyContact.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contacts-service/src/test/java/testQueryContact.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/src/main/java/domain/Contacts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/src/main/java/domain/DocumentType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/src/main/java/testChangeContactsInfo.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/src/main/java/testQueryContacts.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/target/classes/domain/Contacts.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/target/classes/domain/DocumentType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/target/classes/testChangeContactsInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/target/classes/testCreateContacts.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/target/classes/testQueryContacts.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test-all-contacts-service/test-all-contacts-service.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/target/classes/login/domain/DocumentType.class" afterPath="$PROJECT_DIR$/account-login-service/target/classes/login/domain/DocumentType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/target/classes/login/domain/Gender.class" afterPath="$PROJECT_DIR$/account-login-service/target/classes/login/domain/Gender.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/target/classes/login/domain/LoginInfo.class" afterPath="$PROJECT_DIR$/account-login-service/target/classes/login/domain/LoginInfo.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/contacts/ContactsApplication.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/contacts/ContactsApplication.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/contacts/controller/ContactsController.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/contacts/controller/ContactsController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/contacts/domain/Contacts.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/contacts/domain/Contacts.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/contacts/repository/ContactsRepository.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/contacts/repository/ContactsRepository.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/contacts/service/ContactsService.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/contacts/service/ContactsService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/contacts/service/ContactsServiceImpl.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/contacts/service/ContactsServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/readme.txt" afterPath="$PROJECT_DIR$/account-login-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/src/main/java/login/domain/LoginInfo.java" afterPath="$PROJECT_DIR$/account-login-service/src/main/java/login/domain/LoginInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/account-login-service.iml" afterPath="$PROJECT_DIR$/account-login-service/account-login-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/pom.xml" afterPath="$PROJECT_DIR$/account-login-service/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/src/test/java/testLogin.java" afterPath="$PROJECT_DIR$/account-login-service/src/test/java/testLogin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/readme.txt" afterPath="$PROJECT_DIR$/account-register-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/src/main/java/register/domain/Account.java" afterPath="$PROJECT_DIR$/account-register-service/src/main/java/register/domain/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/src/main/java/register/domain/DocumentType.java" afterPath="$PROJECT_DIR$/account-register-service/src/main/java/register/domain/DocumentType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/src/main/java/register/domain/Gender.java" afterPath="$PROJECT_DIR$/account-register-service/src/main/java/register/domain/Gender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/account-service.iml" afterPath="$PROJECT_DIR$/account-service/account-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/pom.xml" afterPath="$PROJECT_DIR$/account-service/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/readme.txt" afterPath="$PROJECT_DIR$/account-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/controller/AccountController.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/controller/AccountController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Account.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/DocumentType.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/DocumentType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Gender.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Gender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/NewPasswordInfo.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/NewPasswordInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/repository/AccountRepository.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/repository/AccountRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountService.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountServiceImpl.java" afterPath="$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-service/src/test/java/testChangeInfo.java" afterPath="$PROJECT_DIR$/account-service/src/test/java/testChangeInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/account-register-service.iml" afterPath="$PROJECT_DIR$/account-register-service/account-register-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/pom.xml" afterPath="$PROJECT_DIR$/account-register-service/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/contacts-service.iml" afterPath="$PROJECT_DIR$/contacts-service/contacts-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/pom.xml" afterPath="$PROJECT_DIR$/contacts-service/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/readme.txt" afterPath="$PROJECT_DIR$/contacts-service/readme.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/ContactsApplication.java" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/ContactsApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/controller/ContactsController.java" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/controller/ContactsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/Contacts.java" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/Contacts.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/repository/ContactsRepository.java" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/repository/ContactsRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsService.java" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java" afterPath="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-alter-service/order-alter-service.iml" afterPath="$PROJECT_DIR$/order-alter-service/order-alter-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-alter-service/pom.xml" afterPath="$PROJECT_DIR$/order-alter-service/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" afterPath="$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-cancel-service/pom.xml" afterPath="$PROJECT_DIR$/order-cancel-service/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-query-service/order-query-service.iml" afterPath="$PROJECT_DIR$/order-query-service/order-query-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-query-service/pom.xml" afterPath="$PROJECT_DIR$/order-query-service/pom.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/test-all-contacts-service/src/main/java/testCreateContacts.java" afterPath="$PROJECT_DIR$/contacts-service/src/test/java/testCreateContacts.java" />
     </list>
     <ignored path="$PROJECT_DIR$/rest-client/target/" />
     <ignored path="$PROJECT_DIR$/rest-service/target/" />
@@ -74,7 +79,42 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="testCreateContacts.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testCreateContacts.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="47" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testModifyContact.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testModifyContact.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="37" column="48" lean-forward="false" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContactsController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/controller/ContactsController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -101,25 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/test-all-order-service/src/main/java/testChangeOrderInfo.java" />
-        <option value="$PROJECT_DIR$/test-all-order-service/src/main/java/domain/Order.java" />
-        <option value="$PROJECT_DIR$/order-query-service/src/main/java/query/domain/Order.java" />
-        <option value="$PROJECT_DIR$/order-query-service/src/main/resources/bootstrap.yml" />
-        <option value="$PROJECT_DIR$/test-all-order-service/src/main/java/testQueryOrder.java" />
-        <option value="$PROJECT_DIR$/order-query-service/src/main/java/query/domain/QueryInfo.java" />
-        <option value="$PROJECT_DIR$/test-all-order-service/src/main/java/domain/QueryInfo.java" />
-        <option value="$PROJECT_DIR$/order-cancel-service/src/main/java/cancel/domain/CancelOrderInfo.java" />
-        <option value="$PROJECT_DIR$/order-cancel-service/src/main/java/cancel/service/OrderService.java" />
-        <option value="$PROJECT_DIR$/order-cancel-service/src/main/java/cancel/service/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/order-cancel-service/src/main/java/cancel/controller/OrderCancelController.java" />
-        <option value="$PROJECT_DIR$/order-alter-service/src/main/java/alter/domain/Order.java" />
-        <option value="$PROJECT_DIR$/order-cancel-service/src/main/java/cancel/domain/Order.java" />
-        <option value="$PROJECT_DIR$/order-alter-service/src/main/java/alter/domain/OrderAlterInfo.java" />
-        <option value="$PROJECT_DIR$/order-alter-service/src/main/java/alter/service/OrderAlterService.java" />
-        <option value="$PROJECT_DIR$/order-alter-service/src/main/java/alter/service/OrderAlterServiceImpl.java" />
-        <option value="$PROJECT_DIR$/order-alter-service/src/main/java/alter/controller/OrderAlterController.java" />
-        <option value="$PROJECT_DIR$/account-register-service/src/main/java/register/controller/AccountRegisterController.java" />
-        <option value="$PROJECT_DIR$/test-all-account-service/src/main/java/testRegister.java" />
         <option value="$PROJECT_DIR$/account-login-service/src/main/java/login/domain/Account.java" />
         <option value="$PROJECT_DIR$/account-login-service/src/main/java/login/service/AccountLoginServiceImpl.java" />
         <option value="$PROJECT_DIR$/account-login-service/src/main/java/login/repository/AccountRepository.java" />
@@ -141,7 +162,6 @@
         <option value="$PROJECT_DIR$/account-login-service/src/main/java/login/domain/LoginInfo.java" />
         <option value="$PROJECT_DIR$/account-login-service/readme.txt" />
         <option value="$PROJECT_DIR$/account-register-service/readme.txt" />
-        <option value="$PROJECT_DIR$/account-login-service/src/test/java/testLogin.java" />
         <option value="$PROJECT_DIR$/account-service/src/main/java/accounts/controller/AccountController.java" />
         <option value="$PROJECT_DIR$/account-service/readme.txt" />
         <option value="$PROJECT_DIR$/account-service/pom.xml" />
@@ -152,6 +172,26 @@
         <option value="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/NewPasswordInfo.java" />
         <option value="$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Account.java" />
         <option value="$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountService.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/ContactsApplication.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/Contacts.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/repository/ContactsRepository.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/AddContactsInfo.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsService.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/controller/ContactsController.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/contacts-service/readme.txt" />
+        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testChangeContactsInfo.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testQueryContacts.java" />
+        <option value="$PROJECT_DIR$/account-login-service/src/test/java/testLogin.java" />
+        <option value="$PROJECT_DIR$/account-register-service/pom.xml" />
+        <option value="$PROJECT_DIR$/account-login-service/pom.xml" />
+        <option value="$PROJECT_DIR$/contacts-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-alter-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-cancel-service/pom.xml" />
+        <option value="$PROJECT_DIR$/order-query-service/pom.xml" />
+        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testCreateContacts.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testQueryContact.java" />
+        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testModifyContact.java" />
       </list>
     </option>
   </component>
@@ -220,6 +260,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -242,7 +284,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test-all-order-service" />
+              <option name="myItemId" value="contacts-service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -256,25 +298,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test-all-order-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test-all-order-service" />
+              <option name="myItemId" value="contacts-service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -282,29 +306,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test-all-order-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -322,7 +324,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="order-query-service" />
+              <option name="myItemId" value="contacts-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -336,7 +346,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="order-cancel-service" />
+              <option name="myItemId" value="contacts-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -350,22 +376,142 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="order-alter-service" />
+              <option name="myItemId" value="contacts-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="repository" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contacts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="SearchEverywhereHistoryKey" value="ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Mav&#9;ACTION&#9;ActivateMavenProjectsToolWindow" />
+    <property name="SearchEverywhereHistoryKey" value="Ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Mav&#9;ACTION&#9;ActivateMavenProjectsToolWindow" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/order-alter-service/pom.xml" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -384,73 +530,14 @@
       <recent name="alter.domain" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Documents\GitHub\workspace_microservices\contacts-service\src\test\java" />
       <recent name="F:\Documents\GitHub\workspace_microservices\account-service\src\main\java\accounts\domain" />
       <recent name="F:\Documents\GitHub\workspace_microservices\account-register-service\src\main\java\register\domain" />
       <recent name="F:\Documents\GitHub\workspace_microservices\account-service\src\test\java" />
       <recent name="F:\Documents\GitHub\workspace_microservices\test-all-order-service\src\main\java\domain" />
-      <recent name="F:\Documents\GitHub\workspace_microservices\test-all-contacts-service\src\main\java\domain" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.testChangePassword">
-    <configuration default="false" name="testRegister" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="register.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="testRegister" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="account-register-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="testChangeInfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="testChangeInfo" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="account-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="RegisterApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="register.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="register.RegisterApplication" />
-      <module name="account-register-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="AccountApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="accounts.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="accounts.AccountApplication" />
-      <module name="account-service" />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.testModifyContact">
     <configuration default="false" name="testChangePassword" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="testChangePassword" />
@@ -463,6 +550,74 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="account-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="testLogin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="login.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="testLogin" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="account-login-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ContactsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="contacts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="contacts.ContactsApplication" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="contacts-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="testModifyContact" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="testModifyContact" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="contacts-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="testCreateContacts" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="contacts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="testCreateContacts" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <module name="contacts-service" />
       <envs />
       <method />
     </configuration>
@@ -885,19 +1040,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.Application" />
       <item index="1" class="java.lang.String" itemvalue="Spring Boot.QueryCrhApplication" />
-      <item index="2" class="java.lang.String" itemvalue="Application.testRegister" />
-      <item index="3" class="java.lang.String" itemvalue="Application.testChangeInfo" />
-      <item index="4" class="java.lang.String" itemvalue="Spring Boot.RegisterApplication" />
-      <item index="5" class="java.lang.String" itemvalue="Spring Boot.AccountApplication" />
-      <item index="6" class="java.lang.String" itemvalue="Application.testChangePassword" />
+      <item index="2" class="java.lang.String" itemvalue="Application.testChangePassword" />
+      <item index="3" class="java.lang.String" itemvalue="Application.testLogin" />
+      <item index="4" class="java.lang.String" itemvalue="Application.ContactsApplication" />
+      <item index="5" class="java.lang.String" itemvalue="Application.testModifyContact" />
+      <item index="6" class="java.lang.String" itemvalue="Spring Boot.testCreateContacts" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.testChangePassword" />
-        <item index="1" class="java.lang.String" itemvalue="Spring Boot.AccountApplication" />
-        <item index="2" class="java.lang.String" itemvalue="Application.testChangeInfo" />
-        <item index="3" class="java.lang.String" itemvalue="Application.testRegister" />
-        <item index="4" class="java.lang.String" itemvalue="Spring Boot.RegisterApplication" />
+        <item index="0" class="java.lang.String" itemvalue="Application.testModifyContact" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ContactsApplication" />
+        <item index="2" class="java.lang.String" itemvalue="Spring Boot.testCreateContacts" />
+        <item index="3" class="java.lang.String" itemvalue="Application.testLogin" />
+        <item index="4" class="java.lang.String" itemvalue="Application.testChangePassword" />
       </list>
     </recent_temporary>
   </component>
@@ -952,20 +1107,22 @@
       <workItem from="1491355000584" duration="164000" />
       <workItem from="1491355578609" duration="6825000" />
       <workItem from="1491369987197" duration="6274000" />
+      <workItem from="1491394305741" duration="2154000" />
+      <workItem from="1491396656273" duration="928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87938000" />
+    <option name="totallyTimeSpent" value="91020000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="32" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.51150304" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08052709" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0014641288" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -981,10 +1138,10 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.014218009" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33894584" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33894584" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -1038,7 +1195,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1047,152 +1204,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test-all-account-service/src/main/java/testRegister.java" />
-    <entry file="file://$PROJECT_DIR$/test-all-account-service/src/main/java/domain/RegisterInfo.java" />
-    <entry file="file://$PROJECT_DIR$/test-all-account-service/src/main/java/domain/LoginInfo.java" />
-    <entry file="file://$PROJECT_DIR$/test-all-account-service/src/main/java/testLogin.java" />
-    <entry file="file://$PROJECT_DIR$/account-register-service/src/main/java/register/service/RegisterService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-register-service/src/main/resources/bootstrap.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-register-service/src/main/java/register/domain/Gender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/controller/AccountLoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#454#455#0" expanded="false" />
-            <element signature="e#518#519#0" expanded="false" />
-            <element signature="e#638#639#0" expanded="false" />
-            <element signature="e#685#686#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/domain/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/domain/DocumentType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/domain/Gender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/domain/LoginInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/repository/AccountRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/service/AccountLoginService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/service/AccountLoginServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="23" column="35" lean-forward="false" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/LoginApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="47" lean-forward="true" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/resources/bootstrap.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-register-service/src/main/java/register/controller/AccountRegisterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#464#465#0" expanded="false" />
-            <element signature="e#531#532#0" expanded="false" />
-            <element signature="e#668#669#0" expanded="false" />
-            <element signature="e#716#717#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/account-register-service/src/main/java/register/domain/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1200,7 +1215,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,7 +1222,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1216,9 +1229,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1236,7 +1246,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="59" lean-forward="false" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1244,7 +1253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1252,49 +1260,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="42" lean-forward="true" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testResetPassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="16" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testResetPassword.java" />
     <entry file="file://$PROJECT_DIR$/account-register-service/src/test/java/testRegister.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/order-alter-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-228">
-          <caret line="44" column="49" lean-forward="false" selection-start-line="44" selection-start-column="49" selection-end-line="44" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/order-query-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-946">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/order-cancel-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-963">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1306,29 +1279,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="75" column="32" lean-forward="false" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-login-service/src/test/java/testLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="32" column="20" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="32" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test-all-order-service/src/main/java/testChangeOrderInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1336,7 +1290,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1344,7 +1297,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1352,9 +1304,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1362,36 +1311,82 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="62" lean-forward="false" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/DocumentType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Gender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/NewPasswordInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/repository/AccountRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="39" lean-forward="false" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="747">
+          <caret line="46" column="75" lean-forward="true" selection-start-line="46" selection-start-column="75" selection-end-line="46" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/AccountApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/repository/ContactsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testChangeInfo.java">
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/Contacts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testChangePassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="43" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testFindByPhoneNumber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="136">
+          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1400,78 +1395,190 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/account-service/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="28" column="6" lean-forward="false" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="179">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="21" selection-end-column="77" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Account.java">
+    <entry file="file://$PROJECT_DIR$/contacts-service/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="62" lean-forward="false" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
-          <folding />
+        <state relative-caret-position="502">
+          <caret line="35" column="76" lean-forward="false" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/DocumentType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/Gender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/domain/NewPasswordInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/repository/AccountRepository.java">
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/domain/AddContactsInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="14" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountService.java">
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-login-service/src/test/java/testLogin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="39" lean-forward="false" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/service/AccountServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/account-login-service/src/main/java/login/LoginApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="747">
-          <caret line="46" column="75" lean-forward="true" selection-start-line="46" selection-start-column="75" selection-end-line="46" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account-service/src/main/java/accounts/AccountApplication.java">
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testChangeContactsInfo.java" />
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testQueryContacts.java" />
+    <entry file="file://$PROJECT_DIR$/account-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="83" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-register-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-login-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testChangeInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testChangePassword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="34" column="43" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account-service/src/test/java/testFindByPhoneNumber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/order-alter-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/order-cancel-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/order-query-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/order-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/ContactsApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testQueryContact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testCreateContacts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="47" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/main/java/contacts/controller/ContactsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contacts-service/src/test/java/testModifyContact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="37" column="48" lean-forward="false" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

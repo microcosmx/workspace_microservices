@@ -1,11 +1,12 @@
-import domain.Contacts;
+import contacts.domain.AddContactsInfo;
+import contacts.domain.DocumentType;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
 
 public class testCreateContacts {
     public static void main(String[] args)throws Exception{
@@ -20,10 +21,14 @@ public class testCreateContacts {
         connection.connect();
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-        //注册的新账户对象
-        Contacts c = new Contacts();
-        c.setId(1);
-        JSONObject obj = new JSONObject(c);
+        //添加新联系人
+        AddContactsInfo aci = new AddContactsInfo();
+        aci.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
+        aci.setDocumentNumber("142603199601311011");
+        aci.setDocumentType(DocumentType.ID_CARD.getCode());
+        aci.setName("冀超");
+        aci.setPhoneNumber("+86 15221870263");
+        JSONObject obj = new JSONObject(aci);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

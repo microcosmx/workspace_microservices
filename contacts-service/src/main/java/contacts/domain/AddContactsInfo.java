@@ -1,16 +1,8 @@
 package contacts.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.UUID;
 
-@Document(collection = "contacts")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Contacts {
-
-    @Id
-    private UUID id;
+public class AddContactsInfo {
 
     private UUID accountId;
 
@@ -22,12 +14,8 @@ public class Contacts {
 
     private String phoneNumber;
 
-    public UUID getId() {
-        return id;
-    }
+    public AddContactsInfo(){
 
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public UUID getAccountId() {
@@ -68,24 +56,5 @@ public class Contacts {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Contacts other = (Contacts) obj;
-        return name.equals(other.getName())
-                && accountId .equals( other.getAccountId() )
-                && documentNumber.equals(other.getDocumentNumber())
-                && phoneNumber.equals(other.getPhoneNumber())
-                && documentType == other.getDocumentType();
     }
 }

@@ -19,7 +19,6 @@
         <module name="query_crh" />
         <module name="rest-client" />
         <module name="rest-service" />
-        <module name="test-all-contacts-service" />
         <module name="test-all-order-service" />
       </profile>
     </annotationProcessing>

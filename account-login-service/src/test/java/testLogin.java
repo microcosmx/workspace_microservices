@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by chaoj on 2017/3/29.
+ * {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,"name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
  */
 public class testLogin {
     public static void main(String[] args) throws Exception{
@@ -25,7 +25,7 @@ public class testLogin {
         //登录信息
         LoginInfo li = new LoginInfo();
         li.setPhoneNum("352323");
-        li.setPassword("defaultPassword");
+        li.setPassword("jichaofudan");
         JSONObject obj = new JSONObject(li);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
