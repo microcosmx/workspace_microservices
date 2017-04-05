@@ -1,15 +1,9 @@
-package domain;
+package register.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "accounts")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Account {
-
-    @Id
-    private int id;
+/**
+ * RegisterInfo:  Container for saving the register information.
+ */
+public class RegisterInfo {
 
     private String password;
 
@@ -23,22 +17,13 @@ public class Account {
 
     private String phoneNum;
 
-    public Account(){
-        id = 0;
+    public RegisterInfo(){
         gender = Gender.OTHER.getCode();
-        password = "defaultPassword";
         name = "None";
+        password = "defaultPassword";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
-        phoneNum = "0123456789";
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        phoneNum = "352323";
     }
 
     public String getPassword() {

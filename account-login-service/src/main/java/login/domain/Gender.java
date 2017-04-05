@@ -2,10 +2,10 @@ package login.domain;
 
 public enum Gender {
 
-    NONE   (0, "未填写"),
-    MALE   (1, "男"),
-    FEMALE (2, "女"),
-    OTHER  (3, "其它");
+    NONE   (0, "Null"),
+    MALE   (1, "Male"),
+    FEMALE (2, "Female"),
+    OTHER  (3, "Other");
 
     private int code;
     private String name;

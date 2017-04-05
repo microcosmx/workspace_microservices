@@ -1,15 +1,17 @@
-import domain.Account;
+import login.domain.LoginInfo;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class testRegister {
-    public static void main(String[] args)throws Exception{
-        URL url = new URL("http://localhost:12344/register");
+/**
+ * Created by chaoj on 2017/3/29.
+ */
+public class testLogin {
+    public static void main(String[] args) throws Exception{
+        URL url = new URL("http://localhost:12345/login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -21,9 +23,10 @@ public class testRegister {
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //注册的新账户对象
-        Account acc = new Account();
-        acc.setId(313173918);
-        JSONObject obj = new JSONObject(acc);
+        LoginInfo li = new LoginInfo();
+        li.setPhoneNum("352323");
+        li.setPassword("defaultPassword");
+        JSONObject obj = new JSONObject(li);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

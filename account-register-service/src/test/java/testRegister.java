@@ -1,16 +1,14 @@
-import domain.LoginInfo;
-import domain.NewPasswordInfo;
 import org.json.JSONObject;
-
+import register.domain.RegisterInfo;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class testResetPassword {
-    public static void main(String[] args) throws Exception{
-        URL url = new URL("http://localhost:12343/changePassword");
+public class testRegister {
+    public static void main(String[] args)throws Exception{
+        URL url = new URL("http://localhost:12344/register");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -22,11 +20,9 @@ public class testResetPassword {
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //注册的新账户对象
-        NewPasswordInfo npi = new NewPasswordInfo();
-        npi.setId(313173918);
-        npi.setOldPassword("defaultPassword");
-        npi.setNewPassword("jichaofdu");
-        JSONObject obj = new JSONObject(npi);
+        RegisterInfo ri = new RegisterInfo();
+        ri.setName("testUUID");
+        JSONObject obj = new JSONObject(ri);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

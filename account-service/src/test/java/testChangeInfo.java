@@ -1,7 +1,6 @@
-import domain.Account;
-import domain.LoginInfo;
-import org.json.JSONObject;
 
+import accounts.domain.Account;
+import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -11,13 +10,13 @@ import java.net.URL;
 /**
  * Created by chaoj on 2017/3/29.
  */
-public class testLogin {
+public class testChangeInfo {
     public static void main(String[] args) throws Exception{
-        URL url = new URL("http://localhost:12345/login");
+        URL url = new URL("http://localhost:12343/saveAccountInfo");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("PUT");
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
@@ -25,10 +24,10 @@ public class testLogin {
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //注册的新账户对象
-        LoginInfo li = new LoginInfo();
-        li.setId(313173918);
-        li.setPassword("jichaofdu");
-        JSONObject obj = new JSONObject(li);
+        Account acc = new Account();
+        acc.setId(313173918);
+        acc.setName("冀超");
+        JSONObject obj = new JSONObject(acc);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

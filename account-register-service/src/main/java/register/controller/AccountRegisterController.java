@@ -1,6 +1,7 @@
 package register.controller;
 
 import register.domain.Account;
+import register.domain.RegisterInfo;
 import register.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public class AccountRegisterController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public Account createNewAccount(@RequestBody Account newAccount){
-        return accountService.create(newAccount);
+    public Account createNewAccount(@RequestBody RegisterInfo ri){
+        return accountService.create(ri);
     }
 
 }

@@ -1,23 +1,18 @@
-import domain.Account;
-import domain.NewPasswordInfo;
+import accounts.domain.NewPasswordInfo;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by chaoj on 2017/3/29.
- */
-public class testChangeInfo {
+public class testResetPassword {
     public static void main(String[] args) throws Exception{
-        URL url = new URL("http://localhost:12343/saveAccountInfo");
+        URL url = new URL("http://localhost:12343/changePassword");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.setRequestMethod("PUT");
+        connection.setRequestMethod("POST");
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
@@ -25,10 +20,11 @@ public class testChangeInfo {
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //注册的新账户对象
-        Account acc = new Account();
-        acc.setId(313173918);
-        acc.setName("冀超");
-        JSONObject obj = new JSONObject(acc);
+        NewPasswordInfo npi = new NewPasswordInfo();
+        npi.setId(313173918);
+        npi.setOldPassword("defaultPassword");
+        npi.setNewPassword("jichaofdu");
+        JSONObject obj = new JSONObject(npi);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();
