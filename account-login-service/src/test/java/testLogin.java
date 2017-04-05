@@ -22,7 +22,7 @@ public class testLogin {
         connection.connect();
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-        //注册的新账户对象
+        //登录信息
         LoginInfo li = new LoginInfo();
         li.setPhoneNum("352323");
         li.setPassword("defaultPassword");

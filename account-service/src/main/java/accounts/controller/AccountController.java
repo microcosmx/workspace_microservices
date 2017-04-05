@@ -17,14 +17,9 @@ public class AccountController {
         return "Welcome to [ Accounts Service ] !";
     }
 
-    @RequestMapping(path = "/findAccount/{accountId}", method = RequestMethod.GET)
-    public Account findAccount(@PathVariable long accountId){
-        return accountService.findById(accountId);
-    }
-
-    @RequestMapping(path = "/createNewAccount", method = RequestMethod.POST)
-    public Account createNewAccount(@RequestBody Account newAccount){
-        return accountService.create(newAccount);
+    @RequestMapping(path = "/findAccount/{phoneNum}", method = RequestMethod.GET)
+    public Account findAccount(@PathVariable String phoneNum){
+        return accountService.findByPhoneNum(phoneNum);
     }
 
     @RequestMapping(path = "/saveAccountInfo", method = RequestMethod.PUT)
@@ -32,7 +27,7 @@ public class AccountController {
         return accountService.saveChanges(account);
     }
 
-    @RequestMapping(path = "/changePassword", method = RequestMethod.POST)
+    @RequestMapping(path = "/changePassword", method = RequestMethod.PUT)
     public Account changePassword(@RequestBody NewPasswordInfo npi){
         return accountService.changePassword(npi);
     }

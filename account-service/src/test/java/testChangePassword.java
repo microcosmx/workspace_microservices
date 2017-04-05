@@ -1,21 +1,22 @@
 import accounts.domain.Account;
+import accounts.domain.NewPasswordInfo;
 import com.google.gson.Gson;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
-public class testChangeInfo {
+public class testChangePassword {
 
     public static void main(String[] args) throws Exception{
         Account acc = getAccountByPhoneNum("352323");
         System.out.println(acc.getName());
 
 
-        URL url = new URL("http://localhost:12343/saveAccountInfo");
+        URL url = new URL("http://localhost:12343/changePassword");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -27,8 +28,11 @@ public class testChangeInfo {
         //POST请求
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //登录信息
-        acc.setName("AfterChangeInfo");
-        JSONObject obj = new JSONObject(acc);
+        NewPasswordInfo npi = new NewPasswordInfo();
+        npi.setId(acc.getId());
+        npi.setOldPassword("defaultPassword");
+        npi.setNewPassword("jichaofudan");
+        JSONObject obj = new JSONObject(npi);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();
@@ -46,8 +50,10 @@ public class testChangeInfo {
         reader.close();
         // 断开连接
         connection.disconnect();
-    }
 
+
+
+    }
 
     public static Account getAccountByPhoneNum(String phoneNum) throws  Exception{
         URL url = new URL("http://localhost:12343/findAccount/" + phoneNum);

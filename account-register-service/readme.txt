@@ -25,4 +25,4 @@ Interface:
                            int documentType
                            String documentNum
                            String phoneNum
-        Return: null for register fail, Account.java for register success.
+        Return: null for phone-number-already-exist, Account.java for register success.

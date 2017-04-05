@@ -1,25 +1,23 @@
 package accounts.domain;
 
-/**
- * LoginInfo: Container for get the password-change information.
- */
+import java.util.UUID;
+
 public class NewPasswordInfo {
 
-    private long id;
+    private UUID id;
     private String oldPassword;
     private String newPassword;
 
     public NewPasswordInfo(){
-        id = -1;
         oldPassword = "";
         newPassword = "";
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

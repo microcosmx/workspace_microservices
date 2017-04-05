@@ -26,8 +26,8 @@ public class Account {
 
     public Account(){
         gender = Gender.OTHER.getCode();
-        name = "None";
         password = "defaultPassword";
+        name = "None";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
         phoneNum = "0123456789";

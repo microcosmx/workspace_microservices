@@ -21,4 +21,4 @@ Interface:
         Method: Post - LoginInfo.java: A class that save the required login information.
                            String phoneNum: Login By Phone Number.
                            String password: Password of the account.
-        Return: null for login fail, Account.java for login success.
+        Return: null for account-not-found & wrong-password, Account.java for login success.

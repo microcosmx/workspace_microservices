@@ -13,15 +13,8 @@ public class AccountServiceImpl implements AccountService{
     private AccountRepository accountRepository;
 
     @Override
-    public Account findById(long id){
-        return accountRepository.findById(id);
-    }
-
-    @Override
-    public Account create(Account account){
-        accountRepository.save(account);
-        //account.setPassword("");
-        return account;
+    public Account findByPhoneNum(String phoneNum){
+        return accountRepository.findByPhoneNum(phoneNum);
     }
 
     @Override
@@ -43,11 +36,13 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account changePassword(NewPasswordInfo npi){
+        System.out.println("[Change Password]");
         Account oldAccount = accountRepository.findById(npi.getId());
         if(oldAccount == null){
+            System.out.println("FindFail");
             return null;
         }else{
-            if(npi!= null && npi.getOldPassword() != null &
+            if(npi != null && npi.getOldPassword() != null &
                     npi.getNewPassword() != null &&
                     oldAccount.getPassword().equals(npi.getOldPassword())){
                 oldAccount.setPassword(npi.getNewPassword());
@@ -55,6 +50,8 @@ public class AccountServiceImpl implements AccountService{
                 oldAccount.setPassword("");
                 return oldAccount;
             }else{
+
+                System.out.println("Wrong-Password - " + oldAccount.getPassword());
                 return null;
             }
         }

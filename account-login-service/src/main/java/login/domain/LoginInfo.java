@@ -1,9 +1,5 @@
 package login.domain;
 
-/**
- * LoginInfo: Container for saving the login information.
- */
-
 public class LoginInfo {
 
     private String phoneNum;
