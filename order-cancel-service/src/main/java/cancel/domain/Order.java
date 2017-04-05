@@ -33,6 +33,24 @@ public class Order {
 
     private int status;
 
+    public Order(){
+        id = 1;
+        boughtDate = new Date(System.currentTimeMillis());
+        travelDate = new Date(System.currentTimeMillis());
+        accountId = 313173918;
+        trainNumber = new TrainNumber();
+        trainNumber.setType(TrainType.GAOTIE.getCode());
+        trainNumber.setNumber(2001);
+        coachNumber = 5;
+        seatClass = SeatClass.FIRSTCLASS.getCode();
+        seatNumber = new SeatNumber();
+        seatNumber.setLineNum(5);
+        seatNumber.setPosition('A');
+        from = "上海虹桥";
+        to = "南京南";
+        status = OrderStatus.PAID.getCode();
+    }
+
     public long getId() {
         return id;
     }
