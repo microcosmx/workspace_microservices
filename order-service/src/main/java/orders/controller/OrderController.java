@@ -5,6 +5,7 @@ import orders.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @RestController
 public class OrderController {
@@ -18,7 +19,7 @@ public class OrderController {
     }
 
     @RequestMapping(path = "/findOrders/{accountId}", method = RequestMethod.GET)
-    public ArrayList<Order> findOrdersByAccountId(@PathVariable long accountId){
+    public ArrayList<Order> findOrdersByAccountId(@PathVariable UUID accountId){
         return orderService.findOrdersByAccountId(accountId);
     }
 

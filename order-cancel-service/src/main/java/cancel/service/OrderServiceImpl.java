@@ -6,6 +6,7 @@ import cancel.domain.OrderStatus;
 import cancel.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -14,14 +15,13 @@ public class OrderServiceImpl implements OrderService{
     private OrderRepository orderRepository;
 
     @Override
-    public Order findOrderById(long id){
+    public Order findOrderById(UUID id){
         return orderRepository.findById(id);
     }
 
     @Override
     public Order cancelOrder(CancelOrderInfo coi){
-        long accountId = coi.getAccountId();
-        long orderId = coi.getOrderId();
+        UUID orderId = coi.getOrderId();
         Order oldOrder = orderRepository.findById(orderId);
         if(oldOrder == null){
             return null;

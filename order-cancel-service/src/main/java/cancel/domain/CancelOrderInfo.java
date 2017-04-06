@@ -1,28 +1,29 @@
 package cancel.domain;
 
+import java.util.UUID;
+
 public class CancelOrderInfo {
 
-    private long accountId;
-    private long orderId;
+    private UUID accountId;
+    private UUID orderId;
 
     public CancelOrderInfo(){
-        accountId = 313173918;
-        orderId = 1;
+
     }
 
-    public long getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
-    public long getOrderId() {
+    public UUID getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(long orderId) {
+    public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
 }

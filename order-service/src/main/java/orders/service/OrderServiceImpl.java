@@ -5,6 +5,7 @@ import orders.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -13,12 +14,12 @@ public class OrderServiceImpl implements OrderService{
     private OrderRepository orderRepository;
 
     @Override
-    public Order findOrderById(long id){
+    public Order findOrderById(UUID id){
         return orderRepository.findById(id);
     }
 
     @Override
-    public ArrayList<Order> findOrdersByAccountId(long accountId){
+    public ArrayList<Order> findOrdersByAccountId(UUID accountId){
         return orderRepository.findByAccountId(accountId);
     }
 
@@ -28,6 +29,7 @@ public class OrderServiceImpl implements OrderService{
         if(accountOrders.contains(order)){
             return null;
         }else{
+            order.setId(UUID.randomUUID());
             orderRepository.save(order);
             return order;
         }

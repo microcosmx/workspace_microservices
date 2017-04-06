@@ -7,6 +7,7 @@ import alter.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 public class OrderAlterServiceImpl implements OrderAlterService {
@@ -16,7 +17,7 @@ public class OrderAlterServiceImpl implements OrderAlterService {
 
     @Override
     public Order alterOrder(OrderAlterInfo oai){
-        long oldOrderId = oai.getPreviousOrderId();
+        UUID oldOrderId = oai.getPreviousOrderId();
         Order oldOrder = findOrderById(oldOrderId);
         oldOrder.setStatus(OrderStatus.CANCEL.getCode());
         saveChanges(oldOrder);
@@ -24,7 +25,7 @@ public class OrderAlterServiceImpl implements OrderAlterService {
         return oai.getNewOrderInfo();
     }
 
-    public Order findOrderById(long id){
+    public Order findOrderById(UUID id){
         return orderRepository.findById(id);
     }
 

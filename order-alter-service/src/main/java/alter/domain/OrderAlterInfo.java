@@ -1,30 +1,30 @@
 package alter.domain;
 
+import java.util.UUID;
+
 public class OrderAlterInfo {
 
-    private long accountId;
-    private long previousOrderId;
+    private UUID accountId;
+    private UUID previousOrderId;
     private Order newOrderInfo;
 
     public OrderAlterInfo(){
-        accountId = 313173918;
-        previousOrderId = 1;
         newOrderInfo = new Order();
     }
 
-    public long getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
-    public long getPreviousOrderId() {
+    public UUID getPreviousOrderId() {
         return previousOrderId;
     }
 
-    public void setPreviousOrderId(long previousOrderId) {
+    public void setPreviousOrderId(UUID previousOrderId) {
         this.previousOrderId = previousOrderId;
     }
 

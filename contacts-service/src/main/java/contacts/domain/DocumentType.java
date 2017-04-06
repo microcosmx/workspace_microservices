@@ -2,10 +2,10 @@ package contacts.domain;
 
 public enum DocumentType {
 
-    NONE      (0,"无"),
-    ID_CARD   (1,"居民身份证"),
-    PASSPORT  (2,"护照"),
-    OTHER     (3,"其它");
+    NONE      (0,"Null"),
+    ID_CARD   (1,"ID Card"),
+    PASSPORT  (2,"Passport"),
+    OTHER     (3,"Other");
 
     private int code;
     private String name;

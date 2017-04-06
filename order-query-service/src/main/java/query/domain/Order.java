@@ -3,21 +3,21 @@ package query.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Date;
+import java.util.UUID;
 
 @Document(collection = "orders")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
 
     @Id
-    private long id;
+    private UUID id;
 
     private Date boughtDate;
 
     private Date travelDate;
 
-    private long accountId;
+    private UUID accountId;
 
     private TrainNumber trainNumber;
 
@@ -34,10 +34,8 @@ public class Order {
     private int status;
 
     public Order(){
-        id = 1;
         boughtDate = new Date(System.currentTimeMillis());
         travelDate = new Date(System.currentTimeMillis());
-        accountId = 313173918;
         trainNumber = new TrainNumber();
         trainNumber.setType(TrainType.GAOTIE.getCode());
         trainNumber.setNumber(2001);
@@ -51,19 +49,19 @@ public class Order {
         status = OrderStatus.PAID.getCode();
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public long getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
