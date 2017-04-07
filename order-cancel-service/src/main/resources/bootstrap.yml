@@ -7,7 +7,7 @@ spring:
 
 # HTTP Server
 server:
-  port: 12031  # HTTP (Tomcat) port
+  port: 12033  # HTTP (Tomcat) port
 
 # Discovery Server Access
 #eureka:

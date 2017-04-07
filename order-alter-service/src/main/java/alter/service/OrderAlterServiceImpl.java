@@ -19,6 +19,9 @@ public class OrderAlterServiceImpl implements OrderAlterService {
     public Order alterOrder(OrderAlterInfo oai){
         UUID oldOrderId = oai.getPreviousOrderId();
         Order oldOrder = findOrderById(oldOrderId);
+        if(oldOrder == null){
+            return null;
+        }
         oldOrder.setStatus(OrderStatus.CANCEL.getCode());
         saveChanges(oldOrder);
         create(oai.getNewOrderInfo());

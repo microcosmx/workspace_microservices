@@ -5,6 +5,7 @@ import java.util.UUID;
 public class CancelOrderInfo {
 
     private UUID accountId;
+
     private UUID orderId;
 
     public CancelOrderInfo(){
