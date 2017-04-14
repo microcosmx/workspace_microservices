@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.cloud:spring-cloud-commons:test-jar:tests:1.2.0.BUILD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-commons/1.2.0.BUILD-SNAPSHOT/spring-cloud-commons-1.2.0.BUILD-20170405.055135-1317-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-commons/1.2.0.BUILD-SNAPSHOT/spring-cloud-commons-1.2.0.BUILD-20170405.055135-1317-test-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-commons/1.2.0.BUILD-SNAPSHOT/spring-cloud-commons-1.2.0.BUILD-20170405.055135-1317-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

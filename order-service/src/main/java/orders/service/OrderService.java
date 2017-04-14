@@ -2,12 +2,13 @@ package orders.service;
 
 import orders.domain.Order;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public interface OrderService {
 
-    Order findOrderById(long id);
+    Order findOrderById(UUID id);
 
-    ArrayList<Order> findOrdersByAccountId(long accountId);
+    ArrayList<Order> findOrdersByAccountId(UUID accountId);
 
     Order create(Order newOrder);
 

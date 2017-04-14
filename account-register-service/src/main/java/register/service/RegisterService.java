@@ -1,9 +1,9 @@
 package register.service;
 
 import register.domain.Account;
+import register.domain.RegisterInfo;
 
 public interface RegisterService {
 
-    Account create(Account account);
-
+    Account create(RegisterInfo ri);
 }

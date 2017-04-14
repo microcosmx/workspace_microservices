@@ -17,7 +17,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
         if(li == null){
             return null;
         }
-        Account result = accountRepository.findById(li.getId());
+        Account result = accountRepository.findByPhoneNum(li.getPhoneNum());
         if(result != null &&
                 result.getPassword() != null && li.getPassword() != null
                 && result.getPassword().equals(li.getPassword())){

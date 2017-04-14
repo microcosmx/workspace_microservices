@@ -1,26 +1,22 @@
 package login.domain;
 
-/**
- * LoginInfo: Container for get the login information.
- */
-
 public class LoginInfo {
 
-    private long id;
+    private String phoneNum;
 
     private String password;
 
     public LoginInfo() {
-        this.id = 0;
+        this.phoneNum = "";
         this.password = "";
     }
 
-    public long getId() {
-        return id;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getPassword() {

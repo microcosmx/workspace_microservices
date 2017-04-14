@@ -1,11 +1,13 @@
 package alter.service;
 
 import alter.domain.Order;
+import alter.domain.OrderAlterInfo;
+import alter.domain.OrderStatus;
 import alter.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 public class OrderAlterServiceImpl implements OrderAlterService {
@@ -14,16 +16,22 @@ public class OrderAlterServiceImpl implements OrderAlterService {
     private OrderRepository orderRepository;
 
     @Override
-    public Order findOrderById(long id){
+    public Order alterOrder(OrderAlterInfo oai){
+        UUID oldOrderId = oai.getPreviousOrderId();
+        Order oldOrder = findOrderById(oldOrderId);
+        if(oldOrder == null){
+            return null;
+        }
+        oldOrder.setStatus(OrderStatus.CANCEL.getCode());
+        saveChanges(oldOrder);
+        create(oai.getNewOrderInfo());
+        return oai.getNewOrderInfo();
+    }
+
+    public Order findOrderById(UUID id){
         return orderRepository.findById(id);
     }
 
-    @Override
-    public ArrayList<Order> findOrdersByAccountId(long accountId){
-        return orderRepository.findByAccountId(accountId);
-    }
-
-    @Override
     public Order create(Order order){
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         if(accountOrders.contains(order)){
@@ -34,7 +42,6 @@ public class OrderAlterServiceImpl implements OrderAlterService {
         }
     }
 
-    @Override
     public Order saveChanges(Order order){
         Order oldOrder = findOrderById(order.getId());
         if(oldOrder == null){
@@ -42,6 +49,7 @@ public class OrderAlterServiceImpl implements OrderAlterService {
         }else{
             oldOrder.setAccountId(order.getAccountId());
             oldOrder.setBoughtDate(order.getBoughtDate());
+            oldOrder.setTravelDate(order.getTravelDate());
             oldOrder.setCoachNumber(order.getCoachNumber());
             oldOrder.setSeatClass(order.getSeatClass());
             oldOrder.setSeatNumber(order.getSeatNumber());
@@ -53,8 +61,5 @@ public class OrderAlterServiceImpl implements OrderAlterService {
             return oldOrder;
         }
     }
-
-
-
 }
 

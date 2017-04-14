@@ -5,9 +5,7 @@ import accounts.domain.NewPasswordInfo;
 
 public interface AccountService {
 
-    Account findById(long id);
-
-    Account create(Account account);
+    Account findByPhoneNum(String phoneNum);
 
     Account saveChanges(Account account);
 

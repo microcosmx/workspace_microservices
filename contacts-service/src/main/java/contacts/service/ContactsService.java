@@ -1,15 +1,17 @@
 package contacts.service;
 
+import contacts.domain.AddContactsInfo;
 import contacts.domain.Contacts;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public interface ContactsService {
 
-    Contacts findContactsById(long id);
+    Contacts findContactsById(UUID id);
 
-    ArrayList<Contacts> findContactsByAccountId(long accountId);
+    ArrayList<Contacts> findContactsByAccountId(UUID accountId);
 
-    Contacts create(Contacts contacts);
+    Contacts create(AddContactsInfo aci);
 
     Contacts saveChanges(Contacts contacts);
 }

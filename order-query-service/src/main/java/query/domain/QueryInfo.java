@@ -1,10 +1,11 @@
 package query.domain;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class QueryInfo {
 
-    private long accountId;
+    private UUID accountId;
 
     private Date travelDateStart;
 
@@ -26,17 +27,17 @@ public class QueryInfo {
 
     }
 
-    public QueryInfo(long accountId){
+    public QueryInfo(UUID accountId){
         this.accountId = accountId;
         disableTravelDateQuery();
         disableStateQuery();
     }
 
-    public long getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
