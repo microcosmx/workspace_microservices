@@ -1,7 +1,9 @@
 
-问卷调查调查对象搜集方案：
+问卷调查对象搜集方案：
 
 1. 通过以下渠道搜集问卷对象（尽可能是微服务（或SOA）从业者或者有相关经验从业者）：
+
+关键词：microservices, docker, spring boot, spring cloud, dubbo
 
 学术论文：
 基于微服务或SOA论文文章作者的联系方式 (email, weibo, weixin, linkin etc...）
@@ -35,8 +37,6 @@
 
 
 2. 发放问卷方式：
-
-关键词：microservices, docker, spring boot, spring cloud, dubbo
 
 微信微博消息标题或邮件标题：Questionair about The runtime fault diagnosis of Microservices (微服务运行时故障诊断经验研究问卷调查)
 微信微博内容标题或邮件内容：（英文介绍＋英文链接） ＋＋ （中文介绍＋中文链接）
