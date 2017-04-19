@@ -29,6 +29,7 @@ public class testLogin {
         JSONObject obj = new JSONObject(li);
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
+        System.out.println(obj.toString());
         out.flush();
         out.close();
         //读取响应

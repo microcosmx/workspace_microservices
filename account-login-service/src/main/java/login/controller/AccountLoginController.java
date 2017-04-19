@@ -7,6 +7,7 @@ import login.domain.Account;
 import login.service.AccountLoginService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AccountLoginController {
 
     @Autowired
@@ -19,6 +20,7 @@ public class AccountLoginController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public Account login(@RequestBody LoginInfo li){
+        System.out.println("li:" + li.getPhoneNum());
         return accountService.login(li);
     }
 
