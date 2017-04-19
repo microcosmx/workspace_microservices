@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/account-login-service/account-login-service.iml" filepath="$PROJECT_DIR$/account-login-service/account-login-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-register-service/account-register-service.iml" filepath="$PROJECT_DIR$/account-register-service/account-register-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-service/account-service.iml" filepath="$PROJECT_DIR$/account-service/account-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/contacts-service/contacts-service.iml" filepath="$PROJECT_DIR$/contacts-service/contacts-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contacts-addanddelete-service/contacts-addanddelete-service.iml" filepath="$PROJECT_DIR$/contacts-addanddelete-service/contacts-addanddelete-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contacts-modify-service/contacts-modify-service.iml" filepath="$PROJECT_DIR$/contacts-modify-service/contacts-modify-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contacts-query-service/contacts-query-service.iml" filepath="$PROJECT_DIR$/contacts-query-service/contacts-query-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-alter-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-alter-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" filepath="$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" />
