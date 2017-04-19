@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="/ticketclient/js/ticketsystem/jump.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="/ticketclient/js/ticketsystem/post.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="/ticketclient/js/vendor/jquery-1.12.0.min.js"></script>
+        <title>Sign In</title>
+    </head>
+    <body>
+        <p> Login you account here! </p>
+        <form id="login_form" onsubmit="post_login()">
+            <label>Phone Number:</label> <input id="login_phone_number" type="text" /><br />
+            <label>Password:</label>     <input id="login_password" type="password" /><br />
+            <br />
+            <input id="login_submit" type="submit" value="Sign In" />
+        </form>
+    </body>
+</html>
