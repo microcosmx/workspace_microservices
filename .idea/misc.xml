@@ -55,6 +55,8 @@
         <option value="$PROJECT_DIR$/order-alter-service/pom.xml" />
         <option value="$PROJECT_DIR$/order-query-service/pom.xml" />
         <option value="$PROJECT_DIR$/order-cancel-service/pom.xml" />
+        <option value="$PROJECT_DIR$/contacts-query-service/pom.xml" />
+        <option value="$PROJECT_DIR$/contacts-modify-service/pom.xml" />
       </list>
     </option>
   </component>
