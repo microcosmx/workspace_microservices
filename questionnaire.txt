@@ -38,5 +38,20 @@
 
 2. 发放问卷方式：
 
-微信微博消息标题或邮件标题：Questionair about The runtime fault diagnosis of Microservices (微服务运行时故障诊断经验研究问卷调查)
+微信微博消息标题或邮件标题：Questionnaire about The runtime fault diagnosis of Microservices (微服务运行时故障诊断经验研究问卷调查)
 微信微博内容标题或邮件内容：（英文介绍＋英文链接） ＋＋ （中文介绍＋中文链接）
+
+发布内容样例：
+
+Questionnaire about The runtime fault diagnosis of Microservices (微服务运行时故障诊断经验研究问卷调查)
+
+Questionnaire of The runtime fault diagnosis of Microservices:
+We are a research group of Fudan University Software Laboratory. We are currently conducting research on how to diagnose runtime faults of the microservices architecture-based applications. You are invited to participate in our survey and your experience will be a great help to our research. 
+
+Questionnaire link: https://sojump.com/jq/13261166.aspx
+
+
+微服务运行时故障诊断经验研究问卷调查:
+您好，我们是复旦大学软件工程实验室的研究小组，现在正在进行微服务运行时故障诊断方面的研究，诚邀您参与我们的问卷调查，您宝贵的经验将对我们的研究产生巨大的帮助！
+
+问卷链接: https://sojump.com/jq/13316446.aspx
