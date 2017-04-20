@@ -30,6 +30,7 @@ public class testRebookOrder {
 
         Order o = new Order();
         o.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
+        o.setId(UUID.randomUUID());
         oai.setNewOrderInfo(o);
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
