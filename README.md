@@ -3,7 +3,7 @@
 this is a online-ticket application based on microservices architecture.
 
 application dev is based on:
-spring boot 
+spring boot
 spring cloud
 
 
