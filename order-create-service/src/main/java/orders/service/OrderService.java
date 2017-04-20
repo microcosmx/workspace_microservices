@@ -8,10 +8,7 @@ public interface OrderService {
 
     Order findOrderById(UUID id);
 
-    ArrayList<Order> findOrdersByAccountId(UUID accountId);
-
     Order create(Order newOrder);
 
-    Order saveChanges(Order order);
 
 }

@@ -33,6 +33,7 @@ public class testChangePassword {
         npi.setOldPassword("defaultPassword");
         npi.setNewPassword("jichaofudan");
         JSONObject obj = new JSONObject(npi);
+        System.out.println(obj.toString());
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

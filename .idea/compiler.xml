@@ -12,11 +12,11 @@
         <module name="contacts-modify-service" />
         <module name="contacts-query-service" />
         <module name="contacts-service" />
-        <module name="order-alter-service" />
         <module name="order-cancel-service" />
         <module name="order-endrose-service" />
         <module name="order-modify-service" />
         <module name="order-query-service" />
+        <module name="order-rebook-service" />
         <module name="order-service" />
         <module name="orderservice" />
         <module name="query_crh" />
@@ -36,6 +36,7 @@
       <module name="order-endrose-service" target="1.5" />
       <module name="order-modify-service" target="1.8" />
       <module name="order-query-service" target="1.8" />
+      <module name="order-rebook-service" target="1.8" />
       <module name="order-service" target="1.8" />
       <module name="orderservice" target="1.5" />
       <module name="query_crh" target="1.8" />

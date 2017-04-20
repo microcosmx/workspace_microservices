@@ -1,18 +1,207 @@
-
-
 All services:
 
+    account-login-service
+    account-register-service
+    account-manage-service
 
+    contacts-addanddelete-service
+    contacts-modify-service
+    contacts-query-service
 
+    order-create-service
+    order-cancel-service
+    order-modify-service
+    order-rebook-service
+    order-query-service
 
+    payment-service
 
+    query_crh
+
+    verificationCode-service
+
+    ...
 
 Completed services:
 
+    account-login-service
+    account-register-service
+    account-manage-service
 
+    contacts-modify-service
+    contacts-query-service
 
+    order-create-service
+    order-cancel-service
+    order-modify-service
+    order-rebook-service
+    order-query-service
 
-
-
+    ...
 
 Service API:
+
+    account-login-service
+        (1)Login
+            Path:   http://account-login-service:12342/login
+            Method: Post - LoginInfo.java: A class that save the required login information.
+                                String phoneNum: Login By Phone Number.
+                                String password: Password of the account.
+                    Example:{"password":"jichaofudan","phoneNum":"352323"}
+            Return: null for account-not-found & wrong-password, Account.java for login success.
+                    Example:{"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
+                             "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
+
+    account-register-service
+        (1)Register
+            Path:   http://account-register-service:12344/register
+            Method: Post - RegisterInfo.java: A class that save the required register information.
+                                String password
+                                int gender
+                                String name
+                                 int documentType
+                                String documentNum
+                                String phoneNum
+                    Example:{"password":"defaultPassword","gender":3,"documentType":0,"name":"testUUID",
+                             "documentNum":"0123456789","phoneNum":"352323"}
+            Return: null for phone-number-already-exist, Account.java for register success.
+                    Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
+                              "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
+
+    account-manage-service
+         (1)Modify Information
+                    Path: http://account-manage-service:12343/saveAccountInfo
+                    Method: PUT - Account.java
+                            Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
+                                      "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789",
+                                      "phoneNum":"352323"}
+                    Return: null for account-not-found, Account.java for success.
+                            Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
+                                      "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
+         (2)Modify Password
+                 Path: http://account-manage-service:12343/changePassword
+                 Method: PUT - NewPasswordInfo.java
+                                   UUID id: The account Id you will change.
+                                   String oldPassword: The old password of the account.
+                                   String newPassword: The new password of the account.
+                         Example:{"oldPassword":"defaultPassword","newPassword":"jichaofudan",
+                                  "id":"c5e84370-484e-4d16-9490-71627540f752"}
+                 Return: null for account-not-found & wrong-password, Account.java for success.
+
+         (3)Find a account
+                 Path: http://account-manage-service:12343/findAccount/{phoneNum}
+                 Method: Get
+                 Return: null for account-not-found, Account.java for finding success.
+
+    contacts-addanddelete-service
+         (1)Add new contacts
+                    Path: http://contacts-addanddelete-service:12345/createNewContacts
+                    Method: Post - AddContactsInfo.java
+                                       UUID accountId: This contact belongs to which account
+                                       String name: The name of the contact
+                                       int documentType
+                                       String documentNumber
+                                       String phoneNumber
+                            Example:{"accountId":"c5e84370-484e-4d16-9490-71627540f752","phoneNumber":"+86 15221870263",
+                                     "documentType":1,"documentNumber":"142603199601311011","name":"冀超"}
+                    Return: null for contact already exists, Contact.java for success
+                            Example:{"id":"d3ed5f2f-c702-4cdd-834f-22732639ba87",
+                                     "accountId":"c5e84370-484e-4d16-9490-71627540f752","name":"冀超","documentType":1,
+                                     "documentNumber":"142603199601311011","phoneNumber":"+86 15221870263"}
+         (2)Delete a contact
+                    Not completed.
+
+    contacts-modify-service
+        (1)Modify A Contact
+                    Path: http://contacts-modify-service:12346/saveContactsInfo
+                    Method: Put - Contact.java
+                    Return: null for contact-not-found, Contact.java for modify success.
+
+    contacts-query-service
+        (1)Query one's contacts
+                    Path: http://contacts-query-service:12347/findContacts/{accountIdStr}
+                    Method: Get
+                    Return: ArrayList<Contacts>
+                            Example:[{"id":"d3ed5f2f-c702-4cdd-834f-22732639ba87",
+                                      "accountId":"c5e84370-484e-4d16-9490-71627540f752","name":"冀超","documentType":1,
+                                      "documentNumber":"142603199601311011","phoneNumber":"+86 15221870263"}]
+
+    order-create-service
+        (1)Create New Orders.
+                    Path: http://order-create-service:12031/createNewOrders
+                    Method: POST - Order.java
+                            Example:{"boughtDate":"2017-04-20T16:50:06.330+0800","travelDate":"2017-04-20T16:50:06.330+0800",
+                                     "accountId":"c5e84370-484e-4d16-9490-71627540f752","trainNumber":{"type":0,"number":2001},
+                                     "coachNumber":5,"seatClass":2,"seatNumber":{"position":"A","lineNum":5,"seatNumber":0,
+                                     "isNormalSeat":false},"from":"上海虹桥","to":"南京南","status":1}
+                    Return: Order.java you created.
+                            Example:{"id":"81ce4669-a0e1-47b0-942d-99a5ee99f64f","boughtDate":1492678206330,
+                                     "travelDate":1492678206330,"accountId":"c5e84370-484e-4d16-9490-71627540f752",
+                                     "trainNumber":{"type":0,"number":2001},"coachNumber":5,"seatClass":2,
+                                     "seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},
+                                     "from":"上海虹桥","to":"南京南","status":1}
+
+    order-modify-service
+        (1)Modify A Order Information
+                    Path: http://order-modify-service:12030/saveOrderInfo
+                    Method: POST - Order.java
+                    Return: null for order-not-found, Order.java for success.
+
+    order-cancel-service
+        (1)Cancel An Order
+                    Path: http://order-cancel-service:12033/cancelOrder
+                    Method: POST - CancelOrderInfo.java
+                                       UUID accountId: The owner of the order.
+                                       UUID orderId: The order that will be canceled.
+                            Example:{"accountId":"c5e84370-484e-4d16-9490-71627540f752",
+                                     "orderId":"0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1"}
+                    Return: null for order-not-found, Order.java for success.
+
+    order-rebook-service
+            (1)Rebook an order
+                    Path: http://order-alter-service:12032/alterOrder
+                    Method: POST - OrderAlterInfo
+                                        UUID accountId
+                                        UUID previousOrderId: The order that will be canceled.
+                                        Order newOrderInfo: The order will be created after the previous order canceled.
+                            Example:{"accountId":"c5e84370-484e-4d16-9490-71627540f752",
+                                     "previousOrderId":"0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1",
+                                     "newOrderInfo":{"boughtDate":"2017-04-20T17:33:24.550+0800",
+                                     "travelDate":"2017-04-20T17:33:24.550+0800",
+                                     "accountId":"c5e84370-484e-4d16-9490-71627540f752",
+                                     "trainNumber":{"type":0,"number":2001},"coachNumber":5,
+                                     "seatClass":2,"seatNumber":{"position":"A","lineNum":5,
+                                     "seatNumber":0,"isNormalSeat":false},"from":"上海虹桥",
+                                     "to":"南京南","status":1}}
+                    Return: null for old-order-not-found, Order.java for success.
+
+    order-query-service
+            (1)Query An Order
+                    Path: http://order-query-service:14221/queryOrders
+                    Method: POST - QueryInfo.java
+                                        UUID accountId: The owner of the orders
+                                        Date travelDateStart: Travel date from
+                                        Date travelDateEnd: Travel date to
+                                        Date boughtDateStart: Bought date from
+                                        Date boughtDateEnd: Bought date to
+                                        int state: Which state of orders do you want.
+                                        boolean enableTravelDateQuery: use travel date search or not
+                                        boolean enableBoughtDateQuery: use bought date search or not
+                                        boolean enableStateQuery: use state search or not
+                            Example:{"accountId":"c5e84370-484e-4d16-9490-71627540f752","state":-1,
+                                     "enableTravelDateQuery":false,"enableBoughtDateQuery":false,"enableStateQuery":false}
+                    Return: ArrayList of the orders.
+                            Example:[{"id":"0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1","boughtDate":1491446284477,
+                                      "travelDate":1491446284481,"accountId":"c5e84370-484e-4d16-9490-71627540f752",
+                                      "trainNumber":{"type":0,"number":2001},"coachNumber":5,"seatClass":2,
+                                      "seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},
+                                      "from":"上海虹桥","to":"南京南","status":4},
+                                      {"id":"81ce4669-a0e1-47b0-942d-99a5ee99f64f","boughtDate":1492678206330,
+                                      "travelDate":1492678206330,"accountId":"c5e84370-484e-4d16-9490-71627540f752",
+                                      "trainNumber":{"type":0,"number":2001},"coachNumber":5,"seatClass":2,
+                                      "seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},
+                                      "from":"上海虹桥","to":"南京南","status":1}]
+
+
+
+

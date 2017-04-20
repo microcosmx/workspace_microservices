@@ -26,6 +26,7 @@ public class testQueryOrder {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         QueryInfo qi = new QueryInfo(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
         String jsonStr = gson.toJson(qi);
+        System.out.println(jsonStr);
         //写入
         out.write(jsonStr.getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

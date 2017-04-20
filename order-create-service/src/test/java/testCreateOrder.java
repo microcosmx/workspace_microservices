@@ -29,6 +29,7 @@ public class testCreateOrder {
         Order o = new Order();
         o.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
         String jsonStr = gson.toJson(o);
+        System.out.println(jsonStr);
         //写入
         out.write(jsonStr.getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

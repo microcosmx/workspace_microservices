@@ -23,6 +23,7 @@ public class testRegister {
         RegisterInfo ri = new RegisterInfo();
         ri.setName("testUUID");
         JSONObject obj = new JSONObject(ri);
+        System.out.println(obj.toString());
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

@@ -1,8 +1,6 @@
 import cancel.domain.CancelOrderInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.rabbitmq.client.AMQP;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -31,6 +29,7 @@ public class testCancelOrder {
         coi.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
         coi.setOrderId(UUID.fromString("0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1"));
         String jsonStr = gson.toJson(coi);
+        System.out.println(jsonStr);
         //写入
         out.write(jsonStr.getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

@@ -11,7 +11,7 @@ import java.net.URL;
  */
 public class testLogin {
     public static void main(String[] args) throws Exception{
-        URL url = new URL("http://localhost:12345/login");
+        URL url = new URL("http://localhost:12342/login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);

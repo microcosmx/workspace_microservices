@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class testCreateContacts {
     public static void main(String[] args)throws Exception{
-        URL url = new URL("http://localhost:12332/createNewContacts");
+        URL url = new URL("http://localhost:12345/createNewContacts");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -29,6 +29,7 @@ public class testCreateContacts {
         aci.setName("冀超");
         aci.setPhoneNumber("+86 15221870263");
         JSONObject obj = new JSONObject(aci);
+        System.out.println(obj.toString());
         //写入
         out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();

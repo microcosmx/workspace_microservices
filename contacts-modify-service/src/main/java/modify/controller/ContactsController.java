@@ -13,7 +13,7 @@ public class ContactsController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
-        return "Welcome to [ Contacts Service ] !";
+        return "Welcome to [ Contacts Modify Service ] !";
     }
 
     @RequestMapping(path = "/saveContactsInfo", method = RequestMethod.PUT)
