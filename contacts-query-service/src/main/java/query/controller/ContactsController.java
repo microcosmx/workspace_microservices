@@ -2,10 +2,8 @@ package query.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import query.domain.AddContactsInfo;
 import query.domain.Contacts;
 import query.service.ContactsService;
-
 import java.util.ArrayList;
 import java.util.UUID;
 

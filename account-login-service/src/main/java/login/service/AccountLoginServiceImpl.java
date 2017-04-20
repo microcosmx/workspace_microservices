@@ -15,6 +15,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
     @Override
     public Account login(LoginInfo li){
         if(li == null){
+            System.out.println("[Account-Login-Service][Login] Fail.Account not found.");
             return null;
         }
         Account result = accountRepository.findByPhoneNum(li.getPhoneNum());
@@ -22,8 +23,10 @@ public class AccountLoginServiceImpl implements AccountLoginService {
                 result.getPassword() != null && li.getPassword() != null
                 && result.getPassword().equals(li.getPassword())){
             result.setPassword("");
+            System.out.println("[Account-Login-Service][Login] Success.");
             return result;
         }else{
+            System.out.println("[Account-Login-Service][Login] Fail.Wrong Password.");
             return null;
         }
     }

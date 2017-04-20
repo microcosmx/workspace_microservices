@@ -61,8 +61,10 @@ public class OrderQueryServiceImpl implements OrderQueryService {
                     finalList.add(tempOrder);
                 }
             }
+            System.out.println("[Order-Query-Service][QueryOrder] Get order num:" + finalList.size());
             return finalList;
         }else{
+            System.out.println("[Order-Query-Service][QueryOrder] Get order num:" + list.size());
             return list;
         }
     }

@@ -17,6 +17,7 @@ public class RegisterServiceImpl implements RegisterService {
     public Account create(RegisterInfo ri){
         Account oldAcc = accountRepository.findByPhoneNum(ri.getPhoneNum());
         if(oldAcc != null){
+            System.out.println("[Account-Register-Service][Register] Fail.Account already exists.");
             return null;
         }
         Account account = new Account();
@@ -29,6 +30,7 @@ public class RegisterServiceImpl implements RegisterService {
         account.setGender(ri.getGender());
         Account resultAcc = accountRepository.save(account);
         resultAcc.setPassword("");
+        System.out.println("[Account-Register-Service][Register] Success.");
         return account;
     }
 

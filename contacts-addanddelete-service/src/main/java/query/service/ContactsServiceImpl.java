@@ -27,9 +27,11 @@ public class ContactsServiceImpl implements ContactsService{
 
         ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(contacts.getAccountId());
         if(accountContacts.contains(contacts)){
+            System.out.println("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");
             return null;
         }else{
             contactsRepository.save(contacts);
+            System.out.println("[Contacts-Add&Delete-Service][AddContacts] Success.");
             return contacts;
         }
     }

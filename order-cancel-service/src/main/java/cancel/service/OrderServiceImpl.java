@@ -24,10 +24,12 @@ public class OrderServiceImpl implements OrderService{
         UUID orderId = coi.getOrderId();
         Order oldOrder = orderRepository.findById(orderId);
         if(oldOrder == null){
+            System.out.println("[Cancel-Order-Service][CancelOrder] Fail.Order not found.");
             return null;
         }else{
             oldOrder.setStatus(OrderStatus.CANCEL.getCode());
             orderRepository.save(oldOrder);
+            System.out.println("[Cancel-Order-Service][CancelOrder] Success.");
             return oldOrder;
         }
     }

@@ -20,11 +20,13 @@ public class OrderAlterServiceImpl implements OrderAlterService {
         UUID oldOrderId = oai.getPreviousOrderId();
         Order oldOrder = findOrderById(oldOrderId);
         if(oldOrder == null){
+            System.out.println("[Order-Alter-Service][AlterOrder] Fail.Order do not exist.");
             return null;
         }
         oldOrder.setStatus(OrderStatus.CANCEL.getCode());
         saveChanges(oldOrder);
         create(oai.getNewOrderInfo());
+        System.out.println("[Order-Alter-Service][AlterOrder] Success.");
         return oai.getNewOrderInfo();
     }
 

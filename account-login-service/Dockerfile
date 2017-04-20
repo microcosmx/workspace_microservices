@@ -4,4 +4,4 @@ MAINTAINER jichao <13302010019@fudan.edu.cn>
 ADD ./target/account-login-service-0.1.0.jar /app/
 CMD ["java", "-Xmx200m", "-jar", "/app/account-login-service-0.1.0.jar"]
 
-EXPOSE 12345
+EXPOSE 12342
