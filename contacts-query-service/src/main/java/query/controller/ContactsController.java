@@ -15,7 +15,7 @@ public class ContactsController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
-        return "Welcome to [ Contacts Service ] !";
+        return "Welcome to [ Contacts Query Service ] !";
     }
 
     @RequestMapping(path = "/findContacts/{accountIdStr}", method = RequestMethod.GET)

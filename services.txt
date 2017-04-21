@@ -33,6 +33,7 @@ Completed services:
     account-register-service
     account-manage-service
 
+    contacts-addanddelete-service
     contacts-modify-service
     contacts-query-service
 
@@ -52,7 +53,7 @@ Completed services:
 
 Service API:
 
-    account-login-service
+    登录微服务(account-login-service)
         (1)Login
             Path:   http://account-login-service:12342/login
             Method: Post - LoginInfo.java: A class that save the required login information.
@@ -63,7 +64,7 @@ Service API:
                     Example:{"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
                              "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
 
-    account-register-service
+    注册微服务(account-register-service)
         (1)Register
             Path:   http://account-register-service:12344/register
             Method: Post - RegisterInfo.java: A class that save the required register information.
@@ -79,7 +80,7 @@ Service API:
                     Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
                               "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
 
-    account-manage-service
+    账号信息管理(account-manage-service)
          (1)Modify Information
                     Path: http://account-manage-service:12343/saveAccountInfo
                     Method: PUT - Account.java
@@ -104,7 +105,7 @@ Service API:
                  Method: Get
                  Return: null for account-not-found, Account.java for finding success.
 
-    contacts-addanddelete-service
+    联系人增加和删除微服务(contacts-addanddelete-service)
          (1)Add new contacts
                     Path: http://contacts-addanddelete-service:12345/createNewContacts
                     Method: Post - AddContactsInfo.java
@@ -120,15 +121,19 @@ Service API:
                                      "accountId":"c5e84370-484e-4d16-9490-71627540f752","name":"冀超","documentType":1,
                                      "documentNumber":"142603199601311011","phoneNumber":"+86 15221870263"}
          (2)Delete a contact
-                    Not completed.
+                    Path:http://contacts-addanddelete-service:12345/deleteContacts
+                    Method: Post - String of contactsId.
+                            Example: contactsId=0586a017-c395-44ae-86b2-87ecb80734af
+                    Return: delete status string.
+                            Example: "status=success" "status=fail"
 
-    contacts-modify-service
+    联系人修改微服务(contacts-modify-service)
         (1)Modify A Contact
                     Path: http://contacts-modify-service:12346/saveContactsInfo
                     Method: Put - Contact.java
                     Return: null for contact-not-found, Contact.java for modify success.
 
-    contacts-query-service
+    联系人查询微服务(contacts-query-service)
         (1)Query one's contacts
                     Path: http://contacts-query-service:12347/findContacts/{accountIdStr}
                     Method: Get
@@ -137,7 +142,7 @@ Service API:
                                       "accountId":"c5e84370-484e-4d16-9490-71627540f752","name":"冀超","documentType":1,
                                       "documentNumber":"142603199601311011","phoneNumber":"+86 15221870263"}]
 
-    order-create-service
+    订单创建微服务(order-create-service)
         (1)Create New Orders.
                     Path: http://order-create-service:12031/createNewOrders
                     Method: POST - Order.java
@@ -152,13 +157,13 @@ Service API:
                                      "seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},
                                      "from":"上海虹桥","to":"南京南","status":1}
 
-    order-modify-service
+    订单信息修改微服务(order-modify-service)
         (1)Modify A Order Information
                     Path: http://order-modify-service:12030/saveOrderInfo
                     Method: POST - Order.java
                     Return: null for order-not-found, Order.java for success.
 
-    order-cancel-service
+    订单取消微服务(order-cancel-service)
         (1)Cancel An Order
                     Path: http://order-cancel-service:12033/cancelOrder
                     Method: POST - CancelOrderInfo.java
@@ -168,7 +173,7 @@ Service API:
                                      "orderId":"0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1"}
                     Return: null for order-not-found, Order.java for success.
 
-    order-rebook-service
+    订单改签微服务(order-rebook-service)
             (1)Rebook an order
                     Path: http://order-alter-service:12032/alterOrder
                     Method: POST - OrderAlterInfo
@@ -186,7 +191,7 @@ Service API:
                                      "to":"南京南","status":1}}
                     Return: null for old-order-not-found, Order.java for success.
 
-    order-query-service
+    订单查询微服务(order-query-service)
             (1)Query An Order
                     Path: http://order-query-service:14221/queryOrders
                     Method: POST - QueryInfo.java

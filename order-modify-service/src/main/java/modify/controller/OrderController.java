@@ -13,7 +13,7 @@ public class OrderController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
-        return "Welcome to [ Order Service ] !";
+        return "Welcome to [ Order Modify Service ] !";
     }
 
     @RequestMapping(path = "/saveOrderInfo", method = RequestMethod.PUT)

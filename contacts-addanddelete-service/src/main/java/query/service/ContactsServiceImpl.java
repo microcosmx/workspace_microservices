@@ -36,6 +36,19 @@ public class ContactsServiceImpl implements ContactsService{
         }
     }
 
+    @Override
+    public String delete(UUID contactsId){
+        contactsRepository.deleteById(contactsId);
+        Contacts contacts = contactsRepository.findById(contactsId);
+        if(contacts == null){
+            System.out.println("[Contacts-Add&Delete-Service][DeleteContacts] Success.");
+            return "status=success";
+        }else{
+            System.out.println("[Contacts-Add&Delete-Service][DeleteContacts] Fail.Reason not clear.");
+            return "status=fail";
+        }
+    }
+
 }
 
 
