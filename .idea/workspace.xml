@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/test/java/testDeleteContacts.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/contacts-service/target/classes/query/ContactsApplication.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/query/controller/ContactsController.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/query/controller/ContactsController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/query/domain/Contacts.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/query/domain/Contacts.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/query/repository/ContactsRepository.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/query/repository/ContactsRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/query/service/ContactsService.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/query/service/ContactsService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/classes/query/service/ContactsServiceImpl.class" afterPath="$PROJECT_DIR$/contacts-service/target/classes/query/service/ContactsServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-service/target/test-classes/testCreateContacts.class" afterPath="$PROJECT_DIR$/contacts-service/target/test-classes/testCreateContacts.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-login-service/readme.txt" afterPath="$PROJECT_DIR$/account-login-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-manage-service/readme.txt" afterPath="$PROJECT_DIR$/account-manage-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account-register-service/readme.txt" afterPath="$PROJECT_DIR$/account-register-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/readme.txt" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/controller/ContactsController.java" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/controller/ContactsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/domain/Contacts.java" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/domain/Contacts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/repository/ContactsRepository.java" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/repository/ContactsRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/service/ContactsService.java" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/service/ContactsService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/service/ContactsServiceImpl.java" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/main/java/query/service/ContactsServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-addanddelete-service/src/test/java/testCreateContacts.java" afterPath="$PROJECT_DIR$/contacts-addanddelete-service/src/test/java/testCreateContacts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-modify-service/readme.txt" afterPath="$PROJECT_DIR$/contacts-modify-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-modify-service/src/main/java/modify/domain/Contacts.java" afterPath="$PROJECT_DIR$/contacts-modify-service/src/main/java/modify/domain/Contacts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-query-service/readme.txt" afterPath="$PROJECT_DIR$/contacts-query-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-query-service/src/main/java/query/controller/ContactsController.java" afterPath="$PROJECT_DIR$/contacts-query-service/src/main/java/query/controller/ContactsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contacts-query-service/src/main/java/query/domain/Contacts.java" afterPath="$PROJECT_DIR$/contacts-query-service/src/main/java/query/domain/Contacts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-cancel-service/readme.txt" afterPath="$PROJECT_DIR$/order-cancel-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-create-service/readme.txt" afterPath="$PROJECT_DIR$/order-create-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-create-service/src/main/java/orders/controller/OrderController.java" afterPath="$PROJECT_DIR$/order-create-service/src/main/java/orders/controller/OrderController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-modify-service/readme.txt" afterPath="$PROJECT_DIR$/order-modify-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-modify-service/src/main/java/modify/controller/OrderController.java" afterPath="$PROJECT_DIR$/order-modify-service/src/main/java/modify/controller/OrderController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order-query-service/readme.txt" afterPath="$PROJECT_DIR$/order-query-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services.txt" afterPath="$PROJECT_DIR$/services.txt" />
-    </list>
+    <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/rest-client/target/" />
     <ignored path="$PROJECT_DIR$/rest-service/target/" />
     <ignored path="$PROJECT_DIR$/account-service/target/" />
@@ -70,7 +38,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -200,8 +168,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,211 +183,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order-rebook-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order-rebook-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order-rebook-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order-rebook-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order-rebook-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contacts-addanddelete-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contacts-addanddelete-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contacts-addanddelete-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workspace_microservices" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contacts-addanddelete-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="query" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1045,11 +811,12 @@
       <workItem from="1492759957936" duration="1647000" />
       <workItem from="1492761642850" duration="198000" />
       <workItem from="1492761874452" duration="45000" />
+      <workItem from="1492997810970" duration="110000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136995000" />
+    <option name="totallyTimeSpent" value="137105000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
@@ -1478,7 +1245,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
