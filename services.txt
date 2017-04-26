@@ -1,55 +1,45 @@
-All services:
+所有服务:
 
-    account-login-service
-    account-register-service
-    account-manage-service
+    登录: account-login-service
+    注册: account-register-service
+    账户管理: account-manage-service
+    验证码: verificationCode-service
 
-    contacts-addanddelete-service
-    contacts-modify-service
-    contacts-query-service
+    常用联系人管理(CRUD): contacts-addanddelete-service, contacts-modify-service, contacts-query-service
 
-    order-create-service
-    order-cancel-service
-    order-modify-service
-    order-rebook-service
-    order-query-service
+    车次查询_高铁动车: query_crh-service (车站表，车次表（max ticket），余票（车次id，日期，已售出票数）)
 
-    payment-service
+    车票查询_其他(k...): queryordinary-service
 
-    query_crh-service
-    queryordinary-service
+    车票订单_高铁动车(CRUD): order-create-service, cancel, modify, rebook, query
+    status: 
+    未支付: 预订未支付，修改(座位等级修改，删除...), 取消(退票)
+    已支付：预定已支付，已支付改签，取消
 
-    verificationCode-service
+    车票订单_其他(k...): 
+
+    车票支付(CRUD，退款): payment-service
+
+    车票使用终端服务：车票进站
 
 
-    登录、注册、生成验证码、比对验证码、车票查询_高铁动车、车票查询_其他、车票预订、
-    黄牛识别、支付、取消订单、已完成订单查询、未完成订单查询、改签、退票、增加常用联系人、
-    修改常用联系人、删除常用联系人、个人信息查询、个人信息修改、账户密码修改。
-    ...
+页面：
 
-Completed services:
+    登陆验证：inputbox ＋ button ＋ output
+    车次查询： inputbox ＋ button ＋ output
 
-    account-login-service
-    account-register-service
-    account-manage-service
+    10.141.212.21 server: apache + proxy
+    config Reverse Proxy:
+    ProxyPass /account/ http://10.141.212.21:12300/
+    ProxyPassReverse /account/ http://10.141.212.21:12300/
 
-    contacts-addanddelete-service
-    contacts-modify-service
-    contacts-query-service
 
-    order-create-service
-    order-cancel-service
-    order-modify-service
-    order-rebook-service
-    order-query-service
+关键流程:
 
-    payment-service
+    1. 登陆验证 －》 车次查询 －》 车票预订 －》 修改座位等级 －》 支付 －》 乘车
+    2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车
+    3. 登陆验证 －》 车票订单查询 －》 取消 －》 退款
 
-    query_crh-service
-    queryordinary-service
-
-    verificationCode-service
-    ...
 
 Service API:
 
