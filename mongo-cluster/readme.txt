@@ -5,6 +5,10 @@ mvn clean package
 run:
 java -jar target/gs-accessing-data-mongodb-0.1.0.jar
 
+single mongodb:
+cd mongo-cluster
+docker-compose up
+
 mongo-cluster:
 cd docker-mongo-cluster
 docker-compose up
