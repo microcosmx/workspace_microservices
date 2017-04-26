@@ -1,5 +1,5 @@
+import com.google.gson.Gson;
 import login.domain.LoginInfo;
-import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -26,10 +26,11 @@ public class testLogin {
         LoginInfo li = new LoginInfo();
         li.setPhoneNum("352323");
         li.setPassword("jichaofudan");
-        JSONObject obj = new JSONObject(li);
+        Gson gson = new Gson();
+        String str = gson.toJson(li);
         //写入
-        out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
-        System.out.println(obj.toString());
+        out.write(str.getBytes("UTF-8"));//这样可以处理中文乱码问题
+        System.out.println(str);
         out.flush();
         out.close();
         //读取响应

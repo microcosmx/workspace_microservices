@@ -1,4 +1,4 @@
-import org.json.JSONObject;
+import com.google.gson.Gson;
 import register.domain.RegisterInfo;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -22,10 +22,11 @@ public class testRegister {
         //注册的新账户对象
         RegisterInfo ri = new RegisterInfo();
         ri.setName("testUUID");
-        JSONObject obj = new JSONObject(ri);
-        System.out.println(obj.toString());
+        Gson gson = new Gson();
+        String str = gson.toJson(ri);
+        System.out.println(str);
         //写入
-        out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
+        out.write(str.getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();
         out.close();
         //读取响应

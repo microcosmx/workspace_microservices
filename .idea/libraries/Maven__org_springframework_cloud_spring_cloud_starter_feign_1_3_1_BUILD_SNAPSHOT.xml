@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.cloud:spring-cloud-starter-feign:1.3.1.BUILD-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-feign/1.3.1.BUILD-SNAPSHOT/spring-cloud-starter-feign-1.3.1.BUILD-20170420.050729-97.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-feign/1.3.1.BUILD-SNAPSHOT/spring-cloud-starter-feign-1.3.1.BUILD-20170426.020804-146.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-feign/1.3.1.BUILD-SNAPSHOT/spring-cloud-starter-feign-1.3.1.BUILD-20170420.050729-97-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-feign/1.3.1.BUILD-SNAPSHOT/spring-cloud-starter-feign-1.3.1.BUILD-20170426.020804-146-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-feign/1.3.1.BUILD-SNAPSHOT/spring-cloud-starter-feign-1.3.1.BUILD-20170420.050729-97-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-feign/1.3.1.BUILD-SNAPSHOT/spring-cloud-starter-feign-1.3.1.BUILD-20170426.020804-146-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
