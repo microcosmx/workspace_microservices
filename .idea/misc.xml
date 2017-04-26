@@ -58,6 +58,7 @@
         <option value="$PROJECT_DIR$/contacts-modify-service/pom.xml" />
         <option value="$PROJECT_DIR$/order-modify-service/pom.xml" />
         <option value="$PROJECT_DIR$/order-rebook-service/pom.xml" />
+        <option value="$PROJECT_DIR$/contacts-addanddelete-service/pom.xml" />
       </list>
     </option>
   </component>

@@ -9,6 +9,7 @@
         <module name="account-login-service" />
         <module name="account-register-service" />
         <module name="account-service" />
+        <module name="contacts-addanddelete-service" />
         <module name="contacts-modify-service" />
         <module name="contacts-query-service" />
         <module name="contacts-service" />
@@ -28,6 +29,7 @@
       <module name="account-login-service" target="1.8" />
       <module name="account-register-service" target="1.8" />
       <module name="account-service" target="1.8" />
+      <module name="contacts-addanddelete-service" target="1.8" />
       <module name="contacts-modify-service" target="1.8" />
       <module name="contacts-query-service" target="1.8" />
       <module name="contacts-service" target="1.8" />

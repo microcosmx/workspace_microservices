@@ -1,6 +1,6 @@
+import com.google.gson.Gson;
 import query.domain.AddContactsInfo;
 import query.domain.DocumentType;
-import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -28,10 +28,11 @@ public class testCreateContacts {
         aci.setDocumentType(DocumentType.ID_CARD.getCode());
         aci.setName("太古方糖");
         aci.setPhoneNumber("+86 15221870263");
-        JSONObject obj = new JSONObject(aci);
-        System.out.println(obj.toString());
+        Gson gson = new Gson();
+        String str = gson.toJson(aci);
+        System.out.println(str);
         //写入
-        out.write(obj.toString().getBytes("UTF-8"));//这样可以处理中文乱码问题
+        out.write(str.getBytes("UTF-8"));//这样可以处理中文乱码问题
         out.flush();
         out.close();
         //读取响应

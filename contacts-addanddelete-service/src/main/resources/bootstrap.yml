@@ -5,12 +5,6 @@ spring:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo
 
-# HTTP Server
-server:
-  port: 12345  # HTTP (Tomcat) port
 
-# Discovery Server Access
-eureka:
-  aclient:
-    serviceUrl:
-    defaultZone: http://localhost:8761/eureka/
+
+

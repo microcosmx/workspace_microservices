@@ -1,0 +1,3 @@
+# HTTP Server
+server:
+  port: 12030  # HTTP (Tomcat) port

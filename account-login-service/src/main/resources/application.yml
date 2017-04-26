@@ -1,0 +1,3 @@
+# HTTP Server
+server:
+  port: 12342  # HTTP (Tomcat) port

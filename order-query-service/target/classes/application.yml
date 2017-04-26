@@ -1,0 +1,3 @@
+# HTTP Server
+server:
+  port: 14221  # HTTP (Tomcat) port
