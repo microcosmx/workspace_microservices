@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: dashboard
+
+server:
+  port: 10000
