@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: contacts-modify-service
-    data:
-      mongodb:
-        uri: mongodb://localhost:27017/jcTestMongo
-
