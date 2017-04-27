@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/querycrh-service/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/order-alter-service/src/main/java/alter" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/order-alter-service/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/payment-service/src/main/resources" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

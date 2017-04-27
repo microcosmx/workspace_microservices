@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/order-query-service/order-query-service.iml" filepath="$PROJECT_DIR$/order-query-service/order-query-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-rebook-service/order-rebook-service.iml" filepath="$PROJECT_DIR$/order-rebook-service/order-rebook-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/orderservice/orderservice.iml" filepath="$PROJECT_DIR$/orderservice/orderservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-service/payment.iml" filepath="$PROJECT_DIR$/payment-service/payment.iml" />
       <module fileurl="file://$PROJECT_DIR$/querycrh-service/query_crh.iml" filepath="$PROJECT_DIR$/querycrh-service/query_crh.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-client/rest-client.iml" filepath="$PROJECT_DIR$/rest-client/rest-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-service/rest-service.iml" filepath="$PROJECT_DIR$/rest-service/rest-service.iml" />
