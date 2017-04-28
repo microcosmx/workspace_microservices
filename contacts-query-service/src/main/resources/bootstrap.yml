@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: query-query-service
-    data:
-      mongodb:
-        uri: mongodb://localhost:27017/jcTestMongo
-
-
-

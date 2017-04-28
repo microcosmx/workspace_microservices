@@ -5,16 +5,11 @@
       <module fileurl="file://$PROJECT_DIR$/account-login-service/account-login-service.iml" filepath="$PROJECT_DIR$/account-login-service/account-login-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-manage-service/account-manage-service.iml" filepath="$PROJECT_DIR$/account-manage-service/account-manage-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-register-service/account-register-service.iml" filepath="$PROJECT_DIR$/account-register-service/account-register-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/contacts-addanddelete-service/contacts-addanddelete-service.iml" filepath="$PROJECT_DIR$/contacts-addanddelete-service/contacts-addanddelete-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/contacts-modify-service/contacts-modify-service.iml" filepath="$PROJECT_DIR$/contacts-modify-service/contacts-modify-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/contacts-query-service/contacts-query-service.iml" filepath="$PROJECT_DIR$/contacts-query-service/contacts-query-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" filepath="$PROJECT_DIR$/order-cancel-service/order-cancel-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-create-service/order-create-service.iml" filepath="$PROJECT_DIR$/order-create-service/order-create-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contacts-service/contacts-service.iml" filepath="$PROJECT_DIR$/contacts-service/contacts-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-modify-service/order-modify-service.iml" filepath="$PROJECT_DIR$/order-modify-service/order-modify-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-query-service/order-query-service.iml" filepath="$PROJECT_DIR$/order-query-service/order-query-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-rebook-service/order-rebook-service.iml" filepath="$PROJECT_DIR$/order-rebook-service/order-rebook-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/orderservice/orderservice.iml" filepath="$PROJECT_DIR$/orderservice/orderservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-service/payment.iml" filepath="$PROJECT_DIR$/payment-service/payment.iml" />
       <module fileurl="file://$PROJECT_DIR$/querycrh-service/query_crh.iml" filepath="$PROJECT_DIR$/querycrh-service/query_crh.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-client/rest-client.iml" filepath="$PROJECT_DIR$/rest-client/rest-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-service/rest-service.iml" filepath="$PROJECT_DIR$/rest-service/rest-service.iml" />
