@@ -1,26 +1,37 @@
 所有服务:
 
-    登录: account-login-service
-    注册: account-register-service
-    账户管理: account-manage-service
-    验证码: verificationCode-service
+    sso: ts-sso-service （db）
+    登录: ts-login-service
+    注册: ts-register-service
+    验证码: ts-verificationCode-service
 
-    常用联系人管理(CRUD): contacts-addanddelete-service, contacts-modify-service, contacts-query-service
+    常用联系人管理(CRUD): ts-contacts-service （db）
 
-    车次查询_高铁动车: query_crh-service (车站表，车次表（max ticket），余票（车次id，日期，已售出票数）)
+    配置: ts-config-service (db: 10天以后，同一id同一车次1，改签次数，定价，预订溢出比（100%），改签费用规则)
 
-    车票查询_其他(k...): queryordinary-service
+    车站站名服务：ts-station-service（db: 车站表）
+    车服务： ts-train-service (db: train)
 
-    车票订单_高铁动车(CRUD): order-create-service, cancel, modify, rebook, query
-    status: 
-    未支付: 预订未支付，修改(座位等级修改，删除...), 取消(退票)
-    已支付：预定已支付，已支付改签，取消
+    车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）) 
+    ## 车次查询_其他(k...): ts-travel2-service
 
-    车票订单_其他(k...): 
+    车票预订_高铁动车：ts-preserve-service
+    ## 车票预订_其他: ts-preserve-service
 
-    车票支付(CRUD，退款): payment-service
+    车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)
+        status: 
+            未支付: 预订未支付，修改(座位等级修改，删除...), 取消(退票)
+            已支付：预定已支付，已支付改签，取消
+    ##车票订单_其他(k...): 
 
-    车票使用终端服务：车票进站
+    站内支付： ts-insite-payment （db）
+    车票支付(CRUD，退款): ts-payment-service （中转）
+
+    车票使用终端服务(车票进站): ts-execute-service （中转）
+
+    黄牛：ts-security-service (账户同一天1小时内没有订单或预定，不能超过5张)
+
+    （todo: 取票）
 
 
 页面：
@@ -39,6 +50,20 @@
     1. 登陆验证 －》 车次查询 －》 车票预订 －》 修改座位等级 －》 支付 －》 乘车
     2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车
     3. 登陆验证 －》 车票订单查询 －》 取消 －》 退款
+
+关键操作(流程1)：
+    登陆验证： 登陆 －》 验证码（sso） －》  
+    车次查询： 车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
+    车票预订: 车票预订_高铁动车(sso) －》 联系人 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）－》黄牛
+    修改座位等级：车票预订_高铁动车(sso) －》配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
+    支付操作： 车票订单_高铁动车（sso）－》 联系人 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）－》黄牛 －》 站内支付 －》 车票支付 －》 第三方支付或银行
+    乘车： 车票使用终端服务 －》 车票订单_高铁动车
+
+关键操作(流程2)：
+    改签： 车票订单_高铁动车（sso）－》 
+            －》 车票预订_高铁动车(sso) －》 联系人 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）－》黄牛
+            －》 车票订单_高铁动车（sso）－》 联系人 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）－》黄牛 －》 站内支付（差额支付或差额退款） －》 配置 －》 车票支付（差额支付或差额退款） －》 配置 －》 第三方支付或银行
+
 
 
 Service API:
