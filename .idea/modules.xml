@@ -2,17 +2,26 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/account-login-service/account-login-service.iml" filepath="$PROJECT_DIR$/account-login-service/account-login-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/account-manage-service/account-manage-service.iml" filepath="$PROJECT_DIR$/account-manage-service/account-manage-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/account-register-service/account-register-service.iml" filepath="$PROJECT_DIR$/account-register-service/account-register-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/contacts-service/contacts-service.iml" filepath="$PROJECT_DIR$/contacts-service/contacts-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-sso-service/account-manage-service.iml" filepath="$PROJECT_DIR$/ts-sso-service/account-manage-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-order-service/order-service.iml" filepath="$PROJECT_DIR$/ts-order-service/order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/orderservice/orderservice.iml" filepath="$PROJECT_DIR$/orderservice/orderservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/payment-service/payment.iml" filepath="$PROJECT_DIR$/payment-service/payment.iml" />
       <module fileurl="file://$PROJECT_DIR$/querycrh-service/query_crh.iml" filepath="$PROJECT_DIR$/querycrh-service/query_crh.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-client/rest-client.iml" filepath="$PROJECT_DIR$/rest-client/rest-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-service/rest-service.iml" filepath="$PROJECT_DIR$/rest-service/rest-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-config-service/ts-config-service.iml" filepath="$PROJECT_DIR$/ts-config-service/ts-config-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-contacts-service/ts-contacts-service.iml" filepath="$PROJECT_DIR$/ts-contacts-service/ts-contacts-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-execute-service/ts-execute-service.iml" filepath="$PROJECT_DIR$/ts-execute-service/ts-execute-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-insite-payment/ts-insite-payment.iml" filepath="$PROJECT_DIR$/ts-insite-payment/ts-insite-payment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-login-service/ts-login-service.iml" filepath="$PROJECT_DIR$/ts-login-service/ts-login-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-order-service/ts-order-service.iml" filepath="$PROJECT_DIR$/ts-order-service/ts-order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" filepath="$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-register-service/ts-register-service.iml" filepath="$PROJECT_DIR$/ts-register-service/ts-register-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-security-service/ts-security-service.iml" filepath="$PROJECT_DIR$/ts-security-service/ts-security-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" filepath="$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-station-service/ts-station-service.iml" filepath="$PROJECT_DIR$/ts-station-service/ts-station-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-train-service/ts-train-service.iml" filepath="$PROJECT_DIR$/ts-train-service/ts-train-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/workspace_microservices.iml" filepath="$PROJECT_DIR$/.idea/workspace_microservices.iml" />
     </modules>
   </component>
