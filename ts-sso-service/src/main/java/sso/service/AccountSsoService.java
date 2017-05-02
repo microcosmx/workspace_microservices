@@ -6,6 +6,6 @@ public interface AccountSsoService {
 
     String logoutDeleteToken(String logoutToken);
 
-    boolean verifyLoginToken(String verifyToken);
+    String verifyLoginToken(String verifyToken);
 
 }
