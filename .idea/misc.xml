@@ -52,6 +52,19 @@
         <option value="$PROJECT_DIR$/account-register-service/pom.xml" />
         <option value="$PROJECT_DIR$/account-login-service/pom.xml" />
         <option value="$PROJECT_DIR$/order-endrose-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-sso-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-config-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-preserve-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-station-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-train-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-security-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-execute-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-insite-payment/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-register-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-login-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-order-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
       </list>
     </option>
   </component>

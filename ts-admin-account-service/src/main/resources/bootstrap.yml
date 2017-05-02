@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: accounts-manage-service
+    data:
+      mongodb:
+        uri: mongodb://localhost:27017/jcTestMongo
+
+
+
