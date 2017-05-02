@@ -1,6 +1,6 @@
 spring:
   application:
-    name: order-create-service
+    name: ts-order-service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo

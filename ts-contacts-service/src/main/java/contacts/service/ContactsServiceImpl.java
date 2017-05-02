@@ -1,9 +1,8 @@
 package contacts.service;
 
-import contacts.domain.AddContactsInfo;
+import contacts.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import contacts.domain.Contacts;
 import contacts.repository.ContactsRepository;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -28,7 +27,7 @@ public class ContactsServiceImpl implements ContactsService{
     }
 
     @Override
-    public Contacts create(AddContactsInfo aci){
+    public AddContactsResult create(AddContactsInfo aci){
         Contacts contacts = new Contacts();
         contacts.setId(UUID.randomUUID());
         contacts.setName(aci.getName());
@@ -40,33 +39,51 @@ public class ContactsServiceImpl implements ContactsService{
         ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(contacts.getAccountId());
         if(accountContacts.contains(contacts)){
             System.out.println("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");
-            return null;
+            AddContactsResult acr = new AddContactsResult();
+            acr.setStatus(false);
+            acr.setMessage("Contacts Already Exists");
+            acr.setContacts(null);
+            return acr;
         }else{
             contactsRepository.save(contacts);
             System.out.println("[Contacts-Add&Delete-Service][AddContacts] Success.");
-            return contacts;
+            AddContactsResult acr = new AddContactsResult();
+            acr.setStatus(true);
+            acr.setMessage("Success");
+            acr.setContacts(contacts);
+            return acr;
         }
     }
 
     @Override
-    public String delete(UUID contactsId){
+    public DeleteContactsResult delete(UUID contactsId){
         contactsRepository.deleteById(contactsId);
         Contacts contacts = contactsRepository.findById(contactsId);
         if(contacts == null){
             System.out.println("[Contacts-Add&Delete-Service][DeleteContacts] Success.");
-            return "status=success";
+            DeleteContactsResult dcr = new DeleteContactsResult();
+            dcr.setStatus(true);
+            dcr.setMessage("Success");
+            return dcr;
         }else{
             System.out.println("[Contacts-Add&Delete-Service][DeleteContacts] Fail.Reason not clear.");
-            return "status=fail";
+            DeleteContactsResult dcr = new DeleteContactsResult();
+            dcr.setStatus(false);
+            dcr.setMessage("Reason Not clear");
+            return dcr;
         }
     }
 
     @Override
-    public Contacts saveChanges(Contacts contacts){
+    public ModifyContactsResult saveChanges(Contacts contacts){
         Contacts oldContacts = findContactsById(contacts.getId());
         if(oldContacts == null){
             System.out.println("[Contacts-Modify-Service][ModifyContacts] Fail.Contacts not found.");
-            return null;
+            ModifyContactsResult mcr = new ModifyContactsResult();
+            mcr.setStatus(false);
+            mcr.setMessage("Contacts not found");
+            mcr.setContacts(null);
+            return mcr;
         }else{
             oldContacts.setName(contacts.getName());
             oldContacts.setDocumentType(contacts.getDocumentType());
@@ -74,7 +91,11 @@ public class ContactsServiceImpl implements ContactsService{
             oldContacts.setPhoneNumber(contacts.getPhoneNumber());
             contactsRepository.save(oldContacts);
             System.out.println("[Contacts-Modify-Service][ModifyContacts] Success.");
-            return oldContacts;
+            ModifyContactsResult mcr = new ModifyContactsResult();
+            mcr.setStatus(true);
+            mcr.setMessage("Success");
+            mcr.setContacts(contacts);
+            return mcr;
         }
     }
 
