@@ -9,6 +9,12 @@
 
     <meta name="description" content="测试订票系统，需跑通三个流程">
     <meta name="author" content="Chenjie Xu">
+
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/index.js"></script>
 </head>
 <body>
 <div class="container">
@@ -39,11 +45,13 @@
             <p>登陆验证 </p>
             <div class="group">
                 <div class="input-box">
-                    <input>
+                    <form action="url" method="post">
+                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
+                        <p><input type="submit" value="提交"></p>
+                    </form>
                 </div>
-                <button class="button-submit">
-                </button>
                 <div class="output-box">
+                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
                 </div>
             </div>
         </div>

@@ -1,7 +1,9 @@
 spring:
   application:
-    name: order-create-service
+    name: contacts-service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo
+
+
 
