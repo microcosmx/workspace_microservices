@@ -23,6 +23,7 @@
         <module name="query_crh" />
         <module name="rest-client" />
         <module name="rest-service" />
+        <module name="ts-admin-account-service" />
         <module name="ts-config-service" />
         <module name="ts-contacts-service" />
         <module name="ts-execute-service" />
@@ -59,6 +60,7 @@
       <module name="test-all-account-service" target="1.8" />
       <module name="test-all-contacts-service" target="1.8" />
       <module name="test-all-order-service" target="1.8" />
+      <module name="ts-admin-account-service" target="1.8" />
       <module name="ts-config-service" target="1.5" />
       <module name="ts-contacts-service" target="1.8" />
       <module name="ts-execute-service" target="1.5" />

@@ -64,6 +64,7 @@
         <option value="$PROJECT_DIR$/ts-login-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-contacts-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-order-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
       </list>
     </option>
   </component>
