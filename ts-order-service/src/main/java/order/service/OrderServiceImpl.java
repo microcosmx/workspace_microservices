@@ -4,7 +4,6 @@ import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -20,16 +19,24 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order create(Order order){
+    public CreateOrderResult create(Order order){
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         if(accountOrders.contains(order)){
             System.out.println("[Order-Create-Service][OrderCreate] Fail.Order already exists.");
-            return null;
+            CreateOrderResult cor = new CreateOrderResult();
+            cor.setStatus(false);
+            cor.setMessage("Order already exist");
+            cor.setOrder(null);
+            return cor;
         }else{
             order.setId(UUID.randomUUID());
             orderRepository.save(order);
             System.out.println("[Order-Create-Service][OrderCreate] Success.");
-            return order;
+            CreateOrderResult cor = new CreateOrderResult();
+            cor.setStatus(true);
+            cor.setMessage("Success");
+            cor.setOrder(order);
+            return cor;
         }
     }
 
@@ -141,9 +148,6 @@ public class OrderServiceImpl implements OrderService{
             return oldOrder;
         }
     }
-
-
-
 
 }
 
