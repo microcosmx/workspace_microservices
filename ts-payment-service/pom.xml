@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.trainticket</groupId>
-	<artifactId>payment</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>ts-payment-service</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>payment</name>
+	<name>ts-payment-service</name>
 	<description></description>
 
 	<parent>

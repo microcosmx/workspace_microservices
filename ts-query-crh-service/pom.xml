@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.trainticket</groupId>
-	<artifactId>query_crh</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>ts-query-crh-service</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>query_crh</name>
+	<name>ts-query-crh-service</name>
 	<description>query the ticket for china railway high-speed and bullet train</description>
 
 	<parent>
@@ -25,18 +25,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka-server</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-feign</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
