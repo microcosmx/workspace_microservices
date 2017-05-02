@@ -17,7 +17,10 @@
       <module fileurl="file://$PROJECT_DIR$/ts-login-service/ts-login-service.iml" filepath="$PROJECT_DIR$/ts-login-service/ts-login-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-order-service/ts-order-service.iml" filepath="$PROJECT_DIR$/ts-order-service/ts-order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-payment-service/ts-payment-service.iml" filepath="$PROJECT_DIR$/ts-payment-service/ts-payment-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-payment-service/ts-payment-service.iml" filepath="$PROJECT_DIR$/ts-payment-service/ts-payment-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" filepath="$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-query-crh-service/ts-query-crh-service.iml" filepath="$PROJECT_DIR$/ts-query-crh-service/ts-query-crh-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-query-ordinary-serivce/ts-query-ordinary-service.iml" filepath="$PROJECT_DIR$/ts-query-ordinary-serivce/ts-query-ordinary-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-query-ordinary-serivce/ts-query-ordinary-service.iml" filepath="$PROJECT_DIR$/ts-query-ordinary-serivce/ts-query-ordinary-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-register-service/ts-register-service.iml" filepath="$PROJECT_DIR$/ts-register-service/ts-register-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-security-service/ts-security-service.iml" filepath="$PROJECT_DIR$/ts-security-service/ts-security-service.iml" />

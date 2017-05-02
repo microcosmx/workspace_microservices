@@ -65,11 +65,12 @@
         <option value="$PROJECT_DIR$/ts-contacts-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-order-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-verification-code-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-query-ordinary-serivce/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-query-crh-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-payment-service/pom.xml" />
       </list>
     </option>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/ts-contacts-service/src/main/main9.iml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>
