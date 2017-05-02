@@ -9,8 +9,15 @@
         <module name="account-login-service" />
         <module name="account-register-service" />
         <module name="account-service" />
+        <module name="contacts-addanddelete-service" />
+        <module name="contacts-modify-service" />
+        <module name="contacts-query-service" />
         <module name="contacts-service" />
+        <module name="order-cancel-service" />
         <module name="order-endrose-service" />
+        <module name="order-modify-service" />
+        <module name="order-query-service" />
+        <module name="order-rebook-service" />
         <module name="order-service" />
         <module name="orderservice" />
         <module name="query_crh" />
