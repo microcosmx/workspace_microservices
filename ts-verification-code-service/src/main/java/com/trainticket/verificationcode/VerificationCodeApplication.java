@@ -1,6 +1,6 @@
 package com.trainticket.verificationcode;
 
-import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 
 

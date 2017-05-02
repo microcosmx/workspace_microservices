@@ -19,7 +19,12 @@ public class VerificationCodeController {
 
 	@Autowired
 	private VerificationCodeService verificationCodeService;
-	
+
+	@RequestMapping(value="/error",method=RequestMethod.GET)
+	public String welcome(){
+		return "error";
+	}
+
 	
 	@RequestMapping(value = "/verificationCode", method = RequestMethod.GET)
 	public String imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
