@@ -2,6 +2,7 @@ package register.service;
 
 import register.domain.Account;
 import register.domain.RegisterInfo;
+import register.domain.RegisterResult;
 import register.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,15 @@ public class RegisterServiceImpl implements RegisterService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account create(RegisterInfo ri){
+    public RegisterResult create(RegisterInfo ri){
         Account oldAcc = accountRepository.findByPhoneNum(ri.getPhoneNum());
         if(oldAcc != null){
+            RegisterResult rr = new RegisterResult();
+            rr.setStatus(false);
+            rr.setMessage("Account Already Exists");
+            rr.setAccount(null);
             System.out.println("[Account-Register-Service][Register] Fail.Account already exists.");
-            return null;
+            return rr;
         }
         Account account = new Account();
         account.setId(UUID.randomUUID());
@@ -31,7 +36,11 @@ public class RegisterServiceImpl implements RegisterService {
         Account resultAcc = accountRepository.save(account);
         resultAcc.setPassword("");
         System.out.println("[Account-Register-Service][Register] Success.");
-        return account;
+        RegisterResult rr = new RegisterResult();
+        rr.setStatus(true);
+        rr.setMessage("Success");
+        rr.setAccount(account);
+        return rr;
     }
 
 }

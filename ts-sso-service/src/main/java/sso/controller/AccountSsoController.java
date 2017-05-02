@@ -1,11 +1,14 @@
 package sso.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import sso.service.AccountSsoService;
 
+@RestController
 public class AccountSsoController {
 
     @Autowired
@@ -16,18 +19,18 @@ public class AccountSsoController {
         return "Welcome to [ Accounts SSO Service ] !";
     }
 
-    @RequestMapping(path = "/loginPutToken", method = RequestMethod.POST)
-    public String loginPutToken(@RequestParam(value="token", required = true) String token){
+    @RequestMapping(path = "/loginPutToken/{token}", method = RequestMethod.GET)
+    public String loginPutToken(@PathVariable String token){
         return ssoService.loginPutToken(token);
     }
 
-    @RequestMapping(path = "/logoutDeleteToken", method = RequestMethod.POST)
-    public String logoutDeleteToken(@RequestParam(value="token", required = true) String token){
+    @RequestMapping(path = "/logoutDeleteToken/{token}", method = RequestMethod.GET)
+    public String logoutDeleteToken(@PathVariable String token){
         return ssoService.logoutDeleteToken(token);
     }
 
-    @RequestMapping(path = "/verifyLoginToken", method = RequestMethod.POST)
-    public String verifyLoginToken(@RequestParam(value="token", required = true) String token){
+    @RequestMapping(path = "/verifyLoginToken/{token}", method = RequestMethod.GET)
+    public String verifyLoginToken(@PathVariable String token){
         return ssoService.verifyLoginToken(token);
     }
 

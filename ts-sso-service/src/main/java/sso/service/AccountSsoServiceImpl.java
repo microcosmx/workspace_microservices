@@ -15,7 +15,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
             return "status=AlreadyLogin";
         }else{
             loginUserList.add(loginToken);
-            System.out.println("[Account-SSO-Service][Login] Already Login. Token:" + loginToken);
+            System.out.println("[Account-SSO-Service][Login] Login Success. Token:" + loginToken);
             return "status=LoginSuccess";
         }
     }
