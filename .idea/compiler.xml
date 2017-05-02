@@ -33,6 +33,7 @@
         <module name="ts-payment-service" />
         <module name="ts-preserve-service" />
         <module name="ts-query-crh-service" />
+        <module name="ts-query-ordinary-service" />
         <module name="ts-register-service" />
         <module name="ts-security-service" />
         <module name="ts-sso-service" />
@@ -40,12 +41,6 @@
         <module name="ts-train-service" />
         <module name="ts-verification-code-service" />
         <module name="verificationCode-login.service" />
-      </profile>
-      <profile name="Annotation profile for ts-query-ordinary-service" enabled="true">
-        <sourceOutputDir name="../ts-query-ordinary-serivce/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../ts-query-ordinary-serivce/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="ts-query-ordinary-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
