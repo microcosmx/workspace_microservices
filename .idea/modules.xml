@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" filepath="$PROJECT_DIR$/order-alter-service/order-endrose-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-order-service/order-service.iml" filepath="$PROJECT_DIR$/ts-order-service/order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/orderservice/orderservice.iml" filepath="$PROJECT_DIR$/orderservice/orderservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-query-crh-service/query_crh.iml" filepath="$PROJECT_DIR$/ts-query-crh-service/query_crh.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-client/rest-client.iml" filepath="$PROJECT_DIR$/rest-client/rest-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-service/rest-service.iml" filepath="$PROJECT_DIR$/rest-service/rest-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-admin-account-service/ts-admin-account-service.iml" filepath="$PROJECT_DIR$/ts-admin-account-service/ts-admin-account-service.iml" />
@@ -17,7 +18,6 @@
       <module fileurl="file://$PROJECT_DIR$/ts-order-service/ts-order-service.iml" filepath="$PROJECT_DIR$/ts-order-service/ts-order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-payment-service/ts-payment-service.iml" filepath="$PROJECT_DIR$/ts-payment-service/ts-payment-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" filepath="$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ts-query-crh-service/query_crh.iml" filepath="$PROJECT_DIR$/ts-query-crh-service/query_crh.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-register-service/ts-register-service.iml" filepath="$PROJECT_DIR$/ts-register-service/ts-register-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-security-service/ts-security-service.iml" filepath="$PROJECT_DIR$/ts-security-service/ts-security-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" filepath="$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" />
