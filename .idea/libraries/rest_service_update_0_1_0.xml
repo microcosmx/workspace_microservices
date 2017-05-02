@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="rest-service-update-0.1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/rest-service-update/target/rest-service-update-0.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

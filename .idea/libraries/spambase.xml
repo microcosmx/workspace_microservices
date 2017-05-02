@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spambase">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/LogETL/resources/ml/UCI-small/spambase/spambase.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
