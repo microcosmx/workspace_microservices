@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="maven-wrapper4">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/async/.mvn/wrapper/maven-wrapper.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

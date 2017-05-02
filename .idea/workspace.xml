@@ -2,103 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-query-crh-service/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-query-crh-service/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-query-crh-service/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-query-crh-service/mvnw" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-query-crh-service/mvnw.cmd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ui-test/.idea/ui_test.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-verification-code-service/verificationCode-login.service.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/payment-service/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/payment-service/.mvn/wrapper/maven-wrapper.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/payment-service/.mvn/wrapper/maven-wrapper.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/payment-service/mvnw" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/payment-service/mvnw.cmd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/Dockerfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/readme.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/QueryCrhApplication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/controller/QueryController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/domain/Information.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/domain/Item.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/repository/ItemRepository.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/service/QueryService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/service/QueryServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/resources/application.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/querycrh-service/src/test/java/com/trainticket/query_crh/QueryCrhApplicationTests.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/.gitignore" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/.mvn/wrapper/maven-wrapper.jar" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/.mvn/wrapper/maven-wrapper.properties" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/Dockerfile" afterPath="$PROJECT_DIR$/ts-payment-service/Dockerfile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/mvnw" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/mvnw" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/mvnw.cmd" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/mvnw.cmd" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/pom.xml" afterPath="$PROJECT_DIR$/ts-payment-service/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/readme.txt" afterPath="$PROJECT_DIR$/ts-payment-service/readme.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/trainticket/PaymentApplication.java" afterPath="$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/PaymentApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/trainticket/controller/PayController.java" afterPath="$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/controller/PayController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/trainticket/service/PayService.java" afterPath="$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/service/PayService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/trainticket/service/PayServiceImpl.java" afterPath="$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/service/PayServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/ts-payment-service/src/main/resources/application.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/payment-service/src/test/java/com/trainticket/PaymentApplicationTests.java" afterPath="$PROJECT_DIR$/ts-payment-service/src/test/java/com/trainticket/PaymentApplicationTests.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/.gitignore" afterPath="$PROJECT_DIR$/ts-payment-service/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/.mvn/wrapper/maven-wrapper.jar" afterPath="$PROJECT_DIR$/ts-payment-service/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/.mvn/wrapper/maven-wrapper.properties" afterPath="$PROJECT_DIR$/ts-payment-service/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/Dockerfile" afterPath="$PROJECT_DIR$/ts-query-crh-service/Dockerfile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/mvnw" afterPath="$PROJECT_DIR$/ts-payment-service/mvnw" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/mvnw.cmd" afterPath="$PROJECT_DIR$/ts-payment-service/mvnw.cmd" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/pom.xml" afterPath="$PROJECT_DIR$/ts-query-crh-service/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/readme.txt" afterPath="$PROJECT_DIR$/ts-query-crh-service/readme.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/QueryCrhApplication.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/QueryCrhApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/controller/QueryController.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/controller/QueryController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/domain/Information.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/domain/Information.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/domain/Item.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/domain/Item.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/repository/ItemRepository.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/repository/ItemRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/service/QueryService.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/service/QueryService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/java/com/trainticket/query_crh/service/QueryServiceImpl.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/service/QueryServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/main/resources/application.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/querycrh-service/src/test/java/com/trainticket/query_crh/QueryCrhApplicationTests.java" afterPath="$PROJECT_DIR$/ts-query-crh-service/src/test/java/com/trainticket/query_crh/QueryCrhApplicationTests.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/.gitignore" afterPath="$PROJECT_DIR$/ts-payment-service/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/.mvn/wrapper/maven-wrapper.jar" afterPath="$PROJECT_DIR$/ts-payment-service/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/.mvn/wrapper/maven-wrapper.properties" afterPath="$PROJECT_DIR$/ts-payment-service/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/Dockerfile" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/Dockerfile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/mvnw" afterPath="$PROJECT_DIR$/ts-payment-service/mvnw" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/mvnw.cmd" afterPath="$PROJECT_DIR$/ts-payment-service/mvnw.cmd" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/pom.xml" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/readme.txt" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/readme.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/QueryordinaryApplication.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/QueryordinaryApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/controller/QueryController.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/controller/QueryController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/domain/Information.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/domain/Information.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/domain/Item.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/domain/Item.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/repository/ItemRepository.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/repository/ItemRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/service/QueryService.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/service/QueryService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/java/com/trainticket/query_ordinary/service/QueryServiceImpl.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/java/com/trainticket/query_ordinary/service/QueryServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/main/resources/application.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/queryordinary-serivce/src/test/java/com/trainticket/QueryordinaryApplicationTests.java" afterPath="$PROJECT_DIR$/ts-query-ordinary-serivce/src/test/java/com/trainticket/QueryordinaryApplicationTests.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ui_test/html/index.html" afterPath="$PROJECT_DIR$/ts-ui-test/html/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ui_test/js/index.js" afterPath="$PROJECT_DIR$/ts-ui-test/js/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ui_test/js/jquery-3.2.1.min.js" afterPath="$PROJECT_DIR$/ts-ui-test/js/jquery-3.2.1.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ui_test/ui_test.iml" afterPath="$PROJECT_DIR$/ts-ui-test/ui_test.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/Dockerfile" afterPath="$PROJECT_DIR$/ts-verification-code-service/Dockerfile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/pom.xml" afterPath="$PROJECT_DIR$/ts-verification-code-service/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/readme.txt" afterPath="$PROJECT_DIR$/ts-verification-code-service/readme.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/main/java/com/trainticket/verificationcode/VerificationCodeApplication.java" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/VerificationCodeApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/main/java/com/trainticket/verificationcode/controller/VerificationCodeController.java" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/controller/VerificationCodeController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeService.java" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeServiceImpl.java" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/main/main6.iml" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/main/main6.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/test/resources/application.yml" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/test-classes/application.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/src/test/resources/bootstrap.yml" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/test-classes/bootstrap.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/classes/com/trainticket/verificationcode/VerificationCodeApplication.class" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/classes/com/trainticket/verificationcode/VerificationCodeApplication.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/classes/com/trainticket/verificationcode/controller/VerificationCodeController.class" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/classes/com/trainticket/verificationcode/controller/VerificationCodeController.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/classes/com/trainticket/verificationcode/service/VerificationCodeService.class" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/classes/com/trainticket/verificationcode/service/VerificationCodeService.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/classes/com/trainticket/verificationcode/service/VerificationCodeServiceImpl.class" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/classes/com/trainticket/verificationcode/service/VerificationCodeServiceImpl.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/maven-archiver/pom.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/test-classes/application.yml" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/test/resources/application.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/verificationCode-service/target/test-classes/bootstrap.yml" afterPath="$PROJECT_DIR$/ts-verification-code-service/src/test/resources/bootstrap.yml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/rest-client/target/" />
     <ignored path="$PROJECT_DIR$/rest-service/target/" />
@@ -142,26 +46,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/workspace_microservices$testCancelOrder.coverage" NAME="testCancelOrder Coverage Results" MODIFIED="1492678955262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/workspace_microservices$testLogin.coverage" NAME="testLogin Coverage Results" MODIFIED="1492173515224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/workspace_microservices$testCancelOrder.coverage" NAME="testCancelOrder Coverage Results" MODIFIED="1492678955262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="services.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/services.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="27" column="26" lean-forward="false" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -270,10 +163,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="54" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1320" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -293,8 +186,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -761,9 +654,6 @@
       </MavenSettings>
       <method />
     </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -820,19 +710,6 @@
       <scripts />
       <node-interpreter value="project" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory />
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui />
-      <extra-mocha-options />
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory />
-      <recursive>false</recursive>
       <method />
     </configuration>
     <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
@@ -1058,47 +935,46 @@
       <workItem from="1493688682857" duration="5214000" />
       <workItem from="1493693930897" duration="27000" />
       <workItem from="1493696163948" duration="18000" />
-      <workItem from="1493707236342" duration="565000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="164004000" />
+    <option name="totallyTimeSpent" value="163439000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.51150304" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13726994" sideWeight="0.48502994" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19316493" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31449893" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19316493" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3113497" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="7.6687115E-4" sideWeight="0.51497006" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1469,18 +1345,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/services.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ts-sso-service/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="21" lean-forward="false" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="27" column="26" lean-forward="false" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>

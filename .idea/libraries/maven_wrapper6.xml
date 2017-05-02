@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="maven-wrapper6">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/queryordinary-serivce/.mvn/wrapper/maven-wrapper.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

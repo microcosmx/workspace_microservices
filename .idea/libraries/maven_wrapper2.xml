@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="maven-wrapper2">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/querycrh-service/.mvn/wrapper/maven-wrapper.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
