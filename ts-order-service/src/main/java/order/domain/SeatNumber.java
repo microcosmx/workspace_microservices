@@ -43,6 +43,23 @@ public class SeatNumber {
         isNormalSeat = normalSeat;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        SeatNumber other = (SeatNumber) obj;
+        return position == other.getPosition()
+                && lineNum == other.getLineNum()
+                && seatNumber == other.getSeatNumber()
+                && isNormalSeat == other.isNormalSeat();
+    }
+
     @Override
     public String toString(){
         if(isNormalSeat){

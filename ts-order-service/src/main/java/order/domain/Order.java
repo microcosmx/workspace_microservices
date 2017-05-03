@@ -50,6 +50,30 @@ public class Order {
         status = OrderStatus.PAID.getCode();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Order other = (Order) obj;
+        return boughtDate.equals(other.getBoughtDate())
+                && travelDate.equals(other.getTravelDate())
+                && accountId .equals( other.getAccountId() )
+                && trainNumber.equals(other.getTrainNumber())
+                && coachNumber == other.getCoachNumber()
+                && seatClass == other.getSeatClass()
+                && seatNumber .equals(other.getSeatNumber())
+                && from.equals(other.getFrom())
+                && to.equals(other.getTo())
+                && status == other.getStatus();
+    }
+
     public UUID getId() {
         return id;
     }

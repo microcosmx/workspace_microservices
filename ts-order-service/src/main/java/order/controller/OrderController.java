@@ -1,9 +1,6 @@
 package order.controller;
 
-import order.domain.CancelOrderInfo;
-import order.domain.Order;
-import order.domain.OrderAlterInfo;
-import order.domain.QueryInfo;
+import order.domain.*;
 import order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +17,11 @@ public class OrderController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
-        return "Welcome to [ Order Create Service ] !";
+        return "Welcome to [ Order Service ] !";
     }
 
     @RequestMapping(path = "/createNewOrders", method = RequestMethod.POST)
-    public Order createNewAccount(@RequestBody Order newOrder){
+    public CreateOrderResult createNewAccount(@RequestBody Order newOrder){
         return orderService.create(newOrder);
     }
 

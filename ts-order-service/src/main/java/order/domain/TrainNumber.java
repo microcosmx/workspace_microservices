@@ -21,6 +21,20 @@ public class TrainNumber {
         this.number = number;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        TrainNumber other = (TrainNumber) obj;
+        return type == other.getType() && number == other.getNumber();
+    }
+
     @Override
     public String toString(){
         return TrainType.getNameByCode(type) + number;

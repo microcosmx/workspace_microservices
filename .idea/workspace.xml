@@ -2,8 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-verification-code-service/target/classes/com/trainticket/verificationcode/controller/VerificationCodeController.class" afterPath="$PROJECT_DIR$/ts-verification-code-service/target/classes/com/trainticket/verificationcode/controller/VerificationCodeController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-login-service/target/classes/login/controller/AccountLoginController.class" afterPath="$PROJECT_DIR$/ts-login-service/target/classes/login/controller/AccountLoginController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/Order.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/Order.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/SeatNumber.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/SeatNumber.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/TrainNumber.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/TrainNumber.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java" />
+>>>>>>> origin/master
     </list>
     <ignored path="$PROJECT_DIR$/rest-client/target/" />
     <ignored path="$PROJECT_DIR$/rest-service/target/" />
@@ -44,6 +56,11 @@
     <ignored path="$PROJECT_DIR$/ts-query-crh-service/target/" />
     <ignored path="$PROJECT_DIR$/ts-payment-service/target/" />
     <ignored path="$PROJECT_DIR$/ts-query-ordinary-service/target/" />
+    <ignored path="$PROJECT_DIR$/sample-test-1/target/" />
+    <ignored path="$PROJECT_DIR$/mongo-cluster/target/" />
+    <ignored path="$PROJECT_DIR$/msg-queue/target/" />
+    <ignored path="$PROJECT_DIR$/rdbms/target/" />
+    <ignored path="$PROJECT_DIR$/rest-service-update/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,8 +69,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/workspace_microservices$testCancelOrder.coverage" NAME="testCancelOrder Coverage Results" MODIFIED="1492678955262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/workspace_microservices$testLogin.coverage" NAME="testLogin Coverage Results" MODIFIED="1492173515224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/workspace_microservices$testCancelOrder.coverage" NAME="testCancelOrder Coverage Results" MODIFIED="1492678955262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -61,6 +78,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ts-verification-code-service/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -76,21 +94,29 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="80">
               <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ts-payment-service/pom.xml">
+=======
+      <file leaf-file-name="CreateOrderResult.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+            <state relative-caret-position="136">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+>>>>>>> origin/master
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="OrderService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
       <file leaf-file-name="VerificationCodeController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/controller/VerificationCodeController.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -107,14 +133,19 @@
       </file>
       <file leaf-file-name="PayController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/controller/PayController.java">
+=======
+      <file leaf-file-name="OrderServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java">
+>>>>>>> origin/master
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+            <state relative-caret-position="-1904">
+              <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ts-query-crh-service/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -165,6 +196,8 @@
           </provider>
         </entry>
       </file>
+=======
+>>>>>>> origin/master
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -185,7 +218,7 @@
       <find>AlterOrder</find>
       <find>12031</find>
       <find>feign</find>
-      <find>confi</find>
+      <find>l</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -199,34 +232,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java" />
-        <option value="$PROJECT_DIR$/contacts-service/src/main/resources/bootstrap.yml" />
-        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testCreateContacts.java" />
-        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testModifyContact.java" />
-        <option value="$PROJECT_DIR$/contacts-service/src/test/java/testDeleteContacts.java" />
-        <option value="$PROJECT_DIR$/order-create-service/pom.xml" />
-        <option value="$PROJECT_DIR$/order-service/pom.xml" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/OrderApplication.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/resources/bootstrap.yml" />
-        <option value="$PROJECT_DIR$/order-service/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/domain/Order.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/repository/OrderRepository.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/domain/OrderAlterInfo.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/domain/QueryInfo.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/domain/CancelOrderInfo.java" />
-        <option value="$PROJECT_DIR$/order-query-service/src/main/java/query/controller/OrderQueryController.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/service/OrderService.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/service/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/order-service/src/main/java/order/controller/OrderController.java" />
-        <option value="$PROJECT_DIR$/order-service/src/test/java/testCancelOrder.java" />
-        <option value="$PROJECT_DIR$/order-service/src/test/java/testCreateOrder.java" />
-        <option value="$PROJECT_DIR$/order-service/src/test/java/testChangeOrderInfo.java" />
-        <option value="$PROJECT_DIR$/order-service/src/test/java/testQueryOrder.java" />
-        <option value="$PROJECT_DIR$/order-service/src/test/java/testRebookOrder.java" />
-        <option value="$PROJECT_DIR$/ts-config-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-preserve-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-station-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-train-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-security-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-execute-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-insite-payment/pom.xml" />
@@ -234,22 +239,50 @@
         <option value="$PROJECT_DIR$/ts-contacts-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-login-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-order-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-admin-account-service/src/test/java/testChangePassword.java" />
         <option value="$PROJECT_DIR$/ts-sso-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/AccountSsoApplication.java" />
         <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountLoginServiceImpl.java" />
-        <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java" />
         <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoService.java" />
+        <option value="$PROJECT_DIR$/ts-sso-service/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/ts-sso-service/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/ts-sso-service/readme.txt" />
+        <option value="$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-admin-account-service/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/ts-admin-account-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/ts-login-service/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/ts-register-service/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/ts-order-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/resources/bootstrap.yml" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/ts-login-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/ts-register-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/ts-sso-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginService.java" />
+        <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/domain/LoginResult.java" />
+        <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java" />
+        <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/controller/AccountLoginController.java" />
         <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoServiceImpl.java" />
-        <option value="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeService.java" />
-        <option value="$PROJECT_DIR$/ts-payment-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-query-crh-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-query-ordinary-serivce/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/VerificationCodeApplication.java" />
-        <option value="$PROJECT_DIR$/ts-verification-code-service/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/ts-verification-code-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/controller/VerificationCodeController.java" />
+        <option value="$PROJECT_DIR$/ts-register-service/src/main/java/register/domain/RegisterResult.java" />
+        <option value="$PROJECT_DIR$/ts-register-service/src/main/java/register/service/RegisterService.java" />
+        <option value="$PROJECT_DIR$/ts-register-service/src/main/java/register/service/RegisterServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ts-register-service/src/main/java/register/controller/AccountRegisterController.java" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsResult.java" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/DeleteContactsResult.java" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/ModifyContactsResult.java" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/service/ContactsService.java" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/controller/ContactsController.java" />
+        <option value="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderInfo.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderResule.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/Order.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/TrainNumber.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/SeatNumber.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java" />
+        <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -272,13 +305,24 @@
     </option>
   </component>
   <component name="MavenProjectNavigator">
-    <treeState />
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ts-payment-service" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="63" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1311" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -298,7 +342,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -321,7 +366,221 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ts-verification-code-service" />
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="repository" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ts-order-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -447,31 +706,23 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="SearchEverywhereHistoryKey" value="ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Mav&#9;ACTION&#9;ActivateMavenProjectsToolWindow" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ts-order-service/pom.xml" />
+    <property name="SearchEverywhereHistoryKey" value="Ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;ma&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;Mav&#9;ACTION&#9;ActivateMavenProjectsToolWindow" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/mongo-cluster/pom.xml" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\github\workspace_microservices\ts-verification-code-service\src\main" />
-      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service\src\test\java" />
-      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service\src\main\resources" />
-      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service\src\main\java" />
-      <recent name="F:\Documents\GitHub\workspace_microservices\order-service" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="order.domain" />
@@ -480,84 +731,35 @@
       <recent name="" />
       <recent name="contacts.controller" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\github\workspace_microservices\ts-ui-test" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service" />
+      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service\src\test\java" />
+      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service\src\main\resources" />
+      <recent name="F:\Documents\GitHub\workspace_microservices\ts-admin-account-service\src\main\java" />
+      <recent name="F:\Documents\GitHub\workspace_microservices\order-service" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.VerificationCodeApplication">
-    <configuration default="false" name="testModifyContact" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="testModifyContact" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="contacts-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="testQueryContact" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="testQueryContact" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="contacts-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="testDeleteContacts" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="testDeleteContacts" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="contacts-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="OrderApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.testLogin">
+    <configuration default="false" name="AccountSsoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="order.*" />
+          <option name="PATTERN" value="sso.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="order.OrderApplication" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="order-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="sso.AccountSsoApplication" />
+      <module name="ts-sso-service" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="VerificationCodeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="AccountSsoApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.trainticket.verificationcode.*" />
+          <option name="PATTERN" value="sso.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.trainticket.verificationcode.VerificationCodeApplication" />
+      <option name="MAIN_CLASS_NAME" value="sso.AccountSsoApplication" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -566,7 +768,54 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="workspace_microservices" />
+      <module name="ts-sso-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="LoginApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="login.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="login.LoginApplication" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ts-login-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="testLogin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="testLogin" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ts-login-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="LoginApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="login.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="login.LoginApplication" />
+      <module name="ts-login-service" />
       <envs />
       <method />
     </configuration>
@@ -908,9 +1157,6 @@
       </MavenSettings>
       <method />
     </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -969,19 +1215,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory />
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui />
-      <extra-mocha-options />
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory />
-      <recursive>false</recursive>
-      <method />
-    </configuration>
     <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
       <method />
     </configuration>
@@ -998,71 +1231,69 @@
     <configuration default="false" name="QueryCrhApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.trainticket.query_crh.QueryCrhApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="ts-query-crh-service" />
+      <module name="query_crh" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="LoginApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="login.LoginApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+      <module name="account-login-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="ContactsAddAndDeleteApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="query.ContactsAddAndDeleteApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+      <module name="contacts-addanddelete-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="ContactsModifyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="modify.ContactsModifyApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+      <module name="contacts-modify-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="ContactsQueryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="query.ContactsQueryApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+      <module name="contacts-query-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="OrderCancelApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cancel.OrderCancelApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+      <module name="order-cancel-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="OrderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="order.OrderApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <module name="ts-order-service" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="OrderQueryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="query.OrderQueryApplication" />
+      <module name="order-query-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="OrderRebookApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="order.OrderRebookApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+      <module name="order-service" />
       <envs />
       <method />
     </configuration>
     <configuration default="false" name="AccountManageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="accounts.AccountManageApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <module name="ts-sso-service" />
       <envs />
       <method />
@@ -1084,7 +1315,6 @@
     <configuration default="false" name="VerificationCodeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.trainticket.verificationcode.VerificationCodeApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <module name="ts-verification-code-service" />
       <envs />
       <method />
@@ -1092,7 +1322,6 @@
     <configuration default="false" name="QueryordinaryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.trainticket.query_ordinary.QueryordinaryApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <module name="ts-query-ordinary-service" />
       <envs />
       <method />
@@ -1100,16 +1329,7 @@
     <configuration default="false" name="PaymentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.trainticket.PaymentApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <module name="ts-payment-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="OrderQueryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="query.OrderQueryApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
       <envs />
       <method />
     </configuration>
@@ -1122,35 +1342,32 @@
       <item index="5" class="java.lang.String" itemvalue="Spring Boot.ContactsQueryApplication" />
       <item index="6" class="java.lang.String" itemvalue="Spring Boot.OrderCancelApplication" />
       <item index="7" class="java.lang.String" itemvalue="Spring Boot.OrderApplication" />
-      <item index="8" class="java.lang.String" itemvalue="Spring Boot.OrderRebookApplication" />
-      <item index="9" class="java.lang.String" itemvalue="Spring Boot.AccountManageApplication" />
-      <item index="10" class="java.lang.String" itemvalue="Spring Boot.RegisterApplication" />
-      <item index="11" class="java.lang.String" itemvalue="Spring Boot.ContactsApplication" />
-      <item index="12" class="java.lang.String" itemvalue="Spring Boot.VerificationCodeApplication" />
-      <item index="13" class="java.lang.String" itemvalue="Spring Boot.QueryordinaryApplication" />
-      <item index="14" class="java.lang.String" itemvalue="Spring Boot.PaymentApplication" />
-      <item index="15" class="java.lang.String" itemvalue="Spring Boot.OrderQueryApplication" />
-      <item index="16" class="java.lang.String" itemvalue="Application.testModifyContact" />
-      <item index="17" class="java.lang.String" itemvalue="Application.testQueryContact" />
-      <item index="18" class="java.lang.String" itemvalue="Application.testDeleteContacts" />
-      <item index="19" class="java.lang.String" itemvalue="Application.OrderApplication" />
-      <item index="20" class="java.lang.String" itemvalue="Application.VerificationCodeApplication" />
+      <item index="8" class="java.lang.String" itemvalue="Spring Boot.OrderQueryApplication" />
+      <item index="9" class="java.lang.String" itemvalue="Spring Boot.OrderRebookApplication" />
+      <item index="10" class="java.lang.String" itemvalue="Spring Boot.AccountManageApplication" />
+      <item index="11" class="java.lang.String" itemvalue="Spring Boot.RegisterApplication" />
+      <item index="12" class="java.lang.String" itemvalue="Spring Boot.ContactsApplication" />
+      <item index="13" class="java.lang.String" itemvalue="Spring Boot.VerificationCodeApplication" />
+      <item index="14" class="java.lang.String" itemvalue="Spring Boot.QueryordinaryApplication" />
+      <item index="15" class="java.lang.String" itemvalue="Spring Boot.PaymentApplication" />
+      <item index="16" class="java.lang.String" itemvalue="Spring Boot.AccountSsoApplication" />
+      <item index="17" class="java.lang.String" itemvalue="Application.AccountSsoApplication" />
+      <item index="18" class="java.lang.String" itemvalue="Application.LoginApplication" />
+      <item index="19" class="java.lang.String" itemvalue="Application.testLogin" />
+      <item index="20" class="java.lang.String" itemvalue="Spring Boot.LoginApplication (1)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.VerificationCodeApplication" />
-        <item index="1" class="java.lang.String" itemvalue="Application.OrderApplication" />
-        <item index="2" class="java.lang.String" itemvalue="Application.testQueryContact" />
-        <item index="3" class="java.lang.String" itemvalue="Application.testDeleteContacts" />
-        <item index="4" class="java.lang.String" itemvalue="Application.testModifyContact" />
+        <item index="0" class="java.lang.String" itemvalue="Application.testLogin" />
+        <item index="1" class="java.lang.String" itemvalue="Spring Boot.LoginApplication (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Application.AccountSsoApplication" />
+        <item index="3" class="java.lang.String" itemvalue="Application.LoginApplication" />
+        <item index="4" class="java.lang.String" itemvalue="Spring Boot.AccountSsoApplication" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -1245,24 +1462,37 @@
       <workItem from="1493688682857" duration="5214000" />
       <workItem from="1493693930897" duration="27000" />
       <workItem from="1493696163948" duration="18000" />
+<<<<<<< HEAD
       <workItem from="1493708007283" duration="1225000" />
       <workItem from="1493709280727" duration="899000" />
       <workItem from="1493710284632" duration="1463000" />
       <workItem from="1493711815126" duration="5218000" />
+=======
+      <workItem from="1493707204599" duration="7404000" />
+      <workItem from="1493714860789" duration="902000" />
+      <workItem from="1493717799382" duration="98000" />
+      <workItem from="1493717925135" duration="159000" />
+      <workItem from="1493718112844" duration="39000" />
+      <workItem from="1493718242608" duration="2326000" />
+>>>>>>> origin/master
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="172244000" />
+=======
+    <option name="totallyTimeSpent" value="174367000" />
+>>>>>>> origin/master
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="63" y="-8" width="1311" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4025974" sideWeight="0.5101279" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24413647" sideWeight="0.48502994" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.51150304" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.009266409" sideWeight="0.48502994" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1270,17 +1500,17 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24891774" sideWeight="0.48987207" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60714287" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1872214" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20202559" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26254827" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -1288,7 +1518,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="7.6687115E-4" sideWeight="0.51497006" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1337,7 +1567,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="33" />
+      <option name="time" value="34" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1346,344 +1576,389 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/test/java/testChangeInfo.java">
+    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/test/java/testChangePassword.java">
+    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/main/resources/bootstrap.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+        <state relative-caret-position="34">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.4.RELEASE/spring-web-4.3.4.RELEASE.jar!/org/springframework/web/client/RestTemplate.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="53" column="13" lean-forward="false" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-client/src/main/java/hello/Value.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/main/java/accounts/controller/AccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/domain/LoginInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="42" column="21" lean-forward="false" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-client/src/main/java/hello/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/domain/LoginResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/AccountSsoApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-client/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-client/src/main/java/hello/HelloController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/test/java/testLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/LoginApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/resources/bootstrap.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/controller/AccountLoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="35" column="22" lean-forward="true" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/main/java/accounts/AccountManageApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/main/resources/Gender.java" />
-    <entry file="file://$PROJECT_DIR$/ts-admin-account-service/src/main/java/accounts/controller/AccountController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountLoginServiceImpl.java" />
-    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/domain/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/domain/DocumentType.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/repository/AccountRepository.java">
+    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-272">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/java/register/repository/AccountRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginService.java">
+    <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/java/register/domain/RegisterResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        <state relative-caret-position="119">
+          <caret line="7" column="31" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/java/register/service/RegisterService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="34">
+          <caret line="2" column="36" lean-forward="true" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/resources/bootstrap.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/java/register/controller/AccountRegisterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="153">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java">
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="-18">
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/controller/AccountLoginController.java">
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/test/java/testCreateContacts.java">
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/DeleteContactsResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/test/java/testDeleteContacts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/AccountSsoApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/controller/ContactsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="33" column="93" lean-forward="true" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="93" />
+        <state relative-caret-position="102">
+          <caret line="6" column="27" lean-forward="true" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/service/ContactsService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        <state relative-caret-position="289">
+          <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoServiceImpl.java">
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeServiceImpl.java">
+=======
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/controller/ContactsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="88" lean-forward="false" selection-start-line="41" selection-start-column="88" selection-end-line="41" selection-end-column="88" />
+        <state relative-caret-position="308">
+          <caret line="39" column="31" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoService.java">
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/ModifyContactsResult.java">
+>>>>>>> origin/master
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        <state relative-caret-position="-18">
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java">
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/service/ContactsServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="29" column="95" lean-forward="true" selection-start-line="29" selection-start-column="95" selection-end-line="29" selection-end-column="95" />
+        <state relative-caret-position="951">
+          <caret line="85" column="22" lean-forward="false" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services.txt">
+    <entry file="file://$PROJECT_DIR$/ts-register-service/src/main/java/register/service/RegisterServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state relative-caret-position="612">
+          <caret line="42" column="17" lean-forward="false" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-sso-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="21" lean-forward="false" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/test/resources/application.yml" />
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/test/resources/bootstrap.yml" />
-    <entry file="file://$PROJECT_DIR$/ts-query-ordinary-service/mvnw">
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-query-ordinary-service/queryordinary.iml">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-ui-test/html/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="47" column="35" lean-forward="false" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-login-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-          <folding />
+        <state relative-caret-position="340">
+          <caret line="20" column="51" lean-forward="false" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ts-query-ordinary-service/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/controller/QueryController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-145">
-          <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-query-crh-service/src/main/java/com/trainticket/query_crh/QueryCrhApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#256#257#0" expanded="false" />
-            <element signature="e#317#318#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/service/VerificationCodeServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-609">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-payment-service/src/main/main17.iml">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sample-test-1/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="18" lean-forward="true" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-payment-service/src/main/resources/application.properties">
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/OrderApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/main/java/com/trainticket/verificationcode/VerificationCodeApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-query-crh-service/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/PaymentApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
+        <state relative-caret-position="85">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-order-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-714">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-order-service/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="22" lean-forward="false" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#828#829#0" expanded="true" />
+            <element signature="e#880#881#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-payment-service/src/main/java/com/trainticket/controller/PayController.java">
+    <entry file="file://$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/Contacts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+        <state relative-caret-position="193">
+          <caret line="73" column="2" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="90" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rest-client/src/main/resources/application.yml">
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/Order.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="74" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/main/resources/application.properties">
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/TrainNumber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+        <state relative-caret-position="210">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="35" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/src/main/main6.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/ts-payment-service/pom.xml">
+=======
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/SeatClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-query-crh-service/pom.xml">
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/SeatNumber.java">
+>>>>>>> origin/master
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+        <state relative-caret-position="357">
+          <caret line="54" column="9" lean-forward="true" selection-start-line="54" selection-start-column="9" selection-end-line="55" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts-verification-code-service/pom.xml">
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderResult.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="20">
           <caret line="1" column="49" lean-forward="false" selection-start-line="1" selection-start-column="49" selection-end-line="1" selection-end-column="49" />
+=======
+        <state relative-caret-position="-1904">
+          <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+>>>>>>> origin/master
           <folding />
         </state>
       </provider>
