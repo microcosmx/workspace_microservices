@@ -21,23 +21,21 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public CreateOrderResult create(Order order){
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
+        CreateOrderResult cor = new CreateOrderResult();
         if(accountOrders.contains(order)){
             System.out.println("[Order-Create-Service][OrderCreate] Fail.Order already exists.");
-            CreateOrderResult cor = new CreateOrderResult();
             cor.setStatus(false);
             cor.setMessage("Order already exist");
             cor.setOrder(null);
-            return cor;
         }else{
             order.setId(UUID.randomUUID());
             orderRepository.save(order);
             System.out.println("[Order-Create-Service][OrderCreate] Success.");
-            CreateOrderResult cor = new CreateOrderResult();
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(order);
-            return cor;
         }
+        return cor;
     }
 
     @Override
@@ -114,13 +112,12 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public ChangeOrderResult saveChanges(Order order){
         Order oldOrder = findOrderById(order.getId());
+        ChangeOrderResult cor = new ChangeOrderResult();
         if(oldOrder == null){
             System.out.println("[Order-Modify-Service][ModifyOrder] Fail.Order not found.");
-            ChangeOrderResult cor = new ChangeOrderResult();
             cor.setStatus(false);
             cor.setMessage("Order Not Found");
             cor.setOrder(null);
-            return cor;
         }else{
             oldOrder.setAccountId(order.getAccountId());
             oldOrder.setBoughtDate(order.getBoughtDate());
@@ -134,35 +131,33 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setTrainNumber(order.getTrainNumber());
             orderRepository.save(oldOrder);
             System.out.println("[Order-Modify-Service] Success.");
-            ChangeOrderResult cor = new ChangeOrderResult();
             cor.setOrder(oldOrder);
             cor.setStatus(true);
             cor.setMessage("Success");
-            return cor;
         }
+        return cor;
     }
 
     @Override
     public CancelOrderResult cancelOrder(CancelOrderInfo coi){
         UUID orderId = coi.getOrderId();
         Order oldOrder = orderRepository.findById(orderId);
+        CancelOrderResult cor = new CancelOrderResult();
         if(oldOrder == null){
             System.out.println("[Cancel-Order-Service][CancelOrder] Fail.Order not found.");
-            CancelOrderResult cor = new CancelOrderResult();
             cor.setStatus(false);
             cor.setMessage("Order Not Found");
             cor.setOrder(null);
-            return cor;
+
         }else{
             oldOrder.setStatus(OrderStatus.CANCEL.getCode());
             orderRepository.save(oldOrder);
             System.out.println("[Cancel-Order-Service][CancelOrder] Success.");
-            CancelOrderResult cor = new CancelOrderResult();
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(oldOrder);
-            return cor;
         }
+        return cor;
     }
 
 }

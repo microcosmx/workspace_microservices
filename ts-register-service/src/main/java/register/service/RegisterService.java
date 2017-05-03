@@ -6,4 +6,5 @@ import register.domain.RegisterResult;
 public interface RegisterService {
 
     RegisterResult create(RegisterInfo ri);
+
 }

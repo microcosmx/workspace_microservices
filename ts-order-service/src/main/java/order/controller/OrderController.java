@@ -25,12 +25,12 @@ public class OrderController {
 
     @RequestMapping(path = "/createNewOrders", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){
-        String loginToken = coi.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
         if(tokenResult.isStatus() == true){
+            System.out.println("[OrderService][VerifyLogin] Success");
             return orderService.create(coi.getOrder());
         }else{
+            System.out.println("[OrderService][VerifyLogin] Fail");
             CreateOrderResult cor = new CreateOrderResult();
             cor.setStatus(false);
             cor.setMessage("Not Login");
@@ -46,47 +46,55 @@ public class OrderController {
 
     @RequestMapping(path = "/queryOrders", method = RequestMethod.POST)
     public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi){
-        String loginToken = qi.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(qi.getLoginToken());
         if(tokenResult.isStatus() == true){
+            System.out.println("[OrderService][VerifyLogin] Success");
             return orderService.queryOrders(qi);
         }else{
+            System.out.println("[OrderService][VerifyLogin] Fail");
             return new ArrayList<Order>();
         }
     }
 
     @RequestMapping(path = "/saveOrderInfo", method = RequestMethod.PUT)
     public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
-        String loginToken = orderInfo.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
         if(tokenResult.isStatus() == true){
+            System.out.println("[OrderService][VerifyLogin] Success");
             return orderService.saveChanges(orderInfo.getOrder());
         }else{
+            System.out.println("[OrderService][VerifyLogin] Fail");
             ChangeOrderResult cor = new ChangeOrderResult();
             cor.setStatus(false);
             cor.setMessage("Not Login");
             cor.setOrder(null);
             return cor;
         }
-
     }
 
     @RequestMapping(path="/cancelOrder", method = RequestMethod.POST)
     public CancelOrderResult cancelOrder(@RequestBody CancelOrderInfo coi){
-        String loginToken = coi.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
         if(tokenResult.isStatus() == true){
+            System.out.println("[OrderService][VerifyLogin] Success");
             return orderService.cancelOrder(coi);
         }else{
+            System.out.println("[OrderService][VerifyLogin] Fail");
             CancelOrderResult cor = new CancelOrderResult();
             cor.setStatus(false);
             cor.setMessage("Not Login");
             cor.setOrder(null);
             return cor;
         }
+    }
+
+    private VerifyResult verifySsoLogin(String loginToken){
+        restTemplate = new RestTemplate();
+        System.out.println("[OrderService][VerifyLogin] Verifying....");
+        VerifyResult tokenResult = restTemplate.getForObject(
+                "http://localhost:12349/verifyLoginToken/" + loginToken,
+                VerifyResult.class);
+        return tokenResult;
     }
 
 }

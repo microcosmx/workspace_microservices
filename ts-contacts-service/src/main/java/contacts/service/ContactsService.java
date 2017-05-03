@@ -1,7 +1,6 @@
 package contacts.service;
 
 import contacts.domain.*;
-
 import java.util.ArrayList;
 import java.util.UUID;
 

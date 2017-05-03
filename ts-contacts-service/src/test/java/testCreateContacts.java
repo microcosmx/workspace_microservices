@@ -24,9 +24,10 @@ public class testCreateContacts {
         //添加新联系人
         AddContactsInfo aci = new AddContactsInfo();
         aci.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
+        aci.setLoginToken("c253d36c-f674-4fe1-8a3b-137348cb032d");
         aci.setDocumentNumber("142603199601311011");
         aci.setDocumentType(DocumentType.ID_CARD.getCode());
-        aci.setName("chenxin");
+        aci.setName("chenxin&jichao");
         aci.setPhoneNumber("+86 15221870263");
         Gson gson = new Gson();
         String str = gson.toJson(aci);

@@ -23,25 +23,24 @@ public class ContactsController {
 
     @RequestMapping(path = "/findContacts", method = RequestMethod.POST)
     public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
-        String loginToken = qci.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
         if(tokenResult.isStatus() == true){
-            UUID accountId = UUID.fromString(qci.getAccountId());
-            return contactsService.findContactsByAccountId(accountId);
+            System.out.println("[ContactsService][VerifyLogin] Success");
+            return contactsService.findContactsByAccountId(UUID.fromString(qci.getAccountId()));
         }else {
+            System.out.println("[ContactsService][VerifyLogin] Fail");
             return new ArrayList<Contacts>();
         }
     }
 
     @RequestMapping(path = "/createNewContacts", method = RequestMethod.POST)
     public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
-        String loginToken = aci.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
         if(tokenResult.isStatus() == true){
+            System.out.println("[ContactsService][VerifyLogin] Success");
             return contactsService.create(aci);
         }else{
+            System.out.println("[ContactsService][VerifyLogin] Fail");
             AddContactsResult acr = new AddContactsResult();
             acr.setStatus(false);
             acr.setMessage("Not Login");
@@ -52,34 +51,42 @@ public class ContactsController {
 
     @RequestMapping(path = "/deleteContacts", method = RequestMethod.POST)
     public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo dci){
-        String loginToken = dci.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
         if(tokenResult.isStatus() == true){
-            UUID contactsId = UUID.fromString(dci.getContactsId());
-            return contactsService.delete(contactsId);
+            System.out.println("[ContactsService][VerifyLogin] Success");
+            return contactsService.delete(UUID.fromString(dci.getContactsId()));
         }else{
+            System.out.println("[ContactsService][VerifyLogin] Fail");
             DeleteContactsResult dcr = new DeleteContactsResult();
-            dcr.setStatus(false);
             dcr.setMessage("Not Login");
+            dcr.setStatus(false);
             return dcr;
         }
     }
 
     @RequestMapping(path = "/saveContactsInfo", method = RequestMethod.PUT)
     public ModifyContactsResult saveContactsInfo(@RequestBody ModifyContactsInfo contactsInfo){
-        String loginToken = contactsInfo.getLoginToken();
-        restTemplate = new RestTemplate();
-        VerifyResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/verifyLoginToken/" + loginToken,VerifyResult.class);
+        VerifyResult tokenResult = verifySsoLogin(contactsInfo.getLoginToken());
         if(tokenResult.isStatus() == true){
+            System.out.println("[ContactsService][VerifyLogin] Success");
             return contactsService.saveChanges(contactsInfo.getContacts());
         }else{
+            System.out.println("[ContactsService][VerifyLogin] Fail");
             ModifyContactsResult mcr = new ModifyContactsResult();
             mcr.setStatus(false);
             mcr.setMessage("Not Login");
             mcr.setContacts(null);
             return mcr;
         }
+    }
+
+    private VerifyResult verifySsoLogin(String loginToken){
+        restTemplate = new RestTemplate();
+        System.out.println("[ContactsService][VerifyLogin] Verifying....");
+        VerifyResult tokenResult = restTemplate.getForObject(
+                "http://localhost:12349/verifyLoginToken/" + loginToken,
+                     VerifyResult.class);
+        return tokenResult;
     }
 
 }

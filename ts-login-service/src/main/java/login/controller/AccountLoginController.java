@@ -25,16 +25,18 @@ public class AccountLoginController {
     public LoginResult login(@RequestBody LoginInfo li){
         LoginResult lr = accountService.login(li);
         if(lr.getStatus() == false){
+            System.out.println("[AccountLoginService][Login] Login Fail. No token generate.");
             return lr;
         }else{
             //Post token to the sso
+            System.out.println("[AccountLoginService][Login] LoginSuccess. Put token to sso.");
             UUID token = UUID.randomUUID();
             lr.setToken(token.toString());
             restTemplate = new RestTemplate();
-            String tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/loginPutToken/" + token.toString(),String.class);
+            String tokenResult = restTemplate.getForObject("http://localhost:12349/loginPutToken/" + token.toString(),String.class);
             System.out.println("[AccountLoginService][Login] Post to sso:" + tokenResult);
             return lr;
         }
-}
+    }
 
 }
