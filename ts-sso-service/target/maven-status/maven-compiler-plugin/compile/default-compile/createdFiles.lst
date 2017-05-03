@@ -1,0 +1,5 @@
+sso\service\AccountSsoServiceImpl.class
+sso\controller\AccountSsoController.class
+sso\service\AccountSsoService.class
+sso\AccountSsoApplication.class
+sso\domain\VerifyResult.class

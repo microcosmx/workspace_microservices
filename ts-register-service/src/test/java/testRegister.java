@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class testRegister {
     public static void main(String[] args)throws Exception{
-        URL url = new URL("http://localhost:12344/register");
+        URL url = new URL("http://10.141.212.21:12344/register");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -21,7 +21,7 @@ public class testRegister {
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //注册的新账户对象
         RegisterInfo ri = new RegisterInfo();
-        ri.setName("testUUID");
+        ri.setName("test-remote-docker");
         Gson gson = new Gson();
         String str = gson.toJson(ri);
         System.out.println(str);

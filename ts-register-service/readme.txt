@@ -8,9 +8,9 @@ build:
 mvn clean package
 
 docker:
-docker build -t my/account-register-service .
-docker run -p 12344:12344 --name account-register-service my/account-register-service
+docker build -t my/ts-register-service .
+docker run -p 12344:12344 --name ts-register-service my/ts-register-service
 
 !!!!!notice: please add following lines into /etc/hosts to simulate the network access:
-127.0.0.1	account-register-service
+127.0.0.1	ts-register-service
 
