@@ -3,7 +3,9 @@ package contacts.domain;
 public class ModifyContactsResult {
 
     private boolean status;
+
     private String message;
+
     private Contacts contacts;
 
     public boolean isStatus() {
@@ -29,4 +31,5 @@ public class ModifyContactsResult {
     public void setContacts(Contacts contacts) {
         this.contacts = contacts;
     }
+
 }

@@ -112,11 +112,15 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order saveChanges(Order order){
+    public ChangeOrderResult saveChanges(Order order){
         Order oldOrder = findOrderById(order.getId());
         if(oldOrder == null){
             System.out.println("[Order-Modify-Service][ModifyOrder] Fail.Order not found.");
-            return null;
+            ChangeOrderResult cor = new ChangeOrderResult();
+            cor.setStatus(false);
+            cor.setMessage("Order Not Found");
+            cor.setOrder(null);
+            return cor;
         }else{
             oldOrder.setAccountId(order.getAccountId());
             oldOrder.setBoughtDate(order.getBoughtDate());
@@ -130,22 +134,34 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setTrainNumber(order.getTrainNumber());
             orderRepository.save(oldOrder);
             System.out.println("[Order-Modify-Service] Success.");
-            return oldOrder;
+            ChangeOrderResult cor = new ChangeOrderResult();
+            cor.setOrder(oldOrder);
+            cor.setStatus(true);
+            cor.setMessage("Success");
+            return cor;
         }
     }
 
     @Override
-    public Order cancelOrder(CancelOrderInfo coi){
+    public CancelOrderResult cancelOrder(CancelOrderInfo coi){
         UUID orderId = coi.getOrderId();
         Order oldOrder = orderRepository.findById(orderId);
         if(oldOrder == null){
             System.out.println("[Cancel-Order-Service][CancelOrder] Fail.Order not found.");
-            return null;
+            CancelOrderResult cor = new CancelOrderResult();
+            cor.setStatus(false);
+            cor.setMessage("Order Not Found");
+            cor.setOrder(null);
+            return cor;
         }else{
             oldOrder.setStatus(OrderStatus.CANCEL.getCode());
             orderRepository.save(oldOrder);
             System.out.println("[Cancel-Order-Service][CancelOrder] Success.");
-            return oldOrder;
+            CancelOrderResult cor = new CancelOrderResult();
+            cor.setStatus(true);
+            cor.setMessage("Success");
+            cor.setOrder(oldOrder);
+            return cor;
         }
     }
 

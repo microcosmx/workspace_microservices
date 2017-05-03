@@ -1,6 +1,8 @@
 package sso.service;
 
 import org.springframework.stereotype.Service;
+import sso.domain.VerifyResult;
+
 import java.util.ArrayList;
 
 @Service
@@ -38,12 +40,16 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     }
 
     @Override
-    public String verifyLoginToken(String verifyToken){
+    public VerifyResult verifyLoginToken(String verifyToken){
         System.out.println("[Account-SSO-Service][Verify] Verify token:" + verifyToken);
+        VerifyResult vr = new VerifyResult();
         if(loginUserList.contains(verifyToken)){
-            return "status=VerifySuccess";
+            vr.setStatus(true);
+            vr.setMessage("Success");
         }else{
-            return "status=VerifyFail";
+            vr.setMessage("Fail");
+            vr.setStatus(false);
         }
+        return vr;
     }
 }

@@ -4,6 +4,7 @@ package contacts.domain;
 public class DeleteContactsResult {
 
     private boolean status;
+
     private String message;
 
     public boolean isStatus() {
@@ -21,4 +22,5 @@ public class DeleteContactsResult {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

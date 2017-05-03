@@ -1,6 +1,6 @@
 package order.domain;
 
-public class CreateOrderResult {
+public class ChangeOrderResult {
 
     private boolean status;
 

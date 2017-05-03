@@ -11,9 +11,9 @@ public interface OrderService {
 
     CreateOrderResult create(Order newOrder);
 
-    Order saveChanges(Order order);
+    ChangeOrderResult saveChanges(Order order);
 
-    Order cancelOrder(CancelOrderInfo coi);
+    CancelOrderResult cancelOrder(CancelOrderInfo coi);
 
     ArrayList<Order> queryOrders(QueryInfo qi);
 

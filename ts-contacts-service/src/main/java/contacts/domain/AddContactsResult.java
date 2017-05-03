@@ -3,7 +3,9 @@ package contacts.domain;
 public class AddContactsResult {
 
     private boolean status;
+
     private String message;
+
     private Contacts contacts;
 
     public boolean isStatus() {

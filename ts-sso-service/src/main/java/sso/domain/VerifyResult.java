@@ -1,12 +1,10 @@
-package order.domain;
+package sso.domain;
 
-public class CreateOrderResult {
+public class VerifyResult {
 
     private boolean status;
 
     private String message;
-
-    private Order order;
 
     public boolean isStatus() {
         return status;
@@ -22,13 +20,5 @@ public class CreateOrderResult {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 }

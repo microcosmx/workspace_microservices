@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import sso.domain.VerifyResult;
 import sso.service.AccountSsoService;
 
 @RestController
@@ -30,7 +31,7 @@ public class AccountSsoController {
     }
 
     @RequestMapping(path = "/verifyLoginToken/{token}", method = RequestMethod.GET)
-    public String verifyLoginToken(@PathVariable String token){
+    public VerifyResult verifyLoginToken(@PathVariable String token){
         return ssoService.verifyLoginToken(token);
     }
 
