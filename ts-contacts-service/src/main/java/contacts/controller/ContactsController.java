@@ -84,7 +84,7 @@ public class ContactsController {
         restTemplate = new RestTemplate();
         System.out.println("[ContactsService][VerifyLogin] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
-                "http://localhost:12349/verifyLoginToken/" + loginToken,
+                "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,
                      VerifyResult.class);
         return tokenResult;
     }
