@@ -1,36 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/DeleteContactsInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/ModifyContactsInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/QueryContactsInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/VerifyResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CancelOrderResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/ChangeOrderInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/ChangeOrderResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/VerifyResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/domain/VerifyResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/controller/ContactsController.java" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/controller/ContactsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsInfo.java" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsResult.java" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/AddContactsResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/Contacts.java" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/Contacts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/DeleteContactsResult.java" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/DeleteContactsResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/ModifyContactsResult.java" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/domain/ModifyContactsResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CancelOrderInfo.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CancelOrderInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderResult.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/CreateOrderResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/Order.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/Order.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/OrderAlterInfo.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/OrderAlterInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/QueryInfo.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/QueryInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/service/OrderServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java" afterPath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoService.java" afterPath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoServiceImpl.java" afterPath="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/service/AccountSsoServiceImpl.java" />
-    </list>
+    <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/rest-client/target/" />
     <ignored path="$PROJECT_DIR$/rest-service/target/" />
     <ignored path="$PROJECT_DIR$/account-service/target/" />
@@ -95,11 +66,10 @@
       <file leaf-file-name="OrderController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="51" lean-forward="false" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
+            <state relative-caret-position="408">
+              <caret line="34" column="33" lean-forward="true" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
               <folding>
-                <element signature="e#1615#1616#0" expanded="true" />
-                <element signature="e#1666#1667#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/ChangeOrderResult.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+              <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
               <folding>
                 <element signature="e#171#172#0" expanded="true" />
                 <element signature="e#200#201#0" expanded="true" />
@@ -121,8 +91,8 @@
       <file leaf-file-name="services.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="59" column="29" lean-forward="true" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+            <state relative-caret-position="1003">
+              <caret line="59" column="29" lean-forward="false" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -274,6 +244,7 @@
     <panes>
       <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -674,7 +645,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1437,11 +1407,12 @@
       <workItem from="1493718112844" duration="39000" />
       <workItem from="1493718242608" duration="2326000" />
       <workItem from="1493776371167" duration="5615000" />
+      <workItem from="1493782306252" duration="16000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179982000" />
+    <option name="totallyTimeSpent" value="179998000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="63" y="-8" width="1311" height="784" extended-state="6" />
@@ -1693,7 +1664,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="137" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1709,7 +1679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="45" column="22" lean-forward="true" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1717,7 +1686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1725,10 +1693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
-          <folding>
-            <element signature="e#1284#1285#0" expanded="false" />
-            <element signature="e#1341#1342#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1736,9 +1700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-          <folding>
-            <element signature="e#167#168#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1762,7 +1723,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1273">
           <caret line="85" column="22" lean-forward="false" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1837,7 +1797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1956,7 +1915,7 @@
     <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/domain/ChangeOrderResult.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
           <folding>
             <element signature="e#171#172#0" expanded="true" />
             <element signature="e#200#201#0" expanded="true" />
@@ -1966,19 +1925,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="59" column="29" lean-forward="true" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+        <state relative-caret-position="1003">
+          <caret line="59" column="29" lean-forward="false" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="51" lean-forward="false" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
+        <state relative-caret-position="408">
+          <caret line="34" column="33" lean-forward="true" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
           <folding>
-            <element signature="e#1615#1616#0" expanded="true" />
-            <element signature="e#1666#1667#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
