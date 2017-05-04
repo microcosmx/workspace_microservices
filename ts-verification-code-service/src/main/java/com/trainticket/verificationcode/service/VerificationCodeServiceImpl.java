@@ -6,17 +6,41 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import org.springframework.stereotype.Service;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.WebUtils;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.trainticket.verificationcode.util.CookieUtil;
 @Service
 public class VerificationCodeServiceImpl implements VerificationCodeService{
+
+    @Autowired
+    private HashMap<String, String> map;
+
     private static char mapTable[] = {
-            '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', '0', '1',
-            '2', '3', '4', '5', '6', '7',
-            '8', '9'};
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+            'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+    //web登录相关：
+    /** 验证码，Hash类型， 后面跟着cookie Id */
+    public static final String CAPTCHA = "captcha:";
+    /** 验证码，field，验证码内容*/
+    public static final String CAPTCHA_CODE = "code";
+    /** 验证码，field，验证码是否已经验证过 */
+    public static final String CAPTCHA_CHECKED = "checked";
+    /** 验证码失效时间，秒 */
+    public static final int CAPTCHA_EXPIRED = 60;
+
     @Override
-    public Map<String, Object> getImageCode(int width, int height, OutputStream os) {
+    public Map<String, Object> getImageCode(int width, int height, OutputStream os, HttpServletRequest request, HttpServletResponse response) {
         Map<String,Object> returnMap = new HashMap<String, Object>();
         if (width <= 0) width = 60;
         if (height <= 0) height = 20;
@@ -54,11 +78,42 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
         g.dispose();
         returnMap.put("image",image);
         returnMap.put("strEnsure",strEnsure);
+
+        //生成一个cookie ID，并塞进response里面
+        Cookie cookie = CookieUtil.getCookieByName(request,"YsbCaptcha");
+        System.out.println(cookie.getValue());
+        String cookieId;
+        if(cookie.getValue() == null){
+            cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+            CookieUtil.addCookie(response, "YsbCaptcha", cookieId, CAPTCHA_EXPIRED);
+        }else{
+            cookieId = cookie.getValue();
+        }
+
+        //把校验码、是否已经通过校验（缺省不设置为0）保存到redis中，以cookie ID 为key
+        map.put(cookieId,strEnsure);
+
         return returnMap;
     }
-    
-    
-    
+
+    public boolean verifyCode(HttpServletRequest request, HttpServletResponse response, String receivedCode){
+        boolean result = false;
+        Cookie cookie = CookieUtil.getCookieByName(request,"YsbCaptcha");
+        System.out.println(cookie.getValue());
+        String cookieId;
+        if(cookie.getValue() == null){
+            cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+            CookieUtil.addCookie(response, "YsbCaptcha", cookieId, CAPTCHA_EXPIRED);
+        }else{
+            cookieId = cookie.getValue();
+        }
+        String code = map.get(cookieId);
+        if(code.equals(receivedCode)){
+            result = true;
+        }
+        return result;
+    }
+
     static Color getRandColor(int fc, int bc) {
         Random random = new Random();
         if (fc > 255) fc = 255;

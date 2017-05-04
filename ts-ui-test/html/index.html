@@ -42,11 +42,16 @@
     <div class="workflow2">
         <p class="workflow_description">>2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
         <div class="step">
-            <p>登陆验证 </p>
+            <p>注册 </p>
             <div class="group">
                 <div class="input-box">
-                    <form action="http://10.141.212.21:12344/register" method="post">
-                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
+                    <form enctype='application/json' action="http://10.141.212.21:12344/register" method="post">
+                        <input name='password' value='defaultPassword'>
+                        <input name='gender' value='3'>
+                        <input name='name' value='test-remote-docker'>
+                        <input name='documentType' value='0'>
+                        <input name='documentNum' value='0123456789'>
+                        <input name='phoneNum' value='352323'>
                         <p><input type="submit" value="提交"></p>
                     </form>
                 </div>
@@ -56,7 +61,24 @@
             </div>
         </div>
         <div class="step">
+            <p>登陆验证 </p>
+            <div class="group">
+                <div class="input-box">
+                    <form action="http://10.141.212.21:12344/register" method="post">
+                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
+                        <p><input type="submit" value="提交"></p>
+                    </form>
+                    <form enctype='application/json'>
+                    </form>
+                </div>
+                <div class="output-box">
+                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="step">
             <p>车次查询 </p>
+            <a href="http://10.141.212.21:12344/welcome">注册欢迎页面</a>
         </div>
         <div class="step">
             <p>车票预订 </p>
