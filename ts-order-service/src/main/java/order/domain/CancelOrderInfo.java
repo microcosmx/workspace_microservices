@@ -8,8 +8,18 @@ public class CancelOrderInfo {
 
     private UUID orderId;
 
+    private String loginToken;
+
     public CancelOrderInfo(){
 
+    }
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 
     public UUID getAccountId() {

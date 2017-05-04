@@ -65,6 +65,16 @@
         <option value="$PROJECT_DIR$/ts-contacts-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-order-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-admin-account-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-verification-code-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-query-ordinary-serivce/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-query-crh-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-payment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-query-ordinary-service/pom.xml" />
+        <option value="$PROJECT_DIR$/sample-test-1/pom.xml" />
+        <option value="$PROJECT_DIR$/rest-service-update/pom.xml" />
+        <option value="$PROJECT_DIR$/rdbms/pom.xml" />
+        <option value="$PROJECT_DIR$/msg-queue/pom.xml" />
+        <option value="$PROJECT_DIR$/mongo-cluster/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: accounts-manage-service
+    name: ts-admin-account-service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo

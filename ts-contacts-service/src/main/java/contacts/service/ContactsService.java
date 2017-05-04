@@ -1,7 +1,6 @@
 package contacts.service;
 
-import contacts.domain.AddContactsInfo;
-import contacts.domain.Contacts;
+import contacts.domain.*;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -11,10 +10,10 @@ public interface ContactsService {
 
     ArrayList<Contacts> findContactsByAccountId(UUID accountId);
 
-    Contacts create(AddContactsInfo aci);
+    AddContactsResult create(AddContactsInfo aci);
 
-    String delete(UUID contactsId);
+    DeleteContactsResult delete(UUID contactsId);
 
-    Contacts saveChanges(Contacts contacts);
+    ModifyContactsResult saveChanges(Contacts contacts);
 
 }

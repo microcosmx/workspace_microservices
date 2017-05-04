@@ -1,6 +1,6 @@
 spring:
   application:
-    name: account-register-service
+    name: ts-register-service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo

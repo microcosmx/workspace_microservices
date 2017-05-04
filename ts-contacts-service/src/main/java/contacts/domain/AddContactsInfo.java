@@ -6,6 +6,8 @@ public class AddContactsInfo {
 
     private UUID accountId;
 
+    private String loginToken;
+
     private String name;
 
     private int documentType;
@@ -24,6 +26,14 @@ public class AddContactsInfo {
 
     public void setAccountId(UUID accountId) {
         this.accountId = accountId;
+    }
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 
     public String getName() {

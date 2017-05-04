@@ -13,6 +13,9 @@
         <module name="contacts-modify-service" />
         <module name="contacts-query-service" />
         <module name="contacts-service" />
+        <module name="gs-accessing-data-mongodb" />
+        <module name="gs-messaging-rabbitmq" />
+        <module name="gs-relational-data-access" />
         <module name="order-cancel-service" />
         <module name="order-endrose-service" />
         <module name="order-modify-service" />
@@ -23,6 +26,8 @@
         <module name="query_crh" />
         <module name="rest-client" />
         <module name="rest-service" />
+        <module name="rest-service-update" />
+        <module name="sample-test-1" />
         <module name="ts-admin-account-service" />
         <module name="ts-config-service" />
         <module name="ts-contacts-service" />
@@ -30,12 +35,17 @@
         <module name="ts-insite-payment" />
         <module name="ts-login-service" />
         <module name="ts-order-service" />
+        <module name="ts-payment-service" />
         <module name="ts-preserve-service" />
+        <module name="ts-query-crh-service" />
+        <module name="ts-query-ordinary-service" />
         <module name="ts-register-service" />
         <module name="ts-security-service" />
         <module name="ts-sso-service" />
         <module name="ts-station-service" />
         <module name="ts-train-service" />
+        <module name="ts-verification-code-service" />
+        <module name="verificationCode-login.service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -46,6 +56,9 @@
       <module name="contacts-modify-service" target="1.8" />
       <module name="contacts-query-service" target="1.8" />
       <module name="contacts-service" target="1.8" />
+      <module name="gs-accessing-data-mongodb" target="1.8" />
+      <module name="gs-messaging-rabbitmq" target="1.8" />
+      <module name="gs-relational-data-access" target="1.8" />
       <module name="order-alter-service" target="1.8" />
       <module name="order-cancel-service" target="1.8" />
       <module name="order-endrose-service" target="1.5" />
@@ -57,6 +70,8 @@
       <module name="query_crh" target="1.8" />
       <module name="rest-client" target="1.8" />
       <module name="rest-service" target="1.8" />
+      <module name="rest-service-update" target="1.8" />
+      <module name="sample-test-1" target="1.5" />
       <module name="test-all-account-service" target="1.8" />
       <module name="test-all-contacts-service" target="1.8" />
       <module name="test-all-order-service" target="1.8" />
@@ -67,12 +82,17 @@
       <module name="ts-insite-payment" target="1.5" />
       <module name="ts-login-service" target="1.8" />
       <module name="ts-order-service" target="1.8" />
+      <module name="ts-payment-service" target="1.8" />
       <module name="ts-preserve-service" target="1.5" />
+      <module name="ts-query-crh-service" target="1.8" />
+      <module name="ts-query-ordinary-service" target="1.8" />
       <module name="ts-register-service" target="1.8" />
       <module name="ts-security-service" target="1.5" />
       <module name="ts-sso-service" target="1.8" />
       <module name="ts-station-service" target="1.5" />
       <module name="ts-train-service" target="1.5" />
+      <module name="ts-verification-code-service" target="1.8" />
+      <module name="verificationCode-login.service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

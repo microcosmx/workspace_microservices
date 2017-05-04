@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>火车票订票系统</title>
+
+    <meta name="description" content="测试订票系统，需跑通三个流程">
+    <meta name="author" content="Chenjie Xu">
+
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/index.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="workflow1">
+        <p class="workflow_description">1. 登陆验证 －》 车次查询 －》 车票预订 －》 修改座位等级 －》 支付 －》 乘车</p>
+        <div class="step">
+            <p>登陆验证 </p>
+        </div>
+        <div class="step">
+            <p>车次查询 </p>
+        </div>
+        <div class="step">
+            <p>车票预订 </p>
+        </div>
+        <div class="step">
+            <p>修改座位等级 </p>
+        </div>
+        <div class="step">
+            <p>支付 </p>
+        </div>
+        <div class="step">
+            <p>乘车</p>
+        </div>
+    </div>
+    <div class="workflow2">
+        <p class="workflow_description">>2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
+        <div class="step">
+            <p>注册 </p>
+            <div class="group">
+                <div class="input-box">
+                    <form enctype='application/json' action="http://10.141.212.21:12344/register" method="post">
+                        <input name='password' value='defaultPassword'>
+                        <input name='gender' value='3'>
+                        <input name='name' value='test-remote-docker'>
+                        <input name='documentType' value='0'>
+                        <input name='documentNum' value='0123456789'>
+                        <input name='phoneNum' value='352323'>
+                        <p><input type="submit" value="提交"></p>
+                    </form>
+                </div>
+                <div class="output-box">
+                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="step">
+            <p>登陆验证 </p>
+            <div class="group">
+                <div class="input-box">
+                    <form action="http://10.141.212.21:12344/register" method="post">
+                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
+                        <p><input type="submit" value="提交"></p>
+                    </form>
+                    <form enctype='application/json'>
+                    </form>
+                </div>
+                <div class="output-box">
+                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="step">
+            <p>车次查询 </p>
+            <a href="http://10.141.212.21:12344/welcome">注册欢迎页面</a>
+        </div>
+        <div class="step">
+            <p>车票预订 </p>
+        </div>
+        <div class="step">
+            <p>支付 </p>
+        </div>
+        <div class="step">
+            <p>改签 </p>
+        </div>
+        <div class="step">
+            <p>支付 </p>
+        </div>
+        <div class="step">
+            <p>乘车</p>
+        </div>
+    </div>
+    <div class="workflow3">
+        <p class="workflow_description">>3. 登陆验证 －》 车票订单查询 －》 取消 －》 退款</p>
+        <div class="step">
+            <p>登陆验证 </p>
+        </div>
+        <div class="step">
+            <p>车票订单查询 </p>
+        </div>
+        <div class="step">
+            <p>取消 </p>
+        </div>
+        <div class="step">
+            <p>退款</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

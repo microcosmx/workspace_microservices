@@ -1,12 +1,9 @@
 spring:
   application:
-    name: accounts-login-service
+    name: ts-login-service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo
 
-## HTTP Server
-#server:
-#  port: 12342  # HTTP (Tomcat) port
 
 

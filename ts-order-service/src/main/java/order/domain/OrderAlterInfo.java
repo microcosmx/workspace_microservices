@@ -5,7 +5,11 @@ import java.util.UUID;
 public class OrderAlterInfo {
 
     private UUID accountId;
+
     private UUID previousOrderId;
+
+    private String loginToken;
+
     private Order newOrderInfo;
 
     public OrderAlterInfo(){
@@ -26,6 +30,14 @@ public class OrderAlterInfo {
 
     public void setPreviousOrderId(UUID previousOrderId) {
         this.previousOrderId = previousOrderId;
+    }
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 
     public Order getNewOrderInfo() {
