@@ -21,7 +21,8 @@ public class testRegister {
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //注册的新账户对象
         RegisterInfo ri = new RegisterInfo();
-        ri.setName("test-remote-docker");
+        ri.setName("jichao-main-test-account");
+        ri.setPhoneNum("15221870263");
         Gson gson = new Gson();
         String str = gson.toJson(ri);
         System.out.println(str);

@@ -1,23 +1,28 @@
 package sso.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sso.domain.VerifyResult;
+import sso.repository.AccountRepository;
 import java.util.ArrayList;
 
 @Service
 public class AccountSsoServiceImpl implements AccountSsoService{
 
+
+    @Autowired
+    private AccountRepository accountRepository;
     private static ArrayList<String> loginUserList = new ArrayList<>();
 
     @Override
     public String loginPutToken(String loginToken){
         if(loginUserList.contains(loginToken)){
             System.out.println("[Account-SSO-Service][Login] Already Login, Token:" + loginToken);
-            return "status=AlreadyLogin";
+            return "status=AlreadyAdd";
         }else{
             loginUserList.add(loginToken);
             System.out.println("[Account-SSO-Service][Login] Login Success. Token:" + loginToken);
-            return "status=LoginSuccess";
+            return "status=AddSuccess";
         }
     }
 
@@ -25,7 +30,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public String logoutDeleteToken(String logoutToken){
         if(!loginUserList.contains(logoutToken)){
             System.out.println("[Account-SSO-Service][Logout] Already Logout. Token:" + logoutToken);
-            return "status=AlreadyLogout";
+            return "status=AlreadyDelete";
         }else{
             for(int i = 0;i < loginUserList.size();i++){
                 if(loginUserList.get(i).toString().equals(logoutToken)){
@@ -34,7 +39,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
                 }
             }
             System.out.println("[Account-SSO-Service][Logout] Logout Success. Token:" + logoutToken);
-            return "status=LogoutSuccess";
+            return "status=DeleteSuccess";
         }
     }
 
@@ -53,4 +58,6 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         }
         return vr;
     }
+
+
 }
