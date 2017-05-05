@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.trainticket.verificationcode.service.*;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.imageio.*;
@@ -20,24 +22,35 @@ public class VerificationCodeController {
 	@Autowired
 	private VerificationCodeService verificationCodeService;
 
+
 	@RequestMapping(value="/error",method=RequestMethod.GET)
 	public String welcome(){
 		return "error";
 	}
 
 	
-	@RequestMapping(value = "/verificationCode", method = RequestMethod.GET)
-	public String imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/verification/generate", method = RequestMethod.GET)
+	public void imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    OutputStream os = response.getOutputStream();
-	    Map<String,Object> map = verificationCodeService.getImageCode(60, 20, os);
+	    Map<String,Object> map = verificationCodeService.getImageCode(60, 20, os, request, response);
 	    String simpleCaptcha = "simpleCaptcha";
 	    request.getSession().setAttribute(simpleCaptcha, map.get("strEnsure").toString().toLowerCase());
 	    request.getSession().setAttribute("codeTime",new Date().getTime());
 	    try {
 	        ImageIO.write((BufferedImage) map.get("image"), "JPEG", os);
 	    } catch (IOException e) {
-	        return "";
+	        //error
+			String error = "Can't generate verification code";
+			os.write(error.getBytes());
 	    }
-	    return null;
 	}
+
+	@RequestMapping(value = "/verification/verify", method = RequestMethod.POST)
+	public boolean verifyCode(HttpServletRequest request, HttpServletResponse response ) {
+		String receivedCode = request.getParameter("verificationCode");
+		System.out.println("receivedCode"+receivedCode);
+		boolean result = verificationCodeService.verifyCode(request, response, receivedCode);
+		return result;
+	}
+
 }

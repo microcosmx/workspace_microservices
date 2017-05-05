@@ -1,7 +1,7 @@
 FROM java:8-jre
 MAINTAINER Chenjie Xu <saberlilydian@163.com>
 
-ADD ./target/verificationCode-login.service.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/verificationCode-login.service.jar"]
+ADD ./ts-verification-code-service-1.0.jar /app/
+CMD ["java", "-Xmx200m", "-jar", "/app/ts-verification-code-service-1.0.jar"]
 
-EXPOSE 16001
+EXPOSE 15678

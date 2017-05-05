@@ -10,7 +10,6 @@
     <meta name="description" content="测试订票系统，需跑通三个流程">
     <meta name="author" content="Chenjie Xu">
 
-    <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 
     <script src="../js/jquery-3.2.1.min.js"></script>
@@ -22,6 +21,17 @@
         <p class="workflow_description">1. 登陆验证 －》 车次查询 －》 车票预订 －》 修改座位等级 －》 支付 －》 乘车</p>
         <div class="step">
             <p>登陆验证 </p>
+            <div>
+                <img class="captcha_img" id="captchaImg" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
+            </div>
+            <div>
+                <form enctype='application/json' action="http://10.141.212.21:15678/verification/verify" method="post">
+                <input type="text" id="verificationCode" placeholder="验证码" name="verificationCode"/>
+                <span id="captchaChecked" style="display:none;color:green;font-weight:bold">√</span>
+                    <p><input type="submit" value="提交"></p>
+                </form>
+            </div>
+
         </div>
         <div class="step">
             <p>车次查询 </p>
@@ -42,11 +52,16 @@
     <div class="workflow2">
         <p class="workflow_description">>2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
         <div class="step">
-            <p>登陆验证 </p>
+            <p>注册 </p>
             <div class="group">
                 <div class="input-box">
-                    <form action="http://10.141.212.21:12344/register" method="post">
-                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
+                    <form enctype='application/json' action="http://10.141.212.21:12344/register" method="post">
+                        <input name='password' value='defaultPassword'>
+                        <input name='gender' value='3'>
+                        <input name='name' value='test-remote-docker'>
+                        <input name='documentType' value='0'>
+                        <input name='documentNum' value='0123456789'>
+                        <input name='phoneNum' value='352323'>
                         <p><input type="submit" value="提交"></p>
                     </form>
                 </div>
@@ -56,7 +71,25 @@
             </div>
         </div>
         <div class="step">
+            <p>登陆验证 </p>
+            <div class="group">
+                <div class="input-box">
+                    <form action="http://10.141.212.21:12344/register" method="post">
+                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
+                        <p><input type="submit" value="提交"></p>
+                    </form>
+                    <form enctype='application/json'>
+                    </form>
+                </div>
+                <div class="output-box">
+                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="step">
             <p>车次查询 </p>
+            <a href="http://10.141.212.21:12344/welcome">注册欢迎页面</a>
+            <a href="http://10.141.212.21:15678/verification/generate">验证码生成页面</a>
         </div>
         <div class="step">
             <p>车票预订 </p>
