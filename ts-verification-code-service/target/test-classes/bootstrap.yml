@@ -1,3 +1,0 @@
-eureka:
-  login.client:
-    enabled: false

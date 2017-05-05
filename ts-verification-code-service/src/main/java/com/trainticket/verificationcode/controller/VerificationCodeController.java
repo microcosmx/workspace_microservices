@@ -29,7 +29,7 @@ public class VerificationCodeController {
 	}
 
 	
-	@RequestMapping(value = "/generate", method = RequestMethod.GET)
+	@RequestMapping(value = "/verification/generate", method = RequestMethod.GET)
 	public void imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    OutputStream os = response.getOutputStream();
 	    Map<String,Object> map = verificationCodeService.getImageCode(60, 20, os, request, response);
@@ -45,10 +45,12 @@ public class VerificationCodeController {
 	    }
 	}
 
-	@RequestMapping(value = "/verify", method = RequestMethod.POST)
-	public boolean verifyCode(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> map) {
-		String receivedCode = map.get("verificationCode");
+	@RequestMapping(value = "/verification/verify", method = RequestMethod.POST)
+	public boolean verifyCode(HttpServletRequest request, HttpServletResponse response ) {
+		String receivedCode = request.getParameter("verificationCode");
+		System.out.println("receivedCode"+receivedCode);
 		boolean result = verificationCodeService.verifyCode(request, response, receivedCode);
 		return result;
 	}
+
 }

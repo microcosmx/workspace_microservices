@@ -21,8 +21,7 @@ import com.trainticket.verificationcode.util.CookieUtil;
 @Service
 public class VerificationCodeServiceImpl implements VerificationCodeService{
 
-    @Autowired
-    private HashMap<String, String> map;
+    private Map<String, String> map = new HashMap<String, String>();
 
     private static char mapTable[] = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -37,7 +36,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
     /** 验证码，field，验证码是否已经验证过 */
     public static final String CAPTCHA_CHECKED = "checked";
     /** 验证码失效时间，秒 */
-    public static final int CAPTCHA_EXPIRED = 60;
+    public static final int CAPTCHA_EXPIRED = 1000;
 
     @Override
     public Map<String, Object> getImageCode(int width, int height, OutputStream os, HttpServletRequest request, HttpServletResponse response) {
@@ -81,9 +80,8 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
 
         //生成一个cookie ID，并塞进response里面
         Cookie cookie = CookieUtil.getCookieByName(request,"YsbCaptcha");
-        System.out.println(cookie.getValue());
         String cookieId;
-        if(cookie.getValue() == null){
+        if(cookie == null){
             cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             CookieUtil.addCookie(response, "YsbCaptcha", cookieId, CAPTCHA_EXPIRED);
         }else{
@@ -99,15 +97,16 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
     public boolean verifyCode(HttpServletRequest request, HttpServletResponse response, String receivedCode){
         boolean result = false;
         Cookie cookie = CookieUtil.getCookieByName(request,"YsbCaptcha");
-        System.out.println(cookie.getValue());
         String cookieId;
-        if(cookie.getValue() == null){
+        if(cookie == null){
             cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             CookieUtil.addCookie(response, "YsbCaptcha", cookieId, CAPTCHA_EXPIRED);
         }else{
             cookieId = cookie.getValue();
         }
         String code = map.get(cookieId);
+        System.out.println("code: "+code);
+        System.out.println("receivedCode: "+receivedCode);
         if(code.equals(receivedCode)){
             result = true;
         }
