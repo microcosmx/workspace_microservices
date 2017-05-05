@@ -37,18 +37,16 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <repositories>
-        <login.repository>
+        <repository>
             <id>spring-releases</id>
-            <name>Spring Releases</name>
             <url>https://repo.spring.io/libs-release</url>
-        </login.repository>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>spring-releases</id>
-            <name>Spring Releases</name>
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
