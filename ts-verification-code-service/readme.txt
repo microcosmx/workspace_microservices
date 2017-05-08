@@ -9,7 +9,7 @@ mvn clean package
 
 docker:
 docker build -t my/ts-verification-code-service .
-docker run -p 15678:15678 --name ts-verification-code-service my/ts-verification-code-service
+docker run -d -p 15678:15678 --name ts-verification-code-service my/ts-verification-code-service
 
 !!!!!notice: please add following lines into /etc/hosts to simulate the network access:
 127.0.0.1	verificationCode-login.service
