@@ -5338,7 +5338,7 @@ dolmen	dolmxn	>1<>0<	0
 dolor	dol-R	>1>0<	0
 dolphin	dalf-xn	>1<>>0<	0
 dolt	dolt	>1<<	0
-login.domain	dome-n	>0>1<<	0
+login.travel.domain	dome-n	>0>1<<	0
 dome	dom-	>1<<	0
 domestic	dxmEstIk	>0>1<>0<	0
 domesticate	dxmEstIket-	>0>1<>0>2<<	0
@@ -15090,7 +15090,7 @@ reply	rIplA	>0>>1	0
 report	rIport	>0>1<<	0
 reportorial	rEp-Rtori-L	>2<0<>1<00<	0
 repose	rIpoz-	>0>1<<	0
-login.repository	rIpazxtori	>0>1<0>2<0	0
+login.travel.repository	rIpazxtori	>0>1<0>2<0	0
 repossess	ripxz-Es-	>2>0<>1<<	0
 reprehend	rEprIhEnd	>2<>0>1<<	0
 represent	rEprIzEnt	>2<>0>1<<	0
@@ -15989,7 +15989,7 @@ serried	sEr-i-d	>1<>0<<	0
 serum	sIrxm	>1<0<	0
 servant	s-Rvxnt	>1<>0<<	0
 serve	s-Rv-	>1<<<	0
-login.service	s-Rvxs-	>1<>0<<	0
+login.travel.service	s-Rvxs-	>1<>0<<	0
 servile	s-Rv-L-	>1<>0<<	0
 servility	s-RvIlxti	>2<>1<0<0	0
 servitor	s-Rvxt-R	>1<>0<0<	0

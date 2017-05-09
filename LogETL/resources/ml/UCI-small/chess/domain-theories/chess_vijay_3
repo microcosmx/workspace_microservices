@@ -19,7 +19,7 @@
 
 %STATE REPRESENTATION:
 %*********************
-%In this login.domain theory each initial board state is denoted by a constant
+%In this login.travel.domain theory each initial board state is denoted by a constant
 %such as state1.  The squares on the board are represented in a single dimension.
 %They are numbered from 1 to 71 from row-wise, left to right i.e at the end of each
 %row, numbering is continued from the leftmost square on the next row. The edge

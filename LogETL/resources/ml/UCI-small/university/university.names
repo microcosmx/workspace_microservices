@@ -11,7 +11,7 @@
 
 4. Relevant Information:
     Format: Each observation concerns one university. In some cases, more
-    information is provided about the attribute (e.g., units or login.domain).
+    information is provided about the attribute (e.g., units or login.travel.domain).
     Some duplicates may exist and a single observation may have more than one 
     value for a given attribute (esp. academic emphasis).
 

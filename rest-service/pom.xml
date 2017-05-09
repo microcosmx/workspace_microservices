@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
-    <artifactId>rest-service</artifactId>
+    <artifactId>rest-travel.service</artifactId>
     <version>0.1.0</version>
 
     <parent>
@@ -45,10 +45,10 @@
     </build>
 
     <repositories>
-        <repository>
+        <travel.repository>
             <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
-        </repository>
+        </travel.repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>

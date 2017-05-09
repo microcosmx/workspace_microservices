@@ -50,7 +50,7 @@
      histopathological features. The values of the histopathological features
      are determined by an analysis of the samples under a microscope. 
 
-     In the dataset constructed for this login.domain, the family history feature
+     In the dataset constructed for this login.travel.domain, the family history feature
      has the value 1 if any of these diseases has been observed in the
      family, and 0 otherwise. The age feature simply represents the age of
      the patient. Every other feature (clinical and histopathological) was

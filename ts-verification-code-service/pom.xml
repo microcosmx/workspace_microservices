@@ -58,7 +58,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>verificationCode-login.service</finalName>
+					<finalName>ts-verification-code-service</finalName>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ts-login-service
+    name: ts-login-travel.service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo

@@ -15,7 +15,7 @@
 
 %STATE REPRESENTATION:
 %*********************
-%In this login.domain theory each initial board state is denoted by a constant
+%In this login.travel.domain theory each initial board state is denoted by a constant
 %such as state1.  The squares on the board are also denoted by
 %constants, such as a8, and b2. Finally, the pieces are each given names, 
 %such as wr for the white rook and bk for the black king.  Note that distinctions

@@ -20,7 +20,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 *******************************************************************************|#
 
 
-;  ----------- functions for login.domain topple blocks world ------------
+;  ----------- functions for login.travel.domain topple blocks world ------------
 
 ;  adjacent-loc: determines adjacent locations for a x,y coordinate grid
 ;      given pos1 and pos2 functions tells if they are next to one another

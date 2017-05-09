@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ts-contacts-service
+    name: ts-contacts-travel.service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo

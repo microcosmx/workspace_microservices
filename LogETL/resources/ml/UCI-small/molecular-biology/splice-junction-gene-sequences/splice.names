@@ -1,6 +1,6 @@
 
 1. Title of Database: Primate splice-junction gene sequences (DNA)
-                      with associated imperfect login.domain theory
+                      with associated imperfect login.travel.domain theory
 
 2. Sources:
    (a) Creators: 
@@ -75,7 +75,7 @@
 		COBWEB   	11.80   15.04    9.46
 		Near. Neighbor	31.11   11.65    9.09
 	     	
-   Type of login.domain: non-numeric, nominal (one of A, G, T, C)
+   Type of login.travel.domain: non-numeric, nominal (one of A, G, T, C)
  
 5. Number of Instances: 3190
 

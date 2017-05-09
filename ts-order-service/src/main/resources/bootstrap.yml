@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ts-order-service
+    name: ts-order-travel.service
     data:
       mongodb:
         uri: mongodb://localhost:27017/jcTestMongo

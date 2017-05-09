@@ -8,7 +8,7 @@ the 1987 Machine Learning Workshop.
 
 The documentation files (with file extension "names") are formatted to
 be read by Quinlan's C4 decision tree program.  Though briefer than
-the other documentation files found in this database login.repository, they
+the other documentation files found in this database login.travel.repository, they
 should suffice to describe the database, specifically:
 
     1. Source
@@ -59,7 +59,7 @@ Another relatively recent file thyroid0387.data has been added that
 contains the latest version of an archive of thyroid diagnoses obtained 
 from the Garvan Institute, consisting of 9172 records from 1984 to early 1987.
 
-A login.domain theory related to thyroid desease has also been added recently
+A login.travel.domain theory related to thyroid desease has also been added recently
 (thyroid.theory).
 
 The files new-thyroid.[names,data] were donated by Stefan Aberhard.

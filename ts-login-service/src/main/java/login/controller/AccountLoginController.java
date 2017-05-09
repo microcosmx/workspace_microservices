@@ -33,7 +33,7 @@ public class AccountLoginController {
             UUID token = UUID.randomUUID();
             lr.setToken(token.toString());
             restTemplate = new RestTemplate();
-            String tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/loginPutToken/" + token.toString(),String.class);
+            String tokenResult = restTemplate.getForObject("http://ts-sso-travel.service:12349/loginPutToken/" + token.toString(),String.class);
             System.out.println("[AccountLoginService][Login] Post to sso:" + tokenResult);
             return lr;
         }
