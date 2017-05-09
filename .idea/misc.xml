@@ -75,6 +75,7 @@
         <option value="$PROJECT_DIR$/rdbms/pom.xml" />
         <option value="$PROJECT_DIR$/msg-queue/pom.xml" />
         <option value="$PROJECT_DIR$/mongo-cluster/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-travel-service/pom.xml" />
       </list>
     </option>
   </component>

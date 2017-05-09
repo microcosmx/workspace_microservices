@@ -8,6 +8,7 @@
     <file url="file://$PROJECT_DIR$/rest-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rest-service-update" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-admin-account-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ts-config-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-contacts-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-login-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-order-service" charset="UTF-8" />
@@ -16,6 +17,9 @@
     <file url="file://$PROJECT_DIR$/ts-query-ordinary-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-register-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-sso-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ts-station-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ts-train-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ts-travel-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-verification-code-service" charset="UTF-8" />
   </component>
 </project>
