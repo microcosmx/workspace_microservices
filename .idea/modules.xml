@@ -25,6 +25,7 @@
       <module fileurl="file://$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" filepath="$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-station-service/ts-station-service.iml" filepath="$PROJECT_DIR$/ts-station-service/ts-station-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-train-service/ts-train-service.iml" filepath="$PROJECT_DIR$/ts-train-service/ts-train-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-travel-service/ts-travel-service.iml" filepath="$PROJECT_DIR$/ts-travel-service/ts-travel-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-verification-code-service/ts-verification-code-service.iml" filepath="$PROJECT_DIR$/ts-verification-code-service/ts-verification-code-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/workspace_microservices.iml" filepath="$PROJECT_DIR$/.idea/workspace_microservices.iml" />
     </modules>

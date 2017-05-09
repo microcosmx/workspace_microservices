@@ -1,11 +1,11 @@
 # HTTP Server
 server:
-  port: 14567  # HTTP (Tomcat) port
+  port: 12345  # HTTP (Tomcat) port
 
 spring:
   data:
     mongodb:
-      host: train-mongo
+      host: station-mongo
 #      username: user
 #      password: ${MONGODB_PASSWORD}
 #      database: piggymetrics

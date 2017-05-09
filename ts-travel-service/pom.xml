@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fdse.microservice</groupId>
-    <artifactId>ts-station-service</artifactId>
+    <artifactId>ts-travel-service</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>ts-station-service</name>
+    <name>ts-travel-service</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -53,6 +53,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
