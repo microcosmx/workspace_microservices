@@ -23,8 +23,8 @@ public class testCreateContacts {
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //添加新联系人
         AddContactsInfo aci = new AddContactsInfo();
-        aci.setAccountId(UUID.fromString("906cc3da-b6b6-491f-8e13-cc72c5191ea2"));
-        aci.setLoginToken("e50c7c87-c9bf-4278-8ff9-9bbcfdc0585d");
+        aci.setAccountId(UUID.fromString("7d0cabb2-1d6c-4a7e-b570-e1e81128ba7f"));
+        aci.setLoginToken("d5b05bb6-afd4-40a5-860e-a43be4481e1f");
         aci.setDocumentNumber("142603199601311011");
         aci.setDocumentType(DocumentType.ID_CARD.getCode());
         aci.setName("jichao");
