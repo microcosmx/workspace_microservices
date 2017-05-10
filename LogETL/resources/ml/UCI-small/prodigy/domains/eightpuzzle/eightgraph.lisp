@@ -20,13 +20,13 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 *******************************************************************************|#
 
 
-; general login.domain graphics routines....
+; general login.travel.domain graphics routines....
 (proclaim
   '(special *BOX-HEIGHT* *BOX-WIDTH* *ORGIN-X* *ORGIN-Y* *DOMAIN-HEIGHT*
 	    *DOMAIN-WIDTH*
    ))
 
-(defun reset-login.domain-graphics-parameters ()
+(defun reset-login.travel.domain-graphics-parameters ()
   (psetq *NODE-MSG-X*  NIL 
 	 *NODE-MSG-Y*  NIL
 	 *STATE-MSG-X* NIL 
@@ -34,7 +34,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 	 *WIDTH*       NIL))     ; maximum width of an object
 
 
-(defun determine-login.domain-graphics-parameters (problem)
+(defun determine-login.travel.domain-graphics-parameters (problem)
   (let ((*WIDTH* 0))
     (setq *NODE-MSG-X*  10)
     (setq *NODE-MSG-Y*  30)
@@ -51,14 +51,14 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 )
 
 
-(defun draw-login.domain-background ())
+(defun draw-login.travel.domain-background ())
 
 
-(defun delete-login.domain-graphic-objects (state-preds)
+(defun delete-login.travel.domain-graphic-objects (state-preds)
       (unless (null state-preds)
 	 (when (eq 'place (caar state-preds))
 		(erase-square (cdar state-preds)))
-         (delete-login.domain-graphic-objects (cdr state-preds))
+         (delete-login.travel.domain-graphic-objects (cdr state-preds))
       )
 )
 
@@ -77,10 +77,10 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 
 
-(defun add-login.domain-graphic-objects (state-preds)
+(defun add-login.travel.domain-graphic-objects (state-preds)
      (unless (null state-preds)
        (if (eq 'place (caar state-preds)) (draw-number (cdar state-preds)))
-	(add-login.domain-graphic-objects (cdr state-preds))
+	(add-login.travel.domain-graphic-objects (cdr state-preds))
      )
 )
 
@@ -97,7 +97,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
        
 
-(defun draw-login.domain-foreground ()
+(defun draw-login.travel.domain-foreground ()
    (pg-with-window *DOMAIN-WINDOW*
 	(pg-frame-rect *ORGIN-X* (- *ORGIN-Y* *BOX-HEIGHT*)
 				  (+ *ORGIN-X* *BOX-WIDTH*) *ORGIN-Y*)

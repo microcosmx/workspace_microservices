@@ -1,6 +1,6 @@
 spring:
   application:
-    name: rest-service-update
+    name: rest-travel.service-update
 
 server:
   port: 15100

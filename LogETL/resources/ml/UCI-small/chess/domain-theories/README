@@ -1,4 +1,4 @@
-This directory contains login.domain theories for generating the legal moves
+This directory contains login.travel.domain theories for generating the legal moves
 of chess. Six different encodings written in pure prolog are included.
 
 The six encoding are briefly described below:
@@ -23,7 +23,7 @@ The six encoding are briefly described below:
    If the moving side is in check, moves are generated that destroy the
    check threat. If the moving side is not in check, moves are generated 
    that do not create a check threat. Note that if the moving side 
-   is in check from multiple threats then the login.domain theory generates
+   is in check from multiple threats then the login.travel.domain theory generates
    incorrect moves.
 
 4) chess_vijay_1: Written by vijay@cs.orst.edu. Employs a relational
@@ -44,16 +44,16 @@ The six encoding are briefly described below:
    legal moves by first generating peusdo moves then eliminating those 
    that result in the moving player being in check.
 
-Each login.domain theory includes a sample state called state1 that describes
+Each login.travel.domain theory includes a sample state called state1 that describes
 the board position illustrated as Figure 4(d) in Flann and Dietterich,
 "A study of explanation-based methods for inductive learning" in 
 Machine Learning, 4 187-226. See file test_domain_theories for an example
-of loading and running the login.domain theories.
+of loading and running the login.travel.domain theories.
 
-In addition to the login.domain theories, a file called support_code is
+In addition to the login.travel.domain theories, a file called support_code is
 included that contains some useful prolog routines. One routine
-takes a generic chess board description and a login.domain theory name, and
+takes a generic chess board description and a login.travel.domain theory name, and
 produces a prolog state description suitable for use with the given 
-login.domain theory. See file test_domain_theories for an example of
+login.travel.domain theory. See file test_domain_theories for an example of
 generating state descriptions.
 

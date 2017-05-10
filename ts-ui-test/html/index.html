@@ -37,6 +37,25 @@
             <p>车次查询 </p>
         </div>
         <div class="step">
+            <p>车站服务</p>
+            <div>
+                <div class="input-box">
+                    <form enctype='application/json' action="http://10.141.212.21:12345/station/create" method="post">
+                        <input name='name' value=''>
+                        <p><input type="submit" value="新增车站名"></p>
+                    </form>
+                    <form enctype='application/json' action="http://10.141.212.21:12345/station/exist" method="post">
+                        <input name='name' value=''>
+                        <p><input type="submit" value="查询车站名是否存在"></p>
+                    </form>
+                    <form enctype='application/json' action="http://10.141.212.21:12345/station/delete" method="post">
+                        <input name='name' value=''>
+                        <p><input type="submit" value="删除车站名"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="step">
             <p>车票预订 </p>
         </div>
         <div class="step">
@@ -50,7 +69,7 @@
         </div>
     </div>
     <div class="workflow2">
-        <p class="workflow_description">>2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
+        <p class="workflow_description">2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
         <div class="step">
             <p>注册 </p>
             <div class="group">

@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>../ts-travel-service</module>
+        <module>../ts-security-service</module>
     </modules>
 
 

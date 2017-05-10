@@ -1,4 +1,4 @@
-1. Title of Database: LED display login.domain
+1. Title of Database: LED display login.travel.domain
 
 2. Sources:
    (a) Breiman,L., Friedman,J.H., Olshen,R.A., & Stone,C.J. (1984). 
@@ -26,7 +26,7 @@
            -- 400 training and 500 test cases
 
 4. Relevant Information Paragraph:
-     This simple login.domain contains 7 Boolean attributes and 10 concepts,
+     This simple login.travel.domain contains 7 Boolean attributes and 10 concepts,
      the set of decimal digits.  Recall that LED displays contain 7
      light-emitting diodes -- hence the reason for 7 attributes.  The
      problem would be easy if not for the introduction of noise.  In

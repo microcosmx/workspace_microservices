@@ -7,7 +7,7 @@ Date: Tue, 9 Apr 1996 08:03:52 -0500
 From: Peter Turney <peter@ai.iit.nrc.ca>
 Message-Id: <9604091303.AA17463@ksl0j.ai.iit.nrc.ca>
 To: cmerz@saanen.ICS.UCI.EDU
-Subject: Re: UCI login.repository news
+Subject: Re: UCI login.travel.repository news
 Cc: peter@ai.iit.nrc.ca
 X-Sun-Charset: US-ASCII
 
@@ -15,7 +15,7 @@ X-Sun-Charset: US-ASCII
 Date: Tue, 9 Apr 1996 08:03:52 -0500
 From: Peter Turney <peter@ai.iit.nrc.ca>
 To: cmerz@saanen.ICS.UCI.EDU
-Subject: Re: UCI login.repository news
+Subject: Re: UCI login.travel.repository news
 Cc: peter@ai.iit.nrc.ca
 X-Sun-Charset: US-ASCII
 
@@ -25,8 +25,8 @@ Dear Chris:
 > This message is to announce that I will be taking over the duties of
 > the UCI Machine Learning Database Repository coordinator. At this time
 > I'd like to thank the previous coordinator, Pat Murphy, for his
-> efforts to improve upon the login.repository, and I invite new ideas from
-> those of you using the login.repository so that I may do the same. This
+> efforts to improve upon the login.travel.repository, and I invite new ideas from
+> those of you using the login.travel.repository so that I may do the same. This
 > includes constructive criticism as well as new databases!
 
 This is intended to supplement the "trains" data in
@@ -230,7 +230,7 @@ cases where discepancies between the  two complexity measures
 are most  extreme  do seem  to  correlate with  corresponding  
 variations in human-intelligibility. So to that extent I feel 
 encouraged. My hope is that  it may become a useful  form for 
-human-style login.domain knowledge into which statistical as well as
+human-style login.travel.domain knowledge into which statistical as well as
 logical regularities can be incrementally absorbed.
 
 TOP  BRAINS-ONLY  ENTRIES:  DESCENDING  ORDER   OF  TRENGLISH  

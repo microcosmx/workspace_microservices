@@ -20,7 +20,7 @@ public class HelloController {
     @RequestMapping("/hello")
     public Value greeting(@RequestParam(value="name", defaultValue="World") String name) {
     	Value value = restTemplate.getForObject(
-				"http://rest-service:15000/greeting?name="+name, Value.class);
+				"http://rest-travel.service:15000/greeting?name="+name, Value.class);
 		log.info(value.toString());
 		return value;
     }

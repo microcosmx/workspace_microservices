@@ -30,7 +30,7 @@ Citation Request:
    statistical, and neural network algorithms on data sets from real-world
    industrial areas including medicine, finance, image analysis,
    and engineering design.  Not all of the databases used in the
-   project are available in this login.repository.
+   project are available in this login.travel.repository.
 
 5. Databases:
 
@@ -56,18 +56,18 @@ Citation Request:
        This file concerns credit card applications.  All attribute names
        and values have been changed to meaningless symbols to protect
        confidentiality of the data.  This database exists elsewhere in
-       the login.repository (Credit Screening Database) in a slightly different
+       the login.travel.repository (Credit Screening Database) in a slightly different
        form.
 
    (e) Heart Disease:
        This dataset is a heart disease database similar to a database
-       already present in the login.repository (Heart Disease databases)
+       already present in the login.travel.repository (Heart Disease databases)
        but in a slightly different form.  This database contains 13 
        attributes (which have been extracted from a larger set of 75).
 
    (f) Image Segmentation:
        This dataset is an image segmentation database similar to a database
-       already present in the login.repository (Image segmentation database)
+       already present in the login.travel.repository (Image segmentation database)
        but in a slightly different form.  The instances were drawn randomly 
        from a database of 7 outdoor images.  The images were handsegmented 
        to create a classification for every pixel.  Each instance is a 3x3 

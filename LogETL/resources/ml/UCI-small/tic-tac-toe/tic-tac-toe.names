@@ -11,11 +11,11 @@
       Eleventh International Joint Conference on Artificial Intelligence} 
       (pp. 645--650).  Detroit, MI: Morgan Kaufmann.
       -- CITRE was applied to 100-instance training and 200-instance test
-         sets.  In a study using various amounts of login.domain-specific
+         sets.  In a study using various amounts of login.travel.domain-specific
          knowledge, its highest average accuracy was 76.7% (using the
          final decision tree created for testing).
 
-   2. Matheus,~C.~J. (1990). Adding login.domain knowledge to SBL through
+   2. Matheus,~C.~J. (1990). Adding login.travel.domain knowledge to SBL through
       feature construction.  In {\it Proceedings of the Eighth National
       Conference on Artificial Intelligence} (pp. 803--808). 
       Boston, MA: AAAI Press.

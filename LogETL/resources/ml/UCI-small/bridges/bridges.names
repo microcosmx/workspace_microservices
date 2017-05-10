@@ -25,7 +25,7 @@
       Proceedings of the First International Workshop on Formal Methods in
       Engineering Design, pp: 330-349, Colorado Springs, CO, January 1990.
       -- Describes a new design method with Bridger (variant of COBWEB) using
-	 this login.domain. (Also an EDRC report: 12-35-89)
+	 this login.travel.domain. (Also an EDRC report: 12-35-89)
 
    -- Reich (1989) Combining Nominal and Continuous Properties in an 
       Incremental Learning System for Design. Technical Report: EDRC 12-33-89.
@@ -55,7 +55,7 @@
       V1 contains the original examples and 
       V2 contains descriptions after discretizing numeric properties.
 
-   There are no ``classes'' in the login.domain. Rather this is a DESIGN login.domain where
+   There are no ``classes'' in the login.travel.domain. Rather this is a DESIGN login.travel.domain where
    5 properties (design description) need to be predicted based on 7 
    specification properties.
 
