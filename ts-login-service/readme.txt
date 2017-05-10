@@ -8,8 +8,10 @@ build:
 mvn clean package
 
 docker:
-docker build -t my/account-login-service .
-docker run -p 12345:12345 --name account-login-service my/account-login-service
+docker build -t my/ts-login-service .
+docker run -p 12342:12342 --name ts-login-service my/ts-login-service
+docker run -p 12342:12342 --name ts-login-service --link register-mongo:mongo-local --link ts-sso-service:ts-sso-service my/ts-login-service
+
 
 !!!!!notice: please add following lines into /etc/hosts to simulate the network access:
 127.0.0.1	account-login-service

@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: ts-contacts-service
-    data:
-      mongodb:
-        uri: mongodb://localhost:27017/jcTestMongo
-
-
-

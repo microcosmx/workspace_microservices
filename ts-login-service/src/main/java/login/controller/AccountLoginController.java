@@ -2,6 +2,7 @@ package login.controller;
 
 import login.domain.LoginInfo;
 import login.domain.LoginResult;
+import login.domain.PutLoginResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import login.service.AccountLoginService;
@@ -29,12 +30,19 @@ public class AccountLoginController {
             return lr;
         }else{
             //Post token to the sso
-            System.out.println("[AccountLoginService][Login] LoginSuccess. Put token to sso.");
-            UUID token = UUID.randomUUID();
-            lr.setToken(token.toString());
+            System.out.println("[AccountLoginService][Login] Password Right. Put token to sso.");
             restTemplate = new RestTemplate();
-            String tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/loginPutToken/" + token.toString(),String.class);
-            System.out.println("[AccountLoginService][Login] Post to sso:" + tokenResult);
+            PutLoginResult tokenResult = restTemplate.getForObject("http://ts-sso-service:12349/loginPutToken/"
+                    + lr.getAccount().getId().toString(),PutLoginResult.class);
+            System.out.println("[AccountLoginService][Login] Post to sso:" + tokenResult.getToken());
+            if(tokenResult.isStatus() == true){
+                lr.setToken(tokenResult.getToken());
+            }else{
+                lr.setToken(null);
+                lr.setStatus(false);
+                lr.setMessage(tokenResult.getMsg());
+                lr.setAccount(null);
+            }
             return lr;
         }
     }
