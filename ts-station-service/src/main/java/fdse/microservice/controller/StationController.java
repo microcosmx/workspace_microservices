@@ -1,16 +1,12 @@
 package fdse.microservice.controller;
 
-import fdse.microservice.domain.Information;
 import fdse.microservice.domain.Station;
 import fdse.microservice.service.StationService;
 import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +24,13 @@ public class StationController {
     private StationService stationService;
 
     @RequestMapping(value="/station/create",method= RequestMethod.POST)
-    public boolean create(@RequestBody Information info){
-        return stationService.create(info);
+    public boolean create(@RequestParam String name){
+        return stationService.create(name);
     }
 
     @RequestMapping(value="/station/exist",method= RequestMethod.POST)
-    public boolean exist(@RequestBody Information info){
-        return stationService.exist(info);
+    public boolean exist(@RequestParam String name){
+        return stationService.exist(name);
     }
 
     /*
@@ -44,7 +40,7 @@ public class StationController {
     }*/
 
     @RequestMapping(value="/station/delete",method= RequestMethod.POST)
-    public boolean delete(@RequestBody Information info){
-        return stationService.delete(info);
+    public boolean delete(@RequestParam String name){
+        return stationService.delete(name);
     }
 }

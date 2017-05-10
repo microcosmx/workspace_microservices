@@ -1,13 +1,9 @@
 package fdse.microservice.service;
 
-import fdse.microservice.domain.Information;
 import fdse.microservice.domain.Station;
 import fdse.microservice.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class StationServiceImpl implements StationService {
@@ -15,10 +11,10 @@ public class StationServiceImpl implements StationService {
     @Autowired
     private StationRepository repository;
 
-    public boolean create(Information info){
+    public boolean create(String name){
         boolean result = false;
-        if(repository.findByName(info.getName()) == null){
-            Station station = new Station(info.getName());
+        if(repository.findByName(name) == null){
+            Station station = new Station(name);
             repository.save(station);
             result = true;
         }
@@ -26,9 +22,9 @@ public class StationServiceImpl implements StationService {
         return result;
     }
 
-    public boolean exist(Information info){
+    public boolean exist(String name){
         boolean result = false;
-        if(repository.findByName(info.getName()) != null){
+        if(repository.findByName(name) != null){
             result = true;
         }
         return result;
@@ -47,10 +43,10 @@ public class StationServiceImpl implements StationService {
         return result;
     }*/
 
-    public boolean delete(Information info){
+    public boolean delete(String name){
         boolean result = false;
-        if(repository.findByName(info.getName()) != null){
-            Station station = new Station(info.getName());
+        if(repository.findByName(name) != null){
+            Station station = new Station(name);
             repository.delete(station);
             result = true;
         }
