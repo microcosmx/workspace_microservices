@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class testCreateContacts {
     public static void main(String[] args)throws Exception{
-        URL url = new URL("http://localhost:12347/createNewContacts");
+        URL url = new URL("http://10.141.212.21:12347/createNewContacts");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -23,11 +23,11 @@ public class testCreateContacts {
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //添加新联系人
         AddContactsInfo aci = new AddContactsInfo();
-        aci.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
-        aci.setLoginToken("c253d36c-f674-4fe1-8a3b-137348cb032d");
+        aci.setAccountId(UUID.fromString("906cc3da-b6b6-491f-8e13-cc72c5191ea2"));
+        aci.setLoginToken("e50c7c87-c9bf-4278-8ff9-9bbcfdc0585d");
         aci.setDocumentNumber("142603199601311011");
         aci.setDocumentType(DocumentType.ID_CARD.getCode());
-        aci.setName("chenxin&jichao");
+        aci.setName("jichao");
         aci.setPhoneNumber("+86 15221870263");
         Gson gson = new Gson();
         String str = gson.toJson(aci);

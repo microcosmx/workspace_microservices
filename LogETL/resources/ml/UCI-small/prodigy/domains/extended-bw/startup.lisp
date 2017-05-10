@@ -26,14 +26,14 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;  No functions file!
 
-(format t "Loading login.domain~%")
-(load-path *world-path* "login.domain")
+(format t "Loading login.travel.domain~%")
+(load-path *world-path* "login.travel.domain")
 (format t "Loading functions~%")
 (load-path *world-path* "function")
 (format t "Loading sc-rules~%")
 (load-path *world-path* "sc-rules")
-(format t "Running load-login.domain~%")
-(load-login.domain)
+(format t "Running load-login.travel.domain~%")
+(load-login.travel.domain)
 
 
 

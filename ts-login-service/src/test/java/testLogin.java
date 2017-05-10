@@ -11,7 +11,7 @@ import java.net.URL;
  */
 public class testLogin {
     public static void main(String[] args) throws Exception{
-        URL url = new URL("http://localhost:12349/login");
+        URL url = new URL("http://10.141.212.21:12342/login");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -24,8 +24,8 @@ public class testLogin {
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         //登录信息
         LoginInfo li = new LoginInfo();
-        li.setPhoneNum("352323");
-        li.setPassword("jichaofudan");
+        li.setPhoneNum("12315221870263");
+        li.setPassword("defaultPassword");
         Gson gson = new Gson();
         String str = gson.toJson(li);
         //写入

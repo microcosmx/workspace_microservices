@@ -20,7 +20,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 *******************************************************************************|#
 
 
-; Operators for PRODIGY/SC-MINIJUP login.domain
+; Operators for PRODIGY/SC-MINIJUP login.travel.domain
 
 (setq *OPERATORS* 
 '(
@@ -74,7 +74,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
    
  ))
 
-; Inference Rules for PRODIGY/MINIJUP login.domain
+; Inference Rules for PRODIGY/MINIJUP login.travel.domain
 
 (setq *INFERENCE-RULES* nil)
 

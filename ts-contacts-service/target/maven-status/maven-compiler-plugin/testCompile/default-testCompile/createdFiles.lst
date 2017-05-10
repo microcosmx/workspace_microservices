@@ -1,0 +1,4 @@
+testModifyContact.class
+testQueryContact.class
+testCreateContacts.class
+testDeleteContacts.class

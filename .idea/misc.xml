@@ -55,7 +55,6 @@
         <option value="$PROJECT_DIR$/ts-sso-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-config-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-preserve-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-station-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-train-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-security-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-execute-service/pom.xml" />
@@ -75,6 +74,8 @@
         <option value="$PROJECT_DIR$/rdbms/pom.xml" />
         <option value="$PROJECT_DIR$/msg-queue/pom.xml" />
         <option value="$PROJECT_DIR$/mongo-cluster/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-travel-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-station-service/pom.xml" />
       </list>
     </option>
   </component>

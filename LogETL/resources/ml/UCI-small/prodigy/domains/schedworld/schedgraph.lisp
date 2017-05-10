@@ -47,7 +47,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 ;=========================================================================
 
 
-(defun reset-login.domain-graphics-parameters ()
+(defun reset-login.travel.domain-graphics-parameters ()
     (psetq *NODE-MSG-X*  NIL 
 	 *NODE-MSG-Y*  NIL
 	 *STATE-MSG-X* NIL 
@@ -67,12 +67,12 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 	 *WIDTH*       NIL))     ; maximum width of an object
 
 
-(reset-login.domain-graphics-parameters)
+(reset-login.travel.domain-graphics-parameters)
 
 ;-------------------------------------------------------------------------
 
 
-(defun determine-login.domain-graphics-parameters (problem)
+(defun determine-login.travel.domain-graphics-parameters (problem)
   (setq *WIDTH* 3)
   (setq *MACHINES* (find-machines *operators*))
   (setq *Y-DIM* (length *machines*))
@@ -115,25 +115,25 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;-------------------------------------------------------------------------
 
-(defun draw-login.domain-background ())
+(defun draw-login.travel.domain-background ())
 
 
 ;-------------------------------------------------------------------------
 
-(defun delete-login.domain-graphic-objects (idels)())
+(defun delete-login.travel.domain-graphic-objects (idels)())
 
 
 
 ;-------------------------------------------------------------------------
 
-(defun add-login.domain-graphic-objects (iadds)
+(defun add-login.travel.domain-graphic-objects (iadds)
   (cond ((null iadds))
 	((not (eq 'scheduled (get-pred (car iadds))))
-	 (add-login.domain-graphic-objects (cdr iadds)))
+	 (add-login.travel.domain-graphic-objects (cdr iadds)))
 	(t (display-words (symbol-name (get-name (car iadds)))
 			  (get-machine (car iadds))
 			  (get-time (car iadds)))
-	   (add-login.domain-graphic-objects (cdr iadds)))))
+	   (add-login.travel.domain-graphic-objects (cdr iadds)))))
 
 
 (defun get-name (at)  (cadr at))
@@ -143,7 +143,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 
 ;-------------------------------------------------------------------------
 
-(defun draw-login.domain-foreground ()
+(defun draw-login.travel.domain-foreground ()
 ;; prints out the grid for gridworld.  The grid is drawn last because the 
 ;; lines are erased when the objects are added. 
   (draw-vertical *X-OR*  *Y-OR*  *X-DIM*  *Y-DIM* *Z-DIM* *WIDTH*)

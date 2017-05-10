@@ -1,5 +1,6 @@
 login\domain\Gender.class
 login\domain\DocumentType.class
+login\domain\PutLoginResult.class
 login\domain\LoginInfo.class
 login\controller\AccountLoginController.class
 login\domain\Account.class

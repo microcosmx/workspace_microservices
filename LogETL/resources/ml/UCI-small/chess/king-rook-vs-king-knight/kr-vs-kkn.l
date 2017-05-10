@@ -27,7 +27,7 @@
 ;*class-name*:
 ;   This variable controls which of the attribute-values serves as the
 ; class attribute.  As Doug Fisher as pointed out, any of the attributes
-; could serve as the class attribute, and by replicating a natural login.domain
+; could serve as the class attribute, and by replicating a natural login.travel.domain
 ; in this way, several, viable artificial domains can be generated.
 ; Therefore this variable can take on the values of class (safe/lost),
 ; dist-bk-wk, dist-bk-rk, ... , rel-bk-wk, ... , bk-type, ... , kn-type.

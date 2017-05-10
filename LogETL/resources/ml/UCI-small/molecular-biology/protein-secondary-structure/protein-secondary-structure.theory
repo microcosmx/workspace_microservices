@@ -11,7 +11,7 @@ Qian and Sejnowski [3] produced a set of examples
 protein-secondary-structure.[train,test] (this directory).  Originally via 
 anonymous ftp from spice.cs.cmu.edu; cd to /afs/cs/project/connect/bench.
 
-We present here an imperfect "state-based" login.domain theory for this problem,
+We present here an imperfect "state-based" login.travel.domain theory for this problem,
 which closely implements the algorithm of Chou and Fasman [1].  Further
 details can be found in [2] (available via anonymous ftp from
 steves.cs.wisc.edu (128.105.2.201) in pub/maclin.fskbann.ps.Z).
@@ -67,7 +67,7 @@ breakers.
 The third step of the algorithm - resolving overlaps - is the reason we use
 the numbers in Table 1 rather than making the formers and breakers Boolean 
 properties.  Chou and Fasman suggest that the conformation values of regions be
-compared to resolve overlaps.  This is done in our login.domain theory by weighting the
+compared to resolve overlaps.  This is done in our login.travel.domain theory by weighting the
 links from various amino acids according to the numbers in Table 1.  For
 example, a combination of four alanines (A's) will produce a higher activation 
 of the init-helix unit than a combination of four phenylalanines (F's).
@@ -82,8 +82,8 @@ amino acid proline (P).  The process of extending beta-sheet structures works
 similarly.  The algorithm predicts coil as the default.
 
 Results (from [2]) using data from Qian and Sejnowski's study [3] are
-presented in Table 3.  Results are shown for the Chou-Fasman login.domain theory,
-standard neural networks (ANN), and the Chou-Fasman login.domain theory after
+presented in Table 3.  Results are shown for the Chou-Fasman login.travel.domain theory,
+standard neural networks (ANN), and the Chou-Fasman login.travel.domain theory after
 refinement by neural networks.
 
 
@@ -141,15 +141,15 @@ Table 2.  The Chou-Fasman algorithm expressed as inference rules.
    classified.  The ends are padded with an 21st element ("solvent")
    so that the window is always full.  */
 
-/* This is a "state-based" login.domain theory, by which we mean that
+/* This is a "state-based" login.travel.domain theory, by which we mean that
    the outputs (states) from one window position form part of the
    input when classifying the next element.  More explicitly,
-   the outputs of this login.domain theory are:
+   the outputs of this login.travel.domain theory are:
 	helix(output), sheet(output), coil(output).
    The previous outputs are part of the input and are noted as:
 	helix(input), sheet(input), coil(input). */
 
-/* The login.domain-theory syntax is roughly Prolog (no variables are used).
+/* The login.travel.domain-theory syntax is roughly Prolog (no variables are used).
    Some non-standard syntax is used for summing the values in Table 1. */
 
 /* Rules for recognizing nucleation sites. */

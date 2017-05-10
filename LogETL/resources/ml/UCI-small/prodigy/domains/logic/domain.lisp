@@ -20,7 +20,7 @@ School of Computer Science, Carnegie Mellon University, Pittsburgh, PA 15213.
 *******************************************************************************|#
 
 
-;; This login.domain is a propositional logic login.domain  according to the rules
+;; This login.travel.domain is a propositional logic login.travel.domain  according to the rules
 ;; outlined in Logic and Structure by  D. van Dalen. 
 
 

@@ -11,6 +11,9 @@ docker build -t my/gs-accessing-data-mongodb .
 docker run --name my-gs-accessing-data-mongodb --link my-mongo:mongo-local my/gs-accessing-data-mongodb
 (mongo-local is in config file: resources/application.yml)
 
+docker run -p 12342:12342 --name ts-login-service --link register-mongo:mongo-local --link ts-sso-service:ts-sso-service my/ts-login-service
+
+
 
 single mongodb:
 cd mongo-cluster

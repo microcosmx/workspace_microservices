@@ -22,4 +22,19 @@ public class AccountRegisterController {
         return accountService.create(ri);
     }
 
+    @RequestMapping(path = "/registerWithPara", method = RequestMethod.POST)
+    public RegisterResult createNewAccountWithPara(@RequestParam String password,@RequestParam String phoneNum,
+                                                   @RequestParam int documentType, @RequestParam String documentNum,
+                                                   @RequestParam String name, @RequestParam int gender){
+        RegisterInfo ri = new RegisterInfo();
+        ri.setPassword(password);
+        ri.setPhoneNum(phoneNum);
+        ri.setDocumentType(documentType);
+        ri.setDocumentNum(documentNum);
+        ri.setName(name);
+        ri.setGender(gender);
+        return accountService.create(ri);
+    }
+
+
 }

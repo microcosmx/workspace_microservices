@@ -1,6 +1,6 @@
 spring:
   application:
-    name: rest-service
+    name: rest-travel.service
 
 server:
   port: 15000

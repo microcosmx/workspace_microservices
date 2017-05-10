@@ -39,10 +39,10 @@
     </build>
 
     <repositories>
-        <repository>
+        <travel.repository>
             <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
-        </repository>
+        </travel.repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>

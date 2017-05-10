@@ -4,6 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.Date;
+
+import javafx.application.Application;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,7 @@ import java.io.*;
 @RestController
 public class VerificationCodeController {
 
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	@Autowired
 	private VerificationCodeService verificationCodeService;
 
@@ -42,6 +47,7 @@ public class VerificationCodeController {
 	        //error
 			String error = "Can't generate verification code";
 			os.write(error.getBytes());
+			log.info(error);
 	    }
 	}
 
