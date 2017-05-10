@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>火车票订票系统</title>
+    <title>Train Ticker System</title>
 
     <meta name="description" content="测试订票系统，需跑通三个流程">
     <meta name="author" content="Chenjie Xu">
@@ -25,7 +25,7 @@
                 <img class="captcha_img" id="captchaImg" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
             </div>
             <div>
-                <form enctype='application/json' action="http://10.141.212.21:15678/verification/verify" method="post">
+                <form enctype="application/json" action="http://10.141.212.21:15678/verification/verify" method="post">
                 <input type="text" id="verificationCode" placeholder="验证码" name="verificationCode"/>
                 <span id="captchaChecked" style="display:none;color:green;font-weight:bold">√</span>
                     <p><input type="submit" value="提交"></p>
@@ -71,16 +71,30 @@
     <div class="workflow2">
         <p class="workflow_description">2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
         <div class="step">
-            <p>注册 </p>
+            <p>Sign Up </p>
             <div class="group">
                 <div class="input-box">
-                    <form enctype='application/json' action="http://10.141.212.21:12344/register" method="post">
-                        <input name='password' value='defaultPassword'>
-                        <input name='gender' value='3'>
-                        <input name='name' value='test-remote-docker'>
-                        <input name='documentType' value='0'>
-                        <input name='documentNum' value='0123456789'>
-                        <input name='phoneNum' value='352323'>
+                    <form enctype='application/json' action="http://10.141.212.21:12344/registerWithPara" method="post">
+                        <span>Set Your Password: </span>
+                        <input name='password' value='defaultPassword'><br>
+                        <span>Select Your Gender: </span>
+                        <select name="gender">
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select><br>
+                        <span>Input Your Real Name: </span>
+                        <input name='name' value='test-remote-docker'><br>
+                        <span>Select Your Document Type: </span>
+                        <select name="documentType">
+                            <option value="1">ID Card</option>
+                            <option value="2">Passport</option>
+                            <option value="3">Other</option>
+                        </select><br>
+                        <span>Input your Document Num:</span>
+                        <input name='documentNum' value='0123456789'><br>
+                        <span>Input Your Phone Num (Login By Phone Number): </span>
+                        <input name='phoneNum' value='352323'><br>
                         <p><input type="submit" value="提交"></p>
                     </form>
                 </div>
@@ -90,16 +104,18 @@
             </div>
         </div>
         <div class="step">
-            <p>登陆验证 </p>
+            <p>Sign In </p>
             <div class="group">
                 <div class="input-box">
-                    <form action="http://10.141.212.21:12344/register" method="post">
-                        <textarea class="input-area" placeholder="输入对应的json" cols="100" rows="6"></textarea>
-                        <p><input type="submit" value="提交"></p>
-                    </form>
-                    <form enctype='application/json'>
+                    <form enctype='application/json' action="http://10.141.212.21:12342/loginWithPara" method="post">
+                        <span>You Phone Number: </span>
+                        <input name='password' value='defaultPassword'><br>
+                        <span>Your Password: </span>
+                        <input name='phoneNum' value='12315221870263' ><br>
+                        <input type="submit" value="Submit"><br>
                     </form>
                 </div>
+                <br>
                 <div class="output-box">
                     <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
                 </div>
