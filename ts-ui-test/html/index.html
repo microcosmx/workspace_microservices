@@ -22,14 +22,14 @@
         <div class="step">
             <p>登陆验证 </p>
             <div>
-                <img class="captcha_img" id="captchaImg" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
+                <!--<img class="captcha_img" id="captchaImg" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">-->
             </div>
             <div>
-                <form enctype="application/json" action="http://10.141.212.21:15678/verification/verify" method="post">
-                <input type="text" id="verificationCode" placeholder="验证码" name="verificationCode"/>
-                <span id="captchaChecked" style="display:none;color:green;font-weight:bold">√</span>
-                    <p><input type="submit" value="提交"></p>
-                </form>
+                <!--<form enctype="application/json" action="http://10.141.212.21:15678/verification/verify" method="post">-->
+                <!--<input type="text" id="verificationCode" placeholder="验证码" name="verificationCode"/>-->
+                <!--<span id="captchaChecked" style="display:none;color:green;font-weight:bold">√</span>-->
+                    <!--<p><input type="submit" value="提交"></p>-->
+                <!--</form>-->
             </div>
 
         </div>
@@ -120,14 +120,21 @@
                         <input name='documentNum' value='0123456789'><br>
                         <span>Input Your Phone Num (Login By Phone Number): </span>
                         <input name='phoneNum' value='352323'><br>
+                        <span>Verification Code</span>
+                        <input type="text" id="verificationCodeRegister" name="verificationCode"/>
+                        <span id="captchaCheckedRegister" style="display:none;color:green;font-weight:bold">√</span>
                         <p><input type="submit" value="提交"></p>
                     </form>
+                    <div>
+                        <img class="captcha_img" id="captchaImgRegister" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
+                    </div>
                 </div>
                 <div class="output-box">
                     <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
                 </div>
             </div>
         </div>
+
         <div class="step">
             <p>Sign In </p>
             <div class="group">
@@ -137,8 +144,14 @@
                         <input name='password' value='defaultPassword'><br>
                         <span>Your Password: </span>
                         <input name='phoneNum' value='12315221870263' ><br>
+                        <span>Verification Code</span>
+                        <input type="text" id="verificationCodeLogin" name="verificationCode"/>
+                        <span id="captchaCheckedLogin" style="display:none;color:green;font-weight:bold">√</span>
                         <input type="submit" value="Submit"><br>
                     </form>
+                    <div>
+                        <img class="captcha_img" id="captchaImgLogin" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
+                    </div>
                 </div>
                 <br>
                 <div class="output-box">

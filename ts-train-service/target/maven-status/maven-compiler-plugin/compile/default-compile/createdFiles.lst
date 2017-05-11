@@ -1,6 +1,0 @@
-train\service\TrainService.class
-train\repository\TrainTypeRepository.class
-train\TrainApplication.class
-train\service\TrainServiceImpl.class
-train\controller\TrainController.class
-train\domain\TrainType.class
