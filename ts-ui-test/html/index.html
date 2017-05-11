@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 
     <title>Train Ticker System</title>
 
@@ -11,9 +11,13 @@
     <meta name="author" content="Chenjie Xu">
 
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap-theme.css" rel="stylesheet">
 
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/index.js"></script>
+    <script src="../js/bootstrap.js"></script>
+
 </head>
 <body>
 <div class="container">
@@ -36,47 +40,117 @@
         <div class="step">
             <p>车次查询 </p>
         </div>
-        <div class="step">
-            <p>车站服务</p>
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Station Service
+                </h3>
+            </div>
             <div>
-                <div class="input-box">
-                    <form enctype='application/json' action="http://10.141.212.21:12345/station/create" method="post">
-                        <input name='name' value=''>
-                        <p><input type="submit" value="新增车站名"></p>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal" enctype='application/json'
+                          action="http://10.141.212.21:12345/station/create" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Add Station</button>
+                            </div>
+                        </div>
                     </form>
-                    <form enctype='application/json' action="http://10.141.212.21:12345/station/exist" method="post">
-                        <input name='name' value=''>
-                        <p><input type="submit" value="查询车站名是否存在"></p>
+                    <form class="form-horizontal" enctype='application/json' action="http://10.141.212.21:12345/station/exist" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Query Station</button>
+                            </div>
+                        </div>
                     </form>
-                    <form enctype='application/json' action="http://10.141.212.21:12345/station/delete" method="post">
-                        <input name='name' value=''>
-                        <p><input type="submit" value="删除车站名"></p>
+                    <form class="form-horizontal" enctype='application/json'
+                          action="http://10.141.212.21:12345/station/delete" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Delete Station</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="step">
-            <p>车服务</p>
-            <div class="input-box">
-                <form enctype='application/json' action="http://10.141.212.21:14567/train/create" method="post">
-                    <span>id: </span><input name='id' value=''>
-                    <span>economyClass: </span><input name='economyClass' value=''>
-                    <span>confortClass: </span><input name='confortClass' value=''>
-                    <p><input type="submit" value="新增车型"></p>
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Train Service
+                </h3>
+            </div>
+            <div class="input-box panel-body">
+                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/train/create" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Economy Class: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='economyClass' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Confort Class: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='confortClass' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Add Train Type</button>
+                        </div>
+                    </div>
                 </form>
-                <form enctype='application/json' action="http://10.141.212.21:14567/train/retrieve" method="post">
-                    <span>id: </span><input name='id' value=''>
-                    <p><input type="submit" value="查询某一车型"></p>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/train/retrieve" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Query Train Type</button>
+                        </div>
+                    </div>
                 </form>
-                <form enctype='application/json' action="http://10.141.212.21:14567/train/update" method="post">
-                    <span>id: </span><input name='id' value=''>
-                    <span>economyClass: </span><input name='economyClass' value=''>
-                    <span>confortClass: </span><input name='confortClass' value=''>
-                    <p><input type="submit" value="更新某一车型"></p>
-                </form>
-                <form enctype='application/json' action="http://10.141.212.21:14567/train/delete" method="post">
-                    <span>id: </span><input name='id' value=''>
-                    <p><input type="submit" value="删除车型"></p>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/train/delete" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Delete Train Type</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -93,70 +167,127 @@
             <p>乘车</p>
         </div>
     </div>
-    <div class="workflow2">
+    <div class="workflow2 ">
         <p class="workflow_description">2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
-        <div class="step">
-            <p>Sign Up </p>
-            <div class="group">
+        <div class="step  panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Sign Up
+                </h3>
+            </div>
+            <div class="group panel-body">
                 <div class="input-box">
-                    <form enctype='application/json' action="http://10.141.212.21:12344/registerWithPara" method="post">
-                        <span>Set Your Password: </span>
-                        <input name='password' value='defaultPassword'><br>
-                        <span>Select Your Gender: </span>
-                        <select name="gender">
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Other</option>
-                        </select><br>
-                        <span>Input Your Real Name: </span>
-                        <input name='name' value='test-remote-docker'><br>
-                        <span>Select Your Document Type: </span>
-                        <select name="documentType">
-                            <option value="1">ID Card</option>
-                            <option value="2">Passport</option>
-                            <option value="3">Other</option>
-                        </select><br>
-                        <span>Input your Document Num:</span>
-                        <input name='documentNum' value='0123456789'><br>
-                        <span>Input Your Phone Num (Login By Phone Number): </span>
-                        <input name='phoneNum' value='352323'><br>
-                        <span>Verification Code</span>
-                        <input type="text" id="verificationCodeRegister" name="verificationCode"/>
-                        <span id="captchaCheckedRegister" style="display:none;color:green;font-weight:bold">√</span>
-                        <p><input type="submit" value="提交"></p>
+                    <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:12344/registerWithPara" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Set Your Password: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='password' value='defaultPassword'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Select Your Gender: </label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="gender">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Input Your Real Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value='test-remote-docker'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Select Your Document Type: </label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="documentType">
+                                    <option value="1">ID Card</option>
+                                    <option value="2">Passport</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Input your Document Num: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='documentNum' value='0123456789'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Input Your Phone Num (Login By Phone Number): </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='phoneNum' value='352323'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Verification Code: </label>
+                            <div class="col-sm-10">
+                                <input type="text" id="verificationCodeRegister" name="verificationCode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <img class="captcha_img" id="captchaImgRegister" alt="点击刷新验证码"
+                                     src="http://10.141.212.21:15678/verification/generate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
                     </form>
-                    <div>
-                        <img class="captcha_img" id="captchaImgRegister" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
-                    </div>
                 </div>
-                <div class="output-box">
-                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
-                </div>
+                <!--<div class="output-box">-->
+                    <!--<textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>-->
+                <!--</div>-->
             </div>
         </div>
 
-        <div class="step">
-            <p>Sign In </p>
-            <div class="group">
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Sign In
+                </h3>
+            </div>
+            <div class="group panel-body">
                 <div class="input-box">
-                    <form enctype='application/json' action="http://10.141.212.21:12342/loginWithPara" method="post">
-                        <span>You Phone Number: </span>
-                        <input name='password' value='defaultPassword'><br>
-                        <span>Your Password: </span>
-                        <input name='phoneNum' value='12315221870263' ><br>
-                        <span>Verification Code</span>
-                        <input type="text" id="verificationCodeLogin" name="verificationCode"/>
-                        <span id="captchaCheckedLogin" style="display:none;color:green;font-weight:bold">√</span>
-                        <input type="submit" value="Submit"><br>
+                    <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:12342/loginWithPara" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">You Phone Number: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='phoneNum' value='12315221870263'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Your Password: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='password' value='defaultPassword' >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Verification Code</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="verificationCodeLogin" name="verificationCode"/>
+                            </div>
+                        </div >
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <img class="captcha_img" id="captchaImgLogin" alt="点击刷新验证码"
+                                    src="http://10.141.212.21:15678/verification/generate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
                     </form>
-                    <div>
-                        <img class="captcha_img" id="captchaImgLogin" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">
-                    </div>
                 </div>
                 <br>
-                <div class="output-box">
-                    <textarea class="output-area" placeholder="结果展示" cols="100" rows="4"></textarea>
-                </div>
             </div>
         </div>
         <div class="step">
