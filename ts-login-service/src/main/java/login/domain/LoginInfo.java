@@ -6,9 +6,20 @@ public class LoginInfo {
 
     private String password;
 
+    private String verificationCode;
+
     public LoginInfo() {
         this.phoneNum = "";
         this.password = "";
+        this.verificationCode = "";
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
     public String getPhoneNum() {

@@ -17,6 +17,8 @@ public class RegisterInfo {
 
     private String phoneNum;
 
+    private String verificationCode;
+
     public RegisterInfo(){
         gender = Gender.OTHER.getCode();
         name = "None";
@@ -72,5 +74,13 @@ public class RegisterInfo {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }
