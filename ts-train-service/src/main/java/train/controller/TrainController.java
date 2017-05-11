@@ -1,8 +1,5 @@
 package train.controller;
 
-import javafx.application.Application;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import train.domain.TrainType;
@@ -15,7 +12,7 @@ import train.service.TrainService;
 @RestController
 public class TrainController {
 
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
+    //private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     @Autowired
     private TrainService trainService;

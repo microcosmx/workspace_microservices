@@ -1,2 +1,7 @@
 .idea/workspace.xml
 *.jar
+.idea/workspace.xml
+*.original
+*.jar
+ts-register-service/target/ts-register-service-1.0.jar
+.idea/workspace.xml
