@@ -10,6 +10,6 @@ public interface TrainTypeRepository extends CrudRepository<TrainType,String>{
 
     TrainType findById(String id);
     //void save(TrainType trainType);
-    //void deleteById(String id);
+    void deleteById(String id);
     //void update();
 }

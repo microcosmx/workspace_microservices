@@ -1,14 +1,11 @@
 package train.service;
 
-import train.domain.Information;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import train.domain.TrainType;
 
 public interface TrainService {
     //CRUD
-    boolean create(Information info);
-    String retrieve(Information info);
-    boolean update(Information info);
-    boolean delete(Information info);
+    boolean create(String id, int economyClass, int confortClass);
+    TrainType retrieve(String id);
+    boolean update(String id, int economyClass, int confortClass);
+    boolean delete(String id);
 }
