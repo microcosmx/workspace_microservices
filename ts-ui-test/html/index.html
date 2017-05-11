@@ -21,8 +21,64 @@
 </head>
 <body>
 <div class="container">
-    <div class="workflow1">
-        <p class="workflow_description">1. 登陆验证 －》 车次查询 －》 车票预订 －》 修改座位等级 －》 支付 －》 乘车</p>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">微服务测试</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">单个微服务测试</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            流程1
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">登录验证</a></li>
+                            <li><a href="#">车次查询</a></li>
+                            <li><a href="#">车票预订</a></li>
+                            <li><a href="#">修改座位等级</a></li>
+                            <li><a href="#">支付操作</a></li>
+                            <li><a href="#">乘车</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            流程2
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">登录验证</a></li>
+                            <li><a href="#">车次查询</a></li>
+                            <li><a href="#">车票预订</a></li>
+                            <li><a href="#">支付操作</a></li>
+                            <li><a href="#">改签</a></li>
+                            <li><a href="#">支付操作</a></li>
+                            <li><a href="#">乘车</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            流程3
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">登录验证</a></li>
+                            <li><a href="#">车票订单查询</a></li>
+                            <li><a href="#">取消</a></li>
+                            <li><a href="#">退款</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="workflow">
+
         <div class="step">
             <p>登陆验证 </p>
             <div>
@@ -166,9 +222,8 @@
         <div class="step">
             <p>乘车</p>
         </div>
-    </div>
-    <div class="workflow2 ">
-        <p class="workflow_description">2. 登陆验证 －》 车次查询 －》 车票预订 －》 支付 －》 改签 －》 支付 －》 乘车</p>
+    
+
         <div class="step  panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -290,42 +345,9 @@
                 <br>
             </div>
         </div>
-        <div class="step">
-            <p>车次查询 </p>
-            <a href="http://10.141.212.21:12344/welcome">注册欢迎页面</a>
-            <a href="http://10.141.212.21:15678/verification/generate">验证码生成页面</a>
-        </div>
-        <div class="step">
-            <p>车票预订 </p>
-        </div>
-        <div class="step">
-            <p>支付 </p>
-        </div>
-        <div class="step">
-            <p>改签 </p>
-        </div>
-        <div class="step">
-            <p>支付 </p>
-        </div>
-        <div class="step">
-            <p>乘车</p>
-        </div>
+
     </div>
-    <div class="workflow3">
-        <p class="workflow_description">>3. 登陆验证 －》 车票订单查询 －》 取消 －》 退款</p>
-        <div class="step">
-            <p>登陆验证 </p>
-        </div>
-        <div class="step">
-            <p>车票订单查询 </p>
-        </div>
-        <div class="step">
-            <p>取消 </p>
-        </div>
-        <div class="step">
-            <p>退款</p>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>
