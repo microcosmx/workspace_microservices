@@ -22,11 +22,13 @@ public class AccountLoginController {
 
     private RestTemplate restTemplate;
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
         return "Welcome to [ Accounts Login Service ] !";
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public LoginResult login(@RequestBody LoginInfo li, @CookieValue String YsbCaptcha){
 
@@ -80,6 +82,7 @@ public class AccountLoginController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/loginWithPara", method = RequestMethod.POST)
     public LoginResult loginWithPara(@RequestParam String phoneNum, @RequestParam String password,
                                      @RequestParam String verificationCode, @CookieValue String YsbCaptcha){
