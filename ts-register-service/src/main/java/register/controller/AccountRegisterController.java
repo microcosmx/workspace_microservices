@@ -26,6 +26,7 @@ public class AccountRegisterController {
         return "Welcome to [ Accounts Register Service ] !";
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public RegisterResult createNewAccount(@RequestBody RegisterInfo ri,@CookieValue String YsbCaptcha){
 
@@ -59,6 +60,7 @@ public class AccountRegisterController {
         return accountService.create(ri);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/registerWithPara", method = RequestMethod.POST)
     public RegisterResult createNewAccountWithPara(@RequestParam String password,@RequestParam String phoneNum,
                                                    @RequestParam int documentType, @RequestParam String documentNum,
