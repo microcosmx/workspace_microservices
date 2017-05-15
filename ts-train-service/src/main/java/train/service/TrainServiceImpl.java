@@ -2,6 +2,8 @@ package train.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import train.domain.Information;
+import train.domain.Information2;
 import train.domain.TrainType;
 import train.repository.TrainTypeRepository;
 
@@ -12,33 +14,33 @@ public class TrainServiceImpl implements TrainService {
 
     //private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    public boolean create(String id, int economyClass, int confortClass){
+    public boolean create(Information info){
         boolean result = false;
-        if(repository.findById(id) == null){
-            TrainType type = new TrainType(id,economyClass,confortClass);
+        if(repository.findById(info.getId()) == null){
+            TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
             repository.save(type);
             result = true;
         }
         return result;
     }
 
-    public TrainType retrieve(String id){
-       if(repository.findById(id) == null){
+    public TrainType retrieve(Information2 info){
+       if(repository.findById(info.getId()) == null){
            //log.info("ts-train-service:retireve "+id+ " and there is no TrainType with the id:" +id);
            return null;
        }else{
-           return repository.findById(id);
+           return repository.findById(info.getId());
        }
     }
 
-    public boolean update(String id, int economyClass, int confortClass){
+    public boolean update(Information info){
         boolean result = false;
-        if(repository.findById(id) != null){
-            TrainType type = new TrainType(id,economyClass,confortClass);
+        if(repository.findById(info.getId()) != null){
+            TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
             repository.save(type);
             result = true;
         }else{
-            TrainType type = new TrainType(id,economyClass,confortClass);
+            TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
             repository.save(type);
             //log.info("ts-train-service:update "+id+ " and there doesn't exist TrainType with the id:" +id);
             //log.info("ts-train-service:update "+id+ " create now!");
@@ -47,12 +49,12 @@ public class TrainServiceImpl implements TrainService {
         return result;
     }
 
-    public boolean delete(String id){
+    public boolean delete(Information2 info){
         boolean result = false;
-        if(repository.findById(id) == null){
+        if(repository.findById(info.getId()) == null){
             //log.info("ts-train-service:delete " + id +" and there doesn't exist TrainType with the id:" +id);
         }else{
-            repository.deleteById(id);
+            repository.deleteById(info.getId());
             result = true;
         }
         return result;

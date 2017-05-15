@@ -1,11 +1,13 @@
 package train.service;
 
+import train.domain.Information;
+import train.domain.Information2;
 import train.domain.TrainType;
 
 public interface TrainService {
     //CRUD
-    boolean create(String id, int economyClass, int confortClass);
-    TrainType retrieve(String id);
-    boolean update(String id, int economyClass, int confortClass);
-    boolean delete(String id);
+    boolean create(Information info);
+    TrainType retrieve(Information2 info);
+    boolean update(Information info);
+    boolean delete(Information2 info);
 }

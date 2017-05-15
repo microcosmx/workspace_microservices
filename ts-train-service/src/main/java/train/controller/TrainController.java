@@ -2,6 +2,8 @@ package train.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import train.domain.Information;
+import train.domain.Information2;
 import train.domain.TrainType;
 import train.service.TrainService;
 
@@ -17,23 +19,27 @@ public class TrainController {
     @Autowired
     private TrainService trainService;
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/create",method= RequestMethod.POST)
-    public boolean create(@RequestParam String id, @RequestParam int economyClass, @RequestParam int confortClass){
-        return trainService.create(id,economyClass,confortClass);
+    public boolean create(@RequestBody Information info){
+        return trainService.create(info);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/retrieve",method= RequestMethod.POST)
-    public TrainType retrieve(@RequestParam String id){
-        return trainService.retrieve(id);
+    public TrainType retrieve(@RequestBody Information2 info){
+        return trainService.retrieve(info);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/update",method= RequestMethod.POST)
-    public boolean update(@RequestParam String id, @RequestParam int economyClass, @RequestParam int confortClass){
-        return trainService.update(id,economyClass,confortClass);
+    public boolean update(@RequestBody Information info){
+        return trainService.update(info);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/delete",method= RequestMethod.POST)
-    public boolean delete(@RequestParam String id){
-        return trainService.delete(id);
+    public boolean delete(@RequestBody Information2 info){
+        return trainService.delete(info);
     }
 }

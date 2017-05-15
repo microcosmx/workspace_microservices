@@ -3,5 +3,6 @@ config\controller\ConfigController.class
 config\repository\ConfigRepository.class
 config\domain\Config.class
 config\service\ConfigServiceImpl.class
+config\domain\Information2.class
 config\service\ConfigService.class
 config\ConfigApplication.class

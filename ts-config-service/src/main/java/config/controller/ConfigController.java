@@ -6,6 +6,7 @@ package config.controller;
 
 import config.domain.Config;
 import config.domain.Information;
+import config.domain.Information2;
 import config.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,26 +22,26 @@ public class ConfigController {
 //    }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/config/createbyjson", method = RequestMethod.POST)
+    @RequestMapping(value="/config/create", method = RequestMethod.POST)
     public String delete(@RequestBody Information info){
-        return configService.createByJson(info);
+        return configService.create(info);
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/config/update", method = RequestMethod.POST)
-    public String update(@RequestParam String name,@RequestParam String value,@RequestParam String description){
-        return configService.update(name,value,description);
+    public String update(@RequestBody Information info){
+        return configService.update(info);
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/config/query", method = RequestMethod.POST)
-    public Config query(@RequestParam String name){
-        return configService.query(name);
+    public Config query(@RequestBody Information2 info){
+        return configService.query(info);
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/config/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam String name){
-        return configService.delete(name);
+    public String delete(@RequestBody Information2 info){
+        return configService.delete(info);
     }
 }
