@@ -1,6 +1,7 @@
 package config.service;
 
 import config.domain.Config;
+import config.domain.Information;
 import config.repository.ConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,17 @@ public class ConfigServiceImpl implements ConfigService {
             return result;
         }else{
             Config config = new Config(name,value,description);
+            repository.save(config);
+            return "true";
+        }
+    }
+
+    public String createByJson(Information info){
+        if(repository.findByName(info.getName()) != null){
+            String result = "Config " + info.getName() + " already exists.";
+            return result;
+        }else{
+            Config config = new Config(info.getName(),info.getValue(),info.getDescription());
             repository.save(config);
             return "true";
         }

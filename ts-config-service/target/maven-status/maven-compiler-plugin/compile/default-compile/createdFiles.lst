@@ -1,3 +1,4 @@
+config\domain\Information.class
 config\controller\ConfigController.class
 config\repository\ConfigRepository.class
 config\domain\Config.class

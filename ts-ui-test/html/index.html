@@ -80,151 +80,6 @@
 
     <div class="workflow">
 
-        <div class="step">
-            <p>登陆验证 </p>
-            <div>
-                <!--<img class="captcha_img" id="captchaImg" alt="点击刷新验证码" src="http://10.141.212.21:15678/verification/generate">-->
-            </div>
-            <div>
-                <!--<form enctype="application/json" action="http://10.141.212.21:15678/verification/verify" method="post">-->
-                <!--<input type="text" id="verificationCode" placeholder="验证码" name="verificationCode"/>-->
-                <!--<span id="captchaChecked" style="display:none;color:green;font-weight:bold">√</span>-->
-                    <!--<p><input type="submit" value="提交"></p>-->
-                <!--</form>-->
-            </div>
-
-        </div>
-        <div class="step">
-            <p>车次查询 </p>
-        </div>
-        <div class="step panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Station Service
-                </h3>
-            </div>
-            <div>
-                <div class="input-box panel-body">
-                    <form class="form-horizontal" enctype='application/json'
-                          action="http://10.141.212.21:12345/station/create" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Station Name: </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name='name' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary">Add Station</button>
-                            </div>
-                        </div>
-                    </form>
-                    <form class="form-horizontal" enctype='application/json' action="http://10.141.212.21:12345/station/exist" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Station Name: </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name='name' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary">Query Station</button>
-                            </div>
-                        </div>
-                    </form>
-                    <form class="form-horizontal" enctype='application/json'
-                          action="http://10.141.212.21:12345/station/delete" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Station Name: </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name='name' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary">Delete Station</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="step panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Train Service
-                </h3>
-            </div>
-            <div class="input-box panel-body">
-                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/train/create" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Train Id: </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" name='id' value=''>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Economy Class: </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" name='economyClass' value=''>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Confort Class: </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" name='confortClass' value=''>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Add Train Type</button>
-                        </div>
-                    </div>
-                </form>
-                <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/train/retrieve" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Train Id: </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" name='id' value=''>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Query Train Type</button>
-                        </div>
-                    </div>
-                </form>
-                <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/train/delete" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Train Id: </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" name='id' value=''>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Delete Train Type</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="step">
-            <p>车票预订 </p>
-        </div>
-        <div class="step">
-            <p>修改座位等级 </p>
-        </div>
-        <div class="step">
-            <p>支付 </p>
-        </div>
-        <div class="step">
-            <p>乘车</p>
-        </div>
-    
-
         <div class="step  panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -319,6 +174,8 @@
             </div>
         </div>
 
+        <!-------------------------------------------------------------------------------------------------- -->
+
         <div class="step panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -350,7 +207,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <img class="captcha_img" id="captchaImgLogin" alt="Click To Refresh The Verification Code"
-                                    src="http://10.141.212.21:15678/verification/generate">
+                                     src="http://10.141.212.21:15678/verification/generate">
                             </div>
                         </div>
                         <div class="form-group">
@@ -387,6 +244,243 @@
                 <br>
             </div>
         </div>
+
+       <!-------------------------------------------------------------------------------------------------- -->
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Station Service
+                </h3>
+            </div>
+            <div>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal" enctype='application/json'
+                          action="http://10.141.212.21:12345/station/create" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Add Station</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" enctype='application/json' action="http://10.141.212.21:12345/station/exist" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Query Station</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" enctype='application/json'
+                          action="http://10.141.212.21:12345/station/delete" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Delete Station</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="result">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <label class="control-label">Result:</label>
+                                <span id="station_result"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-------------------------------------------------------------------------------------------------- -->
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Train Service
+                </h3>
+            </div>
+            <div class="input-box panel-body">
+                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/train/create" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Economy Class: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='economyClass' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Confort Class: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='confortClass' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Add Train Type</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/train/retrieve" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Query Train Type</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/train/delete" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Delete Train Type</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="result">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label class="control-label">Result:</label>
+                            <span id="train_result"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-------------------------------------------------------------------------------------------------- -->
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Config Service
+                </h3>
+            </div>
+            <div class="input-box panel-body">
+                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:15679/config/createbyjson" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config name: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_create_name" name='name' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config value: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_create_value" name='value' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_create_description" name='description' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="config_create_button" type="button" class="btn btn-primary">Add Config</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/config/update" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config name: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_update_name" name='name' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config value: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_update_value" name='value' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_update_description" name='description' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" id="config_update_button">Update Config</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/config/query" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config name: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="config_query_name" name='name' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" id="config_query_button">Query Config by name</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/config/delete" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config name: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" config="config_delete_name" name='name' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" id="config_delete_button">Delete Config by name</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="result">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label class="control-label">Result:</label>
+                            <span id="config_result"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-------------------------------------------------------------------------------------------------- -->
 
     </div>
 

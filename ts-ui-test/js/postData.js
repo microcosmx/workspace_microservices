@@ -77,3 +77,28 @@ function handle_register_result(){
         document.getElementById("register_result_account").innerHTML = obj["account"];
     }
 }
+
+//------For Config------------
+//------For Config create------------
+document.getElementById("config_create_button").onclick = function post_config_create(){
+    req = getXmlHttpRequest();
+    var ConfigInfo = new Object();
+    ConfigInfo.name = document.getElementById("config_create_name").value;
+    ConfigInfo.value = document.getElementById("config_create_value").value;
+    ConfigInfo.description = document.getElementById("config_create_description").value;
+    var data = JSON.stringify(ConfigInfo);
+    var url = "http://10.141.212.21:15679/config/createbyjson";
+
+    req.open("post",url,true);
+    req.withCredentials = true;
+    req.setRequestHeader("Content-Type", "application/json");
+    req.onreadystatechange = handle_config_create_result;
+    req.send(data);
+}
+
+function handle_config_create_result(){
+    if(req.readyState == 4){
+        var resultstr = req.responseText;
+        document.getElementById("config_result").innerHTML = resultstr;
+    }
+}
