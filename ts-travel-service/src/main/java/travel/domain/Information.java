@@ -1,16 +1,14 @@
 package travel.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by Chenjie Xu on 2017/5/9.
+ * Created by Chenjie Xu on 2017/5/15.
  */
-@Document(collection="trip")
-public class Trip {
+public class Information {
     @Valid
     @Id
     private TripId tripId;
