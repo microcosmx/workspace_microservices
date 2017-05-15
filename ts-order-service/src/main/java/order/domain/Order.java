@@ -19,13 +19,13 @@ public class Order {
 
     private UUID accountId;
 
-    private TrainNumber trainNumber;
+    private String trainNumber;
 
     private int coachNumber;
 
     private int seatClass;
 
-    private SeatNumber seatNumber;
+    private String seatNumber;
 
     private String from;
 
@@ -33,20 +33,19 @@ public class Order {
 
     private int status;
 
+    private double price;
+
     public Order(){
         boughtDate = new Date(System.currentTimeMillis());
         travelDate = new Date(System.currentTimeMillis());
-        trainNumber = new TrainNumber();
-        trainNumber.setType(TrainType.GAOTIE.getCode());
-        trainNumber.setNumber(2001);
+        trainNumber = "B001";
         coachNumber = 5;
         seatClass = SeatClass.FIRSTCLASS.getCode();
-        seatNumber = new SeatNumber();
-        seatNumber.setLineNum(5);
-        seatNumber.setPosition('A');
-        from = "上海虹桥";
-        to = "南京南";
+        seatNumber = "5A";
+        from = "起点站";
+        to = "终点站";
         status = OrderStatus.PAID.getCode();
+        price = 0.0;
     }
 
     @Override
@@ -70,7 +69,8 @@ public class Order {
                 && seatNumber .equals(other.getSeatNumber())
                 && from.equals(other.getFrom())
                 && to.equals(other.getTo())
-                && status == other.getStatus();
+                && status == other.getStatus()
+                && price == other.price;
     }
 
     public UUID getId() {
@@ -105,11 +105,11 @@ public class Order {
         this.travelDate = travelDate;
     }
 
-    public TrainNumber getTrainNumber() {
+    public String getTrainNumber() {
         return trainNumber;
     }
 
-    public void setTrainNumber(TrainNumber trainNumber) {
+    public void setTrainNumber(String trainNumber) {
         this.trainNumber = trainNumber;
     }
 
@@ -129,11 +129,11 @@ public class Order {
         this.seatClass = seatClass;
     }
 
-    public SeatNumber getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(SeatNumber seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 
@@ -159,5 +159,13 @@ public class Order {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

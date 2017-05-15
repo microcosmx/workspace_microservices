@@ -3,6 +3,8 @@ package sso.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import sso.domain.LogoutInfo;
+import sso.domain.LogoutResult;
 import sso.domain.PutLoginResult;
 import sso.domain.VerifyResult;
 import sso.service.AccountSsoService;
@@ -20,9 +22,10 @@ public class AccountSsoController {
         return "Welcome to [ Accounts SSO Service ] !";
     }
 
-    @RequestMapping(path = "/logoutDeleteToken/{loginId}", method = RequestMethod.GET)
-    public String logoutDeleteToken(@PathVariable String loginId){
-        return ssoService.logoutDeleteToken(loginId);
+    @RequestMapping(path = "/logoutDeleteToken/{loginId}", method = RequestMethod.POST)
+    public LogoutResult logoutDeleteToken(@RequestBody LogoutInfo li){
+        System.out.println("[SSO Service][Logout Delete Token] ID:" + li.getId() + "Token:" + li.getToken());
+        return ssoService.logoutDeleteToken(li);
     }
 
     @RequestMapping(path = "/verifyLoginToken/{token}", method = RequestMethod.GET)

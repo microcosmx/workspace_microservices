@@ -78,6 +78,15 @@
     </nav>
 
 
+    <div id="status_set">
+        <ul class="list-group">
+            <li class="list-group-item">注意：仅在下面为登录状态时才可进行部分敏感操作。请首先登录，获得以下两个值。
+                <button id="logout_button" type="button" class="btn btn-primary">Logout</button></li>
+            <li class="list-group-item">Login User ID：<label id="user_login_id">Not Login</label></li>
+            <li class="list-group-item">Login User Token:<label id="user_login_token">Please Login</label></li>
+        </ul>
+    </div>
+
     <div class="workflow">
 
         <div class="step  panel panel-default">
@@ -167,6 +176,76 @@
                             <div class="col-sm-offset-2">
                                 <label class="control-label">Account Info:</label>
                                 <span id="register_result_account"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-------------------------------------------------------------------------------------------------- -->
+
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Add Contacts
+                </h3>
+            </div>
+            <div class="group panel-body">
+                <div class="input-box">
+                    <form role="form" class="form-horizontal" enctype='application/json'
+                          action="" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">People Name:</label>
+                            <div class="col-sm-10">
+                                <input id="add_contacts_name" class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Select Your Document Type: </label>
+                            <div class="col-sm-10">
+                                <select id="add_contacts_documentType" class="form-control" name="documentType">
+                                    <option value="1">ID Card</option>
+                                    <option value="2">Passport</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Document Number:</label>
+                            <div class="col-sm-10">
+                                <input id="add_contacts_documentNum" class="form-control" name='documentNumber' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Phone Number:</label>
+                            <div class="col-sm-10">
+                                <input id="add_contacts_phoneNum" class="form-control" name='phoneNumber' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="add_contacts_button" type="button" class="btn btn-primary">Add Contacts</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <label class="control-label">Add Contacts Status:</label>
+                                <span id="add_contacts_result_status"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <label class="control-label">Add Contacts Message:</label>
+                                <span id="add_contacts_result_msg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <label class="control-label">Contacts Info:</label>
+                                <span id="add_contacts_result_contacts"></span>
                             </div>
                         </div>
                     </form>

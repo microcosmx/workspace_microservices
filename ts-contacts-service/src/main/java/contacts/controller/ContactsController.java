@@ -21,6 +21,7 @@ public class ContactsController {
         return "Welcome to [ Contacts Service ] !";
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/findContacts", method = RequestMethod.POST)
     public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
         VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
@@ -33,6 +34,7 @@ public class ContactsController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/createNewContacts", method = RequestMethod.POST)
     public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
         VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
@@ -49,6 +51,7 @@ public class ContactsController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/deleteContacts", method = RequestMethod.POST)
     public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo dci){
         VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
@@ -64,6 +67,7 @@ public class ContactsController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/saveContactsInfo", method = RequestMethod.PUT)
     public ModifyContactsResult saveContactsInfo(@RequestBody ModifyContactsInfo contactsInfo){
         VerifyResult tokenResult = verifySsoLogin(contactsInfo.getLoginToken());
@@ -84,7 +88,7 @@ public class ContactsController {
         restTemplate = new RestTemplate();
         System.out.println("[ContactsService][VerifyLogin] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
-                "http://ts-sso-travel.service:12349/verifyLoginToken/" + loginToken,
+                "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,
                      VerifyResult.class);
         return tokenResult;
     }

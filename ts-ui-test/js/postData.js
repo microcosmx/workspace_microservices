@@ -37,10 +37,47 @@ function handle_login_result(){
     if(req.readyState == 4){
         var resultstr = req.responseText;
         var obj = JSON.parse(resultstr);
+        if(obj["account"] != null){
+            document.getElementById("user_login_id").innerHTML = obj["account"].id;
+            document.getElementById("user_login_token").innerHTML = obj["token"];
+        }
         document.getElementById("login_result_status").innerHTML = obj["status"];
         document.getElementById("login_result_msg").innerHTML = obj["message"];
-        document.getElementById("login_result_account").innerHTML = obj["account"];
+        document.getElementById("login_result_account").innerHTML = JSON.stringify(obj["account"]);
         document.getElementById("login_result_token").innerHTML = obj["token"];
+    }
+}
+
+//------For Logout-------
+
+document.getElementById("logout_button").onclick = function post_logout(){
+
+    req = getXmlHttpRequest();
+
+    var logoutInfo = new Object();
+    logoutInfo.id = document.getElementById("user_login_id").innerHTML;
+    logoutInfo.token = document.getElementById("user_login_token").innerHTML;
+    var data = JSON.stringify(logoutInfo);
+
+    var url = "http://10.141.212.21:12342/logout";
+
+    req.open("post",url,true);
+    req.withCredentials = true;
+    req.setRequestHeader("Content-Type", "application/json");
+    req.onreadystatechange = handle_logout_result;
+    req.send(data);
+}
+
+function handle_logout_result(){
+    if(req.readyState == 4){
+        var resultstr = req.responseText;
+        var obj = JSON.parse(resultstr);
+        if(obj["status"] == "true"){
+            document.getElementById("user_login_id").innerHTML = "Not Login";
+            document.getElementById("user_login_token").innerHTML = "Please Login";
+        }else{
+            alert(JSON.stringify(obj));
+        }
     }
 }
 
@@ -74,7 +111,41 @@ function handle_register_result(){
         var obj = JSON.parse(resultstr);
         document.getElementById("register_result_status").innerHTML = obj["status"];
         document.getElementById("register_result_msg").innerHTML = obj["message"];
-        document.getElementById("register_result_account").innerHTML = obj["account"];
+        document.getElementById("register_result_account").innerHTML = JSON.stringify(obj["account"]);
+    }
+}
+
+//------For contacts----------
+//------For add contacts------
+document.getElementById("add_contacts_button").onclick = function post_add_contacts(){
+
+    req = getXmlHttpRequest();
+
+    var addContactsInfo = new Object();
+    addContactsInfo.name = document.getElementById("add_contacts_name").value;
+    addContactsInfo.documentType = document.getElementById("add_contacts_documentType").value;
+    addContactsInfo.documentNumber = document.getElementById("add_contacts_documentNum").value;
+    addContactsInfo.phoneNumber = document.getElementById("add_contacts_phoneNum").value;
+    addContactsInfo.accountId = document.getElementById("user_login_id").innerHTML;
+    addContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
+    var data = JSON.stringify(addContactsInfo);
+
+    var url = "http://10.141.212.21:12347/createNewContacts";
+
+    req.open("post",url,true);
+    req.withCredentials = true;
+    req.setRequestHeader("Content-Type", "application/json");
+    req.onreadystatechange = handle_add_contacts_result;
+    req.send(data);
+}
+
+function handle_add_contacts_result(){
+    if(req.readyState == 4){
+        var resultstr = req.responseText;
+        var obj = JSON.parse(resultstr);
+        document.getElementById("add_contacts_result_status").innerHTML = obj["status"];
+        document.getElementById("add_contacts_result_msg").innerHTML = obj["message"];
+        document.getElementById("add_contacts_result_contacts").innerHTML = JSON.stringify(obj["contacts"]);
     }
 }
 

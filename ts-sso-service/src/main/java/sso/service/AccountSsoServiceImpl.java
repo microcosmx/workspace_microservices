@@ -2,6 +2,8 @@ package sso.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sso.domain.LogoutInfo;
+import sso.domain.LogoutResult;
 import sso.domain.PutLoginResult;
 import sso.domain.VerifyResult;
 import sso.repository.AccountRepository;
@@ -40,15 +42,24 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     }
 
     @Override
-    public String logoutDeleteToken(String logoutId){
-        if(!loginUserList.keySet().contains(logoutId)){
-            System.out.println("[Account-SSO-Service][Logout] Already Logout. LogoutId:" + logoutId);
-            return "status=AlreadyDelete";
+    public LogoutResult logoutDeleteToken(LogoutInfo li){
+        LogoutResult lr = new LogoutResult();
+        if(!loginUserList.keySet().contains(li.getId())){
+            System.out.println("[Account-SSO-Service][Logout] Already Logout. LogoutId:" + li.getId());
+           lr.setStatus(false);
+           lr.setMessage("Not Login");
         }else{
-            loginUserList.remove(logoutId);
-            System.out.println("[Account-SSO-Service][Logout] Logout Success. Logout:" + logoutId);
-            return "status=DeleteSuccess";
+            String savedToken = loginUserList.get(li.getId());
+            if(savedToken.equals(li.getToken())){
+                loginUserList.remove(li.getId());
+                lr.setStatus(true);
+                lr.setMessage("Success");
+            }else{
+                lr.setStatus(false);
+                lr.setMessage("Token Wrong");
+            }
         }
+        return lr;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class ContactsServiceImpl implements ContactsService{
         contacts.setAccountId(aci.getAccountId());
         contacts.setDocumentType(aci.getDocumentType());
 
-        ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(contacts.getAccountId());
+        ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(aci.getAccountId());
         AddContactsResult acr = new AddContactsResult();
         if(accountContacts.contains(contacts)){
             System.out.println("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");
