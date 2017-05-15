@@ -1,7 +1,7 @@
 FROM java:8-jre
-MAINTAINER jichao <13302010019@fudan.edu.cn>
+MAINTAINER Chenjie Xu <15212010021@fudan.edu.cn>
 
-ADD ./ts-register-service-1.0.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/ts-register-service-1.0.jar"]
+ADD ./ts-config-service-1.0.jar /app/
+CMD ["java", "-Xmx200m", "-jar", "/app/ts-config-service-1.0.jar"]
 
-EXPOSE 12344
+EXPOSE 15679

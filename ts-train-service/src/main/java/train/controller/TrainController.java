@@ -1,18 +1,12 @@
 package train.controller;
 
-import javafx.application.Application;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import train.domain.Information;
+import train.domain.Information2;
+import train.domain.TrainType;
 import train.service.TrainService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Chenjie Xu on 2017/5/8.
@@ -20,28 +14,32 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class TrainController {
 
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
+    //private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     @Autowired
     private TrainService trainService;
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/create",method= RequestMethod.POST)
     public boolean create(@RequestBody Information info){
         return trainService.create(info);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/retrieve",method= RequestMethod.POST)
-    public String retrieve(@RequestBody Information info){
+    public TrainType retrieve(@RequestBody Information2 info){
         return trainService.retrieve(info);
     }
 
-    @RequestMapping(value="/train/update",method= RequestMethod.GET)
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/train/update",method= RequestMethod.POST)
     public boolean update(@RequestBody Information info){
         return trainService.update(info);
     }
 
-    @RequestMapping(value="/train/delete",method= RequestMethod.GET)
-    public boolean delete(@RequestBody Information info){
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/train/delete",method= RequestMethod.POST)
+    public boolean delete(@RequestBody Information2 info){
         return trainService.delete(info);
     }
 }

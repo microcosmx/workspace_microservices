@@ -1,5 +1,6 @@
 package fdse.microservice.controller;
 
+import fdse.microservice.domain.Information;
 import fdse.microservice.domain.Station;
 import fdse.microservice.service.StationService;
 import javafx.application.Application;
@@ -23,14 +24,16 @@ public class StationController {
     @Autowired
     private StationService stationService;
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/create",method= RequestMethod.POST)
-    public boolean create(@RequestParam String name){
-        return stationService.create(name);
+    public boolean create(@RequestBody Information info){
+        return stationService.create(info);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/exist",method= RequestMethod.POST)
-    public boolean exist(@RequestParam String name){
-        return stationService.exist(name);
+    public boolean exist(@RequestBody Information info){
+        return stationService.exist(info);
     }
 
     /*
@@ -39,8 +42,9 @@ public class StationController {
         return stationService.update(info);
     }*/
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/delete",method= RequestMethod.POST)
-    public boolean delete(@RequestParam String name){
-        return stationService.delete(name);
+    public boolean delete(@RequestBody Information info){
+        return stationService.delete(info);
     }
 }

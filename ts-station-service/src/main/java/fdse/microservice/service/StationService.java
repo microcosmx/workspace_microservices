@@ -1,9 +1,11 @@
 package fdse.microservice.service;
 
+import fdse.microservice.domain.Information;
+
 public interface StationService {
     //CRUD
-    boolean create(String name);
-    boolean exist(String name);
+    boolean create(Information info);
+    boolean exist(Information info);
     //boolean update(Information info);
-    boolean delete(String name);
+    boolean delete(Information info);
 }

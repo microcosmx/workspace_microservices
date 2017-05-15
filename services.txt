@@ -1,35 +1,35 @@
 所有服务:
 
-    sso: ts-sso-travel.service （db）
-    登录: ts-login-travel.service
-    注册: ts-register-travel.service
-    验证码: ts-verificationCode-travel.service
+    sso: ts-sso-service （db）
+    登录: ts-login-service
+    注册: ts-register-service
+    验证码: ts-verificationCode-service
 
-    常用联系人管理(CRUD): ts-contacts-travel.service （db）
+    常用联系人管理(CRUD): ts-contacts-service （db）
 
-    配置: ts-config-travel.service (db: 10天以后，同一id同一车次1，改签次数，定价，预订溢出比（100%），改签费用规则)
+    配置: ts-config-service (db: 10天以后，同一id同一车次1，改签次数，定价，预订溢出比（100%），改签费用规则)
 
-    车站站名服务：ts-station-travel.service（db: 车站表）
-    车服务： ts-train-travel.service (db: train)
+    车站站名服务：ts-station-service（db: 车站表）
+    车服务： ts-train-service (db: train)
 
-    车次查询_高铁动车: ts-travel-travel.service (db: 车次表（max ticket）)
-    ## 车次查询_其他(k...): ts-travel2-travel.service
+    车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）)
+    ## 车次查询_其他(k...): ts-travel2-service
 
-    车票预订_高铁动车：ts-preserve-travel.service
-    ## 车票预订_其他: ts-preserve-travel.service
+    车票预订_高铁动车：ts-preserve-service
+    ## 车票预订_其他: ts-preserve-service
 
-    车票订单_高铁动车(CRUD): ts-order-travel.service (cancel, modify, rebook, query)
+    车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)
         status: 
             未支付: 预订未支付，修改(座位等级修改，删除...), 取消(退票)
             已支付：预定已支付，已支付改签，取消
     ##车票订单_其他(k...): 
 
     站内支付： ts-insite-payment （db）
-    车票支付(CRUD，退款): ts-payment-travel.service （中转）
+    车票支付(CRUD，退款): ts-payment-service （中转）
 
-    车票使用终端服务(车票进站): ts-execute-travel.service （中转）
+    车票使用终端服务(车票进站): ts-execute-service （中转）
 
-    黄牛：ts-security-travel.service (账户同一天1小时内没有订单或预定，不能超过5张)
+    黄牛：ts-security-service (账户同一天1小时内没有订单或预定，不能超过5张)
 
     （todo: 取票）
 
@@ -68,9 +68,9 @@
 
 Service API:
 
-    登录微服务(account-login-travel.service)
+    登录微服务(account-login-service)
         (1)Login
-            Path:   http://account-login-travel.service:12342/login
+            Path:   http://account-login-service:12342/login
             Method: Post - LoginInfo.java: A class that save the required login information.
                                 String phoneNum: Login By Phone Number.
                                 String password: Password of the account.
@@ -79,9 +79,9 @@ Service API:
                     Example:{"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
                              "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
 
-    注册微服务(account-register-travel.service)
+    注册微服务(account-register-service)
         (1)Register
-            Path:   http://account-register-travel.service:12344/register
+            Path:   http://account-register-service:12344/register
             Method: Post - RegisterInfo.java: A class that save the required register information.
                                 String password
                                 int gender
@@ -95,9 +95,9 @@ Service API:
                     Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
                               "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
 
-    账号信息管理(account-manage-travel.service)
+    账号信息管理(account-manage-service)
          (1)Modify Information
-                    Path: http://account-manage-travel.service:12343/saveAccountInfo
+                    Path: http://account-manage-service:12343/saveAccountInfo
                     Method: PUT - Account.java
                             Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
                                       "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789",
@@ -106,7 +106,7 @@ Service API:
                             Example: {"id":"c5e84370-484e-4d16-9490-71627540f752","password":"","gender":3,
                                       "name":"AfterChangeInfo","documentType":0,"documentNum":"0123456789","phoneNum":"352323"}
          (2)Modify Password
-                 Path: http://account-manage-travel.service:12343/changePassword
+                 Path: http://account-manage-service:12343/changePassword
                  Method: PUT - NewPasswordInfo.java
                                    UUID id: The account Id you will change.
                                    String oldPassword: The old password of the account.
@@ -116,13 +116,13 @@ Service API:
                  Return: null for account-not-found & wrong-password, Account.java for success.
 
          (3)Find a account
-                 Path: http://account-manage-travel.service:12343/findAccount/{phoneNum}
+                 Path: http://account-manage-service:12343/findAccount/{phoneNum}
                  Method: Get
                  Return: null for account-not-found, Account.java for finding success.
 
-    联系人增加和删除微服务(contacts-addanddelete-travel.service)
+    联系人增加和删除微服务(contacts-addanddelete-service)
          (1)Add new contacts
-                    Path: http://contacts-addanddelete-travel.service:12345/createNewContacts
+                    Path: http://contacts-addanddelete-service:12345/createNewContacts
                     Method: Post - AddContactsInfo.java
                                        UUID accountId: This contact belongs to which account
                                        String name: The name of the contact
@@ -136,30 +136,30 @@ Service API:
                                      "accountId":"c5e84370-484e-4d16-9490-71627540f752","name":"冀超","documentType":1,
                                      "documentNumber":"142603199601311011","phoneNumber":"+86 15221870263"}
          (2)Delete a contact
-                    Path:http://contacts-addanddelete-travel.service:12345/deleteContacts
+                    Path:http://contacts-addanddelete-service:12345/deleteContacts
                     Method: Post - String of contactsId.
                             Example: contactsId=0586a017-c395-44ae-86b2-87ecb80734af
                     Return: delete status string.
                             Example: "status=success" "status=fail"
 
-    联系人修改微服务(contacts-modify-travel.service)
+    联系人修改微服务(contacts-modify-service)
         (1)Modify A Contact
-                    Path: http://contacts-modify-travel.service:12346/saveContactsInfo
+                    Path: http://contacts-modify-service:12346/saveContactsInfo
                     Method: Put - Contact.java
                     Return: null for contact-not-found, Contact.java for modify success.
 
-    联系人查询微服务(contacts-query-travel.service)
+    联系人查询微服务(contacts-query-service)
         (1)Query one's contacts
-                    Path: http://contacts-query-travel.service:12347/findContacts/{accountIdStr}
+                    Path: http://contacts-query-service:12347/findContacts/{accountIdStr}
                     Method: Get
                     Return: ArrayList<Contacts>
                             Example:[{"id":"d3ed5f2f-c702-4cdd-834f-22732639ba87",
                                       "accountId":"c5e84370-484e-4d16-9490-71627540f752","name":"冀超","documentType":1,
                                       "documentNumber":"142603199601311011","phoneNumber":"+86 15221870263"}]
 
-    订单创建微服务(order-create-travel.service)
+    订单创建微服务(order-create-service)
         (1)Create New Orders.
-                    Path: http://order-create-travel.service:12031/createNewOrders
+                    Path: http://order-create-service:12031/createNewOrders
                     Method: POST - Order.java
                             Example:{"boughtDate":"2017-04-20T16:50:06.330+0800","travelDate":"2017-04-20T16:50:06.330+0800",
                                      "accountId":"c5e84370-484e-4d16-9490-71627540f752","trainNumber":{"type":0,"number":2001},
@@ -172,15 +172,15 @@ Service API:
                                      "seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},
                                      "from":"上海虹桥","to":"南京南","status":1}
 
-    订单信息修改微服务(order-modify-travel.service)
+    订单信息修改微服务(order-modify-service)
         (1)Modify A Order Information
-                    Path: http://order-modify-travel.service:12030/saveOrderInfo
+                    Path: http://order-modify-service:12030/saveOrderInfo
                     Method: POST - Order.java
                     Return: null for order-not-found, Order.java for success.
 
-    订单取消微服务(order-cancel-travel.service)
+    订单取消微服务(order-cancel-service)
         (1)Cancel An Order
-                    Path: http://order-cancel-travel.service:12033/cancelOrder
+                    Path: http://order-cancel-service:12033/cancelOrder
                     Method: POST - CancelOrderInfo.java
                                        UUID accountId: The owner of the order.
                                        UUID orderId: The order that will be canceled.
@@ -188,9 +188,9 @@ Service API:
                                      "orderId":"0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1"}
                     Return: null for order-not-found, Order.java for success.
 
-    订单改签微服务(order-rebook-travel.service)
+    订单改签微服务(order-rebook-service)
             (1)Rebook an order
-                    Path: http://order-alter-travel.service:12032/alterOrder
+                    Path: http://order-alter-service:12032/alterOrder
                     Method: POST - OrderAlterInfo
                                         UUID accountId
                                         UUID previousOrderId: The order that will be canceled.
@@ -206,9 +206,9 @@ Service API:
                                      "to":"南京南","status":1}}
                     Return: null for old-order-not-found, Order.java for success.
 
-    订单查询微服务(order-query-travel.service)
+    订单查询微服务(order-query-service)
             (1)Query An Order
-                    Path: http://order-query-travel.service:14221/queryOrders
+                    Path: http://order-query-service:14221/queryOrders
                     Method: POST - QueryInfo.java
                                         UUID accountId: The owner of the orders
                                         Date travelDateStart: Travel date from
@@ -233,14 +233,14 @@ Service API:
                                       "seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},
                                       "from":"上海虹桥","to":"南京南","status":1}]
 
-    payment-travel.service
+    payment-service
             (1)pay
                     Path: http://pay
                     always return true
                     query in json:
                     {"money":324.50}
 
-    query_crh-travel.service
+    query_crh-service
             (1)query the tickets for China Railway HighSpeed
                     Path: http://querycrh
                     return the information about the ticket,include:id,trainNumber,departureStation,arrivalStation,departureTime,
@@ -253,7 +253,7 @@ Service API:
                     {"id":"58d12e9188d07cbbc7a8eda1","trainNumber":"G1952","departureStation":"上海虹桥","arrivalStation":"太原??","departureTime":1490107254000,"arrivalTime":1490240423000,"destination":"太原","starting":"上海"}]
 
 
-    queryordinary-travel.service
+    queryordinary-service
             (1)query the tickets for ordinary train
                     Path: http://queryordinary
                     return the information about the ticket,include:id,trainNumber,departureStation,arrivalStation,departureTime,
@@ -265,7 +265,7 @@ Service API:
                     [{"id":"58d12e5f88d07cbbc7a8eda0","trainNumber":"Z268","departureStation":"上海","arrivalStation":"太原南","departureTime":1490107254000,"arrivalTime":1490154023000,"destination":"太原","starting":"上海"},
                     {"id":"58d12e9188d07cbbc7a8eda1","trainNumber":"Z196","departureStation":"上海","arrivalStation":"太原","departureTime":1490107254000,"arrivalTime":1490240423000,"destination":"太原","starting":"上海"}]
 
-    verificationCode-travel.service
+    verificationCode-service
             (1)return an image which contains verification code,like:
                2468,which is an image
                     Path: http://verificationCode

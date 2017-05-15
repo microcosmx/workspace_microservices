@@ -1,30 +1,62 @@
 package train.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import train.domain.Information;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import train.domain.Information2;
+import train.domain.TrainType;
+import train.repository.TrainTypeRepository;
 
 @Service
 public class TrainServiceImpl implements TrainService {
+    @Autowired
+    private TrainTypeRepository repository;
 
+    //private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     public boolean create(Information info){
         boolean result = false;
+        if(repository.findById(info.getId()) == null){
+            TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
+            repository.save(type);
+            result = true;
+        }
         return result;
     }
 
-    public String retrieve(Information info){
-        String result = "";
-        return result;
+    public TrainType retrieve(Information2 info){
+       if(repository.findById(info.getId()) == null){
+           //log.info("ts-train-service:retireve "+id+ " and there is no TrainType with the id:" +id);
+           return null;
+       }else{
+           return repository.findById(info.getId());
+       }
     }
+
     public boolean update(Information info){
         boolean result = false;
+        if(repository.findById(info.getId()) != null){
+            TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
+            repository.save(type);
+            result = true;
+        }else{
+            TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
+            repository.save(type);
+            //log.info("ts-train-service:update "+id+ " and there doesn't exist TrainType with the id:" +id);
+            //log.info("ts-train-service:update "+id+ " create now!");
+            result = true;
+        }
         return result;
     }
-    public boolean delete(Information info){
+
+    public boolean delete(Information2 info){
         boolean result = false;
+        if(repository.findById(info.getId()) == null){
+            //log.info("ts-train-service:delete " + id +" and there doesn't exist TrainType with the id:" +id);
+        }else{
+            repository.deleteById(info.getId());
+            result = true;
+        }
         return result;
     }
 
