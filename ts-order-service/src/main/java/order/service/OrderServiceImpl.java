@@ -1,5 +1,6 @@
 package order.service;
 
+import com.google.gson.Gson;
 import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public CreateOrderResult create(Order order){
+        System.out.println("[OrderService][CreateOrder] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
         if(accountOrders.contains(order)){
@@ -138,9 +140,6 @@ public class OrderServiceImpl implements OrderService{
         return cor;
     }
 
-
-
-
     @Override
     public CancelOrderResult cancelOrder(CancelOrderInfo coi){
         UUID orderId = coi.getOrderId();
@@ -161,6 +160,42 @@ public class OrderServiceImpl implements OrderService{
             cor.setOrder(oldOrder);
         }
         return cor;
+    }
+
+    @Override
+    public  CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti){
+        ArrayList<Order> orders = orderRepository.findByTravelDateAndTrainNumber(csti.getTravelDate(),csti.getTrainNumber());
+        CalculateSoldTicketResult cstr = new CalculateSoldTicketResult();
+        cstr.setTravelDate(csti.getTravelDate());
+        cstr.setTrainNumber(csti.getTrainNumber());
+        System.out.println("[OrderService][CalculateSoldTicket] Get Orders Number:" + orders.size());
+        for(Order order : orders){
+            if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
+                continue;
+            }
+            if(order.getSeatClass() == SeatClass.NONE.getCode()){
+                cstr.setNoSeat(cstr.getNoSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.BUSINESS.getCode()){
+                cstr.setBusinessSeat(cstr.getBusinessSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.FIRSTCLASS.getCode()){
+                cstr.setFirstClassSeat(cstr.getFirstClassSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.SECONDCLASS.getCode()){
+                cstr.setSecondClassSeat(cstr.getSecondClassSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.HARDSEAT.getCode()){
+                cstr.setHardSeat(cstr.getHardSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.SOFTSEAT.getCode()){
+                cstr.setSoftSeat(cstr.getSoftSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.HARDBED.getCode()){
+                cstr.setHardBed(cstr.getHardBed() + 1);
+            }else if(order.getSeatClass() == SeatClass.SOFTBED.getCode()){
+                cstr.setSoftBed(cstr.getSoftBed() + 1);
+            }else if(order.getSeatClass() == SeatClass.HIGHSOFTBED.getCode()){
+                cstr.setHighSoftBed(cstr.getHighSoftBed() + 1);
+            }else{
+                System.out.println("[OrderService][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
+            }
+        }
+        return cstr;
     }
 
 }

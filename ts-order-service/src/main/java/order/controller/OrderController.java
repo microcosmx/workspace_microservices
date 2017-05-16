@@ -3,10 +3,7 @@ package order.controller;
 import order.domain.*;
 import order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 
@@ -23,6 +20,7 @@ public class OrderController {
         return "Welcome to [ Order Service ] !";
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/createNewOrders", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){
         VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
@@ -39,11 +37,13 @@ public class OrderController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/alterOrder", method = RequestMethod.POST)
     public Order alterOrder(@RequestBody OrderAlterInfo oai){
         return orderService.alterOrder(oai);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/queryOrders", method = RequestMethod.POST)
     public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi){
         VerifyResult tokenResult = verifySsoLogin(qi.getLoginToken());
@@ -56,6 +56,7 @@ public class OrderController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/saveOrderInfo", method = RequestMethod.PUT)
     public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
         VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
@@ -72,6 +73,7 @@ public class OrderController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path="/cancelOrder", method = RequestMethod.POST)
     public CancelOrderResult cancelOrder(@RequestBody CancelOrderInfo coi){
         VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
@@ -86,6 +88,14 @@ public class OrderController {
             cor.setOrder(null);
             return cor;
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/calculateSoldTickets", method = RequestMethod.POST)
+    public CalculateSoldTicketResult calculateSoldTicket(@RequestBody CalculateSoldTicketInfo csti){
+        System.out.println("[OrderService][Calculate Sold Tickets] Date:" + csti.getTravelDate() + " TrainNumber:"
+                + csti.getTrainNumber());
+        return orderService.queryAlreadySoldOrders(csti);
     }
 
     private VerifyResult verifySsoLogin(String loginToken){

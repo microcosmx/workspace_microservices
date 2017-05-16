@@ -37,8 +37,8 @@ public class Order {
 
     public Order(){
         boughtDate = new Date(System.currentTimeMillis());
-        travelDate = new Date(System.currentTimeMillis());
-        trainNumber = "B001";
+        travelDate = new Date(5);
+        trainNumber = "AAA";
         coachNumber = 5;
         seatClass = SeatClass.FIRSTCLASS.getCode();
         seatNumber = "5A";

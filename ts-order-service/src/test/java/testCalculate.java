@@ -1,19 +1,22 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import order.domain.CalculateSoldTicketInfo;
 import order.domain.CreateOrderInfo;
 import order.domain.Order;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 import java.util.UUID;
 
-//{"id":"0bff8e54-26fc-4f4c-ad89-c45e9ec5a3d1","boughtDate":1491446005883,"travelDate":1491446005883,"accountId":"c5e84370-484e-4d16-9490-71627540f752","trainNumber":{"type":0,"number":2001},"coachNumber":5,"seatClass":2,"seatNumber":{"position":"A","lineNum":5,"seatNumber":0,"normalSeat":false},"from":"上海虹桥","to":"南京南","status":1}
+public class testCalculate {
 
-public class testCreateOrder {
+
     public static void main(String[] args)throws Exception{
-        URL url = new URL("http://localhost:12031/createNewOrders");
+        URL url = new URL("http://localhost:12031/calculateSoldTickets");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -28,14 +31,12 @@ public class testCreateOrder {
         //!!!!注意使用gson进行日期转换！
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
 
-        Order o = new Order();
-        o.setAccountId(UUID.fromString("c5e84370-484e-4d16-9490-71627540f752"));
+        CalculateSoldTicketInfo csti = new CalculateSoldTicketInfo();
 
-        CreateOrderInfo coi = new CreateOrderInfo();
-        coi.setLoginToken("asda");
-        coi.setOrder(o);
+        csti.setTravelDate(new Date(5));
+        csti.setTrainNumber("AAA");
 
-        String jsonStr = gson.toJson(coi);
+        String jsonStr = gson.toJson(csti);
         System.out.println(jsonStr);
         //写入
         out.write(jsonStr.getBytes("UTF-8"));//这样可以处理中文乱码问题

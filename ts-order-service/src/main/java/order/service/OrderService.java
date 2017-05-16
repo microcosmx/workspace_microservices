@@ -18,4 +18,6 @@ public interface OrderService {
 
     Order alterOrder(OrderAlterInfo oai);
 
+    CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti);
+
 }
