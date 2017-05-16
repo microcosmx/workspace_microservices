@@ -23,6 +23,7 @@ public class Trip {
     @NotNull
     private String startingStation;
 
+    //中间停靠站，最开始的版本只设置一站，也就是说只有起始站、一个停靠站、终点站，在之后的版本中，停靠站扩展为若干站
     @Valid
     private String stations;
 
@@ -37,6 +38,16 @@ public class Trip {
     @Valid
     @NotNull
     private String endTime;
+
+    public Trip(TripId tripId, String trainTypeId, String startingStation, String stations, String terminalStation, String startingTime, String endTime) {
+        this.tripId = tripId;
+        this.trainTypeId = trainTypeId;
+        this.startingStation = startingStation;
+        this.stations = stations;
+        this.terminalStation = terminalStation;
+        this.startingTime = startingTime;
+        this.endTime = endTime;
+    }
 
     public TripId getTripId() {
         return tripId;
