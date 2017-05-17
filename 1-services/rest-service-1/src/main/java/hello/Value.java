@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Value {
 
     private Long id;
-    private String content;
+    private boolean result;
 
     public Value() {
     }
@@ -15,23 +15,23 @@ public class Value {
         return this.id;
     }
 
-    public String getContent() {
-        return this.content;
+    public boolean getContent() {
+        return this.result;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContent(boolean content) {
+        this.result = result;
     }
 
     @Override
     public String toString() {
         return "Value{" +
                 "id=" + id +
-                ", content='" + content + '\'' +
+                ", result='" + result + '\'' +
                 '}';
     }
 }

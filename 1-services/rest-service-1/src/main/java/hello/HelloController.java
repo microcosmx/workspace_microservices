@@ -17,10 +17,13 @@ public class HelloController {
     @Autowired
 	private RestTemplate restTemplate;
 
-    @RequestMapping("/hello")
-    public Value greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    @RequestMapping("/hello1")
+    public Value greeting(@RequestParam(value="cal", defaultValue="50") String cal) {
+
+        int cal2 = Integer.valueOf(cal)*2; 
+        
     	Value value = restTemplate.getForObject(
-				"http://rest-service-end:16000/greeting?name="+name, Value.class);
+				"http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
 		log.info(value.toString());
 		return value;
     }
