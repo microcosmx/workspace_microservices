@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  rest-service-1:
+    build: rest-service-1
+    image: my-service-cluster/rest-service-1
+    restart: always
+    ports:
+      - 16001:16001
+
+  rest-service-end:
+    build: rest-service-end
+    image: my-service-cluster/rest-service-end
+    restart: always
+    ports:
+      - 16000:16000
+
+
+
+
+
+  

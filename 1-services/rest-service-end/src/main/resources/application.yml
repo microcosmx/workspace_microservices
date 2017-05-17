@@ -3,4 +3,4 @@ spring:
     name: rest-service
 
 server:
-  port: 15000
+  port: 16000

@@ -4,8 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
-    <artifactId>rest-service</artifactId>
+    <artifactId>rest-service-end</artifactId>
     <version>0.1.0</version>
+
+    <name>rest-service-end</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,11 +20,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+        
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
@@ -44,7 +42,7 @@
         </plugins>
     </build>
 
-    
+   
     <pluginRepositories>
         <pluginRepository>
             <id>spring-releases</id>
