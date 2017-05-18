@@ -1,6 +1,12 @@
 spring:
   application:
-    name: rest-service
+    name: rest-service-end
+
+  zipkin:
+    baseUrl: http://172.20.0.1:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
 
 server:
   port: 16000

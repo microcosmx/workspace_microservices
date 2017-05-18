@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: rest-service-5
+
+  zipkin:
+    baseUrl: http://172.20.0.1:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
+
+server:
+  port: 16005

@@ -1,4 +1,8 @@
 
+mvn repo:
+https://repo1.maven.org/maven2/
+
+
 clean images:
 docker volume rm $(docker volume ls -qf dangling=true)
 docker images|grep none|awk '{print $3 }'|xargs docker rmi
@@ -12,3 +16,7 @@ docker-compose -f docker-compose.yml build
 run:
 docker-compose -f docker-compose.yml up -d
 docker-compose down
+
+
+rest url:
+http://rest-service-6:16006/hello6?cal=50

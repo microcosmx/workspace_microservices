@@ -9,6 +9,11 @@
 	<name>rest-service-cluster</name>
 
 	<modules>
+		<module>rest-service-6</module>
+		<module>rest-service-5</module>
+		<module>rest-service-4</module>
+		<module>rest-service-3</module>
+		<module>rest-service-2</module>
 		<module>rest-service-1</module>
 		<module>rest-service-end</module>
 	</modules>
