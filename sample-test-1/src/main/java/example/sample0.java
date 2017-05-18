@@ -40,6 +40,11 @@ public class sample0  {
 		driver.navigate().to("http://localhost:16006/hello6?cal=97");
 		driver.navigate().to("http://localhost:16006/hello6?cal=98");
 		driver.navigate().to("http://localhost:16006/hello6?cal=100");
+		
+		driver.get("http://172.20.0.1:16006/hello6?cal=150");
+		driver.get("http://172.20.0.1:16006/hello6?cal=120");
+		driver.get("http://172.20.0.1:16006/hello6?cal=1000");
+		
         driver.quit();
     }
 }

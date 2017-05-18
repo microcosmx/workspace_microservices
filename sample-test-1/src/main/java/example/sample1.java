@@ -56,6 +56,10 @@ public class sample1 {
 				driver.get("http://172.20.0.1:16006/hello6?cal=98");
 				driver.get("http://172.20.0.1:16006/hello6?cal=100");
 				
+				driver.get("http://172.20.0.1:16006/hello6?cal=150");
+				driver.get("http://172.20.0.1:16006/hello6?cal=120");
+				driver.get("http://172.20.0.1:16006/hello6?cal=1000");
+				
 				
 				System.out.println("Page title is: " + driver.getTitle());
 				driver.quit();
