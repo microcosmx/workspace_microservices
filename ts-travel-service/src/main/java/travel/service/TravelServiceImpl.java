@@ -2,11 +2,11 @@ package travel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import travel.domain.*;
 import travel.repository.TripRepository;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Chenjie Xu on 2017/5/9.
@@ -15,6 +15,9 @@ import java.util.List;
 public class TravelServiceImpl implements TravelService{
     @Autowired
     TripRepository repository;
+
+
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public String create(Information info){
@@ -60,14 +63,64 @@ public class TravelServiceImpl implements TravelService{
     }
 
     @Override
-    public TripResponse query(QueryInfo info){
-        TripResponse response = new TripResponse();
+    public List<TripResponse> query(QueryInfo info){
+        List<TripResponse> list = new ArrayList<TripResponse>();
         String startingPlace = info.getStartingPlace();
         String endPlace = info.getEndPlace();
         Date departureTime = info.getDepartureTime();
-        List<Trip> list = repository.findByStartingStationAndTerminalStation(startingPlace,endPlace);
+        List<Trip> list1 = repository.findByStartingStationAndTerminalStation(startingPlace,endPlace);
+        List<Trip> list2 = repository.findByStartingStationAndStations(startingPlace,endPlace);
+        List<Trip> list3 = repository.findByStationsAndTerminalStation(startingPlace,endPlace);
 
+        Iterator<Trip> sListIterator1 = list1.iterator();
+        Iterator<Trip> sListIterator2 = list2.iterator();
+        Iterator<Trip> sListIterator3 = list3.iterator();
 
-        return null;
+        while(sListIterator1.hasNext()) {
+            Trip trip = sListIterator1.next();
+            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+            list.add(response);
+        }
+
+        while(sListIterator2.hasNext()) {
+            Trip trip = sListIterator2.next();
+            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+            list.add(response);
+        }
+
+        while(sListIterator3.hasNext()) {
+            Trip trip = sListIterator3.next();
+            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+            list.add(response);
+        }
+
+        return list;
     }
+
+    private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
+        CalculateSoldTicketInfo information = new CalculateSoldTicketInfo(departureTime,trip.getTripId().toString());
+        CalculateSoldTicketResult result = restTemplate.postForObject(
+                "http://10.141.212.21:12031/calculateSoldTickets", information ,CalculateSoldTicketResult.class);
+
+        TrainType trainType = restTemplate.postForObject(
+                "http://10.141.212.21:14567/train/retrieve", new TrainTypeInfo(trip.getTrainTypeId()), TrainType.class
+        );
+
+        TripResponse response = new TripResponse();
+        response.setConfortClass(trainType.getConfortClass() - result.getFirstClassSeat());
+        System.out.println("trainType.getConfortClass()"+trainType.getConfortClass());
+        System.out.println("result.getFirstClassSeat()"+result.getFirstClassSeat());
+        System.out.println(trainType.getConfortClass() - result.getFirstClassSeat());
+        response.setEconomyClass(trainType.getEconomyClass() - result.getSecondClassSeat());
+        response.setStartingStation(startingPlace);
+        response.setTerminalStation(endPlace);
+        response.setStartingTime(trip.getStartingTime());
+        response.setEndTime(trip.getEndTime());
+        response.setTripId(new TripId(result.getTrainNumber()));
+
+        return response;
+    }
+
+
+
 }

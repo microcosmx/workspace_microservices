@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class testCreateOrder {
     public static void main(String[] args)throws Exception{
-        URL url = new URL("http://localhost:12031/createNewOrders");
+        URL url = new URL("http://10.141.212.21:12031/createNewOrders");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);

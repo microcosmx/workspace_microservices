@@ -16,6 +16,26 @@ public class TripId implements Serializable{
 
     public TripId(){}
 
+    public TripId(String trainNumber){
+        char type = trainNumber.charAt(0);
+        switch(type){
+            case 'G': this.type = Type.G;
+                break;
+            case 'D': this.type = Type.D;
+                break;
+            case 'Z': this.type = Type.Z;
+                break;
+            case 'T': this.type = Type.T;
+                break;
+            case 'K': this.type = Type.K;
+                break;
+            default:break;
+        }
+
+        this.number = trainNumber.substring(1);
+    }
+
+
     public Type getType() {
         return type;
     }
