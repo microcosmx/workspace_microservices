@@ -24,7 +24,7 @@ document.getElementById("login_button").onclick = function post_login(){
     loginInfo.verificationCode = document.getElementById("login_verification_code").value;
     var data = JSON.stringify(loginInfo);
 
-    var url = "http://10.141.212.21:12342/login";
+    var url = "/login";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -59,7 +59,7 @@ document.getElementById("logout_button").onclick = function post_logout(){
     logoutInfo.token = document.getElementById("user_login_token").innerHTML;
     var data = JSON.stringify(logoutInfo);
 
-    var url = "http://10.141.212.21:12342/logout";
+    var url = "/logout";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -96,7 +96,7 @@ document.getElementById("register_button").onclick = function post_register(){
     registerInfo.verificationCode = document.getElementById("register_verificationCode").value;
     var data = JSON.stringify(registerInfo);
 
-    var url = "http://10.141.212.21:12344/register";
+    var url = "/register";
 
     req.open("post",url,true);
     req.withCredentials = true;

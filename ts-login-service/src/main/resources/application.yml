@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: mongo-local
+      host: ts-login-mongo
 #      username: user
 #      password: ${MONGODB_PASSWORD}
       database: jichao

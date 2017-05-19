@@ -8,6 +8,42 @@ services:
     ports:
       - 80:8080
 
+  ts-login-service:
+    build: ts-login-service
+    image: ts/ts-login-service
+    restart: always
+    ports:
+      - 12342:12342
+
+  ts-login-mongo:
+    image: mongo
+
+
+  ts-register-service:
+    build: ts-register-service
+    image: ts/ts-register-service
+    restart: always
+    ports:
+      - 12344:12344
+
+  ts-register-mongo:
+    image: mongo
+
+
+  ts-sso-service:
+    build: ts-sso-service
+    image: ts/ts-sso-service
+    restart: always
+    ports:
+      - 12349:12349
+
+
+  ts-verification-code-service:
+    build: ts-verification-code-service
+    image: ts/ts-verification-code-service
+    restart: always
+    ports:
+      - 15678:15678
 
 
   
