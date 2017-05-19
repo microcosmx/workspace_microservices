@@ -13,4 +13,6 @@ public interface TripRepository extends CrudRepository<Trip,TripId> {
     Trip findByTripId(TripId tripId);
     void deleteByTripId(TripId tripId);
     List<Trip> findByStartingStationAndTerminalStation(String startingStation,String terminalStation);
+    List<Trip> findByStartingStationAndStations(String startingStation,String stations);
+    List<Trip> findByStationsAndTerminalStation(String stations,String terminalStation);
 }

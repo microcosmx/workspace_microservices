@@ -37,13 +37,13 @@ public class Order {
 
     public Order(){
         boughtDate = new Date(System.currentTimeMillis());
-        travelDate = new Date(5);
-        trainNumber = "AAA";
+        travelDate = new Date(123456789);
+        trainNumber = "G1235";
         coachNumber = 5;
         seatClass = SeatClass.FIRSTCLASS.getCode();
         seatNumber = "5A";
-        from = "起点站";
-        to = "终点站";
+        from = "上海";
+        to = "太原";
         status = OrderStatus.PAID.getCode();
         price = 0.0;
     }

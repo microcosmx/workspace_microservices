@@ -10,6 +10,7 @@ import travel.service.TravelService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Chenjie Xu on 2017/5/9.
@@ -48,7 +49,7 @@ public class TravelController {
     //返回Trip以及剩余票数
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel/query", method= RequestMethod.POST)
-    public TripResponse query(@RequestBody QueryInfo info){
+    public List<TripResponse> query(@RequestBody QueryInfo info){
         return travelService.query(info);
     }
 }

@@ -324,7 +324,160 @@
             </div>
         </div>
 
-       <!-------------------------------------------------------------------------------------------------- -->
+        <!----------------Ticker Query---------------------------->
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Query Train & Tickets
+                </h3>
+            </div>
+
+            <div class="input-box panel-body">
+                <form class="form-horizontal" enctype='application/json'
+                      action="" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">From:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="ticket_query_from" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">To:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="ticket_query_to" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Date:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="date" id="ticket_query_time" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="train_search_button" type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped">
+                    <caption>Query Result</caption>
+                    <thead>
+                    <tr>
+                        <th>车次</th>
+                        <th>起始站</th>
+                        <th>到达站</th>
+                        <th>开车时间</th>
+                        <th>到达时间</th>
+                        <th>二等座余量</th>
+                        <th>商务座余量</th>
+                        <th>预订</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>G001</td>
+                        <td>上海虹桥</td>
+                        <td>南京南</td>
+                        <td>09:00</td>
+                        <td>10：30</td>
+                        <td>241</td>
+                        <td>87</td>
+                        <td><button class="btn btn-primary">预订</button></td>
+                    </tr>
+                    <tr>
+                        <td>G005</td>
+                        <td>上海虹桥</td>
+                        <td>南京南</td>
+                        <td>13:00</td>
+                        <td>15：30</td>
+                        <td>12</td>
+                        <td>0</td>
+                        <td><button class="btn btn-primary">预订</button></td>
+                    </tr>
+                    <tr>
+                        <td>G0121</td>
+                        <td>上海虹桥</td>
+                        <td>南京南</td>
+                        <td>19:00</td>
+                        <td>20：30</td>
+                        <td>512</td>
+                        <td>139</td>
+                        <td><button class="btn btn-primary">预订</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-------------Buy Ticket------------------------------------>
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Ticket Booking
+                </h3>
+                <div class="panel-body">
+                    <div>
+                        <form class="form-inline" role="form" method="get">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label><input name="Fruit" type="checkbox" value=" " />Rose </label>
+                                    <label><input name="Fruit" type="checkbox" value=" " />Jack </label>
+                                    <label><input name="Fruit" type="checkbox" value=" " />Smith </label>
+                                    <label><input name="Fruit" type="checkbox" value=" " />Bill Gates </label>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>坐席等级</th>
+                            <th>姓名</th>
+                            <th>证件类型</th>
+                            <th>证件号</th>
+                            <th>手机号码</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <div>
+                                        <select id="reserve_ticket_seatClass" class="form-control" name="documentType">
+                                            <option value="1">二等座</option>
+                                            <option value="2">商务座</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><input class="form-control" id="reserve_name" name='name' value='冀超'></td>
+                                <td>
+                                    <div>
+                                        <select id="reserve_ticket_documentType" class="form-control" name="documentType">
+                                            <option value="1">ID Card</option>
+                                            <option value="2">Passport</option>
+                                            <option value="3">Other</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><input class="form-control" id="reserve_documentNum" name='name' value='E2313123213123'></td>
+                                <td><input class="form-control" id="reserve_phoneNum" name='name' value='13123213'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="reserve_button" type="button" class="btn btn-primary">确认预订</button>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <!-------------------------------------------------------------------------------------------------- -->
 
         <div class="step panel panel-default">
             <div class="panel-heading">
