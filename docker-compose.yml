@@ -1,31 +1,12 @@
 version: '3'
 services:
 
-  rest-service:
-    build: rest-service
-    image: my/rest-service
+  ts-ui-dashboard:
+    build: ts-ui-dashboard
+    image: ts/ts-ui-dashboard
     restart: always
     ports:
-      - 15000:15000
-
-  rest-client:
-    build: rest-client
-    image: my/rest-client
-    restart: always
-    ports:
-      - 15001:15001
-
-
-
-  mongo-local:
-    build: mongo-local
-    image: my/mongo
-    restart: always
-
-  mongo-access:
-    build: mongo-cluster
-    image: my/mongo-access
-    # restart: always
+      - 80:8080
 
 
 
