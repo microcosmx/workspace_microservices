@@ -12,8 +12,9 @@ public class CalculateSoldTicketInfo {
         return travelDate;
     }
 
-    public void setTravelDate(Date travelDate) {
-        this.travelDate = travelDate;
+    public void setTravelDate(int year,int month,int day){
+        Date date = new Date(year,month,day,0,0,0);
+        this.travelDate = date;
     }
 
     public String getTrainNumber() {

@@ -124,6 +124,7 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setAccountId(order.getAccountId());
             oldOrder.setBoughtDate(order.getBoughtDate());
             oldOrder.setTravelDate(order.getTravelDate());
+            oldOrder.setTravelTime(order.getTravelTime());
             oldOrder.setCoachNumber(order.getCoachNumber());
             oldOrder.setSeatClass(order.getSeatClass());
             oldOrder.setSeatNumber(order.getSeatNumber());
@@ -131,6 +132,7 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setTo(order.getTo());
             oldOrder.setStatus(order.getStatus());
             oldOrder.setTrainNumber(order.getTrainNumber());
+            oldOrder.setPrice(order.getPrice());
             orderRepository.save(oldOrder);
             System.out.println("[Order-Modify-Service] Success.");
             cor.setOrder(oldOrder);

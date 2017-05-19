@@ -15,7 +15,11 @@ public class Order {
 
     private Date boughtDate;
 
+    //精确到到天，比如某年某月某天
     private Date travelDate;
+
+    //发车的时刻，和在某一天无关
+    private Date travelTime;
 
     private UUID accountId;
 
@@ -62,6 +66,7 @@ public class Order {
         Order other = (Order) obj;
         return boughtDate.equals(other.getBoughtDate())
                 && travelDate.equals(other.getTravelDate())
+                && travelTime.equals(other.getTravelTime())
                 && accountId .equals( other.getAccountId() )
                 && trainNumber.equals(other.getTrainNumber())
                 && coachNumber == other.getCoachNumber()
@@ -103,6 +108,23 @@ public class Order {
 
     public void setTravelDate(Date travelDate) {
         this.travelDate = travelDate;
+    }
+
+    public void setTravelDate(int year,int month,int day){
+        Date date = new Date(year,month,day,0,0,0);
+        this.travelDate = date;
+    }
+
+    public Date getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(Date travelTime) {
+        this.travelTime = travelTime;
+    }
+
+    public void setTravelTime(int hour,int minute){
+        Date date = new Date(1970,1,1,hour,minute,0);
     }
 
     public String getTrainNumber() {
