@@ -5,7 +5,7 @@ server:
 spring:
   data:
     mongodb:
-      host: order-mongo
+      host: ts-order-mongo
 #      username: user
 #      password: ${MONGODB_PASSWORD}
 #      database: piggymetrics

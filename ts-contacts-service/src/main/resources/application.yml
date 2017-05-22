@@ -1,10 +1,10 @@
 spring:
   data:
     mongodb:
-      host: contacts-mongo
+      host: ts-contacts-mongo
 #      username: user
 #      password: ${MONGODB_PASSWORD}
-      database: jichao
+      database: ts
       port: 27017
 
 # HTTP Server

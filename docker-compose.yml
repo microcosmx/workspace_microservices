@@ -45,6 +45,27 @@ services:
     ports:
       - 15678:15678
 
+  ts-contacts-service:
+    build: ts-contacts-service
+    image: ts/ts-contacts-service
+    restart: always
+    ports:
+      - 12347:12347
+
+  ts-contacts-mongo:
+      image: mongo
+
+  ts-order-service:
+    build: ts-order-service
+    image: ts/ts-order-service
+    restart: always
+    ports:
+      - 12031:12031
+
+  ts-order-mongo:
+    image: mongo
+
+
   ts-config-service:
     build: ts-config-service
     image: ts/ts-config-service
