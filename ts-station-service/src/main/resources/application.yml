@@ -4,7 +4,7 @@ spring:
       host: ts-station-mongo
 #      username: user
 #      password: ${MONGODB_PASSWORD}
-#      database: piggymetrics
+      database: ts
       port: 27017
 
 # HTTP Server

@@ -34,8 +34,14 @@ public class ConfigController {
     }
 
     @CrossOrigin(origins = "*")
+    @RequestMapping(value="/config/retrieve", method = RequestMethod.POST)
+    public Config retrieve(@RequestBody Information2 info){
+        return configService.retrieve(info);
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(value="/config/query", method = RequestMethod.POST)
-    public Config query(@RequestBody Information2 info){
+    public String query(@RequestBody Information2 info){
         return configService.query(info);
     }
 

@@ -7,6 +7,7 @@ import config.domain.Information2;
 public interface ConfigService {
     String create(Information info);
     String update(Information info);
-    Config query(Information2 info);
+    Config retrieve(Information2 info);
+    String query(Information2 info);
     String delete(Information2 info);
 }

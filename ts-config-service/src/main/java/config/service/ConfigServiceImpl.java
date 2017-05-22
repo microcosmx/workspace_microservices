@@ -46,11 +46,19 @@ public class ConfigServiceImpl implements ConfigService {
         }
     }
 
-    public Config query(Information2 info){
+    public Config retrieve(Information2 info){
         if(repository.findByName(info.getName()) == null){
             return null;
         }else{
             return repository.findByName(info.getName());
+        }
+    }
+
+    public String query(Information2 info){
+        if(repository.findByName(info.getName()) == null){
+            return null;
+        }else{
+            return repository.findByName(info.getName()).getValue();
         }
     }
 
