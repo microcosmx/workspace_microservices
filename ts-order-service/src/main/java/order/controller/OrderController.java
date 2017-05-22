@@ -51,8 +51,6 @@ public class OrderController {
             oar.setNewOrder(null);
             return oar;
         }
-
-
     }
 
     @CrossOrigin(origins = "*")

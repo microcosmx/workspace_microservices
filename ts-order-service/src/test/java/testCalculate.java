@@ -33,7 +33,7 @@ public class testCalculate {
 
         CalculateSoldTicketInfo csti = new CalculateSoldTicketInfo();
 
-        csti.setTravelDate(new Date(5));
+        //csti.setTravelDate(new Date(5));
         csti.setTrainNumber("AAA");
 
         String jsonStr = gson.toJson(csti);
