@@ -45,5 +45,43 @@ services:
     ports:
       - 15678:15678
 
+  ts-config-service:
+    build: ts-config-service
+    image: ts/ts-config-service
+    restart: always
+    ports:
+      - 15679:15679
 
-  
+  ts-config-mongo:
+    image: mongo
+
+  ts-station-service:
+    build: ts-station-service
+    image: ts/ts-station-service
+    restart: always
+    ports:
+      - 12345:12345
+
+  ts-station-mongo:
+    image: mongo
+
+  ts-train-service:
+    build: ts-train-service
+    image: ts/ts-train-service
+    restart: always
+    ports:
+      - 14567:14567
+
+  ts-train-mongo:
+    image: mongo
+
+#  ts-travel-service:
+#    build: ts-travel-service
+#    image: ts/ts-travel-service
+#    restart: always
+#    ports:
+#      - 12346:12346
+#
+#  ts-travel-mongo:
+#    image: mongo
+
