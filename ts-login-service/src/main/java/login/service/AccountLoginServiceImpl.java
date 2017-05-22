@@ -35,11 +35,16 @@ public class AccountLoginServiceImpl implements AccountLoginService {
             lr.setAccount(result);
             return lr;
         }else{
-            System.out.println("[Account-Login-Service][Login] Fail.Wrong Password.");
             LoginResult lr = new LoginResult();
             lr.setStatus(false);
-            lr.setMessage("Password Wrong");
             lr.setAccount(null);
+            if(result == null){
+                lr.setMessage("Account Not Exist");
+                System.out.println("[Account-Login-Service][Login] Fail.Account Not Exist.");
+            }else{
+                lr.setMessage("Password Wrong");
+                System.out.println("[Account-Login-Service][Login] Fail.Wrong Password.");
+            }
             return lr;
         }
     }

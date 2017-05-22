@@ -4,7 +4,7 @@ spring:
       host: ts-account-mongo
 #      username: user
 #      password: ${MONGODB_PASSWORD}
-      database: jichao
+      database: ts
       port: 27017
 
 # HTTP Server

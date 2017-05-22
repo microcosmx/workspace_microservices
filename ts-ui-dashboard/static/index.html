@@ -5,7 +5,7 @@
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 
-    <title>Train Ticker System</title>
+    <title>Train Ticket System</title>
 
     <meta name="description" content="测试订票系统，需跑通三个流程">
     <meta name="author" content="Chenjie Xu">
@@ -83,7 +83,7 @@
             <li class="list-group-item">注意：仅在下面为登录状态时才可进行部分敏感操作。请首先登录，获得以下两个值。
                 <button id="logout_button" type="button" class="btn btn-primary">Logout</button></li>
             <li class="list-group-item">Login User ID：<label id="user_login_id">Not Login</label></li>
-            <li class="list-group-item">Login User Token:<label id="user_login_token">Please Login</label></li>
+            <li class="list-group-item">Login User Token：<label id="user_login_token">Please Login</label></li>
         </ul>
     </div>
 
@@ -184,76 +184,6 @@
             </div>
         </div>
 
-
-        <!------------------------------------------Add Contacts------------------------------------------------------ -->
-
-
-        <div class="step panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Add Contacts
-                </h3>
-            </div>
-            <div class="group panel-body">
-                <div class="input-box">
-                    <form role="form" class="form-horizontal" enctype='application/json'
-                          action="" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">People Name:</label>
-                            <div class="col-sm-10">
-                                <input id="add_contacts_name" class="form-control" name='name' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Select Your Document Type: </label>
-                            <div class="col-sm-10">
-                                <select id="add_contacts_documentType" class="form-control" name="documentType">
-                                    <option value="1">ID Card</option>
-                                    <option value="2">Passport</option>
-                                    <option value="3">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Document Number:</label>
-                            <div class="col-sm-10">
-                                <input id="add_contacts_documentNum" class="form-control" name='documentNumber' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Phone Number:</label>
-                            <div class="col-sm-10">
-                                <input id="add_contacts_phoneNum" class="form-control" name='phoneNumber' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button id="add_contacts_button" type="button" class="btn btn-primary">Add Contacts</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2">
-                                <label class="control-label">Add Contacts Status:</label>
-                                <span id="add_contacts_result_status"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2">
-                                <label class="control-label">Add Contacts Message:</label>
-                                <span id="add_contacts_result_msg"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2">
-                                <label class="control-label">Contacts Info:</label>
-                                <span id="add_contacts_result_contacts"></span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!---------------------------------------Login ------------------------------------------- -->
 
         <div class="step panel panel-default">
@@ -325,7 +255,189 @@
             </div>
         </div>
 
-       <!-------------------------------------------------Station---------------------------------------------- -->
+        <!------------------------------------------Add Contacts------------------------------------------------------ -->
+
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Add Contacts
+                </h3>
+            </div>
+            <div class="group panel-body">
+                <div class="input-box">
+                    <form role="form" class="form-horizontal" enctype='application/json'
+                          action="" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">People Name:</label>
+                            <div class="col-sm-10">
+                                <input id="add_contacts_name" class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Select Your Document Type: </label>
+                            <div class="col-sm-10">
+                                <select id="add_contacts_documentType" class="form-control" name="documentType">
+                                    <option value="1">ID Card</option>
+                                    <option value="2">Passport</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Document Number:</label>
+                            <div class="col-sm-10">
+                                <input id="add_contacts_documentNum" class="form-control" name='documentNumber' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Phone Number:</label>
+                            <div class="col-sm-10">
+                                <input id="add_contacts_phoneNum" class="form-control" name='phoneNumber' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="add_contacts_button" type="button" class="btn btn-primary">Add Contacts</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <label class="control-label">Add Contacts Status:</label>
+                                <span id="add_contacts_result_status"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <label class="control-label">Add Contacts Message:</label>
+                                <span id="add_contacts_result_msg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <label class="control-label">Contacts Info:</label>
+                                <span id="add_contacts_result_contacts"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!----------------Query Contacts------------------>
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Your Contacts List     <button id="refresh_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                    <button id="remove_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                </h3>
+            </div>
+            <div class="group panel-body">
+                <table class="table table-striped" id="contacts_list_table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Document Type</th>
+                            <th>Document Number</th>
+                            <th>Phone Number</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!----An empty table----->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!----------------Ticke Query---------------------------->
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Query Train & Tickets
+                </h3>
+            </div>
+
+            <div class="input-box panel-body">
+                <form class="form-horizontal" enctype='application/json'
+                      action="" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">From:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="ticket_query_from" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">To:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="ticket_query_to" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Date:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="date" id="ticket_query_time" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="train_search_button" type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped">
+                    <caption>Query Result</caption>
+                    <thead>
+                    <tr>
+                        <th>车次</th>
+                        <th>起始站</th>
+                        <th>到达站</th>
+                        <th>开车时间</th>
+                        <th>到达时间</th>
+                        <th>二等座余量</th>
+                        <th>商务座余量</th>
+                        <th>预订</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>G001</td>
+                        <td>上海虹桥</td>
+                        <td>南京南</td>
+                        <td>09:00</td>
+                        <td>10：30</td>
+                        <td>241</td>
+                        <td>87</td>
+                        <td><button class="btn btn-primary">预订</button></td>
+                    </tr>
+                    <tr>
+                        <td>G005</td>
+                        <td>上海虹桥</td>
+                        <td>南京南</td>
+                        <td>13:00</td>
+                        <td>15：30</td>
+                        <td>12</td>
+                        <td>0</td>
+                        <td><button class="btn btn-primary">预订</button></td>
+                    </tr>
+                    <tr>
+                        <td>G0121</td>
+                        <td>上海虹桥</td>
+                        <td>南京南</td>
+                        <td>19:00</td>
+                        <td>20：30</td>
+                        <td>512</td>
+                        <td>139</td>
+                        <td><button class="btn btn-primary">预订</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-------------------------------------------------Station---------------------------------------------- -->
         <div class="step panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">

@@ -148,6 +148,59 @@ function handle_add_contacts_result(){
         document.getElementById("add_contacts_result_contacts").innerHTML = JSON.stringify(obj["contacts"]);
     }
 }
+//For query contacts
+$("#refresh_contacts_button").click(function refresh_contacts(){
+
+    req = getXmlHttpRequest();
+    var queryContactsInfo = new Object();
+    queryContactsInfo.accountId = document.getElementById("user_login_id").innerHTML;
+    queryContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
+    var data = JSON.stringify(queryContactsInfo);
+    var url = "http://10.141.212.21:12347/findContacts";
+
+    req.open("post",url,true);
+    req.withCredentials = true;
+    req.setRequestHeader("Content-Type", "application/json");
+    req.onreadystatechange = handle_query_contacts_result;
+    req.send(data);
+
+    // $("#contacts_list_table").find("tbody").append(
+    //     "<tr>" +
+    //     "<td>" + "5" + "</td>" +
+    //     "<td>" + "jichao" + "</td>" +
+    //     "<td>" + "身份证" + "</td>" +
+    //     "<td>" + "21123123" + "</td>" +
+    //     "<td>" + "2122131123123" + "</td>" +
+    //     "<td>" + "删除" + "</td>" +
+    //     "</tr>"
+    // );
+
+});
+
+function handle_query_contacts_result(){
+    if(req.readyState == 4){
+        var resultstr = req.responseText;
+        $("#contacts_list_table").find("tbody").html("");
+        var obj = JSON.parse(resultstr);
+
+        for(var i = 0,l = obj.length ; i < l ; i++){
+            $("#contacts_list_table").find("tbody").append(
+                "<tr>" +
+                "<td>" + i + "</td>" +
+                "<td>" + obj[i]["name"] + "</td>" +
+                "<td>" + obj[i]["documentType"] + "</td>" +
+                "<td>" + obj[i]["documentNumber"] + "</td>" +
+                "<td>" + obj[i]["phoneNumber"] + "</td>" +
+                "<td>" + "此区域未完成" + "</td>" +
+                "</tr>"
+            );
+        }
+    }
+}
+
+$("#remove_contacts_button").click(function refresh_contacts(){
+    $("#contacts_list_table").find("tbody").html("");
+});
 
 
 //------For Station------------

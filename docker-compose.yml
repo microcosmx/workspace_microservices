@@ -15,7 +15,7 @@ services:
     ports:
       - 12342:12342
 
-  ts-login-mongo:
+  ts-account-mongo:
     image: mongo
 
 
