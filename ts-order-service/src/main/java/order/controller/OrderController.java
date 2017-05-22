@@ -39,8 +39,20 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/alterOrder", method = RequestMethod.POST)
-    public Order alterOrder(@RequestBody OrderAlterInfo oai){
-        return orderService.alterOrder(oai);
+    public OrderAlterResult alterOrder(@RequestBody OrderAlterInfo oai){
+        VerifyResult vr = verifySsoLogin(oai.getLoginToken());
+        if(vr.isStatus() == true){
+            return orderService.alterOrder(oai);
+        }else{
+            OrderAlterResult oar = new OrderAlterResult();
+            oar.setStatus(false);
+            oar.setMessage("Not Login");
+            oar.setOldOrder(null);
+            oar.setNewOrder(null);
+            return oar;
+        }
+
+
     }
 
     @CrossOrigin(origins = "*")

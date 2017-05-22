@@ -25,14 +25,14 @@ public class OrderServiceImpl implements OrderService{
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
         if(accountOrders.contains(order)){
-            System.out.println("[Order-Create-Service][OrderCreate] Fail.Order already exists.");
+            System.out.println("[Order Service][Order Create] Fail.Order already exists.");
             cor.setStatus(false);
             cor.setMessage("Order already exist");
             cor.setOrder(null);
         }else{
             order.setId(UUID.randomUUID());
             orderRepository.save(order);
-            System.out.println("[Order-Create-Service][OrderCreate] Success.");
+            System.out.println("[Order Service][Order Create] Success.");
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(order);
@@ -41,18 +41,36 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order alterOrder(OrderAlterInfo oai){
+    public OrderAlterResult alterOrder(OrderAlterInfo oai){
+        OrderAlterResult oar = new OrderAlterResult();
         UUID oldOrderId = oai.getPreviousOrderId();
         Order oldOrder = findOrderById(oldOrderId);
         if(oldOrder == null){
-            System.out.println("[Order-Alter-Service][AlterOrder] Fail.Order do not exist.");
-            return null;
+            System.out.println("[Order Service][Alter Order] Fail.Order do not exist.");
+            oar.setStatus(false);
+            oar.setMessage("Old Order Does Not Exists");
+            oar.setOldOrder(null);
+            oar.setNewOrder(null);
+            return oar;
         }
         oldOrder.setStatus(OrderStatus.CANCEL.getCode());
         saveChanges(oldOrder);
-        create(oai.getNewOrderInfo());
-        System.out.println("[Order-Alter-Service][AlterOrder] Success.");
-        return oai.getNewOrderInfo();
+        Order newOrder = oai.getNewOrderInfo();
+        newOrder.setId(UUID.randomUUID());
+        CreateOrderResult cor = create(oai.getNewOrderInfo());
+        if(cor.isStatus() == true){
+            oar.setStatus(true);
+            oar.setMessage("Success");
+            oar.setOldOrder(oldOrder);
+            oar.setNewOrder(newOrder);
+            System.out.println("[Order Service][Alter Order] Success.");
+        }else{
+            oar.setStatus(false);
+            oar.setMessage(cor.getMessage());
+            oar.setOldOrder(null);
+            oar.setNewOrder(null);
+        }
+        return oar;
     }
 
     @Override
@@ -103,10 +121,10 @@ public class OrderServiceImpl implements OrderService{
                     finalList.add(tempOrder);
                 }
             }
-            System.out.println("[Order-Query-Service][QueryOrder] Get order num:" + finalList.size());
+            System.out.println("[Order Service][Query Order] Get order num:" + finalList.size());
             return finalList;
         }else{
-            System.out.println("[Order-Query-Service][QueryOrder] Get order num:" + list.size());
+            System.out.println("[Order Service][Query Order] Get order num:" + list.size());
             return list;
         }
     }
@@ -116,7 +134,7 @@ public class OrderServiceImpl implements OrderService{
         Order oldOrder = findOrderById(order.getId());
         ChangeOrderResult cor = new ChangeOrderResult();
         if(oldOrder == null){
-            System.out.println("[Order-Modify-Service][ModifyOrder] Fail.Order not found.");
+            System.out.println("[Order Service][Modify Order] Fail.Order not found.");
             cor.setStatus(false);
             cor.setMessage("Order Not Found");
             cor.setOrder(null);
@@ -134,7 +152,7 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setTrainNumber(order.getTrainNumber());
             oldOrder.setPrice(order.getPrice());
             orderRepository.save(oldOrder);
-            System.out.println("[Order-Modify-Service] Success.");
+            System.out.println("[Order Service] Success.");
             cor.setOrder(oldOrder);
             cor.setStatus(true);
             cor.setMessage("Success");
@@ -148,7 +166,7 @@ public class OrderServiceImpl implements OrderService{
         Order oldOrder = orderRepository.findById(orderId);
         CancelOrderResult cor = new CancelOrderResult();
         if(oldOrder == null){
-            System.out.println("[Cancel-Order-Service][CancelOrder] Fail.Order not found.");
+            System.out.println("[Cancel Service][Cancel Order] Fail.Order not found.");
             cor.setStatus(false);
             cor.setMessage("Order Not Found");
             cor.setOrder(null);
@@ -156,7 +174,7 @@ public class OrderServiceImpl implements OrderService{
         }else{
             oldOrder.setStatus(OrderStatus.CANCEL.getCode());
             orderRepository.save(oldOrder);
-            System.out.println("[Cancel-Order-Service][CancelOrder] Success.");
+            System.out.println("[Cancel Service][Cancel Order] Success.");
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(oldOrder);
@@ -170,7 +188,7 @@ public class OrderServiceImpl implements OrderService{
         CalculateSoldTicketResult cstr = new CalculateSoldTicketResult();
         cstr.setTravelDate(csti.getTravelDate());
         cstr.setTrainNumber(csti.getTrainNumber());
-        System.out.println("[OrderService][CalculateSoldTicket] Get Orders Number:" + orders.size());
+        System.out.println("[Order Service][Calculate Sold Ticket] Get Orders Number:" + orders.size());
         for(Order order : orders){
             if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
                 continue;
@@ -194,7 +212,7 @@ public class OrderServiceImpl implements OrderService{
             }else if(order.getSeatClass() == SeatClass.HIGHSOFTBED.getCode()){
                 cstr.setHighSoftBed(cstr.getHighSoftBed() + 1);
             }else{
-                System.out.println("[OrderService][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
+                System.out.println("[Order Service][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
             }
         }
         return cstr;

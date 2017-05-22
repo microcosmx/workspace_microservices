@@ -16,7 +16,7 @@ public interface OrderService {
 
     ArrayList<Order> queryOrders(QueryInfo qi);
 
-    Order alterOrder(OrderAlterInfo oai);
+    OrderAlterResult alterOrder(OrderAlterInfo oai);
 
     CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti);
 
