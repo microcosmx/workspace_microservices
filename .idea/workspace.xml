@@ -2,40 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/application.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/OrderApplication.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/controller/OrderController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/CalculateSoldTicketInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/CalculateSoldTicketResult.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/CancelOrderInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/CancelOrderResult.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/ChangeOrderInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/ChangeOrderResult.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/CreateOrderInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/CreateOrderResult.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/OrderAlterInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/OrderStatus.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/QueryInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/SeatClass.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/SeatNumber.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/TrainNumber.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/TrainType.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/domain/VerifyResult.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/repository/OrderRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/service/OrderService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/classes/order/service/OrderServiceImpl.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/maven-archiver/pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/test-classes/testCalculate.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/test-classes/testCancelOrder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/test-classes/testChangeOrderInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/test-classes/testCreateOrder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/test-classes/testQueryOrder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-order-service/target/test-classes/testRebookOrder.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-contacts-service/Dockerfile" afterPath="$PROJECT_DIR$/ts-contacts-service/Dockerfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/Dockerfile" afterPath="$PROJECT_DIR$/ts-order-service/Dockerfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-order-service/src/test/java/testCalculate.java" afterPath="$PROJECT_DIR$/ts-order-service/src/test/java/testCalculate.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/ConfigQueryInfo.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/application.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/ConfigApplication.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/controller/ConfigController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/domain/Config.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/domain/Information.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/domain/Information2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/repository/ConfigRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/service/ConfigService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/classes/config/service/ConfigServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-config-service/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/application.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/TrainApplication.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/controller/TrainController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/domain/Information.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/domain/Information2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/domain/TrainType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/repository/TrainTypeRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/service/TrainService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/classes/train/service/TrainServiceImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-train-service/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/target/classes/travel/controller/TravelController.class" afterPath="$PROJECT_DIR$/ts-travel-service/target/classes/travel/controller/TravelController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/target/classes/travel/service/TravelServiceImpl.class" afterPath="$PROJECT_DIR$/ts-travel-service/target/classes/travel/service/TravelServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docker-compose.yml" afterPath="$PROJECT_DIR$/docker-compose.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/controller/ConfigController.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/controller/ConfigController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigService.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigServiceImpl.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/resources/application.yml" afterPath="$PROJECT_DIR$/ts-config-service/src/main/resources/application.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-preserve-service/src/main/resources/application.yml" afterPath="$PROJECT_DIR$/ts-preserve-service/src/main/resources/application.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-station-service/src/main/resources/application.yml" afterPath="$PROJECT_DIR$/ts-station-service/src/main/resources/application.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-train-service/src/main/resources/application.yml" afterPath="$PROJECT_DIR$/ts-train-service/src/main/resources/application.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelServiceImpl.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-ui-dashboard/nginx.conf" afterPath="$PROJECT_DIR$/ts-ui-dashboard/nginx.conf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-ui-dashboard/static/index.html" afterPath="$PROJECT_DIR$/ts-ui-dashboard/static/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/ts-sso-service/target/" />
     <ignored path="$PROJECT_DIR$/ts-config-service/target/" />
@@ -70,8 +72,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/workspace_microservices$testLogin.coverage" NAME="testLogin Coverage Results" MODIFIED="1492173515224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/workspace_microservices$testCancelOrder.coverage" NAME="testCancelOrder Coverage Results" MODIFIED="1492678955262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/workspace_microservices$testLogin.coverage" NAME="testLogin Coverage Results" MODIFIED="1492173515224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -82,8 +84,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="18" selection-start-column="41" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="460">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -231,10 +233,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="56" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1318" />
-    <option name="height" value="784" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -254,8 +256,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -278,13 +278,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ts-travel-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="workspace_microservices" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ts-train-service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -916,14 +932,15 @@
       <workItem from="1495448959293" duration="140000" />
       <workItem from="1495449121769" duration="386000" />
       <workItem from="1495449554277" duration="60000" />
+      <workItem from="1495460101973" duration="25000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60967000" />
+    <option name="totallyTimeSpent" value="60992000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="56" y="-8" width="1318" height="784" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -933,15 +950,15 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.51150304" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14132105" sideWeight="0.48502994" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.141258" sideWeight="0.48502994" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0029717681" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0029717681" sideWeight="0.48849693" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25422427" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25692964" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="551" y="47" width="326" height="674" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1309,7 +1326,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-204">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1364,8 +1380,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="18" selection-start-column="41" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="460">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>

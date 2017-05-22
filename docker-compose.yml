@@ -96,13 +96,13 @@ services:
   ts-train-mongo:
     image: mongo
 
-#  ts-travel-service:
-#    build: ts-travel-service
-#    image: ts/ts-travel-service
-#    restart: always
-#    ports:
-#      - 12346:12346
-#
-#  ts-travel-mongo:
-#    image: mongo
+  ts-travel-service:
+    build: ts-travel-service
+    image: ts/ts-travel-service
+    restart: always
+    ports:
+      - 12346:12346
+
+  ts-travel-mongo:
+    image: mongo
 

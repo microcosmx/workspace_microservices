@@ -99,15 +99,21 @@ public class TravelServiceImpl implements TravelService{
 
     private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
         //车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
+
         //车站站名服务
         Boolean startingPlaceExist = restTemplate.postForObject(
                 "http://10.141.212.21:12345/station/exist", new StationInformation(startingPlace), Boolean.class);
         //
         Boolean endPlaceExist = restTemplate.postForObject(
                 "http://10.141.212.21:12345/station/exist", new StationInformation(endPlace),  Boolean.class);
-        System.out.println(startingPlace);
-        System.out.println(endPlace);
+
         //配置
+        //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
+        //50张票，因为AB和AC拼起来正好是一张AC。
+        String proportion = restTemplate.postForObject("http://10.141.212.21:15679/config/query",
+                new ConfigQueryInfo("直达车票分配比例"), String.class
+        );
+        System.out.println("proportion:" +proportion);
 
 
         //车服务
