@@ -98,14 +98,29 @@ public class TravelServiceImpl implements TravelService{
     }
 
     private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
-        CalculateSoldTicketInfo information = new CalculateSoldTicketInfo(departureTime,trip.getTripId().toString());
-        CalculateSoldTicketResult result = restTemplate.postForObject(
-                "http://10.141.212.21:12031/calculateSoldTickets", information ,CalculateSoldTicketResult.class);
+        //车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
+        //车站站名服务
+        Boolean startingPlaceExist = restTemplate.postForObject(
+                "http://10.141.212.21:12345/station/exist", new StationInformation(startingPlace), Boolean.class);
+        //
+        Boolean endPlaceExist = restTemplate.postForObject(
+                "http://10.141.212.21:12345/station/exist", new StationInformation(endPlace),  Boolean.class);
+        System.out.println(startingPlace);
+        System.out.println(endPlace);
+        //配置
 
+
+        //车服务
         TrainType trainType = restTemplate.postForObject(
                 "http://10.141.212.21:14567/train/retrieve", new TrainTypeInfo(trip.getTrainTypeId()), TrainType.class
         );
 
+        //车票订单_高铁动车（已购票数）
+        CalculateSoldTicketInfo information = new CalculateSoldTicketInfo(departureTime,trip.getTripId().toString());
+        CalculateSoldTicketResult result = restTemplate.postForObject(
+                "http://10.141.212.21:12031/calculateSoldTickets", information ,CalculateSoldTicketResult.class);
+
+        //设置返回的车票信息
         TripResponse response = new TripResponse();
         response.setConfortClass(trainType.getConfortClass() - result.getFirstClassSeat());
         System.out.println("trainType.getConfortClass()"+trainType.getConfortClass());
