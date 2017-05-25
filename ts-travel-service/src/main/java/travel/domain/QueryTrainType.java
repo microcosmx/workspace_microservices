@@ -7,12 +7,12 @@ import javax.validation.Valid;
 /**
  * Created by Chenjie Xu on 2017/5/18.
  */
-public class TrainTypeInfo {
+public class QueryTrainType {
     @Valid
     @Id
     private String id;      //车型ID，每个车型一个ID，比如某个型号的动车
 
-    public TrainTypeInfo(String id) {
+    public QueryTrainType(String id) {
         this.id = id;
     }
 

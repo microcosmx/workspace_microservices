@@ -2,7 +2,7 @@ package travel.domain;
 
 import java.util.Date;
 
-public class CalculateSoldTicketResult {
+public class ResultSoldTicket {
 
     private Date travelDate;
 
@@ -26,7 +26,7 @@ public class CalculateSoldTicketResult {
 
     private int highSoftBed;
 
-    public CalculateSoldTicketResult(){
+    public ResultSoldTicket(){
         noSeat = 0;
         businessSeat = 0;
         firstClassSeat = 0;

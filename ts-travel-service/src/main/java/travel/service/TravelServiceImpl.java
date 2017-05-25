@@ -102,37 +102,61 @@ public class TravelServiceImpl implements TravelService{
 
         //车站站名服务
         Boolean startingPlaceExist = restTemplate.postForObject(
-                "http://10.141.212.21:12345/station/exist", new StationInformation(startingPlace), Boolean.class);
-        //
+                "http://ts-station-service:12345/station/exist", new QueryStation(startingPlace), Boolean.class);
+
         Boolean endPlaceExist = restTemplate.postForObject(
-                "http://10.141.212.21:12345/station/exist", new StationInformation(endPlace),  Boolean.class);
+                "http://ts-station-service:12345/station/exist", new QueryStation(endPlace),  Boolean.class);
+
+        if(!startingPlaceExist || !endPlaceExist){
+            return null;
+        }
 
         //配置
         //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
         //50张票，因为AB和AC拼起来正好是一张AC。
-        String proportion = restTemplate.postForObject("http://10.141.212.21:15679/config/query",
-                new ConfigQueryInfo("直达车票分配比例"), String.class
+        String proportion = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+                new QueryConfig("直达车票分配比例"), String.class
         );
-        System.out.println("proportion:" +proportion);
+        double percent = 1.0;
+        if(proportion.contains("%")) {
+            proportion = proportion.replaceAll("%", "");
+            percent = Double.valueOf(proportion)/100;
+        }
 
 
         //车服务
         TrainType trainType = restTemplate.postForObject(
-                "http://10.141.212.21:14567/train/retrieve", new TrainTypeInfo(trip.getTrainTypeId()), TrainType.class
+                "http://ts-train-service:14567/train/retrieve", new QueryTrainType(trip.getTrainTypeId()), TrainType.class
         );
 
+        if(trainType == null){
+            System.out.println("traintype doesn't exist");
+            return null;
+        }
+
         //车票订单_高铁动车（已购票数）
-        CalculateSoldTicketInfo information = new CalculateSoldTicketInfo(departureTime,trip.getTripId().toString());
-        CalculateSoldTicketResult result = restTemplate.postForObject(
-                "http://10.141.212.21:12031/calculateSoldTickets", information ,CalculateSoldTicketResult.class);
+        QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
+        ResultSoldTicket result = restTemplate.postForObject(
+                "http://ts-order-service:12031/calculateSoldTickets", information ,ResultSoldTicket.class);
+        if(result == null){
+            System.out.println("soldticketInfo doesn't exist");
+            return null;
+        }
 
         //设置返回的车票信息
         TripResponse response = new TripResponse();
-        response.setConfortClass(trainType.getConfortClass() - result.getFirstClassSeat());
-        System.out.println("trainType.getConfortClass()"+trainType.getConfortClass());
-        System.out.println("result.getFirstClassSeat()"+result.getFirstClassSeat());
-        System.out.println(trainType.getConfortClass() - result.getFirstClassSeat());
-        response.setEconomyClass(trainType.getEconomyClass() - result.getSecondClassSeat());
+
+        if(startingPlace.equals(trip.getStartingStation()) && endPlace.equals(trip.getTerminalStation())){
+            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
+            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
+            response.setConfortClass(confort);
+            response.setEconomyClass(economy);
+        }else{
+            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
+            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
+            response.setConfortClass(confort);
+            response.setEconomyClass(economy);
+        }
         response.setStartingStation(startingPlace);
         response.setTerminalStation(endPlace);
         response.setStartingTime(trip.getStartingTime());

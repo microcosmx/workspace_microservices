@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Chenjie Xu on 2017/5/19.
  */
-public class StationInformation {
+public class QueryStation {
     @Valid
     @NotNull
     @Id
     private String name;
 
-    public StationInformation(String name) {
+    public QueryStation(String name) {
         this.name = name;
     }
 

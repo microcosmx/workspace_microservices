@@ -130,7 +130,7 @@ document.getElementById("add_contacts_button").onclick = function post_add_conta
     addContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
     var data = JSON.stringify(addContactsInfo);
 
-    var url = "http://10.141.212.21:12347/createNewContacts";
+    var url = "http://10.141.212.21/createNewContacts";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -156,7 +156,7 @@ $("#refresh_contacts_button").click(function refresh_contacts(){
     queryContactsInfo.accountId = document.getElementById("user_login_id").innerHTML;
     queryContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
     var data = JSON.stringify(queryContactsInfo);
-    var url = "http://10.141.212.21:12347/findContacts";
+    var url = "http://10.141.212.21/findContacts";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -210,7 +210,7 @@ document.getElementById("station_create_button").onclick = function post_station
     var StationInfo = new Object();
     StationInfo.name = document.getElementById("station_create_name").value;
     var data = JSON.stringify(StationInfo);
-    var url = "http://10.141.212.21:12345/station/create";
+    var url = "http://10.141.212.21/station/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -225,7 +225,7 @@ document.getElementById("station_exist_button").onclick = function post_station_
     var StationInfo = new Object();
     StationInfo.name = document.getElementById("station_exist_name").value;
     var data = JSON.stringify(StationInfo);
-    var url = "http://10.141.212.21:12345/station/exist";
+    var url = "http://10.141.212.21/station/exist";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -240,7 +240,7 @@ document.getElementById("station_delete_button").onclick = function post_station
     var StationInfo = new Object();
     StationInfo.name = document.getElementById("station_delete_name").value;
     var data = JSON.stringify(StationInfo);
-    var url = "http://10.141.212.21:12345/station/delete";
+    var url = "http://10.141.212.21/station/delete";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -267,7 +267,7 @@ document.getElementById("train_create_button").onclick = function post_train_cre
     TrainInfo.economyClass = document.getElementById("train_create_economyClass").value;
     TrainInfo.confortClass = document.getElementById("train_create_confortClass").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21:14567/train/create";
+    var url = "http://10.141.212.21/train/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -284,7 +284,7 @@ document.getElementById("train_update_button").onclick = function post_train_upd
     TrainInfo.economyClass = document.getElementById("train_update_economyClass").value;
     TrainInfo.confortClass = document.getElementById("train_update_confortClass").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21:14567/train/update";
+    var url = "http://10.141.212.21/train/update";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -299,7 +299,7 @@ document.getElementById("train_query_button").onclick = function post_train_quer
     var TrainInfo = new Object();
     TrainInfo.id = document.getElementById("train_query_id").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21:14567/train/retrieve";
+    var url = "http://10.141.212.21/train/retrieve";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -314,7 +314,7 @@ document.getElementById("train_delete_button").onclick = function post_train_del
     var TrainInfo = new Object();
     TrainInfo.id = document.getElementById("train_delete_id").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21:14567/train/delete";
+    var url = "http://10.141.212.21/train/delete";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -341,7 +341,7 @@ document.getElementById("config_create_button").onclick = function post_config_c
     ConfigInfo.value = document.getElementById("config_create_value").value;
     ConfigInfo.description = document.getElementById("config_create_description").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21:15679/config/create";
+    var url = "http://10.141.212.21/config/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -358,7 +358,7 @@ document.getElementById("config_update_button").onclick = function post_config_u
     ConfigInfo.value = document.getElementById("config_update_value").value;
     ConfigInfo.description = document.getElementById("config_update_description").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21:15679/config/update";
+    var url = "http://10.141.212.21/config/update";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -373,7 +373,7 @@ document.getElementById("config_query_button").onclick = function post_config_qu
     var ConfigInfo = new Object();
     ConfigInfo.name = document.getElementById("config_query_name").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21:15679/config/query";
+    var url = "http://10.141.212.21/config/query";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -388,7 +388,7 @@ document.getElementById("config_delete_button").onclick = function post_config_d
     var ConfigInfo = new Object();
     ConfigInfo.name = document.getElementById("config_delete_name").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21:15679/config/delete";
+    var url = "http://10.141.212.21/config/delete";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -405,5 +405,62 @@ function handle_config_result(){
     }
 }
 
+
+//------For Travel------------
+//------For Trip create------------
+//------For Trip retrieve------------
+//------For Trip update------------
+//------For Trip delete------------
+//------For Travel query------------
+// document.getElementById("travel_query_button").onclick = function post_travel_query(){
+//     req = getXmlHttpRequest();
+//     var TravelInfo = new Object();
+//     TravelInfo.startingPlace = document.getElementById("travel_query_startingPlace").value;
+//     TravelInfo.endPlace = document.getElementById("travel_query_terminalPlace").value;
+//     TravelInfo.departureTime = document.getElementById("travel_query_date").value;
+//     var data = JSON.stringify(TravelInfo);
+//     var url = "http://10.141.212.21/travel/query";
+//
+//     req.open("post",url,true);
+//     req.withCredentials = true;
+//     req.setRequestHeader("Content-Type", "application/json");
+//     req.onreadystatechange = handle_travel_query_result;
+//     req.send(data);
+// }
+//
+// //handle config result
+// function handle_travel_query_result(){
+//     if(req.readyState == 4){
+//         var resultstr = req.responseText;
+//         alert(resultstr);
+//     }
+// }
+
+$("#trave_query_button").click(function(){
+
+    $.ajax({
+        type: "post",
+        url: "http://10.141.212.21/travel/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:{startingPlace:$("#travel_query_startingPlace").val(),
+            endPlace:$("#travel_query_terminalPlace").val(),
+            departureTime:$("#travel_query_date").val()},
+        success: function(data, textStatus){
+            alert(data);
+            // $(".ajax.ajaxResult").html("");
+            // $("item",data).each(function(i, domEle){
+            //     $(".ajax.ajaxResult").append("<li>"+$(domEle).children("title").text()+"</li>");
+            // });
+        },
+        async: true,
+        // complete: function(XMLHttpRequest, textStatus){
+        // },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+
+    }
+);
 
 
