@@ -22,6 +22,9 @@ public class HelloController {
 
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
+
+        Value value5 = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal, Value.class);
+        Value value4 = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal, Value.class);
         
         Value value = null;
         if(cal2 < 30){
@@ -32,9 +35,7 @@ public class HelloController {
             value = restTemplate.getForObject("http://rest-service-3:16003/hello3?cal="+cal2, Value.class);
         }
         
-        Value value5 = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal, Value.class);
-        Value value4 = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal, Value.class);
-    	
+        
 		log.info(value.toString());
 		log.info("=============end================");
 		return value;

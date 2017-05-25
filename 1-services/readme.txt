@@ -21,3 +21,8 @@ docker-compose down
 rest url:
 http://localhost:16006/hello6?cal=50
 http://rest-service-6:16006/hello6?cal=50
+
+
+
+swarm:
+docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm

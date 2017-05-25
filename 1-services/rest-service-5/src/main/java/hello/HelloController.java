@@ -20,7 +20,7 @@ public class HelloController {
     @RequestMapping("/hello5")
     public Value hello5(@RequestParam(value="cal", defaultValue="50") String cal) {
 
-        double cal2 = Math.abs(Double.valueOf(cal) - 50) * 2; 
+        double cal2 = Math.abs(Double.valueOf(cal)+3)/1.03; 
         log.info(String.valueOf(cal2));
         
     	Value value = restTemplate.getForObject(

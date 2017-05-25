@@ -20,14 +20,14 @@ public class GreetingController {
     public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
     	// log.info(cal);
 
-    	double cal2 = Double.valueOf(cal); 
+    	double cal2 = Math.abs(Double.valueOf(cal)-50); 
     	log.info(String.valueOf(cal2));
         
     	Greeting value = null;
         if(cal2 < 6){
         	throw new Exception("unexpected small input");
         }else if(cal2 < 100){
-        	value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal)<100);
+        	value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal2)<100);
         }else{
         	throw new Exception("unexpected input scope");
         }
