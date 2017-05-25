@@ -2,13 +2,13 @@ package travel.domain;
 
 import java.util.Date;
 
-public class CalculateSoldTicketInfo {
+public class QuerySoldTicket {
 
     private Date travelDate;
 
     private String trainNumber;
 
-    public CalculateSoldTicketInfo(Date travelDate, String trainNumber) {
+    public QuerySoldTicket(Date travelDate, String trainNumber) {
         this.travelDate = travelDate;
         this.trainNumber = trainNumber;
     }
