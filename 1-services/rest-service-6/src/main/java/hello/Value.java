@@ -23,7 +23,7 @@ public class Value {
         this.id = id;
     }
 
-    public void setContent(boolean content) {
+    public void setContent(boolean result) {
         this.result = result;
     }
 

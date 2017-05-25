@@ -20,7 +20,7 @@ public class HelloController {
     @RequestMapping("/hello6")
     public Value hello6(@RequestParam(value="cal", defaultValue="50") String cal) {
 
-        int cal2 = Math.abs(Integer.valueOf(cal));
+        double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
         Value value = null;
