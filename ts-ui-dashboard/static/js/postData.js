@@ -395,22 +395,39 @@ function handle_config_result(){
 //------For Trip create------------
 
 $("#travel_create_button").click(function(){
+    var tripIdInput = $("#travel_create_tripId").val();
+    var tpid = new Object();
+    tpid.type = tripIdInput.charAt(0);
+    tpid.number = tripIdInput.substring(1,tripIdInput.length);
+    var tpdata = JSON.stringify(tpid);
+
+    var TravelInfo = new Object();
+    TravelInfo.tripId = tpdata;
+    TravelInfo.trainTypeId = document.getElementById("travel_create_trainTypeId").value;
+    TravelInfo.startingStation = document.getElementById("travel_create_startingStation").value;
+    TravelInfo.stations = document.getElementById("travel_create_stations").value;
+    TravelInfo.terminalStation = document.getElementById("travel_create_terminalStation").value;
+    TravelInfo.startingTime = document.getElementById("travel_create_startingTime").value;
+    TravelInfo.endTime = document.getElementById("travel_create_endTime").value;
+    var data2 = JSON.stringify(TravelInfo);
 
         $.ajax({
             type: "post",
             url: "/travel/create",
             contentType: "application/json",
             dataType: "json",
-            data:{tripId:$("#travel_create_tripId").val(),
-                trainTypeId:$("#travel_create_trainTypeId").val(),
-                startingStation:$("#travel_create_startingStation").val(),
-                stations:$("#travel_create_stations").val(),
-                terminalStation:$("#travel_create_terminalStation").val(),
-                startingTime:$("#travel_create_startingTime").val(),
-                endTime:$("#travel_create_endTime").val()
-            },
+            // data:{tripId:{type:type,number:number},
+            //     trainTypeId:$("#travel_create_trainTypeId").val(),
+            //     startingStation:$("#travel_create_startingStation").val(),
+            //     stations:$("#travel_create_stations").val(),
+            //     terminalStation:$("#travel_create_terminalStation").val(),
+            //     startingTime:$("#travel_create_startingTime").val(),
+            //     endTime:$("#travel_create_endTime").val()
+            // },
+            data:data2,
             success: function(data, textStatus){
-                $("#travel_result").html(data);
+                // $("#travel_result").html(data);
+                document.getElementById("travel_result").innerHTML = textStatus;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
@@ -422,16 +439,25 @@ $("#travel_create_button").click(function(){
 //------For Trip retrieve------------
 
 $("#travel_retrieve_button").click(function(){
+    var tripIdInput = $("#travel_delete_tripId").val();
+    var tpid = new Object();
+    tpid.type = tripIdInput.charAt(0);
+    tpid.number = tripIdInput.substring(1,tripIdInput.length);
+    var tpdata = JSON.stringify(tpid);
+
+    var TravelInfo = new Object();
+    TravelInfo.tripId = tpdata;
+    var data2 = JSON.stringify(TravelInfo);
 
         $.ajax({
             type: "post",
             url: "/travel/retrieve",
             contentType: "application/json",
             dataType: "json",
-            data:{tripId:$("#travel_retrieve_tripId").val()
-            },
+            data:data2,
             success: function(data, textStatus){
-                $("#travel_result").html(data);
+                // $("#travel_result").html(data);
+                document.getElementById("travel_result").innerHTML = textStatus;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
@@ -443,22 +469,31 @@ $("#travel_retrieve_button").click(function(){
 //------For Trip update------------
 
 $("#travel_update_button").click(function(){
+    var tripIdInput = $("#travel_update_tripId").val();
+    var tpid = new Object();
+    tpid.type = tripIdInput.charAt(0);
+    tpid.number = tripIdInput.substring(1,tripIdInput.length);
+    var tpdata = JSON.stringify(tpid);
+
+    var TravelInfo = new Object();
+    TravelInfo.tripId = tpdata;
+    TravelInfo.trainTypeId = document.getElementById("travel_update_trainTypeId").value;
+    TravelInfo.startingStation = document.getElementById("travel_update_startingStation").value;
+    TravelInfo.stations = document.getElementById("travel_update_stations").value;
+    TravelInfo.terminalStation = document.getElementById("travel_update_terminalStation").value;
+    TravelInfo.startingTime = document.getElementById("travel_update_startingTime").value;
+    TravelInfo.endTime = document.getElementById("travel_update_endTime").value;
+    var data2 = JSON.stringify(TravelInfo);
 
         $.ajax({
             type: "post",
             url: "/travel/update",
             contentType: "application/json",
             dataType: "json",
-            data:{tripId:$("#travel_update_tripId").val(),
-                trainTypeId:$("#travel_update_trainTypeId").val(),
-                startingStation:$("#travel_update_startingStation").val(),
-                stations:$("#travel_update_stations").val(),
-                terminalStation:$("#travel_update_terminalStation").val(),
-                startingTime:$("#travel_update_startingTime").val(),
-                endTime:$("#travel_update_endTime").val()
-            },
+            data:data2,
             success: function(data, textStatus){
-                $("#travel_result").html(data);
+                // $("#travel_result").html(data);
+                document.getElementById("travel_result").innerHTML = textStatus;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
@@ -470,16 +505,25 @@ $("#travel_update_button").click(function(){
 //------For Trip delete------------
 
 $("#travel_delete_button").click(function(){
+    var tripIdInput = $("#travel_delete_tripId").val();
+    var tpid = new Object();
+    tpid.type = tripIdInput.charAt(0);
+    tpid.number = tripIdInput.substring(1,tripIdInput.length);
+    var tpdata = JSON.stringify(tpid);
+
+    var TravelInfo = new Object();
+    TravelInfo.tripId = tpdata;
+    var data2 = JSON.stringify(TravelInfo);
 
         $.ajax({
             type: "post",
             url: "/travel/delete",
             contentType: "application/json",
             dataType: "json",
-            data:{tripId:$("#travel_delete_tripId").val()
-            },
+            data:data2,
             success: function(data, textStatus){
-                $("#travel_result").html(data);
+                // $("#travel_result").html(data);
+                document.getElementById("travel_result").innerHTML = textStatus;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
@@ -530,14 +574,19 @@ $("#travel_delete_button").click(function(){
 
 $("#travel_query_button").click(function(){
 
+    var TravelInfo = new Object();
+    TravelInfo.startingPlace = $("#travel_query_startingPlace").val();
+    TravelInfo.endPlace = $("#travel_query_terminalPlace").val();
+    TravelInfo.departureTime = $("#travel_query_date").val();
+    var data2 = JSON.stringify(TravelInfo);
+
+
     $.ajax({
         type: "post",
         url: "/travel/query",
         contentType: "application/json",
         dataType: "json",
-        data:{startingPlace:$("#travel_query_startingPlace").val(),
-            endPlace:$("#travel_query_terminalPlace").val(),
-            departureTime:$("#travel_query_date").val()},
+        data:data2,
         success: function(data, textStatus){
             alert(data);
             var html = '';
