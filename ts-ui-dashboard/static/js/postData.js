@@ -180,6 +180,7 @@ $("#refresh_contacts_button").click(function refresh_contacts(){
 function handle_query_contacts_result(){
     if(req.readyState == 4){
         var resultstr = req.responseText;
+        alert(resultstr);
         $("#contacts_list_table").find("tbody").html("");
         var obj = JSON.parse(resultstr);
 
@@ -198,7 +199,7 @@ function handle_query_contacts_result(){
     }
 }
 
-$("#remove_contacts_button").click(function refresh_contacts(){
+$("#remove_contacts_button").click(function clear_contacts(){
     $("#contacts_list_table").find("tbody").html("");
 });
 
