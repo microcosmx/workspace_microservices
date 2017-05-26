@@ -24,8 +24,19 @@ public class sample0  {
     	System.setProperty("webdriver.chrome.driver", "/Users/admin/work/workspace_spring/testing/selenium/selenium_webdriver/drivers/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		
+		driver.navigate().to("http://localhost:16006/hello6?cal=0.1");
+		driver.navigate().to("http://localhost:16006/hello6?cal=0.5");
+		driver.navigate().to("http://localhost:16006/hello6?cal=1");
+		driver.navigate().to("http://localhost:16006/hello6?cal=2");
+		driver.navigate().to("http://localhost:16006/hello6?cal=3");
+		driver.navigate().to("http://localhost:16006/hello6?cal=4");
 		driver.navigate().to("http://localhost:16006/hello6?cal=5");
 		driver.navigate().to("http://localhost:16006/hello6?cal=6");
+		driver.navigate().to("http://localhost:16006/hello6?cal=7");
+		driver.navigate().to("http://localhost:16006/hello6?cal=8");
+		
+		driver.navigate().to("http://localhost:16006/hello6?cal=9");
+		driver.navigate().to("http://localhost:16006/hello6?cal=9.9");
 		driver.navigate().to("http://localhost:16006/hello6?cal=10");
 		driver.navigate().to("http://localhost:16006/hello6?cal=25");
 		driver.navigate().to("http://localhost:16006/hello6?cal=30");

@@ -17,8 +17,23 @@ public class GreetingController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) {
+    public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
     	// log.info(cal);
-        return new Greeting(counter.incrementAndGet(), Double.valueOf(cal)<100);
+
+    	double cal2 = Math.abs(Double.valueOf(cal)-50); 
+    	log.info(String.valueOf(cal2));
+        
+    	Greeting value = null;
+        if(cal2 < 6){
+        	throw new Exception("unexpected small input");
+        }else if(cal2 < 100){
+        	value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal2)<100);
+        }else{
+        	throw new Exception("unexpected input scope");
+        }
+        
+        log.info("--------service end-----------");
+        log.info(value.toString());
+        return value;
     }
 }

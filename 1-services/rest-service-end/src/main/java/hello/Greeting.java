@@ -17,4 +17,12 @@ public class Greeting {
     public boolean getResult() {
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Value{" +
+                "id=" + id +
+                ", result='" + result + '\'' +
+                '}';
+    }
 }
