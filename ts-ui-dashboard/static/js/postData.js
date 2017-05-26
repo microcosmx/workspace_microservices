@@ -210,7 +210,7 @@ document.getElementById("station_create_button").onclick = function post_station
     var StationInfo = new Object();
     StationInfo.name = document.getElementById("station_create_name").value;
     var data = JSON.stringify(StationInfo);
-    var url = "http://10.141.212.21/station/create";
+    var url = "/station/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -225,7 +225,7 @@ document.getElementById("station_exist_button").onclick = function post_station_
     var StationInfo = new Object();
     StationInfo.name = document.getElementById("station_exist_name").value;
     var data = JSON.stringify(StationInfo);
-    var url = "http://10.141.212.21/station/exist";
+    var url = "/station/exist";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -240,7 +240,7 @@ document.getElementById("station_delete_button").onclick = function post_station
     var StationInfo = new Object();
     StationInfo.name = document.getElementById("station_delete_name").value;
     var data = JSON.stringify(StationInfo);
-    var url = "http://10.141.212.21/station/delete";
+    var url = "/station/delete";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -267,7 +267,7 @@ document.getElementById("train_create_button").onclick = function post_train_cre
     TrainInfo.economyClass = document.getElementById("train_create_economyClass").value;
     TrainInfo.confortClass = document.getElementById("train_create_confortClass").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21/train/create";
+    var url = "/train/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -284,7 +284,7 @@ document.getElementById("train_update_button").onclick = function post_train_upd
     TrainInfo.economyClass = document.getElementById("train_update_economyClass").value;
     TrainInfo.confortClass = document.getElementById("train_update_confortClass").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21/train/update";
+    var url = "/train/update";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -299,7 +299,7 @@ document.getElementById("train_query_button").onclick = function post_train_quer
     var TrainInfo = new Object();
     TrainInfo.id = document.getElementById("train_query_id").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21/train/retrieve";
+    var url = "/train/retrieve";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -314,7 +314,7 @@ document.getElementById("train_delete_button").onclick = function post_train_del
     var TrainInfo = new Object();
     TrainInfo.id = document.getElementById("train_delete_id").value;
     var data = JSON.stringify(TrainInfo);
-    var url = "http://10.141.212.21/train/delete";
+    var url = "/train/delete";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -341,7 +341,7 @@ document.getElementById("config_create_button").onclick = function post_config_c
     ConfigInfo.value = document.getElementById("config_create_value").value;
     ConfigInfo.description = document.getElementById("config_create_description").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21/config/create";
+    var url = "/config/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -358,7 +358,7 @@ document.getElementById("config_update_button").onclick = function post_config_u
     ConfigInfo.value = document.getElementById("config_update_value").value;
     ConfigInfo.description = document.getElementById("config_update_description").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21/config/update";
+    var url = "/config/update";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -373,7 +373,7 @@ document.getElementById("config_query_button").onclick = function post_config_qu
     var ConfigInfo = new Object();
     ConfigInfo.name = document.getElementById("config_query_name").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21/config/query";
+    var url = "/config/query";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -388,7 +388,7 @@ document.getElementById("config_delete_button").onclick = function post_config_d
     var ConfigInfo = new Object();
     ConfigInfo.name = document.getElementById("config_delete_name").value;
     var data = JSON.stringify(ConfigInfo);
-    var url = "http://10.141.212.21/config/delete";
+    var url = "/config/delete";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -408,39 +408,146 @@ function handle_config_result(){
 
 //------For Travel------------
 //------For Trip create------------
+
+$("#travel_create_button").click(function(){
+
+        $.ajax({
+            type: "post",
+            url: "/travel/create",
+            contentType: "application/json",
+            dataType: "json",
+            data:{tripId:$("#travel_create_tripId").val(),
+                trainTypeId:$("#travel_create_trainTypeId").val(),
+                startingStation:$("#travel_create_startingStation").val(),
+                stations:$("#travel_create_stations").val(),
+                terminalStation:$("#travel_create_terminalStation").val(),
+                startingTime:$("#travel_create_startingTime").val(),
+                endTime:$("#travel_create_endTime").val()
+            },
+            success: function(data, textStatus){
+                $("#travel_result").html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+
+    }
+);
+
 //------For Trip retrieve------------
+
+$("#travel_retrieve_button").click(function(){
+
+        $.ajax({
+            type: "post",
+            url: "/travel/retrieve",
+            contentType: "application/json",
+            dataType: "json",
+            data:{tripId:$("#travel_retrieve_tripId").val()
+            },
+            success: function(data, textStatus){
+                $("#travel_result").html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+
+    }
+);
+
 //------For Trip update------------
+
+$("#travel_update_button").click(function(){
+
+        $.ajax({
+            type: "post",
+            url: "/travel/update",
+            contentType: "application/json",
+            dataType: "json",
+            data:{tripId:$("#travel_update_tripId").val(),
+                trainTypeId:$("#travel_update_trainTypeId").val(),
+                startingStation:$("#travel_update_startingStation").val(),
+                stations:$("#travel_update_stations").val(),
+                terminalStation:$("#travel_update_terminalStation").val(),
+                startingTime:$("#travel_update_startingTime").val(),
+                endTime:$("#travel_update_endTime").val()
+            },
+            success: function(data, textStatus){
+                $("#travel_result").html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+
+    }
+);
+
 //------For Trip delete------------
+
+$("#travel_delete_button").click(function(){
+
+        $.ajax({
+            type: "post",
+            url: "/travel/delete",
+            contentType: "application/json",
+            dataType: "json",
+            data:{tripId:$("#travel_delete_tripId").val()
+            },
+            success: function(data, textStatus){
+                $("#travel_result").html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+
+    }
+);
+
 //------For Travel query------------
-// document.getElementById("travel_query_button").onclick = function post_travel_query(){
+// document.getElementById("travel_create_button").onclick = function post_travel_create(){
 //     req = getXmlHttpRequest();
 //     var TravelInfo = new Object();
-//     TravelInfo.startingPlace = document.getElementById("travel_query_startingPlace").value;
-//     TravelInfo.endPlace = document.getElementById("travel_query_terminalPlace").value;
-//     TravelInfo.departureTime = document.getElementById("travel_query_date").value;
+//     TravelInfo.tripId = document.getElementById("travel_create_tripId").value;
+//     TravelInfo.trainTypeId = document.getElementById("travel_create_trainTypeId").value;
+//     TravelInfo.startingStation = document.getElementById("travel_create_startingStation").value;
+//     TravelInfo.stations = document.getElementById("travel_create_stations").value;
+//     TravelInfo.terminalStation = document.getElementById("travel_create_terminalStation").value;
+//     TravelInfo.startingTime = document.getElementById("travel_create_startingTime").value;
+//     TravelInfo.endTime = document.getElementById("travel_create_endTime").value;
 //     var data = JSON.stringify(TravelInfo);
-//     var url = "http://10.141.212.21/travel/query";
+//     var url = "/travel/create";
 //
 //     req.open("post",url,true);
 //     req.withCredentials = true;
 //     req.setRequestHeader("Content-Type", "application/json");
-//     req.onreadystatechange = handle_travel_query_result;
+//     req.onreadystatechange = handle_travel_result;
 //     req.send(data);
 // }
 //
 // //handle config result
-// function handle_travel_query_result(){
+// function handle_travel_result(){
 //     if(req.readyState == 4){
 //         var resultstr = req.responseText;
-//         alert(resultstr);
+//         document.getElementById("travel_result").innerHTML = resultstr;
 //     }
 // }
 
-$("#trave_query_button").click(function(){
+// <tr>
+// <td>G005</td>
+// <td>上海虹桥</td>
+// <td>南京南</td>
+// <td>13:00</td>
+// <td>15：30</td>
+// <td>12</td>
+// <td>0</td>
+// <td><button class="btn btn-primary">预订</button></td>
+//     </tr>
+
+$("#travel_query_button").click(function(){
 
     $.ajax({
         type: "post",
-        url: "http://10.141.212.21/travel/query",
+        url: "/travel/query",
         contentType: "application/json",
         dataType: "json",
         data:{startingPlace:$("#travel_query_startingPlace").val(),
@@ -448,14 +555,23 @@ $("#trave_query_button").click(function(){
             departureTime:$("#travel_query_date").val()},
         success: function(data, textStatus){
             alert(data);
-            // $(".ajax.ajaxResult").html("");
-            // $("item",data).each(function(i, domEle){
-            //     $(".ajax.ajaxResult").append("<li>"+$(domEle).children("title").text()+"</li>");
-            // });
+            var html = '';
+            html += "<tr> <td>G005</td> <td>上海虹桥</td> <td>南京南</td> <td>13:00</td> <td>15：30</td> <td>12</td> <td>0</td>"
+                +"<td><button class=\"btn btn-primary/\">预订</button></td> </tr>";
+            // for(var i=0;i<data.length;i++){
+            //     html += "<tr> <td>G005</td> <td>上海虹桥</td> <td>南京南</td> <td>13:00</td> <td>15：30</td> <td>12</td> <td>0</td>"
+            //     +"<td><button class="btn btn-primary">预订</button></td> </tr>";
+            // }
+            $("#travel_query_ticket").append(html);
+
         },
         async: true,
-        // complete: function(XMLHttpRequest, textStatus){
-        // },
+        complete: function(XMLHttpRequest, textStatus){
+            var html = '';
+            html += "<tr> <td>G005</td> <td>上海虹桥</td> <td>南京南</td> <td>13:00</td> <td>15：30</td> <td>12</td> <td>0</td>"
+                +"<td><button class=\"btn btn-primary/\">预订</button></td> </tr>";
+            $("#travel_query_ticket").append(html);
+        },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
