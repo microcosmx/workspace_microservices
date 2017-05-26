@@ -99,7 +99,13 @@
             <div class="group panel-body">
                 <div class="input-box">
                     <form role="form" class="form-horizontal" enctype='application/json'
-                          action="http://10.141.212.21:12344/registerWithPara" method="post">
+                          action="" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Input Your Phone Num (Login By Phone Number): </label>
+                            <div class="col-sm-10">
+                                <input id="register_phoneNum" class="form-control" name='phoneNum' value='352323'>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Set Your Password: </label>
                             <div class="col-sm-10">
@@ -138,12 +144,7 @@
                                 <input id="register_documentNum" class="form-control" name='documentNum' value='0123456789'>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Input Your Phone Num (Login By Phone Number): </label>
-                            <div class="col-sm-10">
-                                <input id="register_phoneNum" class="form-control" name='phoneNum' value='352323'>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Verification Code: </label>
                             <div class="col-sm-10">
@@ -328,8 +329,8 @@
         <div class="step panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    Your Contacts List     <button id="refresh_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
-                    <button id="remove_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                    Your Contacts List
+                    <button id="refresh_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
                 </h3>
             </div>
             <div class="group panel-body">
@@ -351,7 +352,154 @@
             </div>
         </div>
 
-        <!------------------------------------------Ticke Query------------------------------------------------------>
+
+        <!----------------------------------------------Travel--------------------------------------------- -->
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Travel Service
+                </h3>
+            </div>
+            <div class="input-box panel-body">
+                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/travel/create" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_tripId" name='tripId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">TrainType ID: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_trainTypeId" name='trainTypeId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">startingStation: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_startingStation" name='startingStation' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Station: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_stations" name='stations' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">TerminalStation: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_terminalStation" name='terminalStation' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">StartingTime: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_startingTime" name='startingTime' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">EndTime: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_create_endTime" name='endTime' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_create_button" type="button" class="btn btn-primary">Create Trip</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/train/update" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_tripId" name='tripId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">TrainType ID: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_trainTypeId" name='trainTypeId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">startingStation: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_startingStation" name='startingStation' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Station: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_stations" name='stations' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">TerminalStation: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_terminalStation" name='terminalStation' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">StartingTime: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_startingTime" name='startingTime' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">EndTime: </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_update_endTime" name='endTime' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_update_button" type="button" class="btn btn-primary">Update Trip</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/train/retrieve" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_retrieve_tripId" name='tripId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_retrieve_button" type="button" class="btn btn-primary">Query Trip</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal" enctype='application/json'
+                      action="http://10.141.212.21:14567/train/delete" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="travel_delete_tripId" name='tripId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_delete_button" type="button" class="btn btn-primary">Delete Trip</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="result">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label class="control-label">Result:</label>
+                            <span id="travel_result"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------------Ticket Query------------------------------------------------------>
         <div class="step panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -401,36 +549,38 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>G001</td>
-                        <td>上海虹桥</td>
-                        <td>南京南</td>
-                        <td>09:00</td>
-                        <td>10：30</td>
-                        <td>241</td>
-                        <td>87</td>
-                        <td><button class="btn btn-primary">预订</button></td>
+                    <tr id="travel_query_ticket">
                     </tr>
-                    <tr>
-                        <td>G005</td>
-                        <td>上海虹桥</td>
-                        <td>南京南</td>
-                        <td>13:00</td>
-                        <td>15：30</td>
-                        <td>12</td>
-                        <td>0</td>
-                        <td><button class="btn btn-primary">预订</button></td>
-                    </tr>
-                    <tr>
-                        <td>G0121</td>
-                        <td>上海虹桥</td>
-                        <td>南京南</td>
-                        <td>19:00</td>
-                        <td>20：30</td>
-                        <td>512</td>
-                        <td>139</td>
-                        <td><button class="btn btn-primary">预订</button></td>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<td>G001</td>-->
+                        <!--<td>上海虹桥</td>-->
+                        <!--<td>南京南</td>-->
+                        <!--<td>09:00</td>-->
+                        <!--<td>10：30</td>-->
+                        <!--<td>241</td>-->
+                        <!--<td>87</td>-->
+                        <!--<td><button class="btn btn-primary">预订</button></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>G005</td>-->
+                        <!--<td>上海虹桥</td>-->
+                        <!--<td>南京南</td>-->
+                        <!--<td>13:00</td>-->
+                        <!--<td>15：30</td>-->
+                        <!--<td>12</td>-->
+                        <!--<td>0</td>-->
+                        <!--<td><button class="btn btn-primary">预订</button></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>G0121</td>-->
+                        <!--<td>上海虹桥</td>-->
+                        <!--<td>南京南</td>-->
+                        <!--<td>19:00</td>-->
+                        <!--<td>20：30</td>-->
+                        <!--<td>512</td>-->
+                        <!--<td>139</td>-->
+                        <!--<td><button class="btn btn-primary">预订</button></td>-->
+                    <!--</tr>-->
                     </tbody>
                 </table>
             </div>
@@ -447,7 +597,7 @@
             <div>
                 <div class="input-box panel-body">
                     <form class="form-horizontal" enctype='application/json'
-                          action="http://10.141.212.21:12345/station/create" method="post">
+                          action="" method="post">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Station Name: </label>
                             <div class="col-sm-10">
@@ -460,7 +610,7 @@
                             </div>
                         </div>
                     </form>
-                    <form class="form-horizontal" enctype='application/json' action="http://10.141.212.21:12345/station/exist" method="post">
+                    <form class="form-horizontal" enctype='application/json' action="" method="post">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Station Name: </label>
                             <div class="col-sm-10">
@@ -474,7 +624,7 @@
                         </div>
                     </form>
                     <form class="form-horizontal" enctype='application/json'
-                          action="http://10.141.212.21:12345/station/delete" method="post">
+                          action="" method="post">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Station Name: </label>
                             <div class="col-sm-10">
@@ -508,7 +658,7 @@
                 </h3>
             </div>
             <div class="input-box panel-body">
-                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/train/create" method="post">
+                <form role="form" class="form-horizontal" enctype='application/json' action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Train Id: </label>
                         <div class="col-sm-10">
@@ -533,7 +683,7 @@
                         </div>
                     </div>
                 </form>
-                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:14567/train/update" method="post">
+                <form role="form" class="form-horizontal" enctype='application/json' action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Train Id: </label>
                         <div class="col-sm-10">
@@ -559,7 +709,7 @@
                     </div>
                 </form>
                 <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/train/retrieve" method="post">
+                      action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Train Id: </label>
                         <div class="col-sm-10">
@@ -573,7 +723,7 @@
                     </div>
                 </form>
                 <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/train/delete" method="post">
+                      action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Train Id: </label>
                         <div class="col-sm-10">
@@ -606,7 +756,7 @@
                 </h3>
             </div>
             <div class="input-box panel-body">
-                <form role="form" class="form-horizontal" enctype='application/json' action="http://10.141.212.21:15679/config/create" method="post">
+                <form role="form" class="form-horizontal" enctype='application/json' action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Config name: </label>
                         <div class="col-sm-10">
@@ -632,7 +782,7 @@
                     </div>
                 </form>
                 <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/config/update" method="post">
+                      action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Config name: </label>
                         <div class="col-sm-10">
@@ -658,7 +808,7 @@
                     </div>
                 </form>
                 <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/config/query" method="post">
+                      action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Config name: </label>
                         <div class="col-sm-10">
@@ -672,7 +822,7 @@
                     </div>
                 </form>
                 <form role="form" class="form-horizontal" enctype='application/json'
-                      action="http://10.141.212.21:14567/config/delete" method="post">
+                      action="" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Config name: </label>
                         <div class="col-sm-10">

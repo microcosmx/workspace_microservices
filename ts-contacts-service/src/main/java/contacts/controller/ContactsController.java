@@ -22,7 +22,7 @@ public class ContactsController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/findContacts", method = RequestMethod.POST)
+    @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.POST)
     public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
         VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -35,7 +35,7 @@ public class ContactsController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/createNewContacts", method = RequestMethod.POST)
+    @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
     public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
         VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -52,7 +52,7 @@ public class ContactsController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/deleteContacts", method = RequestMethod.POST)
+    @RequestMapping(path = "/contacts/delete", method = RequestMethod.DELETE)
     public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo dci){
         VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -68,7 +68,7 @@ public class ContactsController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/saveContactsInfo", method = RequestMethod.PUT)
+    @RequestMapping(path = "/contacts/update", method = RequestMethod.PUT)
     public ModifyContactsResult saveContactsInfo(@RequestBody ModifyContactsInfo contactsInfo){
         VerifyResult tokenResult = verifySsoLogin(contactsInfo.getLoginToken());
         if(tokenResult.isStatus() == true){
