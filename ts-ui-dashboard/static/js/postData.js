@@ -181,7 +181,7 @@ function handle_query_contacts_result(){
                 "<td>" + obj[i]["documentType"] + "</td>" +
                 "<td>" + obj[i]["documentNumber"] + "</td>" +
                 "<td>" + obj[i]["phoneNumber"] + "</td>" +
-                "<td>" + "此区域未完成" + "</td>" +
+                "<td>" +  "<button class=\"btn btn-primary\">Delete</button>" +  "</td>" +
                 "</tr>"
             );
         }
