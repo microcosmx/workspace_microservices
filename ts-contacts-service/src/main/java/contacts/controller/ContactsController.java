@@ -22,7 +22,7 @@ public class ContactsController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/findContacts", method = RequestMethod.POST)
+    @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.POST)
     public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
         VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
         if(tokenResult.isStatus() == true){

@@ -130,7 +130,7 @@ document.getElementById("add_contacts_button").onclick = function post_add_conta
     addContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
     var data = JSON.stringify(addContactsInfo);
 
-    var url = "http://10.141.212.21/createNewContacts";
+    var url = "/contacts/create";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -156,7 +156,7 @@ $("#refresh_contacts_button").click(function refresh_contacts(){
     queryContactsInfo.accountId = document.getElementById("user_login_id").innerHTML;
     queryContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
     var data = JSON.stringify(queryContactsInfo);
-    var url = "http://10.141.212.21/findContacts";
+    var url = "/contacts/findContacts";
 
     req.open("post",url,true);
     req.withCredentials = true;
@@ -164,26 +164,15 @@ $("#refresh_contacts_button").click(function refresh_contacts(){
     req.onreadystatechange = handle_query_contacts_result;
     req.send(data);
 
-    // $("#contacts_list_table").find("tbody").append(
-    //     "<tr>" +
-    //     "<td>" + "5" + "</td>" +
-    //     "<td>" + "jichao" + "</td>" +
-    //     "<td>" + "身份证" + "</td>" +
-    //     "<td>" + "21123123" + "</td>" +
-    //     "<td>" + "2122131123123" + "</td>" +
-    //     "<td>" + "删除" + "</td>" +
-    //     "</tr>"
-    // );
-
 });
 
 function handle_query_contacts_result(){
     if(req.readyState == 4){
+        $("#contacts_list_table").find("tbody").html("");
+
         var resultstr = req.responseText;
         alert(resultstr);
-        $("#contacts_list_table").find("tbody").html("");
         var obj = JSON.parse(resultstr);
-
         for(var i = 0,l = obj.length ; i < l ; i++){
             $("#contacts_list_table").find("tbody").append(
                 "<tr>" +
@@ -198,11 +187,6 @@ function handle_query_contacts_result(){
         }
     }
 }
-
-$("#remove_contacts_button").click(function clear_contacts(){
-    $("#contacts_list_table").find("tbody").html("");
-});
-
 
 //------For Station------------
 //------For Station create------------
