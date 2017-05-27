@@ -16,7 +16,7 @@ import java.util.concurrent.Executor;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.integration.annotation.IntegrationComponentScan;
-import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
+// import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
 
 
 
@@ -25,7 +25,7 @@ import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
 @IntegrationComponentScan
-@EnableZipkinStreamServer
+// @EnableZipkinStreamServer
 public class Application extends AsyncConfigurerSupport {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
