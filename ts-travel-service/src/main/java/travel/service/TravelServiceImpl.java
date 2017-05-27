@@ -16,16 +16,16 @@ public class TravelServiceImpl implements TravelService{
     @Autowired
     TripRepository repository;
 
-
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public String create(Information info){
-        if(repository.findByTripId(info.getTripId()) == null){
-            Trip trip = new Trip(info.getTripId(),info.getTrainTypeId(),info.getStartingStation(),
+        TripId ti = new TripId(info.getTripId());
+        if(repository.findByTripId(ti) == null){
+            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStation(),
                     info.getStations(),info.getTerminalStation(),info.getStartingTime(),info.getEndTime());
             repository.save(trip);
-            return "Create trip:" +info.getTripId().toString()+ ".";
+            return "Create trip:" + ti.toString() + ".";
         }else{
             return "Trip "+ info.getTripId().toString() +" already exists";
         }
@@ -42,11 +42,12 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public String update(Information info){
-        if(repository.findByTripId(info.getTripId()) != null){
-            Trip trip = new Trip(info.getTripId(),info.getTrainTypeId(),info.getStartingStation(),
+        TripId ti = new TripId(info.getTripId());
+        if(repository.findByTripId(ti) != null){
+            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStation(),
                     info.getStations(),info.getTerminalStation(),info.getStartingTime(),info.getEndTime());
             repository.save(trip);
-            return "Update trip:" + info.getTripId().toString();
+            return "Update trip:" + ti.toString();
         }else{
             return "Trip "+ info.getTripId().toString() +" doesn't exists";
         }
@@ -137,7 +138,7 @@ public class TravelServiceImpl implements TravelService{
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
-                "http://ts-order-service:12031/calculateSoldTickets", information ,ResultSoldTicket.class);
+                "http://ts-order-service:12031/order/calculate", information ,ResultSoldTicket.class);
         if(result == null){
             System.out.println("soldticketInfo doesn't exist");
             return null;

@@ -18,6 +18,10 @@ public class TrainType {
     @Valid
     private int confortClass;   //商务座的座位数量
 
+    public TrainType(){
+
+    }
+
     public TrainType(String id, int economyClass, int confortClass) {
         this.id = id;
         this.economyClass = economyClass;
