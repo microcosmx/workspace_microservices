@@ -2,8 +2,11 @@ spring:
   application:
     name: rest-service-6
 
+  rabbitmq:
+    host: rabbitmq
+
   zipkin:
-    baseUrl: http://172.16.0.1:9411/
+    baseUrl: http://zipkin:9411/
   sleuth:
     sampler:
       percentage: 1.0
