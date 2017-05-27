@@ -10,6 +10,13 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
+      
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: my-rest-service-queue-1
+          contentType: text/plain
 
 server:
   port: 16000
