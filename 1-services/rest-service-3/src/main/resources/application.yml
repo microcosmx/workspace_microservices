@@ -2,6 +2,9 @@ spring:
   application:
     name: rest-service-3
 
+  rabbitmq:
+    host: rabbitmq
+
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:

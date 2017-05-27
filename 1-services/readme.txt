@@ -24,8 +24,8 @@ http://localhost:16006/hello6?cal=50
 http://rest-service-6:16006/hello6?cal=50
 
 
-queue:
-docker run -d -p 5672:5672 -p 15672:15672 --name rest-service-queue rabbitmq:management
+rabbit mq, queue:
+docker run -d -p 5672:5672 -p 15672:15672 --name myrabbitmq rabbitmq:management
 http://localhost:15672
 
 
