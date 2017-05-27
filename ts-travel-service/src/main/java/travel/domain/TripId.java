@@ -54,6 +54,6 @@ public class TripId implements Serializable{
 
     @Override
     public String toString(){
-        return this.type + number;
+        return type.getName() + number;
     }
 }

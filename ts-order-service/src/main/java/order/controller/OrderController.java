@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/createNewOrders", method = RequestMethod.POST)
+    @RequestMapping(path = "/order/create", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){
         VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/alterOrder", method = RequestMethod.POST)
+    @RequestMapping(path = "/order/alter", method = RequestMethod.POST)
     public OrderAlterResult alterOrder(@RequestBody OrderAlterInfo oai){
         VerifyResult vr = verifySsoLogin(oai.getLoginToken());
         if(vr.isStatus() == true){
@@ -54,7 +54,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/queryOrders", method = RequestMethod.POST)
+    @RequestMapping(path = "/order/query", method = RequestMethod.POST)
     public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi){
         VerifyResult tokenResult = verifySsoLogin(qi.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -67,7 +67,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/saveOrderInfo", method = RequestMethod.PUT)
+    @RequestMapping(path = "/order/update", method = RequestMethod.PUT)
     public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
         VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -84,7 +84,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path="/cancelOrder", method = RequestMethod.POST)
+    @RequestMapping(path="/order/cancel", method = RequestMethod.PUT)
     public CancelOrderResult cancelOrder(@RequestBody CancelOrderInfo coi){
         VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
         if(tokenResult.isStatus() == true){
@@ -101,7 +101,7 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path="/calculateSoldTickets", method = RequestMethod.POST)
+    @RequestMapping(path="/order/calculate", method = RequestMethod.POST)
     public CalculateSoldTicketResult calculateSoldTicket(@RequestBody CalculateSoldTicketInfo csti){
         System.out.println("[OrderService][Calculate Sold Tickets] Date:" + csti.getTravelDate() + " TrainNumber:"
                 + csti.getTrainNumber());

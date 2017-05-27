@@ -7,7 +7,11 @@ import train.domain.TrainType;
 public interface TrainService {
     //CRUD
     boolean create(Information info);
+
     TrainType retrieve(Information2 info);
+
     boolean update(Information info);
+
     boolean delete(Information2 info);
+
 }

@@ -1,7 +1,6 @@
 package travel.domain;
 
 import org.springframework.data.annotation.Id;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -11,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class Information {
     @Valid
     @Id
-    private TripId tripId;
+    private String tripId;
 
     @Valid
     @NotNull
@@ -36,11 +35,11 @@ public class Information {
     @NotNull
     private String endTime;
 
-    public TripId getTripId() {
+    public String getTripId() {
         return tripId;
     }
 
-    public void setTripId(TripId tripId) {
+    public void setTripId(String tripId) {
         this.tripId = tripId;
     }
 

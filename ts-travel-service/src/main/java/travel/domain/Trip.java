@@ -39,6 +39,10 @@ public class Trip {
     @NotNull
     private String endTime;
 
+    public Trip(){
+
+    }
+
     public Trip(TripId tripId, String trainTypeId, String startingStation, String stations, String terminalStation, String startingTime, String endTime) {
         this.tripId = tripId;
         this.trainTypeId = trainTypeId;
