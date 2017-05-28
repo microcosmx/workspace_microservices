@@ -17,6 +17,7 @@ spring:
         output:
           destination: my-rest-service-queue-1
           contentType: text/plain
+          binder: rabbit
 
 server:
   port: 16000

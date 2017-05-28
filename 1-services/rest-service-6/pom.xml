@@ -10,9 +10,10 @@
     <name>rest-service-6</name>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <groupId>org.myrestservice.sample</groupId>
+        <artifactId>rest-service-cluster</artifactId>
+        <version>0.1.0</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <properties>

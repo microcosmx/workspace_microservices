@@ -33,12 +33,12 @@ public class MsgReveiceBean {
 
 	@StreamListener(Sink.INPUT)
 	public void loggerSink(Object payload) {
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(300);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		logger.info("message received: " + payload);
 	}
 

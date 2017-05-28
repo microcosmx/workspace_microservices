@@ -11,6 +11,14 @@ services:
       restart_policy:
         condition: on-failure
 
+  # kafka:
+  #   container_name: kafka
+  #   image: spotify/kafka:latest
+  #   ports:
+  #    - 2181:2181
+  #    - 9092:9092
+
+
   zipkin:
     image: openzipkin/zipkin
     ports:
