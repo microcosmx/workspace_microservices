@@ -10,13 +10,13 @@ import javax.validation.Valid;
 public class Information2 {
     @Valid
     @Id
-    private TripId tripId;
+    private String tripId;
 
-    public TripId getTripId() {
+    public String getTripId() {
         return tripId;
     }
 
-    public void setTripId(TripId tripId) {
+    public void setTripId(String tripId) {
         this.tripId = tripId;
     }
 }
