@@ -33,8 +33,9 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public Trip retrieve(Information2 info){
-        if(repository.findByTripId(info.getTripId()) != null){
-            return repository.findByTripId(info.getTripId());
+        TripId ti = new TripId(info.getTripId());
+        if(repository.findByTripId(ti) != null){
+            return repository.findByTripId(ti);
         }else{
             return null;
         }
@@ -55,8 +56,9 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public String delete(Information2 info){
-        if(repository.findByTripId(info.getTripId()) != null){
-            repository.deleteByTripId(info.getTripId());
+        TripId ti = new TripId(info.getTripId());
+        if(repository.findByTripId(ti) != null){
+            repository.deleteByTripId(ti);
             return "Delete trip:" +info.getTripId().toString()+ ".";
         }else{
             return "Trip "+info.getTripId().toString()+" doesn't exist.";

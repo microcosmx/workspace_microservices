@@ -15,37 +15,33 @@ function getXmlHttpRequest(){
 //----For Login------
 
 document.getElementById("login_button").onclick = function post_login(){
-
-    req = getXmlHttpRequest();
-
     var loginInfo = new Object();
     loginInfo.phoneNum = $("#login_phoneNum").val();
     loginInfo.password = $("#login_password").val();
     loginInfo.verificationCode = $("#login_verification_code").val();
     var data = JSON.stringify(loginInfo);
 
-    var url = "/login";
-
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_login_result;
-    req.send(data);
-}
-
-function handle_login_result(){
-    if(req.readyState == 4){
-        var resultstr = req.responseText;
-        var obj = JSON.parse(resultstr);
-        if(obj["account"] != null){
-            document.getElementById("user_login_id").innerHTML = obj["account"].id;
-            document.getElementById("user_login_token").innerHTML = obj["token"];
+    $.ajax({
+        type: "post",
+        url: "/login",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            if(obj["status"] == "true"){
+                $("#user_login_id").html(obj["account"].id);
+                $("#user_login_token").html(obj["token"]);
+            }
+            $("#login_result_status").html(JSON.stringify(obj["status"]));
+            $("#login_result_msg").html(obj["message"]);
+            $("#login_result_account").html(JSON.stringify(obj["account"]));
+            $("#login_result_token").html(JSON.stringify(obj["token"]));
         }
-        document.getElementById("login_result_status").innerHTML = obj["status"];
-        document.getElementById("login_result_msg").innerHTML = obj["message"];
-        document.getElementById("login_result_account").innerHTML = JSON.stringify(obj["account"]);
-        document.getElementById("login_result_token").innerHTML = obj["token"];
-    }
+    });
 }
 
 //------For Logout-------
@@ -55,8 +51,8 @@ document.getElementById("logout_button").onclick = function post_logout(){
     req = getXmlHttpRequest();
 
     var logoutInfo = new Object();
-    logoutInfo.id = document.getElementById("user_login_id").innerHTML;
-    logoutInfo.token = document.getElementById("user_login_token").innerHTML;
+    logoutInfo.id = $("#user_login_id").html();
+    logoutInfo.token = $("#user_login_token").html();
     var data = JSON.stringify(logoutInfo);
 
     var url = "/logout";
@@ -69,11 +65,10 @@ document.getElementById("logout_button").onclick = function post_logout(){
 
 function handle_logout_result(){
     if(req.readyState == 4){
-        var resultstr = req.responseText;
-        var obj = JSON.parse(resultstr);
+        var obj = JSON.parse(req.responseText);
         if(obj["status"] == "true"){
-            document.getElementById("user_login_id").innerHTML = "Not Login";
-            document.getElementById("user_login_token").innerHTML = "Please Login";
+            $("#user_login_id").html("Not Login");
+            $("#user_login_token").html("Please Login");
         }else{
             alert(JSON.stringify(obj));
         }
@@ -82,9 +77,6 @@ function handle_logout_result(){
 
 //------For Register------
 document.getElementById("register_button").onclick = function post_register(){
-
-    req = getXmlHttpRequest();
-
     var registerInfo = new Object();
     registerInfo.password = $("#register_password").val();
     registerInfo.gender = $("#register_gender").val();
@@ -94,296 +86,318 @@ document.getElementById("register_button").onclick = function post_register(){
     registerInfo.phoneNum = $("#register_phoneNum").val();
     registerInfo.verificationCode = $("#register_verificationCode").val();
     var data = JSON.stringify(registerInfo);
-
-    var url = "/register";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_register_result;
-    req.send(data);
-}
-
-function handle_register_result(){
-    if(req.readyState == 4){
-        var resultstr = req.responseText;
-        var obj = JSON.parse(resultstr);
-        document.getElementById("register_result_status").innerHTML = obj["status"];
-        document.getElementById("register_result_msg").innerHTML = obj["message"];
-        document.getElementById("register_result_account").innerHTML = JSON.stringify(obj["account"]);
-    }
+    $.ajax({
+        type: "post",
+        url: "/register",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            $("#register_result_status").html(JSON.stringify(obj["status"]));
+            $("#register_result_msg").html(obj["message"]);
+            $("#register_result_account").html(JSON.stringify(obj["account"]));
+        }
+    });
 }
 
 //------For contacts----------
 //------For add contacts------
 document.getElementById("add_contacts_button").onclick = function post_add_contacts(){
-
-    req = getXmlHttpRequest();
-
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#add_contacts_name").val();
     addContactsInfo.documentType = $("#add_contacts_documentType").val();
     addContactsInfo.documentNumber = $("#add_contacts_documentNum").val();
     addContactsInfo.phoneNumber = $("#add_contacts_phoneNum").val();
-    addContactsInfo.accountId = document.getElementById("user_login_id").innerHTML;
-    addContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
+    addContactsInfo.accountId = $("#user_login_id").html();
+    addContactsInfo.loginToken = $("#user_login_token").html();
     var data = JSON.stringify(addContactsInfo);
-
-    var url = "/contacts/create";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_add_contacts_result;
-    req.send(data);
+    $.ajax({
+        type: "post",
+        url: "/contacts/create",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            $("#add_contacts_result_status").html(JSON.stringify(obj["status"]));
+            $("#add_contacts_result_msg").html(obj["message"]);
+            $("#add_contacts_result_contacts").html(JSON.stringify(obj["contacts"]));
+        }
+    });
 }
 
-function handle_add_contacts_result(){
-    if(req.readyState == 4){
-        var resultstr = req.responseText;
-        var obj = JSON.parse(resultstr);
-        document.getElementById("add_contacts_result_status").innerHTML = obj["status"];
-        document.getElementById("add_contacts_result_msg").innerHTML = obj["message"];
-        document.getElementById("add_contacts_result_contacts").innerHTML = JSON.stringify(obj["contacts"]);
-    }
-}
+
 //For query contacts
 $("#refresh_contacts_button").click(function refresh_contacts(){
-
-    req = getXmlHttpRequest();
     var queryContactsInfo = new Object();
-    queryContactsInfo.accountId = document.getElementById("user_login_id").innerHTML;
-    queryContactsInfo.loginToken = document.getElementById("user_login_token").innerHTML;
+    queryContactsInfo.accountId = $("#user_login_id").html();
+    queryContactsInfo.loginToken = $("#user_login_token").html();
     var data = JSON.stringify(queryContactsInfo);
-
-    var url = "/contacts/findContacts";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_query_contacts_result;
-    req.send(data);
-
-});
-
-function handle_query_contacts_result(){
-    if(req.readyState == 4){
-        $("#contacts_list_table").find("tbody").html("");
-
-        var resultstr = req.responseText;
-        var obj = JSON.parse(resultstr);
-        for(var i = 0,l = obj.length ; i < l ; i++){
-            $("#contacts_list_table").find("tbody").append(
-                "<tr>" +
+    $.ajax({
+        type: "post",
+        url: "/contacts/findContacts",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            $("#contacts_list_table").find("tbody").html("");
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#contacts_list_table").find("tbody").append(
+                    "<tr>" +
                     "<td>" + i                                                    + "</td>" +
                     "<td>" + obj[i]["name"]                                       + "</td>" +
                     "<td>" + obj[i]["documentType"]                               + "</td>" +
                     "<td>" + obj[i]["documentNumber"]                             + "</td>" +
                     "<td>" + obj[i]["phoneNumber"]                                + "</td>" +
                     "<td>" +  "<button class=\"btn btn-primary\">Delete</button>" + "</td>" +
-                "</tr>"
-            );
+                    "</tr>"
+                );
+            }
         }
-    }
-}
-
+    });
+});
 //------For Station------------
 //------For Station create------------
 document.getElementById("station_create_button").onclick = function post_station_create(){
-    req = getXmlHttpRequest();
-    var StationInfo = new Object();
-    StationInfo.name = $("#station_create_name").val();
-    var data = JSON.stringify(StationInfo);
-
-    var url = "/station/create";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_station_result;
-    req.send(data);
+    var stationInfo = new Object();
+    stationInfo.name = $("#station_create_name").val();
+    var data = JSON.stringify(stationInfo);
+    $.ajax({
+        type: "post",
+        url: "/station/create",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#station_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Station exist------------
 document.getElementById("station_exist_button").onclick = function post_station_exist(){
-    req = getXmlHttpRequest();
-    var StationInfo = new Object();
-    StationInfo.name = $("#station_exist_name").val();
-    var data = JSON.stringify(StationInfo);
-
-    var url = "/station/exist";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_station_result;
-    req.send(data);
+    var stationInfo = new Object();
+    stationInfo.name = $("#station_exist_name").val();
+    var data = JSON.stringify(stationInfo);
+    $.ajax({
+        type: "post",
+        url: "/station/exist",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#station_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Station delete------------
 document.getElementById("station_delete_button").onclick = function post_station_delete(){
-    req = getXmlHttpRequest();
-    var StationInfo = new Object();
-    StationInfo.name = $("#station_delete_name").val();
-    var data = JSON.stringify(StationInfo);
-
-    var url = "/station/delete";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_station_result;
-    req.send(data);
-}
-
-//handle station result
-function handle_station_result(){
-    if(req.readyState == 4){
-        var resultstr = req.responseText;
-        document.getElementById("station_result").innerHTML = resultstr;
-    }
+    var stationInfo = new Object();
+    stationInfo.name = $("#station_delete_name").val();
+    var data = JSON.stringify(stationInfo);
+    $.ajax({
+        type: "post",
+        url: "/station/delete",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#station_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 
 //------For Train------------
 //------For Train create------------
 document.getElementById("train_create_button").onclick = function post_train_create(){
-    req = getXmlHttpRequest();
-    var TrainInfo = new Object();
-    TrainInfo.id = document.getElementById("train_create_id").value;
-    TrainInfo.economyClass = $("#train_create_economyClass").val();
-    TrainInfo.confortClass = $("#train_create_confortClass").val();
-    var data = JSON.stringify(TrainInfo);
-
-    var url = "/train/create";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_train_result;
-    req.send(data);
+    var trainInfo = new Object();
+    trainInfo.id = $("#train_create_id").val();
+    trainInfo.economyClass = $("#train_create_economyClass").val();
+    trainInfo.confortClass = $("#train_create_confortClass").val();
+    var data = JSON.stringify(trainInfo);
+    $.ajax({
+        type: "post",
+        url: "/train/create",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#train_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Train update------------
 document.getElementById("train_update_button").onclick = function post_train_update(){
-    req = getXmlHttpRequest();
-    var TrainInfo = new Object();
-    TrainInfo.id = $("#train_update_id").val();
-    TrainInfo.economyClass = $("#train_update_economyClass").val();
-    TrainInfo.confortClass = $("#train_update_confortClass").val();
-    var data = JSON.stringify(TrainInfo);
-
-    var url = "/train/update";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_train_result;
-    req.send(data);
+    var trainInfo = new Object();
+    trainInfo.id = $("#train_update_id").val();
+    trainInfo.economyClass = $("#train_update_economyClass").val();
+    trainInfo.confortClass = $("#train_update_confortClass").val();
+    var data = JSON.stringify(trainInfo);
+    $.ajax({
+        type: "post",
+        url: "/train/update",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#train_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Train query------------
 document.getElementById("train_query_button").onclick = function post_train_query(){
-    req = getXmlHttpRequest();
-    var TrainInfo = new Object();
-    TrainInfo.id = $("#train_query_id").val();
-    var data = JSON.stringify(TrainInfo);
-
-    var url = "/train/retrieve";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_train_result;
-    req.send(data);
+    var trainInfo = new Object();
+    trainInfo.id = $("#train_query_id").val();
+    var data = JSON.stringify(trainInfo);
+    $.ajax({
+        type: "post",
+        url: "/train/retrieve",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#train_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Train delete------------
 document.getElementById("train_delete_button").onclick = function post_train_delete(){
-    req = getXmlHttpRequest();
-    var TrainInfo = new Object();
-    TrainInfo.id = $("#train_delete_id").val();
-    var data = JSON.stringify(TrainInfo);
-
-    var url = "/train/delete";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_train_result;
-    req.send(data);
+    var trainInfo = new Object();
+    trainInfo.id = $("#train_delete_id").val();
+    var data = JSON.stringify(trainInfo);
+    $.ajax({
+        type: "post",
+        url: "/train/delete",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#train_result").html(JSON.stringify(result));
+        }
+    });
 }
-
-//handle train result
-function handle_train_result(){
-    if(req.readyState == 4){
-        var resultstr = req.responseText;
-        document.getElementById("train_result").innerHTML = resultstr;
-    }
-}
-
-
 //------For Config------------
 //------For Config create------------
 document.getElementById("config_create_button").onclick = function post_config_create(){
-    req = getXmlHttpRequest();
-    var ConfigInfo = new Object();
-    ConfigInfo.name = $("#config_create_name").val();
-    ConfigInfo.value = $("#config_create_value").val();
-    ConfigInfo.description = $("#config_create_description").val();
-    var data = JSON.stringify(ConfigInfo);
-
-    var url = "/config/create";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_config_result;
-    req.send(data);
+    var configInfo = new Object();
+    configInfo.name = $("#config_create_name").val();
+    configInfo.value = $("#config_create_value").val();
+    configInfo.description = $("#config_create_description").val();
+    var data = JSON.stringify(configInfo);
+    $.ajax({
+        type: "post",
+        url: "/config/create",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#config_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Config update------------
 document.getElementById("config_update_button").onclick = function post_config_update(){
-    req = getXmlHttpRequest();
-    var ConfigInfo = new Object();
-    ConfigInfo.name = $("#config_update_name").val();
-    ConfigInfo.value = $("#config_update_value").val();
-    ConfigInfo.description = $("#config_update_description").val();
-    var data = JSON.stringify(ConfigInfo);
-
-    var url = "/config/update";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_config_result;
-    req.send(data);
+    var configInfo = new Object();
+    configInfo.name = $("#config_update_name").val();
+    configInfo.value = $("#config_update_value").val();
+    configInfo.description = $("#config_update_description").val();
+    var data = JSON.stringify(configInfo);
+    $.ajax({
+        type: "post",
+        url: "/config/update",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#config_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Query query------------
 document.getElementById("config_query_button").onclick = function post_config_query(){
-    req = getXmlHttpRequest();
-    var ConfigInfo = new Object();
-    ConfigInfo.name = $("#config_query_name").val();
-    var data = JSON.stringify(ConfigInfo);
-
-    var url = "/config/query";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_config_result;
-    req.send(data);
+    var configInfo = new Object();
+    configInfo.name = $("#config_query_name").val();
+    var data = JSON.stringify(configInfo);
+    $.ajax({
+        type: "post",
+        url: "/config/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#config_result").html(JSON.stringify(result));
+        }
+    });
 }
 
 //------For Config delete------------
 document.getElementById("config_delete_button").onclick = function post_config_delete(){
-    req = getXmlHttpRequest();
-    var ConfigInfo = new Object();
-    ConfigInfo.name = $("#config_delete_name").val();
-    var data = JSON.stringify(ConfigInfo);
-
-    var url = "/config/delete";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_config_result;
-    req.send(data);
+    var configInfo = new Object();
+    configInfo.name = $("#config_delete_name").val();
+    var data = JSON.stringify(configInfo);
+    $.ajax({
+        type: "post",
+        url: "/config/delete",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#config_result").html(JSON.stringify(result));
+        }
+    });
 }
 
-function handle_config_result(){
-    if(req.readyState == 4){
-        var resultstr = req.responseText;
-        document.getElementById("config_result").innerHTML = resultstr;
-    }
-}
 
 //------For Travel------------
 //------For Trip create------------
@@ -398,17 +412,17 @@ $("#travel_create_button").click(function(){
     travelCreateInfo.startingTime = $("#travel_create_startingTime").val();
     travelCreateInfo.endTime = $("#travel_create_endTime").val();
     var travelCreateData = JSON.stringify(travelCreateInfo);
-
     $.ajax({
         type: "post",
         url: "/travel/create",
         contentType: "application/json",
         dataType: "json",
         data: travelCreateData,
-        success: function(data, textStatus){
-            $("#travel_result").innerHTML = data;
+        xhrFields: {
+            withCredentials: true
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        success: function(result){
+            $("#travel_result").html(JSON.stringify(result));
         }
     });
 });
@@ -416,93 +430,69 @@ $("#travel_create_button").click(function(){
 //------For Trip retrieve------------
 
 $("#travel_retrieve_button").click(function(){
-
-    var tripIdInput = $("#travel_delete_tripId").val();
-    var tpid = new Object();
-    tpid.type = tripIdInput.charAt(0);
-    tpid.number = tripIdInput.substring(1,tripIdInput.length);
-    var tpdata = JSON.stringify(tpid);
-
-    var TravelInfo = new Object();
-    TravelInfo.tripId = tpdata;
-    var data2 = JSON.stringify(TravelInfo);
-
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#travel_delete_tripId").val();
+    var data = JSON.stringify(travelInfo);
     $.ajax({
         type: "post",
         url: "/travel/retrieve",
         contentType: "application/json",
         dataType: "json",
-        data:data2,
-        success: function(data, textStatus){
-            // $("#travel_result").html(data);
-            document.getElementById("travel_result").innerHTML = textStatus;
+        data:data,
+        xhrFields: {
+            withCredentials: true
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        success: function(result){
+            $("#travel_result").html(JSON.stringify(result));
         }
     });
-
 });
 
 //------For Trip update------------
 
 $("#travel_update_button").click(function(){
-    var tripIdInput = $("#travel_update_tripId").val();
-    var tpid = new Object();
-    tpid.type = tripIdInput.charAt(0);
-    tpid.number = tripIdInput.substring(1,tripIdInput.length);
-    var tpdata = JSON.stringify(tpid);
-
-    var TravelInfo = new Object();
-    TravelInfo.tripId = tpdata;
-    TravelInfo.trainTypeId = document.getElementById("travel_update_trainTypeId").value;
-    TravelInfo.startingStation = document.getElementById("travel_update_startingStation").value;
-    TravelInfo.stations = document.getElementById("travel_update_stations").value;
-    TravelInfo.terminalStation = document.getElementById("travel_update_terminalStation").value;
-    TravelInfo.startingTime = document.getElementById("travel_update_startingTime").value;
-    TravelInfo.endTime = document.getElementById("travel_update_endTime").value;
-    var data2 = JSON.stringify(TravelInfo);
-
-        $.ajax({
-            type: "post",
-            url: "/travel/update",
-            contentType: "application/json",
-            dataType: "json",
-            data:data2,
-            success: function(data, textStatus){
-                // $("#travel_result").html(data);
-                document.getElementById("travel_result").innerHTML = textStatus;
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-            }
-        });
-
-    }
-);
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#travel_update_tripId").val();
+    travelInfo.trainTypeId = $("#travel_update_trainTypeId").val;
+    travelInfo.startingStation =  $("#travel_update_startingStation").val;
+    travelInfo.stations = $("#travel_update_stations").val ;
+    travelInfo.terminalStation = $("#travel_update_terminalStation").val;
+    travelInfo.startingTime = $("#travel_update_startingTime").val;
+    travelInfo.endTime = $("#travel_update_endTime").val;
+    var data = JSON.stringify(travelInfo);
+    $.ajax({
+        type: "post",
+        url: "/travel/update",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#travel_result").html(JSON.stringify(result));
+        },
+    });
+});
 
 //------For Trip delete------------
 
 $("#travel_delete_button").click(function(){
-    var tripIdInput = $("#travel_delete_tripId").val();
-    var tpid = new Object();
-    tpid.type = tripIdInput.charAt(0);
-    tpid.number = tripIdInput.substring(1,tripIdInput.length);
-    var tpdata = JSON.stringify(tpid);
-
-    var TravelInfo = new Object();
-    TravelInfo.tripId = tpdata;
-    var data2 = JSON.stringify(TravelInfo);
-
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#travel_delete_tripId").val();
+    var data = JSON.stringify(travelInfo);
     $.ajax({
         type: "post",
         url: "/travel/delete",
         contentType: "application/json",
         dataType: "json",
-        data:data2,
-        success: function(data, textStatus){
-            // $("#travel_result").html(data);
-            document.getElementById("travel_result").innerHTML = textStatus;
+        data:data,
+        xhrFields: {
+            withCredentials: true
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {}
+        success: function(result){
+            $("#travel_result").html(JSON.stringify(result));
+        }
     });
 });
 
@@ -514,25 +504,20 @@ $("#travel_query_button").click(function(){
     travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
     travelQueryInfo.departureTime= $("#travel_query_date").val();
     var travelQueryData = JSON.stringify(travelQueryInfo);
-
-    var url = "/travel/query";
-    req = getXmlHttpRequest();
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_query_travel_result;
-    req.send(travelQueryData);
-});
-
-function handle_query_travel_result(){
-    if(req.readyState == 4){
-        $("#query_tickets_list_table").find("tbody").html("")
-        var resultstr = req.responseText;
-        alert(resultstr);
-        var obj = JSON.parse(resultstr);
-        for(var i = 0,l = obj.length ; i < l ; i++){
-            $("#query_tickets_list_table").find("tbody").append(
-                "<tr>" +
+    $.ajax({
+        type: "post",
+        url: "/travel/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:travelQueryData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#query_tickets_list_table").find("tbody").append(
+                    "<tr>" +
                     "<td>" + i + "</td>" +
                     "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                     "<td>" + obj[i]["startingStation"]                             + "</td>" +
@@ -542,9 +527,10 @@ function handle_query_travel_result(){
                     "<td>" + obj[i]["economyClass"]                                + "</td>" +
                     "<td>" + obj[i]["confortClass"]                                + "</td>" +
                     "<td>" +  "<button class=\"btn btn-primary\">Select</button>"  + "</td>" +
-                "</tr>"
-            );
+                    "</tr>"
+                );
+            }
         }
-    }
-}
+    });
+});
 
