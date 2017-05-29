@@ -22,24 +22,43 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 
+import rx.Observable;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.messaging.handler.annotation.SendTo;
+
 /**
  * @author Dave Syer
  *
  */
-@EnableBinding(Sink.class)
+//@EnableBinding(Sink.class)
+@EnableBinding(Processor.class)
 public class MsgReveiceBean {
 
 	private static Logger logger = LoggerFactory.getLogger(MsgReveiceBean.class);
 
-	@StreamListener(Sink.INPUT)
-	public void loggerSink(Object payload) {
+//	@StreamListener(Sink.INPUT)
+//	public void loggerSink(Object payload) {
 //		try {
-//			Thread.sleep(300);
+//			Thread.sleep(1);
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		logger.info("message received: " + payload);
+//		logger.info("message received: " + payload);
+//	}
+
+//	@StreamListener(Sink.INPUT)
+	@StreamListener(Processor.INPUT)
+	public void processor(Observable<String> inputStream) {
+		Observable<String> os = inputStream.map(data -> {
+			logger.info("Got message stream data = " + data);
+			return data;
+		});
+				
+		//.buffer(5).map(data -> String.valueOf(avg(data)));
+		logger.info("message received complete");
 	}
 
 }

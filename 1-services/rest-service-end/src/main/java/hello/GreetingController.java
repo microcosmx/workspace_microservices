@@ -1,6 +1,9 @@
 package hello;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +19,10 @@ public class GreetingController {
 
     private final AtomicLong counter = new AtomicLong();
     
+//    @Autowired
+//    private MsgSendingBean sendingBean;
     @Autowired
-    private MsgSendingBean sendingBean;
+    private MsgSendingBean2 sendingBean2;
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
@@ -27,12 +32,18 @@ public class GreetingController {
     	log.info(String.valueOf(cal2));
     	
     	//async messaging
-    	log.info("message 1");
-    	sendingBean.sayHello("message 1:" + cal2);
-    	log.info("message 2");
-    	sendingBean.sayHello("message 2:" + cal2*2);
-    	log.info("message 3");
-    	sendingBean.sayHello("message 3:" + cal2*3);
+//    	log.info("message 1");
+//    	sendingBean.sayHello("message 1:" + cal2);
+//    	log.info("message 2");
+//    	sendingBean.sayHello("message 2:" + cal2*2);
+//    	log.info("message 3");
+//    	sendingBean.sayHello("message 3:" + cal2*3);
+    	
+    	log.info("message stream sending:");
+    	List<String> strList = Arrays.asList(String.valueOf(cal), String.valueOf(cal2), "100.0"); 
+	    List<String> filtered = strList.stream().filter(x -> x.length() > 2).collect(Collectors.toList()); 
+	    sendingBean2.processor(filtered);
+	    
         
     	Greeting value = null;
         if(cal2 < 6){
