@@ -22,7 +22,7 @@ public class AccountSsoController {
         return "Welcome to [ Accounts SSO Service ] !";
     }
 
-    @RequestMapping(path = "/logoutDeleteToken/{loginId}", method = RequestMethod.POST)
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public LogoutResult logoutDeleteToken(@RequestBody LogoutInfo li){
         System.out.println("[SSO Service][Logout Delete Token] ID:" + li.getId() + "Token:" + li.getToken());
         return ssoService.logoutDeleteToken(li);

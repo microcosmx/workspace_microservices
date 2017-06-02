@@ -1,17 +1,4 @@
 /*---------------------Add By Ji Chao for ajax--------------------*/
-//// Creates a XMLHttpRequest object.
-var req = new XMLHttpRequest();
-
-function getXmlHttpRequest(){
-    var xmlHttpRequest= "";
-    if(window.XMLHttpRequest){
-        xmlHttpRequest = new XMLHttpRequest();
-    } else{ // IE
-        xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    return xmlHttpRequest;
-}
-
 //----For Login------
 
 document.getElementById("login_button").onclick = function post_login(){
@@ -32,7 +19,7 @@ document.getElementById("login_button").onclick = function post_login(){
         },
         success: function(result){
             var obj = result;
-            if(obj["status"] == "true"){
+            if(obj["status"] == true){
                 $("#user_login_id").html(obj["account"].id);
                 $("#user_login_token").html(obj["token"]);
             }
@@ -47,32 +34,26 @@ document.getElementById("login_button").onclick = function post_login(){
 //------For Logout-------
 
 document.getElementById("logout_button").onclick = function post_logout(){
-
-    req = getXmlHttpRequest();
-
     var logoutInfo = new Object();
     logoutInfo.id = $("#user_login_id").html();
     logoutInfo.token = $("#user_login_token").html();
     var data = JSON.stringify(logoutInfo);
-
-    var url = "/logout";
-    req.open("post",url,true);
-    req.withCredentials = true;
-    req.setRequestHeader("Content-Type", "application/json");
-    req.onreadystatechange = handle_logout_result;
-    req.send(data);
-}
-
-function handle_logout_result(){
-    if(req.readyState == 4){
-        var obj = JSON.parse(req.responseText);
-        if(obj["status"] == "true"){
-            $("#user_login_id").html("Not Login");
-            $("#user_login_token").html("Please Login");
-        }else{
-            alert(JSON.stringify(obj));
+    $.ajax({
+        type: "post",
+        url: "/logout",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            if(result["status"] == true){
+                $("#user_login_id").html("Not Login");
+                $("#user_login_token").html("Please Login");
+            }
         }
-    }
+    });
 }
 
 //------For Register------
@@ -325,13 +306,13 @@ document.getElementById("config_create_button").onclick = function post_config_c
         type: "post",
         url: "/config/create",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         data:data,
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            $("#config_result").html(JSON.stringify(result));
+            $("#config_result").html(result);
         }
     });
 }
@@ -347,18 +328,18 @@ document.getElementById("config_update_button").onclick = function post_config_u
         type: "post",
         url: "/config/update",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         data:data,
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            $("#config_result").html(JSON.stringify(result));
+            $("#config_result").html(result);
         }
     });
 }
 
-//------For Query query------------
+//------For config query------------
 document.getElementById("config_query_button").onclick = function post_config_query(){
     var configInfo = new Object();
     configInfo.name = $("#config_query_name").val();
@@ -367,13 +348,13 @@ document.getElementById("config_query_button").onclick = function post_config_qu
         type: "post",
         url: "/config/query",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         data:data,
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            $("#config_result").html(JSON.stringify(result));
+            $("#config_result").html(result);
         }
     });
 }
@@ -387,13 +368,13 @@ document.getElementById("config_delete_button").onclick = function post_config_d
         type: "post",
         url: "/config/delete",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         data:data,
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            $("#config_result").html(JSON.stringify(result));
+            $("#config_result").html(result);
         }
     });
 }
