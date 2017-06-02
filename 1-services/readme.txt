@@ -34,6 +34,8 @@ docker run -d -p 9411:9411 --name myzipkin openzipkin/zipkin
 http://zipkin:9411/
 http://172.16.0.1:9411/
 http://10.141.212.25:9411/
+traces:
+http://localhost:9411/api/v1/traces?annotationQuery=&endTs=1496377639992&limit=100&lookback=3600000&minDuration=&serviceName=rest-service-6&sortOrder=duration-desc&spanName=all
 
 
 redis:
