@@ -284,48 +284,48 @@ document.getElementById("station_exist_button").onclick = function post_station_
 }
 
 //------For Station delete------------
-document.getElementById("station_delete_button").onclick = function post_station_delete(){
-    var stationInfo = new Object();
-    stationInfo.name = $("#station_delete_name").val();
-    var data = JSON.stringify(stationInfo);
-    $.ajax({
-        type: "post",
-        url: "/station/delete",
-        contentType: "application/json",
-        dataType: "json",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#station_result").html(JSON.stringify(result));
-        }
-    });
-}
+// document.getElementById("station_delete_button").onclick = function post_station_delete(){
+//     var stationInfo = new Object();
+//     stationInfo.name = $("#station_delete_name").val();
+//     var data = JSON.stringify(stationInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/station/delete",
+//         contentType: "application/json",
+//         dataType: "json",
+//         data:data,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#station_result").html(JSON.stringify(result));
+//         }
+//     });
+// }
 
 
 //------For Train------------
 //------For Train create------------
-document.getElementById("train_create_button").onclick = function post_train_create(){
-    var trainInfo = new Object();
-    trainInfo.id = $("#train_create_id").val();
-    trainInfo.economyClass = $("#train_create_economyClass").val();
-    trainInfo.confortClass = $("#train_create_confortClass").val();
-    var data = JSON.stringify(trainInfo);
-    $.ajax({
-        type: "post",
-        url: "/train/create",
-        contentType: "application/json",
-        dataType: "json",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#train_result").html(JSON.stringify(result));
-        }
-    });
-}
+// document.getElementById("train_create_button").onclick = function post_train_create(){
+//     var trainInfo = new Object();
+//     trainInfo.id = $("#train_create_id").val();
+//     trainInfo.economyClass = $("#train_create_economyClass").val();
+//     trainInfo.confortClass = $("#train_create_confortClass").val();
+//     var data = JSON.stringify(trainInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/train/create",
+//         contentType: "application/json",
+//         dataType: "json",
+//         data:data,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#train_result").html(JSON.stringify(result));
+//         }
+//     });
+// }
 
 //------For Train update------------
 document.getElementById("train_update_button").onclick = function post_train_update(){
@@ -370,46 +370,46 @@ document.getElementById("train_query_button").onclick = function post_train_quer
 }
 
 //------For Train delete------------
-document.getElementById("train_delete_button").onclick = function post_train_delete(){
-    var trainInfo = new Object();
-    trainInfo.id = $("#train_delete_id").val();
-    var data = JSON.stringify(trainInfo);
-    $.ajax({
-        type: "post",
-        url: "/train/delete",
-        contentType: "application/json",
-        dataType: "json",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#train_result").html(JSON.stringify(result));
-        }
-    });
-}
+// document.getElementById("train_delete_button").onclick = function post_train_delete(){
+//     var trainInfo = new Object();
+//     trainInfo.id = $("#train_delete_id").val();
+//     var data = JSON.stringify(trainInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/train/delete",
+//         contentType: "application/json",
+//         dataType: "json",
+//         data:data,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#train_result").html(JSON.stringify(result));
+//         }
+//     });
+// }
 //------For Config------------
 //------For Config create------------
-document.getElementById("config_create_button").onclick = function post_config_create(){
-    var configInfo = new Object();
-    configInfo.name = $("#config_create_name").val();
-    configInfo.value = $("#config_create_value").val();
-    configInfo.description = $("#config_create_description").val();
-    var data = JSON.stringify(configInfo);
-    $.ajax({
-        type: "post",
-        url: "/config/create",
-        contentType: "application/json",
-        dataType: "text",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#config_result").html(result);
-        }
-    });
-}
+// document.getElementById("config_create_button").onclick = function post_config_create(){
+//     var configInfo = new Object();
+//     configInfo.name = $("#config_create_name").val();
+//     configInfo.value = $("#config_create_value").val();
+//     configInfo.description = $("#config_create_description").val();
+//     var data = JSON.stringify(configInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/config/create",
+//         contentType: "application/json",
+//         dataType: "text",
+//         data:data,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#config_result").html(result);
+//         }
+//     });
+// }
 
 //------For Config update------------
 document.getElementById("config_update_button").onclick = function post_config_update(){
@@ -454,61 +454,64 @@ document.getElementById("config_query_button").onclick = function post_config_qu
 }
 
 //------For Config delete------------
-document.getElementById("config_delete_button").onclick = function post_config_delete(){
-    var configInfo = new Object();
-    configInfo.name = $("#config_delete_name").val();
-    var data = JSON.stringify(configInfo);
-    $.ajax({
-        type: "post",
-        url: "/config/delete",
-        contentType: "application/json",
-        dataType: "text",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#config_result").html(result);
-        }
-    });
-}
+// document.getElementById("config_delete_button").onclick = function post_config_delete(){
+//     var configInfo = new Object();
+//     configInfo.name = $("#config_delete_name").val();
+//     var data = JSON.stringify(configInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/config/delete",
+//         contentType: "application/json",
+//         dataType: "text",
+//         data:data,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#config_result").html(result);
+//         }
+//     });
+// }
 
 
 //------For Travel------------
 //------For Trip create------------
 
-$("#travel_create_button").click(function(){
-    var travelCreateInfo = new Object();
-    travelCreateInfo.tripId = $("#travel_create_tripId").val();
-    travelCreateInfo.trainTypeId = $("#travel_create_trainTypeId").val();
-    travelCreateInfo.startingStation = $("#travel_create_startingStation").val();
-    travelCreateInfo.stations = $("#travel_create_stations").val();
-    travelCreateInfo.terminalStation = $("#travel_create_terminalStation").val();
-
-    travelCreateInfo.startingTime = "1970-01-01T" +  $("#travel_create_startingTime").val() +":00Z";
-    travelCreateInfo.endTime = "1970-01-01T" +  $("#travel_create_endTime").val() +":00Z";
-
-    var travelCreateData = JSON.stringify(travelCreateInfo);
-    $.ajax({
-        type: "post",
-        url: "/travel/create",
-        contentType: "application/json",
-        dataType: "text",
-        data: travelCreateData,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#travel_result").html(result);
-        }
-    });
-});
+// $("#travel_create_button").click(function(){
+//     var travelCreateInfo = new Object();
+// //     var travelCreateInfo = {
+// //         tripId : $("#travel_create_tripId").val();
+// // }
+//     travelCreateInfo.tripId = $("#travel_create_tripId").val();
+//     travelCreateInfo.trainTypeId = $("#travel_create_trainTypeId").val();
+//     travelCreateInfo.startingStation = $("#travel_create_startingStation").val();
+//     travelCreateInfo.stations = $("#travel_create_stations").val();
+//     travelCreateInfo.terminalStation = $("#travel_create_terminalStation").val();
+//
+//     travelCreateInfo.startingTime = "1970-01-01T" +  $("#travel_create_startingTime").val() +":00Z";
+//     travelCreateInfo.endTime = "1970-01-01T" +  $("#travel_create_endTime").val() +":00Z";
+//
+//     var travelCreateData = JSON.stringify(travelCreateInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/travel/create",
+//         contentType: "application/json",
+//         dataType: "text",
+//         data: travelCreateData,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#travel_result").html(result);
+//         }
+//     });
+// });
 
 //------For Trip retrieve------------
 
 $("#travel_retrieve_button").click(function(){
     var travelInfo = new Object();
-    travelInfo.tripId = $("#travel_delete_tripId").val();
+    travelInfo.tripId = $("#travel_retrieve_tripId").val();
     var data = JSON.stringify(travelInfo);
     $.ajax({
         type: "post",
@@ -554,24 +557,24 @@ $("#travel_update_button").click(function(){
 
 //------For Trip delete------------
 
-$("#travel_delete_button").click(function(){
-    var travelInfo = new Object();
-    travelInfo.tripId = $("#travel_delete_tripId").val();
-    var data = JSON.stringify(travelInfo);
-    $.ajax({
-        type: "post",
-        url: "/travel/delete",
-        contentType: "application/json",
-        dataType: "json",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            $("#travel_result").html(JSON.stringify(result));
-        }
-    });
-});
+// $("#travel_delete_button").click(function(){
+//     var travelInfo = new Object();
+//     travelInfo.tripId = $("#travel_delete_tripId").val();
+//     var data = JSON.stringify(travelInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/travel/delete",
+//         contentType: "application/json",
+//         dataType: "json",
+//         data:data,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             $("#travel_result").html(JSON.stringify(result));
+//         }
+//     });
+// });
 
 //------For Travel query------------
 

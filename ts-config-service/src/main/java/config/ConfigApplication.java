@@ -9,5 +9,4 @@ public class ConfigApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ConfigApplication.class, args);
     }
-
 }

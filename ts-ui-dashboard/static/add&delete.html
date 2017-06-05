@@ -356,6 +356,55 @@
                 </h3>
             </div>
             <div class="input-box panel-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_tripId" class="form-control" name='tripId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">TrainType ID: </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_trainTypeId" class="form-control" name='trainTypeId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">startingStation: </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_startingStation" class="form-control" name='startingStation' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Station: </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_stations" class="form-control" name='stations' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">TerminalStation: </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_terminalStation" class="form-control" name='terminalStation' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">StartingTime: </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_startingTime" type="time" class="form-control" name='startingTime' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">EndTime: </label>
+                        <div class="col-sm-10">
+                            <input id="travel_create_endTime" type="time" class="form-control" name='endTime' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_create_button" type="button" class="btn btn-primary">Create Trip</button>
+                        </div>
+                    </div>
+                </form>
                 <form role="form" class="form-horizontal" enctype='application/json'>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
@@ -415,6 +464,19 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button id="travel_retrieve_button" type="button" class="btn btn-primary">Query Trip</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Trip Id(e.g.G1234): </label>
+                        <div class="col-sm-10">
+                            <input id="travel_delete_tripId" class="form-control" name='tripId' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_delete_button" type="button" class="btn btn-primary">Delete Trip</button>
                         </div>
                     </div>
                 </form>
@@ -606,6 +668,19 @@
                             </div>
                         </div>
                     </form>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station Name: </label>
+                            <div class="col-sm-10">
+                                <input id="station_delete_name" class="form-control" name='name' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="station_delete_button" type="button" class="btn btn-primary">Delete Station</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="result">
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -627,6 +702,31 @@
                 </h3>
             </div>
             <div class="input-box panel-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input id="train_create_id" class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Economy Class: </label>
+                        <div class="col-sm-10">
+                            <input id="train_create_economyClass" type="number" class="form-control" name='economyClass' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Confort Class: </label>
+                        <div class="col-sm-10">
+                            <input id="train_create_confortClass" type="number" class="form-control" name='confortClass' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="train_create_button" type="button" class="btn btn-primary">Create Train Type</button>
+                        </div>
+                    </div>
+                </form>
                 <form role="form" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Train Id: </label>
@@ -665,6 +765,19 @@
                         </div>
                     </div>
                 </form>
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Train Id: </label>
+                        <div class="col-sm-10">
+                            <input id="train_delete_id" class="form-control" name='id' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="train_delete_button" type="button" class="btn btn-primary">Delete Train Type</button>
+                        </div>
+                    </div>
+                </form>
                 <div class="result">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -685,6 +798,31 @@
                 </h3>
             </div>
             <div class="input-box panel-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config name: </label>
+                        <div class="col-sm-10">
+                            <input id="config_create_name" class="form-control" name='name' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config value: </label>
+                        <div class="col-sm-10">
+                            <input id="config_create_value" class="form-control" name='value' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description: </label>
+                        <div class="col-sm-10">
+                            <input id="config_create_description" class="form-control" name='description' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="config_create_button" type="button" class="btn btn-primary">Add Config</button>
+                        </div>
+                    </div>
+                </form>
                 <form role="form" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Config name: </label>
@@ -720,6 +858,19 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button id="config_query_button" type="button" class="btn btn-primary">Query Config</button>
+                        </div>
+                    </div>
+                </form>
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Config name: </label>
+                        <div class="col-sm-10">
+                            <input id="config_delete_name" class="form-control" name='name' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="config_delete_button" type="button" class="btn btn-primary">Delete Config</button>
                         </div>
                     </div>
                 </form>
