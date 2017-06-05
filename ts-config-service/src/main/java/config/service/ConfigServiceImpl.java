@@ -7,6 +7,8 @@ import config.repository.ConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConfigServiceImpl implements ConfigService {
 
@@ -70,5 +72,10 @@ public class ConfigServiceImpl implements ConfigService {
             repository.deleteByName(info.getName());
             return "true";
         }
+    }
+
+    @Override
+    public List<Config> queryAll(){
+        return repository.findAll();
     }
 }

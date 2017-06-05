@@ -183,43 +183,7 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
     });
 });
 
-$("#travel_booking_button").click(function(){
-    var travelQueryInfo = new Object();
-    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
-    travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_booking_datee").val();
-    var travelQueryData = JSON.stringify(travelQueryInfo);
-    $.ajax({
-        type: "post",
-        url: "/travel/query",
-        contentType: "application/json",
-        dataType: "json",
-        data:travelQueryData,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            var obj = result;
-            $("#tickets_booking_list_table").find("tbody").html("");
-            for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#tickets_booking_list_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                    "<td>" + obj[i]["startingStation"]                             + "</td>" +
-                    "<td>" + obj[i]["terminalStation"]                             + "</td>" +
-                    "<td>" + obj[i]["startingTime"]                                + "</td>" +
-                    "<td>" + obj[i]["endTime"]                                     + "</td>" +
-                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
-                    "</tr>"
-                );
-            }
-            addListenerToBookingTable();
-        }
-    });
-});
+
 
 function addListenerToBookingTable(){
     alert("Enter Add Listener");
@@ -264,16 +228,12 @@ document.getElementById("station_create_button").onclick = function post_station
 }
 
 //------For Station exist------------
-document.getElementById("station_exist_button").onclick = function post_station_exist(){
-    var stationInfo = new Object();
-    stationInfo.name = $("#station_exist_name").val();
-    var data = JSON.stringify(stationInfo);
+document.getElementById("station_query_button").onclick = function post_station_query(){
     $.ajax({
-        type: "post",
-        url: "/station/exist",
+        type: "get",
+        url: "/station/query",
         contentType: "application/json",
         dataType: "json",
-        data:data,
         xhrFields: {
             withCredentials: true
         },
@@ -351,15 +311,15 @@ document.getElementById("train_update_button").onclick = function post_train_upd
 
 //------For Train query------------
 document.getElementById("train_query_button").onclick = function post_train_query(){
-    var trainInfo = new Object();
-    trainInfo.id = $("#train_query_id").val();
-    var data = JSON.stringify(trainInfo);
+    // var trainInfo = new Object();
+    // trainInfo.id = $("#train_query_id").val();
+    // var data = JSON.stringify(trainInfo);
     $.ajax({
-        type: "post",
-        url: "/train/retrieve",
-        contentType: "application/json",
+        type: "get",
+        url: "/train/query",
+        // contentType: "application/json",
         dataType: "json",
-        data:data,
+        // data:data,
         xhrFields: {
             withCredentials: true
         },
@@ -435,15 +395,11 @@ document.getElementById("config_update_button").onclick = function post_config_u
 
 //------For config query------------
 document.getElementById("config_query_button").onclick = function post_config_query(){
-    var configInfo = new Object();
-    configInfo.name = $("#config_query_name").val();
-    var data = JSON.stringify(configInfo);
     $.ajax({
-        type: "post",
-        url: "/config/query",
+        type: "get",
+        url: "/config/queryAll",
         contentType: "application/json",
         dataType: "text",
-        data:data,
         xhrFields: {
             withCredentials: true
         },
@@ -509,16 +465,12 @@ document.getElementById("config_query_button").onclick = function post_config_qu
 
 //------For Trip retrieve------------
 
-$("#travel_retrieve_button").click(function(){
-    var travelInfo = new Object();
-    travelInfo.tripId = $("#travel_retrieve_tripId").val();
-    var data = JSON.stringify(travelInfo);
+$("#travel_queryAll_button").click(function(){
     $.ajax({
-        type: "post",
-        url: "/travel/retrieve",
+        type: "get",
+        url: "/travel/queryAll",
         contentType: "application/json",
         dataType: "json",
-        data:data,
         xhrFields: {
             withCredentials: true
         },
@@ -578,38 +530,38 @@ $("#travel_update_button").click(function(){
 
 //------For Travel query------------
 
-$("#travel_query_button").click(function(){
-    var travelQueryInfo = new Object();
-    travelQueryInfo.startingPlace = $("#travel_query_startingPlace").val();
-    travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_query_date").val();
-    var travelQueryData = JSON.stringify(travelQueryInfo);
-    $.ajax({
-        type: "post",
-        url: "/travel/query",
-        contentType: "application/json",
-        dataType: "json",
-        data:travelQueryData,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            var obj = result;
-            for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#query_tickets_list_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                    "<td>" + obj[i]["startingStation"]                             + "</td>" +
-                    "<td>" + obj[i]["terminalStation"]                             + "</td>" +
-                    "<td>" + obj[i]["startingTime"]                                + "</td>" +
-                    "<td>" + obj[i]["endTime"]                                     + "</td>" +
-                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "</tr>"
-                );
-            }
-        }
-    });
-});
+// $("#travel_query_button").click(function(){
+//     var travelQueryInfo = new Object();
+//     travelQueryInfo.startingPlace = $("#travel_query_startingPlace").val();
+//     travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
+//     travelQueryInfo.departureTime= $("#travel_query_date").val();
+//     var travelQueryData = JSON.stringify(travelQueryInfo);
+//     $.ajax({
+//         type: "post",
+//         url: "/travel/query",
+//         contentType: "application/json",
+//         dataType: "json",
+//         data:travelQueryData,
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function(result){
+//             var obj = result;
+//             for(var i = 0,l = obj.length ; i < l ; i++){
+//                 $("#query_tickets_list_table").find("tbody").append(
+//                     "<tr>" +
+//                     "<td>" + i + "</td>" +
+//                     "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+//                     "<td>" + obj[i]["startingStation"]                             + "</td>" +
+//                     "<td>" + obj[i]["terminalStation"]                             + "</td>" +
+//                     "<td>" + obj[i]["startingTime"]                                + "</td>" +
+//                     "<td>" + obj[i]["endTime"]                                     + "</td>" +
+//                     "<td>" + obj[i]["economyClass"]                                + "</td>" +
+//                     "<td>" + obj[i]["confortClass"]                                + "</td>" +
+//                     "</tr>"
+//                 );
+//             }
+//         }
+//     });
+// });
 

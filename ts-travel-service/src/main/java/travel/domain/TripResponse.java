@@ -38,6 +38,7 @@ public class TripResponse {
     @NotNull
     private int confortClass;   //商务座的座位数量
 
+
     public TripId getTripId() {
         return tripId;
     }

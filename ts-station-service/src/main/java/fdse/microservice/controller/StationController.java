@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Chenjie Xu on 2017/5/8.
@@ -46,5 +47,11 @@ public class StationController {
     @RequestMapping(value="/station/delete",method= RequestMethod.POST)
     public boolean delete(@RequestBody Information info){
         return stationService.delete(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/station/query",method= RequestMethod.GET)
+    public List<Station> query(){
+        return stationService.query();
     }
 }

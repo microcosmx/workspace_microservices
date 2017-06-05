@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 @Document(collection="station")
 public class Station {
+
     @Valid
     @NotNull
     @Id

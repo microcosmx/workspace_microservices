@@ -136,7 +136,7 @@ public class TravelServiceImpl implements TravelService{
         //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
         //50张票，因为AB和AC拼起来正好是一张AC。
         String proportion = restTemplate.postForObject("http://ts-config-service:15679/config/query",
-                new QueryConfig("直达车票分配比例"), String.class
+                new QueryConfig("DirectTicketAllocationProportion"), String.class
         );
         double percent = 1.0;
         if(proportion.contains("%")) {
@@ -178,5 +178,10 @@ public class TravelServiceImpl implements TravelService{
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
         return response;
+    }
+
+    @Override
+    public List<Trip> queryAll(){
+        return repository.findAll();
     }
 }

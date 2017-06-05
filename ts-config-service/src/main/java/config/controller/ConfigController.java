@@ -11,15 +11,12 @@ import config.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ConfigController {
     @Autowired
     private ConfigService configService;
-
-//    @RequestMapping(value="/config/create", method = RequestMethod.POST)
-//    public String create(@RequestParam String name,@RequestParam String value,@RequestParam String description){
-//        return configService.create(name,value,description);
-//    }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/config/create", method = RequestMethod.POST)
@@ -49,5 +46,11 @@ public class ConfigController {
     @RequestMapping(value="/config/delete", method = RequestMethod.POST)
     public String delete(@RequestBody Information2 info){
         return configService.delete(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/config/queryAll", method = RequestMethod.GET)
+    public List<Config> queryAll(){
+        return configService.queryAll();
     }
 }

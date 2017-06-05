@@ -20,4 +20,6 @@ public interface TravelService {
     List<TripResponse> query(QueryInfo info);
 
     GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi);
+
+    List<Trip> queryAll();
 }

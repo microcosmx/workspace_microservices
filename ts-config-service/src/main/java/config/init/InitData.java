@@ -19,10 +19,9 @@ public class InitData implements CommandLineRunner{
     public void run(String... args) throws Exception {
         Information info = new Information();
 
-        info.setName("直达车票分配比例");
+        info.setName("DirectTicketAllocationProportion");
         info.setValue("50%");
-        info.setDescription("查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各" +
-                "有50张票，因为AB和AC拼起来正好是一张AC。");
+        info.setDescription("");
         service.create(info);
     }
 }
