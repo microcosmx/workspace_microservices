@@ -35,6 +35,32 @@ public class ContactsController {
     }
 
     @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/contacts/getContactsById", method = RequestMethod.POST)
+    public GetContactsResult getContactsByContactsId(@RequestBody GetContactsInfo gci){
+        VerifyResult tokenResult = verifySsoLogin(gci.getLoginToken());
+        GetContactsResult gcr = new GetContactsResult();
+        if(tokenResult.isStatus() == true){
+            System.out.println("[ContactsService][VerifyLogin] Success.");
+            Contacts contacts = contactsService.findContactsById(UUID.fromString(gci.getContactsId()));
+            if(contacts == null){
+                gcr.setStatus(false);
+                gcr.setMessage("Contacts Not Exist.");
+                gcr.setContacts(null);
+            }else{
+                gcr.setStatus(true);
+                gcr.setMessage("Success.");
+                gcr.setContacts(contacts);
+            }
+        }else{
+            System.out.println("[ContactsService][VerifyLogin] Fail.");
+            gcr.setStatus(false);
+            gcr.setMessage("Not Login.");
+            gcr.setContacts(null);
+        }
+        return gcr;
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
     public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
         VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());

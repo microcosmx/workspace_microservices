@@ -1,22 +1,32 @@
-package travel.domain;
+package preserve.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Created by Chenjie Xu on 2017/5/15.
- * 查询车票的返回信息，模仿12306，有车次、出发站、到达站、出发时间、到达时间、座位等级及相应的余票
+ * Created by Chenjie Xu on 2017/5/9.
  */
-public class TripResponse {
+@Document(collection="trip")
+public class Trip {
     @Valid
     @Id
     private TripId tripId;
 
     @Valid
     @NotNull
+    private String trainTypeId;
+
+    @Valid
+    @NotNull
     private String startingStation;
+
+    //中间停靠站，最开始的版本只设置一站，也就是说只有起始站、一个停靠站、终点站，在之后的版本中，停靠站扩展为若干站
+    @Valid
+    private String stations;
 
     @Valid
     @NotNull
@@ -30,13 +40,19 @@ public class TripResponse {
     @NotNull
     private Date endTime;
 
-    @Valid
-    @NotNull
-    private int economyClass;   //普通座的座位数量
+    public Trip(){
+        //Default Constructor
+    }
 
-    @Valid
-    @NotNull
-    private int confortClass;   //商务座的座位数量
+    public Trip(TripId tripId, String trainTypeId, String startingStation, String stations, String terminalStation, Date startingTime, Date endTime) {
+        this.tripId = tripId;
+        this.trainTypeId = trainTypeId;
+        this.startingStation = startingStation;
+        this.stations = stations;
+        this.terminalStation = terminalStation;
+        this.startingTime = startingTime;
+        this.endTime = endTime;
+    }
 
     public TripId getTripId() {
         return tripId;
@@ -46,12 +62,28 @@ public class TripResponse {
         this.tripId = tripId;
     }
 
+    public String getTrainTypeId() {
+        return trainTypeId;
+    }
+
+    public void setTrainTypeId(String trainTypeId) {
+        this.trainTypeId = trainTypeId;
+    }
+
     public String getStartingStation() {
         return startingStation;
     }
 
     public void setStartingStation(String startingStation) {
         this.startingStation = startingStation;
+    }
+
+    public String getStations() {
+        return stations;
+    }
+
+    public void setStations(String stations) {
+        this.stations = stations;
     }
 
     public String getTerminalStation() {
@@ -76,21 +108,5 @@ public class TripResponse {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    public int getEconomyClass() {
-        return economyClass;
-    }
-
-    public void setEconomyClass(int economyClass) {
-        this.economyClass = economyClass;
-    }
-
-    public int getConfortClass() {
-        return confortClass;
-    }
-
-    public void setConfortClass(int confortClass) {
-        this.confortClass = confortClass;
     }
 }

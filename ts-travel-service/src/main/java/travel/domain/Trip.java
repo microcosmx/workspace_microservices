@@ -2,9 +2,9 @@ package travel.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Created by Chenjie Xu on 2017/5/9.
@@ -33,17 +33,17 @@ public class Trip {
 
     @Valid
     @NotNull
-    private String startingTime;
+    private Date startingTime;
 
     @Valid
     @NotNull
-    private String endTime;
+    private Date endTime;
 
     public Trip(){
-
+        //Default Constructor
     }
 
-    public Trip(TripId tripId, String trainTypeId, String startingStation, String stations, String terminalStation, String startingTime, String endTime) {
+    public Trip(TripId tripId, String trainTypeId, String startingStation, String stations, String terminalStation, Date startingTime, Date endTime) {
         this.tripId = tripId;
         this.trainTypeId = trainTypeId;
         this.startingStation = startingStation;
@@ -93,19 +93,19 @@ public class Trip {
         this.terminalStation = terminalStation;
     }
 
-    public String getStartingTime() {
+    public Date getStartingTime() {
         return startingTime;
     }
 
-    public void setStartingTime(String startingTime) {
+    public void setStartingTime(Date startingTime) {
         this.startingTime = startingTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 }

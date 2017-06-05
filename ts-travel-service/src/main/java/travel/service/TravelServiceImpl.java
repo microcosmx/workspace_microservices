@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import travel.domain.*;
 import travel.repository.TripRepository;
-
 import java.util.*;
 
 /**
@@ -100,20 +99,39 @@ public class TravelServiceImpl implements TravelService{
         return list;
     }
 
+    @Override
+    public GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi){
+        GetTripAllDetailResult gtdr = new GetTripAllDetailResult();
+        Trip trip = repository.findByTripId(new TripId(gtdi.getTripId()));
+        if(trip == null){
+            gtdr.setStatus(false);
+            gtdr.setMessage("Trip Not Exist");
+            gtdr.setTripResponse(null);
+        }else{
+            TripResponse tripResponse = getTickets(trip,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
+            if(tripResponse == null){
+                gtdr.setStatus(false);
+                gtdr.setMessage("Cannot found TripResponse");
+                gtdr.setTripResponse(null);
+            }else{
+                gtdr.setStatus(true);
+                gtdr.setMessage("Success");
+                gtdr.setTripResponse(tripResponse);
+            }
+        }
+        return gtdr;
+    }
+
     private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
         //车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
-
         //车站站名服务
         Boolean startingPlaceExist = restTemplate.postForObject(
                 "http://ts-station-service:12345/station/exist", new QueryStation(startingPlace), Boolean.class);
-
         Boolean endPlaceExist = restTemplate.postForObject(
                 "http://ts-station-service:12345/station/exist", new QueryStation(endPlace),  Boolean.class);
-
         if(!startingPlaceExist || !endPlaceExist){
             return null;
         }
-
         //配置
         //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
         //50张票，因为AB和AC拼起来正好是一张AC。
@@ -125,18 +143,14 @@ public class TravelServiceImpl implements TravelService{
             proportion = proportion.replaceAll("%", "");
             percent = Double.valueOf(proportion)/100;
         }
-
-
         //车服务
         TrainType trainType = restTemplate.postForObject(
                 "http://ts-train-service:14567/train/retrieve", new QueryTrainType(trip.getTrainTypeId()), TrainType.class
         );
-
         if(trainType == null){
             System.out.println("traintype doesn't exist");
             return null;
         }
-
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
@@ -145,10 +159,8 @@ public class TravelServiceImpl implements TravelService{
             System.out.println("soldticketInfo doesn't exist");
             return null;
         }
-
         //设置返回的车票信息
         TripResponse response = new TripResponse();
-
         if(startingPlace.equals(trip.getStartingStation()) && endPlace.equals(trip.getTerminalStation())){
             int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
             int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
@@ -165,10 +177,6 @@ public class TravelServiceImpl implements TravelService{
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
-
         return response;
     }
-
-
-
 }

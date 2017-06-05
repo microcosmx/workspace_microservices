@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import travel.domain.*;
 import travel.service.TravelService;
-
 import java.util.List;
 
 /**
@@ -46,5 +45,12 @@ public class TravelController {
     @RequestMapping(value="/travel/query", method= RequestMethod.POST)
     public List<TripResponse> query(@RequestBody QueryInfo info){
         return travelService.query(info);
+    }
+
+    //返回Trip以及剩余票数
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel/getTripAllDetailInfo", method= RequestMethod.POST)
+    public GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi){
+        return travelService.getTripAllDetailInfo(gtdi);
     }
 }

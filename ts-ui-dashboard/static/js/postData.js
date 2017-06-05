@@ -148,6 +148,100 @@ $("#refresh_contacts_button").click(function refresh_contacts(){
         }
     });
 });
+
+//Reserve Tickets
+$("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
+    var queryContactsInfo = new Object();
+    queryContactsInfo.accountId = $("#user_login_id").html();
+    queryContactsInfo.loginToken = $("#user_login_token").html();
+    var data = JSON.stringify(queryContactsInfo);
+    $.ajax({
+        type: "post",
+        url: "/contacts/findContacts",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            $("#contacts_booking_list_table").find("tbody").html("");
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#contacts_booking_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i                                                    + "</td>" +
+                    "<td>" + obj[i]["name"]                                       + "</td>" +
+                    "<td>" + obj[i]["documentType"]                               + "</td>" +
+                    "<td>" + obj[i]["documentNumber"]                             + "</td>" +
+                    "<td>" + obj[i]["phoneNumber"]                                + "</td>" +
+                    "<td>" +  "<label><input class='booking_contacts_select' name='booking_contacts' type='radio' />" + "Select" + "</label>" + "</td>" +
+                    "</tr>"
+                );
+            }
+        }
+    });
+});
+
+$("#travel_booking_button").click(function(){
+    var travelQueryInfo = new Object();
+    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
+    travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
+    travelQueryInfo.departureTime= $("#travel_booking_datee").val();
+    var travelQueryData = JSON.stringify(travelQueryInfo);
+    $.ajax({
+        type: "post",
+        url: "/travel/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:travelQueryData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            $("#tickets_booking_list_table").find("tbody").html("");
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#tickets_booking_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                    "<td>" + obj[i]["startingStation"]                             + "</td>" +
+                    "<td>" + obj[i]["terminalStation"]                             + "</td>" +
+                    "<td>" + obj[i]["startingTime"]                                + "</td>" +
+                    "<td>" + obj[i]["endTime"]                                     + "</td>" +
+                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToBookingTable();
+        }
+    });
+});
+
+function addListenerToBookingTable(){
+    alert("Enter Add Listener");
+    var ticketBookingButtonSet = $(".ticket_booking_button");
+    alert("Button Set Length:" + ticketBookingButtonSet.length);
+    for(var i = 0;i < ticketBookingButtonSet.length;i++){
+        ticketBookingButtonSet[i].index = i;
+        alert("add " + i);
+        ticketBookingButtonSet[i].onclick = function(){
+            var table = $("#contacts_booking_list_table");
+            var rows = table.find("tr");
+            var col = rows[this.index + 1].children("td");
+            //获取值
+            alert(col[1].innerHTML);
+        }
+    }
+}
+
+
+
+
+
 //------For Station------------
 //------For Station create------------
 document.getElementById("station_create_button").onclick = function post_station_create(){
@@ -390,20 +484,22 @@ $("#travel_create_button").click(function(){
     travelCreateInfo.startingStation = $("#travel_create_startingStation").val();
     travelCreateInfo.stations = $("#travel_create_stations").val();
     travelCreateInfo.terminalStation = $("#travel_create_terminalStation").val();
-    travelCreateInfo.startingTime = $("#travel_create_startingTime").val();
-    travelCreateInfo.endTime = $("#travel_create_endTime").val();
+
+    travelCreateInfo.startingTime = "1970-01-01T" +  $("#travel_create_startingTime").val() +":00Z";
+    travelCreateInfo.endTime = "1970-01-01T" +  $("#travel_create_endTime").val() +":00Z";
+
     var travelCreateData = JSON.stringify(travelCreateInfo);
     $.ajax({
         type: "post",
         url: "/travel/create",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         data: travelCreateData,
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            $("#travel_result").html(JSON.stringify(result));
+            $("#travel_result").html(result);
         }
     });
 });
@@ -507,7 +603,6 @@ $("#travel_query_button").click(function(){
                     "<td>" + obj[i]["endTime"]                                     + "</td>" +
                     "<td>" + obj[i]["economyClass"]                                + "</td>" +
                     "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "<td>" +  "<button class=\"btn btn-primary\">Select</button>"  + "</td>" +
                     "</tr>"
                 );
             }

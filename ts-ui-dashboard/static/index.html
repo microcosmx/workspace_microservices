@@ -259,7 +259,6 @@
 
         <!------------------------------------------Contacts------------------------------------------------------ -->
 
-
         <div class="step panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -391,13 +390,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">StartingTime: </label>
                         <div class="col-sm-10">
-                            <input id="travel_create_startingTime" class="form-control" name='startingTime' value=''>
+                            <input id="travel_create_startingTime" type="time" class="form-control" name='startingTime' value=''>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">EndTime: </label>
                         <div class="col-sm-10">
-                            <input id="travel_create_endTime" class="form-control" name='endTime' value=''>
+                            <input id="travel_create_endTime" type="time" class="form-control" name='endTime' value=''>
                         </div>
                     </div>
                     <div class="form-group">
@@ -526,7 +525,6 @@
                         </div>
                     </div>
                 </form>
-
                 <table id="query_tickets_list_table" class="table table-striped">
                     <thead>
                         <tr>
@@ -538,7 +536,6 @@
                             <th>到达时间</th>
                             <th>二等座余量</th>
                             <th>商务座余量</th>
-                            <th>预订</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -547,6 +544,93 @@
                 </table>
             </div>
         </div>
+
+        <!-------------Buy Ticket------------------------------------>
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Ticket Booking
+                </h3>
+            </div>
+
+            <div class="input-box panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Starting Place:</label>
+                        <div class="col-sm-10">
+                            <input id="travel_booking_startingPlace" class="form-control" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Terminal Place:</label>
+                        <div class="col-sm-10">
+                            <input id="travel_booking_terminalPlace" class="form-control" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Date:</label>
+                        <div class="col-sm-10">
+                            <input id="travel_booking_date" class="form-control" type="date" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_booking_button" type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Your Contacts List
+                    <button id="refresh_booking_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table id="contacts_booking_list_table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Document Type</th>
+                        <th>Document Number</th>
+                        <th>Phone Number</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!----An empty table----->
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Tickets Searching Result
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table id="tickets_booking_list_table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Trip Id</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Starting Time</th>
+                        <th>End Time</th>
+                        <th>2rd Class Seat Number</th>
+                        <th>1st Class Seat Number</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!--This is an empty table body-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------------- -->
 
         <!-------------------------------------------------Station---------------------------------------------- -->
 
@@ -804,7 +888,6 @@
         <!-------------------------------------------------------------------------------------------------- -->
 
     </div>
-
 </div>
 </body>
 </html>
