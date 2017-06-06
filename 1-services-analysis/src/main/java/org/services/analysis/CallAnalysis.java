@@ -21,7 +21,7 @@ public class CallAnalysis {
 	public static void main(String[] args) {
 
 		HashMap<String, HashMap<String, Object>> traces = new HashMap<String, HashMap<String, Object>>();
-		List<String> methods = new ArrayList<String>();
+		List<String> pListAll = new ArrayList<String>();
 
 		String traceStr = readFile("./sample/traces1.json");
 		JSONArray tracelist = new JSONArray(traceStr);
@@ -101,29 +101,54 @@ public class CallAnalysis {
 				return pl.get("api");
 			}).collect(Collectors.toList());
 			pList.stream().forEach(n -> System.out.println(n));
-			methods.addAll(pList);
+			pListAll.addAll(pList);
 
 			HashMap<String, Object> traceContent = new HashMap<String, Object>();
 			traceContent.put("failed", failed);
-			traceContent.put("list", processList);
+			traceContent.put("list", pList);
 			traces.put(traceId, traceContent);
 
 		}
 		
-		//all 
-		System.out.println(traces.keySet().size());
-		//failed
-		System.out.println(traces.values().stream().filter(trace->{
-			return (Boolean)trace.get("failed");
-		}).collect(Collectors.toList()).size());
-		//spectrum list
-		methods = methods.stream().distinct().collect(Collectors.toList());
-		methods.stream().forEach(n -> System.out.println(n));
+//		traces.forEach((key, val) -> System.out.println(val));
 		
+		//all 
+		double N = traces.keySet().size();
+		//failed
+		double NF = traces.values().stream().filter(trace->{
+			return (Boolean)trace.get("failed");
+		}).collect(Collectors.toList()).size();
+		double NS = N - NF;
+		System.out.println(NF + " || " + NS);
+		//method/spectrum list
+		pListAll = pListAll.stream().distinct().collect(Collectors.toList());
+//		methods.stream().forEach(n -> System.out.println(n));
+		
+		HashMap<String, Double> pListNCF = new HashMap<String, Double>();
+		pListAll.stream().forEach(pl -> pListNCF.put(pl, 0.0));
+		HashMap<String, Double> pListNCS = new HashMap<String, Double>();
+		pListAll.stream().forEach(pl -> pListNCS.put(pl, 0.0));
+		
+		traces.values().stream().forEach(trace->{
+			List<String> pList = (List<String>)trace.get("list");
+			if((Boolean)trace.get("failed")){
+				pList.stream().forEach(pl -> pListNCF.put(pl, pListNCF.get(pl)+1));
+			}else{
+				pList.stream().forEach(pl -> pListNCS.put(pl, pListNCS.get(pl)+1));
+			}
+		});
+		
+//		System.out.println(pListNCF);
+//		System.out.println(pListNCS);
 		
 		//calculate Suspiciousness
 		//NCF/NF : NCF/NF + NCS/NS
-		
+		HashMap<String, Double> pListSuspicious = new HashMap<String, Double>();
+		pListAll.stream().forEach(pl -> {
+			double susp = (pListNCF.get(pl)/NF)  /  (pListNCF.get(pl)/NF + pListNCS.get(pl)/NS);
+			pListSuspicious.put(pl, susp);
+		});
+		System.out.println(pListSuspicious);
 		
 	}
 
