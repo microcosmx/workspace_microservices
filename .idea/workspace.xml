@@ -2,129 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c556e64-f5f9-4dc3-b788-8b9bd02f46d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/1-services-analysis/sample/algorithm.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/1-services-analysis/sample/algorithm0.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/TicketInfoApplication.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/controller/TicketInfoController.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/domain/QueryForTravel.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/domain/ResultForTravel.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/domain/TrainType.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/domain/Trip.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/domain/TripId.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/domain/Type.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/service/TicketInfoService.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/ticketinfo/service/TicketInfoServiceImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/.mvn/wrapper/maven-wrapper.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Wenyi.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/1-services-analysis/sample/traces1.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/1-services/error.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/Dockerfile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/mvnw" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/mvnw.cmd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/readme.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/BasicApplication.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/controller/BasicController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/QueryConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/QueryForTravel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/QueryStation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/QueryTrainType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/ResultForTravel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/TrainType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/Trip.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/TripId.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/domain/Type.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/service/BasicService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/java/fdse/microservice/service/BasicServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-basic-service/src/main/resources/application.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-contacts-service/src/main/java/contacts/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/mvnw" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/mvnw.cmd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/src/main/java/fdse/microservice/DemoApplication.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-notification-service/src/main/resources/application.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-order-service/src/main/java/order/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-preserve-service/src/main/java/preserve/domain/PreserveInformation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-register-service/src/main/java/register/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/Dockerfile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/TicketInfoApplication.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/controller/TicketInfoController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/domain/QueryForTravel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/domain/ResultForTravel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/domain/TrainType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/domain/Trip.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/domain/TripId.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/domain/Type.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/service/TicketInfoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/java/ticketinfo/service/TicketInfoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/src/main/resources/application.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/target/classes/application.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ticketinfo-service/ts-ticketinfo-service.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-train-service/src/main/java/train/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/.mvn/wrapper/maven-wrapper.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/mvnw" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/mvnw.cmd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/QueryForTravel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/ResultForTravel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/init/InitData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-ui-dashboard/static/add&amp;delete.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/1-services-analysis/sample/call1.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/1-services-analysis/sample/call2.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/1-services-analysis/sample/traces.json" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/Dockerfile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/readme.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/Travel2Application.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/controller/Travel2Controller.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/GetTripAllDetailInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/GetTripAllDetailResult.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/Information.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/Information2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/QueryForTravel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/QueryInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/QuerySoldTicket.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/ResultForTravel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/ResultSoldTicket.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/TrainType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/Trip.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/TripId.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/TripResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/domain/Type.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/init/InitData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/repository/TripRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/service/Travel2Service.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/java/travel2/service/Travel2ServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/src/main/resources/application.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ts-travel2-service/ts-travel2-service.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/QueryConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/QueryStation.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/QueryTrainType.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1-services-analysis/readme.txt" afterPath="$PROJECT_DIR$/1-services-analysis/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1-services-analysis/src/main/java/org/services/analysis/CallAnalysis.java" afterPath="$PROJECT_DIR$/1-services-analysis/src/main/java/org/services/analysis/CallAnalysis.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1-services/readme.txt" afterPath="$PROJECT_DIR$/1-services/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1-services/rest-service-3/src/main/java/hello/HelloController.java" afterPath="$PROJECT_DIR$/1-services/rest-service-3/src/main/java/hello/HelloController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1-services/rest-service-3/src/main/java/hello/RestbackService.java" afterPath="$PROJECT_DIR$/1-services/rest-service-3/src/main/java/hello/RestbackService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docker-compose.yml" afterPath="$PROJECT_DIR$/docker-compose.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.txt" afterPath="$PROJECT_DIR$/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample-test-1/src/main/java/example/sample0.java" afterPath="$PROJECT_DIR$/sample-test-1/src/main/java/example/sample0.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/services.txt" afterPath="$PROJECT_DIR$/services.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/readme.txt" afterPath="$PROJECT_DIR$/ts-config-service/readme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/ConfigApplication.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/ConfigApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/controller/ConfigController.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/controller/ConfigController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/repository/ConfigRepository.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/repository/ConfigRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigService.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigServiceImpl.java" afterPath="$PROJECT_DIR$/ts-config-service/src/main/java/config/service/ConfigServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/controller/StationController.java" afterPath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/controller/StationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/domain/Station.java" afterPath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/domain/Station.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/repository/StationRepository.java" afterPath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/repository/StationRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/service/StationService.java" afterPath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/service/StationService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/service/StationServiceImpl.java" afterPath="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/service/StationServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-train-service/src/main/java/train/TrainApplication.java" afterPath="$PROJECT_DIR$/ts-train-service/src/main/java/train/TrainApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-train-service/src/main/java/train/controller/TrainController.java" afterPath="$PROJECT_DIR$/ts-train-service/src/main/java/train/controller/TrainController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-train-service/src/main/java/train/repository/TrainTypeRepository.java" afterPath="$PROJECT_DIR$/ts-train-service/src/main/java/train/repository/TrainTypeRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-train-service/src/main/java/train/service/TrainService.java" afterPath="$PROJECT_DIR$/ts-train-service/src/main/java/train/service/TrainService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-train-service/src/main/java/train/service/TrainServiceImpl.java" afterPath="$PROJECT_DIR$/ts-train-service/src/main/java/train/service/TrainServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/pom.xml" afterPath="$PROJECT_DIR$/ts-travel-service/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/TravelApplication.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/TravelApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/controller/TravelController.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/controller/TravelController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/TripResponse.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/TripResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/repository/TripRepository.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/repository/TripRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelService.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/TripId.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/TripId.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/Type.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/domain/Type.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelServiceImpl.java" afterPath="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-travel-service/ts-travel-service.iml" afterPath="$PROJECT_DIR$/ts-travel-service/ts-travel-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-ui-dashboard/nginx.conf" afterPath="$PROJECT_DIR$/ts-ui-dashboard/nginx.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-ui-dashboard/static/css/style.css" afterPath="$PROJECT_DIR$/ts-ui-dashboard/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-ui-dashboard/static/index.html" afterPath="$PROJECT_DIR$/ts-ui-dashboard/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js" afterPath="$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ts-station-service/src/test/java/fdse/microservice/TsStationServiceApplicationTests.java" afterPath="$PROJECT_DIR$/ts-notification-service/src/test/java/fdse/microservice/DemoApplicationTests.java" />
     </list>
     <ignored path="$PROJECT_DIR$/ts-sso-service/target/" />
     <ignored path="$PROJECT_DIR$/ts-config-service/target/" />
@@ -172,11 +85,9 @@
       <file leaf-file-name="postData.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8346">
+            <state relative-caret-position="3128">
               <caret line="185" column="0" lean-forward="false" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
-              <folding>
-                <marker date="1496803175100" expanded="true" signature="6667:6679" ph="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -184,8 +95,68 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/static/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="448" column="8" lean-forward="false" selection-start-line="448" selection-start-column="8" selection-end-line="448" selection-end-column="8" />
+            <state relative-caret-position="417">
+              <caret line="682" column="37" lean-forward="false" selection-start-line="682" selection-start-column="37" selection-end-line="682" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InitData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ts-train-service/src/main/java/train/init/InitData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="33" column="29" lean-forward="false" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InitData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/init/InitData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InitData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ts-config-service/src/main/java/config/init/InitData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="21" column="52" lean-forward="false" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InitData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ts-travel-service/src/main/java/travel/init/InitData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="697">
+              <caret line="47" column="29" lean-forward="false" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="services.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1241">
+              <caret line="73" column="5" lean-forward="false" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readme.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/readme.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -233,6 +204,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/controller/AccountLoginController.java" />
         <option value="$PROJECT_DIR$/ts-ui-test/html/index.html" />
         <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/LoginApplication.java" />
         <option value="$PROJECT_DIR$/ts-sso-service/src/main/java/sso/controller/AccountSsoController.java" />
@@ -250,6 +222,7 @@
         <option value="$PROJECT_DIR$/ts-order-service/src/test/java/testCalculate.java" />
         <option value="$PROJECT_DIR$/ts-order-service/Dockerfile" />
         <option value="$PROJECT_DIR$/ts-contacts-service/Dockerfile" />
+        <option value="$PROJECT_DIR$/docker-compose.yml" />
         <option value="$PROJECT_DIR$/ts-login-service/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginServiceImpl.java" />
         <option value="$PROJECT_DIR$/ts-order-service/src/main/java/order/controller/OrderController.java" />
@@ -273,16 +246,14 @@
         <option value="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/controller/TravelController.java" />
         <option value="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelService.java" />
         <option value="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/service/TravelServiceImpl.java" />
+        <option value="$PROJECT_DIR$/ts-ui-dashboard/nginx.conf" />
         <option value="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/domain/Station.java" />
+        <option value="$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js" />
         <option value="$PROJECT_DIR$/ts-ui-dashboard/static/js/reserveTicket.js" />
         <option value="$PROJECT_DIR$/ts-ui-dashboard/static/reserveTicket.html" />
         <option value="$PROJECT_DIR$/ts-train-service/src/main/java/train/init/InitData.java" />
         <option value="$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/init/InitData.java" />
         <option value="$PROJECT_DIR$/ts-travel-service/src/main/java/travel/init/InitData.java" />
-        <option value="$PROJECT_DIR$/docker-compose.yml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-ui-dashboard/nginx.conf" />
-        <option value="$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js" />
         <option value="$PROJECT_DIR$/ts-ui-dashboard/static/index.html" />
       </list>
     </option>
@@ -376,6 +347,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -546,7 +518,6 @@
       </pane>
       <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1118,14 +1089,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TravelApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="travel.TravelApplication" />
-      <module name="ts-travel-service" />
-      <envs />
-      <method />
-    </configuration>
-    <list size="16">
+    <list size="15">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.AccountSsoApplication" />
       <item index="1" class="java.lang.String" itemvalue="Spring Boot.TrainApplication" />
       <item index="2" class="java.lang.String" itemvalue="Spring Boot.StationApplication" />
@@ -1141,7 +1105,6 @@
       <item index="12" class="java.lang.String" itemvalue="Spring Boot.OrderApplication" />
       <item index="13" class="java.lang.String" itemvalue="Application.testCreateOrder" />
       <item index="14" class="java.lang.String" itemvalue="Application.testCalculate" />
-      <item index="15" class="java.lang.String" itemvalue="Spring Boot.TravelApplication" />
     </list>
     <recent_temporary>
       <list size="5">
@@ -1201,12 +1164,12 @@
       <workItem from="1496043248415" duration="2322000" />
       <workItem from="1496045614474" duration="801000" />
       <workItem from="1496652262478" duration="12473000" />
-      <workItem from="1496802906873" duration="269000" />
+      <workItem from="1496815175874" duration="74000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93947000" />
+    <option name="totallyTimeSpent" value="93752000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-8" width="1319" height="784" extended-state="7" />
@@ -1299,6 +1262,20 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/java/login/service/AccountLoginServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="42" column="89" lean-forward="false" selection-start-line="42" selection-start-column="89" selection-end-line="42" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-station-service/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ts-login-service/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1348,6 +1325,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1383,7 +1367,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1556,10 +1539,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/nginx.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="188" column="33" lean-forward="false" selection-start-line="188" selection-start-column="33" selection-end-line="188" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ts-station-service/src/main/java/fdse/microservice/domain/Station.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="27" column="36" lean-forward="true" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3128">
+          <caret line="185" column="0" lean-forward="false" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1576,7 +1574,7 @@
     <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="13" column="57" lean-forward="false" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1584,7 +1582,7 @@
     <entry file="file://$PROJECT_DIR$/ts-travel-service/src/main/java/travel/init/InitData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
-          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+          <caret line="47" column="29" lean-forward="false" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -1613,52 +1611,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="111" column="19" lean-forward="true" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/nginx.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="194" column="12" lean-forward="false" selection-start-line="194" selection-start-column="12" selection-end-line="194" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker-compose-bk.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/static/js/postData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8346">
-          <caret line="185" column="0" lean-forward="false" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
-          <folding>
-            <marker date="1496803175100" expanded="true" signature="6667:6679" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ts-ui-dashboard/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="448" column="8" lean-forward="false" selection-start-line="448" selection-start-column="8" selection-end-line="448" selection-end-column="8" />
+        <state relative-caret-position="417">
+          <caret line="682" column="37" lean-forward="false" selection-start-line="682" selection-start-column="37" selection-end-line="682" selection-end-column="37" />
           <folding />
         </state>
       </provider>

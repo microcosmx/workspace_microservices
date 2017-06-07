@@ -1,17 +1,21 @@
-package travel.service;
+package travel2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import travel.domain.*;
-import travel.repository.TripRepository;
-import java.util.*;
+import travel2.domain.*;
+import travel2.repository.TripRepository;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 
 /**
- * Created by Chenjie Xu on 2017/5/9.
- */
-@Service
-public class TravelServiceImpl implements TravelService{
+ * Created by Chenjie Xu on 2017/6/7.
+ */@Service
+public class Travel2ServiceImpl implements Travel2Service{
     @Autowired
     TripRepository repository;
 
@@ -102,7 +106,6 @@ public class TravelServiceImpl implements TravelService{
     @Override
     public GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi){
         GetTripAllDetailResult gtdr = new GetTripAllDetailResult();
-        System.out.println("[TravelService] [GetTripAllDetailInfo] TripId:" + gtdi.getTripId());
         Trip trip = repository.findByTripId(new TripId(gtdi.getTripId()));
         if(trip == null){
             gtdr.setStatus(false);
@@ -176,3 +179,4 @@ public class TravelServiceImpl implements TravelService{
         return repository.findAll();
     }
 }
+

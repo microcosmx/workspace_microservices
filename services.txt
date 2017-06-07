@@ -34,9 +34,9 @@
     消息通知微服务：ts-notification-service     --- xcj in progress
     （todo: 取票）
 
-    基础信息：ts-basic-service                 --- xcj in progress
+    基础信息：ts-basic-service                 --- xcj
 
-    车票关联信息：ts-ticketinfo-service         --- jc in progress
+    车票关联信息：ts-ticketinfo-service         --- xcj
 
     预定关联信息：ts-preserveinfo-service        --- jc in progress
 
