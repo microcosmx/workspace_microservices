@@ -106,3 +106,12 @@ services:
   ts-travel-mongo:
     image: mongo
 
+  ts-preserve-service:
+    build: ts-preserve-service
+    image: ts/ts-preserve-service
+    restart: always
+    ports:
+       - 14568:14568
+
+
+
