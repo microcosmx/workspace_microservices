@@ -55,7 +55,7 @@ public class HelloController {
         
         Value value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal=66", Value.class);
         
-      //simulate heavy tasks
+        //simulate heavy tasks
         long sleep = "msg1".equals(msg) ? 1200 : 600;
         try {
 			Thread.sleep(sleep);
