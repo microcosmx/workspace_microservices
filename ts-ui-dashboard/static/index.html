@@ -29,49 +29,10 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="./index.html">单个微服务测试</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            流程1
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">登录验证</a></li>
-                            <li><a href="#">车次查询</a></li>
-                            <li><a href="./reserveTicket.html">车票预订</a></li>
-                            <li><a href="#">修改座位等级</a></li>
-                            <li><a href="#">支付操作</a></li>
-                            <li><a href="#">乘车</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            流程2
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">登录验证</a></li>
-                            <li><a href="#">车次查询</a></li>
-                            <li><a href="#">车票预订</a></li>
-                            <li><a href="#">支付操作</a></li>
-                            <li><a href="#">改签</a></li>
-                            <li><a href="#">支付操作</a></li>
-                            <li><a href="#">乘车</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            流程3
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">登录验证</a></li>
-                            <li><a href="#">车票订单查询</a></li>
-                            <li><a href="#">取消</a></li>
-                            <li><a href="#">退款</a></li>
-                        </ul>
-                    </li>
+                    <li><a id="microservice_page">单个微服务测试</a></li>
+                    <li><a id="flow_one_page">流程一</a></li>
+                    <li><a id="flow_two_page">流程二</a></li>
+                    <li><a id="flow_three_page">流程三</a></li>
                 </ul>
             </div>
         </div>
@@ -89,7 +50,7 @@
         </ul>
     </div>
 
-    <div class="workflow">
+    <div id="microservices">
 
         <!----------------------------------------Register------------------------>
         <div class="step  panel panel-default">
@@ -713,6 +674,108 @@
         <!-------------------------------------------------------------------------------------------------- -->
 
     </div>
+
+
+    <div id="flow_one">
+        <!-------------Buy Ticket------------------------------------>
+
+        <div class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Ticket Booking
+                </h3>
+            </div>
+
+            <div class="input-box panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Starting Place:</label>
+                        <div class="col-sm-10">
+                            <input id="travel_booking_startingPlace" class="form-control" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Terminal Place:</label>
+                        <div class="col-sm-10">
+                            <input id="travel_booking_terminalPlace" class="form-control" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Date:</label>
+                        <div class="col-sm-10">
+                            <input id="travel_booking_date" class="form-control" type="date" name='' value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="travel_booking_button" type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Your Contacts List
+                    <button id="refresh_booking_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table id="contacts_booking_list_table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Document Type</th>
+                        <th>Document Number</th>
+                        <th>Phone Number</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!----An empty table----->
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Tickets Searching Result
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table id="tickets_booking_list_table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Trip Id</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Starting Time</th>
+                        <th>End Time</th>
+                        <th>2rd Class Seat Number</th>
+                        <th>1st Class Seat Number</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--This is an empty table body-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------------- -->
+    </div>
+
+
+
+    <div id="flow_two">
+    </div>
+
+
+
+
+    <div id="flow_three">
+    </div>
+
 </div>
 </body>
 </html>
