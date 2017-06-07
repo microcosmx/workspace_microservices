@@ -1,4 +1,4 @@
-package travel.domain;
+package travel2.domain;
 
 import java.io.Serializable;
 
@@ -19,16 +19,16 @@ public class TripId implements Serializable{
     public TripId(String trainNumber){
         char type = trainNumber.charAt(0);
         switch(type){
-            case 'G': this.type = Type.G;
+//            case 'G': this.type = Type.G;
+//                break;
+//            case 'D': this.type = Type.D;
+//                break;
+            case 'Z': this.type = Type.Z;
                 break;
-            case 'D': this.type = Type.D;
+            case 'T': this.type = Type.T;
                 break;
-//            case 'Z': this.type = Type.Z;
-//                break;
-//            case 'T': this.type = Type.T;
-//                break;
-//            case 'K': this.type = Type.K;
-//                break;
+            case 'K': this.type = Type.K;
+                break;
             default:break;
         }
 
