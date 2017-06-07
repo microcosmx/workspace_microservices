@@ -5,6 +5,6 @@ import register.domain.RegisterResult;
 
 public interface RegisterService {
 
-    RegisterResult create(RegisterInfo ri);
+    RegisterResult create(RegisterInfo ri,String YsbCaptcha);
 
 }

@@ -3,10 +3,7 @@ package sso.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import sso.domain.LogoutInfo;
-import sso.domain.LogoutResult;
-import sso.domain.PutLoginResult;
-import sso.domain.VerifyResult;
+import sso.domain.*;
 import sso.service.AccountSsoService;
 
 @RestController
@@ -22,6 +19,36 @@ public class AccountSsoController {
         return "Welcome to [ Accounts SSO Service ] !";
     }
 
+    @RequestMapping(path = "/account/register", method = RequestMethod.POST)
+    public RegisterResult createNewAccount(@RequestBody RegisterInfo ri){
+        return ssoService.create(ri);
+    }
+
+    @RequestMapping(path = "/account/login", method = RequestMethod.POST)
+    public LoginResult login(@RequestBody LoginInfo li) {
+        LoginResult lr = ssoService.login(li);
+        if(lr.getStatus() == false){
+            System.out.println("[SSO Service][Login] Login Fail. No token generate.");
+            return lr;
+        }else{
+            //Post token to the sso
+            System.out.println("[SSO Service][Login] Password Right. Put token to sso.");
+            restTemplate = new RestTemplate();
+            PutLoginResult tokenResult = loginPutToken(lr.getAccount().getId().toString());
+            System.out.println("[SSO Service][Login] Post to sso:" + tokenResult.getToken());
+            if(tokenResult.isStatus() == true){
+                lr.setToken(tokenResult.getToken());
+            }else{
+                lr.setToken(null);
+                lr.setStatus(false);
+                lr.setMessage(tokenResult.getMsg());
+                lr.setAccount(null);
+            }
+            return lr;
+        }
+    }
+
+
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public LogoutResult logoutDeleteToken(@RequestBody LogoutInfo li){
         System.out.println("[SSO Service][Logout Delete Token] ID:" + li.getId() + "Token:" + li.getToken());
@@ -33,7 +60,6 @@ public class AccountSsoController {
         return ssoService.verifyLoginToken(token);
     }
 
-    @RequestMapping(path = "/loginPutToken/{loginId}", method = RequestMethod.GET)
     public PutLoginResult loginPutToken(@PathVariable String loginId){
         return ssoService.loginPutToken(loginId);
     }
