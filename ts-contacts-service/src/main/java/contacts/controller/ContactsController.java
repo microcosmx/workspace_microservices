@@ -41,6 +41,7 @@ public class ContactsController {
         GetContactsResult gcr = new GetContactsResult();
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success.");
+            System.out.println("[ContactsService][Contacts Id Print] " + gci.getContactsId());
             Contacts contacts = contactsService.findContactsById(UUID.fromString(gci.getContactsId()));
             if(contacts == null){
                 gcr.setStatus(false);

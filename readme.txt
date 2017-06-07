@@ -12,3 +12,4 @@ docker-compose down
 clean:
 docker volume rm $(docker volume ls -qf dangling=true)
 docker images|grep none|awk '{print $3 }'|xargs docker rmi
+直达车票分配比例

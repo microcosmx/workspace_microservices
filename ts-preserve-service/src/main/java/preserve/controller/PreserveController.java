@@ -26,6 +26,7 @@ public class PreserveController {
             //1.查询联系人信息
             System.out.println("[PreserveService] [Step 1] Find contacts");
             GetContactsInfo gci = new GetContactsInfo();
+            System.out.println("[PreserveService] [Step 1] Contacts Id:" + oti.getContactsId());
             gci.setContactsId(oti.getContactsId());
             gci.setLoginToken(oti.getLoginToken());
             GetContactsResult gcr = getContactsById(gci);
@@ -43,6 +44,7 @@ public class PreserveController {
             gtdi.setTo(oti.getTo());
             gtdi.setTravelDate(oti.getDate());
             gtdi.setTripId(oti.getTripId());
+            System.out.println("[PreserveService] [Step 2] TripId:" + oti.getTripId());
             GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi);
             if(gtdr.isStatus() == false){
                 System.out.println("[PreserveService][SearchForTripDetailInformation] " + gcr.getMessage());
@@ -51,7 +53,7 @@ public class PreserveController {
                 return otr;
             }else{
                 TripResponse tripResponse = gtdr.getTripResponse();
-                if(oti.getSeatType() == SeatClass.BUSINESS.getCode()){
+                if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
                     if(tripResponse.getConfortClass() == 0){
                         System.out.println("[PreserveService][Check seat is enough] " + gcr.getMessage());
                         otr.setStatus(false);
@@ -80,27 +82,38 @@ public class PreserveController {
                 return otr;
             }
             System.out.println("[PreserveService] [Step 3] Complete");
-            //4.下达订单请求
+            //4.黄牛检测
+                //此部分暂未实现
+            //5.下达订单请求
             System.out.println("[PreserveService] [Step 4] Do Order");
             Contacts contacts = gcr.getContacts();
             Order order = new Order();
-                //设置order的各个信息
-                order.setId(UUID.randomUUID());
-                order.setTrainNumber(oti.getTripId());
-                order.setAccountId(UUID.fromString(oti.getAccountId()));
-                order.setFrom(oti.getFrom());
-                order.setTo(oti.getTo());
-                order.setBoughtDate(new Date());
-                order.setStatus(OrderStatus.NOTPAID.getCode());
-                order.setContactsDocumentNumber(contacts.getDocumentNumber());
-                order.setContactsName(contacts.getName());
-                order.setDocumentType(contacts.getDocumentType());
-                order.setPrice(100.0);//票价设定未完成
-                order.setSeatClass(oti.getSeatType());
-                order.setTravelDate(oti.getDate());
-                order.setTravelTime(trip.getStartingTime());
-                order.setSeatNumber("01A");//分配座位未完成
-                //------------------
+            //设置order的各个信息
+            order.setId(UUID.randomUUID());
+            order.setTrainNumber(oti.getTripId());
+            order.setAccountId(UUID.fromString(oti.getAccountId()));
+            order.setFrom(oti.getFrom());
+            order.setTo(oti.getTo());
+            order.setBoughtDate(new Date());
+            order.setStatus(OrderStatus.NOTPAID.getCode());
+            order.setContactsDocumentNumber(contacts.getDocumentNumber());
+            order.setContactsName(contacts.getName());
+            order.setDocumentType(contacts.getDocumentType());
+            //票价设定 - 未完成
+            order.setPrice(100.0);
+            order.setSeatClass(oti.getSeatType());
+            order.setTravelDate(oti.getDate());
+            order.setTravelTime(trip.getStartingTime());
+            //座位分配 - 未完成
+            if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+                int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
+                order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+            }else{
+                int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
+                order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+            }
+
+            //------------------
             CreateOrderInfo coi = new CreateOrderInfo();
             coi.setLoginToken(oti.getLoginToken());
             coi.setOrder(order);

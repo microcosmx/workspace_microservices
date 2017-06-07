@@ -170,12 +170,13 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
             for(var i = 0,l = obj.length ; i < l ; i++){
                 $("#contacts_booking_list_table").find("tbody").append(
                     "<tr>" +
-                    "<td>" + i                                                    + "</td>" +
-                    "<td>" + obj[i]["name"]                                       + "</td>" +
-                    "<td>" + obj[i]["documentType"]                               + "</td>" +
-                    "<td>" + obj[i]["documentNumber"]                             + "</td>" +
-                    "<td>" + obj[i]["phoneNumber"]                                + "</td>" +
-                    "<td>" +  "<label><input class='booking_contacts_select' name='booking_contacts' type='radio' />" + "Select" + "</label>" + "</td>" +
+                        "<td>" + i                                                    + "</td>" +
+                        "<td class='booking_contacts_contactsId' style='display:none'>" + obj[i]["id"] + "</td>" +
+                        "<td class='booking_contacts_name'>" + obj[i]["name"]         + "</td>" +
+                        "<td class='booking_contacts_documentType'>" + obj[i]["documentType"] + "</td>" +
+                        "<td class='booking_contacts_documentNumber'>" + obj[i]["documentNumber"] + "</td>" +
+                        "<td class='booking_contacts_phoneNumber'>" + obj[i]["phoneNumber"] + "</td>" +
+                        "<td>" +  "<label><input class='booking_contacts_select' name='booking_contacts' type='radio' />" + "Select" + "</label>" + "</td>" +
                     "</tr>"
                 );
             }
@@ -183,21 +184,93 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
     });
 });
 
-
+$("#travel_booking_button").click(function(){
+    var travelQueryInfo = new Object();
+    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
+    travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
+    travelQueryInfo.departureTime= $("#travel_booking_date").val();
+    var travelQueryData = JSON.stringify(travelQueryInfo);
+    $.ajax({
+        type: "post",
+        url: "/travel/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:travelQueryData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result;
+            $("#tickets_booking_list_table").find("tbody").html("");
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#tickets_booking_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                    "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                    "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                    "<td>" + obj[i]["startingTime"]                                + "</td>" +
+                    "<td>" + obj[i]["endTime"]                                     + "</td>" +
+                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                    "<td>" +
+                        "<select class='form-control booking_seat_class'>" +
+                            "<option value='2'>1st Class Seat</option>" +
+                            "<option value='3'>2st Class Seat</option>" +
+                        "</select>" +
+                    + "</td>" +
+                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToBookingTable();
+        }
+    });
+});
 
 function addListenerToBookingTable(){
-    alert("Enter Add Listener");
     var ticketBookingButtonSet = $(".ticket_booking_button");
-    alert("Button Set Length:" + ticketBookingButtonSet.length);
     for(var i = 0;i < ticketBookingButtonSet.length;i++){
-        ticketBookingButtonSet[i].index = i;
-        alert("add " + i);
         ticketBookingButtonSet[i].onclick = function(){
-            var table = $("#contacts_booking_list_table");
-            var rows = table.find("tr");
-            var col = rows[this.index + 1].children("td");
-            //获取值
-            alert(col[1].innerHTML);
+            var tripId = $(this).parents("tr").find(".booking_tripId").text();
+            var from = $(this).parents("tr").find(".booking_from").text();
+            var to = $(this).parents("tr").find(".booking_to").text();
+            var date = $("#travel_booking_date").val();
+            var loginToken = $("#user_login_token").html();
+            var accountId = $("#user_login_id").html();
+            var seatType = $(this).parents("tr").find(".booking_seat_class").val();
+            var contactsId = "";
+            var radios = $(".booking_contacts_select");
+            for (i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    contactsId = $(".booking_contacts_contactsId").eq(i).text();
+                }else{
+                }
+            }
+
+            var orderTicketInfo = new Object();
+            orderTicketInfo.contactsId = contactsId;
+            orderTicketInfo.tripId = tripId;
+            orderTicketInfo.seatType = seatType;
+            orderTicketInfo.loginToken = loginToken;
+            orderTicketInfo.accountId = accountId;
+            orderTicketInfo.date = date;
+            orderTicketInfo.from = from;
+            orderTicketInfo.to = to;
+            var orderTicketsData = JSON.stringify(orderTicketInfo);
+            $.ajax({
+                type: "post",
+                url: "/preserve",
+                contentType: "application/json",
+                dataType: "json",
+                data: orderTicketsData,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+                    alert(result["message"]);
+                }
+            })
         }
     }
 }

@@ -102,6 +102,7 @@ public class TravelServiceImpl implements TravelService{
     @Override
     public GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi){
         GetTripAllDetailResult gtdr = new GetTripAllDetailResult();
+        System.out.println("[TravelService] [GetTripAllDetailInfo] TripId:" + gtdi.getTripId());
         Trip trip = repository.findByTripId(new TripId(gtdi.getTripId()));
         if(trip == null){
             gtdr.setStatus(false);
