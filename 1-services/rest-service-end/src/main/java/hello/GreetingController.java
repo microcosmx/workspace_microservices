@@ -22,6 +22,12 @@ public class GreetingController {
 
     	double cal2 = Math.abs(Double.valueOf(cal)-50); 
     	log.info(String.valueOf(cal2));
+    	
+    	try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
         
     	Greeting value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal2)<100);
         

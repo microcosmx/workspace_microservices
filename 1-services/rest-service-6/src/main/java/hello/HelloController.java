@@ -50,28 +50,18 @@ public class HelloController {
         Future<String> task1 = asyncTask.sendAsyncMessage1("msg1");
         Future<String> task2 = asyncTask.sendAsyncMessage2("msg2");
         
-//        String result = "";
-//        try {
-//			result = task1.get(200, TimeUnit.MILLISECONDS);// 设定在200毫秒的时间内完成
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			e.printStackTrace();
-//		} catch (TimeoutException e) {
-//			System.out.println("Time is out");// 抛出超时异[size=xx-small][/size]常时打印
-//		} finally {
-//			task1.cancel(true);
-//		}
-        
-//        while(true) {  
-//            if(task1.isDone() && task2.isDone()) {  
-//                log.info("Task1 result: {}", task1.get());  
-//                log.info("Task2 result: {}", task2.get());  
-//                break;  
-//            }  
-//            Thread.sleep(1000);  
-//        }  
-//        log.info("All tasks finished.");  
+        String result = "";
+        try {
+			result = task1.get(200, TimeUnit.MILLISECONDS);// 设定在200毫秒的时间内完成
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			System.out.println("Time is out");// 抛出超时异[size=xx-small][/size]常时打印
+		} finally {
+			task1.cancel(true);
+		}
         
         
 		log.info(value.toString());
