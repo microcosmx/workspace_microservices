@@ -23,8 +23,7 @@ public class HelloController {
         double cal2 = (Double.valueOf(cal) + 10)/1.1; 
         log.info(String.valueOf(cal2));
         
-    	Value value = restTemplate.getForObject(
-				"http://rest-service-3:16003/hello3?cal="+cal2, Value.class);
+    	Value value = restTemplate.getForObject("http://rest-service-3:16003/hello3?name=service-4&cal="+cal2, Value.class);
 		log.info(value.toString());
 		return value;
     }

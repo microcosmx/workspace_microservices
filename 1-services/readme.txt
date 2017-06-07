@@ -22,6 +22,7 @@ docker-compose logs -f
 rest url:
 http://localhost:16006/hello6?cal=50
 http://rest-service-6:16006/hello6?cal=50
+http://localhost:16000/greeting?cal=30
 
 
 rabbit mq queue:

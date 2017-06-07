@@ -24,7 +24,7 @@ public class GreetingController {
     	log.info(String.valueOf(cal2));
     	
     	try {
-			Thread.sleep(6000);
+			Thread.sleep(60000);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

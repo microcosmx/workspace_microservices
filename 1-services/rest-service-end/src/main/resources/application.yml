@@ -21,5 +21,4 @@ spring:
 
 server:
   port: 16000
-  tomcat:
-    max-threads: 3
+    

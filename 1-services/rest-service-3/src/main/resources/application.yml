@@ -10,3 +10,5 @@ spring:
 
 server:
   port: 16003
+  tomcat:
+    max-threads: 6
