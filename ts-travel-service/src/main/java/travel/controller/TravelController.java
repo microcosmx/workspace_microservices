@@ -53,4 +53,10 @@ public class TravelController {
     public GetTripAllDetailResult getTripAllDetailInfo(@RequestBody GetTripAllDetailInfo gtdi){
         return travelService.getTripAllDetailInfo(gtdi);
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel/queryAll", method= RequestMethod.GET)
+    public List<Trip> queryAll(){
+        return travelService.queryAll();
+    }
 }

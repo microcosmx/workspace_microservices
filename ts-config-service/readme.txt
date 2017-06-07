@@ -1,9 +1,4 @@
 
-rest url:
-http://verificationCode
-return an image which contains verification code,like:
-2468,which is an image
-
 build:
 mvn clean package
 

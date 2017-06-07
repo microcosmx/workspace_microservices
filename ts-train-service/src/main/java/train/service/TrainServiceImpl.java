@@ -7,6 +7,8 @@ import train.domain.Information2;
 import train.domain.TrainType;
 import train.repository.TrainTypeRepository;
 
+import java.util.List;
+
 @Service
 public class TrainServiceImpl implements TrainService {
     @Autowired
@@ -58,6 +60,11 @@ public class TrainServiceImpl implements TrainService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<TrainType> query(){
+        return repository.findAll();
     }
 
 }

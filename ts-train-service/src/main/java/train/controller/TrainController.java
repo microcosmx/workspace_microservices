@@ -7,6 +7,8 @@ import train.domain.Information2;
 import train.domain.TrainType;
 import train.service.TrainService;
 
+import java.util.List;
+
 
 /**
  * Created by Chenjie Xu on 2017/5/8.
@@ -41,5 +43,12 @@ public class TrainController {
     @RequestMapping(value="/train/delete",method= RequestMethod.POST)
     public boolean delete(@RequestBody Information2 info){
         return trainService.delete(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/train/query",method= RequestMethod.GET)
+    public List<TrainType> query(){
+        System.out.println("train:query()");
+        return trainService.query();
     }
 }

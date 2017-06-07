@@ -124,34 +124,52 @@ public class TravelServiceImpl implements TravelService{
     }
 
     private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
-        //车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
-        //车站站名服务
-        Boolean startingPlaceExist = restTemplate.postForObject(
-                "http://ts-station-service:12345/station/exist", new QueryStation(startingPlace), Boolean.class);
-        Boolean endPlaceExist = restTemplate.postForObject(
-                "http://ts-station-service:12345/station/exist", new QueryStation(endPlace),  Boolean.class);
-        if(!startingPlaceExist || !endPlaceExist){
-            return null;
-        }
-        //配置
-        //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
-        //50张票，因为AB和AC拼起来正好是一张AC。
-        String proportion = restTemplate.postForObject("http://ts-config-service:15679/config/query",
-                new QueryConfig("直达车票分配比例"), String.class
-        );
+//        //车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
+//        //车站站名服务
+//        Boolean startingPlaceExist = restTemplate.postForObject(
+//                "http://ts-station-service:12345/station/exist", new QueryStation(startingPlace), Boolean.class);
+//        Boolean endPlaceExist = restTemplate.postForObject(
+//                "http://ts-station-service:12345/station/exist", new QueryStation(endPlace),  Boolean.class);
+//        if(!startingPlaceExist || !endPlaceExist){
+//            return null;
+//        }
+//        //配置
+//        //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
+//        //50张票，因为AB和AC拼起来正好是一张AC。
+//        String proportion = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+//                new QueryConfig("DirectTicketAllocationProportion"), String.class
+//        );
+//        double percent = 1.0;
+//        if(proportion.contains("%")) {
+//            proportion = proportion.replaceAll("%", "");
+//            percent = Double.valueOf(proportion)/100;
+//        }
+//        //车服务
+//        TrainType trainType = restTemplate.postForObject(
+//                "http://ts-train-service:14567/train/retrieve", new QueryTrainType(trip.getTrainTypeId()), TrainType.class
+//        );
+//        if(trainType == null){
+//            System.out.println("traintype doesn't exist");
+//            return null;
+//        }
+
+        QueryForTravel query = new QueryForTravel();
+        query.setTrip(trip);
+        query.setStartingPlace(startingPlace);
+        query.setEndPlace(endPlace);
+        query.setDepartureTime(departureTime);
+
+        ResultForTravel resultForTravel = restTemplate.postForObject(
+                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
         double percent = 1.0;
-        if(proportion.contains("%")) {
-            proportion = proportion.replaceAll("%", "");
-            percent = Double.valueOf(proportion)/100;
-        }
-        //车服务
-        TrainType trainType = restTemplate.postForObject(
-                "http://ts-train-service:14567/train/retrieve", new QueryTrainType(trip.getTrainTypeId()), TrainType.class
-        );
-        if(trainType == null){
-            System.out.println("traintype doesn't exist");
+        TrainType trainType;
+        if(resultForTravel.isStatus()){
+            percent = resultForTravel.getPercent();
+            trainType = resultForTravel.getTrainType();
+        }else{
             return null;
         }
+
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
@@ -179,5 +197,10 @@ public class TravelServiceImpl implements TravelService{
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
         return response;
+    }
+
+    @Override
+    public List<Trip> queryAll(){
+        return repository.findAll();
     }
 }

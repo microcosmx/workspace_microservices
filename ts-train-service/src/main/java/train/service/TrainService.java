@@ -4,6 +4,8 @@ import train.domain.Information;
 import train.domain.Information2;
 import train.domain.TrainType;
 
+import java.util.List;
+
 public interface TrainService {
     //CRUD
     boolean create(Information info);
@@ -14,4 +16,5 @@ public interface TrainService {
 
     boolean delete(Information2 info);
 
+    List<TrainType> query();
 }
