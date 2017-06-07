@@ -1,3 +1,33 @@
+//----------------Switch from many tags
+//For toggle pages
+$("#microservice_page").click(function(){
+    $("#microservices").css('display','block');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','none');
+});
+
+$("#flow_one_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','block');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','none');
+});
+
+$("#flow_two_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','block');
+    $("#flow_three").css('display','none');
+});
+
+$("#flow_three_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','block');
+});
+
 /*---------------------Add By Ji Chao for ajax--------------------*/
 //----For Login------
 
@@ -32,7 +62,6 @@ document.getElementById("login_button").onclick = function post_login(){
 }
 
 //------For Logout-------
-
 document.getElementById("logout_button").onclick = function post_logout(){
     var logoutInfo = new Object();
     logoutInfo.id = $("#user_login_id").html();
@@ -205,21 +234,21 @@ $("#travel_booking_button").click(function(){
             for(var i = 0,l = obj.length ; i < l ; i++){
                 $("#tickets_booking_list_table").find("tbody").append(
                     "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                    "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                    "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                    "<td>" + obj[i]["startingTime"]                                + "</td>" +
-                    "<td>" + obj[i]["endTime"]                                     + "</td>" +
-                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "<td>" +
-                        "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st Class Seat</option>" +
-                            "<option value='3'>2st Class Seat</option>" +
-                        "</select>" +
-                    + "</td>" +
-                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                        "<td>" + i + "</td>" +
+                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                        "<td>" + obj[i]["startingTime"]                                + "</td>" +
+                        "<td>" + obj[i]["endTime"]                                     + "</td>" +
+                        "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                        "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                        "<td>" +
+                            "<select class='form-control booking_seat_class'>" +
+                                "<option value='2'>1st Class Seat</option>" +
+                                "<option value='3'>2st Class Seat</option>" +
+                            "</select>" +
+                        "</td>" +
+                        "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
                     "</tr>"
                 );
             }
@@ -244,10 +273,8 @@ function addListenerToBookingTable(){
             for (i = 0; i < radios.length; i++) {
                 if (radios[i].checked) {
                     contactsId = $(".booking_contacts_contactsId").eq(i).text();
-                }else{
                 }
             }
-
             var orderTicketInfo = new Object();
             orderTicketInfo.contactsId = contactsId;
             orderTicketInfo.tripId = tripId;
@@ -258,6 +285,7 @@ function addListenerToBookingTable(){
             orderTicketInfo.from = from;
             orderTicketInfo.to = to;
             var orderTicketsData = JSON.stringify(orderTicketInfo);
+            alert("Do Order Date:" + orderTicketsData);
             $.ajax({
                 type: "post",
                 url: "/preserve",
@@ -603,46 +631,11 @@ $("#travel_update_button").click(function(){
 
 //------For Travel query------------
 
-// $("#travel_query_button").click(function(){
-//     var travelQueryInfo = new Object();
-//     travelQueryInfo.startingPlace = $("#travel_query_startingPlace").val();
-//     travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
-//     travelQueryInfo.departureTime= $("#travel_query_date").val();
-//     var travelQueryData = JSON.stringify(travelQueryInfo);
-//     $.ajax({
-//         type: "post",
-//         url: "/travel/query",
-//         contentType: "application/json",
-//         dataType: "json",
-//         data:travelQueryData,
-//         xhrFields: {
-//             withCredentials: true
-//         },
-//         success: function(result){
-//             var obj = result;
-//             for(var i = 0,l = obj.length ; i < l ; i++){
-//                 $("#query_tickets_list_table").find("tbody").append(
-//                     "<tr>" +
-//                     "<td>" + i + "</td>" +
-//                     "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-//                     "<td>" + obj[i]["startingStation"]                             + "</td>" +
-//                     "<td>" + obj[i]["terminalStation"]                             + "</td>" +
-//                     "<td>" + obj[i]["startingTime"]                                + "</td>" +
-//                     "<td>" + obj[i]["endTime"]                                     + "</td>" +
-//                     "<td>" + obj[i]["economyClass"]                                + "</td>" +
-//                     "<td>" + obj[i]["confortClass"]                                + "</td>" +
-//                     "</tr>"
-//                 );
-//             }
-//         }
-//     });
-// });
-
-$("#travel_booking_button").click(function(){
+$("#travel_query_button").click(function(){
     var travelQueryInfo = new Object();
-    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
-    travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_booking_datee").val();
+    travelQueryInfo.startingPlace = $("#travel_query_startingPlace").val();
+    travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
+    travelQueryInfo.departureTime= $("#travel_query_date").val();
     var travelQueryData = JSON.stringify(travelQueryInfo);
     $.ajax({
         type: "post",
@@ -655,9 +648,8 @@ $("#travel_booking_button").click(function(){
         },
         success: function(result){
             var obj = result;
-            $("#tickets_booking_list_table").find("tbody").html("");
             for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#tickets_booking_list_table").find("tbody").append(
+                $("#query_tickets_list_table").find("tbody").append(
                     "<tr>" +
                     "<td>" + i + "</td>" +
                     "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
@@ -667,41 +659,44 @@ $("#travel_booking_button").click(function(){
                     "<td>" + obj[i]["endTime"]                                     + "</td>" +
                     "<td>" + obj[i]["economyClass"]                                + "</td>" +
                     "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
                     "</tr>"
                 );
             }
-            addListenerToBookingTable();
         }
     });
 });
 
 
-//For toggle pages
-$("#microservice_page").click(function(){
-    $("#microservices").css('display','block');
-    $("#flow_one").css('display','none');
-    $("#flow_two").css('display','none');
-    $("#flow_three").css('display','none');
+
+//-------------------For Orders------------------
+
+$("#refresh_my_order_list_button").click(function(){
+    var myOrdersQueryInfo = new Object();
+    myOrdersQueryInfo.accountId = $("#user_login_id").html();
+    myOrdersQueryInfo.loginToken = $("#user_login_token").html();
+    myOrdersQueryInfo.enableStateQuery = false;
+    myOrdersQueryInfo.enableTravelDateQuery = false;
+    myOrdersQueryInfo.enableBoughtDateQuery = false;
+    myOrdersQueryInfo.travelDateStart = null;
+    myOrdersQueryInfo.travelDateEnd = null;
+    myOrdersQueryInfo.boughtDateStart = null;
+    myOrdersQueryInfo.boughtDateEnd = null;
+    var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
+    alert("ready to send:" + myOrdersQueryData);
+    $.ajax({
+        type: "post",
+        url: "/order/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:myOrdersQueryData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            alert("Receive:" + JSON.stringify(result));
+            $("#my_orders_result").html(JSON.stringify(result))
+        }
+    });
 });
 
-$("#flow_one_page").click(function(){
-    $("#microservices").css('display','none');
-    $("#flow_one").css('display','block');
-    $("#flow_two").css('display','none');
-    $("#flow_three").css('display','none');
-});
 
-$("#flow_two_page").click(function(){
-    $("#microservices").css('display','none');
-    $("#flow_one").css('display','none');
-    $("#flow_two").css('display','block');
-    $("#flow_three").css('display','none');
-});
-
-$("#flow_three_page").click(function(){
-    $("#microservices").css('display','none');
-    $("#flow_one").css('display','none');
-    $("#flow_two").css('display','none');
-    $("#flow_three").css('display','block');
-});

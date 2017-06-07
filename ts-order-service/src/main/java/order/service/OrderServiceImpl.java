@@ -77,6 +77,7 @@ public class OrderServiceImpl implements OrderService{
     public ArrayList<Order> queryOrders(QueryInfo qi){
         //1.Get all orders of the user
         ArrayList<Order> list = orderRepository.findByAccountId(qi.getAccountId());
+        System.out.println("[Order Service][Query Order][Step 1] Get Orders Number of Account:" + list.size());
         //2.Check is these orders fit the requirement/
         if(qi.isEnableStateQuery() || qi.isEnableBoughtDateQuery() || qi.isEnableTravelDateQuery()){
             ArrayList<Order> finalList = new ArrayList<>();
@@ -94,6 +95,7 @@ public class OrderServiceImpl implements OrderService{
                 }else{
                     statePassFlag = true;
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check Status Fits End]");
                 //4.Check order travel date requirement.
                 if(qi.isEnableTravelDateQuery()){
                     if(tempOrder.getTravelDate().before(qi.getTravelDateEnd()) &&
@@ -105,6 +107,7 @@ public class OrderServiceImpl implements OrderService{
                 }else{
                     travelDatePassFlag = true;
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check Travel Date End]");
                 //5.Check order bought date requirement.
                 if(qi.isEnableBoughtDateQuery()){
                     if(tempOrder.getBoughtDate().before(qi.getBoughtDateEnd()) &&
@@ -116,10 +119,12 @@ public class OrderServiceImpl implements OrderService{
                 }else{
                     boughtDatePassFlag = true;
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check Bought Date End]");
                 //6.check if all requirement fits.
                 if(statePassFlag && boughtDatePassFlag && travelDatePassFlag){
                     finalList.add(tempOrder);
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check All Requirement End]");
             }
             System.out.println("[Order Service][Query Order] Get order num:" + finalList.size());
             return finalList;

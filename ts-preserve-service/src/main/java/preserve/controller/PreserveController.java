@@ -112,7 +112,6 @@ public class PreserveController {
                 int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
                 order.setSeatNumber("SecondClass-" + secondClassRemainNum);
             }
-
             //------------------
             CreateOrderInfo coi = new CreateOrderInfo();
             coi.setLoginToken(oti.getLoginToken());
@@ -125,6 +124,8 @@ public class PreserveController {
                 return otr;
             }
             System.out.println("[PreserveService] [Step 4] Do Order Complete");
+            otr.setStatus(true);
+            otr.setMessage("Success");
         }else{
             System.out.println("[PreserveService][VerifyLogin] Fail");
             otr.setStatus(false);
