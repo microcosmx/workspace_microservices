@@ -8,8 +8,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,47 +20,138 @@ public class CallAnalysis {
 
 	public static void main(String[] args) {
 
-		String call2x = readFile("./sample/call2x.json");
-		JSONArray spanlist = new JSONArray(call2x);
+		HashMap<String, HashMap<String, Object>> traces = new HashMap<String, HashMap<String, Object>>();
+		List<String> pListAll = new ArrayList<String>();
 
-		HashMap<String, HashMap<String, String>> elements = new HashMap<String, HashMap<String, String>>();
+		String traceStr = readFile("./sample/traces1.json");
+		JSONArray tracelist = new JSONArray(traceStr);
 
+		for (int k = 0; k < tracelist.length(); k++) {
+			JSONArray traceobj = (JSONArray) tracelist.get(k);
 
-		for (int j = 0; j < spanlist.length(); j++) {
-			JSONObject spanobj = (JSONObject) spanlist.get(j);
+			// String call = readFile("./sample/call1x.json");
+			// JSONArray spanlist = new JSONArray(call);
 
-			String traceId = spanobj.getString("traceId");
-			String id = spanobj.getString("id");
-			String name = spanobj.getString("name");
+			List<HashMap<String, String>> serviceList = new ArrayList<HashMap<String, String>>();
+			String traceId = ((JSONObject) traceobj.get(0)).getString("traceId");
+			for (int j = 0; j < traceobj.length(); j++) {
+				JSONObject spanobj = (JSONObject) traceobj.get(j);
 
-			HashMap<String, String> content = new HashMap<String, String>();
-			content.put("spanid", id);
-			JSONArray annotations = spanobj.getJSONArray("annotations");
-			for (int i = 0; i < annotations.length(); i++) {
-				JSONObject anno = annotations.getJSONObject(i);
-				if ("sr".equals(anno.getString("value"))) {
-					JSONObject endpoint = anno.getJSONObject("endpoint");
-					String service = endpoint.getString("serviceName");
-					content.put("service", service);
+				// String traceId = spanobj.getString("traceId");
+				String id = spanobj.getString("id");
+				String pid = "";
+				if (spanobj.has("parentId")) {
+					pid = spanobj.getString("parentId");
+				}
+				String name = spanobj.getString("name");
+
+				HashMap<String, String> content = new HashMap<String, String>();
+				content.put("spanid", id);
+				content.put("parentid", pid);
+				content.put("spanname", name);
+				if(spanobj.has("annotations")){
+					JSONArray annotations = spanobj.getJSONArray("annotations");
+					for (int i = 0; i < annotations.length(); i++) {
+						JSONObject anno = annotations.getJSONObject(i);
+						if ("sr".equals(anno.getString("value"))) {
+							JSONObject endpoint = anno.getJSONObject("endpoint");
+							String service = endpoint.getString("serviceName");
+							content.put("service", service);
+						}
+					}
+					
+					if (name.contains("message:")) {
+						if ("message:input".equals(name)) {
+							content.put("api", content.get("service") + "." + "message_received");
+						}
+					} else {
+						JSONArray binaryAnnotations = spanobj.getJSONArray("binaryAnnotations");
+						for (int i = 0; i < binaryAnnotations.length(); i++) {
+							JSONObject anno = binaryAnnotations.getJSONObject(i);
+							if ("error".equals(anno.getString("key"))) {
+								content.put("error", anno.getString("value"));
+							}
+							if ("mvc.controller.class".equals(anno.getString("key"))
+									&& !"BasicErrorController".equals(anno.getString("value"))) {
+								String classname = anno.getString("value");
+								content.put("classname", classname);
+							}
+							if ("mvc.controller.method".equals(anno.getString("key"))
+									&& !"errorHtml".equals(anno.getString("value"))) {
+								String methodname = anno.getString("value");
+								content.put("methodname", methodname);
+							}
+						}
+						content.put("api",
+								content.get("service") + "." + content.get("classname") + "." + content.get("methodname"));
+					}
+					
+					serviceList.add(content);
 				}
 			}
 
-			JSONArray binaryAnnotations = spanobj.getJSONArray("binaryAnnotations");
-			for (int i = 0; i < binaryAnnotations.length(); i++) {
-				JSONObject anno = binaryAnnotations.getJSONObject(i);
-				if ("mvc.controller.class".equals(anno.getString("key"))) {
-					String classname = anno.getString("value");
-					content.put("classname", classname);
-				}
-				if ("mvc.controller.method".equals(anno.getString("key"))) {
-					String methodname = anno.getString("value");
-					content.put("methodname", methodname);
-				}
-			}
-			elements.put("--" + traceId + "--" + id + "--" + name + "--", content);
+			// filter validate service api
+			List<HashMap<String, String>> processList = serviceList.stream()
+					.filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
+			// processList.stream().forEach(n -> System.out.println(n));
+			boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
+
+			// final info
+			List<String> pList = processList.stream().map(pl -> {
+				return pl.get("api");
+			}).collect(Collectors.toList());
+			pList.stream().forEach(n -> System.out.println(n));
+			pListAll.addAll(pList);
+
+			HashMap<String, Object> traceContent = new HashMap<String, Object>();
+			traceContent.put("failed", failed);
+			traceContent.put("list", pList);
+			traces.put(traceId, traceContent);
+
 		}
-		elements.values().stream().forEach(n -> System.out.println(n));  
-
+		
+//		traces.forEach((key, val) -> System.out.println(val));
+		
+		//all 
+		double N = traces.keySet().size();
+		//failed
+		double NF = traces.values().stream().filter(trace->{
+			return (Boolean)trace.get("failed");
+		}).collect(Collectors.toList()).size();
+		double NS = N - NF;
+		System.out.println(NF + " || " + NS);
+		//method/spectrum list
+		pListAll = pListAll.stream().distinct().collect(Collectors.toList());
+//		methods.stream().forEach(n -> System.out.println(n));
+		
+		HashMap<String, Double> pListNCF = new HashMap<String, Double>();
+		pListAll.stream().forEach(pl -> pListNCF.put(pl, 0.0));
+		HashMap<String, Double> pListNCS = new HashMap<String, Double>();
+		pListAll.stream().forEach(pl -> pListNCS.put(pl, 0.0));
+		
+		traces.values().stream().forEach(trace->{
+			List<String> pList = (List<String>)trace.get("list");
+			if((Boolean)trace.get("failed")){
+				pList.stream().forEach(pl -> pListNCF.put(pl, pListNCF.get(pl)+1));
+			}else{
+				pList.stream().forEach(pl -> pListNCS.put(pl, pListNCS.get(pl)+1));
+			}
+		});
+		
+//		System.out.println(pListNCF);
+//		System.out.println(pListNCS);
+		
+		//calculate Suspiciousness
+		//NCF/NF : NCF/NF + NCS/NS
+		HashMap<String, Double> pListSuspicious = new HashMap<String, Double>();
+		pListAll.stream().forEach(pl -> {
+			double susp = (pListNCF.get(pl)/NF)  /  (pListNCF.get(pl)/NF + pListNCS.get(pl)/NS);
+			pListSuspicious.put(pl, susp);
+		});
+		System.out.println(pListSuspicious);
+		
+		
+		
 	}
 
 	public static String readFile(String path) {

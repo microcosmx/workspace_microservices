@@ -113,5 +113,16 @@ services:
     ports:
        - 14568:14568
 
+  ts-basic-service:
+      build: ts-basic-service
+      image: ts/ts-basic-service
+      restart: always
+      ports:
+        - 15680:15680
 
-
+  ts-ticketinfo-service:
+        build: ts-ticketinfo-service
+        image: ts/ts-ticketinfo-service
+        restart: always
+        ports:
+          - 15681:15681
