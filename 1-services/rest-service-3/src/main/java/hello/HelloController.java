@@ -53,7 +53,9 @@ public class HelloController {
     public void hello3_1(@RequestParam(value="msg", defaultValue="") String msg) {
         log.info("------hello3------received--------" + msg);
         
-        //simulate heavy tasks
+        Value value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal=66", Value.class);
+        
+      //simulate heavy tasks
         long sleep = "msg1".equals(msg) ? 1200 : 600;
         try {
 			Thread.sleep(sleep);
