@@ -1,4 +1,20 @@
 
+
+reproduce:
+step1: 
+6 request in jmeter
+http://localhost:16006/hello6?cal=50
+step2:
+3 request in jmeter: error timeout
+http://localhost:16005/hello5?cal=50
+3 request in jmeter: error timeout
+http://localhost:16004/hello4?cal=50
+
+
+
+
+
+
 mvn repo:
 https://repo1.maven.org/maven2/
 
@@ -22,7 +38,6 @@ docker-compose logs -f
 rest url:
 http://localhost:16006/hello6?cal=50
 http://rest-service-6:16006/hello6?cal=50
-http://localhost:16000/greeting?cal=30
 
 
 rabbit mq queue:

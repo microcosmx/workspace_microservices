@@ -10,3 +10,4 @@ spring:
 
 server:
   port: 16005
+  
