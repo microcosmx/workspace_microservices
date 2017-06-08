@@ -108,16 +108,19 @@ public class TravelServiceImpl implements TravelService{
             gtdr.setStatus(false);
             gtdr.setMessage("Trip Not Exist");
             gtdr.setTripResponse(null);
+            gtdr.setTrip(null);
         }else{
             TripResponse tripResponse = getTickets(trip,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
             if(tripResponse == null){
                 gtdr.setStatus(false);
                 gtdr.setMessage("Cannot found TripResponse");
                 gtdr.setTripResponse(null);
+                gtdr.setTrip(null);
             }else{
                 gtdr.setStatus(true);
                 gtdr.setMessage("Success");
                 gtdr.setTripResponse(tripResponse);
+                gtdr.setTrip(repository.findByTripId(new TripId(gtdi.getTripId())));
             }
         }
         return gtdr;
