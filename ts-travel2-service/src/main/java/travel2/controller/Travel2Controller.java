@@ -45,13 +45,13 @@ public class Travel2Controller {
 
     //返回Trip以及剩余票数
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/travel/getTripAllDetailInfo", method= RequestMethod.POST)
+    @RequestMapping(value="/travel2/getTripAllDetailInfo", method= RequestMethod.POST)
     public GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi){
         return service.getTripAllDetailInfo(gtdi);
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/travel/queryAll", method= RequestMethod.GET)
+    @RequestMapping(value="/travel2/queryAll", method= RequestMethod.GET)
     public List<Trip> queryAll(){
         return service.queryAll();
     }
