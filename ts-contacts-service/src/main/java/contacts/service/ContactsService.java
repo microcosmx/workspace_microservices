@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface ContactsService {
 
+    Contacts createContacts(Contacts contacts);
+
     Contacts findContactsById(UUID id);
 
     ArrayList<Contacts> findContactsByAccountId(UUID accountId);

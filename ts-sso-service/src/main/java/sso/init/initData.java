@@ -3,10 +3,11 @@ package sso.init;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import sso.domain.Account;
 import sso.domain.DocumentType;
 import sso.domain.Gender;
-import sso.domain.RegisterInfo;
 import sso.service.AccountSsoService;
+import java.util.UUID;
 
 @Component
 public class initData implements CommandLineRunner {
@@ -16,16 +17,15 @@ public class initData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        RegisterInfo ri = new RegisterInfo();
-        ri.setDocumentNum("DefaultDocumentNumber");
-        ri.setDocumentType(DocumentType.ID_CARD.getCode());
-        ri.setGender(Gender.MALE.getCode());
-        ri.setName("Default User");
-        ri.setPassword("DefaultPassword");
-        ri.setPhoneNum("DefaultPhoneNum");
-        ri.setVerificationCode("NoUse");
-        ssoService.create(ri);
-        System.out.println("[SSO Service] Create Default User complete.");
+        Account acc = new Account();
+        acc.setDocumentType(DocumentType.ID_CARD.getCode());
+        acc.setDocumentNum("DefaultDocumentNumber");
+        acc.setPhoneNum("fdse");
+        acc.setPassword("DefaultPassword");
+        acc.setName("Default User");
+        acc.setGender(Gender.MALE.getCode());
+        acc.setId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+        ssoService.createAccount(acc);
     }
 
 }

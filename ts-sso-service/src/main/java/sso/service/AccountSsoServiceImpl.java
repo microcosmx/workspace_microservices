@@ -16,6 +16,15 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     private static HashMap<String,String > loginUserList = new HashMap<>();
 
     @Override
+    public Account createAccount(Account account){
+        System.out.println("[SSO Service][Create Account] Before:" + account.getId());
+        Account resultAcc = accountRepository.save(account);
+        Account oldAcc = accountRepository.findByPhoneNum(account.getPhoneNum());
+        System.out.println("[SSO Service][Create Account] After:" + oldAcc.getId());
+        return resultAcc;
+    }
+
+    @Override
     public RegisterResult create(RegisterInfo ri){
         Account oldAcc = accountRepository.findByPhoneNum(ri.getPhoneNum());
         if(oldAcc != null){
