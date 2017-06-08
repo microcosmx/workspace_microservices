@@ -8,8 +8,6 @@ public class GetTripAllDetailResult {
 
     private TripResponse tripResponse;
 
-    private Trip trip;
-
     public GetTripAllDetailResult() {
         //Default Constructor
     }
@@ -36,13 +34,5 @@ public class GetTripAllDetailResult {
 
     public void setTripResponse(TripResponse tripResponse) {
         this.tripResponse = tripResponse;
-    }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
     }
 }

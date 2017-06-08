@@ -1,6 +1,5 @@
 package fdse.microservice.service;
 
-import fdse.microservice.domain.Contacts;
 import fdse.microservice.domain.QueryForTravel;
 import fdse.microservice.domain.ResultForTravel;
 

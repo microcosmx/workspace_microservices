@@ -23,42 +23,18 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/create", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){
-        System.out.println("[Order Service][Create Order] Create Order form " + coi.getOrder().getFrom() + " --->"
-            + coi.getOrder().getTo() + " at " + coi.getOrder().getTravelDate());
         VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
         if(tokenResult.isStatus() == true){
-            System.out.println("[Order Service][Verify Login] Success");
+            System.out.println("[OrderService][VerifyLogin] Success");
             return orderService.create(coi.getOrder());
         }else{
-            System.out.println("[Order Service][Verify Login] Fail");
+            System.out.println("[OrderService][VerifyLogin] Fail");
             CreateOrderResult cor = new CreateOrderResult();
             cor.setStatus(false);
             cor.setMessage("Not Login");
             cor.setOrder(null);
             return cor;
         }
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/order/query", method = RequestMethod.POST)
-    public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi){
-        System.out.println("[Order Service][Query Orders] Query Orders for " + qi.getAccountId());
-        VerifyResult tokenResult = verifySsoLogin(qi.getLoginToken());
-        if(tokenResult.isStatus() == true){
-            System.out.println("[Order Service][Verify Login] Success");
-            return orderService.queryOrders(qi);
-        }else{
-            System.out.println("[Order Service][Verify Login] Fail");
-            return new ArrayList<Order>();
-        }
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path="/order/calculate", method = RequestMethod.POST)
-    public CalculateSoldTicketResult calculateSoldTicket(@RequestBody CalculateSoldTicketInfo csti){
-        System.out.println("[Order Service][Calculate Sold Tickets] Date:" + csti.getTravelDate() + " TrainNumber:"
-                + csti.getTrainNumber());
-        return orderService.queryAlreadySoldOrders(csti);
     }
 
     @CrossOrigin(origins = "*")
@@ -74,6 +50,19 @@ public class OrderController {
             oar.setOldOrder(null);
             oar.setNewOrder(null);
             return oar;
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/order/query", method = RequestMethod.POST)
+    public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi){
+        VerifyResult tokenResult = verifySsoLogin(qi.getLoginToken());
+        if(tokenResult.isStatus() == true){
+            System.out.println("[OrderService][VerifyLogin] Success");
+            return orderService.queryOrders(qi);
+        }else{
+            System.out.println("[OrderService][VerifyLogin] Fail");
+            return new ArrayList<Order>();
         }
     }
 
@@ -109,6 +98,14 @@ public class OrderController {
             cor.setOrder(null);
             return cor;
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/order/calculate", method = RequestMethod.POST)
+    public CalculateSoldTicketResult calculateSoldTicket(@RequestBody CalculateSoldTicketInfo csti){
+        System.out.println("[OrderService][Calculate Sold Tickets] Date:" + csti.getTravelDate() + " TrainNumber:"
+                + csti.getTrainNumber());
+        return orderService.queryAlreadySoldOrders(csti);
     }
 
     private VerifyResult verifySsoLogin(String loginToken){
