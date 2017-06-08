@@ -2,51 +2,62 @@ package login.service;
 
 import login.domain.LoginInfo;
 import login.domain.LoginResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import login.domain.LogoutInfo;
+import login.domain.LogoutResult;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import login.domain.Account;
-import login.repository.AccountRepository;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AccountLoginServiceImpl implements AccountLoginService {
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private RestTemplate restTemplate;
 
     @Override
-    public LoginResult login(LoginInfo li){
-        if(li == null){
-            System.out.println("[Account-Login-Service][Login] Fail.Account not found.");
-            LoginResult lr = new LoginResult();
-            lr.setStatus(false);
-            lr.setMessage("Account Not Found");
-            lr.setAccount(null);
-            return lr;
+    public LoginResult login(LoginInfo li,String YsbCaptcha){
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Cookie","YsbCaptcha=" + YsbCaptcha);
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("verificationCode", li.getVerificationCode());
+        HttpEntity requestEntity = new HttpEntity(body,requestHeaders);
+        restTemplate = new RestTemplate();
+        ResponseEntity rssResponse = restTemplate.exchange(
+                "http://ts-verification-code-service:15678/verification/verify",
+                HttpMethod.POST,
+                requestEntity,
+                String.class
+        );
+        String verifyResult = (String)rssResponse.getBody();
+        System.out.println("[Login Service][Login] Verification Result:" + verifyResult);
+        if(!verifyResult.contains("true")){
+            LoginResult verifyCodeLr = new LoginResult();
+            verifyCodeLr.setAccount(null);
+            verifyCodeLr.setToken(null);
+            verifyCodeLr.setStatus(false);
+            verifyCodeLr.setMessage("Verification Code Wrong.");
+            return verifyCodeLr;
         }
-        Account result = accountRepository.findByPhoneNum(li.getPhoneNum());
-        if(result != null &&
-                result.getPassword() != null && li.getPassword() != null
-                && result.getPassword().equals(li.getPassword())){
-            result.setPassword("");
-            System.out.println("[Account-Login-Service][Login] Success.");
-            LoginResult lr = new LoginResult();
-            lr.setStatus(true);
-            lr.setMessage("Success");
-            lr.setAccount(result);
-            return lr;
-        }else{
-            LoginResult lr = new LoginResult();
-            lr.setStatus(false);
-            lr.setAccount(null);
-            if(result == null){
-                lr.setMessage("Account Not Exist");
-                System.out.println("[Account-Login-Service][Login] Fail.Account Not Exist.");
-            }else{
-                lr.setMessage("Password Wrong");
-                System.out.println("[Account-Login-Service][Login] Fail.Wrong Password.");
-            }
-            return lr;
-        }
+        restTemplate = new RestTemplate();
+        LoginResult lr = restTemplate.postForObject(
+                "http://ts-sso-service:12349/account/login",
+                li,LoginResult.class);
+        return lr;
     }
 
+    @Override
+    public LogoutResult logout(LogoutInfo li){
+        restTemplate = new RestTemplate();
+        LogoutResult lr = restTemplate.postForObject("http://ts-sso-service:12349/logout",li,LogoutResult.class);
+        if(lr.isStatus()){
+            System.out.println("[Login Service][Logout] Success");
+        }else{
+            System.out.println("[Login Service][Logout] Fail.Reason:" + lr.getMessage());
+        }
+        return lr;
+    }
 }

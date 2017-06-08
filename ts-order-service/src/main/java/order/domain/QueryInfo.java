@@ -26,7 +26,7 @@ public class QueryInfo {
     private boolean enableStateQuery;
 
     public QueryInfo(){
-
+        //Default Constructor
     }
 
     public QueryInfo(UUID accountId){

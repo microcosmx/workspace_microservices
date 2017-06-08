@@ -26,6 +26,12 @@ public class ContactsServiceImpl implements ContactsService{
     }
 
     @Override
+    public Contacts createContacts(Contacts contacts){
+        contactsRepository.save(contacts);
+        return contacts;
+    }
+
+    @Override
     public AddContactsResult create(AddContactsInfo aci){
         Contacts contacts = new Contacts();
         contacts.setId(UUID.randomUUID());

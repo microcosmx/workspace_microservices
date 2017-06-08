@@ -2,10 +2,7 @@ package sso.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sso.domain.LogoutInfo;
-import sso.domain.LogoutResult;
-import sso.domain.PutLoginResult;
-import sso.domain.VerifyResult;
+import sso.domain.*;
 import sso.repository.AccountRepository;
 import java.util.HashMap;
 import java.util.UUID;
@@ -13,17 +10,90 @@ import java.util.UUID;
 @Service
 public class AccountSsoServiceImpl implements AccountSsoService{
 
-
     @Autowired
     private AccountRepository accountRepository;
 
     private static HashMap<String,String > loginUserList = new HashMap<>();
 
     @Override
+    public Account createAccount(Account account){
+        System.out.println("[SSO Service][Create Account] Before:" + account.getId());
+        Account resultAcc = accountRepository.save(account);
+        Account oldAcc = accountRepository.findByPhoneNum(account.getPhoneNum());
+        System.out.println("[SSO Service][Create Account] After:" + oldAcc.getId());
+        return resultAcc;
+    }
+
+    @Override
+    public RegisterResult create(RegisterInfo ri){
+        Account oldAcc = accountRepository.findByPhoneNum(ri.getPhoneNum());
+        if(oldAcc != null){
+            RegisterResult rr = new RegisterResult();
+            rr.setStatus(false);
+            rr.setMessage("Account Already Exists");
+            rr.setAccount(null);
+            System.out.println("[SSO Service][Register] Fail.Account already exists.");
+            return rr;
+        }
+        Account account = new Account();
+        account.setId(UUID.randomUUID());
+        account.setPhoneNum(ri.getPhoneNum());
+        account.setPassword(ri.getPassword());
+        account.setName(ri.getName());
+        account.setDocumentNum(ri.getDocumentNum());
+        account.setDocumentType(ri.getDocumentType());
+        account.setGender(ri.getGender());
+        Account resultAcc = accountRepository.save(account);
+        resultAcc.setPassword("");
+        System.out.println("[SSO Service][Register] Success.");
+        RegisterResult rr = new RegisterResult();
+        rr.setStatus(true);
+        rr.setMessage("Success");
+        rr.setAccount(account);
+        return rr;
+    }
+
+    @Override
+    public LoginResult login(LoginInfo li){
+        if(li == null){
+            System.out.println("SSO Service][Login] Fail.Account not found.");
+            LoginResult lr = new LoginResult();
+            lr.setStatus(false);
+            lr.setMessage("Account Not Found");
+            lr.setAccount(null);
+            return lr;
+        }
+        Account result = accountRepository.findByPhoneNum(li.getPhoneNum());
+        if(result != null &&
+                result.getPassword() != null && li.getPassword() != null
+                && result.getPassword().equals(li.getPassword())){
+            result.setPassword("");
+            System.out.println("[SSO Service][Login] Success.");
+            LoginResult lr = new LoginResult();
+            lr.setStatus(true);
+            lr.setMessage("Success");
+            lr.setAccount(result);
+            return lr;
+        }else{
+            LoginResult lr = new LoginResult();
+            lr.setStatus(false);
+            lr.setAccount(null);
+            if(result == null){
+                lr.setMessage("Account Not Exist");
+                System.out.println("[SSO Service][Login] Fail.Account Not Exist.");
+            }else{
+                lr.setMessage("Password Wrong");
+                System.out.println("[SSO Service][Login] Fail.Wrong Password.");
+            }
+            return lr;
+        }
+    }
+
+    @Override
     public PutLoginResult loginPutToken(String loginId){
         PutLoginResult plr = new PutLoginResult();
         if(loginUserList.keySet().contains(loginId)){
-            System.out.println("[Account-SSO-Service][Login] Already Login, Token:" + loginId);
+            System.out.println("[SSO Service][Login] Already Login, Token:" + loginId);
             plr.setStatus(false);
             plr.setLoginId(loginId);
             plr.setMsg("Already Login");
@@ -32,7 +102,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         }else{
             String token = UUID.randomUUID().toString();
             loginUserList.put(loginId,token);
-            System.out.println("[Account-SSO-Service][Login] Login Success. Id:" + loginId + " Token:" + token);
+            System.out.println("[SSO Service][Login] Login Success. Id:" + loginId + " Token:" + token);
             plr.setStatus(true);
             plr.setLoginId(loginId);
             plr.setMsg("Success");
@@ -45,7 +115,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public LogoutResult logoutDeleteToken(LogoutInfo li){
         LogoutResult lr = new LogoutResult();
         if(!loginUserList.keySet().contains(li.getId())){
-            System.out.println("[Account-SSO-Service][Logout] Already Logout. LogoutId:" + li.getId());
+            System.out.println("[SSO Service][Logout] Already Logout. LogoutId:" + li.getId());
            lr.setStatus(false);
            lr.setMessage("Not Login");
         }else{
@@ -64,16 +134,16 @@ public class AccountSsoServiceImpl implements AccountSsoService{
 
     @Override
     public VerifyResult verifyLoginToken(String verifyToken){
-        System.out.println("[Account-SSO-Service][Verify] Verify token:" + verifyToken);
+        System.out.println("[SSO Service][Verify] Verify token:" + verifyToken);
         VerifyResult vr = new VerifyResult();
         if(loginUserList.values().contains(verifyToken)){
             vr.setStatus(true);
             vr.setMessage("Verify Success.");
-            System.out.println("[Account-SSO-Service][Verify] Success.Token:" + verifyToken);
+            System.out.println("[SSO Service][Verify] Success.Token:" + verifyToken);
         }else{
             vr.setStatus(false);
             vr.setMessage("Verify Fail.");
-            System.out.println("[Account-SSO-Service][Verify] Fail.Token:" + verifyToken);
+            System.out.println("[SSO Service][Verify] Fail.Token:" + verifyToken);
         }
         return vr;
     }

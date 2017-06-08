@@ -1,3 +1,33 @@
+//----------------Switch from many tags
+//For toggle pages
+$("#microservice_page").click(function(){
+    $("#microservices").css('display','block');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','none');
+});
+
+$("#flow_one_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','block');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','none');
+});
+
+$("#flow_two_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','block');
+    $("#flow_three").css('display','none');
+});
+
+$("#flow_three_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','block');
+});
+
 /*---------------------Add By Ji Chao for ajax--------------------*/
 //----For Login------
 
@@ -32,7 +62,6 @@ document.getElementById("login_button").onclick = function post_login(){
 }
 
 //------For Logout-------
-
 document.getElementById("logout_button").onclick = function post_logout(){
     var logoutInfo = new Object();
     logoutInfo.id = $("#user_login_id").html();
@@ -138,7 +167,7 @@ $("#refresh_contacts_button").click(function refresh_contacts(){
                     "<tr>" +
                     "<td>" + i                                                    + "</td>" +
                     "<td>" + obj[i]["name"]                                       + "</td>" +
-                    "<td>" + obj[i]["documentType"]                               + "</td>" +
+                    "<td>" + convertNumberToDocumentType(obj[i]["documentType"]) + "</td>" +
                     "<td>" + obj[i]["documentNumber"]                             + "</td>" +
                     "<td>" + obj[i]["phoneNumber"]                                + "</td>" +
                     "<td>" +  "<button class=\"btn btn-primary\">Delete</button>" + "</td>" +
@@ -173,7 +202,7 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
                         "<td>" + i                                                    + "</td>" +
                         "<td class='booking_contacts_contactsId' style='display:none'>" + obj[i]["id"] + "</td>" +
                         "<td class='booking_contacts_name'>" + obj[i]["name"]         + "</td>" +
-                        "<td class='booking_contacts_documentType'>" + obj[i]["documentType"] + "</td>" +
+                        "<td class='booking_contacts_documentType'>" + convertNumberToDocumentType(obj[i]["documentType"]) + "</td>" +
                         "<td class='booking_contacts_documentNumber'>" + obj[i]["documentNumber"] + "</td>" +
                         "<td class='booking_contacts_phoneNumber'>" + obj[i]["phoneNumber"] + "</td>" +
                         "<td>" +  "<label><input class='booking_contacts_select' name='booking_contacts' type='radio' />" + "Select" + "</label>" + "</td>" +
@@ -205,21 +234,21 @@ $("#travel_booking_button").click(function(){
             for(var i = 0,l = obj.length ; i < l ; i++){
                 $("#tickets_booking_list_table").find("tbody").append(
                     "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                    "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                    "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                    "<td>" + obj[i]["startingTime"]                                + "</td>" +
-                    "<td>" + obj[i]["endTime"]                                     + "</td>" +
-                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "<td>" +
-                        "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st Class Seat</option>" +
-                            "<option value='3'>2st Class Seat</option>" +
-                        "</select>" +
-                    + "</td>" +
-                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                        "<td>" + i + "</td>" +
+                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                        "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                        "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                        "<td>" +
+                            "<select class='form-control booking_seat_class'>" +
+                                "<option value='2'>1st Class Seat</option>" +
+                                "<option value='3'>2st Class Seat</option>" +
+                            "</select>" +
+                        "</td>" +
+                        "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
                     "</tr>"
                 );
             }
@@ -244,10 +273,8 @@ function addListenerToBookingTable(){
             for (i = 0; i < radios.length; i++) {
                 if (radios[i].checked) {
                     contactsId = $(".booking_contacts_contactsId").eq(i).text();
-                }else{
                 }
             }
-
             var orderTicketInfo = new Object();
             orderTicketInfo.contactsId = contactsId;
             orderTicketInfo.tripId = tripId;
@@ -258,6 +285,7 @@ function addListenerToBookingTable(){
             orderTicketInfo.from = from;
             orderTicketInfo.to = to;
             var orderTicketsData = JSON.stringify(orderTicketInfo);
+            alert("Do Order Date:" + orderTicketsData);
             $.ajax({
                 type: "post",
                 url: "/preserve",
@@ -397,7 +425,18 @@ document.getElementById("train_query_button").onclick = function post_train_quer
             withCredentials: true
         },
         success: function(result){
-            $("#train_result").html(JSON.stringify(result));
+            var size = result.length;
+            $("#query_train_list_table").find("tbody").html("");
+            for(var i = 0;i < size;i++){
+                $("#query_train_list_table").find("tbody").append(
+                    "<tr>" +
+                        "<td>" + result[i]["id"]     + "</td>" +
+                        "<td>" + result[i]["confortClass"]     + "</td>" +
+                        "<td>" + result[i]["economyClass"]     + "</td>" +
+                    "</tr>"
+                );
+            }
+            //$("#train_result").html(JSON.stringify(result));
         }
     });
 }
@@ -472,12 +511,23 @@ document.getElementById("config_query_button").onclick = function post_config_qu
         type: "get",
         url: "/config/queryAll",
         contentType: "application/json",
-        dataType: "text",
+        dataType: "json",
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            $("#config_result").html(result);
+            var size = result.length;
+            $("#query_config_list_table").find("tbody").html("");
+            for(var i = 0;i < size;i++){
+                $("#query_config_list_table").find("tbody").append(
+                    "<tr>" +
+                        "<td>" + result[i]["name"]     + "</td>" +
+                        "<td>" + result[i]["value"]     + "</td>" +
+                        "<td>" + result[i]["description"]     + "</td>" +
+                    "</tr>"
+                );
+            }
+            //$("#config_result").html(result);
         }
     });
 }
@@ -548,7 +598,22 @@ $("#travel_queryAll_button").click(function(){
             withCredentials: true
         },
         success: function(result){
-            $("#travel_result").html(JSON.stringify(result));
+            var size = result.length;
+            $("#query_travel_list_table").find("tbody").html("");
+            for(var i = 0;i < size;i++){
+                $("#query_travel_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
+                    "<td>" + result[i]["trainTypeId"]     + "</td>" +
+                    "<td>" + result[i]["startingStation"]     + "</td>" +
+                    "<td>" + result[i]["stations"]     + "</td>" +
+                    "<td>" + result[i]["terminalStation"]     + "</td>" +
+                    "<td>" + convertNumberToTimeString(result[i]["startingTime"]) + "</td>" +
+                    "<td>" + convertNumberToTimeString(result[i]["endTime"]) + "</td>" +
+                    "</tr>"
+                );
+            }
+            //$("#travel_result").html(JSON.stringify(result));
         }
     });
 });
@@ -603,46 +668,11 @@ $("#travel_update_button").click(function(){
 
 //------For Travel query------------
 
-// $("#travel_query_button").click(function(){
-//     var travelQueryInfo = new Object();
-//     travelQueryInfo.startingPlace = $("#travel_query_startingPlace").val();
-//     travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
-//     travelQueryInfo.departureTime= $("#travel_query_date").val();
-//     var travelQueryData = JSON.stringify(travelQueryInfo);
-//     $.ajax({
-//         type: "post",
-//         url: "/travel/query",
-//         contentType: "application/json",
-//         dataType: "json",
-//         data:travelQueryData,
-//         xhrFields: {
-//             withCredentials: true
-//         },
-//         success: function(result){
-//             var obj = result;
-//             for(var i = 0,l = obj.length ; i < l ; i++){
-//                 $("#query_tickets_list_table").find("tbody").append(
-//                     "<tr>" +
-//                     "<td>" + i + "</td>" +
-//                     "<td>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-//                     "<td>" + obj[i]["startingStation"]                             + "</td>" +
-//                     "<td>" + obj[i]["terminalStation"]                             + "</td>" +
-//                     "<td>" + obj[i]["startingTime"]                                + "</td>" +
-//                     "<td>" + obj[i]["endTime"]                                     + "</td>" +
-//                     "<td>" + obj[i]["economyClass"]                                + "</td>" +
-//                     "<td>" + obj[i]["confortClass"]                                + "</td>" +
-//                     "</tr>"
-//                 );
-//             }
-//         }
-//     });
-// });
-
-$("#travel_booking_button").click(function(){
+$("#travel_query_button").click(function(){
     var travelQueryInfo = new Object();
-    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
-    travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_booking_datee").val();
+    travelQueryInfo.startingPlace = $("#travel_query_startingPlace").val();
+    travelQueryInfo.endPlace = $("#travel_query_terminalPlace").val();
+    travelQueryInfo.departureTime= $("#travel_query_date").val();
     var travelQueryData = JSON.stringify(travelQueryInfo);
     var train_type = $("#search_select_train_type").val();
     if(train_type == 0){
@@ -772,37 +802,168 @@ $("#travel_booking_button").click(function(){
         });
 
     }
-
-
 });
 
 
-//For toggle pages
-$("#microservice_page").click(function(){
-    $("#microservices").css('display','block');
-    $("#flow_one").css('display','none');
-    $("#flow_two").css('display','none');
-    $("#flow_three").css('display','none');
+
+//-------------------For Orders------------------
+
+$("#refresh_my_order_list_button").click(function(){
+    var myOrdersQueryInfo = new Object();
+    myOrdersQueryInfo.accountId = $("#user_login_id").html();
+    myOrdersQueryInfo.loginToken = $("#user_login_token").html();
+    myOrdersQueryInfo.enableStateQuery = false;
+    myOrdersQueryInfo.enableTravelDateQuery = false;
+    myOrdersQueryInfo.enableBoughtDateQuery = false;
+    myOrdersQueryInfo.travelDateStart = null;
+    myOrdersQueryInfo.travelDateEnd = null;
+    myOrdersQueryInfo.boughtDateStart = null;
+    myOrdersQueryInfo.boughtDateEnd = null;
+    var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
+    alert("ready to send:" + myOrdersQueryData);
+    $.ajax({
+        type: "post",
+        url: "/order/query",
+        contentType: "application/json",
+        dataType: "json",
+        data:myOrdersQueryData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var size = result.length;
+            $("#my_orders_result").html("");
+            for(var i = 0; i < size;i++){
+                var order = result[i];
+                alert(JSON.stringify(order));
+                $("#my_orders_result").append(
+                    "<div class='panel panel-default'>" +
+                        "<div class='panel-heading'>" +
+                            "<h4 class='panel-title'>" +
+                                "<a data-toggle='collapse' href='#collapse" + i + "'>" +
+                                    "From:" + order['from'] + "    ----->    To:" + order['to'] +
+                                "</a>" +
+                            "</h4>" +
+                        "</div>" +
+                        "<div id='collapse" + i + "' class='panel-collapse collapse in'>" +
+                            "<div class='panel-body'>" +
+                                "<form role='form' class='form-horizontal'>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Bought Date: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + convertNumberToDateTimeString(order["boughtDate"]) + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Trip Id: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + order["trainNumber"] + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Seat Number: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + order["seatNumber"] + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Status: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + convertNumberToOrderStatus(order["status"]) + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Price: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + order["price"] + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Name: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + order["contactsName"] + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Document Type: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + convertNumberToDocumentType(order["documentType"]) + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>DocumentNumber: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + order["contactsDocumentNumber"] + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</form>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>"
+                );
+            }
+        }
+    });
 });
 
-$("#flow_one_page").click(function(){
-    $("#microservices").css('display','none');
-    $("#flow_one").css('display','block');
-    $("#flow_two").css('display','none');
-    $("#flow_three").css('display','none');
-});
 
-$("#flow_two_page").click(function(){
-    $("#microservices").css('display','none');
-    $("#flow_one").css('display','none');
-    $("#flow_two").css('display','block');
-    $("#flow_three").css('display','none');
-});
 
-$("#flow_three_page").click(function(){
-    $("#microservices").css('display','none');
-    $("#flow_one").css('display','none');
-    $("#flow_two").css('display','none');
-    $("#flow_three").css('display','block');
-});
+
+
+function convertNumberToDocumentType(code) {
+    var str = "";
+    if(code == 0){
+        str = "null";
+    }else if(code == 1){
+        str = "ID Card";
+    }else if(code == 2){
+        str = "Passport";
+    }else{
+        str = "other";
+    }
+    return str;
+}
+
+function convertNumberToSeatClass(code){
+    var str = "";
+    if(code == 2){
+        str = "First Class Seat";
+    }else if(code == 3){
+        str = "Second Class Seat";
+    }else{
+        str = "other";
+    }
+    return str;
+}
+
+function convertNumberToOrderStatus(code){
+    var str = "";
+    if(code == 0){
+        str = "Not Paid";
+    }else if(code == 1){
+        str = "Paid & Not Collected";
+    }else if(code == 2){
+        str = "Collected";
+    }else if(code == 3){
+        str = "Cancel & Rebook";
+    }else if(code == 4){
+        str = "Cancel";
+    }else if(code == 1){
+        str = "Refund";
+    }else{
+        str = "other";
+    }
+    return str;
+}
+
+function convertNumberToDateTimeString(timeNumber){
+    var str = new Date(timeNumber);
+    return str.toDateString();
+}
+
+function convertNumberToTimeString(timeNumber){
+    var str = new Date(timeNumber);
+    var newStr = str.getHours() + ":" + str.getMinutes() + "";
+    return newStr;
+}
 

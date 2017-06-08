@@ -1,11 +1,14 @@
 package sso.service;
 
-import sso.domain.LogoutInfo;
-import sso.domain.LogoutResult;
-import sso.domain.PutLoginResult;
-import sso.domain.VerifyResult;
+import sso.domain.*;
 
 public interface AccountSsoService {
+
+    RegisterResult create(RegisterInfo ri);
+
+    Account createAccount(Account account);
+
+    LoginResult login(LoginInfo li);
 
     PutLoginResult loginPutToken(String loginToken);
 

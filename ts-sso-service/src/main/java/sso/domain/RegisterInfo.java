@@ -1,12 +1,9 @@
-package register.domain;
+package sso.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.UUID;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Account {
-
-    private UUID id;
+/**
+ * RegisterInfo:  Container for saving the register information.
+ */
+public class RegisterInfo {
 
     private String password;
 
@@ -20,21 +17,15 @@ public class Account {
 
     private String phoneNum;
 
-    public Account(){
+    private String verificationCode;
+
+    public RegisterInfo(){
         gender = Gender.OTHER.getCode();
-        password = "defaultPassword";
         name = "None";
+        password = "defaultPassword";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
-        phoneNum = "0123456789";
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+        phoneNum = "352323";
     }
 
     public String getPassword() {
@@ -83,5 +74,13 @@ public class Account {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }
