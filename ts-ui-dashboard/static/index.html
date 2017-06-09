@@ -393,59 +393,7 @@
                 </div>
             </div>
 
-            <!------------------------------------------Ticket Query------------------------------------------------------>
-            <div class="step panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Query Train & Tickets
-                    </h3>
-                </div>
 
-                <div class="input-box panel-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Starting Place:</label>
-                            <div class="col-sm-10">
-                                <input id="travel_query_startingPlace" class="form-control" name='' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Terminal Place:</label>
-                            <div class="col-sm-10">
-                                <input id="travel_query_terminalPlace" class="form-control" name='' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Date:</label>
-                            <div class="col-sm-10">
-                                <input id="travel_query_date" class="form-control" type="date" name='' value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button id="travel_query_button" type="button" class="btn btn-primary">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                    <table id="query_tickets_list_table" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>序号</th>
-                                <th>车次</th>
-                                <th>起始站</th>
-                                <th>到达站</th>
-                                <th>开车时间</th>
-                                <th>到达时间</th>
-                                <th>二等座余量</th>
-                                <th>一等座余量</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--This is an empty table body-->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
             <!-------------------------------------------------Station---------------------------------------------- -->
             <div class="step panel panel-default">
@@ -658,6 +606,17 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">Train Type:</label>
+                            <div class="col-sm-10">
+                                <select id="search_select_train_type" class="form-control" name="train_type">
+                                    <option value="0">All</option>
+                                    <option value="1" selected = "selected">GaoTie DongChe</option>
+                                    <option value="2">Others</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button id="travel_booking_button" type="button" class="btn btn-primary">Search</button>
                             </div>
@@ -717,6 +676,11 @@
             <!-------------------------------------------------------------------------------------------------- -->
         </div>
 
+
+
+
+
+
         <div id="flow_two">
             <div class="step panel panel-default">
                 <div class="panel-heading">
@@ -726,7 +690,7 @@
                     </h3>
                 </div>
                 <div class="panel-body" id="my_orders_result">
-                    <!-----Enpty Body-------->
+                    <!-----Empty Body-------->
                 </div>
             </div>
         </div>
@@ -735,6 +699,12 @@
         <!-------------------------------------------------------------------------------------------------- -->
 
     </div>
+
+
+
+
+
+
 
 
     <div id="flow_three">

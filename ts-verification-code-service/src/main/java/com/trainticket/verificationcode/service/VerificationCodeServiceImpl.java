@@ -102,9 +102,8 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
             cookieId = cookie.getValue();
         }
         String code = map.get(cookieId);
-        System.out.println("code: "+code);
-        System.out.println("receivedCode: "+receivedCode);
-        if(code.equals(receivedCode)){
+
+        if(code.equals(receivedCode.toUpperCase())){
             result = true;
         }
         return result;

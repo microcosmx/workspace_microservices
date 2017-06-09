@@ -125,6 +125,11 @@ public class TravelServiceImpl implements TravelService{
 
     private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
 
+        //判断所查日期是否在当天及之后
+        if(!afterToday(departureTime)){
+            return null;
+        }
+
         QueryForTravel query = new QueryForTravel();
         query.setTrip(trip);
         query.setStartingPlace(startingPlace);
@@ -147,7 +152,7 @@ public class TravelServiceImpl implements TravelService{
         ResultSoldTicket result = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/calculate", information ,ResultSoldTicket.class);
         if(result == null){
-            System.out.println("soldticketInfo doesn't exist");
+            System.out.println("soldticket Info doesn't exist");
             return null;
         }
         //设置返回的车票信息
@@ -174,5 +179,32 @@ public class TravelServiceImpl implements TravelService{
     @Override
     public List<Trip> queryAll(){
         return repository.findAll();
+    }
+
+    private static boolean afterToday(Date date) {
+        Calendar calDateA = Calendar.getInstance();
+        Date today = new Date();
+        calDateA.setTime(today);
+
+        Calendar calDateB = Calendar.getInstance();
+        calDateB.setTime(date);
+
+        if(calDateA.get(Calendar.YEAR) > calDateB.get(Calendar.YEAR)){
+            return false;
+        }else if(calDateA.get(Calendar.YEAR) == calDateB.get(Calendar.YEAR)){
+            if(calDateA.get(Calendar.MONTH) > calDateB.get(Calendar.MONTH)){
+                return false;
+            }else if(calDateA.get(Calendar.MONTH) == calDateB.get(Calendar.MONTH)){
+                if(calDateA.get(Calendar.DAY_OF_MONTH) > calDateB.get(Calendar.DAY_OF_MONTH)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
     }
 }
