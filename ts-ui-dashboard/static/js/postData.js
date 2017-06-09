@@ -629,58 +629,6 @@ $("#travel_update_button").click(function(){
 
 
 
-
-
-
-$("#travel_booking_button").click(function(){
-    var travelQueryInfo = new Object();
-    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
-    travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_booking_date").val();
-    var travelQueryData = JSON.stringify(travelQueryInfo);
-    $.ajax({
-        type: "post",
-        url: "/travel/query",
-        contentType: "application/json",
-        dataType: "json",
-        data:travelQueryData,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            var obj = result;
-            $("#tickets_booking_list_table").find("tbody").html("");
-            for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#tickets_booking_list_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                    "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                    "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                    "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                    "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                    "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                    "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                    "<td>" +
-                    "<select class='form-control booking_seat_class'>" +
-                    "<option value='2'>1st Class Seat</option>" +
-                    "<option value='3'>2st Class Seat</option>" +
-                    "</select>" +
-                    "</td>" +
-                    "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
-                    "</tr>"
-                );
-            }
-            addListenerToBookingTable();
-        }
-    });
-});
-
-
-
-
-
-
 $("#travel_booking_button").click(function(){
     var travelQueryInfo = new Object();
     travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
@@ -699,30 +647,33 @@ $("#travel_booking_button").click(function(){
                 withCredentials: true
             },
             success: function(result){
-                var obj = result;
+
                 $("#tickets_booking_list_table").find("tbody").html("");
-                for(var i = 0,l = obj.length ; i < l ; i++){
-                    $("#tickets_booking_list_table").find("tbody").append(
-                        "<tr>" +
-                        "<td>" + i + "</td>" +
-                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                        "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                        "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                        "<td>" +
-                        "<select class='form-control booking_seat_class'>" +
-                        "<option value='2'>1st Class Seat</option>" +
-                        "<option value='3'>2st Class Seat</option>" +
-                        "</select>" +
-                        "</td>" +
-                        "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
-                        "</tr>"
-                    );
+                if(result[0] != null){
+                    var obj = result;
+                    for(var i = 0,l = obj.length ; i < l ; i++){
+                        $("#tickets_booking_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                            "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control booking_seat_class'>" +
+                            "<option value='2'>1st Class Seat</option>" +
+                            "<option value='3'>2st Class Seat</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                    addListenerToBookingTable();
                 }
-                addListenerToBookingTable();
             }
         });
         $.ajax({
@@ -735,30 +686,31 @@ $("#travel_booking_button").click(function(){
                 withCredentials: true
             },
             success: function(result){
-                var obj = result;
-                //$("#tickets_booking_list_table").find("tbody").html("");
-                for(var i = 0,l = obj.length ; i < l ; i++){
-                    $("#tickets_booking_list_table").find("tbody").append(
-                        "<tr>" +
-                        "<td>" + i + "</td>" +
-                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                        "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                        "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                        "<td>" +
-                        "<select class='form-control booking_seat_class'>" +
-                        "<option value='2'>1st Class Seat</option>" +
-                        "<option value='3'>2st Class Seat</option>" +
-                        "</select>" +
-                        "</td>" +
-                        "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
-                        "</tr>"
-                    );
+                if(result[0] != null){
+                    var obj = result;
+                    for(var i = 0,l = obj.length ; i < l ; i++){
+                        $("#tickets_booking_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                            "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control booking_seat_class'>" +
+                            "<option value='2'>1st Class Seat</option>" +
+                            "<option value='3'>2st Class Seat</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                    addListenerToBookingTable();
                 }
-                addListenerToBookingTable();
             }
         });
 
@@ -773,30 +725,33 @@ $("#travel_booking_button").click(function(){
                 withCredentials: true
             },
             success: function(result){
-                var obj = result;
-                $("#tickets_booking_list_table").find("tbody").html("");
-                for(var i = 0,l = obj.length ; i < l ; i++){
-                    $("#tickets_booking_list_table").find("tbody").append(
-                        "<tr>" +
-                        "<td>" + i + "</td>" +
-                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                        "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                        "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                        "<td>" +
-                        "<select class='form-control booking_seat_class'>" +
-                        "<option value='2'>1st Class Seat</option>" +
-                        "<option value='3'>2st Class Seat</option>" +
-                        "</select>" +
-                        "</td>" +
-                        "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
-                        "</tr>"
-                    );
+                if(result[0] != null){
+                    var obj = result;
+                    $("#tickets_booking_list_table").find("tbody").html("");
+                    for(var i = 0,l = obj.length ; i < l ; i++){
+                        $("#tickets_booking_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                            "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control booking_seat_class'>" +
+                            "<option value='2'>1st Class Seat</option>" +
+                            "<option value='3'>2st Class Seat</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                    addListenerToBookingTable();
                 }
-                addListenerToBookingTable();
+
             }
         });
 
@@ -811,30 +766,33 @@ $("#travel_booking_button").click(function(){
                 withCredentials: true
             },
             success: function(result){
-                var obj = result;
-                $("#tickets_booking_list_table").find("tbody").html("");
-                for(var i = 0,l = obj.length ; i < l ; i++){
-                    $("#tickets_booking_list_table").find("tbody").append(
-                        "<tr>" +
-                        "<td>" + i + "</td>" +
-                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                        "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                        "<td>" + obj[i]["confortClass"]                                + "</td>" +
-                        "<td>" +
-                        "<select class='form-control booking_seat_class'>" +
-                        "<option value='2'>1st Class Seat</option>" +
-                        "<option value='3'>2st Class Seat</option>" +
-                        "</select>" +
-                        "</td>" +
-                        "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
-                        "</tr>"
-                    );
+                if(result[0] != null){
+                    var obj = result;
+                    $("#tickets_booking_list_table").find("tbody").html("");
+                    for(var i = 0,l = obj.length ; i < l ; i++){
+                        $("#tickets_booking_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                            "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control booking_seat_class'>" +
+                            "<option value='2'>1st Class Seat</option>" +
+                            "<option value='3'>2st Class Seat</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                    addListenerToBookingTable();
                 }
-                addListenerToBookingTable();
+
             }
         });
 
