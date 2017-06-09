@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public CreateOrderResult create(Order order){
-        System.out.println("[OrderService][CreateOrder] Ready Create Order" + new Gson().toJson(order));
+        System.out.println("[Order Service][Create Order] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
         if(accountOrders.contains(order)){
