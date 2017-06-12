@@ -768,7 +768,6 @@
                                     <option value="2">Others</option>
                                 </select>
                             </div>
-
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -848,6 +847,105 @@
                     <!-----Empty Body-------->
                 </div>
             </div>
+
+            <!---Ticket Cancel Pane---->
+            <div id="order_cancel_panel" class="order_cancel_panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Cancel Order and Refund
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Cancel The Ticket? You will get 79.0 refund.</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="order_cancel_panel_cancel" type="button" class="btn btn-primary">
+                                    No.
+                                </button>
+                                <button id="order_cancel_panel_confirm" type="button" class="btn btn-default">
+                                    Yes.
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!---Ticket Change Pane---->
+            <div id="order_change_panel" class="order_change_panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 panel="panel-title">
+                        Change Your Ticket
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Starting Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_change_startingPlace" class="form-control" name='' value='ShangHai'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Terminal Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_change_terminalPlace" class="form-control" name='' value='TaiYuan'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Date:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_change_date" class="form-control" type="date" name='' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Train Type:</label>
+                            <div class="col-sm-10">
+                                <select id="search_change_train_type" class="form-control" name="train_type">
+                                    <option value="0">All</option>
+                                    <option value="1" selected = "selected">GaoTie DongChe</option>
+                                    <option value="2">Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="travel_change_button" type="button" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Tickets Searching Result
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table id="tickets_change_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>2rd Class Seat Number</th>
+                            <th>1st Class Seat Number</th>
+                            <th>Select Seat</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
 

@@ -18,16 +18,12 @@ services:
   ts-account-mongo:
     image: mongo
 
-
   ts-register-service:
     build: ts-register-service
     image: ts/ts-register-service
     restart: always
     ports:
       - 12344:12344
-
-  ts-register-mongo:
-    image: mongo
 
 
   ts-sso-service:
@@ -36,6 +32,7 @@ services:
     restart: always
     ports:
       - 12349:12349
+
 
 
   ts-verification-code-service:
@@ -137,7 +134,6 @@ services:
         ports:
           - 15681:15681
 
-
   ts-price-service:
         build: ts-price-service
         image: ts/ts-price-service
@@ -147,3 +143,4 @@ services:
 
   ts-price-mongo:
         image: mongo
+
