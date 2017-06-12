@@ -366,7 +366,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Train List
-                        <button id="travel_queryAll_button" type="button" class="btn btn-default btn-sm">Query Train Type</button>
+                        <button id="travel_queryAll_button" type="button" class="btn btn-default btn-sm">Query Travel</button>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -560,6 +560,174 @@
                 </div>
             </div>
 
+            <!----------------------------------------------------------------------------------------->
+
+            <!------------------------------Price--------------------------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Price Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Starting Place: </label>
+                            <div class="col-sm-10">
+                                <input id="price_update_startingPlace" class="form-control" name='startingPlace'
+                                       value='ShangHai'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">End Place: </label>
+                            <div class="col-sm-10">
+                                <input id="price_update_endPlace" class="form-control" name='endPlace'
+                                       value='TaiYuan'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Distance:</label>
+                            <div class="col-sm-10">
+                                <input id="price_update_distance" class="form-control" name='distance'
+                                       value='300'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="price_update_button" type="button" class="btn btn-primary">
+                                    Update Distance
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Price List
+                        <button id="price_queryAll_button" type="button" class="btn btn-default btn-sm">
+                            Query Price
+                        </button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_price_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>PlaceA</th>
+                            <th>PlaceB</th>
+                            <th>TrainType Id</th>
+                            <th>Seat Class</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
+
+            <!----------------------------------------------Travel2--------------------------------------------- -->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Travel2 Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Trip Id(e.g.Z1234): </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_tripId" class="form-control" name='tripId'
+                                       value='Z1234'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">TrainType ID: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_trainTypeId" class="form-control" name='trainTypeId'
+                                       value='ZhiDa'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_startingStation" class="form-control" name='startingStation'
+                                       value='ShangHai'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_stations" class="form-control" name='stations'
+                                       value='BeiJing'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_terminalStation" class="form-control" name='terminalStation'
+                                       value='TaiYuan'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">StartingTime: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_startingTime" type="time" class="form-control"
+                                       name='startingTime' value='07:07'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">EndTime: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_endTime" type="time" class="form-control"
+                                       name='endTime' value='12:09'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="travel2_update_button" type="button" class="btn btn-primary">
+                                    Update Trip
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Train List
+                        <button id="travel2_queryAll_button" type="button" class="btn btn-default btn-sm">Query Travel2</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_travel2_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Trip Id</th>
+                            <th>Train Type</th>
+                            <th>Starting Station</th>
+                            <th>Middle Station</th>
+                            <th>Terminal Station</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                        </tr>
+                        </thead>
+                        <tbody id="query_travel2_list_table_result">
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <!---------------------------------basic information--------------------------------------->
+            <!----------------------------------------------------------------------------------------->
+
+            <!---------------------------------ticketinfo --------------------------------------------->
+            <!----------------------------------------------------------------------------------------->
+
         </div>
 
 
@@ -643,6 +811,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Trip Id</th>
+                            <th>Train Type Id</th>
                             <th>From</th>
                             <th>To</th>
                             <th>Starting Time</th>

@@ -174,6 +174,8 @@ public class Travel2ServiceImpl implements Travel2Service{
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
+        response.setTrainTypeId(trainType.getId());
+
         return response;
     }
 

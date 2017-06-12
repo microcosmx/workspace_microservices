@@ -576,6 +576,36 @@ $("#travel_queryAll_button").click(function(){
     });
 });
 
+$("#travel2_queryAll_button").click(function(){
+    $.ajax({
+        type: "get",
+        url: "/travel2/queryAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var size = result.length;
+            $("#query_travel2_list_table").find("tbody").html("");
+            for(var i = 0;i < size;i++){
+                $("#query_travel2_list_table_result").append(
+                    "<tr>" +
+                    "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
+                    "<td>" + result[i]["trainTypeId"]     + "</td>" +
+                    "<td>" + result[i]["startingStation"]     + "</td>" +
+                    "<td>" + result[i]["stations"]     + "</td>" +
+                    "<td>" + result[i]["terminalStation"]     + "</td>" +
+                    "<td>" + convertNumberToTimeString(result[i]["startingTime"]) + "</td>" +
+                    "<td>" + convertNumberToTimeString(result[i]["endTime"]) + "</td>" +
+                    "</tr>"
+                );
+            }
+            //$("#travel_result").html(JSON.stringify(result));
+        }
+    });
+});
+
 //------For Trip update------------
 
 $("#travel_update_button").click(function(){
@@ -599,6 +629,31 @@ $("#travel_update_button").click(function(){
         },
         success: function(result){
             $("#travel_result").html(JSON.stringify(result));
+        },
+    });
+});
+
+$("#travel2_update_button").click(function(){
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#travel2_update_tripId").val();
+    travelInfo.trainTypeId = $("#travel2_update_trainTypeId").val;
+    travelInfo.startingStation =  $("#travel2_update_startingStation").val;
+    travelInfo.stations = $("#travel2_update_stations").val ;
+    travelInfo.terminalStation = $("#travel2_update_terminalStation").val;
+    travelInfo.startingTime = $("#travel2_update_startingTime").val;
+    travelInfo.endTime = $("#travel2_update_endTime").val;
+    var data = JSON.stringify(travelInfo);
+    $.ajax({
+        type: "post",
+        url: "/travel2/update",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#travel2_result").html(JSON.stringify(result));
         },
     });
 });
@@ -656,6 +711,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -693,6 +749,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -733,6 +790,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -774,6 +832,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -961,4 +1020,53 @@ function convertNumberToTimeString(timeNumber){
     var newStr = str.getHours() + ":" + str.getMinutes() + "";
     return newStr;
 }
+
+//For price service
+$("#price_queryAll_button").click(function() {
+    $.ajax({
+        type: "get",
+        url: "/price/queryAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            var size = result.length;
+            $("#query_price_list_table").find("tbody").html("");
+            for (var i = 0; i < size; i++) {
+                $("#query_price_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + result[i]["placeA"] + "</td>" +
+                    "<td>" + result[i]["placeB"] + "</td>" +
+                    "<td>" + result[i]["trainTypeId"] + "</td>" +
+                    "<td>" + result[i]["seatClass"] + "</td>" +
+                    "<td>" + result[i]["price"] + "</td>" +
+                    "</tr>"
+                );
+            }
+        }
+    });
+});
+
+$("#price_update_button").click(function(){
+    var priceUpdateInfo = new Object();
+    priceUpdateInfo.startingPlace = $("#price_update_startingPlace").val();
+    priceUpdateInfo.endPlace = $("#price_update_endPlace").val();
+    priceUpdateInfo.distance = $("#price_update_distance").val();
+    var data = JSON.stringify(priceUpdateInfo);
+   $.ajax({
+       type: "post",
+       url: "/price/update",
+       contentType: "application/json",
+       data:data,
+       // dataType: "json",
+       xhrFields: {
+           withCredentials: true
+       },
+       success: function (result) {
+           // $("#price_result").html(result);
+       }
+   });
+});
 
