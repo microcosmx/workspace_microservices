@@ -136,3 +136,14 @@ services:
         restart: always
         ports:
           - 15681:15681
+
+
+#  ts-price-service:
+#        build: ts-price-service
+#        image: ts/ts-price-service
+#        restart: always
+#        ports:
+#          - 16579:16579
+#
+#    ts-price-mongo:
+#        image: mongo

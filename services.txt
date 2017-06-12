@@ -13,7 +13,7 @@
     车服务： ts-train-service (db: train)               --- xcj
 
     车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）)      --- xcj
-    车次查询_其他(k...): ts-travel2-service                            --- xcj in progress
+    车次查询_其他(k...): ts-travel2-service                            --- xcj
 
     车票预订_高铁动车：ts-preserve-service           --- jc in progress
     车票预订_其他: ts-preserve-service              --- jc in progress
