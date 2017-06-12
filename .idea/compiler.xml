@@ -34,14 +34,17 @@
         <module name="ts-execute-service" />
         <module name="ts-insite-payment" />
         <module name="ts-login-service" />
+        <module name="ts-notification-service" />
         <module name="ts-order-service" />
         <module name="ts-payment-service" />
         <module name="ts-preserve-service" />
         <module name="ts-query-crh-service" />
         <module name="ts-query-ordinary-service" />
         <module name="ts-register-service" />
+        <module name="ts-security-service" />
         <module name="ts-sso-service" />
         <module name="ts-station-service" />
+        <module name="ts-ticket-change-service" />
         <module name="ts-train-service" />
         <module name="ts-travel-service" />
         <module name="ts-verification-code-service" />
@@ -81,15 +84,17 @@
       <module name="ts-execute-service" target="1.5" />
       <module name="ts-insite-payment" target="1.5" />
       <module name="ts-login-service" target="1.8" />
+      <module name="ts-notification-service" target="1.8" />
       <module name="ts-order-service" target="1.8" />
       <module name="ts-payment-service" target="1.8" />
-      <module name="ts-preserve-service" target="1.5" />
+      <module name="ts-preserve-service" target="1.8" />
       <module name="ts-query-crh-service" target="1.8" />
       <module name="ts-query-ordinary-service" target="1.8" />
       <module name="ts-register-service" target="1.8" />
-      <module name="ts-security-service" target="1.5" />
+      <module name="ts-security-service" target="1.8" />
       <module name="ts-sso-service" target="1.8" />
       <module name="ts-station-service" target="1.8" />
+      <module name="ts-ticket-change-service" target="1.8" />
       <module name="ts-train-service" target="1.8" />
       <module name="ts-travel-service" target="1.8" />
       <module name="ts-verification-code-service" target="1.8" />
