@@ -13,14 +13,5 @@
 		"express": "latest",
 		"async": "latest"
 	},
-	"devDependencies": {
-		"bower": "latest",
-		"grunt": "latest",
-		"grunt-contrib-concat": "latest",
-		"grunt-contrib-jshint": "latest",
-		"grunt-contrib-uglify": "latest",
-		"grunt-contrib-clean": "latest",
-		"browserify": "latest",
-		"grunt-browserify": "latest"
-	}
+	"false": {}
 }

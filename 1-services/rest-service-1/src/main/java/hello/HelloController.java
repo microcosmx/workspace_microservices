@@ -1,5 +1,6 @@
 package hello;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -16,16 +17,35 @@ public class HelloController {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     @Autowired
 	private RestTemplate restTemplate;
+    
+    @Autowired  
+    private AsyncTask asyncTask;
 
     @RequestMapping("/hello1")
     public Value hello1(@RequestParam(value="cal", defaultValue="50") String cal) {
 
         double cal2 = Math.log10(Double.valueOf(cal))*50;
         log.info(String.valueOf(cal2));
-
-    	Value value = restTemplate.getForObject("http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
         
-		log.info(value.toString());
+        //async messages
+        try {
+			Future<Value> task1 = asyncTask.sendAsyncCal(cal2);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        Value value = new Value();
 		return value;
+    }
+    
+    @RequestMapping("/hello1_callback")
+    public String hello1_callback(@RequestParam(value="cal_back", defaultValue="50") String cal_back) {
+    	
+    	log.info("-------------external call back-------------");
+        log.info(String.valueOf(cal_back));
+        
+        return "-------call back end-------";
+        
     }
 }

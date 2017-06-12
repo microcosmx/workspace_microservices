@@ -64,28 +64,60 @@ http.createServer(function (req, res) {
 
   sleep(arr, function(error, data) {
 
-    var params = url.parse(req.url, true).query;
+    console.log("-------service external----------");
+
+    var req_url = url.parse(req.url, true);
+    var params = req_url.query;
     console.log(params);
 
-    var resObj = {
-      id: counter++,
-      result: (params.cal < 100 && params.cal > 0)
-    };
-
-    // res.writeHead(200,{
-    //   "Content-Type":'text/plain',
-    //   'charset':'utf-8',
-    //   'Access-Control-Allow-Origin':'*',
-    //   'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS'
-    // });
     res.writeHead(200,{
       "Content-Type":'application/json',
       'charset':'utf-8',       
       'Access-Control-Allow-Origin':'*',
       'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS'
     });
-    res.write(JSON.stringify(resObj));
+
+    if(req_url.pathname.indexOf('greeting_async') > -1){
+
+        console.log("-------greeting_async----------");
+        var options = {
+            hostname: 'rest-service-1',
+            port: '16001',
+            path: '/hello1_callback?cal_back=60'
+          };
+        function handleResponse(response) {
+          var serverData = '';
+          response.on('data', function (chunk) {
+            serverData += chunk;
+          });
+          response.on('end', function () {
+            console.log("Response Status:", response.statusCode);
+            console.log("Response Headers:", response.headers);
+            console.log(serverData);
+          });
+        }
+        http.request(options, function(response){
+          handleResponse(response);
+        }).end();
+    }else{
+        var resObj = {
+          id: counter++,
+          result: (params.cal < 100 && params.cal > 0)
+        };
+
+        // res.writeHead(200,{
+        //   "Content-Type":'text/plain',
+        //   'charset':'utf-8',
+        //   'Access-Control-Allow-Origin':'*',
+        //   'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS'
+        // });
+        
+        res.write(JSON.stringify(resObj));
+        
+    }
+
     res.end();
+    
 
   });
   

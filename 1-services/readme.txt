@@ -1,5 +1,4 @@
 
-
 reproduce:
 step1: 
 6 request in jmeter
@@ -9,9 +8,6 @@ step2:
 http://localhost:16005/hello5?cal=50
 3 request in jmeter: error timeout
 http://localhost:16004/hello4?cal=50
-
-
-
 
 
 
