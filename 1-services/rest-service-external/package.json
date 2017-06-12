@@ -1,0 +1,26 @@
+{
+	"name": "rest-service-external",
+	"version": "0.0.1",
+	"keywords": "javascript, nodejs",
+	"engines": {
+		"node": "8.1.0"
+	},
+	"private": true,
+	"scripts": {
+		"start": "node rest-service-external.js"
+	},
+	"dependencies": {
+		"express": "latest",
+		"async": "latest"
+	},
+	"devDependencies": {
+		"bower": "latest",
+		"grunt": "latest",
+		"grunt-contrib-concat": "latest",
+		"grunt-contrib-jshint": "latest",
+		"grunt-contrib-uglify": "latest",
+		"grunt-contrib-clean": "latest",
+		"browserify": "latest",
+		"grunt-browserify": "latest"
+	}
+}
