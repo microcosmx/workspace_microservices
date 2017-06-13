@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ts-admin-account-travel.service
+    data:
+      mongodb:
+        uri: mongodb://localhost:27017/jcTestMongo
+
+
+

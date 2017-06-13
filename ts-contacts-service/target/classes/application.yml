@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: ts-contacts-mongo
+#      username: user
+#      password: ${MONGODB_PASSWORD}
+      database: ts
+      port: 27017
+
+# HTTP Server
+server:
+  port: 12347  # HTTP (Tomcat) port

@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Created by Chenjie Xu on 2017/6/9.
@@ -35,35 +37,37 @@ public class PriceServiceImpl implements PriceService{
         List<Distance> distances = repository.findAll();
         List<ResultPrice> prices = new ArrayList<ResultPrice>();
         Iterator<Distance> iterator = distances.iterator();
-        List<TrainType> trainTypes = restTemplate.getForObject("http://ts-train-service:14567/train/query", List.class);
-
+//        List<TrainType> trainTypes = restTemplate.getForObject("http://ts-train-service:14567/train/query", List.class);
+        List<LinkedHashMap> trainTypes = restTemplate.getForObject("http://ts-train-service:14567/train/query", List.class);
 
         while(iterator.hasNext()){
             Distance distance = iterator.next();
-            Iterator<TrainType> trainTypeIterator = trainTypes.iterator();
+            Iterator<LinkedHashMap> trainTypeIterator = trainTypes.iterator();
 
             while(trainTypeIterator.hasNext()){
-                TrainType type = trainTypeIterator.next();
+                LinkedHashMap type = trainTypeIterator.next();
+                Iterator<Map.Entry> iterator1= type.entrySet().iterator();
+                Map.Entry entry = iterator1.next();
 
                 String priceRateConfort = restTemplate.postForObject("http://ts-config-service:15679/config/query",
-                        new QueryConfig(type.getId() + "_confortClass_priceRate"), String.class
+                        new QueryConfig((String)entry.getValue() + "_confortClass_priceRate"), String.class
                 );
                 ResultPrice priceConfort = new ResultPrice();
                 priceConfort.setPlaceA(distance.getPlaceA());
                 priceConfort.setPlaceB(distance.getPlaceB());
                 priceConfort.setSeatClass("confortClass");
-                priceConfort.setTrainTypeId(type.getId());
+                priceConfort.setTrainTypeId((String)entry.getValue());
                 priceConfort.setPrice(price(distance,priceRateConfort));
                 prices.add(priceConfort);
 
                 String priceRateEconomy = restTemplate.postForObject("http://ts-config-service:15679/config/query",
-                        new QueryConfig(type.getId() + "_economyClass_priceRate"), String.class
+                        new QueryConfig((String)entry.getValue() + "_economyClass_priceRate"), String.class
                 );
                 ResultPrice priceEconomy = new ResultPrice();
                 priceEconomy.setPlaceA(distance.getPlaceA());
                 priceEconomy.setPlaceB(distance.getPlaceB());
                 priceEconomy.setSeatClass("economyClass");
-                priceEconomy.setTrainTypeId(type.getId());
+                priceEconomy.setTrainTypeId((String)entry.getValue());
                 priceEconomy.setPrice(price(distance,priceRateEconomy));
                 prices.add(priceEconomy);
             }

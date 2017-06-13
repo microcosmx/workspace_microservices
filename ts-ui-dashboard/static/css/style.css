@@ -51,3 +51,8 @@
     background: #fff;
     z-index: 100;
 }
+
+.result_table {
+    height:200px;
+    overflow: scroll;
+}

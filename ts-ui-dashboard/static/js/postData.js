@@ -1090,8 +1090,8 @@ $("#price_queryAll_button").click(function() {
 
 $("#price_update_button").click(function(){
     var priceUpdateInfo = new Object();
-    priceUpdateInfo.startingPlace = $("#price_update_startingPlace").val();
-    priceUpdateInfo.endPlace = $("#price_update_endPlace").val();
+    priceUpdateInfo.placeA = $("#price_update_startingPlace").val();
+    priceUpdateInfo.placeB = $("#price_update_endPlace").val();
     priceUpdateInfo.distance = $("#price_update_distance").val();
     var data = JSON.stringify(priceUpdateInfo);
    $.ajax({

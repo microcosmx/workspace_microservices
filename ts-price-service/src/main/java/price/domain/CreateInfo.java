@@ -4,18 +4,13 @@ package price.domain;
  * Created by Chenjie Xu on 2017/6/12.
  */
 public class CreateInfo {
-    public CreateInfo(){}
+
 
     private String placeA;
     private String placeB;
     private double distance;
 
-    public CreateInfo(String placeA, String placeB, double distance) {
-
-        this.placeA = placeA;
-        this.placeB = placeB;
-        this.distance = distance;
-    }
+    public CreateInfo(){}
 
     public String getPlaceA() {
         return placeA;
