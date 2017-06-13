@@ -559,12 +559,12 @@ $("#travel2_queryAll_button").click(function(){
 $("#travel_update_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#travel_update_tripId").val();
-    travelInfo.trainTypeId = $("#travel_update_trainTypeId").val;
-    travelInfo.startingStation =  $("#travel_update_startingStation").val;
-    travelInfo.stations = $("#travel_update_stations").val ;
-    travelInfo.terminalStation = $("#travel_update_terminalStation").val;
-    travelInfo.startingTime = $("#travel_update_startingTime").val;
-    travelInfo.endTime = $("#travel_update_endTime").val;
+    travelInfo.trainTypeId = $("#travel_update_trainTypeId").val();
+    travelInfo.startingStation =  $("#travel_update_startingStation").val();
+    travelInfo.stations = $("#travel_update_stations").val();
+    travelInfo.terminalStation = $("#travel_update_terminalStation").val();
+    travelInfo.startingTime = convertStringToTime($("#travel_update_startingTime").val());
+    travelInfo.endTime = convertStringToTime($("#travel_update_endTime").val());
     var data = JSON.stringify(travelInfo);
     $.ajax({
         type: "post",
@@ -584,12 +584,12 @@ $("#travel_update_button").click(function(){
 $("#travel2_update_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#travel2_update_tripId").val();
-    travelInfo.trainTypeId = $("#travel2_update_trainTypeId").val;
-    travelInfo.startingStation =  $("#travel2_update_startingStation").val;
-    travelInfo.stations = $("#travel2_update_stations").val ;
-    travelInfo.terminalStation = $("#travel2_update_terminalStation").val;
-    travelInfo.startingTime = $("#travel2_update_startingTime").val;
-    travelInfo.endTime = $("#travel2_update_endTime").val;
+    travelInfo.trainTypeId = $("#travel2_update_trainTypeId").val();
+    travelInfo.startingStation =  $("#travel2_update_startingStation").val();
+    travelInfo.stations = $("#travel2_update_stations").val();
+    travelInfo.terminalStation = $("#travel2_update_terminalStation").val();
+    travelInfo.startingTime = convertStringToTime($("#travel2_update_startingTime").val());
+    travelInfo.endTime = convertStringToTime($("#travel2_update_endTime").val());
     var data = JSON.stringify(travelInfo);
     $.ajax({
         type: "post",
@@ -1057,6 +1057,17 @@ function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);
     var newStr = str.getHours() + ":" + str.getMinutes() + "";
     return newStr;
+}
+
+function convertStringToTime(string){
+    var date = new Date();
+    var s = string.toString();
+    var index = s.indexOf(':');
+    var hour = s.substring(0,index).valueOf();
+    var minute = s.substring(index+1,s.length).valueOf();
+    date.setHours(hour);
+    date.setMinutes(minute);
+    return date;
 }
 
 

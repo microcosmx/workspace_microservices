@@ -15,5 +15,9 @@ public interface DistanceRepository extends CrudRepository<Distance, String> {
     boolean deleteByPlaceAAndPlaceB(String placeA,String placeB);
     List<Distance> findAll();
     boolean updateByPlaceAAndPlaceB(String placeA,String placeB);
+
+    @Modifying
+    @Query("update Distance d set d.distance = ?1 where u.lastname = ?2")
+    int setFixedFirstnameFor(String firstname, String lastname);
 }
 
