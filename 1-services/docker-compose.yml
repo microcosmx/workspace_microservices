@@ -28,14 +28,14 @@ services:
       restart_policy:
         condition: on-failure
 
-  # redis:
-  #   image: redis
-  #   ports:
-  #     - 6379:6379
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       condition: on-failure
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     
   
 
@@ -126,18 +126,6 @@ services:
       restart_policy:
         condition: on-failure
 
-
-  rest-service-external:
-    build: rest-service-external
-    image: node
-    # image: 10.141.212.25:5555/rest-service-external
-    restart: always
-    ports:
-      - 16100:16100
-    deploy:
-      replicas: 6
-      restart_policy:
-        condition: on-failure
 
 
 

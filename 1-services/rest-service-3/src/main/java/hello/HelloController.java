@@ -2,8 +2,11 @@ package hello;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
+import java.util.UUID;
 import java.util.concurrent.Future;
 
 @RestController
@@ -22,11 +26,18 @@ public class HelloController {
 	private RestTemplate restTemplate;
     
     @RequestMapping("/hello3")
-    public Value hello3(@RequestParam(value="name", defaultValue="service-6") String name, 
+    public Value hello3(HttpSession session, @RequestParam(value="name", defaultValue="service-6") String name, 
     		@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
 
         double cal2 = Math.pow(Double.valueOf(cal), 2)/100; 
         log.info(String.valueOf(cal2));
+        
+        
+        UUID uid = (UUID) session.getAttribute("uid");
+    	log.info("--------session recoverred------------");
+		log.info(uid + ":" + session.getAttribute("current_cal"));
+		
+		
 
         Value value = new Value();
         if("service-6".equals(name)){
@@ -41,5 +52,22 @@ public class HelloController {
         
 		return value;
     }    
+    
+    
+    @GetMapping("/session")
+    public String session_uid(HttpSession session, @RequestParam(value="cal", defaultValue="50") String cal) {
+		UUID uid = (UUID) session.getAttribute("uid");
+		if (uid == null) {
+			log.info("--------session created-----------");
+			uid = UUID.randomUUID();
+			session.setAttribute("uid", uid);
+			session.setAttribute("current_cal", cal);
+		}else{
+			log.info("--------session recoverred-----------");
+			log.info(uid + ":" + session.getAttribute("current_cal"));
+		}
+		
+		return uid.toString() + ": " + session.getAttribute("current_cal");
+	}
     
 }

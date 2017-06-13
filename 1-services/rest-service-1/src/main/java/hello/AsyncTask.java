@@ -20,7 +20,7 @@ public class AsyncTask {
     
     @Async("mySimpleAsync")
     public Future<Value> sendAsyncCal(double cal2) throws InterruptedException{
-    	Value value = restTemplate.getForObject("http://rest-service-external:16100/greeting_async?cal="+cal2, Value.class);
+    	Value value = restTemplate.getForObject("http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
         return new AsyncResult<>(value);  
     }
     

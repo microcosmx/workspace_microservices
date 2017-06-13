@@ -1,6 +1,12 @@
 spring:
   application:
     name: rest-service-3
+  redis:
+    host: redis
+    port: 6379
+  session:
+    store-type: redis
+    timeout: 6
 
   zipkin:
     baseUrl: http://zipkin:9411/

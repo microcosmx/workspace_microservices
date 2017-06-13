@@ -1,6 +1,9 @@
 package hello;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +22,20 @@ public class HelloController {
 	private RestTemplate restTemplate;
 
     @RequestMapping("/hello6")
-    public Value hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
+    public Value hello6(HttpSession session, @RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
 
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
+        
+        
+        UUID uid = (UUID) session.getAttribute("uid");
+		if (uid == null) {
+			uid = UUID.randomUUID();
+		}
+		session.setAttribute("uid", uid);
+		session.setAttribute("current_cal", cal);
+		log.info("--------session initialized------------");
+		
         
         Value value = restTemplate.getForObject("http://rest-service-3:16003/hello3?name=service-6&cal="+cal2, Value.class);
         
