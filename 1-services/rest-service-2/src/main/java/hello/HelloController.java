@@ -36,6 +36,7 @@ public class HelloController {
 		
         
         Value value = restTemplate.getForObject("http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
+//        Value value = new Value();
         
 		log.info(value.toString());
 		return value;

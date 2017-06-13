@@ -30,11 +30,14 @@ public class HelloController {
         
         UUID uid = (UUID) session.getAttribute("uid");
 		if (uid == null) {
+			log.info("--------session created-----------");
 			uid = UUID.randomUUID();
+			session.setAttribute("uid", uid);
+			session.setAttribute("current_cal", cal);
+		}else{
+			log.info("--------session recoverred-----------");
+			log.info(uid + ":" + session.getAttribute("current_cal"));
 		}
-		session.setAttribute("uid", uid);
-		session.setAttribute("current_cal", cal);
-		log.info("--------session initialized------------");
 		
         
         Value value = restTemplate.getForObject("http://rest-service-3:16003/hello3?name=service-6&cal="+cal2, Value.class);
