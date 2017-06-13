@@ -1,8 +1,14 @@
 package price.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import price.domain.QueryInfo;
+import org.springframework.web.client.RestTemplate;
+import price.domain.*;
+import price.repository.DistanceRepository;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -10,29 +16,105 @@ import java.util.List;
  */
 @Service
 public class PriceServiceImpl implements PriceService{
+    @Autowired
+    DistanceRepository repository;
+
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public double query(QueryInfo info){
-        return 0;
+    public String query(QueryInfo info){
+        Distance distance = repository.findByPlaceAAndPlaceB(info.getStartingPlace(),info.getEndPlace());
+        String priceRate = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+                new QueryConfig(info.getTrainTypeId() + "_" + info.getSeatClass()+ "_priceRate"), String.class
+        );
+        return price(distance,priceRate);
     }
 
     @Override
-    public List<Double> queryAll(){
-        return null;
+    public List<ResultPrice> queryAll(){
+        List<Distance> distances = repository.findAll();
+        List<ResultPrice> prices = new ArrayList<ResultPrice>();
+        Iterator<Distance> iterator = distances.iterator();
+        List<TrainType> trainTypes = restTemplate.getForObject("http://ts-train-service:14567/train/query", List.class);
+
+
+        while(iterator.hasNext()){
+            Distance distance = iterator.next();
+            Iterator<TrainType> trainTypeIterator = trainTypes.iterator();
+
+            while(trainTypeIterator.hasNext()){
+                TrainType type = trainTypeIterator.next();
+
+                String priceRateConfort = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+                        new QueryConfig(type.getId() + "_confortClass_priceRate"), String.class
+                );
+                ResultPrice priceConfort = new ResultPrice();
+                priceConfort.setPlaceA(distance.getPlaceA());
+                priceConfort.setPlaceB(distance.getPlaceB());
+                priceConfort.setSeatClass("confortClass");
+                priceConfort.setTrainTypeId(type.getId());
+                priceConfort.setPrice(price(distance,priceRateConfort));
+                prices.add(priceConfort);
+
+                String priceRateEconomy = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+                        new QueryConfig(type.getId() + "_economyClass_priceRate"), String.class
+                );
+                ResultPrice priceEconomy = new ResultPrice();
+                priceEconomy.setPlaceA(distance.getPlaceA());
+                priceEconomy.setPlaceB(distance.getPlaceB());
+                priceEconomy.setSeatClass("economyClass");
+                priceEconomy.setTrainTypeId(type.getId());
+                priceEconomy.setPrice(price(distance,priceRateEconomy));
+                prices.add(priceEconomy);
+            }
+        }
+        return prices;
     }
 
     @Override
-    public String create(QueryInfo info){
-        return null;
+    public String create(CreateInfo info){
+        if(repository.findByPlaceAAndPlaceB(info.getPlaceA(),info.getPlaceB()) == null){
+            Distance distance = new Distance();
+            distance.setPlaceA(info.getPlaceA());
+            distance.setPlaceB(info.getPlaceB());
+            distance.setDistance(info.getDistance());
+            repository.save(distance);
+            distance.setPlaceA(info.getPlaceB());
+            distance.setPlaceB(info.getPlaceA());
+            repository.save(distance);
+            return "true";
+        }else{
+            return "Distance between " +info.getPlaceA()+" and "+ info.getPlaceB() +" already exist!";
+        }
+
     }
 
     @Override
-    public String delete(QueryInfo info){
-        return null;
+    public boolean delete(DeleteInfo info){
+        return repository.deleteByPlaceAAndPlaceB(info.getPlaceA(),info.getPlaceB())
+                & repository.deleteByPlaceAAndPlaceB(info.getPlaceB(),info.getPlaceA());
     }
 
     @Override
-    public String update(QueryInfo info){
-        return null;
+    public String update(CreateInfo info){
+        if(repository.findByPlaceAAndPlaceB(info.getPlaceA(),info.getPlaceB()) != null){
+            Distance distance = new Distance();
+            distance.setPlaceA(info.getPlaceA());
+            distance.setPlaceB(info.getPlaceB());
+            distance.setDistance(info.getDistance());
+            repository.save(distance);
+            distance.setPlaceA(info.getPlaceB());
+            distance.setPlaceB(info.getPlaceA());
+            repository.save(distance);
+            return "true";
+        }else{
+            return "Distance between " +info.getPlaceA()+" and "+ info.getPlaceB() +" doesn't exist!";
+        }
+    }
+
+    private String price(Distance distance,String priceRate){
+        BigDecimal rate = new BigDecimal(priceRate);
+        String price = rate.multiply(new BigDecimal(distance.getDistance())).toString();
+        return price;
     }
 }

@@ -1,4 +1,4 @@
-package train.domain;
+package price.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +8,6 @@ import javax.validation.Valid;
 /**
  * Created by Chenjie Xu on 2017/5/8.
  */
-@Document(collection="trainType")
 public class TrainType {
     @Valid
     @Id

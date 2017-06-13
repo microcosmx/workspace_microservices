@@ -176,6 +176,8 @@ public class TravelServiceImpl implements TravelService{
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
+        response.setTrainTypeId(trainType.getId());
+
         return response;
     }
 

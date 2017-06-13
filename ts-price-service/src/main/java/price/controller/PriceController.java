@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import price.domain.CreateInfo;
+import price.domain.DeleteInfo;
 import price.domain.QueryInfo;
+import price.domain.ResultPrice;
 import price.service.PriceService;
 
 import java.util.List;
@@ -19,27 +22,27 @@ public class PriceController {
     PriceService service;
 
     @RequestMapping(value="/price/query", method= RequestMethod.POST)
-    public double query(@RequestBody QueryInfo info){
+    public String query(@RequestBody QueryInfo info){
         return service.query(info);
     }
 
     @RequestMapping(value="/price/queryAll", method= RequestMethod.GET)
-    public List<Double> queryAll(){
+    public List<ResultPrice> queryAll(){
         return service.queryAll();
     }
 
     @RequestMapping(value="/price/create", method= RequestMethod.POST)
-    public String create(@RequestBody QueryInfo info){
+    public String create(@RequestBody CreateInfo info){
         return service.create(info);
     }
 
     @RequestMapping(value="/price/delete", method= RequestMethod.POST)
-    public String delete(@RequestBody QueryInfo info){
+    public boolean delete(@RequestBody DeleteInfo info){
         return service.delete(info);
     }
 
     @RequestMapping(value="/price/update", method= RequestMethod.POST)
-    public String update(@RequestBody QueryInfo info){
+    public String update(@RequestBody CreateInfo info){
         return service.update(info);
     }
 }

@@ -17,6 +17,10 @@ public class TripResponse {
 
     @Valid
     @NotNull
+    private String trainTypeId;
+
+    @Valid
+    @NotNull
     private String startingStation;
 
     @Valid
@@ -42,6 +46,14 @@ public class TripResponse {
 
     public TripId getTripId() {
         return tripId;
+    }
+
+    public String getTrainTypeId() {
+        return trainTypeId;
+    }
+
+    public void setTrainTypeId(String trainTypeId) {
+        this.trainTypeId = trainTypeId;
     }
 
     public void setTripId(TripId tripId) {

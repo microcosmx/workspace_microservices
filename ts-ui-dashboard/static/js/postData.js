@@ -213,58 +213,6 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
     });
 });
 
-
-
-function addListenerToBookingTable(){
-    var ticketBookingButtonSet = $(".ticket_booking_button");
-    for(var i = 0;i < ticketBookingButtonSet.length;i++){
-        ticketBookingButtonSet[i].onclick = function(){
-            var tripId = $(this).parents("tr").find(".booking_tripId").text();
-            var from = $(this).parents("tr").find(".booking_from").text();
-            var to = $(this).parents("tr").find(".booking_to").text();
-            var date = $("#travel_booking_date").val();
-            var loginToken = $("#user_login_token").html();
-            var accountId = $("#user_login_id").html();
-            var seatType = $(this).parents("tr").find(".booking_seat_class").val();
-            var contactsId = "";
-            var radios = $(".booking_contacts_select");
-            for (i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    contactsId = $(".booking_contacts_contactsId").eq(i).text();
-                }
-            }
-            var orderTicketInfo = new Object();
-            orderTicketInfo.contactsId = contactsId;
-            orderTicketInfo.tripId = tripId;
-            orderTicketInfo.seatType = seatType;
-            orderTicketInfo.loginToken = loginToken;
-            orderTicketInfo.accountId = accountId;
-            orderTicketInfo.date = date;
-            orderTicketInfo.from = from;
-            orderTicketInfo.to = to;
-            var orderTicketsData = JSON.stringify(orderTicketInfo);
-            alert("Do Order Date:" + orderTicketsData);
-            $.ajax({
-                type: "post",
-                url: "/preserve",
-                contentType: "application/json",
-                dataType: "json",
-                data: orderTicketsData,
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (result) {
-                    alert(result["message"]);
-                }
-            })
-        }
-    }
-}
-
-
-
-
-
 //------For Station------------
 //------For Station create------------
 document.getElementById("station_create_button").onclick = function post_station_create(){
@@ -576,6 +524,36 @@ $("#travel_queryAll_button").click(function(){
     });
 });
 
+$("#travel2_queryAll_button").click(function(){
+    $.ajax({
+        type: "get",
+        url: "/travel2/queryAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var size = result.length;
+            $("#query_travel2_list_table").find("tbody").html("");
+            for(var i = 0;i < size;i++){
+                $("#query_travel2_list_table_result").append(
+                    "<tr>" +
+                    "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
+                    "<td>" + result[i]["trainTypeId"]     + "</td>" +
+                    "<td>" + result[i]["startingStation"]     + "</td>" +
+                    "<td>" + result[i]["stations"]     + "</td>" +
+                    "<td>" + result[i]["terminalStation"]     + "</td>" +
+                    "<td>" + convertNumberToTimeString(result[i]["startingTime"]) + "</td>" +
+                    "<td>" + convertNumberToTimeString(result[i]["endTime"]) + "</td>" +
+                    "</tr>"
+                );
+            }
+            //$("#travel_result").html(JSON.stringify(result));
+        }
+    });
+});
+
 //------For Trip update------------
 
 $("#travel_update_button").click(function(){
@@ -599,6 +577,31 @@ $("#travel_update_button").click(function(){
         },
         success: function(result){
             $("#travel_result").html(JSON.stringify(result));
+        },
+    });
+});
+
+$("#travel2_update_button").click(function(){
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#travel2_update_tripId").val();
+    travelInfo.trainTypeId = $("#travel2_update_trainTypeId").val;
+    travelInfo.startingStation =  $("#travel2_update_startingStation").val;
+    travelInfo.stations = $("#travel2_update_stations").val ;
+    travelInfo.terminalStation = $("#travel2_update_terminalStation").val;
+    travelInfo.startingTime = $("#travel2_update_startingTime").val;
+    travelInfo.endTime = $("#travel2_update_endTime").val;
+    var data = JSON.stringify(travelInfo);
+    $.ajax({
+        type: "post",
+        url: "/travel2/update",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#travel2_result").html(JSON.stringify(result));
         },
     });
 });
@@ -647,7 +650,6 @@ $("#travel_booking_button").click(function(){
                 withCredentials: true
             },
             success: function(result){
-
                 $("#tickets_booking_list_table").find("tbody").html("");
                 if(result[0] != null){
                     var obj = result;
@@ -656,6 +658,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -693,6 +696,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -733,6 +737,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -774,6 +779,7 @@ $("#travel_booking_button").click(function(){
                             "<tr>" +
                             "<td>" + i + "</td>" +
                             "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
                             "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
                             "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
                             "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
@@ -843,6 +849,12 @@ $("#refresh_my_order_list_button").click(function(){
                         "<div id='collapse" + i + "' class='panel-collapse collapse in'>" +
                             "<div class='panel-body'>" +
                                 "<form role='form' class='form-horizontal'>" +
+                                    "<div class='div form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Order ID: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='control-label'>" + order["id"] + "</label>" +
+                                        "</div>" +
+                                    "</div>" +
                                     "<div class='form-group'>" +
                                         "<label class='col-sm-2 control-label'>Bought Date: </label>" +
                                         "<div class='col-sm-10'>" +
@@ -891,19 +903,104 @@ $("#refresh_my_order_list_button").click(function(){
                                             "<label class='control-label'>" + order["contactsDocumentNumber"] + "</label>" +
                                         "</div>" +
                                     "</div>" +
+                                    "<div class='form-group'>" +
+                                        "<label class='col-sm-2 control-label'>Operation: </label>" +
+                                        "<div class='col-sm-10'>" +
+                                            "<label class='order_id control-label' style='display:none' >" + order["id"] + "</label>" +
+                                            "<button class='order_cancel_btn btn btn-primary ticket_booking_button'>" + "Cancel Order" + "</button>" +
+                                            "<button class='order_change_btn btn btn-primary ticket_booking_button'>" + "Change your railway ticket" + "</button>" +
+                                        "</div>" +
+                                    "</div>" +
                                 "</form>" +
                             "</div>" +
                         "</div>" +
                     "</div>"
                 );
             }
+            addListenerToOrderCancel();
+            addListenerToOrderChange();
         }
     });
 });
 
+function addListenerToOrderCancel(){
+    var ticketCancelButtonSet = $(".order_cancel_btn");
+    for(var i = 0;i < ticketCancelButtonSet.length;i++){
+        ticketCancelButtonSet[i].onclick = function(){
+            var orderId = $(this).parents("div").find(".order_id").text();
+            alert("Order ID:" + orderId);
+            //document.getElementById("order_cancel_panel").style.display = "block";
+        }
+    }
+}
+
+function addListenerToOrderChange(){
+    var ticketChangeButtonSet = $(".order_change_btn");
+    for(var i = 0;i < ticketChangeButtonSet.length;i++){
+        ticketChangeButtonSet[i].onclick = function(){
+            var orderId = $(this).parents("div").find(".order_id").text();
+            alert("Order ID:" + orderId);
+            //document.getElementById("order_change_panel").style.display = "block";
+        }
+    }
+}
+
+$("#order_cancel_panel_cancel").click(function(){
+    $("#order_cancel_panel").css('display','none');
+
+});
+
+$("#order_cancel_panel_confirm").click(function(){
+    alert("You click order_cancel_panel_confirm");
+});
 
 
 
+function addListenerToBookingTable(){
+    var ticketBookingButtonSet = $(".ticket_booking_button");
+    for(var i = 0;i < ticketBookingButtonSet.length;i++){
+        ticketBookingButtonSet[i].onclick = function(){
+            var tripId = $(this).parents("tr").find(".booking_tripId").text();
+            var from = $(this).parents("tr").find(".booking_from").text();
+            var to = $(this).parents("tr").find(".booking_to").text();
+            var date = $("#travel_booking_date").val();
+            var loginToken = $("#user_login_token").html();
+            var accountId = $("#user_login_id").html();
+            var seatType = $(this).parents("tr").find(".booking_seat_class").val();
+            var contactsId = "";
+            var radios = $(".booking_contacts_select");
+            for (var j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    contactsId = $(".booking_contacts_contactsId").eq(j).text();
+                }
+            }
+            var orderTicketInfo = new Object();
+            orderTicketInfo.contactsId = contactsId;
+            orderTicketInfo.tripId = tripId;
+            orderTicketInfo.seatType = seatType;
+            orderTicketInfo.loginToken = loginToken;
+            orderTicketInfo.accountId = accountId;
+            orderTicketInfo.date = date;
+            orderTicketInfo.from = from;
+            orderTicketInfo.to = to;
+            var orderTicketsData = JSON.stringify(orderTicketInfo);
+            alert("Do Order Date:" + orderTicketsData);
+            $.ajax({
+                type: "post",
+                url: "/preserve",
+                contentType: "application/json",
+                dataType: "json",
+                data: orderTicketsData,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+                    alert(result["message"]);
+                }
+            })
+        }
+    }
+}
 
 function convertNumberToDocumentType(code) {
     var str = "";
@@ -944,7 +1041,7 @@ function convertNumberToOrderStatus(code){
     }else if(code == 4){
         str = "Cancel";
     }else if(code == 1){
-        str = "Refund";
+        str = "Refunded";
     }else{
         str = "other";
     }
@@ -956,9 +1053,60 @@ function convertNumberToDateTimeString(timeNumber){
     return str.toDateString();
 }
 
-function convertNumberToTimeString(timeNumber){
+function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);
     var newStr = str.getHours() + ":" + str.getMinutes() + "";
     return newStr;
 }
+
+
+//For price service
+$("#price_queryAll_button").click(function() {
+    $.ajax({
+        type: "get",
+        url: "/price/queryAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            var size = result.length;
+            $("#query_price_list_table").find("tbody").html("");
+            for (var i = 0; i < size; i++) {
+                $("#query_price_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + result[i]["placeA"] + "</td>" +
+                    "<td>" + result[i]["placeB"] + "</td>" +
+                    "<td>" + result[i]["trainTypeId"] + "</td>" +
+                    "<td>" + result[i]["seatClass"] + "</td>" +
+                    "<td>" + result[i]["price"] + "</td>" +
+                    "</tr>"
+                );
+            }
+        }
+    });
+});
+
+$("#price_update_button").click(function(){
+    var priceUpdateInfo = new Object();
+    priceUpdateInfo.startingPlace = $("#price_update_startingPlace").val();
+    priceUpdateInfo.endPlace = $("#price_update_endPlace").val();
+    priceUpdateInfo.distance = $("#price_update_distance").val();
+    var data = JSON.stringify(priceUpdateInfo);
+   $.ajax({
+       type: "post",
+       url: "/price/update",
+       contentType: "application/json",
+       data:data,
+       // dataType: "json",
+       xhrFields: {
+           withCredentials: true
+       },
+       success: function (result) {
+           // $("#price_result").html(result);
+       }
+   });
+});
+
 

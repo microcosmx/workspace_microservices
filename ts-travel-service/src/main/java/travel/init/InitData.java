@@ -30,6 +30,24 @@ public class InitData implements CommandLineRunner{
         service.create(info);
 
         info.setTripId("G1235");
+        info.setTrainTypeId("GaoTieOne");
+        info.setStartingStation("ShangHai");
+        info.setStations("BeiJing");
+        info.setTerminalStation("TaiYuan");
+        info.setStartingTime(new Date("Mon May 04 12:51:52 CDT 2013"));
+        info.setEndTime(new Date("Mon May 04 17:51:52 CDT 2013"));
+        service.create(info);
+
+        info.setTripId("G1236");
+        info.setTrainTypeId("GaoTieOne");
+        info.setStartingStation("ShangHai");
+        info.setStations("BeiJing");
+        info.setTerminalStation("TaiYuan");
+        info.setStartingTime(new Date("Mon May 04 14:51:52 CDT 2013"));
+        info.setEndTime(new Date("Mon May 04 20:51:52 CDT 2013"));
+        service.create(info);
+
+        info.setTripId("G1237");
         info.setTrainTypeId("GaoTieTwo");
         info.setStartingStation("NanJing");
         info.setStations("ShangHaiHongQiao");
@@ -40,7 +58,7 @@ public class InitData implements CommandLineRunner{
 
         info.setTripId("D1345");
         info.setTrainTypeId("DongCheOne");
-        info.setStartingStation("TaiYua ");
+        info.setStartingStation("TaiYuan");
         info.setStations("NanJing");
         info.setTerminalStation("ShangHai");
         info.setStartingTime(new Date("Mon May 04 07:51:52 CDT 2013"));
