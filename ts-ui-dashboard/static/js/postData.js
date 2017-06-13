@@ -1073,6 +1073,7 @@ $("#price_queryAll_button").click(function() {
         success: function (result) {
             var size = result.length;
             $("#query_price_list_table").find("tbody").html("");
+            $("#price_result_talbe").css('height','200px');
             for (var i = 0; i < size; i++) {
                 $("#query_price_list_table").find("tbody").append(
                     "<tr>" +

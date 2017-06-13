@@ -52,7 +52,7 @@
     z-index: 100;
 }
 
-.result_table {
-    height:200px;
+#price_result_talbe {
+    /*height:200px;*/
     overflow: scroll;
 }

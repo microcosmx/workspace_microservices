@@ -14,5 +14,6 @@ public interface DistanceRepository extends CrudRepository<Distance, String> {
     Distance findByPlaceAAndPlaceB(String placeA,String placeB);
     boolean deleteByPlaceAAndPlaceB(String placeA,String placeB);
     List<Distance> findAll();
+    boolean updateByPlaceAAndPlaceB(String placeA,String placeB);
 }
 
