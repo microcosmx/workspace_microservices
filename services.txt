@@ -15,14 +15,14 @@
     车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）)      --- xcj
     车次查询_其他(k...): ts-travel2-service                            --- xcj in progress
 
-    车票预订_高铁动车：ts-preserve-service           --- jc in progress
-    车票预订_其他: ts-preserve-service              --- jc in progress
+    车票预订_高铁动车：ts-preserve-service           --- jc 80%
+    车票预订_其他: ts-preserve-service              --- jc 80%
 
-    车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)   --- jc in progress
+    车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)   --- jc 80%
         status: 
             未支付: 预订未支付，修改(座位等级修改，删除...), 取消(退票)
             已支付：预定已支付，已支付改签，取消
-    车票订单_其他(k...):                                                       --- jc in progress
+    车票订单_其他(k...):                                                       --- jc 80%
 
     站内支付： ts-insite-payment （db）        --- xcj in progress
     车票支付(CRUD，退款): ts-payment-service （中转）  --- xcj in progress

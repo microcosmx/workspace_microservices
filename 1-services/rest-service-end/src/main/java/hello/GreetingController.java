@@ -35,8 +35,15 @@ public class GreetingController {
     	
     	
     	UUID uid = (UUID) session.getAttribute("uid");
-    	log.info("--------session recoverred------------");
-		log.info(uid + ":" + session.getAttribute("current_cal"));
+		if (uid == null) {
+			log.info("--------session created-----------");
+			uid = UUID.randomUUID();
+			session.setAttribute("uid", uid);
+			session.setAttribute("current_cal", cal);
+		}else{
+			log.info("--------session recoverred-----------");
+			log.info(uid + ":" + session.getAttribute("current_cal"));
+		}
 		
     	
     	// Value value = restTemplate.getForObject("http://rest-service-external:16100/greeting?cal="+cal2, Value.class);
