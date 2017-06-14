@@ -1,6 +1,8 @@
 
 reproduce:
 http://localhost:16006/hello6?cal=60
+http://localhost:16005/hello5?cal=50
+http://localhost:16004/hello4?cal=40
 http://localhost:16000/session?cal=60
 http://localhost:16000/greeting?cal=60
 http://localhost:16002/session?cal=60
