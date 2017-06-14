@@ -1122,3 +1122,67 @@ $("#price_update_button").click(function(){
 });
 
 
+//basic information
+$("#basic_information_button").click(function(){
+    var basicInfo = new Object();
+    basicInfo.trip = JSON.stringify($("#basic_information_trip").val());
+    basicInfo.startingPlace = $("#basic_information_startingPlace").val();
+    basicInfo.endPlace = $("#basic_information_endPlace").val();
+    basicInfo.departureTime = $("#basic_information_departureTime").val();
+    var data = JSON.stringify(basicInfo);
+    $.ajax({
+        type: "post",
+        url: "/basic/queryForTravel",
+        contentType: "application/json",
+        data:data,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#query_basic_information_list_table").find("tbody").html("");
+
+            $("#query_basic_information_list_table").find("tbody").append(
+                "<tr>" +
+                "<td>" + result["status"] + "</td>" +
+                "<td>" + result["percent"] + "</td>" +
+                "<td>" + result["trainType"] + "</td>" +
+                "</tr>"
+            );
+
+        }
+    });
+});
+
+//Ticket information
+$("#ticketinfo_button").click(function(){
+    var basicInfo = new Object();
+    basicInfo.trip = JSON.stringify($("#ticketinfo_trip").val());
+    basicInfo.startingPlace = $("#ticketinfo_startingPlace").val();
+    basicInfo.endPlace = $("#ticketinfo_endPlace").val();
+    basicInfo.departureTime = $("#ticketinfo_departureTime").val();
+    var data = JSON.stringify(basicInfo);
+    $.ajax({
+        type: "post",
+        url: "/ticketinfo/queryForTravel",
+        contentType: "application/json",
+        data:data,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#query_ticketinfo_list_table").find("tbody").html("");
+
+            $("#query_ticketinfo_list_table").find("tbody").append(
+                "<tr>" +
+                "<td>" + result["status"] + "</td>" +
+                "<td>" + result["percent"] + "</td>" +
+                "<td>" + result["trainType"] + "</td>" +
+                "</tr>"
+            );
+
+        }
+    });
+});
+

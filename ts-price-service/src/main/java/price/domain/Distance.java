@@ -1,7 +1,6 @@
 package price.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,9 +12,11 @@ import javax.validation.constraints.NotNull;
 @Document(collection="distance")
 public class Distance {
     @Valid
+    @NotNull
     private String placeA;
 
     @Valid
+    @NotNull
     private String placeB;
 
     @NotNull

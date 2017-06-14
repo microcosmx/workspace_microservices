@@ -1,6 +1,10 @@
 package price.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import price.domain.*;
@@ -20,6 +24,9 @@ import java.util.*;
 public class PriceServiceImpl implements PriceService{
     @Autowired
     DistanceRepository repository;
+
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -102,14 +109,18 @@ public class PriceServiceImpl implements PriceService{
     @Override
     public String update(CreateInfo info){
         if(repository.findByPlaceAAndPlaceB(info.getPlaceA(),info.getPlaceB()) != null){
-            Distance distance = new Distance();
-            distance.setPlaceA(info.getPlaceA());
-            distance.setPlaceB(info.getPlaceB());
-            distance.setDistance(info.getDistance());
-            repository.save(distance);
-            distance.setPlaceA(info.getPlaceB());
-            distance.setPlaceB(info.getPlaceA());
-            repository.save(distance);
+//            Distance distance = new Distance();
+//            distance.setPlaceA(info.getPlaceA());
+//            distance.setPlaceB(info.getPlaceB());
+//            distance.setDistance(info.getDistance());
+//            repository.save(distance);
+//            distance.setPlaceA(info.getPlaceB());
+//            distance.setPlaceB(info.getPlaceA());
+//            repository.save(distance);
+            Query query1 = new Query(Criteria.where("placeA").is(info.getPlaceA()).and("placeB").is(info.getPlaceB()));
+            mongoTemplate.updateMulti(query1,Update.update("distance",info.getDistance()),Distance.class);
+            Query query2 = new Query(Criteria.where("placeA").is(info.getPlaceB()).and("placeB").is(info.getPlaceA()));
+            mongoTemplate.updateMulti(query2,Update.update("distance",info.getDistance()),Distance.class);
             return "true";
         }else{
             return "Distance between " +info.getPlaceA()+" and "+ info.getPlaceB() +" doesn't exist!";
