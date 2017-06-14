@@ -1124,8 +1124,16 @@ $("#price_update_button").click(function(){
 
 //basic information
 $("#basic_information_button").click(function(){
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#basic_information_tripId").val();
+    travelInfo.trainTypeId = $("#basic_information_trainTypeId").val();
+    travelInfo.startingStation =  $("#basic_information_startingStation").val();
+    travelInfo.stations = $("#basic_information_stations").val();
+    travelInfo.terminalStation = $("#basic_information_terminalStation").val();
+    travelInfo.startingTime = convertStringToTime($("#basic_information_startingTime").val());
+    travelInfo.endTime = convertStringToTime($("#basic_information_endTime").val());
     var basicInfo = new Object();
-    basicInfo.trip = JSON.stringify($("#basic_information_trip").val());
+    basicInfo.trip = travelInfo;
     basicInfo.startingPlace = $("#basic_information_startingPlace").val();
     basicInfo.endPlace = $("#basic_information_endPlace").val();
     basicInfo.departureTime = $("#basic_information_departureTime").val();
@@ -1146,7 +1154,9 @@ $("#basic_information_button").click(function(){
                 "<tr>" +
                 "<td>" + result["status"] + "</td>" +
                 "<td>" + result["percent"] + "</td>" +
-                "<td>" + result["trainType"] + "</td>" +
+                "<td>" + result["trainType"]["id"] + "</td>" +
+                "<td>" + result["trainType"]["economyClass"] + "</td>" +
+                "<td>" + result["trainType"]["confortClass"] + "</td>" +
                 "</tr>"
             );
 
@@ -1156,12 +1166,20 @@ $("#basic_information_button").click(function(){
 
 //Ticket information
 $("#ticketinfo_button").click(function(){
-    var basicInfo = new Object();
-    basicInfo.trip = JSON.stringify($("#ticketinfo_trip").val());
-    basicInfo.startingPlace = $("#ticketinfo_startingPlace").val();
-    basicInfo.endPlace = $("#ticketinfo_endPlace").val();
-    basicInfo.departureTime = $("#ticketinfo_departureTime").val();
-    var data = JSON.stringify(basicInfo);
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#ticketinfo_tripId").val();
+    travelInfo.trainTypeId = $("#ticketinfo_trainTypeId").val();
+    travelInfo.startingStation =  $("#ticketinfo_startingStation").val();
+    travelInfo.stations = $("#ticketinfo_stations").val();
+    travelInfo.terminalStation = $("#ticketinfo_terminalStation").val();
+    travelInfo.startingTime = convertStringToTime($("#ticketinfo_startingTime").val());
+    travelInfo.endTime = convertStringToTime($("#ticketinfo_endTime").val());
+    var ticketInfo = new Object();
+    ticketInfo.trip = travelInfo;
+    ticketInfo.startingPlace = $("#ticketinfo_startingPlace").val();
+    ticketInfo.endPlace = $("#ticketinfo_endPlace").val();
+    ticketInfo.departureTime = $("#ticketinfo_departureTime").val();
+    var data = JSON.stringify(ticketInfo);
     $.ajax({
         type: "post",
         url: "/ticketinfo/queryForTravel",
@@ -1178,7 +1196,9 @@ $("#ticketinfo_button").click(function(){
                 "<tr>" +
                 "<td>" + result["status"] + "</td>" +
                 "<td>" + result["percent"] + "</td>" +
-                "<td>" + result["trainType"] + "</td>" +
+                "<td>" + result["trainType"]["id"] + "</td>" +
+                "<td>" + result["trainType"]["economyClass"] + "</td>" +
+                "<td>" + result["trainType"]["confortClass"] + "</td>" +
                 "</tr>"
             );
 

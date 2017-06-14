@@ -732,11 +732,52 @@
                 <div class="input-box panel-body">
                     <form role="form" class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Trip: </label>
+                            <label class="col-sm-2 control-label">Trip Id: </label>
                             <div class="col-sm-10">
-                                <input id="basic_information_trip" class="form-control" name='trip'
-                                       value='{"tripId":"G1234","trainTypeId":"GaoTieOne","startingStation":"ShangHai","stations":"BeiJing","terminalStation":"TaiYuan","startingTime":"2017-06-14T03:17:22.451Z","endTime":"2017-06-14T07:29:22.451Z"}'>
-
+                                <input id="basic_information_tripId" class="form-control" name='tripId'
+                                       value='G1234'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">TrainType ID: </label>
+                            <div class="col-sm-10">
+                                <input id="basic_information_trainTypeId" class="form-control" name='trainTypeId'
+                                       value='GaoTieOne'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <div class="col-sm-10">
+                                <input id="basic_information_startingStation" class="form-control" name='startingStation'
+                                       value='ShangHai'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station: </label>
+                            <div class="col-sm-10">
+                                <input id="basic_information_stations" class="form-control" name='stations'
+                                       value='BeiJing'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <div class="col-sm-10">
+                                <input id="basic_information_terminalStation" class="form-control" name='terminalStation'
+                                       value='TaiYuan'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">StartingTime: </label>
+                            <div class="col-sm-10">
+                                <input id="basic_information_startingTime" type="time" class="form-control"
+                                       name='startingTime' value='09:51'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">EndTime: </label>
+                            <div class="col-sm-10">
+                                <input id="basic_information_endTime" type="time" class="form-control"
+                                       name='endTime' value='15:51'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -779,7 +820,9 @@
                         <tr>
                             <th>status</th>
                             <th>percent</th>
-                            <th>trainType</th>
+                            <th>trainType.id</th>
+                            <th>trainType.economyClass</th>
+                            <th>trainType.confortClass</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -800,11 +843,52 @@
                 <div class="input-box panel-body">
                     <form role="form" class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Trip: </label>
+                            <label class="col-sm-2 control-label">Trip Id: </label>
                             <div class="col-sm-10">
-                                <input id="ticketinfo_trip" class="form-control" name='trip'
-                                       value='{"tripId":"G1234","trainTypeId":"GaoTieOne","startingStation":"ShangHai","stations":"BeiJing","terminalStation":"TaiYuan","startingTime":"2017-06-14T03:17:22.451Z","endTime":"2017-06-14T07:29:22.451Z"}'>
-
+                                <input id="ticketinfo_tripId" class="form-control" name='tripId'
+                                       value='G1234'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">TrainType ID: </label>
+                            <div class="col-sm-10">
+                                <input id="ticketinfo_trainTypeId" class="form-control" name='trainTypeId'
+                                       value='GaoTieOne'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <div class="col-sm-10">
+                                <input id="ticketinfo_startingStation" class="form-control" name='startingStation'
+                                       value='ShangHai'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Station: </label>
+                            <div class="col-sm-10">
+                                <input id="ticketinfo_stations" class="form-control" name='stations'
+                                       value='BeiJing'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <div class="col-sm-10">
+                                <input id="ticketinfo_terminalStation" class="form-control" name='terminalStation'
+                                       value='TaiYuan'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">StartingTime: </label>
+                            <div class="col-sm-10">
+                                <input id="ticketinfo_startingTime" type="time" class="form-control"
+                                       name='startingTime' value='09:51'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">EndTime: </label>
+                            <div class="col-sm-10">
+                                <input id="ticketinfo_endTime" type="time" class="form-control"
+                                       name='endTime' value='15:51'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -847,7 +931,9 @@
                         <tr>
                             <th>status</th>
                             <th>percent</th>
-                            <th>trainType</th>
+                            <th>trainType.id</th>
+                            <th>trainType.economyClass</th>
+                            <th>trainType.confortClass</th>
                         </tr>
                         </thead>
                         <tbody>
