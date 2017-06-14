@@ -36,16 +36,17 @@ public class HelloController {
         
         UUID uid = (UUID) session.getAttribute("uid");
 		if (uid == null) {
-			log.info("--------session created-----------");
+			log.info("--------session created 1-----------");
 			uid = UUID.randomUUID();
 			session.setAttribute("uid", uid);
 			session.setAttribute("current_cal", cal);
 		}else{
-			log.info("--------session recoverred-----------");
+			log.info("--------session recoverred 1-----------");
 			log.info(uid + ":" + session.getAttribute("current_cal"));
 		}
         
         
+		log.info("Cookies: " + cookies);
         //async messages
         try {
 			Future<Value> task1 = asyncTask.sendAsyncCal(session, cal2);

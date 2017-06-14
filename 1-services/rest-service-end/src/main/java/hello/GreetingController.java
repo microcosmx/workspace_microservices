@@ -36,12 +36,12 @@ public class GreetingController {
     	
     	UUID uid = (UUID) session.getAttribute("uid");
 		if (uid == null) {
-			log.info("--------session created-----------");
+			log.info("--------session created end-----------");
 			uid = UUID.randomUUID();
 			session.setAttribute("uid", uid);
 			session.setAttribute("current_cal", cal);
 		}else{
-			log.info("--------session recoverred-----------");
+			log.info("--------session recoverred end-----------");
 			log.info(uid + ":" + session.getAttribute("current_cal"));
 		}
 		
@@ -51,7 +51,6 @@ public class GreetingController {
    	    value.setId(counter.incrementAndGet());
    	    value.setContent(Double.valueOf(cal2)<100);
         
-        log.info("--------service end-----------");
         log.info(value.toString());
         return value;
     }

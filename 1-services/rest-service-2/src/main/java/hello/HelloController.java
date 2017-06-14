@@ -41,17 +41,18 @@ public class HelloController {
         
         UUID uid = (UUID) session.getAttribute("uid");
 		if (uid == null) {
-			log.info("--------session created-----------");
+			log.info("--------session created 2-----------");
 			uid = UUID.randomUUID();
 			session.setAttribute("uid", uid);
 			session.setAttribute("current_cal", cal);
 		}else{
-			log.info("--------session recoverred-----------");
+			log.info("--------session recoverred 2-----------");
 			log.info(uid + ":" + session.getAttribute("current_cal"));
 		}
 		
-		HttpHeaders headers = new HttpHeaders();
+		
 		log.info("Cookies: " + cookies);
+		HttpHeaders headers = new HttpHeaders();
 		headers.add("Cookie", "SESSION=" + session.getId());
 		ResponseEntity<Value> exchange = restTemplate.exchange("http://rest-service-end:16000/greeting?cal="+cal2, 
 				HttpMethod.GET,new HttpEntity<Void>(headers), Value.class);
