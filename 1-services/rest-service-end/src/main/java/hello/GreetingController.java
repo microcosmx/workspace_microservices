@@ -64,13 +64,12 @@ public class GreetingController {
     public String session_uid(HttpSession session, @RequestParam(value="cal", defaultValue="50") String cal) {
 		UUID uid = (UUID) session.getAttribute("uid");
 		if (uid == null) {
-			log.info("--------session created-----------");
 			uid = UUID.randomUUID();
 			session.setAttribute("uid", uid);
 			session.setAttribute("current_cal", cal);
+			log.info("--------session created end-----------:" + uid + ":" + session.getAttribute("current_cal"));
 		}else{
-			log.info("--------session recoverred-----------");
-			log.info(uid + ":" + session.getAttribute("current_cal"));
+			log.info("--------session recoverred end-----------:" + uid + ":" + session.getAttribute("current_cal"));
 		}
 		
 		return uid.toString() + ": " + session.getAttribute("current_cal");

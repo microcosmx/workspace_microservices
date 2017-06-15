@@ -28,7 +28,7 @@ public class HelloController {
 
     @RequestMapping("/hello6")
     public Value hello6(HttpSession session, 
-    		@RequestHeader(value="Cookie") String cookies, 
+//    		@RequestHeader(value="Cookie") String cookies, 
     		@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
 
         double cal2 = Math.abs(Double.valueOf(cal));
@@ -46,7 +46,7 @@ public class HelloController {
 		}
 		
 		
-        log.info("cookies: " + cookies);
+//        log.info("cookies: " + cookies);
 		log.info("session: " + session.getId());
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Cookie", "SESSION=" + session.getId());

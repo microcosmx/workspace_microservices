@@ -29,7 +29,7 @@ public class HelloController {
 
     @RequestMapping("/hello4")
     public Value hello4(HttpSession session, 
-    		@RequestHeader(value="Cookie") String cookies, 
+//    		@RequestHeader(value="Cookie") String cookies, 
     		@RequestParam(value="cal", defaultValue="50") String cal) throws InterruptedException, ExecutionException, TimeoutException {
 
         double cal2 = (Double.valueOf(cal) + 10)/1.1; 
@@ -47,7 +47,7 @@ public class HelloController {
 		}
 		
 		
-        log.info("cookies: " + cookies);
+//        log.info("cookies: " + cookies);
 		log.info("session: " + session.getId());
         //async messages
         Future<Value> task1 = asyncTask.sendAsyncCal(session, cal2);
