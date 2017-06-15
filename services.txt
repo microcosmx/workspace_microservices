@@ -1,23 +1,23 @@
 所有服务:
 
-    sso: ts-sso-service （db）    --- jc
-    登录: ts-login-service        --- jc
-    注册: ts-register-service     --- jc
+    sso: ts-sso-service （db）    --- jc  80%
+    登录: ts-login-service        --- jc  80%
+    注册: ts-register-service     --- jc  80%
     验证码: ts-verificationCode-service    --- xcj
 
-    常用联系人管理(CRUD): ts-contacts-service （db）     --- jc
+    常用联系人管理(CRUD): ts-contacts-service （db）     --- jc  80%
 
     配置: ts-config-service (db: 10天以后，同一id同一车次1，改签次数，定价，预订溢出比（100%），改签费用规则)  --- xcj
-    定票价: ts-price-service (db: distance)
+    定票价: ts-price-service (db: distance)  --- xcj
 
-    车站站名服务：ts-station-service（db: 车站表）      --- xcj
+    车站站名服务：ts-station-service（db: 车站表）      --- xcj 90%
     车服务： ts-train-service (db: train)               --- xcj
 
-    车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）)      --- xcj 80%
-    车次查询_其他(k...): ts-travel2-service                            --- xcj 80%
+    车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）)      --- xcj 
+    车次查询_其他(k...): ts-travel2-service                            --- xcj 
 
     车票预订_高铁动车：ts-preserve-service           --- jc 60%
-    车票预订_其他: ts-preserve-service              --- jc in progress
+    车票预订_其他: ts-preserve-service              --- jc 0%
 
     车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)   --- jc in progress
         status: 
@@ -32,12 +32,12 @@
 
     黄牛：ts-security-service (账户同一天1小时内没有订单或预定，不能超过5张)    --- jc in progress
 
-    消息通知微服务：ts-notification-service     --- xcj in progress
+    消息通知微服务：ts-notification-service     --- xcj 0%
     （todo: 取票）
 
-    基础信息：ts-basic-service （查询接口）                --- xcj 50%
+    基础信息：ts-basic-service （查询接口）                --- xcj  
 
-    车票关联信息：ts-ticketinfo-service （查询接口）        --- xcj 50%
+    车票关联信息：ts-ticketinfo-service （查询接口）        --- xcj  
 
     预定关联信息：ts-preserveinfo-service （查询接口）      --- jc in progress
 
