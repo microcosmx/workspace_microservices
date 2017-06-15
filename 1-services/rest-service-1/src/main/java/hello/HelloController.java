@@ -12,8 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class HelloController {
+	
+//	static
+//    {
+//      System.setProperty("javax.net.ssl.trustStore","classpath:keystore.p12");
+//      System.setProperty("javax.net.ssl.trustStorePassword", "passw0rd");
+//      System.setProperty("javax.net.ssl.keyStore", "classpath:keystore.p12");
+//      System.setProperty("javax.net.ssl.keyStorePassword", "passw0rd");
+//   }
     
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+    
     @Autowired
 	private RestTemplate restTemplate;
 
@@ -23,8 +32,7 @@ public class HelloController {
         double cal2 = Math.log10(Double.valueOf(cal))*50;
         log.info(String.valueOf(cal2));
 
-    	Value value = restTemplate.getForObject(
-				"http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
+    	Value value = restTemplate.getForObject("https://localhost:16000/greeting?cal="+cal2, Value.class);
         
 		log.info(value.toString());
 		return value;

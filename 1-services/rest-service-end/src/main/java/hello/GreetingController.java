@@ -26,13 +26,6 @@ public class GreetingController {
     	double cal2 = Math.abs(Double.valueOf(cal)-50); 
     	log.info(String.valueOf(cal2));
     	
-    	//async messaging
-    	log.info("message 1");
-    	sendingBean.sayHello("message 1:" + cal2);
-    	log.info("message 2");
-    	sendingBean.sayHello("message 2:" + cal2*2);
-    	log.info("message 3");
-    	sendingBean.sayHello("message 3:" + cal2*3);
         
     	Greeting value = null;
         if(cal2 < 6){
