@@ -55,20 +55,19 @@ public class HelloController {
 		log.info("session: " + session.getId());
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Cookie", "SESSION=" + session.getId());
-		ResponseEntity<Value> exchange = null;
+		Value value = null;
 		if("service-6".equals(name)){
-			exchange = restTemplate.exchange("http://rest-service-end:16000/greeting?cal="+cal2, 
-					HttpMethod.GET,new HttpEntity<Void>(headers), Value.class);
+			value = restTemplate.getForObject("http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
 		}else if("service-5".equals(name)){
-			exchange = restTemplate.exchange("http://rest-service-1:16001/hello1?cal="+cal2, 
+			ResponseEntity<Value> exchange = restTemplate.exchange("http://rest-service-1:16001/hello1?cal="+cal2, 
 					HttpMethod.GET,new HttpEntity<Void>(headers), Value.class);
+			value = exchange.getBody();
 		}else{
-			exchange = restTemplate.exchange("http://rest-service-2:16002/hello2?cal="+cal2, 
+			ResponseEntity<Value> exchange = restTemplate.exchange("http://rest-service-2:16002/hello2?cal="+cal2, 
 					HttpMethod.GET,new HttpEntity<Void>(headers), Value.class);
+			value = exchange.getBody();
 		}
-		Value value = exchange.getBody();
 
-        
 		
 //		Value value = new Value();
 //        if("service-6".equals(name)){

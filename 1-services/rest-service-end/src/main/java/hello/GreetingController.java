@@ -29,7 +29,7 @@ public class GreetingController {
 
     @RequestMapping("/greeting")
     public Value greeting(HttpSession session, 
-    		@RequestHeader(value="Cookie") String cookies, 
+//    		@RequestHeader(value="Cookie") String cookies, 
     		@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
     	// log.info(cal);
 
@@ -41,14 +41,14 @@ public class GreetingController {
 		if (uid == null) {
 			uid = UUID.randomUUID();
 			session.setAttribute("uid", uid);
-			session.setAttribute("current_cal", cal);
+			session.setAttribute("current_cal", "xxx");
 			log.info("--------session created end-----------:" + uid + ":" + session.getAttribute("current_cal"));
 		}else{
 			log.info("--------session recoverred end-----------:" + uid + ":" + session.getAttribute("current_cal"));
 		}
 		
 		
-		log.info("cookies: " + cookies);
+//		log.info("cookies: " + cookies);
 		log.info("session: " + session.getId());
     	// Value value = restTemplate.getForObject("http://rest-service-external:16100/greeting?cal="+cal2, Value.class);
    	    Value value = new Value();
