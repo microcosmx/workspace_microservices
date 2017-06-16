@@ -1,4 +1,10 @@
 
+ssl test:
+https://localhost:16006/hello6?cal=60
+https://localhost:16005/hello5?cal=50
+https://localhost:16001/hello1?cal=50
+
+
 mvn repo:
 https://repo1.maven.org/maven2/
 

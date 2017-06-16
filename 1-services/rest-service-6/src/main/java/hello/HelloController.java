@@ -21,16 +21,16 @@ public class HelloController {
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
-        Value value5 = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal, Value.class);
-        Value value4 = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal, Value.class);
+        Value value5 = restTemplate.getForObject("https://rest-service-5:16005/hello5?cal="+cal, Value.class);
+        Value value4 = restTemplate.getForObject("https://rest-service-4:16004/hello4?cal="+cal, Value.class);
         
         Value value = null;
         if(cal2 < 30){
-            value = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal2, Value.class);
+            value = restTemplate.getForObject("https://rest-service-5:16005/hello5?cal="+cal2, Value.class);
         }else if(cal2 < 60){
-            value = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal2, Value.class);
+            value = restTemplate.getForObject("https://rest-service-4:16004/hello4?cal="+cal2, Value.class);
         }else{
-            value = restTemplate.getForObject("http://rest-service-3:16003/hello3?cal="+cal2, Value.class);
+            value = restTemplate.getForObject("https://rest-service-3:16003/hello3?cal="+cal2, Value.class);
         }
         
         

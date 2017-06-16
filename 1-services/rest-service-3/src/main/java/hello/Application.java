@@ -30,10 +30,10 @@ public class Application extends AsyncConfigurerSupport {
 		SpringApplication.run(Application.class);
 	}
 	
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
+//	@Bean
+//	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+//		return builder.build();
+//	}
 	
 	@Override
     public Executor getAsyncExecutor() {

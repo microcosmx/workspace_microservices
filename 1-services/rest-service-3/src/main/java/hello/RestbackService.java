@@ -23,7 +23,7 @@ public class RestbackService {
     @Async
     public Future<Boolean> callbackResult(double cal2) throws InterruptedException {
         log.info("call back: " + cal2);
-        Boolean result = restTemplate.getForObject("http://rest-service-6:16006/hello6_1?cal2="+cal2, Boolean.class);
+        Boolean result = restTemplate.getForObject("https://rest-service-6:16006/hello6_1?cal2="+cal2, Boolean.class);
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(1000L);
         log.info("-----------call back complete-------------");
