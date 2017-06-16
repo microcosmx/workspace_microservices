@@ -320,24 +320,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <label class="col-sm-2 control-label">startingStation Id: </label>
                             <div class="col-sm-10">
-                                <input id="travel_update_startingStation" class="form-control" name='startingStation'
-                                       value='ShangHai'>
+                                <input id="travel_update_startingStationId" class="form-control" name='startingStationId'
+                                       value='shanghai'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Station: </label>
+                            <label class="col-sm-2 control-label">Station Id: </label>
                             <div class="col-sm-10">
-                                <input id="travel_update_stations" class="form-control" name='stations'
-                                       value='BeiJing'>
+                                <input id="travel_update_stationsId" class="form-control" name='stationsId'
+                                       value='beijing'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <label class="col-sm-2 control-label">TerminalStation Id: </label>
                             <div class="col-sm-10">
-                                <input id="travel_update_terminalStation" class="form-control" name='terminalStation'
-                                       value='TaiYuan'>
+                                <input id="travel_update_terminalStationId" class="form-control" name='terminalStationId'
+                                       value='taiyuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -375,9 +375,9 @@
                         <tr>
                             <th>Trip Id</th>
                             <th>Train Type</th>
-                            <th>Starting Station</th>
-                            <th>Middle Station</th>
-                            <th>Terminal Station</th>
+                            <th>Starting Station Id</th>
+                            <th>Middle Station Id</th>
+                            <th>Terminal Station Id</th>
                             <th>Starting Time</th>
                             <th>End Time</th>
                         </tr>
@@ -399,38 +399,50 @@
                         Station Service
                     </h3>
                 </div>
-                <div>
+
                     <div class="input-box panel-body">
                         <form class="form-horizontal">
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">Station Id: </label>
+                                <div class="col-sm-10">
+                                    <input id="station_update_id" class="form-control" name='id' value='shanghai'>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">Station Name: </label>
                                 <div class="col-sm-10">
-                                    <input id="station_create_name" class="form-control" name='name' value=''>
+                                    <input id="station_update_name" class="form-control" name='name' value='shang hai'>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button id="station_create_button" type="button" class="btn btn-primary">Add Station</button>
+                                    <button id="station_update_button" type="button" class="btn btn-primary">Update Station</button>
                                 </div>
                             </div>
                         </form>
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button id="station_query_button" type="button" class="btn btn-primary">Query Station</button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="result">
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <label class="control-label">Result:</label>
-                                    <span id="station_result"></span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Station List
+                            <button id="station_query_button" type="button" class="btn btn-default btn-sm">
+                                Query Station
+                            </button>
+                        </h3>
+                    </div>
+                    <div class="result panel-body">
+                        <table id="query_station_list_table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Station Id</th>
+                                <th>Station Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--This is an empty table body-->
+                            </tbody>
+                        </table>
+                    </div>
+
             </div>
 
             <!----------------------------------------------Train--------------------------------------------- -->
@@ -575,14 +587,14 @@
                             <label class="col-sm-2 control-label">Starting Place: </label>
                             <div class="col-sm-10">
                                 <input id="price_update_startingPlace" class="form-control" name='startingPlace'
-                                       value='ShangHai'>
+                                       value='shanghai'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">End Place: </label>
                             <div class="col-sm-10">
                                 <input id="price_update_endPlace" class="form-control" name='endPlace'
-                                       value='BeiJing'>
+                                       value='beijing'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -652,24 +664,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <label class="col-sm-2 control-label">startingStation Id: </label>
                             <div class="col-sm-10">
-                                <input id="travel2_update_startingStation" class="form-control" name='startingStation'
-                                       value='ShangHai'>
+                                <input id="travel2_update_startingStationId" class="form-control" name='startingStationId'
+                                       value='shanghai'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Station: </label>
+                            <label class="col-sm-2 control-label">Station Id: </label>
                             <div class="col-sm-10">
-                                <input id="travel2_update_stations" class="form-control" name='stations'
-                                       value='BeiJing'>
+                                <input id="travel2_update_stationsId" class="form-control" name='stationsId'
+                                       value='beijing'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <label class="col-sm-2 control-label">TerminalStation Id: </label>
                             <div class="col-sm-10">
-                                <input id="travel2_update_terminalStation" class="form-control" name='terminalStation'
-                                       value='TaiYuan'>
+                                <input id="travel2_update_terminalStationId" class="form-control" name='terminalStationId'
+                                       value='taiyuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -707,9 +719,9 @@
                         <tr>
                             <th>Trip Id</th>
                             <th>Train Type</th>
-                            <th>Starting Station</th>
-                            <th>Middle Station</th>
-                            <th>Terminal Station</th>
+                            <th>Starting Station Id</th>
+                            <th>Middle Station Id</th>
+                            <th>Terminal Station Id</th>
                             <th>Starting Time</th>
                             <th>End Time</th>
                         </tr>
@@ -746,24 +758,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <label class="col-sm-2 control-label">startingStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="basic_information_startingStation" class="form-control" name='startingStation'
-                                       value='ShangHai'>
+                                       value='shanghai'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Station: </label>
+                            <label class="col-sm-2 control-label">Station Id: </label>
                             <div class="col-sm-10">
                                 <input id="basic_information_stations" class="form-control" name='stations'
-                                       value='BeiJing'>
+                                       value='beijing'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <label class="col-sm-2 control-label">TerminalStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="basic_information_terminalStation" class="form-control" name='terminalStation'
-                                       value='TaiYuan'>
+                                       value='taiyuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -784,14 +796,14 @@
                             <label class="col-sm-2 control-label">startingPlace: </label>
                             <div class="col-sm-10">
                                 <input id="basic_information_startingPlace" class="form-control" name='startingPlace'
-                                       value='ShangHai'>
+                                       value='Shang Hai'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">endPlace: </label>
                             <div class="col-sm-10">
                                 <input id="basic_information_endPlace" class="form-control" name='endPlace'
-                                       value='TaiYuan'>
+                                       value='Tai Yuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -857,24 +869,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">startingStation: </label>
+                            <label class="col-sm-2 control-label">startingStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="ticketinfo_startingStation" class="form-control" name='startingStation'
-                                       value='ShangHai'>
+                                       value='shanghai'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Station: </label>
+                            <label class="col-sm-2 control-label">Station Id: </label>
                             <div class="col-sm-10">
                                 <input id="ticketinfo_stations" class="form-control" name='stations'
-                                       value='BeiJing'>
+                                       value='beijing'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">TerminalStation: </label>
+                            <label class="col-sm-2 control-label">TerminalStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="ticketinfo_terminalStation" class="form-control" name='terminalStation'
-                                       value='TaiYuan'>
+                                       value='taiyuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -895,14 +907,14 @@
                             <label class="col-sm-2 control-label">startingPlace: </label>
                             <div class="col-sm-10">
                                 <input id="ticketinfo_startingPlace" class="form-control" name='startingPlace'
-                                       value='ShangHai'>
+                                       value='Shang Hai'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">endPlace: </label>
                             <div class="col-sm-10">
                                 <input id="ticketinfo_endPlace" class="form-control" name='endPlace'
-                                       value='TaiYuan'>
+                                       value='Tai Yuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -960,13 +972,13 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Starting Place:</label>
                             <div class="col-sm-10">
-                                <input id="travel_booking_startingPlace" class="form-control" name='' value='ShangHai'>
+                                <input id="travel_booking_startingPlace" class="form-control" name='' value='Shang Hai'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Terminal Place:</label>
                             <div class="col-sm-10">
-                                <input id="travel_booking_terminalPlace" class="form-control" name='' value='TaiYuan'>
+                                <input id="travel_booking_terminalPlace" class="form-control" name='' value='Tai Yuan'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1102,13 +1114,13 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Starting Place:</label>
                             <div class="col-sm-10">
-                                <input id="travel_change_startingPlace" class="form-control" name='' value='ShangHai'>
+                                <input id="travel_change_startingPlace" class="form-control" name='' value='Shang Hai'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Terminal Place:</label>
                             <div class="col-sm-10">
-                                <input id="travel_change_terminalPlace" class="form-control" name='' value='TaiYuan'>
+                                <input id="travel_change_terminalPlace" class="form-control" name='' value='Tai Yuan'>
                             </div>
                         </div>
                         <div class="form-group">

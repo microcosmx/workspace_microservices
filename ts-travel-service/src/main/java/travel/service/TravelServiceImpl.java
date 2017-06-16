@@ -21,8 +21,8 @@ public class TravelServiceImpl implements TravelService{
     public String create(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) == null){
-            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStation(),
-                    info.getStations(),info.getTerminalStation(),info.getStartingTime(),info.getEndTime());
+            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
+                    info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
             repository.save(trip);
             return "Create trip:" + ti.toString() + ".";
         }else{
@@ -44,8 +44,8 @@ public class TravelServiceImpl implements TravelService{
     public String update(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) != null){
-            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStation(),
-                    info.getStations(),info.getTerminalStation(),info.getStartingTime(),info.getEndTime());
+            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
+                    info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
             repository.save(trip);
             return "Update trip:" + ti.toString();
         }else{
@@ -69,10 +69,13 @@ public class TravelServiceImpl implements TravelService{
         List<TripResponse> list = new ArrayList<TripResponse>();
         String startingPlace = info.getStartingPlace();
         String endPlace = info.getEndPlace();
+        String startingPlaceId = queryForStationId(startingPlace);
+        String endPlaceId = queryForStationId(endPlace);
+
         Date departureTime = info.getDepartureTime();
-        List<Trip> list1 = repository.findByStartingStationAndTerminalStation(startingPlace,endPlace);
-        List<Trip> list2 = repository.findByStartingStationAndStations(startingPlace,endPlace);
-        List<Trip> list3 = repository.findByStationsAndTerminalStation(startingPlace,endPlace);
+        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
+        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
+        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
 
         Iterator<Trip> sListIterator1 = list1.iterator();
         Iterator<Trip> sListIterator2 = list2.iterator();
@@ -160,7 +163,7 @@ public class TravelServiceImpl implements TravelService{
         }
         //设置返回的车票信息
         TripResponse response = new TripResponse();
-        if(startingPlace.equals(trip.getStartingStation()) && endPlace.equals(trip.getTerminalStation())){
+        if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
             int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
             int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
             response.setConfortClass(confort);
@@ -211,5 +214,13 @@ public class TravelServiceImpl implements TravelService{
         }else{
             return true;
         }
+    }
+
+    private String queryForStationId(String stationName){
+        QueryForStationId query = new QueryForStationId();
+        query.setName(stationName);
+        String id = restTemplate.postForObject(
+                "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
+        return id;
     }
 }

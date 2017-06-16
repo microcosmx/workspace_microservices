@@ -5,7 +5,6 @@ package price.domain;
  */
 public class ResultPrice {
 
-
     private String placeA;
     private String placeB;
     private String trainTypeId;

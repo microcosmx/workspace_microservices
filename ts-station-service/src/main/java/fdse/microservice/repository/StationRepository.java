@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface StationRepository extends CrudRepository<Station,String> {
     Station findByName(String name);
+    Station findById(String id);
     List<Station> findAll();
 }

@@ -1,0 +1,29 @@
+# HTTP Server
+server:
+  port: 17853  # HTTP (Tomcat) port
+
+#spring:
+#  data:
+#    mongodb:
+#      host: ts-notification-mongo
+##      username: user
+##      password: ${MONGODB_PASSWORD}
+##      database: piggymetrics
+#      port: 27017
+
+spring:
+  mail:
+    host: smtp.163.com
+    username: fdse_microservices@163.com
+    password: fdsefdse
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+   velocity:
+      resource-loader-path: classpath:/templates/
+      charset: UTF-8

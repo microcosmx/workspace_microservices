@@ -20,14 +20,16 @@ public class Information {
 
     @Valid
     @NotNull
-    private String startingStation;
+    private String startingStationId;
 
     @Valid
-    private String stations;
+    private String stationsId;
 
     @Valid
     @NotNull
-    private String terminalStation;
+    private String terminalStationId;
+
+
 
     @Valid
     @NotNull
@@ -53,28 +55,28 @@ public class Information {
         this.trainTypeId = trainTypeId;
     }
 
-    public String getStartingStation() {
-        return startingStation;
+    public String getStartingStationId() {
+        return startingStationId;
     }
 
-    public void setStartingStation(String startingStation) {
-        this.startingStation = startingStation;
+    public void setStartingStationId(String startingStationId) {
+        this.startingStationId = startingStationId;
     }
 
-    public String getStations() {
-        return stations;
+    public String getStationsId() {
+        return stationsId;
     }
 
-    public void setStations(String stations) {
-        this.stations = stations;
+    public void setStationsId(String stationsId) {
+        this.stationsId = stationsId;
     }
 
-    public String getTerminalStation() {
-        return terminalStation;
+    public String getTerminalStationId() {
+        return terminalStationId;
     }
 
-    public void setTerminalStation(String terminalStation) {
-        this.terminalStation = terminalStation;
+    public void setTerminalStationId(String terminalStationId) {
+        this.terminalStationId = terminalStationId;
     }
 
     public Date getStartingTime() {
