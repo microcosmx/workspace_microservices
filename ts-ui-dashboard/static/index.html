@@ -43,8 +43,56 @@
         </div>
 
         <div id="microservices">
+            <!----------------------------------SSO------------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        SSO Account List
+                        <button id="refresh_account_button" type="button" class="btn btn-default btn-sm">Refresh Accounts</button>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table id="account_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!----An empty table----->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        SSO Login Account List
+                        <button id="refresh_login_account_button" type="button" class="btn btn-default btn-sm">Refresh Login Accounts</button>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table id="login_account_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>ID</th>
+                            <th>Token</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!----An empty table----->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
             <!----------------------------------------Register------------------------>
-            <div class="step  panel panel-default">
+            <div class="step panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Sign Up
@@ -65,7 +113,7 @@
                                     <input id="register_password" class="form-control" name='password' value='DefaultPassword'>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <label class="col-sm-2 control-label">Select Your Gender: </label>
                                 <div class="col-sm-10">
                                     <select id="register_gender" class="form-control" name="gender">
@@ -75,13 +123,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <label class="col-sm-2 control-label">Input Your Real Name: </label>
                                 <div class="col-sm-10">
                                     <input id="register_name" class="form-control" name='name' value='Default User'>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <label class="col-sm-2 control-label">Select Your Document Type: </label>
                                 <div class="col-sm-10">
                                     <select id="register_documentType" class="form-control" name="documentType">
@@ -91,20 +139,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <label class="col-sm-2 control-label">Input your Document Num: </label>
                                 <div class="col-sm-10">
                                     <input id="register_documentNum" class="form-control" name='documentNum' value='DefaultDocumentNumber'>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <label class="col-sm-2 control-label">Verification Code: </label>
                                 <div class="col-sm-10">
-                                    <input id="register_verificationCode" class="form-control"  name="verificationCode">
+                                    <input id="register_verificationCode" class="form-control"  name="verificationCode" value="abcd">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <img id="captchaImgRegister" class="captcha_img" alt="Click To Refresh The Verification Code"
                                          src="/verification/generate">
@@ -121,13 +169,13 @@
                                     <span id="register_result_status"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Register Message:</label>
                                     <span id="register_result_msg"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Account Info:</label>
                                     <span id="register_result_account"></span>
@@ -160,13 +208,13 @@
                                     <input id="login_password" class="form-control" name='password' value='DefaultPassword' >
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <label class="col-sm-2 control-label">Verification Code</label>
                                 <div class="col-sm-10">
-                                    <input id="login_verification_code" class="form-control" type="text" id="verificationCodeLogin" name="verificationCode"/>
+                                    <input id="login_verification_code" class="form-control" type="text" id="verificationCodeLogin" name="verificationCode" value="abcd"/>
                                 </div>
                             </div >
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <img id="captchaImgLogin" class="captcha_img" alt="Click To Refresh The Verification Code"
                                          src="/verification/generate">
@@ -183,19 +231,19 @@
                                     <span id="login_result_status"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Login Message:</label>
                                     <span id="login_result_msg"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Account Info:</label>
                                     <span id="login_result_account"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Account Login Token:</label>
                                     <span id="login_result_token"></span>
@@ -256,13 +304,13 @@
                                     <span id="add_contacts_result_status"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component" >
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Add Contacts Message:</label>
                                     <span id="add_contacts_result_msg"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Contacts Info:</label>
                                     <span id="add_contacts_result_contacts"></span>
@@ -389,9 +437,6 @@
                 </div>
             </div>
 
-
-
-
             <!-------------------------------------------------Station---------------------------------------------- -->
             <div class="step panel panel-default">
                 <div class="panel-heading">
@@ -495,7 +540,6 @@
                     </table>
                 </div>
             </div>
-
 
             <!----------------------------------------Config---------------------------------------------- -->
             <div class="step panel panel-default">

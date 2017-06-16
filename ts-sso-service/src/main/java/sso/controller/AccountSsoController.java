@@ -60,6 +60,24 @@ public class AccountSsoController {
         return ssoService.verifyLoginToken(token);
     }
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/findAll", method = RequestMethod.GET)
+    public FindAllAccountResult findAllAccount(){
+        return ssoService.findAllAccount();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/findAllLogin", method = RequestMethod.GET)
+    public GetLoginAccountList findAllLoginAccount(){
+        return ssoService.findAllLoginAccount();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/modify", method = RequestMethod.POST)
+    public ModifyAccountResult modifyAccount(@RequestBody ModifyAccountInfo modifyAccountInfo){
+        return ssoService.saveChanges(modifyAccountInfo);
+    }
+
     public PutLoginResult loginPutToken(@PathVariable String loginId){
         return ssoService.loginPutToken(loginId);
     }

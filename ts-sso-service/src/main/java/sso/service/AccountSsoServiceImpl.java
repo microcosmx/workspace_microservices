@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sso.domain.*;
 import sso.repository.AccountRepository;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -148,5 +150,59 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         return vr;
     }
 
+    @Override
+    public FindAllAccountResult findAllAccount(){
+        FindAllAccountResult findAllAccountResult = new FindAllAccountResult();
+        ArrayList<Account> accounts = accountRepository.findAll();
+        for(int i = 0;i < accounts.size();i++){
+            System.out.println("[SSO Service][Find All Account]" + accounts.get(i).getId());
+        }
+        findAllAccountResult.setStatus(true);
+        findAllAccountResult.setMessage("Success.");
+        findAllAccountResult.setAccountArrayList(accounts);
+        return findAllAccountResult;
+    }
 
+    @Override
+    public GetLoginAccountList findAllLoginAccount(){
+        ArrayList<LoginAccountValue> values = new ArrayList<>();
+        for(Map.Entry<String,String> entry : loginUserList.entrySet()){
+            LoginAccountValue value = new LoginAccountValue(entry.getKey(),entry.getValue());
+            values.add(value);
+        }
+        GetLoginAccountList getLoginAccountList = new GetLoginAccountList();
+        getLoginAccountList.setStatus(true);
+        getLoginAccountList.setMessage("Success");
+        getLoginAccountList.setLoginAccountList(values);
+        return getLoginAccountList;
+    }
+
+    @Override
+    public ModifyAccountResult saveChanges(ModifyAccountInfo modifyAccountInfo){
+        Account existAccount = accountRepository.findByPhoneNum(modifyAccountInfo.getNewEmail());
+        ModifyAccountResult result = new ModifyAccountResult();
+        if(existAccount != null){
+            System.out.println("[SSO Service][Modify Info] Email exists.");
+            result.setStatus(false);
+            result.setMessage("Email Has Been Occupied.");
+            return result;
+        }
+
+        System.out.println("[SSO Service][Modify Info] Account Id:" + modifyAccountInfo.getAccountId());
+        Account oldAccount = accountRepository.findById(UUID.fromString(modifyAccountInfo.getAccountId()));
+
+        if(oldAccount == null){
+            System.out.println("[SSO Service][Modify Info] Fail.Can not found account.");
+            result.setStatus(false);
+            result.setMessage("Account Not Found.");
+        }else{
+            oldAccount.setPhoneNum(modifyAccountInfo.getNewEmail());
+            accountRepository.save(oldAccount);
+            oldAccount.setPassword("");
+            System.out.println("[SSO Service][ModifyInfo] Success.");
+            result.setStatus(true);
+            result.setMessage("Success.");
+        }
+        return result;
+    }
 }
