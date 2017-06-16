@@ -54,4 +54,11 @@ public class BasicServiceImpl implements BasicService{
 
         return result;
     }
+
+    @Override
+    public String queryForStationId(QueryForStationId info){
+        String id = restTemplate.postForObject(
+                "http://ts-station-service:12345/station/queryForId", info, String.class);
+        return id;
+    }
 }

@@ -1,6 +1,7 @@
 package fdse.microservice.service;
 
 import fdse.microservice.domain.Contacts;
+import fdse.microservice.domain.QueryForStationId;
 import fdse.microservice.domain.QueryForTravel;
 import fdse.microservice.domain.ResultForTravel;
 
@@ -9,4 +10,5 @@ import fdse.microservice.domain.ResultForTravel;
  */
 public interface BasicService {
     ResultForTravel queryForTravel(QueryForTravel info);
+    String queryForStationId(QueryForStationId info);
 }

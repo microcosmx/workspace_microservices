@@ -52,6 +52,7 @@ public class VerificationCodeController {
 		//System.out.println("receivedCode"+receivedCode);
 		//boolean result = verificationCodeService.verifyCode(request, response, receivedCode);
 		//return result;
+
 	}
 
 }

@@ -22,45 +22,45 @@ public class InitData implements CommandLineRunner {
 
         info.setTripId("Z1234");
         info.setTrainTypeId("ZhiDa");
-        info.setStartingStation("ShangHai");
-        info.setStations("BeiJing");
-        info.setTerminalStation("TaiYuan");
+        info.setStartingStationId("shanghai");
+        info.setStationsId("beijing");
+        info.setTerminalStationId("taiyuan");
         info.setStartingTime(new Date("Mon May 04 09:51:52 CDT 2013"));
         info.setEndTime(new Date("Mon May 04 15:51:52 CDT 2013"));
         service.create(info);
 
         info.setTripId("Z1235");
         info.setTrainTypeId("ZhiDa");
-        info.setStartingStation("ShangHai");
-        info.setStations("BeiJing");
-        info.setTerminalStation("TaiYuan");
+        info.setStartingStationId("shanghai");
+        info.setStationsId("beijing");
+        info.setTerminalStationId("taiyuan");
         info.setStartingTime(new Date("Mon May 04 11:31:52 CDT 2013"));
         info.setEndTime(new Date("Mon May 04 17:51:52 CDT 2013"));
         service.create(info);
 
         info.setTripId("Z1236");
         info.setTrainTypeId("ZhiDa");
-        info.setStartingStation("ShangHai");
-        info.setStations("BeiJing");
-        info.setTerminalStation("TaiYuan");
+        info.setStartingStationId("shanghai");
+        info.setStationsId("beijing");
+        info.setTerminalStationId("taiyuan");
         info.setStartingTime(new Date("Mon May 04 7:05:52 CDT 2013"));
         info.setEndTime(new Date("Mon May 04 12:51:52 CDT 2013"));
         service.create(info);
 
         info.setTripId("T1235");
         info.setTrainTypeId("TeKuai");
-        info.setStartingStation("NanJing");
-        info.setStations("ShangHaiHongQiao");
-        info.setTerminalStation("BeiJing");
+        info.setStartingStationId("nanjing");
+        info.setStationsId("shanghaihongqiao");
+        info.setTerminalStationId("beijing");
         info.setStartingTime(new Date("Mon May 04 08:31:52 CDT 2013"));
         info.setEndTime(new Date("Mon May 04 17:21:52 CDT 2013"));
         service.create(info);
 
         info.setTripId("K1345");
         info.setTrainTypeId("KuaiSu");
-        info.setStartingStation("TaiYuan");
-        info.setStations("NanJing");
-        info.setTerminalStation("ShangHai");
+        info.setStartingStationId("taiyuan");
+        info.setStationsId("nanjing");
+        info.setTerminalStationId("shanghai");
         info.setStartingTime(new Date("Mon May 04 07:51:52 CDT 2013"));
         info.setEndTime(new Date("Mon May 04 19:59:52 CDT 2013"));
         service.create(info);

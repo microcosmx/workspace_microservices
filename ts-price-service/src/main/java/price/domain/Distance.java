@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 @Document(collection="distance")
 public class Distance {
+    //station id,not name
     @Valid
     @NotNull
     private String placeA;

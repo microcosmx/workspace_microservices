@@ -19,38 +19,38 @@ public class InitData implements CommandLineRunner {
     public void run(String... args)throws Exception{
         CreateInfo info = new CreateInfo();
 
-        info.setPlaceA("ShangHai");
-        info.setPlaceB("BeiJing");
+        info.setPlaceA("shanghai");
+        info.setPlaceB("beijing");
         info.setDistance(100);
         service.create(info);
 
-        info.setPlaceA("ShangHai");
-        info.setPlaceB("TaiYuan");
+        info.setPlaceA("shanghai");
+        info.setPlaceB("taiyuan");
         info.setDistance(300);
         service.create(info);
 
-        info.setPlaceA("BeiJing");
-        info.setPlaceB("TaiYuan");
+        info.setPlaceA("beijing");
+        info.setPlaceB("taiyuan");
         info.setDistance(200);
         service.create(info);
 
-        info.setPlaceA("Nanjing");
-        info.setPlaceB("TaiYuan");
+        info.setPlaceA("nanjing");
+        info.setPlaceB("taiyuan");
         info.setDistance(50);
         service.create(info);
 
-        info.setPlaceA("Nanjing");
-        info.setPlaceB("ShangHai");
+        info.setPlaceA("nanjing");
+        info.setPlaceB("shanghai");
         info.setDistance(50);
         service.create(info);
 
-        info.setPlaceA("Nanjing");
-        info.setPlaceB("ShangHaiHongQiao");
+        info.setPlaceA("nanjing");
+        info.setPlaceB("shanghaihongqiao");
         info.setDistance(50);
         service.create(info);
 
-        info.setPlaceA("BeiJing");
-        info.setPlaceB("ShangHaiHongQiao");
+        info.setPlaceA("beijing");
+        info.setPlaceB("shanghaihongqiao");
         info.setDistance(100);
         service.create(info);
     }

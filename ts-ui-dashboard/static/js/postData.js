@@ -342,28 +342,28 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
 });
 
 //------For Station------------
-//------For Station create------------
-document.getElementById("station_create_button").onclick = function post_station_create(){
+//------For Station update------------
+$("#station_update_button").click(function(){
     var stationInfo = new Object();
-    stationInfo.name = $("#station_create_name").val();
+    stationInfo.id = $("#station_update_id").val();
+    stationInfo.name = $("#station_update_name").val();
     var data = JSON.stringify(stationInfo);
     $.ajax({
         type: "post",
-        url: "/station/create",
+        url: "/station/update",
         contentType: "application/json",
         dataType: "json",
         data:data,
         xhrFields: {
             withCredentials: true
         },
-        success: function(result){
-            $("#station_result").html(JSON.stringify(result));
-        }
     });
-}
+});
 
-//------For Station exist------------
-document.getElementById("station_query_button").onclick = function post_station_query(){
+
+
+//------For Station query------------
+$("#station_query_button").click(function(){
     $.ajax({
         type: "get",
         url: "/station/query",
@@ -373,10 +373,21 @@ document.getElementById("station_query_button").onclick = function post_station_
             withCredentials: true
         },
         success: function(result){
-            $("#station_result").html(JSON.stringify(result));
+            var size = result.length;
+            $("#query_station_list_table").find("tbody").html("");
+            for(var i = 0;i < size;i++){
+                $("#query_station_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + result[i]["id"]     + "</td>" +
+                    "<td>" + result[i]["name"]     + "</td>" +
+                    "</tr>"
+                );
+            }
         }
     });
-}
+});
+
+
 
 //------For Station delete------------
 // document.getElementById("station_delete_button").onclick = function post_station_delete(){
@@ -639,9 +650,9 @@ $("#travel_queryAll_button").click(function(){
                     "<tr>" +
                     "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
                     "<td>" + result[i]["trainTypeId"]     + "</td>" +
-                    "<td>" + result[i]["startingStation"]     + "</td>" +
-                    "<td>" + result[i]["stations"]     + "</td>" +
-                    "<td>" + result[i]["terminalStation"]     + "</td>" +
+                    "<td>" + result[i]["startingStationId"]     + "</td>" +
+                    "<td>" + result[i]["stationsId"]     + "</td>" +
+                    "<td>" + result[i]["terminalStationId"]     + "</td>" +
                     "<td>" + convertNumberToTimeString(result[i]["startingTime"]) + "</td>" +
                     "<td>" + convertNumberToTimeString(result[i]["endTime"]) + "</td>" +
                     "</tr>"
@@ -669,9 +680,9 @@ $("#travel2_queryAll_button").click(function(){
                     "<tr>" +
                     "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
                     "<td>" + result[i]["trainTypeId"]     + "</td>" +
-                    "<td>" + result[i]["startingStation"]     + "</td>" +
-                    "<td>" + result[i]["stations"]     + "</td>" +
-                    "<td>" + result[i]["terminalStation"]     + "</td>" +
+                    "<td>" + result[i]["startingStationId"]     + "</td>" +
+                    "<td>" + result[i]["stationsId"]     + "</td>" +
+                    "<td>" + result[i]["terminalStationId"]     + "</td>" +
                     "<td>" + convertNumberToTimeString(result[i]["startingTime"]) + "</td>" +
                     "<td>" + convertNumberToTimeString(result[i]["endTime"]) + "</td>" +
                     "</tr>"
@@ -688,9 +699,9 @@ $("#travel_update_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#travel_update_tripId").val();
     travelInfo.trainTypeId = $("#travel_update_trainTypeId").val();
-    travelInfo.startingStation =  $("#travel_update_startingStation").val();
-    travelInfo.stations = $("#travel_update_stations").val();
-    travelInfo.terminalStation = $("#travel_update_terminalStation").val();
+    travelInfo.startingStationId =  $("#travel_update_startingStationId").val();
+    travelInfo.stationsId = $("#travel_update_stationsId").val();
+    travelInfo.terminalStationId = $("#travel_update_terminalStationId").val();
     travelInfo.startingTime = convertStringToTime($("#travel_update_startingTime").val());
     travelInfo.endTime = convertStringToTime($("#travel_update_endTime").val());
     var data = JSON.stringify(travelInfo);
@@ -713,9 +724,9 @@ $("#travel2_update_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#travel2_update_tripId").val();
     travelInfo.trainTypeId = $("#travel2_update_trainTypeId").val();
-    travelInfo.startingStation =  $("#travel2_update_startingStation").val();
-    travelInfo.stations = $("#travel2_update_stations").val();
-    travelInfo.terminalStation = $("#travel2_update_terminalStation").val();
+    travelInfo.startingStationId =  $("#travel2_update_startingStationId").val();
+    travelInfo.stationsId = $("#travel2_update_stationsId").val();
+    travelInfo.terminalStationId = $("#travel2_update_terminalStationId").val();
     travelInfo.startingTime = convertStringToTime($("#travel2_update_startingTime").val());
     travelInfo.endTime = convertStringToTime($("#travel2_update_endTime").val());
     var data = JSON.stringify(travelInfo);
@@ -764,6 +775,9 @@ $("#travel_booking_button").click(function(){
     travelQueryInfo.departureTime= $("#travel_booking_date").val();
     var travelQueryData = JSON.stringify(travelQueryInfo);
     var train_type = $("#search_select_train_type").val();
+    var i = 0;
+    $("#tickets_booking_list_table").find("tbody").html("");
+
     if(train_type == 0){
         $.ajax({
             type: "post",
@@ -775,21 +789,20 @@ $("#travel_booking_button").click(function(){
                 withCredentials: true
             },
             success: function(result){
-                $("#tickets_booking_list_table").find("tbody").html("");
                 if(result[0] != null){
                     var obj = result;
-                    for(var i = 0,l = obj.length ; i < l ; i++){
+                    for(var j=0,l = obj.length;j < l ; i++,j++){
                         $("#tickets_booking_list_table").find("tbody").append(
                             "<tr>" +
                             "<td>" + i + "</td>" +
-                            "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
-                            "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                            "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td class='booking_tripId'>" + obj[j]["tripId"]["type"] + obj[j]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[j]["trainTypeId"] +  "</td>" +
+                            "<td class='booking_from'>" + obj[j]["startingStation"]                             + "</td>" +
+                            "<td class='booking_to'>" + obj[j]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["endTime"])          + "</td>" +
+                            "<td>" + obj[j]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[j]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
                             "<option value='2'>1st Class Seat</option>" +
@@ -816,18 +829,18 @@ $("#travel_booking_button").click(function(){
             success: function(result){
                 if(result[0] != null){
                     var obj = result;
-                    for(var i = 0,l = obj.length ; i < l ; i++){
+                    for(var j=0, l = obj.length ; j < l ;j++, i++){
                         $("#tickets_booking_list_table").find("tbody").append(
                             "<tr>" +
                             "<td>" + i + "</td>" +
-                            "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                            "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
-                            "<td class='booking_from'>" + obj[i]["startingStation"]                             + "</td>" +
-                            "<td class='booking_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
-                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
-                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
-                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td class='booking_tripId'>" + obj[j]["tripId"]["type"] + obj[j]["tripId"]["number"] + "</td>" +
+                            "<td class='booking_trainTypeId'>" + obj[j]["trainTypeId"] +  "</td>" +
+                            "<td class='booking_from'>" + obj[j]["startingStation"]                             + "</td>" +
+                            "<td class='booking_to'>" + obj[j]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["endTime"])          + "</td>" +
+                            "<td>" + obj[j]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[j]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
                             "<option value='2'>1st Class Seat</option>" +
