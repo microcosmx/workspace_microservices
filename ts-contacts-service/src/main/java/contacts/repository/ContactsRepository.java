@@ -15,7 +15,8 @@ public interface ContactsRepository extends MongoRepository<Contacts, String> {
     @Query("{ 'accountId' : ?0 }")
     ArrayList<Contacts> findByAccountId(UUID accountId);
 
-    //@Query(value="{ 'id' : ?0 }", delete = true)
     void deleteById(UUID id);
+
+    ArrayList<Contacts> findAll();
 
 }

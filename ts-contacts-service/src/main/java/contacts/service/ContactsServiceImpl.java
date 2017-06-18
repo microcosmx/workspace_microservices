@@ -76,8 +76,8 @@ public class ContactsServiceImpl implements ContactsService{
     }
 
     @Override
-    public ModifyContactsResult saveChanges(Contacts contacts){
-        Contacts oldContacts = findContactsById(contacts.getId());
+    public ModifyContactsResult modify(ModifyContactsInfo info){
+        Contacts oldContacts = findContactsById(UUID.fromString(info.getContactsId()));
         ModifyContactsResult mcr = new ModifyContactsResult();
         if(oldContacts == null){
             System.out.println("[Contacts-Modify-Service][ModifyContacts] Fail.Contacts not found.");
@@ -85,17 +85,27 @@ public class ContactsServiceImpl implements ContactsService{
             mcr.setMessage("Contacts not found");
             mcr.setContacts(null);
         }else{
-            oldContacts.setName(contacts.getName());
-            oldContacts.setDocumentType(contacts.getDocumentType());
-            oldContacts.setDocumentNumber(contacts.getDocumentNumber());
-            oldContacts.setPhoneNumber(contacts.getPhoneNumber());
+            oldContacts.setName(info.getName());
+            oldContacts.setDocumentType(info.getDocumentType());
+            oldContacts.setDocumentNumber(info.getDocumentNumber());
+            oldContacts.setPhoneNumber(info.getPhoneNumber());
             contactsRepository.save(oldContacts);
             System.out.println("[Contacts-Modify-Service][ModifyContacts] Success.");
             mcr.setStatus(true);
             mcr.setMessage("Success");
-            mcr.setContacts(contacts);
+            mcr.setContacts(oldContacts);
         }
         return mcr;
+    }
+
+    @Override
+    public GetAllContactsResult getAllContacts(){
+        ArrayList<Contacts> contacts = contactsRepository.findAll();
+        GetAllContactsResult result = new GetAllContactsResult();
+        result.setStatus(true);
+        result.setMessage("Success");
+        result.setContacts(contacts);
+        return result;
     }
 
 }

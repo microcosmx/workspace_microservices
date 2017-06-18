@@ -19,6 +19,26 @@ public class AccountSsoController {
         return "Welcome to [ Accounts SSO Service ] !";
     }
 
+    /***************For super admin(Single Service Test*******************/
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/findAll", method = RequestMethod.GET)
+    public FindAllAccountResult findAllAccount(){
+        return ssoService.findAllAccount();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/findAllLogin", method = RequestMethod.GET)
+    public GetLoginAccountList findAllLoginAccount(){
+        return ssoService.findAllLoginAccount();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/modify", method = RequestMethod.POST)
+    public ModifyAccountResult modifyAccount(@RequestBody ModifyAccountInfo modifyAccountInfo){
+        return ssoService.saveChanges(modifyAccountInfo);
+    }
+
+    /***************************For Normal Use***************************/
     @RequestMapping(path = "/account/register", method = RequestMethod.POST)
     public RegisterResult createNewAccount(@RequestBody RegisterInfo ri){
         return ssoService.create(ri);
@@ -58,24 +78,6 @@ public class AccountSsoController {
     @RequestMapping(path = "/verifyLoginToken/{token}", method = RequestMethod.GET)
     public VerifyResult verifyLoginToken(@PathVariable String token){
         return ssoService.verifyLoginToken(token);
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/account/findAll", method = RequestMethod.GET)
-    public FindAllAccountResult findAllAccount(){
-        return ssoService.findAllAccount();
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/account/findAllLogin", method = RequestMethod.GET)
-    public GetLoginAccountList findAllLoginAccount(){
-        return ssoService.findAllLoginAccount();
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/account/modify", method = RequestMethod.POST)
-    public ModifyAccountResult modifyAccount(@RequestBody ModifyAccountInfo modifyAccountInfo){
-        return ssoService.saveChanges(modifyAccountInfo);
     }
 
     public PutLoginResult loginPutToken(@PathVariable String loginId){
