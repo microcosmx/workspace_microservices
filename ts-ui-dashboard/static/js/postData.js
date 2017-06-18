@@ -69,7 +69,6 @@ function addListenerToSsoAccountTable(){
             modifyInfo.accountId = $(this).parents("tr").find(".sso_account_id").text();
             modifyInfo.newEmail = $(this).parents("tr").find(".sso_account_phoneNum").val();
             var data = JSON.stringify(modifyInfo);
-            alert("data:" + data);
             $.ajax({
                 type: "post",
                 url: "/account/modify",
@@ -178,6 +177,101 @@ document.getElementById("logout_button").onclick = function post_logout(){
         }
     });
 }
+
+/********************************************************************/
+/********************Function For Security Service**********************/
+
+function refresh_security_config() {
+    $.ajax({
+        type: "get",
+        url: "/securityConfig/findAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#security_config_list_table").find("tbody").html("");
+            var obj = result["result"];
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#security_config_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td class='noshow_component list_security_config_id'>" + obj[i]["id"] + "</td>" +
+                    "<td class='list_security_config_name'>" + obj[i]["name"] + "</td>" +
+                    "<td ><input class='list_security_config_id_value form-control' value='" + obj[i]["value"] + "'></td>" +
+                    "<td ><input class='list_security_config_id_description form-control' value='" + obj[i]["description"] + "'></td>" +
+                    "<td>" + "<button class='security_config_update_btn btn btn-primary'>Update</button>" + "<button class='security_config_delete btn btn-primary'>Delete</button>" + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToAllSecurityConfigTable();
+        }
+    });
+}
+
+$("#refresh_security_config_button").click(function() {
+    refresh_security_config();
+});
+
+function addListenerToAllSecurityConfigTable(){
+    var allSecurityConfigUpdateBtnSet = $(".security_config_update_btn");
+    for(var i = 0;i < allSecurityConfigUpdateBtnSet.length;i++){
+        allSecurityConfigUpdateBtnSet[i].onclick = function(){
+            var modifyInfo = new Object();
+            modifyInfo.id = $(this).parents("tr").find(".list_security_config_id").text();
+            modifyInfo.name = $(this).parents("tr").find(".list_security_config_name").text();
+            modifyInfo.value = $(this).parents("tr").find(".list_security_config_id_value").val();
+            modifyInfo.description = $(this).parents("tr").find(".list_security_config_id_description").val();
+            var data = JSON.stringify(modifyInfo);
+            $.ajax({
+                type: "post",
+                url: "/securityConfig/update",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        alert("Success.");
+                        refresh_security_config();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+    var allSecurityConfigDeleteBtnSet = $(".security_config_delete");
+    for(var i = 0;i < allSecurityConfigDeleteBtnSet.length;i++){
+        allSecurityConfigDeleteBtnSet[i].onclick = function(){
+            var deleteInfo = new Object();
+            deleteInfo.id = $(this).parents("tr").find(".list_security_config_id").text();
+            var data = JSON.stringify(deleteInfo);
+            $.ajax({
+                type: "post",
+                url: "/securityConfig/delete",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        alert("Success.");
+                        refresh_security_config();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+}
+
 
 /********************************************************************/
 /********************Function For Login Service**********************/
@@ -317,7 +411,6 @@ function addListenerToAllContactsTable(){
             modifyInfo.phoneNumber = $(this).parents("tr").find(".all_contacts_phoneNum").val();
             modifyInfo.loginToken = "NotNeed";
             var data = JSON.stringify(modifyInfo);
-            alert("data:" + data);
             $.ajax({
                 type: "post",
                 url: "/contacts/modifyContacts",
@@ -345,7 +438,6 @@ function addListenerToAllContactsTable(){
             deleteInfo.contactsId = $(this).parents("tr").find(".all_contacts_id").text();
             deleteInfo.loginToken = "NotNeed";
             var data = JSON.stringify(deleteInfo);
-            alert("data:" + data);
             $.ajax({
                 type: "post",
                 url: "/contacts/deleteContacts",

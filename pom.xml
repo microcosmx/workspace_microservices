@@ -26,7 +26,8 @@
 		<module>ts-basic-service</module>
 		<module>ts-ticketinfo-service</module>
 		<module>ts-price-service</module>
-		<module>ts-notification-service</module>
+		<!--<module>ts-notification-service</module>-->
+		<module>ts-security-service</module>
 
 	</modules>
 

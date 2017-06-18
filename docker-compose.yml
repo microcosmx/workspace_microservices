@@ -151,3 +151,12 @@ services:
 #        ports:
 #          - 17853:17853
 
+  ts-security-service:
+        build: ts-security-service
+        image: ts/ts-security-service
+        restart: always
+        ports:
+          - 11188:11188
+
+  ts-security-mongo:
+        image: mongo
