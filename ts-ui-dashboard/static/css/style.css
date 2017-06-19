@@ -20,6 +20,10 @@
     display:none;
 }
 
+.noshow_component {
+    display: none;
+}
+
 #order_change_panel {
     margin-left:200px;
     top:100px;

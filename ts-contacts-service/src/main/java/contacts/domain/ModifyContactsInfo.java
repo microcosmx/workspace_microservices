@@ -2,9 +2,62 @@ package contacts.domain;
 
 public class ModifyContactsInfo {
 
+    private String contactsId;
+
+    private String name;
+
+    private int documentType;
+
+    private String documentNumber;
+
+    private String phoneNumber;
+
+    /***If you use as Single Service test,you do not need this var, just let it null***/
     private String loginToken;
 
-    private Contacts contacts;
+    public ModifyContactsInfo() {
+        //Default Constructor
+    }
+
+    public String getContactsId() {
+        return contactsId;
+    }
+
+    public void setContactsId(String contactsId) {
+        this.contactsId = contactsId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(int documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getLoginToken() {
         return loginToken;
@@ -14,11 +67,6 @@ public class ModifyContactsInfo {
         this.loginToken = loginToken;
     }
 
-    public Contacts getContacts() {
-        return contacts;
-    }
 
-    public void setContacts(Contacts contacts) {
-        this.contacts = contacts;
-    }
+
 }

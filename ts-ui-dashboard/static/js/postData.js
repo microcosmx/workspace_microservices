@@ -28,9 +28,253 @@ $("#flow_three_page").click(function(){
     $("#flow_three").css('display','block');
 });
 
-/*---------------------Add By Ji Chao for ajax--------------------*/
-//----For Login------
+/********************************************************************/
+/********************Function For SSO Service************************/
+$("#refresh_account_button").click(function() {
+    refresh_account();
+});
 
+function refresh_account() {
+    $.ajax({
+        type: "get",
+        url: "/account/findAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#account_list_table").find("tbody").html("");
+            var obj = result["accountArrayList"];
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#account_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td class='sso_account_id'>" + obj[i]["id"] + "</td>" +
+                    "<td ><input class='sso_account_phoneNum form-control' value='" + obj[i]["phoneNum"] + "'></td>" +
+                    "<td>" + "<button class='account_update_btn btn btn-primary'>Update</button>" + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToSsoAccountTable();
+        }
+    });
+}
+
+function addListenerToSsoAccountTable(){
+    var accountUpdateBtnSet = $(".account_update_btn");
+    for(var i = 0;i < accountUpdateBtnSet .length;i++){
+        accountUpdateBtnSet[i].onclick = function(){
+            var modifyInfo = new Object();
+            modifyInfo.accountId = $(this).parents("tr").find(".sso_account_id").text();
+            modifyInfo.newEmail = $(this).parents("tr").find(".sso_account_phoneNum").val();
+            var data = JSON.stringify(modifyInfo);
+            $.ajax({
+                type: "post",
+                url: "/account/modify",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        //alert("Success.");
+                        refresh_account();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+}
+
+$("#refresh_login_account_button").click(function() {
+    refresh_login_account();
+});
+
+function refresh_login_account() {
+    $.ajax({
+        type: "get",
+        url: "/account/findAllLogin",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#login_account_list_table").find("tbody").html("");
+            var obj = result["loginAccountList"];
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#login_account_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td class='account_kick_id'>" + obj[i]["accountId"] + "</td>" +
+                    "<td class='account_kick_token'>" + obj[i]["loginToken"] + "</td>" +
+                    "<td>" +  "<button class='account_kick_off_btn btn btn-primary'>Kick Off</button>" + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToSsoLoginAccountTable();
+        }
+    });
+}
+
+function addListenerToSsoLoginAccountTable(){
+    var accountKickOffBtnSet = $(".account_kick_off_btn");
+    for(var i = 0;i < accountKickOffBtnSet.length;i++){
+        accountKickOffBtnSet[i].onclick = function(){
+            var logoutInfo = new Object();
+            logoutInfo.id = $(this).parents("tr").find(".account_kick_id").text();
+            logoutInfo.token = $(this).parents("tr").find(".account_kick_token").text();
+            var data = JSON.stringify(logoutInfo);
+            $.ajax({
+                type: "post",
+                url: "/logout",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        //alert("Success.");
+                        refresh_login_account();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+}
+
+document.getElementById("logout_button").onclick = function post_logout(){
+    var logoutInfo = new Object();
+    logoutInfo.id = $("#user_login_id").html();
+    logoutInfo.token = $("#user_login_token").html();
+    var data = JSON.stringify(logoutInfo);
+    $.ajax({
+        type: "post",
+        url: "/logout",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            if(result["status"] == true){
+                $("#user_login_id").html("Not Login");
+                $("#user_login_token").html("Please Login");
+            }else if(result["message"] == "Not Login"){
+                $("#user_login_id").html("Not Login");
+                $("#user_login_token").html("Please Login");
+            }
+        }
+    });
+}
+
+/********************************************************************/
+/********************Function For Security Service**********************/
+
+function refresh_security_config() {
+    $.ajax({
+        type: "get",
+        url: "/securityConfig/findAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#security_config_list_table").find("tbody").html("");
+            var obj = result["result"];
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#security_config_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td class='noshow_component list_security_config_id'>" + obj[i]["id"] + "</td>" +
+                    "<td class='list_security_config_name'>" + obj[i]["name"] + "</td>" +
+                    "<td ><input class='list_security_config_id_value form-control' value='" + obj[i]["value"] + "'></td>" +
+                    "<td ><input class='list_security_config_id_description form-control' value='" + obj[i]["description"] + "'></td>" +
+                    "<td>" + "<button class='security_config_update_btn btn btn-primary'>Update</button>" + "<button class='security_config_delete btn btn-primary'>Delete</button>" + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToAllSecurityConfigTable();
+        }
+    });
+}
+
+$("#refresh_security_config_button").click(function() {
+    refresh_security_config();
+});
+
+function addListenerToAllSecurityConfigTable(){
+    var allSecurityConfigUpdateBtnSet = $(".security_config_update_btn");
+    for(var i = 0;i < allSecurityConfigUpdateBtnSet.length;i++){
+        allSecurityConfigUpdateBtnSet[i].onclick = function(){
+            var modifyInfo = new Object();
+            modifyInfo.id = $(this).parents("tr").find(".list_security_config_id").text();
+            modifyInfo.name = $(this).parents("tr").find(".list_security_config_name").text();
+            modifyInfo.value = $(this).parents("tr").find(".list_security_config_id_value").val();
+            modifyInfo.description = $(this).parents("tr").find(".list_security_config_id_description").val();
+            var data = JSON.stringify(modifyInfo);
+            $.ajax({
+                type: "post",
+                url: "/securityConfig/update",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        alert("Success.");
+                        refresh_security_config();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+    var allSecurityConfigDeleteBtnSet = $(".security_config_delete");
+    for(var i = 0;i < allSecurityConfigDeleteBtnSet.length;i++){
+        allSecurityConfigDeleteBtnSet[i].onclick = function(){
+            var deleteInfo = new Object();
+            deleteInfo.id = $(this).parents("tr").find(".list_security_config_id").text();
+            var data = JSON.stringify(deleteInfo);
+            $.ajax({
+                type: "post",
+                url: "/securityConfig/delete",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        alert("Success.");
+                        refresh_security_config();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+}
+
+
+/********************************************************************/
+/********************Function For Login Service**********************/
 document.getElementById("login_button").onclick = function post_login(){
     var loginInfo = new Object();
     loginInfo.phoneNum = $("#login_phoneNum").val();
@@ -61,31 +305,8 @@ document.getElementById("login_button").onclick = function post_login(){
     });
 }
 
-//------For Logout-------
-document.getElementById("logout_button").onclick = function post_logout(){
-    var logoutInfo = new Object();
-    logoutInfo.id = $("#user_login_id").html();
-    logoutInfo.token = $("#user_login_token").html();
-    var data = JSON.stringify(logoutInfo);
-    $.ajax({
-        type: "post",
-        url: "/logout",
-        contentType: "application/json",
-        dataType: "json",
-        data:data,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            if(result["status"] == true){
-                $("#user_login_id").html("Not Login");
-                $("#user_login_token").html("Please Login");
-            }
-        }
-    });
-}
-
-//------For Register------
+/********************************************************************/
+/********************Function For Register Service*******************/
 document.getElementById("register_button").onclick = function post_register(){
     var registerInfo = new Object();
     registerInfo.password = $("#register_password").val();
@@ -114,8 +335,8 @@ document.getElementById("register_button").onclick = function post_register(){
     });
 }
 
-//------For contacts----------
-//------For add contacts------
+/********************************************************************/
+/********************Function For Contacts Service*******************/
 document.getElementById("add_contacts_button").onclick = function post_add_contacts(){
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#add_contacts_name").val();
@@ -143,42 +364,131 @@ document.getElementById("add_contacts_button").onclick = function post_add_conta
     });
 }
 
+$("#refresh_contacts_button").click(function () {
+    refresh_contacts();
+});
 
-//For query contacts
-$("#refresh_contacts_button").click(function refresh_contacts(){
-    var queryContactsInfo = new Object();
-    queryContactsInfo.accountId = $("#user_login_id").html();
-    queryContactsInfo.loginToken = $("#user_login_token").html();
-    var data = JSON.stringify(queryContactsInfo);
+function refresh_contacts(){
     $.ajax({
-        type: "post",
-        url: "/contacts/findContacts",
+        type: "get",
+        url: "/contacts/findAll",
         contentType: "application/json",
         dataType: "json",
-        data:data,
         xhrFields: {
             withCredentials: true
         },
         success: function(result){
-            var obj = result;
+            var obj = result["contacts"];
             $("#contacts_list_table").find("tbody").html("");
             for(var i = 0,l = obj.length ; i < l ; i++){
                 $("#contacts_list_table").find("tbody").append(
                     "<tr>" +
                     "<td>" + i                                                    + "</td>" +
-                    "<td>" + obj[i]["name"]                                       + "</td>" +
-                    "<td>" + convertNumberToDocumentType(obj[i]["documentType"]) + "</td>" +
-                    "<td>" + obj[i]["documentNumber"]                             + "</td>" +
-                    "<td>" + obj[i]["phoneNumber"]                                + "</td>" +
-                    "<td>" +  "<button class=\"btn btn-primary\">Delete</button>" + "</td>" +
+                    "<td class='all_contacts_id noshow_component'>" + obj[i]["id"]                + "</td>" +
+                    "<td>" + obj[i]["accountId"]                                  + "</td>" +
+                    "<td ><input class='all_contacts_name form-control' value='" + obj[i]["name"] + "'></td>" +
+                    "<td>" + convertNumberToHtmlDocumentType(obj[i]["documentType"])  + "</td>" +
+                    "<td ><input class='all_contacts_documentNum form-control' value='" + obj[i]["documentNumber"] + "'></td>" +
+                    "<td ><input class='all_contacts_phoneNum form-control' value='" + obj[i]["phoneNumber"] + "'></td>" +
+                    "<td>" +  "<button class='all_contacts_update btn btn-primary'>Update</button>" + "<button class='all_contacts_delete btn btn-primary'>Delete</button>" + "</td>" +
                     "</tr>"
                 );
             }
+            addListenerToAllContactsTable();
         }
     });
-});
+}
 
-//Reserve Tickets
+function addListenerToAllContactsTable(){
+    var allContactsUpdateBtnSet = $(".all_contacts_update");
+    for(var i = 0;i < allContactsUpdateBtnSet.length;i++){
+        allContactsUpdateBtnSet[i].onclick = function(){
+            var modifyInfo = new Object();
+            modifyInfo.contactsId = $(this).parents("tr").find(".all_contacts_id").text();
+            modifyInfo.documentNumber = $(this).parents("tr").find(".all_contacts_documentNum").val();
+            modifyInfo.name = $(this).parents("tr").find(".all_contacts_name").val();
+            modifyInfo.documentType = $(this).parents("tr").find(".all_contacts_documentType").val();;
+            modifyInfo.phoneNumber = $(this).parents("tr").find(".all_contacts_phoneNum").val();
+            modifyInfo.loginToken = "NotNeed";
+            var data = JSON.stringify(modifyInfo);
+            $.ajax({
+                type: "post",
+                url: "/contacts/modifyContacts",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        alert("Success.");
+                        refresh_contacts();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+    var allContactsDeleteBtnSet = $(".all_contacts_delete");
+    for(var i = 0;i < allContactsDeleteBtnSet.length;i++){
+        allContactsDeleteBtnSet[i].onclick = function(){
+            var deleteInfo = new Object();
+            deleteInfo.contactsId = $(this).parents("tr").find(".all_contacts_id").text();
+            deleteInfo.loginToken = "NotNeed";
+            var data = JSON.stringify(deleteInfo);
+            $.ajax({
+                type: "post",
+                url: "/contacts/deleteContacts",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        alert("Success.");
+                        refresh_contacts();
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+}
+
+function convertNumberToHtmlDocumentType(number){
+    var result = "";
+    if(number == 1){
+        result =
+            "<select  class='all_contacts_documentType form-control' name='documentType'>" +
+            "<option value='1' selected = 'selected'>ID Card</option>" +
+            "<option value='2'>Passport</option>" +
+            "<option value='3'>Other</option>" +
+            "</select>";
+    }else if(number == 2){
+        result =
+            "<select class='all_contacts_documentType form-control' name='documentType'>" +
+            "<option value='1'>ID Card</option>" +
+            "<option value='2' selected = 'selected'>Passport</option>" +
+            "<option value='3'>Other</option>" +
+            "</select>";
+    }else{
+        result =
+            "<select  class='all_contacts_documentType form-control' name='documentType'>" +
+            "<option value='1'>ID Card</option>" +
+            "<option value='2'>Passport</option>" +
+            "<option value='3' selected = 'selected'>Other</option>" +
+            "</select>";
+    }
+    return result;
+}
+
+/********************************************************************/
+/********************Function For Reserve Service********************/
 $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
     var queryContactsInfo = new Object();
     queryContactsInfo.accountId = $("#user_login_id").html();
@@ -213,8 +523,8 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
     });
 });
 
-//------For Station------------
-//------For Station update------------
+/********************************************************************/
+/********************Function For Station Service********************/
 $("#station_update_button").click(function(){
     var stationInfo = new Object();
     stationInfo.id = $("#station_update_id").val();
@@ -232,9 +542,6 @@ $("#station_update_button").click(function(){
     });
 });
 
-
-
-//------For Station query------------
 $("#station_query_button").click(function(){
     $.ajax({
         type: "get",
@@ -638,11 +945,8 @@ $("#travel2_update_button").click(function(){
 //     });
 // });
 
-//------For Travel query------------
-
-
-
-
+/********************************************************************/
+/*******************Function For Travel Query************************/
 $("#travel_booking_button").click(function(){
     var travelQueryInfo = new Object();
     travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
@@ -818,9 +1122,8 @@ $("#travel_booking_button").click(function(){
     }
 });
 
-
-
-//-------------------For Orders------------------
+/********************************************************************/
+/*****************Function For Order Service*************************/
 
 $("#refresh_my_order_list_button").click(function(){
     var myOrdersQueryInfo = new Object();
@@ -967,8 +1270,6 @@ $("#order_cancel_panel_confirm").click(function(){
     alert("You click order_cancel_panel_confirm");
 });
 
-
-
 function addListenerToBookingTable(){
     var ticketBookingButtonSet = $(".ticket_booking_button");
     for(var i = 0;i < ticketBookingButtonSet.length;i++){
@@ -1084,7 +1385,8 @@ function convertStringToTime(string){
 }
 
 
-//For price service
+/********************************************************************/
+/*****************Function For Price Service********************/
 $("#price_queryAll_button").click(function() {
     $.ajax({
         type: "get",
@@ -1134,8 +1436,8 @@ $("#price_update_button").click(function(){
    });
 });
 
-
-//basic information
+/********************************************************************/
+/*****************Function For Basic Information********************/
 $("#basic_information_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#basic_information_tripId").val();
@@ -1162,7 +1464,6 @@ $("#basic_information_button").click(function(){
         },
         success: function (result) {
             $("#query_basic_information_list_table").find("tbody").html("");
-
             $("#query_basic_information_list_table").find("tbody").append(
                 "<tr>" +
                 "<td>" + result["status"] + "</td>" +
@@ -1172,12 +1473,12 @@ $("#basic_information_button").click(function(){
                 "<td>" + result["trainType"]["confortClass"] + "</td>" +
                 "</tr>"
             );
-
         }
     });
 });
 
-//Ticket information
+/********************************************************************/
+/*****************Function For Ticket Information********************/
 $("#ticketinfo_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#ticketinfo_tripId").val();
@@ -1204,7 +1505,6 @@ $("#ticketinfo_button").click(function(){
         },
         success: function (result) {
             $("#query_ticketinfo_list_table").find("tbody").html("");
-
             $("#query_ticketinfo_list_table").find("tbody").append(
                 "<tr>" +
                 "<td>" + result["status"] + "</td>" +
@@ -1214,7 +1514,6 @@ $("#ticketinfo_button").click(function(){
                 "<td>" + result["trainType"]["confortClass"] + "</td>" +
                 "</tr>"
             );
-
         }
     });
 });

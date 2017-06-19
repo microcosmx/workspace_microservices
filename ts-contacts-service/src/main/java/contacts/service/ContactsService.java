@@ -16,6 +16,8 @@ public interface ContactsService {
 
     DeleteContactsResult delete(UUID contactsId);
 
-    ModifyContactsResult saveChanges(Contacts contacts);
+    ModifyContactsResult modify(ModifyContactsInfo info);
+
+    GetAllContactsResult getAllContacts();
 
 }

@@ -16,4 +16,10 @@ public interface AccountSsoService {
 
     VerifyResult verifyLoginToken(String verifyToken);
 
+    FindAllAccountResult findAllAccount();
+
+    GetLoginAccountList findAllLoginAccount();
+
+    ModifyAccountResult saveChanges(ModifyAccountInfo modifyAccountInfo);
+
 }
