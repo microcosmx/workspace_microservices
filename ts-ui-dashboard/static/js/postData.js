@@ -1219,3 +1219,19 @@ $("#ticketinfo_button").click(function(){
     });
 });
 
+//For Notification Service
+$("#notification_send_email_button").click(function(){
+    $.ajax({
+        type: "post",
+        url: "/notification/notify",
+        contentType: "application/json",
+        // data:data,
+        // dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#notification_result").html(result);
+        }
+    });
+});

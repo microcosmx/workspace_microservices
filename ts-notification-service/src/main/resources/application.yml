@@ -24,6 +24,6 @@ spring:
             enable: true
             required: true
 
-   velocity:
-      resource-loader-path: classpath:/templates/
-      charset: UTF-8
+#   velocity:
+#      resource-loader-path: classpath:/templates/
+#      charset: UTF-8
