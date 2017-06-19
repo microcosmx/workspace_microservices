@@ -5,6 +5,19 @@ https://localhost:16005/hello5?cal=50
 https://localhost:16001/hello1?cal=50
 
 
+endpoint actuator:
+https://localhost:16006/hello6?cal=60
+https://localhost:16006/health
+https://localhost:16006/info
+https://localhost:16006/beans
+https://localhost:16006/env
+https://localhost:16006/dump
+https://localhost:16006/mappings
+https://localhost:16006/trace
+https://localhost:16006/autoconfig
+https://localhost:16006/metrics
+
+
 mvn repo:
 https://repo1.maven.org/maven2/
 
