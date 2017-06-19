@@ -13,6 +13,8 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 
     Order findById(UUID id);
 
+    ArrayList<Order> findAll();
+
     @Query("{ 'accountId' : ?0 }")
     ArrayList<Order> findByAccountId(UUID accountId);
 

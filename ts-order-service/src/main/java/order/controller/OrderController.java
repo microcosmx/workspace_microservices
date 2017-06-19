@@ -82,10 +82,10 @@ public class OrderController {
     public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
         VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
         if(tokenResult.isStatus() == true){
-            System.out.println("[OrderService][VerifyLogin] Success");
+            System.out.println("[Order Service][Verify Login] Success");
             return orderService.saveChanges(orderInfo.getOrder());
         }else{
-            System.out.println("[OrderService][VerifyLogin] Fail");
+            System.out.println("[Order Service][Verify Login] Fail");
             ChangeOrderResult cor = new ChangeOrderResult();
             cor.setStatus(false);
             cor.setMessage("Not Login");
@@ -111,9 +111,24 @@ public class OrderController {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/order/findAll", method = RequestMethod.GET)
+    public QueryOrderResult findAllOrder(){
+        System.out.println("[Order Service][Find All Order]");
+        return orderService.getAllOrders();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/order/modifyOrder", method = RequestMethod.POST)
+    public ModifyOrderResult modifyOrder(@RequestBody ModifyOrderInfo info){
+        System.out.println("[Order Service][Modify Order] Order Id:" + info.getOrderId());
+        return orderService.modifyOrder(info);
+    }
+
+
     private VerifyResult verifySsoLogin(String loginToken){
         restTemplate = new RestTemplate();
-        System.out.println("[OrderService][VerifyLogin] Verifying....");
+        System.out.println("[Order Service][Verify Login] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
                 "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,
                 VerifyResult.class);

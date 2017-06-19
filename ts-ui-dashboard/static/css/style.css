@@ -24,6 +24,12 @@
     display: none;
 }
 
+.alert_info {
+    display: inline;
+    width: 200px;
+    height:10px;
+}
+
 #order_change_panel {
     margin-left:200px;
     top:100px;

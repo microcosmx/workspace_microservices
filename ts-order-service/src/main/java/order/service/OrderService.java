@@ -20,4 +20,8 @@ public interface OrderService {
 
     CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti);
 
+    QueryOrderResult getAllOrders();
+
+    ModifyOrderResult modifyOrder(ModifyOrderInfo info);
+
 }
