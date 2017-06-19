@@ -144,12 +144,12 @@ services:
   ts-price-mongo:
         image: mongo
 
-#  ts-notification-service:
-#        build: ts-notification-service
-#        image: ts/ts-notification-service
-#        restart: always
-#        ports:
-#          - 17853:17853
+  ts-notification-service:
+        build: ts-notification-service
+        image: ts/ts-notification-service
+        restart: always
+        ports:
+          - 17853:17853
 
   ts-security-service:
         build: ts-security-service
