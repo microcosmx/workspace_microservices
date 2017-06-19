@@ -16,8 +16,18 @@ public class NotificationController {
     @Autowired
     NotificationService service;
 
-    @RequestMapping(value="/notification/notify", method = RequestMethod.POST)
-    public boolean notify(@RequestBody NotifyInfo info){
-        return service.notify(info);
+    @RequestMapping(value="/notification/preserve_success", method = RequestMethod.POST)
+    public boolean preserve_success(@RequestBody NotifyInfo info){
+        return service.preserve_success(info);
+    }
+
+    @RequestMapping(value="/notification/order_create_success", method = RequestMethod.POST)
+    public boolean order_create_success(@RequestBody NotifyInfo info){
+        return service.order_create_success(info);
+    }
+
+    @RequestMapping(value="/notification/order_changed_success", method = RequestMethod.POST)
+    public boolean order_changed_success(@RequestBody NotifyInfo info){
+        return service.order_changed_success(info);
     }
 }

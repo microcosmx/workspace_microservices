@@ -15,7 +15,7 @@ spring:
   mail:
     host: smtp.163.com
     username: fdse_microservices@163.com
-    password: fdsefdse
+    password: fdse1234
     properties:
       mail:
         smtp:
@@ -23,7 +23,9 @@ spring:
           starttls:
             enable: true
             required: true
+#  main:
+#    banner-mode: off
 
-#   velocity:
-#      resource-loader-path: classpath:/templates/
-#      charset: UTF-8
+#  velocity:
+#    resource-loader-path: classpath:/templates/
+#    check-template-location: true
