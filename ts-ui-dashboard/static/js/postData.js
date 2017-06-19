@@ -30,6 +30,7 @@ $("#flow_three_page").click(function(){
 
 /********************************************************************/
 /********************Function For SSO Service************************/
+
 $("#refresh_account_button").click(function() {
     refresh_account();
 });
@@ -57,6 +58,7 @@ function refresh_account() {
                 );
             }
             addListenerToSsoAccountTable();
+            alert("Success.");
         }
     });
 }
@@ -80,8 +82,8 @@ function addListenerToSsoAccountTable(){
                 },
                 success: function(result){
                     if(result["status"] == true){
-                        //alert("Success.");
                         refresh_account();
+                        alert("Success.");
                     }else{
                         alert(result["message"]);
                     }
@@ -118,6 +120,7 @@ function refresh_login_account() {
                 );
             }
             addListenerToSsoLoginAccountTable();
+            alert("Success.");
         }
     });
 }
@@ -141,8 +144,8 @@ function addListenerToSsoLoginAccountTable(){
                 },
                 success: function(result){
                     if(result["status"] == true){
-                        //alert("Success.");
                         refresh_login_account();
+                        alert("Success.");
                     }else{
                         alert(result["message"]);
                     }
@@ -206,6 +209,7 @@ function refresh_security_config() {
                 );
             }
             addListenerToAllSecurityConfigTable();
+            alert("Success.");
         }
     });
 }
@@ -235,8 +239,8 @@ function addListenerToAllSecurityConfigTable(){
                 },
                 success: function(result){
                     if(result["status"] == true){
-                        alert("Success.");
                         refresh_security_config();
+                        alert("Success.");
                     }else{
                         alert(result["message"]);
                     }
@@ -261,8 +265,8 @@ function addListenerToAllSecurityConfigTable(){
                 },
                 success: function(result){
                     if(result["status"] == true){
-                        alert("Success.");
                         refresh_security_config();
+                        alert("Success.");
                     }else{
                         alert(result["message"]);
                     }
@@ -272,9 +276,9 @@ function addListenerToAllSecurityConfigTable(){
     }
 }
 
-
 /********************************************************************/
 /********************Function For Login Service**********************/
+
 document.getElementById("login_button").onclick = function post_login(){
     var loginInfo = new Object();
     loginInfo.phoneNum = $("#login_phoneNum").val();
@@ -307,6 +311,7 @@ document.getElementById("login_button").onclick = function post_login(){
 
 /********************************************************************/
 /********************Function For Register Service*******************/
+
 document.getElementById("register_button").onclick = function post_register(){
     var registerInfo = new Object();
     registerInfo.password = $("#register_password").val();
@@ -337,6 +342,7 @@ document.getElementById("register_button").onclick = function post_register(){
 
 /********************************************************************/
 /********************Function For Contacts Service*******************/
+
 document.getElementById("add_contacts_button").onclick = function post_add_contacts(){
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#add_contacts_name").val();
@@ -395,6 +401,7 @@ function refresh_contacts(){
                 );
             }
             addListenerToAllContactsTable();
+            alert("Success.");
         }
     });
 }
@@ -422,8 +429,8 @@ function addListenerToAllContactsTable(){
                 },
                 success: function(result){
                     if(result["status"] == true){
-                        alert("Success.");
                         refresh_contacts();
+                        alert("Success.");
                     }else{
                         alert(result["message"]);
                     }
@@ -449,8 +456,8 @@ function addListenerToAllContactsTable(){
                 },
                 success: function(result){
                     if(result["status"] == true){
-                        alert("Success.");
                         refresh_contacts();
+                        alert("Success.");
                     }else{
                         alert(result["message"]);
                     }
@@ -488,7 +495,153 @@ function convertNumberToHtmlDocumentType(number){
 }
 
 /********************************************************************/
+/********************Function For Order Service*******************/
+
+$("#refresh_order_button").click(function(){
+    refresh_order();
+});
+
+function refresh_order(){
+    $.ajax({
+        type: "get",
+        url: "/order/findAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result["orders"];
+            $("#all_order_table").find("tbody").html("");
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#all_order_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i + "</td>" +
+                    "<td class='all_order_id noshow_component'>" + obj[i]["id"] + "</td>" +
+                    "<td>" + obj[i]["accountId"] + "</td>" +
+                    "<td>" + obj[i]["trainNumber"] + "</td>" +
+                    "<td>" + obj[i]["from"] + "</td>" +
+                    "<td>" + obj[i]["to"] + "</td>" +
+                    "<td>" + mergeTwoDate(obj[i]["travelDate"],obj[i]["travelTime"]) + "</td>" +
+                    "<td>" + convertNumberToHtmlOrderStatus(obj[i]["status"]) + "</td>" +
+                    "<td>" + "<button class='all_order_update btn btn-primary'>Update</button>" + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToAllOrderTable();
+            alert("Success.");
+        }
+    });
+}
+
+function addListenerToAllOrderTable(){
+    var allOrderUpdateBtnSet = $(".all_order_update");
+    for(var i = 0;i < allOrderUpdateBtnSet.length;i++){
+        allOrderUpdateBtnSet[i].onclick = function(){
+            var updateInfo = new Object();
+            updateInfo.orderId = $(this).parents("tr").find(".all_order_id").text();
+            updateInfo.status = $(this).parents("tr").find(".all_order_status").val();
+            var data = JSON.stringify(updateInfo);
+            $.ajax({
+                type: "post",
+                url: "/order/modifyOrder",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    if(result["status"] == true){
+                        refresh_order();
+                        alert("Success.");
+                    }else{
+                        alert(result["message"]);
+                    }
+                }
+            });
+        }
+    }
+}
+
+function convertNumberToOrderStatus(code){
+    var str = "";
+    if(code == 0){
+        str = "Not Paid";
+    }else if(code == 1){
+        str = "Paid & Not Collected";
+    }else if(code == 2){
+        str = "Collected";
+    }else if(code == 3){
+        str = "Cancel & Rebook";
+    }else if(code == 4){
+        str = "Cancel";
+    }else if(code == 5){
+        str = "Refunded";
+    }else{
+        str = "other";
+    }
+    return str;
+}
+
+function convertNumberToHtmlOrderStatus(number){
+    var result = "<select class='all_order_status form-control' name='documentType'>";
+    if(number == 0){
+        result +=
+            "<option selected='selected' value='0'>Not Paid</option>" +
+            "<option value='1'>Paid & Not Collected</option>" +
+            "<option value='2'>Collected</option>" +
+            "<option value='3'>Cancel & Rebook</option>" +
+            "<option value='4'>Cance</option>" +
+            "<option value='5'>Refunded</option>";
+    }else if(number == 1){
+        result +=
+            "<option value='0'>Not Paid</option>" +
+            "<option selected='selected' value='1'>Paid & Not Collected</option>" +
+            "<option value='2'>Collected</option>" +
+            "<option value='3'>Cancel & Rebook</option>" +
+            "<option value='4'>Cance</option>" +
+            "<option value='5'>Refunded</option>";
+    }else if(number == 2){
+        result +=
+            "<option value='0'>Not Paid</option>" +
+            "<option value='1'>Paid & Not Collected</option>" +
+            "<option selected='selected' value='2'>Collected</option>" +
+            "<option value='3'>Cancel & Rebook</option>" +
+            "<option value='4'>Cance</option>" +
+            "<option value='5'>Refunded</option>";
+    }else if(number == 3){
+        result +=
+            "<option value='0'>Not Paid</option>" +
+            "<option value='1'>Paid & Not Collected</option>" +
+            "<option value='2'>Collected</option>" +
+            "<option selected='selected' value='3'>Cancel & Rebook</option>" +
+            "<option value='4'>Cance</option>" +
+            "<option value='5'>Refunded</option>";
+    }else if(number == 4){
+        result +=
+            "<option value='0'>Not Paid</option>" +
+            "<option value='1'>Paid & Not Collected</option>" +
+            "<option value='2'>Collected</option>" +
+            "<option value='3'>Cancel & Rebook</option>" +
+            "<option selected='selected' value='4'>Cance</option>" +
+            "<option value='5'>Refunded</option>";
+    }else if(number == 5) {
+        result +=
+            "<option value='0'>Not Paid</option>" +
+            "<option value='1'>Paid & Not Collected</option>" +
+            "<option value='2'>Collected</option>" +
+            "<option value='3'>Cancel & Rebook</option>" +
+            "<option value='4'>Cance</option>" +
+            "<option selected='selected' value='5'>Refunded</option>";
+    }
+    result += "</select>";
+    return result;
+}
+
+/********************************************************************/
 /********************Function For Reserve Service********************/
+
 $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
     var queryContactsInfo = new Object();
     queryContactsInfo.accountId = $("#user_login_id").html();
@@ -525,6 +678,7 @@ $("#refresh_booking_contacts_button").click(function refresh_booking_contacts(){
 
 /********************************************************************/
 /********************Function For Station Service********************/
+
 $("#station_update_button").click(function(){
     var stationInfo = new Object();
     stationInfo.id = $("#station_update_id").val();
@@ -566,8 +720,6 @@ $("#station_query_button").click(function(){
     });
 });
 
-
-
 //------For Station delete------------
 // document.getElementById("station_delete_button").onclick = function post_station_delete(){
 //     var stationInfo = new Object();
@@ -587,7 +739,6 @@ $("#station_query_button").click(function(){
 //         }
 //     });
 // }
-
 
 //------For Train------------
 //------For Train create------------
@@ -1354,7 +1505,7 @@ function convertNumberToOrderStatus(code){
         str = "Cancel & Rebook";
     }else if(code == 4){
         str = "Cancel";
-    }else if(code == 1){
+    }else if(code == 5){
         str = "Refunded";
     }else{
         str = "other";
@@ -1371,6 +1522,18 @@ function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);
     var newStr = str.getHours() + ":" + str.getMinutes() + "";
     return newStr;
+}
+
+function mergeTwoDate(dateOne,dateTwo) {
+    var one = new Date(dateOne);
+    var two = new Date(dateTwo);
+    var year = one.getFullYear();
+    var month = one.getMonth();
+    var day = one.getDay();
+    var hour = two.getHours();
+    var minute = two.getMinutes();
+    var datetime = year + ":" + month + ":" + day + "  " + hour + ":" + minute;
+    return datetime;
 }
 
 function convertStringToTime(string){

@@ -1,6 +1,7 @@
 package order.service;
 
 import com.google.gson.Gson;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -223,5 +224,29 @@ public class OrderServiceImpl implements OrderService{
         return cstr;
     }
 
+    @Override
+    public QueryOrderResult getAllOrders(){
+        ArrayList<Order> orders = orderRepository.findAll();
+        QueryOrderResult result = new QueryOrderResult(true,"Success.",orders);
+        return result;
+    }
+
+    @Override
+    public ModifyOrderResult modifyOrder(ModifyOrderInfo info){
+        Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
+        ModifyOrderResult result = new ModifyOrderResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setOrder(null);
+        }else{
+            order.setStatus(info.getStatus());
+            orderRepository.save(order);
+            result.setStatus(true);
+            result.setMessage("Success");
+            result.setOrder(order);
+        }
+        return result;
+    }
 }
 
