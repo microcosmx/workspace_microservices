@@ -63,6 +63,17 @@ services:
     image: mongo
 
 
+  ts-order-other-service:
+    build: ts-order-other-service
+    image: ts/ts-order-other-service
+    restart: always
+    ports:
+      - 12032:12032
+
+  ts-order-other-mongo:
+    image: mongo
+
+
   ts-config-service:
     build: ts-config-service
     image: ts/ts-config-service
@@ -119,6 +130,14 @@ services:
     restart: always
     ports:
        - 14568:14568
+
+  ts-preserve-other-service:
+    build: ts-preserve-other-service
+    image: ts/ts-preserve-other-service
+    restart: always
+    ports:
+      - 14569:14569
+
 
   ts-basic-service:
       build: ts-basic-service

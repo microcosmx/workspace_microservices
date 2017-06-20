@@ -78,4 +78,10 @@ public class SecurityServiceImpl implements SecurityService{
         return result;
     }
 
+    @Override
+    public CheckResult check(CheckInfo info){
+        //1.前往订单服务获取自己的订单
+
+        return null;
+    }
 }

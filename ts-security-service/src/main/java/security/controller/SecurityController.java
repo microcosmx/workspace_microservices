@@ -43,4 +43,10 @@ public class SecurityController {
         System.out.println("[Security Service][Delete] Id:" + info.getId());
         return securityService.deleteSecurityConfig(info);
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/securityConfig/check", method = RequestMethod.POST)
+    public CheckResult check(@RequestBody CheckInfo info){
+        return null;
+    }
 }

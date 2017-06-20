@@ -155,7 +155,7 @@ function addListenerToSsoLoginAccountTable(){
     }
 }
 
-document.getElementById("logout_button").onclick = function post_logout(){
+$("#logout_button").click(function() {
     var logoutInfo = new Object();
     logoutInfo.id = $("#user_login_id").html();
     logoutInfo.token = $("#user_login_token").html();
@@ -179,10 +179,13 @@ document.getElementById("logout_button").onclick = function post_logout(){
             }
         }
     });
-}
+});
 
 /********************************************************************/
 /********************Function For Security Service**********************/
+$("#refresh_security_config_button").click(function() {
+    refresh_security_config();
+});
 
 function refresh_security_config() {
     $.ajax({
@@ -213,10 +216,6 @@ function refresh_security_config() {
         }
     });
 }
-
-$("#refresh_security_config_button").click(function() {
-    refresh_security_config();
-});
 
 function addListenerToAllSecurityConfigTable(){
     var allSecurityConfigUpdateBtnSet = $(".security_config_update_btn");
@@ -279,7 +278,7 @@ function addListenerToAllSecurityConfigTable(){
 /********************************************************************/
 /********************Function For Login Service**********************/
 
-document.getElementById("login_button").onclick = function post_login(){
+$("#login_button").click(function() {
     var loginInfo = new Object();
     loginInfo.phoneNum = $("#login_phoneNum").val();
     loginInfo.password = $("#login_password").val();
@@ -307,12 +306,12 @@ document.getElementById("login_button").onclick = function post_login(){
             $("#login_result_token").html(JSON.stringify(obj["token"]));
         }
     });
-}
+});
 
 /********************************************************************/
 /********************Function For Register Service*******************/
 
-document.getElementById("register_button").onclick = function post_register(){
+$("#register_button").click(function() {
     var registerInfo = new Object();
     registerInfo.password = $("#register_password").val();
     registerInfo.gender = $("#register_gender").val();
@@ -338,12 +337,12 @@ document.getElementById("register_button").onclick = function post_register(){
             $("#register_result_account").html(JSON.stringify(obj["account"]));
         }
     });
-}
+});
 
 /********************************************************************/
 /********************Function For Contacts Service*******************/
 
-document.getElementById("add_contacts_button").onclick = function post_add_contacts(){
+$("#add_contacts_button").click(function() {
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#add_contacts_name").val();
     addContactsInfo.documentType = $("#add_contacts_documentType").val();
@@ -368,7 +367,7 @@ document.getElementById("add_contacts_button").onclick = function post_add_conta
             $("#add_contacts_result_contacts").html(JSON.stringify(obj["contacts"]));
         }
     });
-}
+});
 
 $("#refresh_contacts_button").click(function () {
     refresh_contacts();
@@ -498,13 +497,27 @@ function convertNumberToHtmlDocumentType(number){
 /********************Function For Order Service*******************/
 
 $("#refresh_order_button").click(function(){
-    refresh_order();
+    var typeCheckBox = $(".order_type");
+    alert("type check box");
+    if(typeCheckBox[0].checked && typeCheckBox[1].checked){
+        $("#all_order_table").find("tbody").html("");
+        refresh_order("/order/findAll");
+        refresh_order("/orderOther/findAll");
+    }else if(typeCheckBox[0].checked && !typeCheckBox[1].checked){
+        $("#all_order_table").find("tbody").html("");
+        refresh_order("/order/findAll");
+    }else if(!typeCheckBox[0].checked && typeCheckBox[1].checked){
+        $("#all_order_table").find("tbody").html("");
+        refresh_order("/orderOther/findAll");
+    }else{
+        alert("Not Select The Order Type.");
+    }
 });
 
-function refresh_order(){
+function refresh_order(path){
     $.ajax({
         type: "get",
-        url: "/order/findAll",
+        url: path,
         contentType: "application/json",
         dataType: "json",
         xhrFields: {
@@ -512,14 +525,13 @@ function refresh_order(){
         },
         success: function(result){
             var obj = result["orders"];
-            $("#all_order_table").find("tbody").html("");
             for(var i = 0,l = obj.length ; i < l ; i++){
                 $("#all_order_table").find("tbody").append(
                     "<tr>" +
                     "<td>" + i + "</td>" +
                     "<td class='all_order_id noshow_component'>" + obj[i]["id"] + "</td>" +
                     "<td>" + obj[i]["accountId"] + "</td>" +
-                    "<td>" + obj[i]["trainNumber"] + "</td>" +
+                    "<td class='all_order_trainNum'>" + obj[i]["trainNumber"] + "</td>" +
                     "<td>" + obj[i]["from"] + "</td>" +
                     "<td>" + obj[i]["to"] + "</td>" +
                     "<td>" + mergeTwoDate(obj[i]["travelDate"],obj[i]["travelTime"]) + "</td>" +
@@ -542,9 +554,16 @@ function addListenerToAllOrderTable(){
             updateInfo.orderId = $(this).parents("tr").find(".all_order_id").text();
             updateInfo.status = $(this).parents("tr").find(".all_order_status").val();
             var data = JSON.stringify(updateInfo);
+            var path = "";
+            var tripType = $(this).parents("tr").find(".all_order_trainNum").text().charAt(0);
+            if(tripType == 'G' || tripType == 'D'){
+                path = "/order/modifyOrder";
+            }else{
+                path = "/orderOther/modifyOrder";
+            }
             $.ajax({
                 type: "post",
-                url: "/order/modifyOrder",
+                url: path,
                 contentType: "application/json",
                 dataType: "json",
                 data:data,
@@ -562,26 +581,6 @@ function addListenerToAllOrderTable(){
             });
         }
     }
-}
-
-function convertNumberToOrderStatus(code){
-    var str = "";
-    if(code == 0){
-        str = "Not Paid";
-    }else if(code == 1){
-        str = "Paid & Not Collected";
-    }else if(code == 2){
-        str = "Collected";
-    }else if(code == 3){
-        str = "Cancel & Rebook";
-    }else if(code == 4){
-        str = "Cancel";
-    }else if(code == 5){
-        str = "Refunded";
-    }else{
-        str = "other";
-    }
-    return str;
 }
 
 function convertNumberToHtmlOrderStatus(number){
@@ -763,7 +762,9 @@ $("#station_query_button").click(function(){
 //     });
 // }
 
-//------For Train update------------
+/********************************************************************/
+/********************Function For Train Service**********************/
+
 document.getElementById("train_update_button").onclick = function post_train_update(){
     var trainInfo = new Object();
     trainInfo.id = $("#train_update_id").val();
@@ -785,7 +786,6 @@ document.getElementById("train_update_button").onclick = function post_train_upd
     });
 }
 
-//------For Train query------------
 document.getElementById("train_query_button").onclick = function post_train_query(){
     // var trainInfo = new Object();
     // trainInfo.id = $("#train_query_id").val();
@@ -858,7 +858,10 @@ document.getElementById("train_query_button").onclick = function post_train_quer
 //     });
 // }
 
-//------For Config update------------
+
+/********************************************************************/
+/********************Function For Config Service*********************/
+
 document.getElementById("config_update_button").onclick = function post_config_update(){
     var configInfo = new Object();
     configInfo.name = $("#config_update_name").val();
@@ -928,8 +931,8 @@ document.getElementById("config_query_button").onclick = function post_config_qu
 // }
 
 
-//------For Travel------------
-//------For Trip create------------
+/********************************************************************/
+/********************Function For Travel Service**********************/
 
 // $("#travel_create_button").click(function(){
 //     var travelCreateInfo = new Object();
@@ -1024,7 +1027,6 @@ $("#travel2_queryAll_button").click(function(){
 });
 
 //------For Trip update------------
-
 $("#travel_update_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#travel_update_tripId").val();
@@ -1076,7 +1078,6 @@ $("#travel2_update_button").click(function(){
 });
 
 //------For Trip delete------------
-
 // $("#travel_delete_button").click(function(){
 //     var travelInfo = new Object();
 //     travelInfo.tripId = $("#travel_delete_tripId").val();
@@ -1288,7 +1289,6 @@ $("#refresh_my_order_list_button").click(function(){
     myOrdersQueryInfo.boughtDateStart = null;
     myOrdersQueryInfo.boughtDateEnd = null;
     var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
-    alert("ready to send:" + myOrdersQueryData);
     $.ajax({
         type: "post",
         url: "/order/query",
@@ -1449,10 +1449,15 @@ function addListenerToBookingTable(){
             orderTicketInfo.from = from;
             orderTicketInfo.to = to;
             var orderTicketsData = JSON.stringify(orderTicketInfo);
-            alert("Do Order Date:" + orderTicketsData);
+            var tripType = tripId.charAt(0);
+            if(tripType == 'G' || tripType == 'D'){
+                path = "/preserve";
+            }else{
+                path = "/preserveOther";
+            }
             $.ajax({
                 type: "post",
-                url: "/preserve",
+                url: path,
                 contentType: "application/json",
                 dataType: "json",
                 data: orderTicketsData,
@@ -1466,6 +1471,204 @@ function addListenerToBookingTable(){
         }
     }
 }
+
+/********************************************************************/
+/********************Function For Price Service**********************/
+
+$("#price_queryAll_button").click(function() {
+    $.ajax({
+        type: "get",
+        url: "/price/queryAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            var size = result.length;
+            $("#query_price_list_table").find("tbody").html("");
+            $("#price_result_talbe").css('height','200px');
+            for (var i = 0; i < size; i++) {
+                $("#query_price_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + result[i]["placeA"] + "</td>" +
+                    "<td>" + result[i]["placeB"] + "</td>" +
+                    "<td>" + result[i]["trainTypeId"] + "</td>" +
+                    "<td>" + result[i]["seatClass"] + "</td>" +
+                    "<td>" + result[i]["price"] + "</td>" +
+                    "</tr>"
+                );
+            }
+        }
+    });
+});
+
+$("#price_update_button").click(function(){
+    var priceUpdateInfo = new Object();
+    priceUpdateInfo.placeA = $("#price_update_startingPlace").val();
+    priceUpdateInfo.placeB = $("#price_update_endPlace").val();
+    priceUpdateInfo.distance = $("#price_update_distance").val();
+    var data = JSON.stringify(priceUpdateInfo);
+   $.ajax({
+       type: "post",
+       url: "/price/update",
+       contentType: "application/json",
+       data:data,
+       // dataType: "json",
+       xhrFields: {
+           withCredentials: true
+       },
+       success: function (result) {
+           // $("#price_result").html(result);
+       }
+   });
+});
+
+/********************************************************************/
+/*****************Function For Basic Information*********************/
+
+$("#basic_information_button").click(function(){
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#basic_information_tripId").val();
+    travelInfo.trainTypeId = $("#basic_information_trainTypeId").val();
+    travelInfo.startingStation =  $("#basic_information_startingStation").val();
+    travelInfo.stations = $("#basic_information_stations").val();
+    travelInfo.terminalStation = $("#basic_information_terminalStation").val();
+    travelInfo.startingTime = convertStringToTime($("#basic_information_startingTime").val());
+    travelInfo.endTime = convertStringToTime($("#basic_information_endTime").val());
+    var basicInfo = new Object();
+    basicInfo.trip = travelInfo;
+    basicInfo.startingPlace = $("#basic_information_startingPlace").val();
+    basicInfo.endPlace = $("#basic_information_endPlace").val();
+    basicInfo.departureTime = $("#basic_information_departureTime").val();
+    var data = JSON.stringify(basicInfo);
+    $.ajax({
+        type: "post",
+        url: "/basic/queryForTravel",
+        contentType: "application/json",
+        data:data,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#query_basic_information_list_table").find("tbody").html("");
+            $("#query_basic_information_list_table").find("tbody").append(
+                "<tr>" +
+                "<td>" + result["status"] + "</td>" +
+                "<td>" + result["percent"] + "</td>" +
+                "<td>" + result["trainType"]["id"] + "</td>" +
+                "<td>" + result["trainType"]["economyClass"] + "</td>" +
+                "<td>" + result["trainType"]["confortClass"] + "</td>" +
+                "</tr>"
+            );
+        }
+    });
+});
+
+/********************************************************************/
+/*****************Function For Ticket Information********************/
+
+$("#ticketinfo_button").click(function(){
+    var travelInfo = new Object();
+    travelInfo.tripId = $("#ticketinfo_tripId").val();
+    travelInfo.trainTypeId = $("#ticketinfo_trainTypeId").val();
+    travelInfo.startingStation =  $("#ticketinfo_startingStation").val();
+    travelInfo.stations = $("#ticketinfo_stations").val();
+    travelInfo.terminalStation = $("#ticketinfo_terminalStation").val();
+    travelInfo.startingTime = convertStringToTime($("#ticketinfo_startingTime").val());
+    travelInfo.endTime = convertStringToTime($("#ticketinfo_endTime").val());
+    var ticketInfo = new Object();
+    ticketInfo.trip = travelInfo;
+    ticketInfo.startingPlace = $("#ticketinfo_startingPlace").val();
+    ticketInfo.endPlace = $("#ticketinfo_endPlace").val();
+    ticketInfo.departureTime = $("#ticketinfo_departureTime").val();
+    var data = JSON.stringify(ticketInfo);
+    $.ajax({
+        type: "post",
+        url: "/ticketinfo/queryForTravel",
+        contentType: "application/json",
+        data:data,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#query_ticketinfo_list_table").find("tbody").html("");
+            $("#query_ticketinfo_list_table").find("tbody").append(
+                "<tr>" +
+                "<td>" + result["status"] + "</td>" +
+                "<td>" + result["percent"] + "</td>" +
+                "<td>" + result["trainType"]["id"] + "</td>" +
+                "<td>" + result["trainType"]["economyClass"] + "</td>" +
+                "<td>" + result["trainType"]["confortClass"] + "</td>" +
+                "</tr>"
+            );
+        }
+    });
+});
+
+/********************************************************************/
+/********************Function For Notification Service***************/
+$("#notification_send_email_button").click(function(){
+    var notificationInfo = new Object();
+    notificationInfo.email = $("#notification_email").val();
+    notificationInfo.orderNumber = $("#notification_orderNumber").val();
+    notificationInfo.username = $("#notification_username").val();
+    notificationInfo.startingPlace = $("#notification_startingPlace").val();
+    notificationInfo.endPlace = $("#notification_endPlace").val();
+    notificationInfo.startingTime = $("#notification_startingTime").val();
+    notificationInfo.date = $("#notification_date").val();
+    notificationInfo.seatClass = $("#notification_seatClass").val();
+    notificationInfo.seatNumber = $("#notification_seatNumber").val();
+    notificationInfo.price = $("#notification_price").val();
+    var data = JSON.stringify(notificationInfo);
+    var type = $("#notification_type").val();
+
+    if(type == 0){
+        $.ajax({
+            type: "post",
+            url: "/notification/preserve_success",
+            contentType: "application/json",
+            data:data,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (result) {
+                $("#notification_result").html(result);
+            }
+        });
+    }else if(type == 1){
+        $.ajax({
+            type: "post",
+            url: "/notification/order_create_success",
+            contentType: "application/json",
+            data:data,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (result) {
+                $("#notification_result").html(result);
+            }
+        });
+    }else if(type == 2){
+        $.ajax({
+            type: "post",
+            url: "/notification/order_changed_success",
+            contentType: "application/json",
+            data:data,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (result) {
+                $("#notification_result").html(result);
+            }
+        });
+    }
+});
+
+/********************************************************************/
+/***************************Some Basic Function**********************/
 
 function convertNumberToDocumentType(code) {
     var str = "";
@@ -1547,196 +1750,22 @@ function convertStringToTime(string){
     return date;
 }
 
-
-/********************************************************************/
-/*****************Function For Price Service********************/
-$("#price_queryAll_button").click(function() {
-    $.ajax({
-        type: "get",
-        url: "/price/queryAll",
-        contentType: "application/json",
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (result) {
-            var size = result.length;
-            $("#query_price_list_table").find("tbody").html("");
-            $("#price_result_talbe").css('height','200px');
-            for (var i = 0; i < size; i++) {
-                $("#query_price_list_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + result[i]["placeA"] + "</td>" +
-                    "<td>" + result[i]["placeB"] + "</td>" +
-                    "<td>" + result[i]["trainTypeId"] + "</td>" +
-                    "<td>" + result[i]["seatClass"] + "</td>" +
-                    "<td>" + result[i]["price"] + "</td>" +
-                    "</tr>"
-                );
-            }
-        }
-    });
-});
-
-$("#price_update_button").click(function(){
-    var priceUpdateInfo = new Object();
-    priceUpdateInfo.placeA = $("#price_update_startingPlace").val();
-    priceUpdateInfo.placeB = $("#price_update_endPlace").val();
-    priceUpdateInfo.distance = $("#price_update_distance").val();
-    var data = JSON.stringify(priceUpdateInfo);
-   $.ajax({
-       type: "post",
-       url: "/price/update",
-       contentType: "application/json",
-       data:data,
-       // dataType: "json",
-       xhrFields: {
-           withCredentials: true
-       },
-       success: function (result) {
-           // $("#price_result").html(result);
-       }
-   });
-});
-
-/********************************************************************/
-/*****************Function For Basic Information********************/
-$("#basic_information_button").click(function(){
-    var travelInfo = new Object();
-    travelInfo.tripId = $("#basic_information_tripId").val();
-    travelInfo.trainTypeId = $("#basic_information_trainTypeId").val();
-    travelInfo.startingStation =  $("#basic_information_startingStation").val();
-    travelInfo.stations = $("#basic_information_stations").val();
-    travelInfo.terminalStation = $("#basic_information_terminalStation").val();
-    travelInfo.startingTime = convertStringToTime($("#basic_information_startingTime").val());
-    travelInfo.endTime = convertStringToTime($("#basic_information_endTime").val());
-    var basicInfo = new Object();
-    basicInfo.trip = travelInfo;
-    basicInfo.startingPlace = $("#basic_information_startingPlace").val();
-    basicInfo.endPlace = $("#basic_information_endPlace").val();
-    basicInfo.departureTime = $("#basic_information_departureTime").val();
-    var data = JSON.stringify(basicInfo);
-    $.ajax({
-        type: "post",
-        url: "/basic/queryForTravel",
-        contentType: "application/json",
-        data:data,
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (result) {
-            $("#query_basic_information_list_table").find("tbody").html("");
-            $("#query_basic_information_list_table").find("tbody").append(
-                "<tr>" +
-                "<td>" + result["status"] + "</td>" +
-                "<td>" + result["percent"] + "</td>" +
-                "<td>" + result["trainType"]["id"] + "</td>" +
-                "<td>" + result["trainType"]["economyClass"] + "</td>" +
-                "<td>" + result["trainType"]["confortClass"] + "</td>" +
-                "</tr>"
-            );
-        }
-    });
-});
-
-/********************************************************************/
-/*****************Function For Ticket Information********************/
-$("#ticketinfo_button").click(function(){
-    var travelInfo = new Object();
-    travelInfo.tripId = $("#ticketinfo_tripId").val();
-    travelInfo.trainTypeId = $("#ticketinfo_trainTypeId").val();
-    travelInfo.startingStation =  $("#ticketinfo_startingStation").val();
-    travelInfo.stations = $("#ticketinfo_stations").val();
-    travelInfo.terminalStation = $("#ticketinfo_terminalStation").val();
-    travelInfo.startingTime = convertStringToTime($("#ticketinfo_startingTime").val());
-    travelInfo.endTime = convertStringToTime($("#ticketinfo_endTime").val());
-    var ticketInfo = new Object();
-    ticketInfo.trip = travelInfo;
-    ticketInfo.startingPlace = $("#ticketinfo_startingPlace").val();
-    ticketInfo.endPlace = $("#ticketinfo_endPlace").val();
-    ticketInfo.departureTime = $("#ticketinfo_departureTime").val();
-    var data = JSON.stringify(ticketInfo);
-    $.ajax({
-        type: "post",
-        url: "/ticketinfo/queryForTravel",
-        contentType: "application/json",
-        data:data,
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (result) {
-            $("#query_ticketinfo_list_table").find("tbody").html("");
-            $("#query_ticketinfo_list_table").find("tbody").append(
-                "<tr>" +
-                "<td>" + result["status"] + "</td>" +
-                "<td>" + result["percent"] + "</td>" +
-                "<td>" + result["trainType"]["id"] + "</td>" +
-                "<td>" + result["trainType"]["economyClass"] + "</td>" +
-                "<td>" + result["trainType"]["confortClass"] + "</td>" +
-                "</tr>"
-            );
-        }
-    });
-});
-
-//For Notification Service
-$("#notification_send_email_button").click(function(){
-    var notificationInfo = new Object();
-    notificationInfo.email = $("#notification_email").val();
-    notificationInfo.orderNumber = $("#notification_orderNumber").val();
-    notificationInfo.username = $("#notification_username").val();
-    notificationInfo.startingPlace = $("#notification_startingPlace").val();
-    notificationInfo.endPlace = $("#notification_endPlace").val();
-    notificationInfo.startingTime = $("#notification_startingTime").val();
-    notificationInfo.date = $("#notification_date").val();
-    notificationInfo.seatClass = $("#notification_seatClass").val();
-    notificationInfo.seatNumber = $("#notification_seatNumber").val();
-    notificationInfo.price = $("#notification_price").val();
-    var data = JSON.stringify(notificationInfo);
-    var type = $("#notification_type").val();
-
-    if(type == 0){
-        $.ajax({
-            type: "post",
-            url: "/notification/preserve_success",
-            contentType: "application/json",
-            data:data,
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (result) {
-                $("#notification_result").html(result);
-            }
-        });
-    }else if(type == 1){
-        $.ajax({
-            type: "post",
-            url: "/notification/order_create_success",
-            contentType: "application/json",
-            data:data,
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (result) {
-                $("#notification_result").html(result);
-            }
-        });
-    }else if(type == 2){
-        $.ajax({
-            type: "post",
-            url: "/notification/order_changed_success",
-            contentType: "application/json",
-            data:data,
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (result) {
-                $("#notification_result").html(result);
-            }
-        });
+function convertNumberToOrderStatus(code){
+    var str = "";
+    if(code == 0){
+        str = "Not Paid";
+    }else if(code == 1){
+        str = "Paid & Not Collected";
+    }else if(code == 2){
+        str = "Collected";
+    }else if(code == 3){
+        str = "Cancel & Rebook";
+    }else if(code == 4){
+        str = "Cancel";
+    }else if(code == 5){
+        str = "Refunded";
+    }else{
+        str = "other";
     }
-
-
-});
+    return str;
+}
