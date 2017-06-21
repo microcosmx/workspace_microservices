@@ -1494,6 +1494,7 @@ function addListenerToBookingTable(){
     }
 }
 
+
 function addListenerToPaymentTable(){
     var ticketPaymentButtonSet = $(".ticket_payment_button");
     for(var i = 0;i < ticketPaymentButtonSet.length;i++){
@@ -1534,6 +1535,7 @@ function addListenerToPaymentTable(){
         }
     }
 }
+
 
 /********************************************************************/
 /********************Function For Price Service**********************/
@@ -1747,6 +1749,7 @@ function convertNumberToDocumentType(code) {
     return str;
 }
 
+
 function convertNumberToSeatClass(code){
     var str = "";
     if(code == 2){
@@ -1802,6 +1805,7 @@ function mergeTwoDate(dateOne,dateTwo) {
     return datetime;
 }
 
+
 function convertStringToTime(string){
     var date = new Date();
     var s = string.toString();
@@ -1812,7 +1816,6 @@ function convertStringToTime(string){
     date.setMinutes(minute);
     return date;
 }
-
 
 function convertNumberToOrderStatus(code){
     var str = "";
