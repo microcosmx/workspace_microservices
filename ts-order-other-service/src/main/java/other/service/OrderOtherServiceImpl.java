@@ -281,5 +281,38 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         }
         return result;
     }
+
+    @Override
+    public GetOrderResult getOrderById(GetOrderByIdInfo info){
+        Order order = orderOtherRepository.findById(UUID.fromString(info.getOrderId()));
+        GetOrderResult result = new GetOrderResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setOrder(null);
+        }else{
+            result.setStatus(true);
+            result.setMessage("Success.");
+            result.setOrder(order);
+        }
+        return result;
+    }
+
+    @Override
+    public ExecuteOrderResult executeTicket(ExecuteOrderInfo info){
+        Order order = orderOtherRepository.findById(UUID.fromString(info.getOrderId()));
+        ExecuteOrderResult result = new ExecuteOrderResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+        }else{
+            order.setStatus(OrderStatus.USED.getCode());
+            orderOtherRepository.save(order);
+            result.setStatus(true);
+            result.setMessage("Success");
+        }
+        return result;
+    }
+
 }
 

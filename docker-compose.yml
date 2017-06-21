@@ -179,3 +179,10 @@ services:
 
   ts-security-mongo:
         image: mongo
+
+  ts-execute-service:
+        build: ts-execute-service
+        image: ts/ts-execute-service
+        restart: always
+        ports:
+          - 12386:12386

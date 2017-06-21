@@ -27,4 +27,8 @@ public interface OrderOtherService {
     GetOrderPriceResult getOrderPrice(GetOrderPrice info);
 
     PayOrderResult payOrder(PayOrderInfo info);
+
+    GetOrderResult getOrderById(GetOrderByIdInfo info);
+
+    ExecuteOrderResult executeTicket(ExecuteOrderInfo info);
 }

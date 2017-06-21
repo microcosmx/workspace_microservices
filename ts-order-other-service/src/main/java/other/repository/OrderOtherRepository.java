@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface OrderOtherRepository extends MongoRepository<Order, String> {
 
+    @Query("{ 'id': ?0 }")
     Order findById(UUID id);
 
     ArrayList<Order> findAll();

@@ -17,10 +17,22 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
             System.out.println("[Preserve Other Service][Verify Login] Success");
-            //1.查询联系人信息 -- 修改，通过基础信息微服务作为中介
-            System.out.println("[Preserve Other Service] [Step 1] Find contacts");
+            //1.黄牛检测
+            System.out.println("[Preserve Service] [Step 1] Check Security");
+            CheckInfo checkInfo = new CheckInfo();
+            CheckResult result = checkSecurity(checkInfo);
+            if(result.isStatus() == false){
+                System.out.println("[Preserve Service] [Step 1] Check Security Fail. Return soon.");
+                otr.setStatus(false);
+                otr.setMessage(result.getMessage());
+                otr.setOrder(null);
+                return otr;
+            }
+            System.out.println("[Preserve Service] [Step 1] Check Security Complete. ");
+            //2.查询联系人信息 -- 修改，通过基础信息微服务作为中介
+            System.out.println("[Preserve Other Service] [Step 2] Find contacts");
             GetContactsInfo gci = new GetContactsInfo();
-            System.out.println("[Preserve Other Service] [Step 1] Contacts Id:" + oti.getContactsId());
+            System.out.println("[Preserve Other Service] [Step 2] Contacts Id:" + oti.getContactsId());
             gci.setContactsId(oti.getContactsId());
             gci.setLoginToken(oti.getLoginToken());
             GetContactsResult gcr = getContactsById(gci);
@@ -31,15 +43,15 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 otr.setOrder(null);
                 return otr;
             }
-            System.out.println("[Preserve Other Service][Step 1] Complete");
-            //2.查询座位余票信息和车次的详情
-            System.out.println("[Preserve Other Service] [Step 2] Check tickets num");
+            System.out.println("[Preserve Other Service][Step 2] Complete");
+            //3.查询座位余票信息和车次的详情
+            System.out.println("[Preserve Other Service] [Step 3] Check tickets num");
             GetTripAllDetailInfo gtdi = new GetTripAllDetailInfo();
             gtdi.setFrom(oti.getFrom());
             gtdi.setTo(oti.getTo());
             gtdi.setTravelDate(oti.getDate());
             gtdi.setTripId(oti.getTripId());
-            System.out.println("[Preserve Other Service] [Step 2] TripId:" + oti.getTripId());
+            System.out.println("[Preserve Other Service] [Step 3] TripId:" + oti.getTripId());
             GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi);
             if(gtdr.isStatus() == false){
                 System.out.println("[Preserve Other Service][Search For Trip Detail Information] " + gcr.getMessage());
@@ -68,9 +80,9 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 }
             }
             Trip trip = gtdr.getTrip();
-            System.out.println("[Preserve Other Service] [Step 2] Tickets Enough");
-            //3.下达订单请求 设置order的各个信息
-            System.out.println("[Preserve Other Service] [Step 3] Do Order");
+            System.out.println("[Preserve Other Service] [Step 3] Tickets Enough");
+            //4.下达订单请求 设置order的各个信息
+            System.out.println("[Preserve Other Service] [Step 4] Do Order");
             Contacts contacts = gcr.getContacts();
             Order order = new Order();
             order.setId(UUID.randomUUID());
@@ -106,7 +118,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 otr.setOrder(null);
                 return otr;
             }
-            System.out.println("[Preserve Other Service] [Step 3] Do Order Complete");
+            System.out.println("[Preserve Other Service] [Step 4] Do Order Complete");
             otr.setStatus(true);
             otr.setMessage("Success");
             otr.setOrder(order);
@@ -117,6 +129,13 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setOrder(null);
         }
         return otr;
+    }
+
+    private CheckResult checkSecurity(CheckInfo info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Other Service][Check Security] Checking....");
+        CheckResult result = restTemplate.postForObject("http://ts-security-service:11188/security/check",info,CheckResult.class);
+        return result;
     }
 
     private VerifyResult verifySsoLogin(String loginToken){
