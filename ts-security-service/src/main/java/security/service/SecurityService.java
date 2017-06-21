@@ -12,4 +12,6 @@ public interface SecurityService {
 
     DeleteConfigResult deleteSecurityConfig(DeleteConfigInfo info);
 
+    CheckResult check(CheckInfo info);
+
 }

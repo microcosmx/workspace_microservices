@@ -8,8 +8,18 @@ public class GetTripAllDetailResult {
 
     private TripResponse tripResponse;
 
+    private Trip trip;
+
     public GetTripAllDetailResult() {
         //Default Constructor
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
     public boolean isStatus() {

@@ -111,16 +111,19 @@ public class Travel2ServiceImpl implements Travel2Service{
         if(trip == null){
             gtdr.setStatus(false);
             gtdr.setMessage("Trip Not Exist");
+            gtdr.setTrip(null);
             gtdr.setTripResponse(null);
         }else{
             TripResponse tripResponse = getTickets(trip,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
             if(tripResponse == null){
                 gtdr.setStatus(false);
                 gtdr.setMessage("Cannot found TripResponse");
+                gtdr.setTrip(null);
                 gtdr.setTripResponse(null);
             }else{
                 gtdr.setStatus(true);
                 gtdr.setMessage("Success");
+                gtdr.setTrip(trip);
                 gtdr.setTripResponse(tripResponse);
             }
         }

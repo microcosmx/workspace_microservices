@@ -20,6 +20,8 @@ public class OrderController {
         return "Welcome to [ Order Service ] !";
     }
 
+    /***************************For Normal Use***************************/
+
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/create", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){
@@ -62,54 +64,72 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/order/alter", method = RequestMethod.POST)
-    public OrderAlterResult alterOrder(@RequestBody OrderAlterInfo oai){
-        VerifyResult vr = verifySsoLogin(oai.getLoginToken());
-        if(vr.isStatus() == true){
-            return orderService.alterOrder(oai);
-        }else{
-            OrderAlterResult oar = new OrderAlterResult();
-            oar.setStatus(false);
-            oar.setMessage("Not Login");
-            oar.setOldOrder(null);
-            oar.setNewOrder(null);
-            return oar;
-        }
+    @RequestMapping(path="/order/price", method = RequestMethod.POST)
+    public GetOrderPriceResult getOrderPrice(GetOrderPrice info){
+        System.out.println("[Order Service][Get Order Price] Order Id:" + info.getOrderId());
+        return orderService.getOrderPrice(info);
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/order/update", method = RequestMethod.PUT)
-    public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
-        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
-        if(tokenResult.isStatus() == true){
-            System.out.println("[Order Service][Verify Login] Success");
-            return orderService.saveChanges(orderInfo.getOrder());
-        }else{
-            System.out.println("[Order Service][Verify Login] Fail");
-            ChangeOrderResult cor = new ChangeOrderResult();
-            cor.setStatus(false);
-            cor.setMessage("Not Login");
-            cor.setOrder(null);
-            return cor;
-        }
+    @RequestMapping(path="/order/payOrder", method = RequestMethod.POST)
+    public PayOrderResult payOrder(PayOrderInfo info){
+        System.out.println("[Order Service][Pay Order] Order Id:" + info.getOrderId());
+        return orderService.payOrder(info);
     }
 
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path="/order/cancel", method = RequestMethod.PUT)
-    public CancelOrderResult cancelOrder(@RequestBody CancelOrderInfo coi){
-        VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
-        if(tokenResult.isStatus() == true){
-            System.out.println("[OrderService][VerifyLogin] Success");
-            return orderService.cancelOrder(coi);
-        }else{
-            System.out.println("[OrderService][VerifyLogin] Fail");
-            CancelOrderResult cor = new CancelOrderResult();
-            cor.setStatus(false);
-            cor.setMessage("Not Login");
-            cor.setOrder(null);
-            return cor;
-        }
-    }
+
+
+//    @CrossOrigin(origins = "*")
+//    @RequestMapping(path = "/order/alter", method = RequestMethod.POST)
+//    public OrderAlterResult alterOrder(@RequestBody OrderAlterInfo oai){
+//        VerifyResult vr = verifySsoLogin(oai.getLoginToken());
+//        if(vr.isStatus() == true){
+//            return orderService.alterOrder(oai);
+//        }else{
+//            OrderAlterResult oar = new OrderAlterResult();
+//            oar.setStatus(false);
+//            oar.setMessage("Not Login");
+//            oar.setOldOrder(null);
+//            oar.setNewOrder(null);
+//            return oar;
+//        }
+//    }
+
+//    @CrossOrigin(origins = "*")
+//    @RequestMapping(path = "/order/update", method = RequestMethod.PUT)
+//    public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
+//        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[Order Service][Verify Login] Success");
+//            return orderService.saveChanges(orderInfo.getOrder());
+//        }else{
+//            System.out.println("[Order Service][Verify Login] Fail");
+//            ChangeOrderResult cor = new ChangeOrderResult();
+//            cor.setStatus(false);
+//            cor.setMessage("Not Login");
+//            cor.setOrder(null);
+//            return cor;
+//        }
+//    }
+
+//    @CrossOrigin(origins = "*")
+//    @RequestMapping(path="/order/cancel", method = RequestMethod.PUT)
+//    public CancelOrderResult cancelOrder(@RequestBody CancelOrderInfo coi){
+//        VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[OrderService][VerifyLogin] Success");
+//            return orderService.cancelOrder(coi);
+//        }else{
+//            System.out.println("[OrderService][VerifyLogin] Fail");
+//            CancelOrderResult cor = new CancelOrderResult();
+//            cor.setStatus(false);
+//            cor.setMessage("Not Login");
+//            cor.setOrder(null);
+//            return cor;
+//        }
+//    }
+
+    /***************For super admin(Single Service Test*******************/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path="/order/findAll", method = RequestMethod.GET)
