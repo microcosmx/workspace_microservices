@@ -1461,6 +1461,69 @@ function addListenerToBookingTable(){
                 },
                 success: function (result) {
                     alert(result["message"]);
+                    $("#payment_panel_heading").css('display','block');
+                    $("#payment_panel_body").css('display','block');
+                    $(".booking").css('display','none');
+
+
+                    $("#payment_table").find("tbody").html("");
+                    $("#payment_table").find("tbody").append(
+                        "<tr>" +
+                        "<td>" + result[i]["orderNumber"] + "</td>" +
+                        "<td>" + result[i]["tripId"] + "</td>" +
+                        "<td>" + result[i]["trainTypeId"] + "</td>" +
+                        "<td>" + result[i]["startingPlace"] + "</td>" +
+                        "<td>" + result[i]["endPlace"] + "</td>" +
+                        "<td>" + result[i]["startingTime"] + "</td>" +
+                        "<td>" + result[i]["endTime"] + "</td>" +
+                        "<td>" + result[i]["seatClass"] + "</td>" +
+                        "<td>" + result[i]["seatNumber"] + "</td>" +
+                        "<td>" + result[i]["price"] + "</td>" +
+                        "<td>" + "<button class='btn btn-primary ticket_payment_button'>" + "Pay" + "</button>"  + "</td>" +
+                        "</tr>"
+                    );
+                    addListenerToPaymentTable();
+                }
+            })
+        }
+    }
+}
+
+function addListenerToPaymentTable(){
+    var ticketPaymentButtonSet = $(".ticket_payment_button");
+    for(var i = 0;i < ticketPaymentButtonSet.length;i++){
+        ticketPaymentButtonSet[i].onclick = function(){
+            var tripId = $(this).parents("tr").find(".booking_tripId").text();
+            var loginToken = $("#user_login_token").html();
+            var accountId = $("#user_login_id").html();
+            var contactsId = "";
+            var radios = $(".booking_contacts_select");
+            for (var j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    contactsId = $(".booking_contacts_contactsId").eq(j).text();
+                }
+            }
+            var orderTicketInfo = new Object();
+            orderTicketInfo.contactsId = contactsId;
+            orderTicketInfo.tripId = tripId;
+            orderTicketInfo.seatType = seatType;
+            orderTicketInfo.loginToken = loginToken;
+            orderTicketInfo.accountId = accountId;
+            orderTicketInfo.date = date;
+            orderTicketInfo.from = from;
+            orderTicketInfo.to = to;
+            var orderTicketsData = JSON.stringify(orderTicketInfo);
+            $.ajax({
+                type: "post",
+                url: "/inside_payment/pay",
+                contentType: "application/json",
+                dataType: "json",
+                data: orderTicketsData,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+
                 }
             })
         }
@@ -1737,6 +1800,8 @@ $("#notification_send_email_button").click(function(){
             }
         });
     }
+
+
 
 
 });

@@ -1160,12 +1160,12 @@
         <div id="flow_one">
             <!---------------------------------Buy Ticket--------------------------->
             <div class="step panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading booking">
                     <h3 class="panel-title">
                         Ticket Booking
                     </h3>
                 </div>
-                <div class="input-box panel-body">
+                <div class="input-box panel-body booking">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Starting Place:</label>
@@ -1202,13 +1202,13 @@
                         </div>
                     </form>
                 </div>
-                <div class="panel-heading">
+                <div class="panel-heading booking">
                     <h3 class="panel-title">
                         Your Contacts List
                         <button id="refresh_booking_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body booking">
                     <table id="contacts_booking_list_table" class="table table-striped">
                         <thead>
                         <tr>
@@ -1225,12 +1225,12 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="panel-heading">
+                <div class="panel-heading booking">
                     <h3 class="panel-title">
                         Tickets Searching Result
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body booking">
                     <table id="tickets_booking_list_table" class="table table-striped">
                         <thead>
                         <tr>
@@ -1249,6 +1249,33 @@
                         </thead>
                         <tbody>
                             <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-heading noshow_component" id="payment_panel_heading">
+                    <h3 class="panel-title">
+                        Payment
+                    </h3>
+                </div>
+                <div class="panel-body noshow_component" id="payment_panel_body">
+                    <table id="payment_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>Seat Class</th>
+                            <th>Seat Number</th>
+                            <th>Price</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
                         </tbody>
                     </table>
                 </div>
