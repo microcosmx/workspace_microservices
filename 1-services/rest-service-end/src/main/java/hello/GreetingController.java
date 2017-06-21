@@ -1,5 +1,7 @@
 package hello;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -40,11 +42,40 @@ public class GreetingController {
         }else if(cal2 < 100){
         	value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal2)<100);
         }else{
-        	throw new Exception("unexpected input scope");
+        	log.info("----------start memory alloc-----------");
+        	memory();
+//        	throw new Exception("unexpected input scope");
         }
         
         log.info("--------service end-----------");
         log.info(value.toString());
         return value;
     }
+    
+    
+    private void memory() {
+		List<int[]> list = new ArrayList<int[]>();
+
+		Runtime run = Runtime.getRuntime();
+		int i = 1;
+		while (true) {
+			int[] arr = new int[1024 * 8];
+			list.add(arr);
+
+			if (i++ % 1000 == 0) {
+				try {
+					Thread.sleep(600);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				System.out.print("最大内存=" + run.maxMemory() / 1024 / 1024 + "M,");
+				System.out.print("已分配内存=" + run.totalMemory() / 1024 / 1024 + "M,");
+				System.out.print("剩余空间内存=" + run.freeMemory() / 1024 / 1024 + "M");
+				System.out.println(
+						"最大可用内存=" + (run.maxMemory() - run.totalMemory() + run.freeMemory()) / 1024 / 1024 + "M");
+			}
+		}
+	}
 }

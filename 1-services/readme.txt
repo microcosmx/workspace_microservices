@@ -1,4 +1,14 @@
 
+reproduce url:
+http://localhost:16006/hello6?cal=60
+http://localhost:16006/hello6?cal=200
+http://localhost:16006/hello6?cal=150
+http://localhost:16001/hello1?cal=60
+http://localhost:16001/hello1?cal=1000
+http://localhost:16000/greeting?cal=60
+
+
+
 mvn repo:
 https://repo1.maven.org/maven2/
 
