@@ -2,12 +2,13 @@ package preserveOther.domain;
 
 public enum OrderStatus {
 
-    NOTPAID   (0,"未付款"),
-    PAID      (1,"已付款"),
-    COLLECTED (2,"已取票"),
-    CHANGE    (3,"已改签"),
-    CANCEL    (4,"已取消"),
-    REFUNDS   (5,"已退票");
+    NOTPAID   (0,"Not Paid"),
+    PAID      (1,"Paid & Not Collected"),
+    COLLECTED (2,"Collected"),
+    CHANGE    (3,"Cancel & Rebook"),
+    CANCEL    (4,"Cancel"),
+    REFUNDS   (5,"Refunded"),
+    USED      (6,"Used");
 
     private int code;
     private String name;

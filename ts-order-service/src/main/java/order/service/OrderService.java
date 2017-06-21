@@ -24,4 +24,7 @@ public interface OrderService {
 
     ModifyOrderResult modifyOrder(ModifyOrderInfo info);
 
+    GetOrderPriceResult getOrderPrice(GetOrderPrice info);
+
+    PayOrderResult payOrder(PayOrderInfo info);
 }

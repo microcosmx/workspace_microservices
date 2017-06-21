@@ -8,6 +8,10 @@
       <sourceFolder url="file://$MODULE_DIR$/order-alter-service/src/main/java/alter" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/order-alter-service/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/ts-payment-service/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ts-preserve-other-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ts-order-other-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ts-travel2-service/src/main/java/travel2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ts-ticketinfo-service/src/main/java" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

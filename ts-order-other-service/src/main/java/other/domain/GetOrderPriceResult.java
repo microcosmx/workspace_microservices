@@ -1,14 +1,14 @@
-package preserve.domain;
+package other.domain;
 
-public class OrderTicketsResult {
+public class GetOrderPriceResult {
 
     private boolean status;
 
     private String message;
 
-    private Order order;
+    private double price;
 
-    public OrderTicketsResult(){
+    public GetOrderPriceResult() {
         //Default Constructor
     }
 
@@ -28,11 +28,11 @@ public class OrderTicketsResult {
         this.message = message;
     }
 
-    public Order getOrder() {
-        return order;
+    public double getPrice() {
+        return price;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

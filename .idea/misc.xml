@@ -78,6 +78,8 @@
         <option value="$PROJECT_DIR$/ts-station-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-ticket-change-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-preserve-other-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ts-order-other-service/pom.xml" />
       </list>
     </option>
   </component>

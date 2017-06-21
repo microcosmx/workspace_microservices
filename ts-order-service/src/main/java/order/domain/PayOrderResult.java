@@ -1,6 +1,6 @@
-package preserve.domain;
+package order.domain;
 
-public class OrderTicketsResult {
+public class PayOrderResult {
 
     private boolean status;
 
@@ -8,7 +8,7 @@ public class OrderTicketsResult {
 
     private Order order;
 
-    public OrderTicketsResult(){
+    public PayOrderResult() {
         //Default Constructor
     }
 

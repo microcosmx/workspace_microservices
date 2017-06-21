@@ -28,6 +28,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 System.out.println("[Preserve Other Service][Get Contacts] Fail." + gcr.getMessage());
                 otr.setStatus(false);
                 otr.setMessage(gcr.getMessage());
+                otr.setOrder(null);
                 return otr;
             }
             System.out.println("[Preserve Other Service][Step 1] Complete");
@@ -44,6 +45,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 System.out.println("[Preserve Other Service][Search For Trip Detail Information] " + gcr.getMessage());
                 otr.setStatus(false);
                 otr.setMessage(gcr.getMessage());
+                otr.setOrder(null);
                 return otr;
             }else{
                 TripResponse tripResponse = gtdr.getTripResponse();
@@ -52,6 +54,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                         System.out.println("[Preserve Other Service][Check seat is enough] " + gcr.getMessage());
                         otr.setStatus(false);
                         otr.setMessage("Seat Not Enough");
+                        otr.setOrder(null);
                     }
                 }else{
                     if(tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode()){
@@ -59,6 +62,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                             System.out.println("[Preserve Other Service][Check seat is enough] " + gcr.getMessage());
                             otr.setStatus(false);
                             otr.setMessage("Seat Not Enough");
+                            otr.setOrder(null);
                         }
                     }
                 }
@@ -99,15 +103,18 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                         "Reason:" + cor.getMessage());
                 otr.setStatus(false);
                 otr.setMessage(cor.getMessage());
+                otr.setOrder(null);
                 return otr;
             }
             System.out.println("[Preserve Other Service] [Step 3] Do Order Complete");
             otr.setStatus(true);
             otr.setMessage("Success");
+            otr.setOrder(order);
         }else{
             System.out.println("[Preserve Other Service][Verify Login] Fail");
             otr.setStatus(false);
             otr.setMessage("Not Login");
+            otr.setOrder(null);
         }
         return otr;
     }
