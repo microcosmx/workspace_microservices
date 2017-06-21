@@ -1494,7 +1494,6 @@ function addListenerToBookingTable(){
     }
 }
 
-<<<<<<< HEAD
 
 function addListenerToPaymentTable(){
     var ticketPaymentButtonSet = $(".ticket_payment_button");
@@ -1538,8 +1537,6 @@ function addListenerToPaymentTable(){
 }
 
 
-=======
->>>>>>> e762ec40c9cb864d8a8da4a4f26a483f74e0967e
 /********************************************************************/
 /********************Function For Price Service**********************/
 
@@ -1752,7 +1749,6 @@ function convertNumberToDocumentType(code) {
     return str;
 }
 
-
 function convertNumberToSeatClass(code){
     var str = "";
     if(code == 2){
@@ -1808,7 +1804,6 @@ function mergeTwoDate(dateOne,dateTwo) {
     return datetime;
 }
 
-
 function convertStringToTime(string){
     var date = new Date();
     var s = string.toString();
@@ -1820,22 +1815,21 @@ function convertStringToTime(string){
     return date;
 }
 
-
-function convertNumberToOrderStatus(code){
+function convertNumberToOrderStatus(code) {
     var str = "";
-    if(code == 0){
+    if (code == 0) {
         str = "Not Paid";
-    }else if(code == 1){
+    } else if (code == 1) {
         str = "Paid & Not Collected";
-    }else if(code == 2){
+    } else if (code == 2) {
         str = "Collected";
-    }else if(code == 3){
+    } else if (code == 3) {
         str = "Cancel & Rebook";
-    }else if(code == 4){
+    } else if (code == 4) {
         str = "Cancel";
-    }else if(code == 5){
+    } else if (code == 5) {
         str = "Refunded";
-    }else{
+    } else {
         str = "other";
     }
     return str;
