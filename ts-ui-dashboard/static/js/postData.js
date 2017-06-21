@@ -1494,6 +1494,7 @@ function addListenerToBookingTable(){
     }
 }
 
+<<<<<<< HEAD
 
 function addListenerToPaymentTable(){
     var ticketPaymentButtonSet = $(".ticket_payment_button");
@@ -1537,6 +1538,8 @@ function addListenerToPaymentTable(){
 }
 
 
+=======
+>>>>>>> e762ec40c9cb864d8a8da4a4f26a483f74e0967e
 /********************************************************************/
 /********************Function For Price Service**********************/
 
@@ -1817,6 +1820,7 @@ function convertStringToTime(string){
     return date;
 }
 
+
 function convertNumberToOrderStatus(code){
     var str = "";
     if(code == 0){
@@ -1836,4 +1840,3 @@ function convertNumberToOrderStatus(code){
     }
     return str;
 }
-
