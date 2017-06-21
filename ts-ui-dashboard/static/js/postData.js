@@ -1734,7 +1734,6 @@ $("#notification_send_email_button").click(function(){
 
 /********************************************************************/
 /***************************Some Basic Function**********************/
-
 function convertNumberToDocumentType(code) {
     var str = "";
     if(code == 0){
@@ -1815,21 +1814,21 @@ function convertStringToTime(string){
     return date;
 }
 
-function convertNumberToOrderStatus(code) {
+function convertNumberToOrderStatus(code){
     var str = "";
-    if (code == 0) {
+    if(code == 0){
         str = "Not Paid";
-    } else if (code == 1) {
+    }else if(code == 1){
         str = "Paid & Not Collected";
-    } else if (code == 2) {
+    }else if(code == 2){
         str = "Collected";
-    } else if (code == 3) {
+    }else if(code == 3){
         str = "Cancel & Rebook";
-    } else if (code == 4) {
+    }else if(code == 4){
         str = "Cancel";
-    } else if (code == 5) {
+    }else if(code == 5){
         str = "Refunded";
-    } else {
+    }else{
         str = "other";
     }
     return str;
