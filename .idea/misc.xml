@@ -58,7 +58,6 @@
         <option value="$PROJECT_DIR$/ts-train-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-security-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-execute-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ts-insite-payment/pom.xml" />
         <option value="$PROJECT_DIR$/ts-register-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-login-service/pom.xml" />
         <option value="$PROJECT_DIR$/ts-contacts-service/pom.xml" />

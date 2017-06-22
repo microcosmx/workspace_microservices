@@ -14,7 +14,6 @@
       <module fileurl="file://$PROJECT_DIR$/ts-contacts-service/ts-contacts-service.iml" filepath="$PROJECT_DIR$/ts-contacts-service/ts-contacts-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-execute-service/ts-execute-service.iml" filepath="$PROJECT_DIR$/ts-execute-service/ts-execute-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-inside-payment-service/ts-inside-payment-service.iml" filepath="$PROJECT_DIR$/ts-inside-payment-service/ts-inside-payment-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ts-insite-payment/ts-insite-payment.iml" filepath="$PROJECT_DIR$/ts-insite-payment/ts-insite-payment.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-login-service/ts-login-service.iml" filepath="$PROJECT_DIR$/ts-login-service/ts-login-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-notification-service/ts-notification-service.iml" filepath="$PROJECT_DIR$/ts-notification-service/ts-notification-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-order-other-service/ts-order-other-service.iml" filepath="$PROJECT_DIR$/ts-order-other-service/ts-order-other-service.iml" />
