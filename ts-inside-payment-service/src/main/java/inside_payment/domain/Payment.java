@@ -15,32 +15,48 @@ public class Payment {
     @Id
     @NotNull
     @Valid
-    private UUID id;
+    private String id;
 
     @NotNull
     @Valid
-    private String orderNumber;
+    private String orderId;
+
+
+
+    @NotNull
+    @Valid
+    private String userId;
 
     @NotNull
     @Valid
     private String price;
 
-    public Payment(){}
+    public Payment(){
+        this.id = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+    }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPrice() {

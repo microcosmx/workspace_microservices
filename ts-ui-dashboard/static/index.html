@@ -1157,6 +1157,89 @@
 
             </div>
 
+
+            <!---------------------------------inside payment------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Inside Payment Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Order Id: </label>
+                            <div class="col-sm-10">
+                                <input id="inside_payment_orderId" class="form-control" name='orderId'
+                                       value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Trip Id: </label>
+                            <div class="col-sm-10">
+                                <input id="inside_payment_tripId" class="form-control" name='tripId'
+                                       value='G1234'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="inside_payment_pay_button" type="button" class="btn btn-primary">
+                                    Pay
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Result: </label>
+                            <div class="col-sm-10">
+                                <span id ="inside_payment_result"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Inside Payment List
+                        <button id="inside_payment_query_payment_button" type="button" class="btn btn-default btn-sm">Query</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_inside_payment_payment_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Inside Account List
+                        <button id="inside_payment_query_account_button" type="button" class="btn btn-default btn-sm">Query</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_inside_payment_account_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Account ID</th>
+                            <th>Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
         </div>
 
         <div id="flow_one">

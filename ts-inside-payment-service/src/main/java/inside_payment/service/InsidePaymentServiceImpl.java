@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -25,15 +26,31 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Override
     public boolean pay(PaymentInfo info){
+        QueryOrderResult result;
         if(info.getTripId().startsWith("G") || info.getTripId().startsWith("D")){
-            String price = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/queryForPrice", new QueryOrder(info.getOrderNumber()),String.class);
+             result = restTemplate.postForObject(
+                    "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }else{
-
+             result = restTemplate.postForObject(
+                    "http://ts-order-service:12032/orderOther/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }
 
+        if(result.isStatus()){
+            if(paymentRepository.findByOrderNumber(info.getOrderId()) == null){
+                Payment payment = new Payment();
+                payment.setOrderId(info.getOrderId());
+                payment.setPrice(result.getPrice());
 
-        return true;
+                //判断一下账户余额够不够，不够要去站外支付
+
+                paymentRepository.save(payment);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 
     @Override
@@ -62,6 +79,15 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         }else{
             return false;
         }
+    }
 
+    @Override
+    public List<Balance> queryAccount(){
+        return balanceRepository.findAll();
+    }
+
+    @Override
+    public List<Payment> queryPayment(){
+        return paymentRepository.findAll();
     }
 }

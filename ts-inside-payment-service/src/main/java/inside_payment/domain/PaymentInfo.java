@@ -6,15 +6,15 @@ package inside_payment.domain;
 public class PaymentInfo {
     public PaymentInfo(){}
 
-    private String orderNumber;
+    private String orderId;
     private String tripId;
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getTripId() {

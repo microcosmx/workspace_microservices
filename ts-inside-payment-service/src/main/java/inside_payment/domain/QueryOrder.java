@@ -5,19 +5,20 @@ package inside_payment.domain;
  */
 public class QueryOrder {
 
-    private String orderNumber;
+    private String orderId;
 
     public QueryOrder(){}
 
-    public QueryOrder(String orderNumber){
-        this.orderNumber = orderNumber;
+    public QueryOrder(String orderId) {
+        this.orderId = orderId;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
+
 }

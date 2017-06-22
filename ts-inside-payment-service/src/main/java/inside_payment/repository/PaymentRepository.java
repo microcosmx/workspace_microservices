@@ -4,10 +4,14 @@ import inside_payment.domain.Balance;
 import inside_payment.domain.Payment;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/6/20.
  */
-public interface PaymentRepository extends CrudRepository<Payment,UUID> {
+public interface PaymentRepository extends CrudRepository<Payment,String> {
+    Payment findById(String id);
+    Payment findByOrderNumber(String orderNumber);
+    List<Payment> findAll();
 }

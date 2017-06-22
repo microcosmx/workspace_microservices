@@ -9,10 +9,11 @@
       <module fileurl="file://$PROJECT_DIR$/rest-service/rest-service.iml" filepath="$PROJECT_DIR$/rest-service/rest-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest-service-update/rest-service-update.iml" filepath="$PROJECT_DIR$/rest-service-update/rest-service-update.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-test-1/sample-test-1.iml" filepath="$PROJECT_DIR$/sample-test-1/sample-test-1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ts-admin-account-service/ts-admin-account-service.iml" filepath="$PROJECT_DIR$/ts-admin-account-service/ts-admin-account-service.iml" />
+      <module fileurl="file://C:\Users\Administrator.RJ-PC\Documents\GitHub\workspace_microservices\ts-admin-account-service\ts-admin-account-service.iml" filepath="C:\Users\Administrator.RJ-PC\Documents\GitHub\workspace_microservices\ts-admin-account-service\ts-admin-account-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-config-service/ts-config-service.iml" filepath="$PROJECT_DIR$/ts-config-service/ts-config-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-contacts-service/ts-contacts-service.iml" filepath="$PROJECT_DIR$/ts-contacts-service/ts-contacts-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-execute-service/ts-execute-service.iml" filepath="$PROJECT_DIR$/ts-execute-service/ts-execute-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-inside-payment-service/ts-inside-payment-service.iml" filepath="$PROJECT_DIR$/ts-inside-payment-service/ts-inside-payment-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-insite-payment/ts-insite-payment.iml" filepath="$PROJECT_DIR$/ts-insite-payment/ts-insite-payment.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-login-service/ts-login-service.iml" filepath="$PROJECT_DIR$/ts-login-service/ts-login-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-notification-service/ts-notification-service.iml" filepath="$PROJECT_DIR$/ts-notification-service/ts-notification-service.iml" />
