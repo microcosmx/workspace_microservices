@@ -45,8 +45,12 @@ public class SecurityController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/securityConfig/check", method = RequestMethod.POST)
+    @RequestMapping(path = "/security/check", method = RequestMethod.POST)
     public CheckResult check(@RequestBody CheckInfo info){
-        return null;
+        CheckResult result = new CheckResult();
+        result.setStatus(true);
+        result.setAccountId(info.getAccountId());
+        result.setMessage("Success.");
+        return result;
     }
 }

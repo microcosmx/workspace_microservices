@@ -157,7 +157,7 @@ public class Travel2ServiceImpl implements Travel2Service{
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
-                "http://ts-order-service:12031/order/calculate", information ,ResultSoldTicket.class);
+                "http://ts-order-other-service:12032/orderOther/calculate", information ,ResultSoldTicket.class);
         if(result == null){
             System.out.println("soldticketInfo doesn't exist");
             return null;

@@ -65,17 +65,32 @@ public class OrderOtherController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path="/orderOther/price", method = RequestMethod.POST)
-    public GetOrderPriceResult getOrderPrice(GetOrderPrice info){
+    public GetOrderPriceResult getOrderPrice(@RequestBody GetOrderPrice info){
         System.out.println("[Order Other Service][Get Order Price] Order Id:" + info.getOrderId());
         return orderService.getOrderPrice(info);
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path="/orderOther/payOrder", method = RequestMethod.POST)
-    public PayOrderResult payOrder(PayOrderInfo info){
+    public PayOrderResult payOrder(@RequestBody PayOrderInfo info){
         System.out.println("[Order Other Service][Pay Order] Order Id:" + info.getOrderId());
         return orderService.payOrder(info);
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/orderOther/getById", method = RequestMethod.POST)
+    public GetOrderResult getOrderById(@RequestBody GetOrderByIdInfo info){
+        System.out.println("[Order Other Service][Get Order By Id] Order Id:" + info.getOrderId());
+        return orderService.getOrderById(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/orderOther/execute", method = RequestMethod.POST)
+    public ExecuteOrderResult executeOrder(@RequestBody ExecuteOrderInfo info){
+        System.out.println("[Order Other Service][Ticket Execute] Order Id:" + info.getOrderId());
+        return orderService.executeTicket(info);
+    }
+
 
 //    @CrossOrigin(origins = "*")
 //    @RequestMapping(path = "/orderOther/alter", method = RequestMethod.POST)
