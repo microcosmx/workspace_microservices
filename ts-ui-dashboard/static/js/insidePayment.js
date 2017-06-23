@@ -63,7 +63,7 @@ $("#inside_payment_pay_button").click(function(){
             withCredentials: true
         },
         success: function (result) {
-            $("#inside_payment_result").html(result);
+            $("#inside_payment_result").html(result.toString());
         }
     });
 });

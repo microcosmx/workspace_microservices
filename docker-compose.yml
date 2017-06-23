@@ -197,3 +197,13 @@ services:
         ports:
           - 12386:12386
 
+  ts-payment-service:
+        build: ts-payment-service
+        image: ts/ts-payment-service
+        restart: always
+        ports:
+          - 19001:19001
+
+  ts-payment-mongo:
+        image: mongo
+

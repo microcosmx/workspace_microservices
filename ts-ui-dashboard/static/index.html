@@ -28,6 +28,7 @@
         <script type="text/javascript" src="js/train.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/travel.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/insidePayment.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/payment.js" defer charset="utf-8"></script>
     </head>
     <body>
     <div class="container">
@@ -1323,6 +1324,76 @@
 
             </div>
 
+
+            <!---------------------------------Payment  --------------------------->
+
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Order Id: </label>
+                            <div class="col-sm-10">
+                                <input id="payment_orderId" class="form-control" name='orderId'
+                                       value='5ad7750b-a68b-49c0-a8c0-32776b067703'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Price: </label>
+                            <div class="col-sm-10">
+                                <input id="payment_price" class="form-control" name='tripId'
+                                       value='100.0'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">User Id: </label>
+                            <div class="col-sm-10">
+                                <input id="payment_userId" class="form-control" name='userId'
+                                       value='4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="payment_pay_button" type="button" class="btn btn-primary">
+                                    Pay
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Result: </label>
+                            <div class="col-sm-10">
+                                <span id ="payment_result"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment List
+                        <button id="payment_query_button" type="button" class="btn btn-default btn-sm">Query</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_payment_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
 
         </div>
 
