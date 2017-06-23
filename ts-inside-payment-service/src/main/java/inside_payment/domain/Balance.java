@@ -11,9 +11,9 @@ import javax.validation.constraints.NotNull;
  */
 @Document(collection="balance")
 public class Balance {
+    @Id
     @Valid
     @NotNull
-    @Id
     private String userId;
 
     @Valid

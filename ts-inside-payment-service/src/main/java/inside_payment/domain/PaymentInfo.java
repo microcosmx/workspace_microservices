@@ -8,6 +8,7 @@ public class PaymentInfo {
 
     private String orderId;
     private String tripId;
+    private String userId;
 
     public String getOrderId() {
         return orderId;
@@ -23,5 +24,13 @@ public class PaymentInfo {
 
     public void setTripId(String tripId) {
         this.tripId = tripId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

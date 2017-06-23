@@ -180,15 +180,15 @@ services:
   ts-security-mongo:
         image: mongo
 
-#  ts-inside-payment-service:
-#        build: ts-inside-payment-service
-#        image: ts/ts-inside-payment-service
-#        restart: always
-#        ports:
-#          - 18673:18673
-#
-#    ts-inside-payment-mongo:
-#        image: mongo
+  ts-inside-payment-service:
+        build: ts-inside-payment-service
+        image: ts/ts-inside-payment-service
+        restart: always
+        ports:
+          - 18673:18673
+
+  ts-inside-payment-mongo:
+        image: mongo
 
   ts-execute-service:
         build: ts-execute-service

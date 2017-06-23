@@ -18,17 +18,17 @@ public class InsidePaymentController {
     @Autowired
     InsidePaymentService service;
 
-    @RequestMapping(value="inside_payment/pay", method = RequestMethod.POST)
+    @RequestMapping(value="/inside_payment/pay", method = RequestMethod.POST)
     public boolean pay(@RequestBody PaymentInfo info){
         return service.pay(info);
     }
 
-    @RequestMapping(value="inside_payment/createAccount", method = RequestMethod.POST)
+    @RequestMapping(value="/inside_payment/createAccount", method = RequestMethod.POST)
     public boolean createAccount(@RequestBody CreateAccountInfo info){
         return service.createAccount(info);
     }
 
-    @RequestMapping(value="inside_payment/addMoney", method = RequestMethod.POST)
+    @RequestMapping(value="/inside_payment/addMoney", method = RequestMethod.POST)
     public boolean addMoney(@RequestBody AddMoneyInfo info){
         return service.addMoney(info);
     }

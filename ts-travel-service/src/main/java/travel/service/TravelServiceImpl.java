@@ -182,7 +182,7 @@ public class TravelServiceImpl implements TravelService{
         response.setTrainTypeId(trainType.getId());
 
         return response;
-    }
+}
 
     @Override
     public List<Trip> queryAll(){

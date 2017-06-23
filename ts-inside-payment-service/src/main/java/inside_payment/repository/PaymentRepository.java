@@ -12,6 +12,7 @@ import java.util.UUID;
  */
 public interface PaymentRepository extends CrudRepository<Payment,String> {
     Payment findById(String id);
-    Payment findByOrderNumber(String orderNumber);
+    Payment findByOrderId(String orderId);
     List<Payment> findAll();
+    List<Payment> findByUserId(String userId);
 }

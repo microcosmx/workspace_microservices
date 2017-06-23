@@ -9,6 +9,6 @@ import java.util.List;
  * Created by Administrator on 2017/6/20.
  */
 public interface BalanceRepository extends CrudRepository<Balance,String> {
-    Balance findById(String userId);
+    Balance findByUserId(String userId);
     List<Balance> findAll();
 }

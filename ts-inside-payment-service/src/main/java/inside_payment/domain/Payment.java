@@ -21,8 +21,6 @@ public class Payment {
     @Valid
     private String orderId;
 
-
-
     @NotNull
     @Valid
     private String userId;

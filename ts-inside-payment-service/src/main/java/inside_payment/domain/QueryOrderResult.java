@@ -10,6 +10,7 @@ public class QueryOrderResult {
 
     private String price;
 
+
     public QueryOrderResult() {}
 
     public boolean isStatus() {
@@ -35,4 +36,5 @@ public class QueryOrderResult {
     public void setPrice(String price) {
         this.price = price;
     }
+
 }

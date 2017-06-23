@@ -27,12 +27,12 @@ public class InitData implements CommandLineRunner {
         order.setContactsName("Contacts_One");
         order.setDocumentType(1);
         order.setContactsDocumentNumber("DocumentNumber_One");
-        order.setTrainNumber("Z1234");
+        order.setTrainNumber("G1234");
         order.setCoachNumber(5);
         order.setSeatClass(2);
         order.setSeatNumber("FirstClass-30");
-        order.setFrom("Shang Hai");
-        order.setTo("Tai Yuan");
+        order.setFrom("shanghai");
+        order.setTo("taiyuan");
         order.setStatus(0);
         order.setPrice(100.0);
         service.initOrder(order);

@@ -255,11 +255,11 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         if(result == null){
             result.setStatus(false);
             result.setMessage("Order Not Found");
-            result.setPrice(-1.0);
+            result.setPrice("-1.0");
         }else{
             result.setStatus(true);
             result.setMessage("Success");
-            result.setPrice(order.getPrice());
+            result.setPrice(Double.toString(order.getPrice()));
         }
         return result;
     }
