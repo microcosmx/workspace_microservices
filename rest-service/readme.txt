@@ -38,4 +38,6 @@ http://localhost:15000/loggers
 http://localhost:15000/loggers/com.kfit
 POST:
 http://localhost:15000/loggers/com.kfit
+(header:) Content-Type: application/json
 {"configuredLevel":"DEBUG"}
+http://localhost:15000/loggers/com.kfit
