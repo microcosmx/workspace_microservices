@@ -32,3 +32,10 @@ http://localhost:15000/mappings
 http://localhost:15000/trace
 http://localhost:15000/autoconfig
 http://localhost:15000/metrics
+
+logger:
+http://localhost:15000/loggers
+http://localhost:15000/loggers/com.kfit
+POST:
+http://localhost:15000/loggers/com.kfit
+{"configuredLevel":"DEBUG"}
