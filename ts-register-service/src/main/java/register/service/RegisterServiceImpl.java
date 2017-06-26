@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import register.domain.CreateAccountInfo;
 import register.domain.RegisterInfo;
 import register.domain.RegisterResult;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,13 @@ public class RegisterServiceImpl implements RegisterService {
         RegisterResult rr = restTemplate.postForObject(
                 "http://ts-sso-service:12349/account/register",
                 ri,RegisterResult.class);
+
+        CreateAccountInfo createAccountInfo = new CreateAccountInfo();
+        createAccountInfo.setUserId(rr.getAccount().getId().toString());
+        createAccountInfo.setBalance("10000");
+        boolean  createAccountSuccess = restTemplate.postForObject(
+                "http://ts-inside-payment-service:18673/inside_payment/createAccount",
+                createAccountInfo,Boolean.class);
         return rr;
     }
 }

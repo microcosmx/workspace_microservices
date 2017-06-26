@@ -1,0 +1,12 @@
+# HTTP Server
+server:
+  port: 18886  # HTTP (Tomcat) port
+
+spring:
+  data:
+    mongodb:
+      host: ts-rebook-mongo
+#      username: user
+#      password: ${MONGODB_PASSWORD}
+      database: ts
+      port: 27017

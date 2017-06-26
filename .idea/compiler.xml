@@ -43,6 +43,7 @@
         <module name="ts-preserve-service" />
         <module name="ts-query-crh-service" />
         <module name="ts-query-ordinary-service" />
+        <module name="ts-rebook-service" />
         <module name="ts-register-service" />
         <module name="ts-security-service" />
         <module name="ts-sso-service" />
@@ -96,6 +97,7 @@
       <module name="ts-preserve-service" target="1.8" />
       <module name="ts-query-crh-service" target="1.8" />
       <module name="ts-query-ordinary-service" target="1.8" />
+      <module name="ts-rebook-service" target="1.8" />
       <module name="ts-register-service" target="1.8" />
       <module name="ts-security-service" target="1.8" />
       <module name="ts-sso-service" target="1.8" />

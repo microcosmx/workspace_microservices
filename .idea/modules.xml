@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" filepath="$PROJECT_DIR$/ts-preserve-service/ts-preserve-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-query-crh-service/ts-query-crh-service.iml" filepath="$PROJECT_DIR$/ts-query-crh-service/ts-query-crh-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-query-ordinary-service/ts-query-ordinary-service.iml" filepath="$PROJECT_DIR$/ts-query-ordinary-service/ts-query-ordinary-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ts-rebook-service/ts-rebook-service.iml" filepath="$PROJECT_DIR$/ts-rebook-service/ts-rebook-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-register-service/ts-register-service.iml" filepath="$PROJECT_DIR$/ts-register-service/ts-register-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-security-service/ts-security-service.iml" filepath="$PROJECT_DIR$/ts-security-service/ts-security-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" filepath="$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" />
