@@ -25,7 +25,7 @@ public class GreetingController {
         
     	Greeting value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal2)<100);
         
-        log.info("--------service end-----------");
+        log.info("-service end-");
         log.info(value.toString());
         return value;
     }

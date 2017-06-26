@@ -1,4 +1,10 @@
 
+tsst sample:
+http://localhost:16006/hello6?cal=50
+http://localhost:16006/hello6?cal=60
+
+
+
 mvn repo:
 https://repo1.maven.org/maven2/
 

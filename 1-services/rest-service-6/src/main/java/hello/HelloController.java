@@ -33,45 +33,39 @@ public class HelloController {
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
-        Value value5 = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal, Value.class);
-        Value value4 = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal, Value.class);
-        
-        Value value = null;
-        if(cal2 < 30){
-            value = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal2, Value.class);
-        }else if(cal2 < 60){
-            value = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal2, Value.class);
-        }else{
-            value = restTemplate.getForObject("http://rest-service-3:16003/hello3?cal="+cal2, Value.class);
-        }
+//        Value value5 = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal, Value.class);
+//        Value value4 = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal, Value.class);
+//        
+//        Value value = null;
+//        if(cal2 < 30){
+//            value = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal2, Value.class);
+//        }else if(cal2 < 60){
+//            value = restTemplate.getForObject("http://rest-service-4:16004/hello4?cal="+cal2, Value.class);
+//        }else{
+//            value = restTemplate.getForObject("http://rest-service-3:16003/hello3?cal="+cal2, Value.class);
+//        }
         
         
         //async messages
-        Future<String> task1 = asyncTask.sendAsyncMessage1("msg1");
-        Future<String> task2 = asyncTask.sendAsyncMessage2("msg2");
+        Future<String> msg1 = asyncTask.sendAsyncMessage1("msg1");
+        Future<String> msg2 = asyncTask.sendAsyncMessage2("msg2");
         
-//        String result = "";
-//        try {
-//			result = task1.get(200, TimeUnit.MILLISECONDS);// 设定在200毫秒的时间内完成
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-//			e.printStackTrace();
-//		} catch (TimeoutException e) {
-//			System.out.println("Time is out");// 抛出超时异[size=xx-small][/size]常时打印
-//		} finally {
-//			task1.cancel(true);
-//		}
         
-//        while(true) {  
-//            if(task1.isDone() && task2.isDone()) {  
-//                log.info("Task1 result: {}", task1.get());  
-//                log.info("Task2 result: {}", task2.get());  
-//                break;  
-//            }  
-//            Thread.sleep(1000);  
-//        }  
-//        log.info("All tasks finished.");  
+        Value value = restTemplate.getForObject("http://rest-service-2:16002/hello2?cal="+cal2, Value.class);
+        
+        
+        //async tasks
+        Future<String> task1 = asyncTask.doAsyncTask1("task1");
+        Future<String> task2 = asyncTask.doAsyncTask2("task2");
+        while(true) {  
+            if(task1.isDone() && task2.isDone()) {  
+                log.info("------------Task1 result: {}", task1.get());
+                log.info("------------Task2 result: {}", task2.get());
+                break;  
+            }  
+            Thread.sleep(300);  
+        }  
+        log.info("All tasks finished.");  
         
         
 		log.info(value.toString());
@@ -81,7 +75,7 @@ public class HelloController {
     
     @RequestMapping("/hello6_1")
     public String hello6_1(@RequestParam(value="msg", defaultValue="") String msg) {
-    	log.info("------hello6------callback--------" + msg);
+    	log.info("----------------msg result: {}", msg);  
     	return "callback completed";
     }
 }

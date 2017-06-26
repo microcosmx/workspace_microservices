@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
+import java.util.Random;
 import java.util.concurrent.Future;
 
 @RestController
@@ -30,10 +31,6 @@ public class HelloController {
         double cal2 = Math.pow(Double.valueOf(cal), 2)/100; 
         log.info(String.valueOf(cal2));
 
-        Value value2 = restTemplate.getForObject("http://rest-service-2:16002/hello2?cal="+cal, Value.class);
-        Value value1 = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal="+cal, Value.class);
-        
-        
     	Value value = null;
         if(cal2 < 80){
             value = restTemplate.getForObject("http://rest-service-2:16002/hello2?cal="+cal2, Value.class);
@@ -51,12 +48,12 @@ public class HelloController {
     
     @RequestMapping("/hello3_1")
     public void hello3_1(@RequestParam(value="msg", defaultValue="") String msg) {
-        log.info("------hello3------received--------" + msg);
         
         Value value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal=66", Value.class);
         
         //simulate heavy tasks
-        long sleep = "msg1".equals(msg) ? 1200 : 600;
+//        long sleep = "msg1".equals(msg) ? 600 : 300;
+        long sleep = (long) (Math.random() * 1000);
         try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException e1) {
@@ -72,6 +69,22 @@ public class HelloController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+    }
+    
+    
+    @RequestMapping("/hello3_2")
+    public String hello3_2(@RequestParam(value="msg", defaultValue="") String msg) {
+        //simulate heavy tasks
+//        long sleep = "task1".equals(msg) ? 1800 : 1200;
+    	long sleep = (long) (Math.random() * 1000);
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+        
+        return msg;
+        
     }
     
     

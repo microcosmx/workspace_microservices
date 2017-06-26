@@ -24,50 +24,26 @@ public class AsyncTask {
     
     @Async("mySimpleAsync")
     public Future<String> sendAsyncMessage1(String msg) throws InterruptedException{
-        try {
-			Thread.sleep(10);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-    	logger.info("------hell6-------started-------" + msg);
         String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?msg="+msg, String.class);
         return new AsyncResult<>("msg1 sended");  
     }
     @Async("mySimpleAsync")
     public Future<String> sendAsyncMessage2(String msg) throws InterruptedException{
-    	try {
-			Thread.sleep(60);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-    	logger.info("------hell6-------started-------" + msg);
         String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?msg="+msg, String.class);
         return new AsyncResult<>("msg2 sended");
     }  
     
     
       
-    @Async("mySimpleAsync")  
-    public Future<String> doTask1() throws InterruptedException{  
-        logger.info("Task1 started.");  
-        long start = System.currentTimeMillis();  
-        Thread.sleep(5000);  
-        long end = System.currentTimeMillis();  
-          
-        logger.info("Task1 finished, time elapsed: {} ms.", end-start);  
-          
-        return new AsyncResult<>("Task1 accomplished!");  
+    @Async("myAsync")  
+    public Future<String> doAsyncTask1(String msg) throws InterruptedException{  
+        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?msg="+msg, String.class);
+        return new AsyncResult<>(result);  
     }  
       
     @Async("myAsync")  
-    public Future<String> doTask2() throws InterruptedException{  
-        logger.info("Task2 started.");  
-        long start = System.currentTimeMillis();  
-        Thread.sleep(3000);  
-        long end = System.currentTimeMillis();  
-          
-        logger.info("Task2 finished, time elapsed: {} ms.", end-start);  
-          
-        return new AsyncResult<>("Task2 accomplished!");  
+    public Future<String> doAsyncTask2(String msg) throws InterruptedException{  
+        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?msg="+msg, String.class);
+        return new AsyncResult<>(result);  
     }  
 }  
