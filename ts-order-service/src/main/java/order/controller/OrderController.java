@@ -91,6 +91,12 @@ public class OrderController {
         return orderService.executeTicket(info);
     }
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/getOrderInfoForSecurity", method = RequestMethod.POST)
+    public GetOrderInfoForSecurityResult securityInfoCheck(@RequestBody GetOrderInfoForSecurity info){
+        System.out.println("[Order Service][Security Info Get]");
+        return orderService.checkSecurityAboutOrder(info);
+    }
 
 
 //    @CrossOrigin(origins = "*")

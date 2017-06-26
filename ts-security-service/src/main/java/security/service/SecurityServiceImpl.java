@@ -2,8 +2,10 @@ package security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import security.domain.*;
 import security.repository.SecurityRepository;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -11,6 +13,8 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Autowired
     private SecurityRepository securityRepository;
+
+    RestTemplate restTemplate;
 
     @Override
     public GetAllSecurityConfigResult findAllSecurityConfig(){
@@ -80,8 +84,52 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public CheckResult check(CheckInfo info){
-        //1.前往订单服务获取自己的订单
-
-        return null;
+        CheckResult result = new CheckResult();
+        //1.获取自己过去一小时的订单数和总有效票数
+        System.out.println("[Security Service][Get Order Num Info]");
+        GetOrderInfoForSecurity infoOrder = new GetOrderInfoForSecurity();
+        infoOrder.setAccountId(info.getAccountId());
+        infoOrder.setCheckDate(new Date());
+        GetOrderInfoForSecurityResult orderResult = getSecurityOrderInfoFromOrder(infoOrder);
+        GetOrderInfoForSecurityResult orderOtherResult = getSecurityOrderOtherInfoFromOrder(infoOrder);
+        int orderInOneHour = orderOtherResult.getOrderNumInLastOneHour() + orderResult.getOrderNumInLastOneHour();
+        int totalValidOrder = orderOtherResult.getOrderNumOfValidOrder() + orderOtherResult.getOrderNumOfValidOrder();
+        //2.获取关键配置信息
+        System.out.println("[Security Service][Get Security COnfig Info]");
+        int oneHourLine = 5;//todo
+        int totalValidLine = 5;//todo
+        if(orderInOneHour > oneHourLine || totalValidOrder > totalValidLine){
+            result.setStatus(false);
+            result.setAccountId(info.getAccountId());
+            result.setMessage("Too much order in last one hour or too much valid order");
+        }else{
+            result.setStatus(true);
+            result.setMessage("Success.");
+            result.setAccountId(info.getAccountId());
+        }
+        return result;
     }
+
+    private GetOrderInfoForSecurityResult getSecurityOrderInfoFromOrder(GetOrderInfoForSecurity info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Security Service][Get Order Info For Security] Getting....");
+        GetOrderInfoForSecurityResult result = restTemplate.postForObject(
+                "http://ts-order-service:12031/getOrderInfoForSecurity",info,
+                GetOrderInfoForSecurityResult.class);
+        System.out.println("[Security Service][Get Order Info For Security] Last One Hour:" + result.getOrderNumInLastOneHour()
+        + " Total Valid Order:" + result.getOrderNumOfValidOrder());
+        return result;
+    }
+
+    private GetOrderInfoForSecurityResult getSecurityOrderOtherInfoFromOrder(GetOrderInfoForSecurity info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Security Service][Get Order Other Info For Security] Getting....");
+        GetOrderInfoForSecurityResult result = restTemplate.postForObject(
+                "http://ts-order-other-service:12032/getOrderOtherInfoForSecurity",info,
+                GetOrderInfoForSecurityResult.class);
+        System.out.println("[Security Service][Get Order Other Info For Security] Last One Hour:" + result.getOrderNumInLastOneHour()
+                + " Total Valid Order:" + result.getOrderNumOfValidOrder());
+        return result;
+    }
+
 }

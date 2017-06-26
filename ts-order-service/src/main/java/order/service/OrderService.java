@@ -32,5 +32,7 @@ public interface OrderService {
 
     ExecuteOrderResult executeTicket(ExecuteOrderInfo info);
 
+    GetOrderInfoForSecurityResult checkSecurityAboutOrder(GetOrderInfoForSecurity info);
+
     void initOrder(Order order);
 }

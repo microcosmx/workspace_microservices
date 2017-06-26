@@ -31,4 +31,7 @@ public interface OrderOtherService {
     GetOrderResult getOrderById(GetOrderByIdInfo info);
 
     ExecuteOrderResult executeTicket(ExecuteOrderInfo info);
+
+    GetOrderInfoForSecurityResult checkSecurityAboutOrder(GetOrderInfoForSecurity info);
+
 }

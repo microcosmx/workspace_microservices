@@ -20,6 +20,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             //1.黄牛检测
             System.out.println("[Preserve Service] [Step 1] Check Security");
             CheckInfo checkInfo = new CheckInfo();
+            checkInfo.setAccountId(oti.getAccountId());
             CheckResult result = checkSecurity(checkInfo);
             if(result.isStatus() == false){
                 System.out.println("[Preserve Service] [Step 1] Check Security Fail. Return soon.");
