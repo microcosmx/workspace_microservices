@@ -4,6 +4,8 @@ import fdse.microservice.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+
 /**
  * Created by Chenjie Xu on 2017/6/6.
  */
@@ -25,6 +27,12 @@ public class BasicServiceImpl implements BasicService{
         if(!startingPlaceExist || !endPlaceExist){
             result.setStatus(false);
         }
+
+        String startingPlaceId = restTemplate.postForObject(
+                "http://ts-station-service:12345/station/queryForId", new QueryStation(info.getStartingPlace()), String.class);
+        String endPlaceId = restTemplate.postForObject(
+                "http://ts-station-service:12345/station/queryForId", new QueryStation(info.getEndPlace()),  String.class);
+
 
         //配置
         //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
@@ -51,6 +59,25 @@ public class BasicServiceImpl implements BasicService{
         }else{
             result.setTrainType(trainType);
         }
+
+        //票价服务
+        QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+        queryPriceInfo.setStartingPlaceId(startingPlaceId);
+        queryPriceInfo.setEndPlaceId(endPlaceId);
+        queryPriceInfo.setTrainTypeId(trainType.getId());
+        queryPriceInfo.setSeatClass("economyClass");
+        String priceForEconomyClass = restTemplate.postForObject(
+                "http://ts-price-service:16579/price/query",queryPriceInfo , String.class
+        );
+
+        queryPriceInfo.setSeatClass("confortClass");
+        String priceForConfortClass = restTemplate.postForObject(
+                "http://ts-price-service:16579/price/query", queryPriceInfo, String.class
+        );
+        HashMap<String,String> prices = new HashMap<String,String>();
+        prices.put("economyClass",priceForEconomyClass);
+        prices.put("confortClass",priceForConfortClass);
+        result.setPrices(prices);
 
         return result;
     }

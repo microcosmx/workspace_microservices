@@ -181,6 +181,8 @@ public class Travel2ServiceImpl implements Travel2Service{
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
         response.setTrainTypeId(trainType.getId());
+        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
+        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
 
         return response;
     }

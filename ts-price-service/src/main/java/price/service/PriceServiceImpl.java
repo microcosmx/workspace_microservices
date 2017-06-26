@@ -32,7 +32,7 @@ public class PriceServiceImpl implements PriceService{
 
     @Override
     public String query(QueryInfo info){
-        Distance distance = repository.findByPlaceAAndPlaceB(info.getStartingPlace(),info.getEndPlace());
+        Distance distance = repository.findByPlaceAAndPlaceB(info.getStartingPlaceId(),info.getEndPlaceId());
         String priceRate = restTemplate.postForObject("http://ts-config-service:15679/config/query",
                 new QueryConfig(info.getTrainTypeId() + "_" + info.getSeatClass()+ "_priceRate"), String.class
         );
