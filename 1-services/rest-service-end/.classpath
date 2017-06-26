@@ -43,6 +43,12 @@
   <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.8.8/jackson-databind-2.8.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.8.8/jackson-core-2.8.8.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-data-mongodb/1.5.3.RELEASE/spring-boot-starter-data-mongodb-1.5.3.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mongodb/mongodb-driver/3.4.2/mongodb-driver-3.4.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mongodb/bson/3.4.2/bson-3.4.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mongodb/mongodb-driver-core/3.4.2/mongodb-driver-core-3.4.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/data/spring-data-mongodb/1.10.3.RELEASE/spring-data-mongodb-1.10.3.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/data/spring-data-commons/1.13.3.RELEASE/spring-data-commons-1.13.3.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-stream/1.2.0.RELEASE/spring-cloud-stream-1.2.0.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-web/1.5.3.RELEASE/spring-boot-starter-web-1.5.3.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-tomcat/1.5.3.RELEASE/spring-boot-starter-tomcat-1.5.3.RELEASE.jar"/>

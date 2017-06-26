@@ -1,7 +1,7 @@
 
 tsst sample:
-http://localhost:16006/hello6?cal=50
 http://localhost:16006/hello6?cal=60
+http://localhost:16000/refreshdb
 
 
 

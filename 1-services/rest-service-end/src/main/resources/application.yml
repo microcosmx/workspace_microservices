@@ -1,6 +1,11 @@
 spring:
   application:
     name: rest-service-end
+
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
     
   rabbitmq:
     host: rabbitmq

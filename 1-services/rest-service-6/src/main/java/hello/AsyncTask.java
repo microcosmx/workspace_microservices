@@ -23,27 +23,22 @@ public class AsyncTask {
 	private RestTemplate restTemplate;
     
     @Async("mySimpleAsync")
-    public Future<String> sendAsyncMessage1(String msg) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?msg="+msg, String.class);
-        return new AsyncResult<>("msg1 sended");  
+    public Future<String> sendAsyncUpdate1(String oldName, String newName) throws InterruptedException{
+        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?oldName="+oldName+"&newName="+newName, String.class);
+        return new AsyncResult<>("update1 sended");
     }
     @Async("mySimpleAsync")
-    public Future<String> sendAsyncMessage2(String msg) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?msg="+msg, String.class);
-        return new AsyncResult<>("msg2 sended");
+    public Future<String> sendAsyncUpdate2(String oldName, String newName) throws InterruptedException{
+        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?oldName="+oldName+"&newName="+newName, String.class);
+        return new AsyncResult<>("update2 sended");
     }  
     
     
       
     @Async("myAsync")  
-    public Future<String> doAsyncTask1(String msg) throws InterruptedException{  
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?msg="+msg, String.class);
+    public Future<String> doAsyncQuery(String lastName) throws InterruptedException{  
+        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?lastName="+lastName, String.class);
         return new AsyncResult<>(result);  
     }  
       
-    @Async("myAsync")  
-    public Future<String> doAsyncTask2(String msg) throws InterruptedException{  
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?msg="+msg, String.class);
-        return new AsyncResult<>(result);  
-    }  
 }  

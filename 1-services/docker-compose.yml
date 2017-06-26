@@ -1,6 +1,16 @@
 version: '3'
 services:
 
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
   rabbitmq:
     image: rabbitmq:management
     ports:

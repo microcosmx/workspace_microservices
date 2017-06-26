@@ -1,4 +1,12 @@
 
+
+post url:
+http://localhost:16000/persist?oldName=Alice&newName=Jason
+http://localhost:16000/persist_get
+http://localhost:16000/refreshdb
+
+
+
 rest url:
 http://rest-service-end:16000/greeting?cal=50
 return json:
