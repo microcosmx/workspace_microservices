@@ -52,7 +52,6 @@ $("#inside_payment_pay_button").click(function(){
     var info = new Object();
     info.orderId = $("#inside_payment_orderId").val();
     info.tripId = $("#inside_payment_tripId").val();
-    info.userId = $("#inside_payment_userId").val();
     var data = JSON.stringify(info);
     $.ajax({
         type: "post",

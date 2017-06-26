@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -19,8 +20,8 @@ public class InsidePaymentController {
     InsidePaymentService service;
 
     @RequestMapping(value="/inside_payment/pay", method = RequestMethod.POST)
-    public boolean pay(@RequestBody PaymentInfo info){
-        return service.pay(info);
+    public boolean pay(@RequestBody PaymentInfo info, HttpServletRequest request){
+        return service.pay(info, request);
     }
 
     @RequestMapping(value="/inside_payment/createAccount", method = RequestMethod.POST)

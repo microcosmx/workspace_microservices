@@ -3,10 +3,12 @@ package inside_payment.service;
 import inside_payment.domain.*;
 import inside_payment.repository.BalanceRepository;
 import inside_payment.repository.PaymentRepository;
+import inside_payment.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
@@ -26,8 +28,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public boolean pay(PaymentInfo info){
+    public boolean pay(PaymentInfo info, HttpServletRequest request){
         QueryOrderResult result;
+        String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
         if(info.getTripId().startsWith("G") || info.getTripId().startsWith("D")){
              result = restTemplate.postForObject(
                     "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
@@ -41,10 +44,11 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 Payment payment = new Payment();
                 payment.setOrderId(info.getOrderId());
                 payment.setPrice(result.getPrice());
+                payment.setUserId(userId);
 
                 //判断一下账户余额够不够，不够要去站外支付
-                Balance balance = balanceRepository.findByUserId(info.getUserId());
-                List<Payment> payments = paymentRepository.findByUserId(info.getUserId());
+                Balance balance = balanceRepository.findByUserId(userId);
+                List<Payment> payments = paymentRepository.findByUserId(userId);
                 Iterator<Payment> iterator = payments.iterator();
                 BigDecimal totalExpand = new BigDecimal("0");
                 while(iterator.hasNext()){
@@ -54,6 +58,13 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 totalExpand.add(new BigDecimal(result.getPrice()));
                 if(totalExpand.compareTo(new BigDecimal(balance.getBalance())) > 0){
                     //站外支付
+                    OutsidePaymentInfo outsidePaymentInfo = new OutsidePaymentInfo();
+                    outsidePaymentInfo.setOrderId(info.getOrderId());
+                    outsidePaymentInfo.setUserId(userId);
+                    outsidePaymentInfo.setPrice(result.getPrice());
+                    boolean outsidePaySuccess = restTemplate.postForObject(
+                            "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
+                    return outsidePaySuccess;
                 }else{
                     paymentRepository.save(payment);
                 }
