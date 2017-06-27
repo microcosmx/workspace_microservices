@@ -1,12 +1,36 @@
 
 reproduce:
-http://localhost:16006/hello6?cal=60
-http://localhost:16005/hello5?cal=50
-http://localhost:16004/hello4?cal=40
-http://localhost:16000/session?cal=60
-http://localhost:16000/greeting?cal=60
-http://localhost:16002/session?cal=60
-http://localhost:16002/hello2?cal=60
+rest client:
+custom header: 
+user-token: jason
+
+correct:
+http://localhost:16006/hello6?optVal=temp_approve
+http://localhost:16006/hello6
+--------should be temp_approve
+http://localhost:16004/hello4
+--------should be temp_approve
+http://localhost:16004/hello4?optVal=approve
+http://localhost:16006/hello6
+--------should be approve
+
+error:
+http://localhost:16005/hello5?optVal=temp_reject
+http://localhost:16004/hello4
+--------should be temp_reject but still temp_approve
+
+
+
+
+
+
+
+rest client:
+custom header: 
+user-token: jason
+http://localhost:16001/hello1?optVal=temp_approve
+http://localhost:16000/greeting
+http://localhost:16000/greeting?optVal=temp_approve
 
 
 mvn repo:

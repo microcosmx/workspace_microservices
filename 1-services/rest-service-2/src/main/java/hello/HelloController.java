@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,58 +31,23 @@ public class HelloController {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     @Autowired
 	private RestTemplate restTemplate;
+    
+    @Autowired
+	private StringRedisTemplate template;
 
     @RequestMapping("/hello2")
-    public Value hello2(HttpSession session, 
-    		@RequestHeader(value="Cookie") String cookies, 
-    		@RequestParam(value="cal", defaultValue="50") String cal) {
-
-        double cal2 = Math.sqrt(Double.valueOf(cal))*10;
-        log.info(String.valueOf(cal2));
+    public String hello2(HttpSession session, 
+    		@RequestHeader(value="user-token",required=false) String token, 
+    		@RequestParam(value="optVal", required=false) String optVal) throws Exception {
         
         
-        UUID uid = (UUID) session.getAttribute("uid");
-        if (uid == null) {
-			uid = UUID.randomUUID();
-			session.setAttribute("uid", uid);
-			session.setAttribute("current_cal", cal);
-			log.info("--------session created 2-----------:" + uid + ":" + session.getAttribute("current_cal"));
-		}else{
-			log.info("--------session recoverred 2-----------:" + uid + ":" + session.getAttribute("current_cal"));
+    	ValueOperations<String, String> ops = this.template.opsForValue();
+		String key = token != null ? token : UUID.randomUUID().toString();
+		if(optVal != null){
+			ops.set(key, optVal);
 		}
-		
-		
-        log.info("cookies: " + cookies);
-		log.info("session: " + session.getId());
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Cookie", "SESSION=" + session.getId());
-		ResponseEntity<Value> exchange = restTemplate.exchange("http://rest-service-end:16000/greeting?cal="+cal2, 
-				HttpMethod.GET,new HttpEntity<Void>(headers), Value.class);
-		Value value = exchange.getBody();
-		
+		System.out.println("Found key " + key + ", value=" + ops.get(key));
         
-//        Value value = restTemplate.getForObject("http://localhost:16000/greeting?cal="+cal2, Value.class);
-//        Value value = new Value();
-		
-		log.info(value.toString());
-		
-		return value;
+		return ops.get(key);
     }
-    
-    
-    @GetMapping("/session")
-    public String session_uid(HttpSession session, @RequestParam(value="cal", defaultValue="50") String cal) {
-		UUID uid = (UUID) session.getAttribute("uid");
-		if (uid == null) {
-			log.info("--------session created-----------");
-			uid = UUID.randomUUID();
-			session.setAttribute("uid", uid);
-			session.setAttribute("current_cal", cal);
-		}else{
-			log.info("--------session recoverred-----------");
-			log.info(uid + ":" + session.getAttribute("current_cal"));
-		}
-		
-		return uid.toString() + ": " + session.getAttribute("current_cal");
-	}
 }

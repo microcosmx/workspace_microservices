@@ -1,6 +1,7 @@
 package hello;
 
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,37 +28,24 @@ public class HelloController {
     @Autowired
 	private RestTemplate restTemplate;
 
-    @RequestMapping("/hello5")
-    public Value hello5(HttpSession session, 
-    		@RequestHeader(value="Cookie") String cookies, 
-    		@RequestParam(value="cal", defaultValue="50") String cal) {
+    @Autowired
+	private StringRedisTemplate template;
 
-        double cal2 = Math.abs(Double.valueOf(cal)+3)/1.03; 
-        log.info(String.valueOf(cal2));
+    @RequestMapping("/hello5")
+    public String hello5(HttpSession session, 
+    		@RequestHeader(value="user-token",required=false) String token, 
+    		@RequestParam(value="optVal", required=false) String optVal)  throws InterruptedException, ExecutionException{
+
+    	ValueOperations<String, String> ops = this.template.opsForValue();
+		String key = token != null ? token : UUID.randomUUID().toString();
+		System.out.println("Found key " + key + ", value=" + ops.get(key));
         
-        
-        UUID uid = (UUID) session.getAttribute("uid");
-        if (uid == null) {
-			uid = UUID.randomUUID();
-			session.setAttribute("uid", uid);
-			session.setAttribute("current_cal", cal);
-			log.info("--------session created 5-----------:" + uid + ":" + session.getAttribute("current_cal"));
-		}else{
-			log.info("--------session recoverred 5-----------:" + uid + ":" + session.getAttribute("current_cal"));
-		}
-		
-		
-        log.info("cookies: " + cookies);
-		log.info("session: " + session.getId());
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Cookie", "SESSION=" + session.getId());
-		ResponseEntity<Value> exchange = restTemplate.exchange("http://rest-service-3:16003/hello3?name=service-5&cal="+cal2, 
-				HttpMethod.GET,new HttpEntity<Void>(headers), Value.class);
-		Value value = exchange.getBody();
+		headers.add("user-token", key);
+		ResponseEntity<String> exchange = restTemplate.exchange("http://rest-service-3:16003/hello3?name=service-5" + (optVal!=null?("&optVal="+optVal):""), 
+				HttpMethod.GET,new HttpEntity<Void>(headers), String.class);
+		String value = exchange.getBody();
         
-//        Value value = restTemplate.getForObject("http://rest-service-3:16003/hello3?name=service-5&cal="+cal2, Value.class);
-		
-        log.info(value.toString());
 		return value;
     }
 }

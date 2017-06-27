@@ -2,18 +2,23 @@ package hello;
 
 import java.util.UUID;
 import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class HelloController {
@@ -22,50 +27,23 @@ public class HelloController {
     @Autowired
 	private RestTemplate restTemplate;
     
-    @Autowired  
-    private AsyncTask asyncTask;
+    @Autowired
+	private StringRedisTemplate template;
 
     @RequestMapping("/hello1")
-    public Value hello1(HttpSession session, 
-    		@RequestHeader(value="Cookie") String cookies, 
-    		@RequestParam(value="cal", defaultValue="50") String cal) {
-
-        double cal2 = Math.log10(Double.valueOf(cal))*50;
-        log.info(String.valueOf(cal2));
+    public String hello1(HttpSession session, 
+    		@RequestHeader(value="user-token", required=false) String token, 
+    		@RequestParam(value="optVal", required=false) String optVal) throws Exception {
         
         
-        UUID uid = (UUID) session.getAttribute("uid");
-        if (uid == null) {
-			uid = UUID.randomUUID();
-			session.setAttribute("uid", uid);
-			session.setAttribute("current_cal", cal);
-			log.info("--------session created 1-----------:" + uid + ":" + session.getAttribute("current_cal"));
-		}else{
-			log.info("--------session recoverred 1-----------:" + uid + ":" + session.getAttribute("current_cal"));
+    	ValueOperations<String, String> ops = this.template.opsForValue();
+		String key = token != null ? token : UUID.randomUUID().toString();
+		if(optVal != null){
+			ops.set(key, optVal);
 		}
+		System.out.println("Found key " + key + ", value=" + ops.get(key));
         
-        
-		log.info("cookies: " + cookies);
-		log.info("session: " + session.getId());
-        //async messages
-        try {
-			Future<Value> task1 = asyncTask.sendAsyncCal(session, cal2);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        Value value = new Value();
-		return value;
+		return ops.get(key);
     }
     
-    @RequestMapping("/hello1_callback")
-    public String hello1_callback(@RequestParam(value="cal_back", defaultValue="50") String cal_back) {
-    	
-    	log.info("-------------external call back-------------");
-        log.info(String.valueOf(cal_back));
-        
-        return "-------call back end-------";
-        
-    }
 }
