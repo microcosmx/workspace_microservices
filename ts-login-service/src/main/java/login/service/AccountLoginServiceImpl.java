@@ -55,11 +55,13 @@ public class AccountLoginServiceImpl implements AccountLoginService {
         LoginResult lr = restTemplate.postForObject(
                 "http://ts-sso-service:12349/account/login",
                 li,LoginResult.class);
-
         //将cookie放到response中
-        CookieUtil.addCookie(response, "loginId", lr.getAccount().getId().toString(), COOKIE_EXPIRED);
-        CookieUtil.addCookie(response, "loginToken", lr.getToken(), COOKIE_EXPIRED);
-
+        if(lr.getStatus() == false){
+            System.out.println("[Login Service] Status: false. Cookie wrong.");
+        }else{
+            CookieUtil.addCookie(response, "loginId", lr.getAccount().getId().toString(), COOKIE_EXPIRED);
+            CookieUtil.addCookie(response, "loginToken", lr.getToken(), COOKIE_EXPIRED);
+        }
         return lr;
     }
 

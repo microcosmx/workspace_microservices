@@ -264,7 +264,7 @@ public class OrderServiceImpl implements OrderService{
         }else{
             result.setStatus(true);
             result.setMessage("Success");
-            result.setPrice(Double.toString(order.getPrice()));
+            result.setPrice(order.getPrice());
         }
         return result;
     }

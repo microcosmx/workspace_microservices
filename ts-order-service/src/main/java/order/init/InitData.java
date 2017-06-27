@@ -39,7 +39,7 @@ public class InitData implements CommandLineRunner {
 
 
         Order orderTwo = new Order();
-        orderTwo.setId(UUID.fromString("5ad7750b-a68b-49c0-a8c0-32766b067703"));
+        orderTwo.setId(UUID.fromString("8177ac5a-61ac-42f4-83f4-bd7b394d0531"));
         orderTwo.setBoughtDate(new Date());
         orderTwo.setTravelDate(new Date());
         orderTwo.setTravelTime(new Date("Mon May 04 09:51:52 CDT 2013"));
@@ -55,10 +55,10 @@ public class InitData implements CommandLineRunner {
         orderTwo.setTo("beijing");
         orderTwo.setStatus(0);
         orderTwo.setPrice("100.0");
-        service.initOrder(order);
+        service.initOrder(orderTwo);
 
         Order orderThree = new Order();
-        orderThree.setId(UUID.fromString("5ad7750b-a68b-49c0-a8c0-32766b067703"));
+        orderThree.setId(UUID.fromString("d3c91694-d5b8-424c-9974-e14c89226e49"));
         orderThree.setBoughtDate(new Date());
         orderThree.setTravelDate(new Date());
         orderThree.setTravelTime(new Date("Mon May 04 12:51:52 CDT 2013"));
@@ -74,7 +74,7 @@ public class InitData implements CommandLineRunner {
         orderThree.setTo("beijing");
         orderThree.setStatus(0);
         orderThree.setPrice("100.0");
-        service.initOrder(order);
+        service.initOrder(orderThree);
     }
 
 }

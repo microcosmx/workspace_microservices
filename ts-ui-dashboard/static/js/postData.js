@@ -310,8 +310,8 @@ $("#refresh_my_order_list_button").click(function(){
                                         "<label class='col-sm-2 control-label'>Operation: </label>" +
                                         "<div class='col-sm-10'>" +
                                             "<label class='order_id control-label' style='display:none' >" + order["id"] + "</label>" +
-                                            "<button class='order_cancel_btn btn btn-primary ticket_booking_button'>" + "Cancel Order" + "</button>" +
-                                            "<button class='order_change_btn btn btn-primary ticket_booking_button'>" + "Change your railway ticket" + "</button>" +
+                                            "<button class='order_cancel_btn btn btn-primary'>" + "Cancel Order" + "</button>" +
+                                            "<button class='order_change_btn btn btn-primary'>" + "Change your railway ticket" + "</button>" +
                                         "</div>" +
                                     "</div>" +
                                 "</form>" +
@@ -330,9 +330,9 @@ function addListenerToOrderCancel(){
     var ticketCancelButtonSet = $(".order_cancel_btn");
     for(var i = 0;i < ticketCancelButtonSet.length;i++){
         ticketCancelButtonSet[i].onclick = function(){
-            var orderId = $(this).parents("div").find(".order_id").text();
-            alert("Order ID:" + orderId);
-            //document.getElementById("order_cancel_panel").style.display = "block";
+
+            $("#order_cancel_panel").css('display','block');
+            // $("#order_cancel_panel")[0].style.display = 'block';
         }
     }
 }
@@ -341,20 +341,20 @@ function addListenerToOrderChange(){
     var ticketChangeButtonSet = $(".order_change_btn");
     for(var i = 0;i < ticketChangeButtonSet.length;i++){
         ticketChangeButtonSet[i].onclick = function(){
-            var orderId = $(this).parents("div").find(".order_id").text();
-            alert("Order ID:" + orderId);
-            //document.getElementById("order_change_panel").style.display = "block";
+
+            $("#order_change_panel").css('display','block');
+
+            // $("#order_change_panel")[0].style.display = 'block';
         }
     }
 }
 
 $("#order_cancel_panel_cancel").click(function(){
-    $("#order_cancel_panel").css('display','none');
 
 });
 
 $("#order_cancel_panel_confirm").click(function(){
-    alert("You click order_cancel_panel_confirm");
+
 });
 
 function addListenerToBookingTable(){
