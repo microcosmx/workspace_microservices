@@ -7,6 +7,8 @@ public class RebookResult {
     private boolean status;
     private String message;
 
+    private Order order;
+
     public RebookResult(){}
 
     public boolean isStatus() {
@@ -23,5 +25,13 @@ public class RebookResult {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

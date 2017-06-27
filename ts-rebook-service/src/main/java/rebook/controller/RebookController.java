@@ -1,10 +1,7 @@
 package rebook.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
 import rebook.service.RebookService;
@@ -19,8 +16,8 @@ public class RebookController {
     RebookService service;
 
     @RequestMapping(value="/rebook/", method = RequestMethod.POST)
-    public RebookResult rebook(@RequestBody RebookInfo info){
-        return service.rebook(info);
+    public RebookResult rebook(@RequestBody RebookInfo info, @CookieValue String loginId, @CookieValue String loginToken){
+        return service.rebook(info, loginId, loginToken);
     }
 
 }

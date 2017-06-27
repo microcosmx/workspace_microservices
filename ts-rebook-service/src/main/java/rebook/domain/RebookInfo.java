@@ -14,6 +14,10 @@ public class RebookInfo {
 
     @Valid
     @NotNull
+    private String oldTripId;
+
+    @Valid
+    @NotNull
     private String tripId;
 
     @Valid
@@ -56,5 +60,13 @@ public class RebookInfo {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getOldTripId() {
+        return oldTripId;
+    }
+
+    public void setOldTripId(String oldTripId) {
+        this.oldTripId = oldTripId;
     }
 }
