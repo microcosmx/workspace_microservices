@@ -3,6 +3,8 @@ package security.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import security.domain.*;
+import security.domain.CheckResult;
+import security.domain.CheckInfo;
 import security.service.SecurityService;
 
 @RestController

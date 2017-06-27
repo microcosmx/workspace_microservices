@@ -1,5 +1,7 @@
 package travel2.domain;
 
+import java.util.HashMap;
+
 /**
  * Created by Chenjie Xu on 2017/6/6.
  */
@@ -7,6 +9,8 @@ public class ResultForTravel {
     private boolean status;
     private double percent;
     private TrainType trainType;
+
+    private HashMap<String,String> prices;
 
     public ResultForTravel(){}
 
@@ -32,5 +36,13 @@ public class ResultForTravel {
 
     public void setTrainType(TrainType trainType) {
         this.trainType = trainType;
+    }
+
+    public HashMap<String, String> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(HashMap<String, String> prices) {
+        this.prices = prices;
     }
 }

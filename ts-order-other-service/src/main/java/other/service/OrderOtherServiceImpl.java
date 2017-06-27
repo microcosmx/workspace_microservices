@@ -261,7 +261,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         }else{
             result.setStatus(true);
             result.setMessage("Success");
-            result.setPrice(order.getPrice());
+            result.setPrice(Double.toString(order.getPrice()));
         }
         return result;
     }

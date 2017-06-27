@@ -180,9 +180,40 @@ services:
   ts-security-mongo:
         image: mongo
 
+  ts-inside-payment-service:
+        build: ts-inside-payment-service
+        image: ts/ts-inside-payment-service
+        restart: always
+        ports:
+          - 18673:18673
+
+  ts-inside-payment-mongo:
+        image: mongo
+
   ts-execute-service:
         build: ts-execute-service
         image: ts/ts-execute-service
         restart: always
         ports:
           - 12386:12386
+
+  ts-payment-service:
+        build: ts-payment-service
+        image: ts/ts-payment-service
+        restart: always
+        ports:
+          - 19001:19001
+
+  ts-payment-mongo:
+        image: mongo
+
+#  ts-rebook-service:
+#        build: ts-rebook-service
+#        image: ts/ts-rebook-service
+#        restart: always
+#        ports:
+#          - 18886:18886
+#
+#  ts-rebook-mongo:
+#        image: mongo
+

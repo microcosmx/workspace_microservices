@@ -8,25 +8,25 @@ public class QueryInfo {
     public QueryInfo(){
     }
 
-    private String startingPlace;
-    private String endPlace;
+    private String startingPlaceId;
+    private String endPlaceId;
     private String trainTypeId;
     private String seatClass;
 
-    public String getStartingPlace() {
-        return startingPlace;
+    public String getStartingPlaceId() {
+        return startingPlaceId;
     }
 
-    public void setStartingPlace(String startingPlace) {
-        this.startingPlace = startingPlace;
+    public void setStartingPlaceId(String startingPlaceId) {
+        this.startingPlaceId = startingPlaceId;
     }
 
-    public String getEndPlace() {
-        return endPlace;
+    public String getEndPlaceId() {
+        return endPlaceId;
     }
 
-    public void setEndPlace(String endPlace) {
-        this.endPlace = endPlace;
+    public void setEndPlaceId(String endPlaceId) {
+        this.endPlaceId = endPlaceId;
     }
 
     public String getTrainTypeId() {

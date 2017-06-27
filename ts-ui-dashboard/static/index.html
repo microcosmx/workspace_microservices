@@ -27,6 +27,8 @@
         <script type="text/javascript" src="js/ticketInformation.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/train.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/travel.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/insidePayment.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/payment.js" defer charset="utf-8"></script>
     </head>
     <body>
     <div class="container">
@@ -1007,6 +1009,8 @@
                             <th>trainType.id</th>
                             <th>trainType.economyClass</th>
                             <th>trainType.confortClass</th>
+                            <th>prices.economyClass</th>
+                            <th>prices.confortClass</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1117,6 +1121,8 @@
                             <th>trainType.id</th>
                             <th>trainType.economyClass</th>
                             <th>trainType.confortClass</th>
+                            <th>prices.economyClass</th>
+                            <th>prices.confortClass</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1233,17 +1239,176 @@
 
             </div>
 
+
+            <!---------------------------------inside payment------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Inside Payment Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Order Id: </label>
+                            <div class="col-sm-10">
+                                <input id="inside_payment_orderId" class="form-control" name='orderId'
+                                       value='5ad7750b-a68b-49c0-a8c0-32776b067703'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Trip Id: </label>
+                            <div class="col-sm-10">
+                                <input id="inside_payment_tripId" class="form-control" name='tripId'
+                                       value='G1234'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="inside_payment_pay_button" type="button" class="btn btn-primary">
+                                    Pay
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Result: </label>
+                            <div class="col-sm-10">
+                                <span id ="inside_payment_result"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Inside Payment List
+                        <button id="inside_payment_query_payment_button" type="button" class="btn btn-default btn-sm">Query</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <div id="inside_payment_payment_result_table">
+                    <table id="query_inside_payment_payment_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody id="query_inside_payment_payment_list_tbody">
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Inside Account List
+                        <button id="inside_payment_query_account_button" type="button" class="btn btn-default btn-sm">Query</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <div id="inside_payment_account_result_table">
+                    <table id="query_inside_payment_account_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Account ID</th>
+                            <th>Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!---------------------------------Payment  --------------------------->
+
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Order Id: </label>
+                            <div class="col-sm-10">
+                                <input id="payment_orderId" class="form-control" name='orderId'
+                                       value='5ad7750b-a68b-49c0-a8c0-32776b067703'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Price: </label>
+                            <div class="col-sm-10">
+                                <input id="payment_price" class="form-control" name='tripId'
+                                       value='100.0'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">User Id: </label>
+                            <div class="col-sm-10">
+                                <input id="payment_userId" class="form-control" name='userId'
+                                       value='4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="payment_pay_button" type="button" class="btn btn-primary">
+                                    Pay
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Result: </label>
+                            <div class="col-sm-10">
+                                <span id ="payment_result"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment List
+                        <button id="payment_query_button" type="button" class="btn btn-default btn-sm">Query</button>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <div id="payment_result_table">
+                    <table id="query_payment_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
         <div id="flow_one">
             <!---------------------------------Buy Ticket--------------------------->
             <div class="step panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading booking">
                     <h3 class="panel-title">
                         Ticket Booking
                     </h3>
                 </div>
-                <div class="input-box panel-body">
+                <div class="input-box panel-body booking">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Starting Place:</label>
@@ -1280,13 +1445,13 @@
                         </div>
                     </form>
                 </div>
-                <div class="panel-heading">
+                <div class="panel-heading booking">
                     <h3 class="panel-title">
                         Your Contacts List
                         <button id="refresh_booking_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body booking">
                     <table id="contacts_booking_list_table" class="table table-striped">
                         <thead>
                         <tr>
@@ -1303,12 +1468,12 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="panel-heading">
+                <div class="panel-heading booking">
                     <h3 class="panel-title">
                         Tickets Searching Result
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body booking">
                     <table id="tickets_booking_list_table" class="table table-striped">
                         <thead>
                         <tr>
@@ -1327,6 +1492,33 @@
                         </thead>
                         <tbody>
                             <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-heading noshow_component" id="payment_panel_heading">
+                    <h3 class="panel-title">
+                        Payment
+                    </h3>
+                </div>
+                <div class="panel-body noshow_component" id="payment_panel_body">
+                    <table id="payment_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>Seat Class</th>
+                            <th>Seat Number</th>
+                            <th>Price</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
                         </tbody>
                     </table>
                 </div>
