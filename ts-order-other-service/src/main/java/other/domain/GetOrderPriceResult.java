@@ -6,7 +6,7 @@ public class GetOrderPriceResult {
 
     private String message;
 
-    private double price;
+    private String price;
 
     public GetOrderPriceResult() {
         //Default Constructor
@@ -28,11 +28,11 @@ public class GetOrderPriceResult {
         this.message = message;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

@@ -370,10 +370,17 @@ function addListenerToBookingTable(){
             var seatType = $(this).parents("tr").find(".booking_seat_class").val();
             var contactsId = "";
             var radios = $(".booking_contacts_select");
+            var selectContactsStatus = false;
             for (var j = 0; j < radios.length; j++) {
                 if (radios[j].checked) {
                     contactsId = $(".booking_contacts_contactsId").eq(j).text();
+                    selectContactsStatus = true;
+                    break;
                 }
+            }
+            if(selectContactsStatus == false){
+                alert("Please select contacts.");
+                return;
             }
             var orderTicketInfo = new Object();
             orderTicketInfo.contactsId = contactsId;

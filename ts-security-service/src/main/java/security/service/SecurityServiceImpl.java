@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import security.domain.*;
 import security.repository.SecurityRepository;
+
+import java.security.Security;
 import java.util.Date;
 import java.util.UUID;
 
@@ -95,9 +97,12 @@ public class SecurityServiceImpl implements SecurityService{
         int orderInOneHour = orderOtherResult.getOrderNumInLastOneHour() + orderResult.getOrderNumInLastOneHour();
         int totalValidOrder = orderOtherResult.getOrderNumOfValidOrder() + orderOtherResult.getOrderNumOfValidOrder();
         //2.获取关键配置信息
-        System.out.println("[Security Service][Get Security COnfig Info]");
-        int oneHourLine = 5;//todo
-        int totalValidLine = 5;//todo
+        System.out.println("[Security Service][Get Security Config Info]");
+        SecurityConfig configMaxInHour = securityRepository.findByName("max_order_1_hour");
+        SecurityConfig configMaxNotUse = securityRepository.findByName("max_order_not_use");
+        System.out.println("[Security Service] Max In One Hour:" + configMaxInHour.getValue() + " Max Not Use:" + configMaxNotUse.getValue());
+        int oneHourLine = Integer.parseInt(configMaxInHour.getValue());
+        int totalValidLine = Integer.parseInt(configMaxNotUse.getValue());
         if(orderInOneHour > oneHourLine || totalValidOrder > totalValidLine){
             result.setStatus(false);
             result.setAccountId(info.getAccountId());

@@ -95,7 +95,7 @@ public class PreserveServiceImpl implements PreserveService{
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
             order.setContactsName(contacts.getName());
             order.setDocumentType(contacts.getDocumentType());
-            order.setPrice(100.0);//Set ticket price
+            order.setPrice("100.0");//Set ticket price
             order.setSeatClass(oti.getSeatType());
             order.setTravelDate(oti.getDate());
             order.setTravelTime(trip.getStartingTime());
