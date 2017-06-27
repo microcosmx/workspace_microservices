@@ -34,7 +34,7 @@
     margin-left:200px;
     top:100px;
     /*width:800px;*/
-    display: block;
+    display: none;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 1px 1px 10px black;
@@ -50,7 +50,7 @@
     margin-left:200px;
     top:100px;
     /*width:800px;*/
-    display: block;
+    display: none;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 1px 1px 10px black;

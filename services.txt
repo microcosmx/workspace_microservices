@@ -16,30 +16,32 @@
     车次查询_高铁动车: ts-travel-service (db: 车次表（max ticket）)      --- xcj 
     车次查询_其他(k...): ts-travel2-service                            --- xcj 
 
-    车票预订_高铁动车：ts-preserve-service           --- jc 60%
-    车票预订_其他: ts-preserve-service              --- jc 0%
+    车票预订_高铁动车：ts-preserve-service           --- jc 
+    车票预订_其他: ts-preserve-service              --- jc 
 
-    车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)   --- jc 60%
+    车票订单_高铁动车(CRUD): ts-order-service (cancel, modify, rebook, query)   --- jc 
         status: 
             未支付: 预订未支付，修改(座位等级修改，删除...), 取消(退票)
             已支付：预定已支付，已支付改签，取消
-    车票订单_其他(k...):                                                       --- jc 0%
+    车票订单_其他(k...):                                                       --- jc
 
-    站内支付： ts-insite-payment （db）        --- xcj 0%
-    车票支付(CRUD，退款): ts-payment-service （中转）  --- xcj 0%
+    站内支付： ts-insite-payment （db）        --- xcj 
+    车票支付(CRUD，退款): ts-payment-service （中转）  --- xcj 
 
-    车票使用终端服务(车票进站): ts-execute-service （中转） --- jc in progress
+    车票使用终端服务(车票进站): ts-execute-service （中转） --- jc 
 
-    黄牛：ts-security-service (账户同一天1小时内没有订单或预定，不能超过5张)    --- jc 30%
+    黄牛：ts-security-service (账户同一天1小时内没有订单或预定，不能超过5张)    --- jc 
 
-    消息通知微服务：ts-notification-service     --- xcj 60%
+    消息通知微服务：ts-notification-service     --- xcj 
     （todo: 取票）
 
     基础信息：ts-basic-service （查询接口）                --- xcj  
 
     车票关联信息：ts-ticketinfo-service （查询接口）        --- xcj  
 
-    预定关联信息：ts-preserveinfo-service （查询接口）      --- jc in progress
+    改签： ts-rebook-service (改签)
+
+
 
 
 页面：
@@ -77,8 +79,8 @@
     基础信息，登陆， 注册， 消息通知微服务、
     车票关联信息，车票订单，
     车次查询，站内支付，车票支付， 车票使用终端服务,黄牛，
-    车票预订，预定关联信息
-    车票改签
+    车票预订，车票改签
+    
     
 
 
