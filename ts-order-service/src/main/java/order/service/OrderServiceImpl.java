@@ -6,7 +6,11 @@ import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -319,5 +323,32 @@ public class OrderServiceImpl implements OrderService{
     public void initOrder(Order order){
         orderRepository.save(order);
     }
+
+    @Override
+    public GetOrderInfoForSecurityResult checkSecurityAboutOrder(GetOrderInfoForSecurity info){
+        GetOrderInfoForSecurityResult result = new GetOrderInfoForSecurityResult();
+        ArrayList<Order> orders = orderRepository.findByAccountId(UUID.fromString(info.getAccountId()));
+        int countOrderInOneHour = 0;
+        int countTotalValidOrder = 0;
+        Date dateFrom = info.getCheckDate();
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(dateFrom );
+        ca.add(Calendar.HOUR_OF_DAY, -1);
+        dateFrom = ca.getTime();
+        for(Order order : orders){
+            if(order.getStatus() == OrderStatus.NOTPAID.getCode() ||
+                    order.getStatus() == OrderStatus.PAID.getCode() ||
+                    order.getStatus() == OrderStatus.COLLECTED.getCode()){
+                countTotalValidOrder += 1;
+            }
+            if(order.getBoughtDate().after(dateFrom)){
+                countOrderInOneHour += 1;
+            }
+        }
+        result.setOrderNumInLastOneHour(countOrderInOneHour);
+        result.setOrderNumOfValidOrder(countTotalValidOrder);
+        return result;
+    }
+
 }
 

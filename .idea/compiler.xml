@@ -32,7 +32,6 @@
         <module name="ts-config-service" />
         <module name="ts-contacts-service" />
         <module name="ts-execute-service" />
-        <module name="ts-inside-payment-service" />
         <module name="ts-insite-payment" />
         <module name="ts-login-service" />
         <module name="ts-notification-service" />
@@ -43,7 +42,6 @@
         <module name="ts-preserve-service" />
         <module name="ts-query-crh-service" />
         <module name="ts-query-ordinary-service" />
-        <module name="ts-rebook-service" />
         <module name="ts-register-service" />
         <module name="ts-security-service" />
         <module name="ts-sso-service" />
@@ -86,7 +84,6 @@
       <module name="ts-config-service" target="1.8" />
       <module name="ts-contacts-service" target="1.8" />
       <module name="ts-execute-service" target="1.8" />
-      <module name="ts-inside-payment-service" target="1.8" />
       <module name="ts-insite-payment" target="1.8" />
       <module name="ts-login-service" target="1.8" />
       <module name="ts-notification-service" target="1.8" />
@@ -97,7 +94,6 @@
       <module name="ts-preserve-service" target="1.8" />
       <module name="ts-query-crh-service" target="1.8" />
       <module name="ts-query-ordinary-service" target="1.8" />
-      <module name="ts-rebook-service" target="1.8" />
       <module name="ts-register-service" target="1.8" />
       <module name="ts-security-service" target="1.8" />
       <module name="ts-sso-service" target="1.8" />

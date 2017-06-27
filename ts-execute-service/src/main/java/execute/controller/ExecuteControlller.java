@@ -5,15 +5,12 @@ import execute.domain.TicketExecuteResult;
 import execute.serivce.ExecuteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ExecuteControlller {
 
     @Autowired
     private ExecuteService executeService;
-
-    private RestTemplate restTemplate;
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
