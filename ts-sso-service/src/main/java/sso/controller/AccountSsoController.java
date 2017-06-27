@@ -55,10 +55,12 @@ public class AccountSsoController {
             System.out.println("[SSO Service][Login] Password Right. Put token to sso.");
             restTemplate = new RestTemplate();
             PutLoginResult tokenResult = loginPutToken(lr.getAccount().getId().toString());
-            System.out.println("[SSO Service][Login] Post to sso:" + tokenResult.getToken());
+            System.out.println("[SSO Service] PutLoginResult Status: " + tokenResult.isStatus());
             if(tokenResult.isStatus() == true){
+                System.out.println("[SSO Service][Login] Post to sso:" + tokenResult.getToken());
                 lr.setToken(tokenResult.getToken());
             }else{
+                System.out.println("[SSO Service][Login] Token Result Fail.");
                 lr.setToken(null);
                 lr.setStatus(false);
                 lr.setMessage(tokenResult.getMsg());
@@ -80,7 +82,7 @@ public class AccountSsoController {
         return ssoService.verifyLoginToken(token);
     }
 
-    public PutLoginResult loginPutToken(@PathVariable String loginId){
+    public PutLoginResult loginPutToken(String loginId){
         return ssoService.loginPutToken(loginId);
     }
 

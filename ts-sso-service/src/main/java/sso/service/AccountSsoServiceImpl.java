@@ -58,7 +58,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Override
     public LoginResult login(LoginInfo li){
         if(li == null){
-            System.out.println("SSO Service][Login] Fail.Account not found.");
+            System.out.println("[SSO Service][Login] Fail.Account not found.");
             LoginResult lr = new LoginResult();
             lr.setStatus(false);
             lr.setMessage("Account Not Found");
