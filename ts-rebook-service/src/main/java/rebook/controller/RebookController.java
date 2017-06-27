@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import rebook.domain.RebookInfo;
+import rebook.domain.RebookResult;
 import rebook.service.RebookService;
 
 /**
@@ -18,7 +19,7 @@ public class RebookController {
     RebookService service;
 
     @RequestMapping(value="/rebook/", method = RequestMethod.POST)
-    public boolean rebook(@RequestBody RebookInfo info){
+    public RebookResult rebook(@RequestBody RebookInfo info){
         return service.rebook(info);
     }
 

@@ -1,10 +1,11 @@
 package rebook.service;
 
 import rebook.domain.RebookInfo;
+import rebook.domain.RebookResult;
 
 /**
  * Created by Administrator on 2017/6/26.
  */
 public interface RebookService {
-    boolean rebook(RebookInfo info);
+    RebookResult rebook(RebookInfo info);
 }
