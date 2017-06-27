@@ -10,7 +10,7 @@ $("#inside_payment_query_account_button").click(function(){
         success: function (result) {
             var size = result.length;
             $("#query_inside_payment_account_list_table").find("tbody").html("");
-            $("#query_inside_payment_account_list_table").find("tbody").css('height','200px');
+            // $("#inside_payment_payment_result_table").css('height','200px');
             for (var i = 0; i < size; i++) {
                 $("#query_inside_payment_account_list_table").find("tbody").append(
                     "<tr>" +
@@ -33,7 +33,7 @@ $("#inside_payment_query_payment_button").click(function(){
         success: function (result) {
             var size = result.length;
             $("#query_inside_payment_payment_list_table").find("tbody").html("");
-            $("#query_inside_payment_payment_list_table").find("tbody").css('height','200px');
+            // $("#inside_payment_account_result_table").css('height','200px');
             for (var i = 0; i < size; i++) {
                 $("#query_inside_payment_payment_list_table").find("tbody").append(
                     "<tr>" +

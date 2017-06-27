@@ -35,6 +35,8 @@ $("#ticketinfo_button").click(function(){
                 "<td>" + result["trainType"]["id"] + "</td>" +
                 "<td>" + result["trainType"]["economyClass"] + "</td>" +
                 "<td>" + result["trainType"]["confortClass"] + "</td>" +
+                "<td>" + result["prices"]["economyClass"] + "</td>" +
+                "<td>" + result["prices"]["confortClass"] + "</td>" +
                 "</tr>"
             );
         }

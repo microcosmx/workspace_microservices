@@ -10,7 +10,7 @@ $("#payment_query_button").click(function(){
         success: function (result) {
             var size = result.length;
             $("#query_payment_list_table").find("tbody").html("");
-            $("#query_payment_list_table").find("tbody").css('height','200px');
+            // $("#payment_result_table").css('height','200px');
             for (var i = 0; i < size; i++) {
                 $("#query_payment_list_table").find("tbody").append(
                     "<tr>" +
