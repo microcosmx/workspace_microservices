@@ -1,11 +1,18 @@
 
 reproduce url:
-http://localhost:16006/hello6?cal=60
+normal:
+http://localhost:16006/hello6?cal=20
+http://localhost:16006/hello6?cal=33
+process kill:
 http://localhost:16006/hello6?cal=200
-http://localhost:16006/hello6?cal=150
-http://localhost:16001/hello1?cal=60
-http://localhost:16001/hello1?cal=1000
-http://localhost:16000/greeting?cal=60
+http://localhost:16006/hello6?cal=1000
+OOM:
+http://localhost:16006/hello6?cal=80
+http://localhost:16006/hello6?cal=90
+
+OOM 和 docker resource 限制之间的关联启发出来的
+配置了 memory limit 的出故障
+没配置的出 OOM 的故障，所以可能和OOM相关
 
 
 
