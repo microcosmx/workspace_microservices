@@ -125,7 +125,7 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='1'>Paid & Not Collected</option>" +
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
-            "<option value='4'>Cance</option>" +
+            "<option value='4'>Cancel</option>" +
             "<option value='5'>Refunded</option>";
     }else if(number == 1){
         result +=
@@ -133,7 +133,7 @@ function convertNumberToHtmlOrderStatus(number){
             "<option selected='selected' value='1'>Paid & Not Collected</option>" +
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
-            "<option value='4'>Cance</option>" +
+            "<option value='4'>Cancel</option>" +
             "<option value='5'>Refunded</option>";
     }else if(number == 2){
         result +=
@@ -141,7 +141,7 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='1'>Paid & Not Collected</option>" +
             "<option selected='selected' value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
-            "<option value='4'>Cance</option>" +
+            "<option value='4'>Cancel</option>" +
             "<option value='5'>Refunded</option>";
     }else if(number == 3){
         result +=
@@ -149,7 +149,7 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='1'>Paid & Not Collected</option>" +
             "<option value='2'>Collected</option>" +
             "<option selected='selected' value='3'>Cancel & Rebook</option>" +
-            "<option value='4'>Cance</option>" +
+            "<option value='4'>Cancel</option>" +
             "<option value='5'>Refunded</option>";
     }else if(number == 4){
         result +=
@@ -157,7 +157,7 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='1'>Paid & Not Collected</option>" +
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
-            "<option selected='selected' value='4'>Cance</option>" +
+            "<option selected='selected' value='4'>Cancel</option>" +
             "<option value='5'>Refunded</option>";
     }else if(number == 5) {
         result +=
@@ -339,6 +339,42 @@ $("#refresh_my_order_list_button").click(function(){
     });
 });
 
+function addListenerToOrderCancel(){
+    var ticketCancelButtonSet = $(".ticket_cancel_btn");
+    for(var i = 0;i < ticketCancelButtonSet.length;i++){
+        ticketCancelButtonSet[i].onclick = function(){
+            var orderId = $(this).parents("form").find(".my_order_list_id").text();
+            $("#ticket_cancel_order_id").text(orderId);
+            var orderPrice = $(this).parents("form").find(".my_order_list_price").text();
+            $("#cancel_money_refund").text(orderPrice);
+        }
+    }
+}
+
+function addListenerToOrderChange(){
+    var ticketChangeButtonSet = $(".order_rebook_btn");
+    for(var i = 0;i < ticketChangeButtonSet.length;i++){
+        ticketChangeButtonSet[i].onclick = function(){
+            var changeStartingPlace = $(this).parents("form").find(".my_order_list_from").text();
+            var changeEndPlace = $(this).parents("form").find(".my_order_list_to").text();
+            $("#travel_rebook_startingPlace").val(changeStartingPlace);
+            $("#travel_rebook_terminalPlace").val(changeEndPlace);
+        }
+    }
+}
+
+$("#ticket_cancel_panel_cancel").click(function(){
+    alert("You click the cancel button.");
+});
+
+$("#ticket_cancel_panel_confirm").click(function(){
+    alert("You click the confirm button.");
+});
+
+$("#travel_rebook_button").click(function(){
+    alert("You click the rebook button.");
+});
+
 $("#travel_booking_button").click(function(){
     var travelQueryInfo = new Object();
     travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
@@ -510,34 +546,6 @@ $("#travel_booking_button").click(function(){
         });
     }
 });
-
-function addListenerToOrderCancel(){
-    var ticketCancelButtonSet = $(".ticket_cancel_btn");
-    for(var i = 0;i < ticketCancelButtonSet.length;i++){
-        ticketCancelButtonSet[i].onclick = function(){
-            var orderId = $(this).parents("form").find(".my_order_list_id").text();
-            $("#ticket_cancel_order_id").text(orderId);
-            var orderPrice = $(this).parents("form").find(".my_order_list_price").text();
-            $("#cancel_money_refund").text(orderPrice);
-        }
-    }
-}
-
-function addListenerToOrderChange(){
-    var ticketChangeButtonSet = $(".order_rebook_btn");
-    for(var i = 0;i < ticketChangeButtonSet.length;i++){
-        ticketChangeButtonSet[i].onclick = function(){
-            var changeStartingPlace = $(this).parents("form").find(".my_order_list_from").text();
-            alert("Starting Place:" + changeStartingPlace);
-            var changeEndPlace = $(this).parents("form").find(".my_order_list_to").text();
-            alert("End Place:" + changeEndPlace);
-            $("#travel_rebook_startingPlace").text(changeStartingPlace);
-            alert("Change Data - 1");
-            $("#travel_rebook_terminalPlace").text(changeEndPlace);
-            alert("Change Data - 2");
-        }
-    }
-}
 
 function addListenerToBookingTable(){
     var ticketBookingButtonSet = $(".ticket_booking_button");

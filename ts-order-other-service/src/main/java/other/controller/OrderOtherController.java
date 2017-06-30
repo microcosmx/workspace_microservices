@@ -98,24 +98,6 @@ public class OrderOtherController {
         return orderService.checkSecurityAboutOrder(info);
     }
 
-
-
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(path = "/orderOther/alter", method = RequestMethod.POST)
-//    public OrderAlterResult alterOrder(@RequestBody OrderAlterInfo oai){
-//        VerifyResult vr = verifySsoLogin(oai.getLoginToken());
-//        if(vr.isStatus() == true){
-//            return orderService.alterOrder(oai);
-//        }else{
-//            OrderAlterResult oar = new OrderAlterResult();
-//            oar.setStatus(false);
-//            oar.setMessage("Not Login");
-//            oar.setOldOrder(null);
-//            oar.setNewOrder(null);
-//            return oar;
-//        }
-//    }
-
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/orderOther/update", method = RequestMethod.POST)
     public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
@@ -133,22 +115,13 @@ public class OrderOtherController {
         }
     }
 
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(path="/orderOther/cancel", method = RequestMethod.PUT)
-//    public CancelOrderResult cancelOrder(@RequestBody CancelOrderInfo coi){
-//        VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());
-//        if(tokenResult.isStatus() == true){
-//            System.out.println("[Order Other Service][VerifyLogin] Success");
-//            return orderService.cancelOrder(coi);
-//        }else{
-//            System.out.println("[OrderService][VerifyLogin] Fail");
-//            CancelOrderResult cor = new CancelOrderResult();
-//            cor.setStatus(false);
-//            cor.setMessage("Not Login");
-//            cor.setOrder(null);
-//            return cor;
-//        }
-//    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path="/orderOther/delete",method = RequestMethod.POST)
+    public DeleteOrderResult deleteOrder(@RequestBody DeleteOrderInfo info){
+        System.out.println("[Order Other Service][Delete Order] Order Id:" + info.getOrderId());
+        return orderService.deleteOrder(info);
+    }
+
 
     /***************For super admin(Single Service Test*******************/
 
