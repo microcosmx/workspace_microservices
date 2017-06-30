@@ -116,22 +116,22 @@ public class OrderOtherController {
 //        }
 //    }
 
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(path = "/orderOther/update", method = RequestMethod.PUT)
-//    public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
-//        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
-//        if(tokenResult.isStatus() == true){
-//            System.out.println("[Order Other Service][Verify Login] Success");
-//            return orderService.saveChanges(orderInfo.getOrder());
-//        }else{
-//            System.out.println("[Order Other Service][Verify Login] Fail");
-//            ChangeOrderResult cor = new ChangeOrderResult();
-//            cor.setStatus(false);
-//            cor.setMessage("Not Login");
-//            cor.setOrder(null);
-//            return cor;
-//        }
-//    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/orderOther/update", method = RequestMethod.POST)
+    public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
+        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
+        if(tokenResult.isStatus() == true){
+            System.out.println("[Order Other Service][Verify Login] Success");
+            return orderService.saveChanges(orderInfo.getOrder());
+        }else{
+            System.out.println("[Order Other Service][Verify Login] Fail");
+            ChangeOrderResult cor = new ChangeOrderResult();
+            cor.setStatus(false);
+            cor.setMessage("Not Login");
+            cor.setOrder(null);
+            return cor;
+        }
+    }
 
 //    @CrossOrigin(origins = "*")
 //    @RequestMapping(path="/orderOther/cancel", method = RequestMethod.PUT)
