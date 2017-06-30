@@ -345,5 +345,21 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         return result;
     }
 
+    @Override
+    public DeleteOrderResult deleteOrder(DeleteOrderInfo info){
+        UUID orderUuid = UUID.fromString(info.getOrderId());
+        Order order = orderOtherRepository.findById(orderUuid);
+        DeleteOrderResult result = new DeleteOrderResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Exist.");
+        }else{
+            orderOtherRepository.deleteById(orderUuid);
+            result.setStatus(true);
+            result.setMessage("Success.");
+        }
+        return result;
+    }
+
 }
 
