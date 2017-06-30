@@ -8,7 +8,6 @@ $("#login_button").click(function() {
     loginInfo.password = $("#login_password").val();
     loginInfo.verificationCode = $("#login_verification_code").val();
     var data = JSON.stringify(loginInfo);
-
     $.ajax({
         type: "post",
         url: "/login",

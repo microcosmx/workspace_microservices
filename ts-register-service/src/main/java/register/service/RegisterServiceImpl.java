@@ -44,13 +44,20 @@ public class RegisterServiceImpl implements RegisterService {
         RegisterResult rr = restTemplate.postForObject(
                 "http://ts-sso-service:12349/account/register",
                 ri,RegisterResult.class);
+        if(rr.isStatus() == true){
+            System.out.println("[Register Service] Register Success.");
+            System.out.println("[Register Service] Get Price Account.");
+            CreateAccountInfo createAccountInfo = new CreateAccountInfo();
+            createAccountInfo.setUserId(rr.getAccount().getId().toString());
+            createAccountInfo.setBalance("10000");
+            System.out.println("[Register Service] Get Price Account.");
+            boolean  createAccountSuccess = restTemplate.postForObject(
+                    "http://ts-inside-payment-service:18673/inside_payment/createAccount",
+                    createAccountInfo,Boolean.class);
+        }else{
 
-        CreateAccountInfo createAccountInfo = new CreateAccountInfo();
-        createAccountInfo.setUserId(rr.getAccount().getId().toString());
-        createAccountInfo.setBalance("10000");
-        boolean  createAccountSuccess = restTemplate.postForObject(
-                "http://ts-inside-payment-service:18673/inside_payment/createAccount",
-                createAccountInfo,Boolean.class);
+        }
+
         return rr;
     }
 }

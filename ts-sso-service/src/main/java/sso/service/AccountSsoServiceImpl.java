@@ -181,7 +181,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public ModifyAccountResult saveChanges(ModifyAccountInfo modifyAccountInfo){
         Account existAccount = accountRepository.findByPhoneNum(modifyAccountInfo.getNewEmail());
         ModifyAccountResult result = new ModifyAccountResult();
-        if(existAccount != null){
+        if(existAccount != null && !modifyAccountInfo.getAccountId().equals(existAccount.getId().toString())){
             System.out.println("[SSO Service][Modify Info] Email exists.");
             result.setStatus(false);
             result.setMessage("Email Has Been Occupied.");
@@ -197,6 +197,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
             result.setMessage("Account Not Found.");
         }else{
             oldAccount.setPhoneNum(modifyAccountInfo.getNewEmail());
+            oldAccount.setPassword(modifyAccountInfo.getNewPassword());
             accountRepository.save(oldAccount);
             oldAccount.setPassword("");
             System.out.println("[SSO Service][ModifyInfo] Success.");

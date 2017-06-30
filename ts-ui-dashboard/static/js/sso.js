@@ -24,6 +24,7 @@ function refresh_account() {
                     "<td>" + i + "</td>" +
                     "<td class='sso_account_id'>" + obj[i]["id"] + "</td>" +
                     "<td ><input class='sso_account_phoneNum form-control' value='" + obj[i]["phoneNum"] + "'></td>" +
+                    "<td ><input class='sso_account_password form-control' value='" + obj[i]["password"] + "'></td>" +
                     "<td>" + "<button class='account_update_btn btn btn-primary'>Update</button>" + "</td>" +
                     "</tr>"
                 );
@@ -41,6 +42,7 @@ function addListenerToSsoAccountTable(){
             var modifyInfo = new Object();
             modifyInfo.accountId = $(this).parents("tr").find(".sso_account_id").text();
             modifyInfo.newEmail = $(this).parents("tr").find(".sso_account_phoneNum").val();
+            modifyInfo.newPassword = $(this).parents("tr").find(".sso_account_password").val();
             var data = JSON.stringify(modifyInfo);
             $.ajax({
                 type: "post",

@@ -97,7 +97,21 @@ public class PreserveServiceImpl implements PreserveService{
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
             order.setContactsName(contacts.getName());
             order.setDocumentType(contacts.getDocumentType());
-            order.setPrice("100.0");//Set ticket price
+
+            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+            queryPriceInfo.setStartingPlaceId(queryForStationId(oti.getFrom()));
+            queryPriceInfo.setEndPlaceId(queryForStationId(oti.getTo()));
+            if(oti.getSeatType() == 2){
+                queryPriceInfo.setSeatClass("confortClass");
+                System.out.println("[Preserve Service][Seat Class] Confort Class.");
+            }else if(oti.getSeatType() == 3) {
+                queryPriceInfo.setSeatClass("economyClass");
+                System.out.println("[Preserve Service][Seat Class] Economy Class.");
+            }
+            queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
+            String ticketPrice = getPrice(queryPriceInfo);
+            order.setPrice(ticketPrice);//Set ticket price
+
             order.setSeatClass(oti.getSeatType());
             order.setTravelDate(oti.getDate());
             order.setTravelTime(trip.getStartingTime());
@@ -131,6 +145,22 @@ public class PreserveServiceImpl implements PreserveService{
             otr.setOrder(null);
         }
         return otr;
+    }
+
+    private String queryForStationId(String stationName){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Other Service][Get Station Name]");
+        QueryForId queryForId = new QueryForId();
+        queryForId.setName(stationName);
+        String stationId = restTemplate.postForObject("http://ts-station-service:12345/station/queryForId",queryForId,String.class);
+        return stationId;
+    }
+
+    private String getPrice(QueryPriceInfo info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Service][Get Price] Checking....");
+        String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
+        return price;
     }
 
     private CheckResult checkSecurity(CheckInfo info){
