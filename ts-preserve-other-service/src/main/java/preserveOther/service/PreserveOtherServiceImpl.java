@@ -121,16 +121,12 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             order.setDocumentType(contacts.getDocumentType());
 
             QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-
-
             queryPriceInfo.setStartingPlaceId(queryForStationId(oti.getFrom()));
             queryPriceInfo.setEndPlaceId(queryForStationId(oti.getTo()));
-
-
-            if(oti.getSeatType() == 2){
+            if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
                 queryPriceInfo.setSeatClass("confortClass");
                 System.out.println("[Preserve Other Service][Seat Class] Confort Class.");
-            }else if(oti.getSeatType() == 3) {
+            }else if(oti.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
                 queryPriceInfo.setSeatClass("economyClass");
                 System.out.println("[Preserve Other Service][Seat Class] Economy Class.");
             }

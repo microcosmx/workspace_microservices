@@ -519,7 +519,6 @@ function addListenerToOrderCancel(){
             $("#ticket_cancel_order_id").text(orderId);
             var orderPrice = $(this).parents("form").find(".my_order_list_price").text();
             $("#cancel_money_refund").text(orderPrice);
-            alert("Order Id:" + orderId + " Price:" + orderPrice);
         }
     }
 }
@@ -529,9 +528,13 @@ function addListenerToOrderChange(){
     for(var i = 0;i < ticketChangeButtonSet.length;i++){
         ticketChangeButtonSet[i].onclick = function(){
             var changeStartingPlace = $(this).parents("form").find(".my_order_list_from").text();
-            var changeEndPlace = $(this).parents("to").find(".my_order_list_to").text();
+            alert("Starting Place:" + changeStartingPlace);
+            var changeEndPlace = $(this).parents("form").find(".my_order_list_to").text();
+            alert("End Place:" + changeEndPlace);
             $("#travel_rebook_startingPlace").text(changeStartingPlace);
+            alert("Change Data - 1");
             $("#travel_rebook_terminalPlace").text(changeEndPlace);
+            alert("Change Data - 2");
         }
     }
 }
