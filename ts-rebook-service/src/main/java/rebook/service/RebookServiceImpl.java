@@ -6,6 +6,9 @@ import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/6/26.
  */
@@ -20,101 +23,113 @@ public class RebookServiceImpl implements RebookService{
         //1.黄牛检测
         CheckInfo checkInfo = new CheckInfo();
         checkInfo.setAccountId(loginId);
-        CheckResult result = checkSecurity(checkInfo);
-        if(result.isStatus() == false){
+        CheckResult checkResult = checkSecurity(checkInfo);
+        if(checkResult.isStatus() == false){
             rebookResult.setStatus(false);
-            rebookResult.setMessage(result.getMessage());
+            rebookResult.setMessage(checkResult.getMessage());
             rebookResult.setOrder(null);
             return rebookResult;
         }
 
+        QueryOrderResult queryOrderResult;
         //改签只能改签一次，查询订单状态来判断是否已经改签过
         if(info.getOldTripId().startsWith("G") || info.getOldTripId().startsWith("D")){
-            result = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+            queryOrderResult = restTemplate.postForObject(
+                    "http://ts-order-service:12031/order/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }else{
-            result = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/orderOther/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+            queryOrderResult = restTemplate.postForObject(
+                    "http://ts-order-other-service:12032//orderOther/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+        }
+
+        if(!queryOrderResult.isStatus()){
+            rebookResult.setStatus(false);
+            rebookResult.setMessage(queryOrderResult.getMessage());
+            rebookResult.setOrder(null);
+            return rebookResult;
+        }
+
+        Order order = queryOrderResult.getOrder();
+        int status = order.getStatus();
+        if(status == OrderStatus.NOTPAID.getCode() || status ==OrderStatus.PAID.getCode()){
+            // do nothing
+        }else if(status == OrderStatus.CHANGE.getCode()){
+            rebookResult.setStatus(false);
+            rebookResult.setMessage("You have already changed your ticket and you can only change one time.");
+            rebookResult.setOrder(null);
+            return rebookResult;
+        }else if(status == OrderStatus.COLLECTED.getCode()){
+            rebookResult.setStatus(false);
+            rebookResult.setMessage("You have already collected your ticket and you can change it now.");
+            rebookResult.setOrder(null);
+            return rebookResult;
+        } else{
+            rebookResult.setStatus(false);
+            rebookResult.setMessage("You can't change your ticket.");
+            rebookResult.setOrder(null);
+            return rebookResult;
         }
 
 
 
-
         //查询当前时间和旧订单乘车时间，根据时间来判断能否改签，发车两小时后不能改签
+        if(!checkTime(order.getTravelDate(),order.getTravelTime())){
+            rebookResult.setStatus(false);
+            rebookResult.setMessage("You can only change the ticket before the train start or within 2 hours after the train start.");
+            rebookResult.setOrder(null);
+            return rebookResult;
+        }
+
+
         //改签不能更换出发地和目的地，只能更改车次、席位、时间
-
-
-
-
         //3.查询座位余票信息和车次的详情
         GetTripAllDetailInfo gtdi = new GetTripAllDetailInfo();
-        gtdi.setFrom(oti.getFrom());
-        gtdi.setTo(oti.getTo());
-        gtdi.setTravelDate(oti.getDate());
-        gtdi.setTripId(oti.getTripId());
-        GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi);
+        gtdi.setFrom(order.getFrom());
+        gtdi.setTo(order.getTo());
+        gtdi.setTravelDate(info.getDate());
+        gtdi.setTripId(info.getTripId());
+        GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi,info.getTripId());
         if(gtdr.isStatus() == false){
-            otr.setStatus(false);
-            otr.setMessage(gcr.getMessage());
-            otr.setOrder(null);
-            return otr;
+            rebookResult.setStatus(false);
+            rebookResult.setMessage(gtdr.getMessage());
+            rebookResult.setOrder(null);
+            return rebookResult;
         }else{
             TripResponse tripResponse = gtdr.getTripResponse();
-            if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+            if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
                 if(tripResponse.getConfortClass() == 0){
-                    otr.setStatus(false);
-                    otr.setMessage("Seat Not Enough");
-                    otr.setOrder(null);
+                    rebookResult.setStatus(false);
+                    rebookResult.setMessage("Seat Not Enough");
+                    rebookResult.setOrder(null);
+                    return rebookResult;
                 }
             }else{
                 if(tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode()){
                     if(tripResponse.getConfortClass() == 0){
-                        otr.setStatus(false);
-                        otr.setMessage("Seat Not Enough");
-                        otr.setOrder(null);
+                        rebookResult.setStatus(false);
+                        rebookResult.setMessage("Seat Not Enough");
+                        rebookResult.setOrder(null);
                     }
                 }
             }
         }
         Trip trip = gtdr.getTrip();
 
-        //4.下达订单请求 设置order的各个信息
-        Contacts contacts = gcr.getContacts();
-        Order order = new Order();
-        order.setId(UUID.randomUUID());
-        order.setTrainNumber(oti.getTripId());
-        order.setAccountId(UUID.fromString(oti.getAccountId()));
-        order.setFrom(oti.getFrom());
-        order.setTo(oti.getTo());
+        //4.修改原有订单 设置order的各个信息
+        order.setTrainNumber(info.getTripId());
         order.setBoughtDate(new Date());
-        order.setStatus(OrderStatus.NOTPAID.getCode());
-        order.setContactsDocumentNumber(contacts.getDocumentNumber());
-        order.setContactsName(contacts.getName());
-        order.setDocumentType(contacts.getDocumentType());
+        order.setStatus(OrderStatus.CHANGE.getCode());
         order.setPrice("100.0");//Set ticket price
-        order.setSeatClass(oti.getSeatType());
-        order.setTravelDate(oti.getDate());
+        order.setSeatClass(info.getSeatType());
+        order.setTravelDate(info.getDate());
         order.setTravelTime(trip.getStartingTime());
-        if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
+        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
             int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
             order.setSeatNumber("FirstClass-" + firstClassRemainNum);
         }else{
             int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
             order.setSeatNumber("SecondClass-" + secondClassRemainNum);
         }
-        CreateOrderInfo coi = new CreateOrderInfo();//Send info to create the order.
-        coi.setLoginToken(oti.getLoginToken());
-        coi.setOrder(order);
-        CreateOrderResult cor = createOrder(coi);
-        if(cor.isStatus() == false){
-            otr.setStatus(false);
-            otr.setMessage(cor.getMessage());
-            otr.setOrder(null);
-            return otr;
-        }
-        otr.setStatus(true);
-        otr.setMessage("Success");
-        otr.setOrder(order);
+
 
         return null;
     }
@@ -131,10 +146,18 @@ public class RebookServiceImpl implements RebookService{
         return tokenResult;
     }
 
-    private GetTripAllDetailResult getTripAllDetailInformation(GetTripAllDetailInfo gtdi){
-        GetTripAllDetailResult gtdr = restTemplate.postForObject(
-                "http://ts-travel-service:12346/travel/getTripAllDetailInfo/"
-                ,gtdi,GetTripAllDetailResult.class);
+    private GetTripAllDetailResult getTripAllDetailInformation(GetTripAllDetailInfo gtdi, String tripId){
+        GetTripAllDetailResult gtdr;
+        if(tripId.startsWith("G") || tripId.startsWith("D")){
+            gtdr = restTemplate.postForObject(
+                    "http://ts-travel-service:12346/travel/getTripAllDetailInfo"
+                    ,gtdi,GetTripAllDetailResult.class);
+        }else{
+            gtdr = restTemplate.postForObject(
+                    "http://ts-travel-service:16346/travel2/getTripAllDetailInfo"
+                    ,gtdi,GetTripAllDetailResult.class);
+        }
+
         return gtdr;
     }
 
@@ -150,5 +173,41 @@ public class RebookServiceImpl implements RebookService{
                 "http://ts-order-service:12031/order/create/"
                 ,coi,CreateOrderResult.class);
         return cor;
+    }
+
+    private static boolean checkTime(Date travelDate, Date travelTime) {
+        boolean result = true;
+
+        Calendar calDateA = Calendar.getInstance();
+        Date today = new Date();
+        calDateA.setTime(today);
+
+        Calendar calDateB = Calendar.getInstance();
+        calDateB.setTime(travelDate);
+
+        Calendar calDateC = Calendar.getInstance();
+        calDateC.setTime(travelTime);
+
+        if(calDateA.get(Calendar.YEAR) > calDateB.get(Calendar.YEAR)){
+            result = false;
+        }else if(calDateA.get(Calendar.YEAR) == calDateB.get(Calendar.YEAR)){
+            if(calDateA.get(Calendar.MONTH) > calDateB.get(Calendar.MONTH)){
+                result = false;
+            }else if(calDateA.get(Calendar.MONTH) == calDateB.get(Calendar.MONTH)){
+                if(calDateA.get(Calendar.DAY_OF_MONTH) > calDateB.get(Calendar.DAY_OF_MONTH)){
+                    result = false;
+                }else if(calDateA.get(Calendar.DAY_OF_MONTH) == calDateB.get(Calendar.DAY_OF_MONTH)){
+                    if(calDateA.get(Calendar.HOUR_OF_DAY) > calDateC.get(Calendar.HOUR_OF_DAY)+2){
+                        result = false;
+                    }else if(calDateA.get(Calendar.HOUR_OF_DAY) == calDateC.get(Calendar.HOUR_OF_DAY)+2){
+                        if(calDateA.get(Calendar.MINUTE) > calDateC.get(Calendar.MINUTE)){
+                            result = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }

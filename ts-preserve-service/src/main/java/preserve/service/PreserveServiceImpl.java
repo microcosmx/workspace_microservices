@@ -67,6 +67,7 @@ public class PreserveServiceImpl implements PreserveService{
                         otr.setStatus(false);
                         otr.setMessage("Seat Not Enough");
                         otr.setOrder(null);
+                        return otr;
                     }
                 }else{
                     if(tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode()){
@@ -75,6 +76,7 @@ public class PreserveServiceImpl implements PreserveService{
                             otr.setStatus(false);
                             otr.setMessage("Seat Not Enough");
                             otr.setOrder(null);
+                            return otr;
                         }
                     }
                 }
