@@ -25,7 +25,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class sample1_remote {
+public class sample_docker_remote {
     
 	public static void main(String[] args) throws Exception {
 		
