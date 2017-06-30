@@ -20,7 +20,7 @@ public class RebookServiceImpl implements RebookService{
     public RebookResult rebook(RebookInfo info, String loginId, String loginToken){
         RebookResult rebookResult = new RebookResult();
 
-        //1.黄牛检测
+        //黄牛检测
         CheckInfo checkInfo = new CheckInfo();
         checkInfo.setAccountId(loginId);
         CheckResult checkResult = checkSecurity(checkInfo);
@@ -81,7 +81,7 @@ public class RebookServiceImpl implements RebookService{
 
 
         //改签不能更换出发地和目的地，只能更改车次、席位、时间
-        //3.查询座位余票信息和车次的详情
+        //查询座位余票信息和车次的详情
         GetTripAllDetailInfo gtdi = new GetTripAllDetailInfo();
         gtdi.setFrom(order.getFrom());
         gtdi.setTo(order.getTo());
@@ -118,7 +118,23 @@ public class RebookServiceImpl implements RebookService{
         order.setTrainNumber(info.getTripId());
         order.setBoughtDate(new Date());
         order.setStatus(OrderStatus.CHANGE.getCode());
-        order.setPrice("100.0");//Set ticket price
+
+
+
+        QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+        queryPriceInfo.setStartingPlaceId(order.getFrom());
+        queryPriceInfo.setEndPlaceId(order.getTo());
+        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+            queryPriceInfo.setSeatClass("confortClass");
+        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
+            queryPriceInfo.setSeatClass("economyClass");
+        }
+        queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());//----------------------------
+        String ticketPrice = getPrice(queryPriceInfo);
+        order.setPrice(ticketPrice);//Set ticket price
+
+
+
         order.setSeatClass(info.getSeatType());
         order.setTravelDate(info.getDate());
         order.setTravelTime(trip.getStartingTime());
@@ -209,5 +225,12 @@ public class RebookServiceImpl implements RebookService{
         }
 
         return result;
+    }
+
+    private String getPrice(QueryPriceInfo info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Service][Get Price] Checking....");
+        String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
+        return price;
     }
 }
