@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -61,7 +62,17 @@ public class sample_local_normal  {
 			driver.get(action + "?cal=150");
 			driver.get(action + "?cal=120");
 			driver.get(action + "?cal=1000");
+			
+			for (int i=0; i<30; i++ ){
+				driver.get(action + "?cal=" + Math.random()*100);
+			}
+			
+//			List<Integer> list = Stream.iterate(1, item -> item+3).limit(100).collect(Collectors.toList());
+//			list.stream().forEach(idx -> {
+//				driver.get(action + "?cal=" + idx);
+//			});
 	    });
+		
 		
 		
         driver.quit();
