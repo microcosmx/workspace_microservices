@@ -5,7 +5,7 @@ public enum OrderStatus {
     NOTPAID   (0,"Not Paid"),
     PAID      (1,"Paid & Not Collected"),
     COLLECTED (2,"Collected"),
-    CHANGE    (3,"Cancel & Rebook"),
+    CHANGE    (3,"Rebook"),
     CANCEL    (4,"Cancel"),
     REFUNDS   (5,"Refunded"),
     USED      (6,"Used");

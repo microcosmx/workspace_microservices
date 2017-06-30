@@ -6,6 +6,8 @@ public class ModifyAccountInfo {
 
     private String newEmail;
 
+    private String newPassword;
+
     public ModifyAccountInfo() {
         //Default Constructor
     }
@@ -24,5 +26,13 @@ public class ModifyAccountInfo {
 
     public void setNewEmail(String newEmail) {
         this.newEmail = newEmail;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

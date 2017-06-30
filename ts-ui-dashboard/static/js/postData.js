@@ -33,7 +33,6 @@ $("#flow_three_page").click(function(){
 
 $("#refresh_order_button").click(function(){
     var typeCheckBox = $(".order_type");
-    alert("type check box");
     if(typeCheckBox[0].checked && typeCheckBox[1].checked){
         $("#all_order_table").find("tbody").html("");
         refresh_order("/order/findAll");
@@ -65,7 +64,7 @@ function refresh_order(path){
                     "<tr>" +
                     "<td>" + i + "</td>" +
                     "<td class='all_order_id noshow_component'>" + obj[i]["id"] + "</td>" +
-                    "<td>" + obj[i]["accountId"] + "</td>" +
+                    "<td>" + obj[i]["id"] + "</td>" +
                     "<td class='all_order_trainNum'>" + obj[i]["trainNumber"] + "</td>" +
                     "<td>" + obj[i]["from"] + "</td>" +
                     "<td>" + obj[i]["to"] + "</td>" +
@@ -239,7 +238,6 @@ $("#refresh_my_order_list_button").click(function(){
             $("#my_orders_result").html("");
             for(var i = 0; i < size;i++){
                 var order = result[i];
-                alert(JSON.stringify(order));
                 $("#my_orders_result").append(
                     "<div class='panel panel-default'>" +
                         "<div class='panel-heading'>" +

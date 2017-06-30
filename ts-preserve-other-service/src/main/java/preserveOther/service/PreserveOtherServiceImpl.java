@@ -2,7 +2,28 @@ package preserveOther.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import preserve.domain.*;
+import preserve.domain.QueryPriceInfo;
 import preserveOther.domain.*;
+import preserveOther.domain.CheckInfo;
+import preserveOther.domain.CheckResult;
+import preserveOther.domain.Contacts;
+import preserveOther.domain.CreateOrderInfo;
+import preserveOther.domain.CreateOrderResult;
+import preserveOther.domain.GetContactsInfo;
+import preserveOther.domain.GetContactsResult;
+import preserveOther.domain.GetTripAllDetailInfo;
+import preserveOther.domain.GetTripAllDetailResult;
+import preserveOther.domain.Order;
+import preserveOther.domain.OrderStatus;
+import preserveOther.domain.OrderTicketsInfo;
+import preserveOther.domain.OrderTicketsResult;
+import preserveOther.domain.QueryForId;
+import preserveOther.domain.SeatClass;
+import preserveOther.domain.Trip;
+import preserveOther.domain.TripResponse;
+import preserveOther.domain.VerifyResult;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -96,7 +117,25 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
             order.setContactsName(contacts.getName());
             order.setDocumentType(contacts.getDocumentType());
-            order.setPrice("100.0");//Set ticket price
+
+            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+
+
+            queryPriceInfo.setStartingPlaceId(queryForStationId(oti.getFrom()));
+            queryPriceInfo.setEndPlaceId(queryForStationId(oti.getTo()));
+
+
+            if(oti.getSeatType() == 2){
+                queryPriceInfo.setSeatClass("confortClass");
+                System.out.println("[Preserve Other Service][Seat Class] Confort Class.");
+            }else if(oti.getSeatType() == 3) {
+                queryPriceInfo.setSeatClass("economyClass");
+                System.out.println("[Preserve Other Service][Seat Class] Economy Class.");
+            }
+            queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
+            String ticketPrice = getPrice(queryPriceInfo);
+            order.setPrice(ticketPrice);//Set ticket price
+
             order.setSeatClass(oti.getSeatType());
             order.setTravelDate(oti.getDate());
             order.setTravelTime(trip.getStartingTime());
@@ -130,6 +169,22 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setOrder(null);
         }
         return otr;
+    }
+
+    private String queryForStationId(String stationName){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Other Service][Get Station Name]");
+        QueryForId queryForId = new QueryForId();
+        queryForId.setName(stationName);
+        String stationId = restTemplate.postForObject("http://ts-station-service:12345/station/queryForId",queryForId,String.class);
+        return stationId;
+    }
+
+    private String getPrice(QueryPriceInfo info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Other Service][Get Price] Checking....");
+        String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
+        return price;
     }
 
     private CheckResult checkSecurity(CheckInfo info){

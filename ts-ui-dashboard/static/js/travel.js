@@ -204,8 +204,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[j]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st Class Seat</option>" +
-                            "<option value='3'>2st Class Seat</option>" +
+                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -242,8 +242,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[j]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st Class Seat</option>" +
-                            "<option value='3'>2st Class Seat</option>" +
+                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -283,8 +283,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[i]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st Class Seat</option>" +
-                            "<option value='3'>2st Class Seat</option>" +
+                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -324,8 +324,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[i]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st Class Seat</option>" +
-                            "<option value='3'>2st Class Seat</option>" +
+                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
