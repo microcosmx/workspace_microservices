@@ -1,4 +1,10 @@
 
+run:
+http://localhost:16006/hello6?cal=66
+http://localhost:16006/hello6?cal=96
+http://localhost:16006/hello6?cal=136
+
+
 mvn repo:
 https://repo1.maven.org/maven2/
 
