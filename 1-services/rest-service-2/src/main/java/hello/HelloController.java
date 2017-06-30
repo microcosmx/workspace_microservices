@@ -24,6 +24,8 @@ public class HelloController {
         log.info(String.valueOf(cal2));
         
     	Value value = new Value();
+    	value.setContent(true);
+    	value.setId(1000L);
         
 		log.info(value.toString());
 		return value;
