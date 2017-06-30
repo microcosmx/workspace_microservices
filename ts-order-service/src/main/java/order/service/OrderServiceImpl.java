@@ -161,6 +161,9 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setStatus(order.getStatus());
             oldOrder.setTrainNumber(order.getTrainNumber());
             oldOrder.setPrice(order.getPrice());
+            oldOrder.setContactsName(order.getContactsName());
+            oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
+            oldOrder.setDocumentType(order.getDocumentType());
             orderRepository.save(oldOrder);
             System.out.println("[Order Service] Success.");
             cor.setOrder(oldOrder);

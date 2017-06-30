@@ -115,22 +115,22 @@ public class OrderController {
 //        }
 //    }
 
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(path = "/order/update", method = RequestMethod.PUT)
-//    public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
-//        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
-//        if(tokenResult.isStatus() == true){
-//            System.out.println("[Order Service][Verify Login] Success");
-//            return orderService.saveChanges(orderInfo.getOrder());
-//        }else{
-//            System.out.println("[Order Service][Verify Login] Fail");
-//            ChangeOrderResult cor = new ChangeOrderResult();
-//            cor.setStatus(false);
-//            cor.setMessage("Not Login");
-//            cor.setOrder(null);
-//            return cor;
-//        }
-//    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/order/update", method = RequestMethod.POST)
+    public ChangeOrderResult saveOrderInfo(@RequestBody ChangeOrderInfo orderInfo){
+        VerifyResult tokenResult = verifySsoLogin(orderInfo.getLoginToken());
+        if(tokenResult.isStatus() == true){
+            System.out.println("[Order Service][Verify Login] Success");
+            return orderService.saveChanges(orderInfo.getOrder());
+        }else{
+            System.out.println("[Order Service][Verify Login] Fail");
+            ChangeOrderResult cor = new ChangeOrderResult();
+            cor.setStatus(false);
+            cor.setMessage("Not Login");
+            cor.setOrder(null);
+            return cor;
+        }
+    }
 
 //    @CrossOrigin(origins = "*")
 //    @RequestMapping(path="/order/cancel", method = RequestMethod.PUT)
@@ -164,7 +164,6 @@ public class OrderController {
         System.out.println("[Order Service][Modify Order] Order Id:" + info.getOrderId());
         return orderService.modifyOrder(info);
     }
-
 
     private VerifyResult verifySsoLogin(String loginToken){
         restTemplate = new RestTemplate();

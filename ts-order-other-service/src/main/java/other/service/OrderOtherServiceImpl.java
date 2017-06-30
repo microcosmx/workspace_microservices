@@ -158,6 +158,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             oldOrder.setStatus(order.getStatus());
             oldOrder.setTrainNumber(order.getTrainNumber());
             oldOrder.setPrice(order.getPrice());
+            oldOrder.setContactsName(order.getContactsName());
+            oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
+            oldOrder.setDocumentType(order.getDocumentType());
             orderOtherRepository.save(oldOrder);
             System.out.println("[Order Other Service] Success.");
             cor.setOrder(oldOrder);
