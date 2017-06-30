@@ -25,7 +25,7 @@ public class HelloController {
     public Value hello3(@RequestParam(value="name", defaultValue="service-6") String name, 
     		@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
 
-        double cal2 = Math.pow(Double.valueOf(cal), 2)/100; 
+        double cal2 = Math.pow(Math.abs(Double.valueOf(cal)%100), 2)/100; 
         log.info(String.valueOf(cal2));
 
         Value value = new Value();
@@ -40,6 +40,33 @@ public class HelloController {
 		log.info(value.toString());
         
 		return value;
-    }    
+    }
+    
+    
+    
+    @RequestMapping("/handle3_1")
+    public Value handle3_1(@RequestParam(value="cal", defaultValue="50") String cal) {
+
+        double cal2 = Math.abs(Double.valueOf(cal)%100);
+        log.info(String.valueOf(cal2));
+        
+        Value value = new Value();
+        if(cal2 < 16){
+        	value = restTemplate.getForObject("http://rest-service-2:16002/handle2_1?cal="+cal2, Value.class);
+        }else if(cal2 < 33){
+        	value = restTemplate.getForObject("http://rest-service-2:16002/handle2_2?cal="+cal2, Value.class);
+        }else if(cal2 < 50){
+        	value = restTemplate.getForObject("http://rest-service-2:16002/handle2_3?cal="+cal2, Value.class);
+        }else if(cal2 < 66){
+        	value = restTemplate.getForObject("http://rest-service-2:16002/handle2_4?cal="+cal2, Value.class);
+        }else if(cal2 < 83){
+        	value = restTemplate.getForObject("http://rest-service-2:16002/handle2_5?cal="+cal2, Value.class);
+        }else{
+        	value = restTemplate.getForObject("http://rest-service-2:16002/handle2_6?cal="+cal2, Value.class);
+        }
+		
+        log.info(value.toString());
+		return value;
+    }
     
 }

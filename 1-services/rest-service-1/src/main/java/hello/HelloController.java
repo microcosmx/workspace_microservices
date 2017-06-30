@@ -30,4 +30,57 @@ public class HelloController {
 		log.info(value.toString());
 		return value;
     }
+    
+    
+    
+    @RequestMapping("/handle1_1")
+    public Value handle1_1(@RequestParam(value="cal", defaultValue="50") String cal) {
+
+        double cal2 = Math.abs(Double.valueOf(cal))/1.01;
+        log.info(String.valueOf(cal2));
+        
+        Value value = null;
+        if(cal2 < 50){
+        	value = restTemplate.getForObject("http://rest-service-end:16000/handle_end_1?cal="+cal2, Value.class);
+        }else{
+        	value = restTemplate.getForObject("http://rest-service-end:16000/handle_end_2?cal="+cal2, Value.class);
+        }
+		
+        log.info(value.toString());
+		return value;
+    }
+    
+    @RequestMapping("/handle1_2")
+    public Value handle1_2(@RequestParam(value="cal", defaultValue="50") String cal) {
+
+    	double cal2 = Math.abs(Double.valueOf(cal))/1.02;
+        log.info(String.valueOf(cal2));
+        
+        Value value = null;
+        if(cal2 < 50){
+        	value = restTemplate.getForObject("http://rest-service-end:16000/handle_end_1?cal="+cal2, Value.class);
+        }else{
+        	value = restTemplate.getForObject("http://rest-service-end:16000/handle_end_2?cal="+cal2, Value.class);
+        }
+		
+        log.info(value.toString());
+		return value;
+    }
+    
+    @RequestMapping("/handle1_3")
+    public Value handle1_3(@RequestParam(value="cal", defaultValue="50") String cal) {
+
+    	double cal2 = Math.abs(Double.valueOf(cal))/1.03;
+        log.info(String.valueOf(cal2));
+        
+        Value value = null;
+        if(cal2 < 50){
+        	value = restTemplate.getForObject("http://rest-service-end:16000/handle_end_1?cal="+cal2, Value.class);
+        }else{
+        	value = restTemplate.getForObject("http://rest-service-end:16000/handle_end_2?cal="+cal2, Value.class);
+        }
+		
+        log.info(value.toString());
+		return value;
+    }
 }

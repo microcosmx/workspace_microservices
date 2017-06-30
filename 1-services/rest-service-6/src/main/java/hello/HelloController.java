@@ -21,13 +21,35 @@ public class HelloController {
     @RequestMapping("/hello6")
     public Value hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
 
-        double cal2 = Math.abs(Double.valueOf(cal));
+        double cal2 = Math.abs(Double.valueOf(cal)%100);
         log.info(String.valueOf(cal2));
         
-        Value value = restTemplate.getForObject("http://rest-service-3:16003/hello3?name=service-6&cal="+cal2, Value.class);
+        Value value = restTemplate.getForObject("http://rest-service-5:16005/hello5?cal="+cal2, Value.class);
         
 		log.info(value.toString());
 		return value;
     }
+    
+    
+    
+    @RequestMapping("/handle6_1")
+    public Value handle6_1(@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
+
+        double cal2 = Math.abs(Double.valueOf(cal)%100);
+        log.info(String.valueOf(cal2));
+        
+        Value value = null;
+        if(cal2 < 30){
+        	value = restTemplate.getForObject("http://rest-service-5:16005/handle5_1?cal="+cal2, Value.class);
+        }else if(cal2 < 60){
+        	value = restTemplate.getForObject("http://rest-service-5:16005/handle5_2?cal="+cal2, Value.class);
+        }else{
+        	value = restTemplate.getForObject("http://rest-service-5:16005/handle5_3?cal="+cal2, Value.class);
+        }
+        
+		log.info(value.toString());
+		return value;
+    }
+    
 }
 
