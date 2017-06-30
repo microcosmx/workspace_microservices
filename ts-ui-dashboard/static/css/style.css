@@ -30,7 +30,7 @@
     height:10px;
 }
 
-#order_change_panel {
+#order_rebook_panel {
     margin-left:200px;
     top:100px;
     /*width:800px;*/
@@ -46,7 +46,7 @@
     z-index: 100;
 }
 
-#order_cancel_panel {
+#ticket_cancel_panel {
     margin-left:200px;
     top:100px;
     /*width:800px;*/

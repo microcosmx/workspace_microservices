@@ -8,9 +8,9 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/index.js"></script>
-        <script src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script  type="text/javascript"src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/postData.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/securityCheck.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/executeTicket.js" defer charset="utf-8"></script>
@@ -174,7 +174,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Order Id:</label>
                                 <div class="col-sm-10">
-                                    <input id="execute_order_id" class="form-control" value=''>
+                                    <input id="execute_order_id" class="form-control" value='5ad7750b-a68b-49c0-a8c0-32776b067703'>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -1541,7 +1541,7 @@
             </div>
 
             <!---Ticket Cancel Pane---->
-            <div id="order_cancel_panel" class=" panel panel-default">
+            <div id="ticket_cancel_panel" class=" panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Cancel Order and Refund
@@ -1550,14 +1550,15 @@
                 <div class="panel-body">
                     <form role="form" class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label">Cancel The Ticket? You will get <label id="cancel_money_refund">79.0</label> refund.</label>
+                            <label class="control-label">Cancel The Ticket? You will get <label id="cancel_money_refund"> none </label> refund.</label>
+                            <label>Ticket Order Id:<label id="ticket_cancel_order_id"> none </label></label>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button id="order_cancel_panel_cancel" type="button" class="btn btn-primary">
+                            <div class="col-sm-10">
+                                <button id="ticket_cancel_panel_cancel" type="button" class="btn btn-primary">
                                     No.
                                 </button>
-                                <button id="order_cancel_panel_confirm" type="button" class="btn btn-default">
+                                <button id="ticket_cancel_panel_confirm" type="button" class="btn btn-default">
                                     Yes.
                                 </button>
                             </div>
@@ -1567,7 +1568,7 @@
             </div>
 
             <!---Ticket Change Pane---->
-            <div id="order_change_panel" class=" panel panel-default">
+            <div id="order_rebook_panel" class=" panel panel-default">
                 <div class="panel-heading">
                     <h3 panel="panel-title">
                         Change Your Ticket
@@ -1578,25 +1579,25 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Starting Place:</label>
                             <div class="col-sm-10">
-                                <input id="travel_change_startingPlace" class="form-control" name='' value='Shang Hai'>
+                                <input id="travel_rebook_startingPlace" class="form-control" readonly="readonly"  name='' value='Shang Hai'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Terminal Place:</label>
                             <div class="col-sm-10">
-                                <input id="travel_change_terminalPlace" class="form-control" name='' value='Tai Yuan'>
+                                <input id="travel_rebook_terminalPlace" class="form-control" readonly="readonly" name='' value='Tai Yuan'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Date:</label>
                             <div class="col-sm-10">
-                                <input id="travel_change_date" class="form-control" type="date" name='' value=''>
+                                <input id="travel_rebook_date" class="form-control" type="date" name='' value=''>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Train Type:</label>
                             <div class="col-sm-10">
-                                <select id="search_change_train_type" class="form-control" name="train_type">
+                                <select id="search_rebook_train_type" class="form-control" name="train_type">
                                     <option value="0">All</option>
                                     <option value="1" selected = "selected">GaoTie DongChe</option>
                                     <option value="2">Others</option>
@@ -1605,7 +1606,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="travel_change_button" type="button" class="btn btn-primary">Search</button>
+                                <button id="travel_rebook_button" type="button" class="btn btn-primary">Search</button>
                             </div>
                         </div>
                     </form>

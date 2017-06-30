@@ -2,7 +2,9 @@
 /********************************************************************/
 /********************Function For Config Service*********************/
 
-document.getElementById("config_update_button").onclick = function post_config_update(){
+
+
+$("#config_update_button").click(function(){
     var configInfo = new Object();
     configInfo.name = $("#config_update_name").val();
     configInfo.value = $("#config_update_value").val();
@@ -21,10 +23,10 @@ document.getElementById("config_update_button").onclick = function post_config_u
             $("#config_result").html(result);
         }
     });
-}
+});
 
 //------For config query------------
-document.getElementById("config_query_button").onclick = function post_config_query(){
+$("#config_query_button").click(function(){
     $.ajax({
         type: "get",
         url: "/config/queryAll",
@@ -48,7 +50,7 @@ document.getElementById("config_query_button").onclick = function post_config_qu
             //$("#config_result").html(result);
         }
     });
-}
+});
 
 //------For Config delete------------
 // document.getElementById("config_delete_button").onclick = function post_config_delete(){
