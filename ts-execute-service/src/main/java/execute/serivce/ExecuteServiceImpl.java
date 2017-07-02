@@ -90,7 +90,7 @@ public class ExecuteServiceImpl implements ExecuteService{
 
     private GetOrderResult getOrderByIdFromOrder(GetOrderByIdInfo info){
         restTemplate = new RestTemplate();
-        System.out.println("[Execute Service][Get Contacts By Id] Getting....");
+        System.out.println("[Execute Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/getById/"
                 ,info,GetOrderResult.class);
@@ -99,7 +99,7 @@ public class ExecuteServiceImpl implements ExecuteService{
 
     private GetOrderResult getOrderByIdFromOrderOther(GetOrderByIdInfo info){
         restTemplate = new RestTemplate();
-        System.out.println("[Execute Service][Get Contacts By Id] Getting....");
+        System.out.println("[Execute Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/orderOther/getById/"
                 ,info,GetOrderResult.class);

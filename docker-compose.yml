@@ -207,6 +207,13 @@ services:
   ts-payment-mongo:
         image: mongo
 
+  ts-cancel-service:
+        build: ts-cancel-service
+        image: ts/ts-cancel-service
+        restart: always
+        ports:
+          - 18885:18885
+
 #  ts-rebook-service:
 #        build: ts-rebook-service
 #        image: ts/ts-rebook-service
