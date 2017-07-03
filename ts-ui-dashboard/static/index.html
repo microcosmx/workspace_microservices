@@ -29,6 +29,8 @@
         <script type="text/javascript" src="js/travel.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/insidePayment.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/payment.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/orderCancel.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/orderRebook.js" defer charset="utf-8"></script>
     </head>
     <body>
     <div class="container">
@@ -193,6 +195,130 @@
                 </div>
             </div>
 
+            <!------------------------------------Orders------------------------>
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Order Service
+                        <input class='order_type' name="order_type" type="checkbox" value="1" />高铁/城际
+                        <input class='order_type' name="order_type" type="checkbox" value="2" />普通列车
+                        <button id="refresh_order_button" type="button" class="btn btn-default btn-sm">Refresh Orders</button>
+                    </h3>
+                </div>
+                <div class="group panel-body">
+                    <table id="all_order_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Order Id</th>
+                            <th>Train Number</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Travel Date</th>
+                            <th>Status</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!----An empty table----->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!----------------------------------Rebook--------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Ticket Rebook
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Order Id:</label>
+                                <div class="col-sm-10">
+                                    <input id="single_rebook_order_id" class="form-control" value='8177ac5a-61ac-42f4-83f4-bd7b394d0531'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Old Trip Id:</label>
+                                <div class="col-sm-10">
+                                    <input id="single_rebook_old_trip_id" class="form-control" value='G1234'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Old Trip Id:</label>
+                                <div class="col-sm-10">
+                                    <input id="single_rebook_trip_id" class="form-control" value='G1235'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Seat Type:</label>
+                                <div class="col-sm-10">
+                                    <select id="single_rebook_seat_type" class="form-control">
+                                        <option value="2">Confort Seat</option>
+                                        <option value="3" selected="selected">Economy Seat</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">New Date:</label>
+                                <div class="col-sm-10">
+                                    <input id="single_rebook_date" class="form-control" type="date" name='' value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="single_rebook_button" type="button" class="btn btn-primary">Rebook</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Rebook Result:</label>
+                                    <span id="single_rebook_result"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!----------------------------------Cancel--------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Ticket Cancel
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Order Id:</label>
+                                <div class="col-sm-10">
+                                    <input id="single_cancel_order_id" class="form-control" value='5ad7750b-a68b-49c0-a8c0-32776b067703'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="single_cancel_refund_button" type="button" class="btn btn-primary">Check Refund</button>
+                                    <button id="single_cancel_button" type="button" class="btn btn-primary">Do Cancel</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Cancel Status:</label>
+                                    <span id="single_cancel_order_status"></span>
+                                    <label class="control-label">Check Refund:</label>
+                                    <span id="single_cancel_refund_status"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
             <!------------------------------------Register------------------------>
             <div class="step panel panel-default">
@@ -443,37 +569,6 @@
                         </thead>
                         <tbody>
                             <!----An empty table----->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!------------------------------------Orders------------------------>
-            <div class="step panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Order Service
-                        <input class='order_type' name="order_type" type="checkbox" value="1" />高铁/城际
-                        <input class='order_type' name="order_type" type="checkbox" value="2" />普通列车
-                        <button id="refresh_order_button" type="button" class="btn btn-default btn-sm">Refresh Orders</button>
-                    </h3>
-                </div>
-                <div class="group panel-body">
-                    <table id="all_order_table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Order Id</th>
-                            <th>Train Number</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Travel Date</th>
-                            <th>Status</th>
-                            <th>Operation</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!----An empty table----->
                         </tbody>
                     </table>
                 </div>
@@ -1240,7 +1335,6 @@
 
             </div>
 
-
             <!---------------------------------inside payment------------------------->
             <div class="step panel panel-default">
                 <div class="panel-heading">
@@ -1323,12 +1417,9 @@
                     </table>
                     </div>
                 </div>
-
             </div>
 
-
-            <!---------------------------------Payment  --------------------------->
-
+            <!---------------------------------Payment ------------------------------->
             <div class="step panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -1524,10 +1615,12 @@
                     </table>
                 </div>
             </div>
-            <!-------------------------------------------------------------------------------------------------- -->
+
         </div>
 
         <div id="flow_two">
+
+            <!---My Order Pane---->
             <div class="step panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -1559,6 +1652,32 @@
                                     No.
                                 </button>
                                 <button id="ticket_cancel_panel_confirm" type="button" class="btn btn-default">
+                                    Yes.
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!---Ticket Change Pay Pane---->
+            <div id="ticket_rebook_pay_panel" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Pay For Your Rebook
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label">Rebook this Ticket? You need to pay <label id="rebook_money_pay"> none </label> .</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <button id="ticket_rebook_pay_panel_cancel" type="button" class="btn btn-primary">
+                                    No.
+                                </button>
+                                <button id="ticket_rebook_pay_panel_confirm" type="button" class="btn btn-primary">
                                     Yes.
                                 </button>
                             </div>
@@ -1605,7 +1724,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="ccol-sm-10">
+                            <div class="col-sm-10">
                                 <button id="travel_rebook_button" type="button" class="btn btn-primary">Search</button>
                                 <button id="travel_rebook_cancel" type="button" class="btn btn-default">Cancel</button>
                             </div>
@@ -1640,6 +1759,47 @@
                 </div>
             </div>
         </div>
+
+        <!---------------------------------Pay For Ticket after preserve-------->
+        <div id="preserve_pay_panel" class="step panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Pay for Preserve Ticket
+                </h3>
+            </div>
+            <div class="input-box panel-body">
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Order Id: </label>
+                        <div class="col-sm-10">
+                            <input id="preserve_pay_orderId" class="form-control" name='orderId'
+                                   readonly="readonly" value=''>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Price: </label>
+                        <div class="col-sm-10">
+                            <input id="preserve_pay_price" class="form-control" name='tripId'
+                                   readonly="readonly" value=''>
+                        </div>
+                    </div>
+                    <div class="form-group noshow_component">
+                        <label class="col-sm-2 control-label">User Id: </label>
+                        <div class="col-sm-10">
+                            <input id="preserve_pay_userId" class="form-control" name='userId'
+                                   value='4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f'>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="preserve_pay_button" type="button" class="btn btn-primary">Pay</button>
+                            <button id="preserve_pay_later_button" type="button" class="btn btn-default">No.Pay it later.</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
         <!-------------------------------------------------------------------------------------------------- -->
         <div id="flow_three">

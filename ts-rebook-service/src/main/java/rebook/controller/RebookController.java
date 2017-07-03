@@ -15,7 +15,11 @@ public class RebookController {
     @Autowired
     RebookService service;
 
+<<<<<<< HEAD
     @RequestMapping(value="/rebook/rebook", method = RequestMethod.POST)
+=======
+    @RequestMapping(value="/rebook", method = RequestMethod.POST)
+>>>>>>> a9401a0854b79b482f7b925fd6b6fc815bf4fd7c
     public RebookResult rebook(@RequestBody RebookInfo info, @CookieValue String loginId, @CookieValue String loginToken){
         return service.rebook(info, loginId, loginToken);
     }
