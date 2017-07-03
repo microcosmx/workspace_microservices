@@ -39,3 +39,26 @@ $("#single_cancel_refund_button").click(function(){
         }
     });
 });
+
+$("#ticket_cancel_panel_cancel").click(function(){
+    $("#ticket_cancel_panel").css('display','none');
+});
+
+$("#ticket_cancel_panel_confirm").click(function(){
+    var cancelOrderInfo = new Object();
+    cancelOrderInfo.orderId =  $("#ticket_cancel_order_id").text();
+    var cancelOrderInfoData = JSON.stringify(cancelOrderInfo);
+    $.ajax({
+        type: "post",
+        url: "/cancelOrder",
+        contentType: "application/json",
+        dataType: "json",
+        data: cancelOrderInfoData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            alert(result["message"]);
+        }
+    });
+});

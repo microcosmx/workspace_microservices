@@ -214,13 +214,13 @@ services:
         ports:
           - 18885:18885
 
-#  ts-rebook-service:
-#        build: ts-rebook-service
-#        image: ts/ts-rebook-service
-#        restart: always
-#        ports:
-#          - 18886:18886
-#
-#  ts-rebook-mongo:
-#        image: mongo
+  ts-rebook-service:
+        build: ts-rebook-service
+        image: ts/ts-rebook-service
+        restart: always
+        ports:
+          - 18886:18886
+
+  ts-rebook-mongo:
+        image: mongo
 
