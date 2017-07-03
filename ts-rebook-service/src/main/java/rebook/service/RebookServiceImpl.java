@@ -6,6 +6,7 @@ import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -115,6 +116,7 @@ public class RebookServiceImpl implements RebookService{
         Trip trip = gtdr.getTrip();
 
         //4.修改原有订单 设置order的各个信息
+        String oldTripId = order.getTrainNumber();
         order.setTrainNumber(info.getTripId());
         order.setBoughtDate(new Date());
         order.setStatus(OrderStatus.CHANGE.getCode());
@@ -131,8 +133,20 @@ public class RebookServiceImpl implements RebookService{
         }
         queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());//----------------------------
         String ticketPrice = getPrice(queryPriceInfo);
+        String oldPrice = order.getPrice();
         order.setPrice(ticketPrice);//Set ticket price
 
+        //处理差价，多退少补
+        //退掉原有的票，让其他人可以订到对应的位置
+        BigDecimal priceOld = new BigDecimal(oldPrice);
+        BigDecimal priceNew = new BigDecimal(ticketPrice);
+        if(priceOld.compareTo(priceNew) > 0){
+            //退差价
+        }else if(priceOld.compareTo(priceNew) == 0){
+            //do nothing
+        }else{
+            //补差价
+        }
 
 
         order.setSeatClass(info.getSeatType());
@@ -146,8 +160,36 @@ public class RebookServiceImpl implements RebookService{
             order.setSeatNumber("SecondClass-" + secondClassRemainNum);
         }
 
+        //更新订单信息
+        //原订单和新订单如果分别位于高铁动车和其他订单，应该删掉原订单，在另一边新建，用新的id
+        if((tripGD(oldTripId) && tripGD(info.getTripId())) || (!tripGD(oldTripId) && !tripGD(info.getTripId()))){
+
+        }else{
+
+        }
 
         return null;
+    }
+
+    private ChangeOrderResult updateOrder(ChangeOrderInfo info, String tripId){
+        ChangeOrderResult result;
+        if(tripGD(tripId)){
+            result = restTemplate.postForObject("http://ts-order-service:12031/order/update",
+                    info,ChangeOrderResult.class);
+        }else{
+            result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",
+                    info,ChangeOrderResult.class);
+        }
+
+        return result;
+    }
+
+    private boolean tripGD(String tripId){
+        if(tripId.startsWith("G") || tripId.startsWith("D")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private CheckResult checkSecurity(CheckInfo info){
@@ -191,7 +233,7 @@ public class RebookServiceImpl implements RebookService{
         return cor;
     }
 
-    private static boolean checkTime(Date travelDate, Date travelTime) {
+    private boolean checkTime(Date travelDate, Date travelTime) {
         boolean result = true;
 
         Calendar calDateA = Calendar.getInstance();
