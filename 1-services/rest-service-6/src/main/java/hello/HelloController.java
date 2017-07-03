@@ -26,39 +26,58 @@ public class HelloController {
     
     @Autowired  
     private AsyncTask asyncTask;  
+    
+    @RequestMapping("/process6")
+    public String process6(@RequestParam(value="name", defaultValue="product") String name)  throws Exception{
 
-    @RequestMapping("/hello6")
-    public String hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws Exception{
-
-        double cal2 = Math.abs(Double.valueOf(cal));
-        log.info(String.valueOf(cal2));
-        
         //refreshdb
         String refreshResult = restTemplate.getForObject("http://rest-service-end:16000/refreshdb", String.class);
         
-        //async messages
-        Future<String> msg1 = asyncTask.sendAsyncUpdate1("Alice", "Jason1");
-        Future<String> msg2 = asyncTask.sendAsyncUpdate2("Bob", "Jason2");
+        String result = process6_query(name);
         
-        //async tasks
-        Future<String> task1 = asyncTask.doAsyncQuery("Smith");
-        String value = task1.get();
         
-        if(value.contains("Jason1") && value.contains("Jason2")){
-        	log.info("----------------query result: {}", value);
-        }else{
-        	throw new Exception("data updated error!!");
-        }
+        //simulate heavy tasks
+        long sleep = 6000;
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
         
+//        process6_update();
         
 		log.info("=============end================");
-		return value;
+		return result;
+    }
+
+    @RequestMapping("/process6_query")
+    public String process6_query(@RequestParam(value="name", defaultValue="product") String name)  throws Exception{
+
+        //refreshdb
+        String refreshResult = restTemplate.getForObject("http://rest-service-end:16000/refreshdb", String.class);
+        
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5__query?name="+name, String.class);
+        
+		log.info("=============end================");
+		return result;
     }
     
-    @RequestMapping("/hello6_1")
-    public String hello6_1(@RequestParam(value="msg", defaultValue="") String msg) {
-    	log.info("----------------update result: {}", msg);  
-    	return "callback completed";
+    
+    @RequestMapping("/process6_update")
+    public String process6_update(@RequestParam(value="name", defaultValue="product") String name,
+    		@RequestParam(value="price", defaultValue="0.5") String price)  throws Exception{
+
+        double price2 = Math.abs(Double.valueOf(price));
+        log.info(String.valueOf(price2));
+        
+        //update
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_update?name="+name, String.class);
+        
+		log.info("=============end================");
+		return result;
     }
+    
+    
+    
 }
 
