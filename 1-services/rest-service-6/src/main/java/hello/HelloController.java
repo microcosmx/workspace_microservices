@@ -45,7 +45,7 @@ public class HelloController {
         String value = task1.get();
         
         if(value.contains("Jason1") && value.contains("Jason2")){
-        	log.info("----------------query result: {}", value);  
+        	log.info("----------------query result: {}", value);
         }else{
         	throw new Exception("data updated error!!");
         }
