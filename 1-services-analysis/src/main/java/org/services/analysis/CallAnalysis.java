@@ -147,10 +147,12 @@ public class CallAnalysis {
 //		System.out.println(pListNCS);
 		
 		//calculate Suspiciousness
-		//NCF/NF : NCF/NF + NCS/NS
+		//NCF/NF // NCF/NF + NCS/NS
+		//NCF // sqrt(NF*(NCF + NCS))
 		HashMap<String, Double> pListSuspicious = new HashMap<String, Double>();
 		pListAll.stream().forEach(pl -> {
-			double susp = (pListNCF.get(pl)/NF)  /  (pListNCF.get(pl)/NF + pListNCS.get(pl)/NS);
+//			double susp = (pListNCF.get(pl)/NF)  /  (pListNCF.get(pl)/NF + pListNCS.get(pl)/NS);
+			double susp = (pListNCF.get(pl))  / Math.sqrt(NF*(pListNCF.get(pl) + pListNCS.get(pl)));
 			pListSuspicious.put(pl, susp);
 		});
 //		System.out.println(pListSuspicious);
