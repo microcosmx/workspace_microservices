@@ -1,5 +1,6 @@
 package cancel.controller;
 
+import cancel.domain.CalculateRefundResult;
 import cancel.domain.CancelOrderInfo;
 import cancel.domain.CancelOrderResult;
 import cancel.domain.VerifyResult;
@@ -15,6 +16,13 @@ public class CancelController {
 
     @Autowired
     CancelService cancelService;
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/cancelCalculateRefund", method = RequestMethod.POST)
+    public CalculateRefundResult calculate(@RequestBody CancelOrderInfo info){
+        System.out.println("[Cancel Order Service][Calculate Cancel Refund] OrderId:" + info.getOrderId());
+        return cancelService.calculateRefund(info);
+    }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/cancelOrder", method = RequestMethod.POST)
