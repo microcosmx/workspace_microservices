@@ -43,4 +43,14 @@ public class InsidePaymentController {
     public List<Balance> queryAccount(){
         return service.queryAccount();
     }
+
+    @RequestMapping(value="/inside_payment/drawBack", method = RequestMethod.POST)
+    public boolean drawBack(@RequestBody DrawBackInfo info){
+        return service.drawBack(info);
+    }
+
+    @RequestMapping(value="/inside_payment/payDifference", method = RequestMethod.POST)
+    public boolean payDifference(@RequestBody PaymentInfo info, HttpServletRequest request){
+        return service.payDifference(info, request);
+    }
 }

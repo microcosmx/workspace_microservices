@@ -1,17 +1,12 @@
 package inside_payment.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by Administrator on 2017/6/20.
+ * Created by Administrator on 2017/7/3.
  */
-@Document(collection="balance")
 public class Balance {
-    @Id
     @Valid
     @NotNull
     private String userId;
@@ -37,5 +32,4 @@ public class Balance {
     public void setBalance(String balance) {
         this.balance = balance;
     }
-
 }

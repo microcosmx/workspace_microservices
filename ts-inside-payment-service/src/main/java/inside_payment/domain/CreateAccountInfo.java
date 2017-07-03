@@ -6,7 +6,10 @@ package inside_payment.domain;
 public class CreateAccountInfo {
 
     private String userId;
-    private String balance;
+
+
+
+    private String money;
 
     public CreateAccountInfo(){}
 
@@ -18,12 +21,12 @@ public class CreateAccountInfo {
         this.userId = userId;
     }
 
-    public String getBalance() {
-        return balance;
+    public String getMoney() {
+        return money;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance;
+    public void setMoney(String money) {
+        this.money = money;
     }
 
 }

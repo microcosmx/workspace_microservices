@@ -1,15 +1,14 @@
-package register.domain;
+package inside_payment.domain;
 
 /**
- * Created by Administrator on 2017/6/20.
+ * Created by Administrator on 2017/7/3.
  */
-public class CreateAccountInfo {
+public class DrawBackInfo {
 
     private String userId;
-
     private String money;
 
-    public CreateAccountInfo(){}
+    public DrawBackInfo(){}
 
     public String getUserId() {
         return userId;
@@ -26,5 +25,4 @@ public class CreateAccountInfo {
     public void setMoney(String money) {
         this.money = money;
     }
-
 }

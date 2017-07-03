@@ -14,4 +14,6 @@ public interface InsidePaymentService {
     boolean addMoney(AddMoneyInfo info);
     List<Payment> queryPayment();
     List<Balance> queryAccount();
+    boolean drawBack(DrawBackInfo info);
+    boolean payDifference(PaymentInfo info, HttpServletRequest request);
 }

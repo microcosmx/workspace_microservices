@@ -15,9 +15,13 @@ public class RebookController {
     @Autowired
     RebookService service;
 
-    @RequestMapping(value="/rebook/", method = RequestMethod.POST)
+    @RequestMapping(value="/rebook/rebook", method = RequestMethod.POST)
     public RebookResult rebook(@RequestBody RebookInfo info, @CookieValue String loginId, @CookieValue String loginToken){
         return service.rebook(info, loginId, loginToken);
     }
 
+    @RequestMapping(value="/rebook/payDifference", method = RequestMethod.POST)
+    public RebookResult payDifference(@RequestBody RebookInfo info, @CookieValue String loginId, @CookieValue String loginToken){
+        return service.payDifference(info, loginId, loginToken);
+    }
 }

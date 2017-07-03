@@ -10,32 +10,25 @@ import java.util.UUID;
 /**
  * Created by Administrator on 2017/6/20.
  */
-@Document(collection="payment")
-public class Payment {
-    @Id
-    @NotNull
+@Document(collection="addMoney")
+public class AddMoney {
+
     @Valid
+    @NotNull
+    @Id
     private String id;
 
-    @NotNull
     @Valid
-    private String orderId;
-
     @NotNull
-    @Valid
     private String userId;
 
-    @NotNull
     @Valid
-    private String price;
-
     @NotNull
-    @Valid
-    private PaymentType type;
+    private String money;
 
-    public Payment(){
-        this.id = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-    }
+    @Valid
+    @NotNull
+    private AddMoneyType type;
 
     public String getId() {
         return id;
@@ -45,12 +38,8 @@ public class Payment {
         this.id = id;
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public AddMoney(){
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getUserId() {
@@ -61,19 +50,19 @@ public class Payment {
         this.userId = userId;
     }
 
-    public String getPrice() {
-        return price;
+    public String getMoney() {
+        return money;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setMoney(String money) {
+        this.money = money;
     }
 
-    public PaymentType getType() {
+    public AddMoneyType getType() {
         return type;
     }
 
-    public void setType(PaymentType type) {
+    public void setType(AddMoneyType type) {
         this.type = type;
     }
 }

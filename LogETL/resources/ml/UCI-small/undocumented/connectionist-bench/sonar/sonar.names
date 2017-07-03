@@ -58,7 +58,7 @@ uneven performance.  A few of the splits gave poor results, presumably
 because the test set contains some samples from aspect angles that are
 under-represented in the corresponding training set.  This motivated Gorman
 and Sejnowski to devise a different set of experiments in which an attempt
-was made to balance the training and test sets so that each would have a
+was made to addMoney the training and test sets so that each would have a
 representative number of samples from all aspect angles.  Since detailed
 aspect angle information was not present in the data base of samples, the
 208 samples were first divided into clusters, using a 60-dimensional

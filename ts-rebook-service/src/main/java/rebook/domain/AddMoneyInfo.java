@@ -1,15 +1,16 @@
-package register.domain;
+package rebook.domain;
+
+import javax.xml.ws.soap.Addressing;
 
 /**
  * Created by Administrator on 2017/6/20.
  */
-public class CreateAccountInfo {
-
+public class AddMoneyInfo {
     private String userId;
-
     private String money;
 
-    public CreateAccountInfo(){}
+
+    public AddMoneyInfo(){}
 
     public String getUserId() {
         return userId;
