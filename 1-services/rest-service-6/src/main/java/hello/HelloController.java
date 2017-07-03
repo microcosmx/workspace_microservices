@@ -28,7 +28,7 @@ public class HelloController {
     private AsyncTask asyncTask;  
 
     @RequestMapping("/hello6")
-    public String hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
+    public String hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws Exception{
 
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
@@ -44,7 +44,13 @@ public class HelloController {
         Future<String> task1 = asyncTask.doAsyncQuery("Smith");
         String value = task1.get();
         
-        log.info("----------------query result: {}", value);  
+        if(value.contains("Jason1") && value.contains("Jason2")){
+        	log.info("----------------query result: {}", value);  
+        }else{
+        	throw new Exception("data updated error!!");
+        }
+        
+        
 		log.info("=============end================");
 		return value;
     }
