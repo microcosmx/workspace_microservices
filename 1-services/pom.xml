@@ -24,4 +24,37 @@
 		<module>rest-service-end</module>
 	</modules>
 
+	<dependencies>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth-core</artifactId>
+            <!-- <version>1.2.0.RELEASE</version> -->
+            <version>1.2.2.BUILD-SNAPSHOT</version>
+            <!-- <scope>system</scope>  
+            <systemPath>${project.basedir}/../dependencies/spring-cloud-sleuth-core-1.2.2.BUILD-SNAPSHOT.jar</systemPath> -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+            <!-- <version>1.2.0.RELEASE</version> -->
+            <version>1.2.2.BUILD-SNAPSHOT</version>
+            <!-- <scope>system</scope>  
+            <systemPath>${project.basedir}/../dependencies/spring-cloud-sleuth-zipkin-1.2.2.BUILD-SNAPSHOT.jar</systemPath> -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-integration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+    </dependencies>
+
 </project>

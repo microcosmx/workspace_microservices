@@ -22,4 +22,5 @@ public interface OrderOtherRepository extends MongoRepository<Order, String> {
     @Query("{ 'travelDate' : ?0 , trainNumber : ?1 }")
     ArrayList<Order> findByTravelDateAndTrainNumber(Date travelDate, String trainNumber);
 
+    void deleteById(UUID id);
 }
