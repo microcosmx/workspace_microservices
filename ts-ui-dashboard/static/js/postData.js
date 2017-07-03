@@ -293,6 +293,7 @@ $("#refresh_my_order_list_button").click(function(){
                                         "<label class='col-sm-2 control-label'>Status: </label>" +
                                         "<div class='col-sm-10'>" +
                                             "<label class='control-label'>" + convertNumberToOrderStatus(order["status"]) + "</label>" +
+                                            addPayButtonOrNot(order["status"]) +
                                         "</div>" +
                                     "</div>" +
                                     "<div class='form-group'>" +
@@ -322,7 +323,8 @@ $("#refresh_my_order_list_button").click(function(){
                                     "<div class='form-group'>" +
                                         "<label class='col-sm-2 control-label'>Operation: </label>" +
                                         "<div class='col-sm-10'>" +
-                                            "<label class='order_id control-label' style='display:none' >" + order["id"] + "</label>" +
+                                            "<label class='order_id control-label noshow_component' >" + order["id"] + "</label>" +
+                                            "<label class='order_id control-label noshow_component my_order_list_accountId' >" + order["accountId"] + "</label>" +
                                             "<button type='button' class='ticket_cancel_btn btn btn-primary'>" + "Cancel Order" + "</button>" +
                                             "<button type='button' class='order_rebook_btn btn btn-primary'>" + "Change your railway ticket" + "</button>" +
                                         "</div>" +
@@ -335,9 +337,30 @@ $("#refresh_my_order_list_button").click(function(){
             }
             addListenerToOrderCancel();
             addListenerToOrderChange();
+            addPayButtonListener();
         }
     });
 });
+
+function addPayButtonOrNot(status){
+    if(status == '0'){
+        return "<button type='button' class='pay_for_order_not_paid btn btn-primary'>Pay</button>";
+    }else{
+        return "";
+    }
+}
+
+function addPayButtonListener(){
+    var payOrderButtonSet = $(".pay_for_order_not_paid");
+    for(var i = 0;i < payOrderButtonSet.length;i++){
+        payOrderButtonSet[i].onclick = function(){
+            $("#preserve_pay_orderId").val($(this).parents("form").find(".my_order_list_id").text());
+            $("#preserve_pay_price").val($(this).parents("form").find(".my_order_list_price").text());
+            $("#preserve_pay_userId").val($(this).parents("form").find(".my_order_list_accountId").text());
+            $("#preserve_pay_panel").css('display','block');
+        }
+    }
+}
 
 function addListenerToOrderCancel(){
     var ticketCancelButtonSet = $(".ticket_cancel_btn");
@@ -609,34 +632,62 @@ function addListenerToBookingTable(){
                 },
                 success: function (result) {
                     alert(result["message"]);
-                    $("#payment_panel_heading").css('display','block');
-                    $("#payment_panel_body").css('display','block');
-                    $(".booking").css('display','none');
-
-
-                    $("#payment_table").find("tbody").html("");
-                    $("#payment_table").find("tbody").append(
-                        "<tr>" +
-                        "<td>" + result[i]["orderNumber"] + "</td>" +
-                        "<td>" + result[i]["tripId"] + "</td>" +
-                        "<td>" + result[i]["trainTypeId"] + "</td>" +
-                        "<td>" + result[i]["startingPlace"] + "</td>" +
-                        "<td>" + result[i]["endPlace"] + "</td>" +
-                        "<td>" + result[i]["startingTime"] + "</td>" +
-                        "<td>" + result[i]["endTime"] + "</td>" +
-                        "<td>" + result[i]["seatClass"] + "</td>" +
-                        "<td>" + result[i]["seatNumber"] + "</td>" +
-                        "<td>" + result[i]["price"] + "</td>" +
-                        "<td>" + "<button class='btn btn-primary ticket_payment_button'>" + "Pay" + "</button>"  + "</td>" +
-                        "</tr>"
-                    );
-                    addListenerToPaymentTable();
+                    $("#preserve_pay_panel").css('display','block');
+                    $("#preserve_pay_orderId").val(result["order"]["id"]);
+                    $("#preserve_pay_price").val(result["order"]["price"]);
+                    $("#preserve_pay_userId").val(result["order"]["accountId"]);
+                    // $("#payment_panel_heading").css('display','block');
+                    // $("#payment_panel_body").css('display','block');
+                    // $(".booking").css('display','none');
+                    //
+                    //
+                    // $("#payment_table").find("tbody").html("");
+                    // $("#payment_table").find("tbody").append(
+                    //     "<tr>" +
+                    //     "<td>" + result[i]["orderNumber"] + "</td>" +
+                    //     "<td>" + result[i]["tripId"] + "</td>" +
+                    //     "<td>" + result[i]["trainTypeId"] + "</td>" +
+                    //     "<td>" + result[i]["startingPlace"] + "</td>" +
+                    //     "<td>" + result[i]["endPlace"] + "</td>" +
+                    //     "<td>" + result[i]["startingTime"] + "</td>" +
+                    //     "<td>" + result[i]["endTime"] + "</td>" +
+                    //     "<td>" + result[i]["seatClass"] + "</td>" +
+                    //     "<td>" + result[i]["seatNumber"] + "</td>" +
+                    //     "<td>" + result[i]["price"] + "</td>" +
+                    //     "<td>" + "<button class='btn btn-primary ticket_payment_button'>" + "Pay" + "</button>"  + "</td>" +
+                    //     "</tr>"
+                    // );
+                    // addListenerToPaymentTable();
                 }
             })
         }
     }
 }
 
+$("#preserve_pay_later_button").click(function(){
+    $("#preserve_pay_panel").css('display','none');
+})
+
+$("#preserve_pay_button").click(function(){
+    var info = new Object();
+    info.orderId = $("#preserve_pay_orderId").val();
+    info.price =  $("#preserve_pay_price").val();
+    info.userId = $("#preserve_pay_userId").val();
+    var data = JSON.stringify(info);
+    $.ajax({
+        type: "post",
+        url: "/payment/pay",
+        contentType: "application/json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+           alert(result.toString());
+        }
+    });
+    $("#preserve_pay_panel").css('display','none');
+})
 
 function addListenerToPaymentTable(){
     var ticketPaymentButtonSet = $(".ticket_payment_button");

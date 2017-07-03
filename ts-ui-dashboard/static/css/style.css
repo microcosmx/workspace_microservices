@@ -63,6 +63,22 @@
 }
 
 #ticket_rebook_pay_panel {
+     margin-left:200px;
+     top:100px;
+     width:800px;
+     display: none;
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     box-shadow: 1px 1px 10px black;
+     padding: 30px;
+     font-size: 12px;
+     position: fixed;
+     text-align: center;
+     background: #fff;
+     z-index: 200;
+ }
+
+#preserve_pay_panel {
     margin-left:200px;
     top:100px;
     width:800px;
@@ -75,7 +91,7 @@
     position: fixed;
     text-align: center;
     background: #fff;
-    z-index: 200;
+    z-index: 100;
 }
 
 #price_result_talbe {
