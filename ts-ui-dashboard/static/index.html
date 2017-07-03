@@ -29,6 +29,7 @@
         <script type="text/javascript" src="js/travel.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/insidePayment.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/payment.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/orderCancel.js" defer charset="utf-8"></script>
     </head>
     <body>
     <div class="container">
@@ -186,6 +187,41 @@
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Check Status:</label>
                                     <span id="execute_order_status"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!----------------------------------Cancel--------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Ticket Cancel
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Order Id:</label>
+                                <div class="col-sm-10">
+                                    <input id="single_cancel_order_id" class="form-control" value='5ad7750b-a68b-49c0-a8c0-32776b067703'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="single_cancel_refund_button" type="button" class="btn btn-primary">Check Refund</button>
+                                    <button id="single_cancel_button" type="button" class="btn btn-primary">Do Cancel</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Cancel Status:</label>
+                                    <span id="single_cancel_order_status"></span>
+                                    <label class="control-label">Check Refund:</label>
+                                    <span id="single_cancel_refund_status"></span>
                                 </div>
                             </div>
                         </form>

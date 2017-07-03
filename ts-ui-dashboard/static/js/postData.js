@@ -875,13 +875,22 @@ function addListenerToRebookTable(){
     for(var i = 0;i < ticketRebookButtonSet.length;i++) {
         ticketRebookButtonSet[i].onclick = function () {
             $("#ticket_rebook_pay_panel").css('display','block');
+            //Connect to rebook service, calculate the money that will pay.
         }
     }
 }
 
 $("#ticket_rebook_pay_panel_cancel").click(function(){
     $("#ticket_rebook_pay_panel").css('display','none');
-})
+});
+
+$("#ticket_rebook_pay_panel_confirm").click(function(){
+    alert("Not Complete.");
+    $("#ticket_rebook_pay_panel").css('display','none');
+    $("#order_rebook_panel").css('display','none');
+});
+
+
 
 function addListenerToPaymentTable(){
     var ticketPaymentButtonSet = $(".ticket_payment_button");
