@@ -39,6 +39,7 @@ public class Travel2Controller {
     //返回Trip以及剩余票数
     @RequestMapping(value="/travel2/query", method= RequestMethod.POST)
     public List<TripResponse> query(@RequestBody QueryInfo info){
+        System.out.println("[Travel2 Service] Query TripResponse");
         return service.query(info);
     }
 

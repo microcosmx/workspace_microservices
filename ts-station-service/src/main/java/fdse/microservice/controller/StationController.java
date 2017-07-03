@@ -1,9 +1,6 @@
 package fdse.microservice.controller;
 
-import fdse.microservice.domain.Information;
-import fdse.microservice.domain.QueryForId;
-import fdse.microservice.domain.QueryStation;
-import fdse.microservice.domain.Station;
+import fdse.microservice.domain.*;
 import fdse.microservice.service.StationService;
 import javafx.application.Application;
 import org.slf4j.Logger;
@@ -55,5 +52,12 @@ public class StationController {
     @RequestMapping(value="/station/queryForId",method= RequestMethod.POST)
     public String queryForId(@RequestBody QueryForId info){
         return stationService.queryForId(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/station/queryById",method = RequestMethod.POST)
+    public QueryStation queryById(@RequestBody QueryById queryById){
+        System.out.println("[Station Service] Query By Id:" + queryById.getStationId());
+        return stationService.queryById(queryById.getStationId());
     }
 }

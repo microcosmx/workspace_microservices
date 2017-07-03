@@ -15,4 +15,5 @@ public interface StationService {
     boolean delete(Information info);
     List<Station> query();
     String queryForId(QueryForId info);
+    QueryStation queryById(String stationId);
 }

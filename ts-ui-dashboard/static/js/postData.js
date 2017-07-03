@@ -343,6 +343,7 @@ function addListenerToOrderCancel(){
     var ticketCancelButtonSet = $(".ticket_cancel_btn");
     for(var i = 0;i < ticketCancelButtonSet.length;i++){
         ticketCancelButtonSet[i].onclick = function(){
+            $("#ticket_cancel_panel").css('display','block');
             var orderId = $(this).parents("form").find(".my_order_list_id").text();
             $("#ticket_cancel_order_id").text(orderId);
             var orderPrice = $(this).parents("form").find(".my_order_list_price").text();
@@ -355,24 +356,64 @@ function addListenerToOrderChange(){
     var ticketChangeButtonSet = $(".order_rebook_btn");
     for(var i = 0;i < ticketChangeButtonSet.length;i++){
         ticketChangeButtonSet[i].onclick = function(){
-            var changeStartingPlace = $(this).parents("form").find(".my_order_list_from").text();
-            var changeEndPlace = $(this).parents("form").find(".my_order_list_to").text();
-            $("#travel_rebook_startingPlace").val(changeStartingPlace);
-            $("#travel_rebook_terminalPlace").val(changeEndPlace);
+
+            var changeStartingPlaceId = $(this).parents("form").find(".my_order_list_from").text();
+            var changeEndPlaceId = $(this).parents("form").find(".my_order_list_to").text();
+
+            replaceStationId(changeStartingPlaceId,changeEndPlaceId);
+
+            $("#order_rebook_panel").css('display','block');
         }
     }
 }
 
+function replaceStationId(stationIdOne,stationIdTwo){
+    var getStationInfoOne = new Object();
+    getStationInfoOne.stationId =  stationIdOne;
+    var getStationInfoOneData = JSON.stringify(getStationInfoOne);
+    $.ajax({
+        type: "post",
+        url: "/station/queryById",
+        contentType: "application/json",
+        dataType: "json",
+        data:getStationInfoOneData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#travel_rebook_startingPlace").val(result["name"]);
+        },
+    });
+    var getStationInfoTwo = new Object();
+    getStationInfoTwo.stationId =  stationIdTwo;
+    var getStationInfoTwoData = JSON.stringify(getStationInfoTwo);
+    $.ajax({
+        type: "post",
+        url: "/station/queryById",
+        contentType: "application/json",
+        dataType: "json",
+        data:getStationInfoTwoData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#travel_rebook_terminalPlace").val(result["name"]);
+        },
+    });
+}
+
 $("#ticket_cancel_panel_cancel").click(function(){
-    alert("You click the cancel button.");
+    $("#ticket_cancel_panel").css('display','none');
+});
+
+$("#travel_rebook_cancel").click(function(){
+    $("#order_rebook_panel").css('display','none');
 });
 
 $("#ticket_cancel_panel_confirm").click(function(){
-    alert("click");
     var cancelOrderInfo = new Object();
     cancelOrderInfo.orderId =  $("#ticket_cancel_order_id").text();
     var cancelOrderInfoData = JSON.stringify(cancelOrderInfo);
-    alert(cancelOrderInfoData);
     $.ajax({
         type: "post",
         url: "/cancelOrder",
@@ -386,10 +427,6 @@ $("#ticket_cancel_panel_confirm").click(function(){
             alert(result["message"]);
         }
     });
-});
-
-$("#travel_rebook_button").click(function(){
-    alert("You click the rebook button.");
 });
 
 $("#travel_booking_button").click(function(){

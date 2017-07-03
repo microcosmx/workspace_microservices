@@ -70,4 +70,13 @@ public class StationServiceImpl implements StationService {
         return station.getId();
     }
 
+    @Override
+    public QueryStation queryById(String stationId){
+        Station station = repository.findById(stationId);
+        if(station != null){
+            return new QueryStation(station.getName());
+        }else{
+            return new QueryStation("Station Not Found");
+        }
+    }
 }

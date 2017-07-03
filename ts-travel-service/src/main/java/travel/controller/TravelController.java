@@ -44,6 +44,7 @@ public class TravelController {
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel/query", method= RequestMethod.POST)
     public List<TripResponse> query(@RequestBody QueryInfo info){
+        System.out.println("[Travel Service] Query TripResponse");
         return travelService.query(info);
     }
 
