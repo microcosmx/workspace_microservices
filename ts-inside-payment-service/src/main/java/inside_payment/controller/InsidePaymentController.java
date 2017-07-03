@@ -50,7 +50,7 @@ public class InsidePaymentController {
     }
 
     @RequestMapping(value="/inside_payment/payDifference", method = RequestMethod.POST)
-    public boolean payDifference(@RequestBody PaymentInfo info, HttpServletRequest request){
+    public boolean payDifference(@RequestBody PaymentDifferenceInfo info, HttpServletRequest request){
         return service.payDifference(info, request);
     }
 }

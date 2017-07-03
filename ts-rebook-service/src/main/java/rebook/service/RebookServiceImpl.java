@@ -202,7 +202,7 @@ public class RebookServiceImpl implements RebookService{
 
         String ticketPrice = getPrice(queryPriceInfo);
 
-        if(payDifferentMoney(info.getOrderId(),info.getTripId())){
+        if(payDifferentMoney(info.getOrderId(),info.getTripId(),loginId)){
             return updateOrder(order,info,gtdr,ticketPrice,loginId,loginToken);
         }else{
             rebookResult.setStatus(false);
@@ -213,10 +213,11 @@ public class RebookServiceImpl implements RebookService{
 
     }
 
-    private boolean payDifferentMoney(String orderId, String tripId){
-        PaymentInfo info = new PaymentInfo();
+    private boolean payDifferentMoney(String orderId, String tripId, String userId){
+        PaymentDifferenceInfo info = new PaymentDifferenceInfo();
         info.setOrderId(orderId);
         info.setTripId(tripId);
+        info.setUserId(userId);
         boolean result = restTemplate.postForObject(
                 "http://ts-inside-payment-service:18673/inside_payment/payDifference"
                 ,info,Boolean.class);

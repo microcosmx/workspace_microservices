@@ -200,9 +200,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     }
 
     @Override
-    public boolean payDifference(PaymentInfo info, HttpServletRequest request){
+    public boolean payDifference(PaymentDifferenceInfo info, HttpServletRequest request){
         QueryOrderResult result;
-        String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
+        String userId = info.getUserId();
         if(info.getTripId().startsWith("G") || info.getTripId().startsWith("D")){
             result = restTemplate.postForObject(
                     "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);

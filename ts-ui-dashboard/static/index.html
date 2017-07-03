@@ -249,7 +249,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Old Trip Id:</label>
+                                <label class="col-sm-2 control-label">New Trip Id:</label>
                                 <div class="col-sm-10">
                                     <input id="single_rebook_trip_id" class="form-control" value='G1235'>
                                 </div>
@@ -283,6 +283,31 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Price:</label>
+                                <div class="col-sm-10">
+                                    <input id="rebook_price" class="form-control" name='price' value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="rebook_pay_button" type="button" class="btn btn-primary">Pay</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Rebook Result:</label>
+                                    <span id="rebook_payment_result"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
             <!----------------------------------Cancel--------------------------->

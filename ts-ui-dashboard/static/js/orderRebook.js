@@ -9,7 +9,7 @@ $("#single_rebook_button").click(function() {
     var singleRebookInfoData = JSON.stringify(singleRebookInfo);
     $.ajax({
         type: "post",
-        url: "/rebook",
+        url: "/rebook/rebook",
         contentType: "application/json",
         dataType: "json",
         data: singleRebookInfoData,
@@ -17,11 +17,41 @@ $("#single_rebook_button").click(function() {
             withCredentials: true
         },
         success: function (result) {
-            $("single_rebook_result").text("result");
-            //todo
+            if(result["status"]){
+                $("#single_rebook_result").text("true");
+            }else{
+                $("#single_rebook_result").text(result["message"].toString());
+                //if(result["message"].contains("Please pay the different money")){
+                    $("#rebook_price").val(result["price"]);
+                //}
+            }
         }
     });
+});
 
+$("#rebook_pay_button").click(function(){
+    var singleRebookInfo = new Object();
+    singleRebookInfo.orderId = $("#single_rebook_order_id").val();
+    singleRebookInfo.oldTripId = $("#single_rebook_old_trip_id").val();
+    singleRebookInfo.tripId = $("#single_rebook_trip_id").val();
+    singleRebookInfo.seatType = $("#single_rebook_seat_type").val();
+    singleRebookInfo.date = $("#single_rebook_date").val();
+    var singleRebookInfoData = JSON.stringify(singleRebookInfo);
+    $.ajax({
+        type: "post",
+        url: "/rebook/payDifference",
+        contentType: "application/json",
+        dataType: "json",
+        data: singleRebookInfoData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+
+            $("#rebook_payment_result").text(result["status"].toString());
+
+        }
+    });
 });
 
 function replaceStationId(stationIdOne,stationIdTwo){
