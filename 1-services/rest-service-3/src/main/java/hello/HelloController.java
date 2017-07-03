@@ -78,7 +78,7 @@ public class HelloController {
     public String hello3_2(@RequestParam(value="lastName", defaultValue="Smith") String lastName) {
         //simulate heavy tasks
 //        long sleep = "task1".equals(msg) ? 1800 : 1200;
-    	long sleep = (long) (Math.random() * 1200);
+    	long sleep = (long) (Math.random() * 600);
         try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException e1) {

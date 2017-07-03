@@ -44,6 +44,13 @@ public class HelloController {
         Future<String> task1 = asyncTask.doAsyncQuery("Smith");
         String value = task1.get();
         
+        
+        long sleep = (long) (Math.random() * 600);
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
         if(value.contains("Jason1") && value.contains("Jason2")){
         	log.info("----------------query result: {}", value);
         }else{
