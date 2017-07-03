@@ -29,4 +29,36 @@ public class HelloController {
 		log.info(value.toString());
 		return value;
     }
+    
+    
+    
+    @RequestMapping("/hello1_1")
+    public String hello1_1(@RequestParam(value="oldName", defaultValue="Alice") String oldName,
+    		@RequestParam(value="newName", defaultValue="Jason1") String newName) {
+        //simulate heavy tasks
+        long sleep = (long) (Math.random() * 60);
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+        
+        String result = restTemplate.getForObject("http://rest-service-end:16000/persist?oldName="+oldName+"&newName="+newName, String.class);
+        
+        return result;
+    }
+    
+    @RequestMapping("/hello1_2")
+    public String hello1_2(@RequestParam(value="lastName", defaultValue="Smith") String lastName) {
+        //simulate heavy tasks
+    	long sleep = (long) (Math.random() * 60);
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+        String result = restTemplate.getForObject("http://rest-service-end:16000/persist_get?lastName="+lastName, String.class);
+        
+        return result;
+    }
 }

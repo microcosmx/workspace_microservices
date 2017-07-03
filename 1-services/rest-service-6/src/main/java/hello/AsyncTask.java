@@ -24,12 +24,12 @@ public class AsyncTask {
     
     @Async("mySimpleAsync")
     public Future<String> sendAsyncUpdate1(String oldName, String newName) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?oldName="+oldName+"&newName="+newName, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?oldName="+oldName+"&newName="+newName, String.class);
         return new AsyncResult<>("update1 sended");
     }
     @Async("mySimpleAsync")
     public Future<String> sendAsyncUpdate2(String oldName, String newName) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?oldName="+oldName+"&newName="+newName, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?oldName="+oldName+"&newName="+newName, String.class);
         return new AsyncResult<>("update2 sended");
     }  
     
@@ -37,7 +37,7 @@ public class AsyncTask {
       
     @Async("myAsync")  
     public Future<String> doAsyncQuery(String lastName) throws InterruptedException{  
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?lastName="+lastName, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_2?lastName="+lastName, String.class);
         return new AsyncResult<>(result);  
     }  
       

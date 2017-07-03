@@ -59,26 +59,24 @@ public class GreetingController {
 
 		// fetch an individual customer
 		Customer upt = repository.findByFirstName(oldName);
-		upt.firstName = newName;
-		
-		repository.save(upt);
-		
-		// fetch all customers
-		log.info("Customers found with findAll():");
-		log.info("-------------------------------");
-		for (Customer customer : repository.findAll()) {
-			log.info(customer.toString());
+		if(upt != null){
+			upt.firstName = newName;
+			
+			repository.save(upt);
+			
+			// fetch all customers
+			log.info("Customers found with findAll():");
+			log.info("-------------------------------");
+			for (Customer customer : repository.findAll()) {
+				log.info(customer.toString());
+			}
+			
+			// fetch an individual customer
+	        return repository.findByFirstName(newName).toString();
 		}
 		
-
-//		System.out.println("Customers found with findByLastName('Smith'):");
-//		System.out.println("--------------------------------");
-//		for (Customer customer : repository.findByLastName("Smith")) {
-//			System.out.println(customer);
-//		}
+		return "Empty";
 		
-		// fetch an individual customer
-        return repository.findByFirstName(newName).toString();
     }
     
     @RequestMapping("/persist_get")
