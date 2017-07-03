@@ -429,8 +429,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[j]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
-                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
+                            "<option value='2'>1st - " + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[j]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -467,8 +467,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[j]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
-                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
+                            "<option value='2'>1st - " + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[j]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -479,7 +479,6 @@ $("#travel_booking_button").click(function(){
                 }
             }
         });
-
     }else if(train_type == 1){
         $.ajax({
             type: "post",
@@ -508,8 +507,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[i]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
-                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
+                            "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -520,7 +519,6 @@ $("#travel_booking_button").click(function(){
                 }
             }
         });
-
     }else if(train_type == 2){
         $.ajax({
             type: "post",
@@ -549,8 +547,8 @@ $("#travel_booking_button").click(function(){
                             "<td>" + obj[i]["confortClass"]                                + "</td>" +
                             "<td>" +
                             "<select class='form-control booking_seat_class'>" +
-                            "<option value='2'>1st" + obj[j]["priceForConfortClass"] + "</option>" +
-                            "<option value='3'>2st" + obj[j]["priceForEconomyClass"] + "</option>" +
+                            "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
                             "</select>" +
                             "</td>" +
                             "<td>" + "<button class='btn btn-primary ticket_booking_button'>" + "Booking" + "</button>"  + "</td>" +
@@ -558,6 +556,172 @@ $("#travel_booking_button").click(function(){
                         );
                     }
                     addListenerToBookingTable();
+                }
+            }
+        });
+    }
+});
+
+
+$("#travel_rebook_button").click(function(){
+    var travelQueryInfo = new Object();
+    travelQueryInfo.startingPlace = $("#travel_rebook_startingPlace").val();
+    travelQueryInfo.endPlace = $("#travel_rebook_terminalPlace").val();
+    travelQueryInfo.departureTime= $("#travel_rebook_date").val();
+    var travelQueryData = JSON.stringify(travelQueryInfo);
+    var train_type = $("#search_select_train_type").val();
+    var i = 0;
+    $("#tickets_change_list_table").find("tbody").html("");
+    if(train_type == 0){
+        $.ajax({
+            type: "post",
+            url: "/travel/query",
+            contentType: "application/json",
+            dataType: "json",
+            data:travelQueryData,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(result){
+                if(result[0] != null){
+                    var obj = result;
+                    for(var j=0,l = obj.length;j < l ; i++,j++){
+                        $("#tickets_change_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='rebook_tripId'>" + obj[j]["tripId"]["type"] + obj[j]["tripId"]["number"] + "</td>" +
+                            "<td class='rebook_trainTypeId'>" + obj[j]["trainTypeId"] +  "</td>" +
+                            "<td class='rebook_from'>" + obj[j]["startingStation"]                             + "</td>" +
+                            "<td class='rebook_to'>" + obj[j]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["endTime"])          + "</td>" +
+                            "<td>" + obj[j]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[j]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control rebook_seat_class'>" +
+                            "<option value='2'>1st - " + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[j]["priceForEconomyClass"] + "</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_rebook_button'>" + "Rebook" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                }
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "/travel2/query",
+            contentType: "application/json",
+            dataType: "json",
+            data:travelQueryData,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(result){
+                if(result[0] != null){
+                    var obj = result;
+                    for(var j=0, l = obj.length ; j < l ;j++, i++){
+                        $("#tickets_change_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='rebook_tripId'>" + obj[j]["tripId"]["type"] + obj[j]["tripId"]["number"] + "</td>" +
+                            "<td class='rebook_trainTypeId'>" + obj[j]["trainTypeId"] +  "</td>" +
+                            "<td class='rebook_from'>" + obj[j]["startingStation"]                             + "</td>" +
+                            "<td class='rebook_to'>" + obj[j]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[j]["endTime"])          + "</td>" +
+                            "<td>" + obj[j]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[j]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control rebook_seat_class'>" +
+                            "<option value='2'>1st - " + obj[j]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[j]["priceForEconomyClass"] + "</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_rebook_button'>" + "Rebook" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                }
+            }
+        });
+    }else if(train_type == 1){
+        $.ajax({
+            type: "post",
+            url: "/travel/query",
+            contentType: "application/json",
+            dataType: "json",
+            data:travelQueryData,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(result){
+                if(result[0] != null){
+                    var obj = result;
+                    $("#tickets_change_list_table").find("tbody").html("");
+                    for(var i = 0,l = obj.length ; i < l ; i++){
+                        $("#tickets_change_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='rebook_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='rebook_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
+                            "<td class='rebook_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                            "<td class='rebook_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control rebook_seat_class'>" +
+                            "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_rebook_button'>" + "Rebook" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
+                }
+            }
+        });
+    }else if(train_type == 2){
+        $.ajax({
+            type: "post",
+            url: "/travel2/query",
+            contentType: "application/json",
+            dataType: "json",
+            data:travelQueryData,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(result){
+                if(result[0] != null){
+                    var obj = result;
+                    $("#tickets_change_list_table").find("tbody").html("");
+                    for(var i = 0,l = obj.length ; i < l ; i++){
+                        $("#tickets_change_list_table").find("tbody").append(
+                            "<tr>" +
+                            "<td>" + i + "</td>" +
+                            "<td class='rebook_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                            "<td class='rebook_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
+                            "<td class='rebook_from'>" + obj[i]["startingStation"]                             + "</td>" +
+                            "<td class='rebook_to'>" + obj[i]["terminalStation"]                             + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+                            "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
+                            "<td>" + obj[i]["economyClass"]                                + "</td>" +
+                            "<td>" + obj[i]["confortClass"]                                + "</td>" +
+                            "<td>" +
+                            "<select class='form-control rebook_seat_class'>" +
+                            "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
+                            "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
+                            "</select>" +
+                            "</td>" +
+                            "<td>" + "<button class='btn btn-primary ticket_rebook_button'>" + "Rebook" + "</button>"  + "</td>" +
+                            "</tr>"
+                        );
+                    }
                 }
             }
         });
