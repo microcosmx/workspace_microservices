@@ -32,11 +32,13 @@ public class CancelServiceImpl implements CancelService{
                     CancelOrderResult finalResult = new CancelOrderResult();
                     finalResult.setStatus(true);
                     finalResult.setMessage("Success.");
+                    System.out.println("[Cancel Order Service][Cancel Order] Success.");
                     return finalResult;
                 }else{
                     CancelOrderResult finalResult = new CancelOrderResult();
                     finalResult.setStatus(false);
                     finalResult.setMessage(changeOrderResult.getMessage());
+                    System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
                     return finalResult;
                 }
 
@@ -44,6 +46,7 @@ public class CancelServiceImpl implements CancelService{
                 CancelOrderResult result = new CancelOrderResult();
                 result.setStatus(false);
                 result.setMessage("Order Status Cancel Not Permitted");
+                System.out.println("[Cancel Order Service][Cancel Order] Order Status Not Permitted.");
                 return result;
             }
         }else{
@@ -64,23 +67,27 @@ public class CancelServiceImpl implements CancelService{
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(true);
                         finalResult.setMessage("Success.");
+                        System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         return finalResult;
                     }else{
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(false);
                         finalResult.setMessage(changeOrderResult.getMessage());
+                        System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
                         return finalResult;
                     }
                 }else{
                     CancelOrderResult result = new CancelOrderResult();
                     result.setStatus(false);
                     result.setMessage("Order Status Cancel Not Permitted");
+                    System.out.println("[Cancel Order Service][Cancel Order] Order Status Not Permitted.");
                     return result;
                 }
             }else{
                 CancelOrderResult result = new CancelOrderResult();
                 result.setStatus(false);
                 result.setMessage("Order Not Found");
+                System.out.println("[Cancel Order Service][Cancel Order] Order Not Found.");
                 return result;
             }
         }
@@ -99,19 +106,23 @@ public class CancelServiceImpl implements CancelService{
                     result.setStatus(true);
                     result.setMessage("Success");
                     result.setRefund("0");
+                    System.out.println("[Cancel Order][Refund Price] From Order Service.Not Paid.");
                     return result;
                 }else{
                     CalculateRefundResult result = new CalculateRefundResult();
                     result.setStatus(true);
                     result.setMessage("Success");
                     result.setRefund(calculateRefund(order));
+                    System.out.println("[Cancel Order][Refund Price] From Order Service.Paid.");
                     return result;
                 }
             }else{
                 CalculateRefundResult result = new CalculateRefundResult();
                 result.setStatus(false);
                 result.setMessage("Order Status Cancel Not Permitted");
-                result.setRefund("0");
+                result.setRefund("error");
+                System.out.println("[Cancel Order][Refund Price] Order. Cancel Not Permitted.");
+
                 return result;
             }
         }else{
@@ -127,26 +138,30 @@ public class CancelServiceImpl implements CancelService{
                         result.setStatus(true);
                         result.setMessage("Success");
                         result.setRefund("0");
+                        System.out.println("[Cancel Order][Refund Price] From Order Other Service.Not Paid.");
                         return result;
                     }else{
                         CalculateRefundResult result = new CalculateRefundResult();
                         result.setStatus(true);
                         result.setMessage("Success");
                         result.setRefund(calculateRefund(order));
+                        System.out.println("[Cancel Order][Refund Price] From Order Other Service.Paid.");
                         return result;
                     }
                 }else{
                     CalculateRefundResult result = new CalculateRefundResult();
                     result.setStatus(false);
                     result.setMessage("Order Status Cancel Not Permitted");
-                    result.setRefund("0");
+                    result.setRefund("error");
+                    System.out.println("[Cancel Order][Refund Price] Order Other. Cancel Not Permitted.");
                     return result;
                 }
             }else{
                 CalculateRefundResult result = new CalculateRefundResult();
                 result.setStatus(false);
                 result.setMessage("Order Not Found");
-                result.setRefund("0");
+                result.setRefund("error");
+                System.out.println("[Cancel Order][Refund Price] Order not found.");
                 return result;
             }
         }
@@ -159,7 +174,10 @@ public class CancelServiceImpl implements CancelService{
                                   order.getTravelDate().getDay(),
                                   order.getTravelTime().getHours(),
                                   order.getTravelTime().getMinutes());
+        System.out.println("[Cancel Order] nowDate:" + nowDate.toString());
+        System.out.println("[Cancel Order] startTime:" + startTime.toString());
         if(nowDate.after(startTime)){
+            System.out.println("[Cancel Order] Ticket expire refund 0");
             return "0";
         }else{
             double totalPrice = Double.parseDouble(order.getPrice());
