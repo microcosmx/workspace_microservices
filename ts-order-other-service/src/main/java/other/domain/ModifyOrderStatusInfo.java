@@ -1,12 +1,12 @@
-package order.domain;
+package other.domain;
 
-public class ModifyOrderInfo {
+public class ModifyOrderStatusInfo {
 
     private String orderId;
 
     private int status;
 
-    public ModifyOrderInfo() {
+    public ModifyOrderStatusInfo() {
         //Default Constructor
     }
 

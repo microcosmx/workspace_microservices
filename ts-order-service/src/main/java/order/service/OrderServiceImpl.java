@@ -1,13 +1,11 @@
 package order.service;
 
 import com.google.gson.Gson;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -239,9 +237,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public ModifyOrderResult modifyOrder(ModifyOrderInfo info){
+    public ModifyOrderStatusResult modifyOrder(ModifyOrderStatusInfo info){
         Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
-        ModifyOrderResult result = new ModifyOrderResult();
+        ModifyOrderStatusResult result = new ModifyOrderStatusResult();
         if(order == null){
             result.setStatus(false);
             result.setMessage("Order Not Found");
@@ -302,22 +300,6 @@ public class OrderServiceImpl implements OrderService{
             result.setStatus(true);
             result.setMessage("Success.");
             result.setOrder(order);
-        }
-        return result;
-    }
-
-    @Override
-    public ExecuteOrderResult executeTicket(ExecuteOrderInfo info){
-        Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
-        ExecuteOrderResult result = new ExecuteOrderResult();
-        if(order == null){
-            result.setStatus(false);
-            result.setMessage("Order Not Found");
-        }else{
-            order.setStatus(OrderStatus.USED.getCode());
-            orderRepository.save(order);
-            result.setStatus(true);
-            result.setMessage("Success");
         }
         return result;
     }

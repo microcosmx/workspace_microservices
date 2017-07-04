@@ -85,10 +85,10 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path="/order/execute", method = RequestMethod.POST)
-    public ExecuteOrderResult executeOrder(@RequestBody ExecuteOrderInfo info){
-        System.out.println("[Order Service][Ticket Execute] Order Id:" + info.getOrderId());
-        return orderService.executeTicket(info);
+    @RequestMapping(path="/order/modifyOrderStatus", method = RequestMethod.POST)
+    public ModifyOrderStatusResult modifyOrder(@RequestBody ModifyOrderStatusInfo info){
+        System.out.println("[Order Service][Modify Order Status] Order Id:" + info.getOrderId());
+        return orderService.modifyOrder(info);
     }
 
     @CrossOrigin(origins = "*")
@@ -129,13 +129,6 @@ public class OrderController {
     public QueryOrderResult findAllOrder(){
         System.out.println("[Order Service][Find All Order]");
         return orderService.getAllOrders();
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path="/order/modifyOrder", method = RequestMethod.POST)
-    public ModifyOrderResult modifyOrder(@RequestBody ModifyOrderInfo info){
-        System.out.println("[Order Service][Modify Order] Order Id:" + info.getOrderId());
-        return orderService.modifyOrder(info);
     }
 
     private VerifyResult verifySsoLogin(String loginToken){

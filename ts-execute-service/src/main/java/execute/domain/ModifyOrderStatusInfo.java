@@ -1,10 +1,12 @@
 package execute.domain;
 
-public class ExecuteOrderInfo {
+public class ModifyOrderStatusInfo {
 
     private String orderId;
 
-    public ExecuteOrderInfo() {
+    private int status;
+
+    public ModifyOrderStatusInfo() {
         //Default Constructor
     }
 
@@ -14,5 +16,13 @@ public class ExecuteOrderInfo {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

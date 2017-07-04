@@ -236,9 +236,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     }
 
     @Override
-    public ModifyOrderResult modifyOrder(ModifyOrderInfo info){
+    public ModifyOrderStatusResult modifyOrder(ModifyOrderStatusInfo info){
         Order order = orderOtherRepository.findById(UUID.fromString(info.getOrderId()));
-        ModifyOrderResult result = new ModifyOrderResult();
+        ModifyOrderStatusResult result = new ModifyOrderStatusResult();
         if(order == null){
             result.setStatus(false);
             result.setMessage("Order Not Found");
@@ -299,22 +299,6 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             result.setStatus(true);
             result.setMessage("Success.");
             result.setOrder(order);
-        }
-        return result;
-    }
-
-    @Override
-    public ExecuteOrderResult executeTicket(ExecuteOrderInfo info){
-        Order order = orderOtherRepository.findById(UUID.fromString(info.getOrderId()));
-        ExecuteOrderResult result = new ExecuteOrderResult();
-        if(order == null){
-            result.setStatus(false);
-            result.setMessage("Order Not Found");
-        }else{
-            order.setStatus(OrderStatus.USED.getCode());
-            orderOtherRepository.save(order);
-            result.setStatus(true);
-            result.setMessage("Success");
         }
         return result;
     }

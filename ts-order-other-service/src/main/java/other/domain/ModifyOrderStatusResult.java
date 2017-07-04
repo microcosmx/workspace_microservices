@@ -1,12 +1,14 @@
-package order.domain;
+package other.domain;
 
-public class ExecuteOrderResult {
+public class ModifyOrderStatusResult {
 
     private boolean status;
 
     private String message;
 
-    public ExecuteOrderResult() {
+    private Order order;
+
+    public ModifyOrderStatusResult() {
         //Default Constructor
     }
 
@@ -24,5 +26,13 @@ public class ExecuteOrderResult {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

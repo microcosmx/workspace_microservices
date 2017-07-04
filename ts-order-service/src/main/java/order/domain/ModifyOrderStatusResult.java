@@ -1,6 +1,6 @@
-package other.domain;
+package order.domain;
 
-public class ModifyOrderResult {
+public class ModifyOrderStatusResult {
 
     private boolean status;
 
@@ -8,7 +8,7 @@ public class ModifyOrderResult {
 
     private Order order;
 
-    public ModifyOrderResult() {
+    public ModifyOrderStatusResult() {
         //Default Constructor
     }
 

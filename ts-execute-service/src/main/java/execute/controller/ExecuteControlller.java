@@ -23,4 +23,11 @@ public class ExecuteControlller {
         System.out.println("[Execute Service][Execute] Id:" + info.getOrderId());
         return executeService.ticketExecute(info);
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/execute/collected", method = RequestMethod.POST)
+    public TicketExecuteResult collectTicket(@RequestBody TicketExecuteInfo info){
+        System.out.println("[Execute Service][Collect] Id:" + info.getOrderId());
+        return executeService.ticketCollect(info);
+    }
 }

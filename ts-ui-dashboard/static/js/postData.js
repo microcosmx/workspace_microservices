@@ -91,9 +91,9 @@ function addListenerToAllOrderTable(){
             var path = "";
             var tripType = $(this).parents("tr").find(".all_order_trainNum").text().charAt(0);
             if(tripType == 'G' || tripType == 'D'){
-                path = "/order/modifyOrder";
+                path = "/order/modifyOrderStatus";
             }else{
-                path = "/orderOther/modifyOrder";
+                path = "/orderOther/modifyOrderStatus";
             }
             $.ajax({
                 type: "post",

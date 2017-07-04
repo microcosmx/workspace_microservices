@@ -22,15 +22,13 @@ public interface OrderService {
 
     QueryOrderResult getAllOrders();
 
-    ModifyOrderResult modifyOrder(ModifyOrderInfo info);
+    ModifyOrderStatusResult modifyOrder(ModifyOrderStatusInfo info);
 
     GetOrderPriceResult getOrderPrice(GetOrderPrice info);
 
     PayOrderResult payOrder(PayOrderInfo info);
 
     GetOrderResult getOrderById(GetOrderByIdInfo info);
-
-    ExecuteOrderResult executeTicket(ExecuteOrderInfo info);
 
     GetOrderInfoForSecurityResult checkSecurityAboutOrder(GetOrderInfoForSecurity info);
 
