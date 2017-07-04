@@ -53,4 +53,9 @@ public class InsidePaymentController {
     public boolean payDifference(@RequestBody PaymentDifferenceInfo info, HttpServletRequest request){
         return service.payDifference(info, request);
     }
+
+    @RequestMapping(value="/inside_payment/queryAddMoney", method = RequestMethod.GET)
+    public List<AddMoney> queryAddMoney(){
+        return service.queryAddMoney();
+    }
 }

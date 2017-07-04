@@ -1,9 +1,7 @@
 package inside_payment.init;
 
-import inside_payment.domain.CreateAccountInfo;
-import inside_payment.domain.Payment;
-import inside_payment.domain.PaymentInfo;
-import inside_payment.domain.PaymentType;
+import inside_payment.domain.*;
+import inside_payment.repository.AddMoneyRepository;
 import inside_payment.repository.PaymentRepository;
 import inside_payment.service.InsidePaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,9 @@ public class InitData implements CommandLineRunner {
 
     @Autowired
     PaymentRepository paymentRepository;
+
+    @Autowired
+    AddMoneyRepository addMoneyRepository;
 
     @Override
     public void run(String... args) throws Exception{
@@ -39,6 +40,12 @@ public class InitData implements CommandLineRunner {
         payment.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
         payment.setType(PaymentType.P);
         paymentRepository.save(payment);
+
+        AddMoney addMoney = new AddMoney();
+        addMoney.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
+        addMoney.setMoney("10000");
+        addMoney.setType(AddMoneyType.A);
+        addMoneyRepository.save(addMoney);
     }
 }
 

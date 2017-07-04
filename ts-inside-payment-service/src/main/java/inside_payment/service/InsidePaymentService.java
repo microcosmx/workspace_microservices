@@ -16,4 +16,5 @@ public interface InsidePaymentService {
     List<Balance> queryAccount();
     boolean drawBack(DrawBackInfo info);
     boolean payDifference(PaymentDifferenceInfo info, HttpServletRequest request);
+    List<AddMoney> queryAddMoney();
 }
