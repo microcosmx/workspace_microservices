@@ -92,7 +92,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Override
     public boolean createAccount(CreateAccountInfo info){
-        if(addMoneyRepository.findByUserId(info.getUserId()) == null){
+        List<AddMoney> list = addMoneyRepository.findByUserId(info.getUserId());
+        if(list.size() == 0){
             AddMoney addMoney = new AddMoney();
             addMoney.setMoney(info.getMoney());
             addMoney.setUserId(info.getUserId());
@@ -128,8 +129,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             AddMoney addMoney = ite.next();
             if(map.containsKey(addMoney.getUserId())){
                 BigDecimal money = new BigDecimal(map.get(addMoney.getUserId()));
-                money.add(new BigDecimal(addMoney.getMoney()));
-                map.put(addMoney.getUserId(),money.toString());
+                map.put(addMoney.getUserId(),money.add(new BigDecimal(addMoney.getMoney())).toString());
             }else{
                 map.put(addMoney.getUserId(),addMoney.getMoney());
             }
@@ -143,12 +143,13 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
             List<Payment> payments = paymentRepository.findByUserId(userId);
             Iterator<Payment> iterator = payments.iterator();
-            BigDecimal totalExpand = new BigDecimal("0");
+            String totalExpand = "0";
             while(iterator.hasNext()){
                 Payment p = iterator.next();
-                totalExpand.add(new BigDecimal(p.getPrice()));
+                BigDecimal expand = new BigDecimal(totalExpand);
+                totalExpand = expand.add(new BigDecimal(p.getPrice())).toString();
             }
-            String balanceMoney = new BigDecimal(money).subtract(totalExpand).toString();
+            String balanceMoney = new BigDecimal(money).subtract(new BigDecimal(totalExpand)).toString();
             Balance balance = new Balance();
             balance.setUserId(userId);
             balance.setBalance(balanceMoney);
@@ -251,5 +252,10 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         return true;
 
 
+    }
+
+    @Override
+    public List<AddMoney> queryAddMoney(){
+        return addMoneyRepository.findAll();
     }
 }
