@@ -32,11 +32,13 @@ public class CancelServiceImpl implements CancelService{
                     CancelOrderResult finalResult = new CancelOrderResult();
                     finalResult.setStatus(true);
                     finalResult.setMessage("Success.");
+                    System.out.println("[Cancel Order Service][Cancel Order] Success.");
                     return finalResult;
                 }else{
                     CancelOrderResult finalResult = new CancelOrderResult();
                     finalResult.setStatus(false);
                     finalResult.setMessage(changeOrderResult.getMessage());
+                    System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
                     return finalResult;
                 }
 
@@ -44,6 +46,7 @@ public class CancelServiceImpl implements CancelService{
                 CancelOrderResult result = new CancelOrderResult();
                 result.setStatus(false);
                 result.setMessage("Order Status Cancel Not Permitted");
+                System.out.println("[Cancel Order Service][Cancel Order] Order Status Not Permitted.");
                 return result;
             }
         }else{
@@ -64,23 +67,27 @@ public class CancelServiceImpl implements CancelService{
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(true);
                         finalResult.setMessage("Success.");
+                        System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         return finalResult;
                     }else{
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(false);
                         finalResult.setMessage(changeOrderResult.getMessage());
+                        System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
                         return finalResult;
                     }
                 }else{
                     CancelOrderResult result = new CancelOrderResult();
                     result.setStatus(false);
                     result.setMessage("Order Status Cancel Not Permitted");
+                    System.out.println("[Cancel Order Service][Cancel Order] Order Status Not Permitted.");
                     return result;
                 }
             }else{
                 CancelOrderResult result = new CancelOrderResult();
                 result.setStatus(false);
                 result.setMessage("Order Not Found");
+                System.out.println("[Cancel Order Service][Cancel Order] Order Not Found.");
                 return result;
             }
         }
