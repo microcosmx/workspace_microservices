@@ -11,6 +11,8 @@ public class PaymentDifferenceInfo {
     private String tripId;
     private String userId;
 
+    private String price;
+
     public String getOrderId() {
         return orderId;
     }
@@ -33,5 +35,13 @@ public class PaymentDifferenceInfo {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

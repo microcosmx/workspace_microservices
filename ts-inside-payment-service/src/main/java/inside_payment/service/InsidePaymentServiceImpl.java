@@ -203,63 +203,53 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     public boolean payDifference(PaymentDifferenceInfo info, HttpServletRequest request){
         QueryOrderResult result;
         String userId = info.getUserId();
-        if(info.getTripId().startsWith("G") || info.getTripId().startsWith("D")){
-            result = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
-        }else{
-            result = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/orderOther/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+
+        Payment payment = new Payment();
+        payment.setOrderId(info.getOrderId());
+        payment.setPrice(info.getPrice());
+        payment.setUserId(info.getUserId());
+
+        //判断一下账户余额够不够，不够要去站外支付
+        List<Payment> payments = paymentRepository.findByUserId(userId);
+        List<AddMoney> addMonies = addMoneyRepository.findByUserId(userId);
+        Iterator<Payment> paymentsIterator = payments.iterator();
+        Iterator<AddMoney> addMoniesIterator = addMonies.iterator();
+
+        BigDecimal totalExpand = new BigDecimal("0");
+        while(paymentsIterator.hasNext()){
+            Payment p = paymentsIterator.next();
+            totalExpand.add(new BigDecimal(p.getPrice()));
+        }
+        totalExpand.add(new BigDecimal(info.getPrice()));
+
+        BigDecimal money = new BigDecimal("0");
+        while(addMoniesIterator.hasNext()){
+            AddMoney addMoney = addMoniesIterator.next();
+            money.add(new BigDecimal(addMoney.getMoney()));
         }
 
-        if(result.isStatus()){
-            Payment payment = new Payment();
-            payment.setOrderId(info.getOrderId());
-            payment.setPrice(result.getPrice());
-            payment.setUserId(userId);
-
-            //判断一下账户余额够不够，不够要去站外支付
-            List<Payment> payments = paymentRepository.findByUserId(userId);
-            List<AddMoney> addMonies = addMoneyRepository.findByUserId(userId);
-            Iterator<Payment> paymentsIterator = payments.iterator();
-            Iterator<AddMoney> addMoniesIterator = addMonies.iterator();
-
-            BigDecimal totalExpand = new BigDecimal("0");
-            while(paymentsIterator.hasNext()){
-                Payment p = paymentsIterator.next();
-                totalExpand.add(new BigDecimal(p.getPrice()));
-            }
-            totalExpand.add(new BigDecimal(result.getPrice()));
-
-            BigDecimal money = new BigDecimal("0");
-            while(addMoniesIterator.hasNext()){
-                AddMoney addMoney = addMoniesIterator.next();
-                money.add(new BigDecimal(addMoney.getMoney()));
-            }
-
-            if(totalExpand.compareTo(money) > 0){
-                //站外支付
-                OutsidePaymentInfo outsidePaymentInfo = new OutsidePaymentInfo();
-                outsidePaymentInfo.setOrderId(info.getOrderId());
-                outsidePaymentInfo.setUserId(userId);
-                outsidePaymentInfo.setPrice(result.getPrice());
-                boolean outsidePaySuccess = restTemplate.postForObject(
-                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
-                if(outsidePaySuccess){
-                    payment.setType(PaymentType.E);
-                    paymentRepository.save(payment);
-                    return true;
-                }else{
-                    return false;
-                }
-            }else{
+        if(totalExpand.compareTo(money) > 0){
+            //站外支付
+            OutsidePaymentInfo outsidePaymentInfo = new OutsidePaymentInfo();
+            outsidePaymentInfo.setOrderId(info.getOrderId());
+            outsidePaymentInfo.setUserId(userId);
+            outsidePaymentInfo.setPrice(info.getPrice());
+            boolean outsidePaySuccess = restTemplate.postForObject(
+                    "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
+            if(outsidePaySuccess){
                 payment.setType(PaymentType.E);
                 paymentRepository.save(payment);
+                return true;
+            }else{
+                return false;
             }
-
-            return true;
-
         }else{
-            return false;
+            payment.setType(PaymentType.E);
+            paymentRepository.save(payment);
         }
+
+        return true;
+
+
     }
 }

@@ -52,7 +52,12 @@ public class RebookServiceImpl implements RebookService{
 
         Order order = queryOrderResult.getOrder();
         int status = order.getStatus();
-        if(status == OrderStatus.NOTPAID.getCode() || status ==OrderStatus.PAID.getCode()){
+        if(status == OrderStatus.NOTPAID.getCode()){
+            rebookResult.setStatus(false);
+            rebookResult.setMessage("You haven't paid the original ticket!");
+            rebookResult.setOrder(null);
+            return rebookResult;
+        }else if(status == OrderStatus.PAID.getCode()){
             // do nothing
         }else if(status == OrderStatus.CHANGE.getCode()){
             rebookResult.setStatus(false);
@@ -201,8 +206,11 @@ public class RebookServiceImpl implements RebookService{
         queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());
 
         String ticketPrice = getPrice(queryPriceInfo);
+        String oldPrice = order.getPrice();
+        BigDecimal priceOld = new BigDecimal(oldPrice);
+        BigDecimal priceNew = new BigDecimal(ticketPrice);
 
-        if(payDifferentMoney(info.getOrderId(),info.getTripId(),loginId)){
+        if(payDifferentMoney(info.getOrderId(),info.getTripId(),loginId,priceNew.subtract(priceOld).toString())){
             return updateOrder(order,info,gtdr,ticketPrice,loginId,loginToken);
         }else{
             rebookResult.setStatus(false);
@@ -213,11 +221,12 @@ public class RebookServiceImpl implements RebookService{
 
     }
 
-    private boolean payDifferentMoney(String orderId, String tripId, String userId){
+    private boolean payDifferentMoney(String orderId, String tripId, String userId, String money){
         PaymentDifferenceInfo info = new PaymentDifferenceInfo();
         info.setOrderId(orderId);
         info.setTripId(tripId);
         info.setUserId(userId);
+        info.setPrice(money);
         boolean result = restTemplate.postForObject(
                 "http://ts-inside-payment-service:18673/inside_payment/payDifference"
                 ,info,Boolean.class);
@@ -270,9 +279,13 @@ public class RebookServiceImpl implements RebookService{
             deleteOrder(order.getId().toString(), oldTripId);
             //在另一边创建新订单
             createOrder(order,loginToken,order.getTrainNumber());
+            rebookResult.setStatus(true);
+            rebookResult.setMessage("Success!");
+            rebookResult.setOrder(order); //order id是不对的，因为新创建的时候，会创建新的order id
+            return rebookResult;
         }
 
-        return rebookResult;
+
     }
 
     private DeleteOrderResult deleteOrder(String orderId, String tripId){

@@ -41,12 +41,39 @@ $("#inside_payment_query_payment_button").click(function(){
                     "<td>" + result[i]["orderId"] + "</td>" +
                     "<td>" + result[i]["userId"] + "</td>" +
                     "<td>" + result[i]["price"] + "</td>" +
+                    "<td>" + result[i]["type"] + "</td>" +
                     "</tr>"
                 );
             }
         }
     });
 });
+
+// $("#inside_payment_query_add_money_button").click(function(){
+//     $.ajax({
+//         type: "get",
+//         url: "/inside_payment/queryPayment",
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         success: function (result) {
+//             var size = result.length;
+//             $("#query_inside_payment_payment_list_table").find("tbody").html("");
+//             // $("#inside_payment_account_result_table").css('height','200px');
+//             for (var i = 0; i < size; i++) {
+//                 $("#query_inside_payment_payment_list_table").find("tbody").append(
+//                     "<tr>" +
+//                     "<td>" + result[i]["id"] + "</td>" +
+//                     "<td>" + result[i]["orderId"] + "</td>" +
+//                     "<td>" + result[i]["userId"] + "</td>" +
+//                     "<td>" + result[i]["price"] + "</td>" +
+//                     "<td>" + result[i]["type"] + "</td>" +
+//                     "</tr>"
+//                 );
+//             }
+//         }
+//     });
+// });
 
 $("#inside_payment_pay_button").click(function(){
     var info = new Object();
