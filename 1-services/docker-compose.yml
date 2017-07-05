@@ -56,6 +56,9 @@ services:
     restart: always
     ports:
       - 16006:16006
+    #   - 16106:16106
+    # command:
+    #   java -Xmx200m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=16106 -jar /app/rest-service-6-0.1.0.jar
     deploy:
       replicas: 6
       restart_policy:
@@ -116,9 +119,9 @@ services:
     restart: always
     ports:
       - 16001:16001
-      - 16101:16101
-    command:
-      java -Xmx200m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=16101 -jar /app/rest-service-1-0.1.0.jar
+    #   - 16101:16101
+    # command:
+    #   java -Xmx200m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=16101 -jar /app/rest-service-1-0.1.0.jar
     deploy:
       replicas: 6
       restart_policy:
@@ -131,6 +134,9 @@ services:
     restart: always
     ports:
       - 16000:16000
+    #   - 16100:16100
+    # command:
+    #   java -Xmx200m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=16100 -jar /app/rest-service-end-0.1.0.jar
     deploy:
       replicas: 6
       restart_policy:

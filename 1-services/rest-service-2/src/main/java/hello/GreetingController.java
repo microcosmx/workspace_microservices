@@ -24,9 +24,6 @@ public class GreetingController {
     
     @Autowired
 	private ProductRepository repository;
-    
-    @Autowired
-	private SchedulerBean scheduler;
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
@@ -43,64 +40,35 @@ public class GreetingController {
         return value;
     }
     
+    @RequestMapping("/refreshdb")
+    public String refreshdb() {
+		// save a couple of Products
+		repository.save(new Product("p1", 6.0));
+		repository.save(new Product("p2", 3.6));
+		
+		// fetch all Products
+		log.info("Products found with findAll():");
+		log.info("-------------------------------");
+		for (Product p : repository.findAll()) {
+			log.info(p.toString());
+		}
+		
+		return "Success";
+    }
+    
     
     /*
      * only support single process with multi-thread
      */
-    @RequestMapping("/process_end_update_sp")
-    public String process_end_update_sp(@RequestParam(value="name", defaultValue="p1") String name,
+    @RequestMapping("/process_end_update")
+    public String process_end_update(@RequestParam(value="name", defaultValue="p1") String name,
     		@RequestParam(value="priceChange", defaultValue="0.3") double priceChange) throws Exception {
 
 		// fetch an individual Product to update
 		Product upt = repository.findByName(name);
 		if(upt != null){
-			if(scheduler.priceMap.containsKey(name)){
-				upt.price = scheduler.priceMap.get(name) + priceChange;
-				repository.save(upt);
-				scheduler.priceMap.put(name, upt.price);
-			}
-			
-			// fetch an individual Products
-	        return String.valueOf(repository.findByName(name).price);
-		}
-		
-		return "Empty";
-		
-    }
-    
-    
-    @RequestMapping("/process_end_update")
-    public String process_end_update(@RequestParam(value="name", defaultValue="p1") String name,
-    		@RequestParam(value="priceChange", defaultValue="0.3") double priceChange) throws Exception {
-
-		// fetch an individual Products
-		Product upt = repository.findByName(name);
-		if(upt != null){
-			if(scheduler.priceMap.containsKey(name)){
-				double cache_price = scheduler.priceMap.get(name);
-				if(cache_price == upt.price){
-					upt.price += priceChange;
-					scheduler.priceMap.put(name, upt.price);
-				}else{
-					scheduler.priceMap.put(name, upt.price);
-					return "price changed: " + scheduler.priceMap.get(name);
-				}
-			}else{
-				upt.price += priceChange;
-			}
-			
+			upt.price += priceChange;
 			repository.save(upt);
-			
-			// fetch all cache
-			log.info("Cached maps:");
-			log.info("-------------------------------");
-			log.info(scheduler.priceMap.toString());
-			// fetch all Products
-			log.info("Products found with findAll():");
-			log.info("-------------------------------");
-			for (Product p : repository.findAll()) {
-				log.info(p.toString());
-			}
 			
 			// fetch an individual Products
 	        return String.valueOf(repository.findByName(name).price);
@@ -116,13 +84,7 @@ public class GreetingController {
 		// fetch an individual Products
     	log.info("Products found with findByName(name):");
     	log.info("-------------------------------");
-    	if(scheduler.priceMap.containsKey(name)){
-    		log.info("-----------cached value---------------");
-    		return String.valueOf(scheduler.priceMap.get(name));
-    	}else{
-    		log.info("-----------db value---------------");
-    		return String.valueOf(repository.findByName(name).price);
-    	}
+		return String.valueOf(repository.findByName(name).price);
         
     }
 }

@@ -27,57 +27,175 @@ public class HelloController {
     @Autowired  
     private AsyncTask asyncTask;  
     
-    @RequestMapping("/process6")
-    public String process6(@RequestParam(value="name", defaultValue="product") String name)  throws Exception{
+    @RequestMapping("/process6_sync")
+    public String process6_sync()  throws Exception{
 
+    	int priceChange = 1;
         //refreshdb
-        String refreshResult = restTemplate.getForObject("http://rest-service-end:16000/refreshdb", String.class);
+        //String refreshResult = restTemplate.getForObject("http://rest-service-end:16000/refreshdb", String.class);
         
-        String result = process6_query(name);
+    	//instance 1
+        String price = restTemplate.getForObject("http://rest-service-end:16000/process_end_query?name=p1", String.class);
         
+        //instance 2 (simulated)
+        String result_end = restTemplate.getForObject("http://rest-service-end:16000/process_end_update?name=p1&priceChange="+priceChange, String.class);
         
-        //simulate heavy tasks
-        long sleep = 6000;
+        //instance 1 should be "price changed", this is correct
+        //instance 2 should be +2, this is an error
+        String result = restTemplate.getForObject("http://rest-service-end:16000/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        
+//        if(result.contains("price changed") || result.contains("Empty")){
+//        	//TODO correct
+//        }else{
+//        	double cp = Double.valueOf(result);
+//        	if(cp == Double.valueOf(price)+priceChange){
+//        		//TODO correct
+//        	}else{
+//        		throw new Exception("update price incorrectly!!!");
+//        	}
+//        }
+        
+		log.info("=============end================");
+		return result;
+    }
+    
+    
+    @RequestMapping("/process6_sync_crossreq")
+    public String process6_sync_crossreq()  throws Exception{
+
+    	int priceChange = 1;
+        
+    	//instance 1
+//        String price = restTemplate.getForObject("http://rest-service-end:16000/process_end_query?name=p1", String.class);
+    	String price = "";
+    	if(Math.random()<0.5){
+    		price = restTemplate.getForObject("http://rest-service-5:16005/process5_query_1?name=p1", String.class);
+    	}else{
+    		price = restTemplate.getForObject("http://rest-service-5:16005/process5_query_2?name=p1", String.class);
+    	}
+        
+        //instance 2 (simulated)
+        String result_end = restTemplate.getForObject("http://rest-service-1:16001/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        
+        String result = "";
+        if(Math.random()<0.2){
+        	//instance 2 (simulated): error
+            result = restTemplate.getForObject("http://rest-service-1:16001/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        }else{
+        	//instance 1 (simulated): correct
+//            result = restTemplate.getForObject("http://rest-service-end:16000/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        	if(Math.random()<0.5){
+        		result = restTemplate.getForObject("http://rest-service-5:16005/process5_update_1?name=p1&priceChange="+priceChange, String.class);
+        	}else{
+        		result = restTemplate.getForObject("http://rest-service-5:16005/process5_update_2?name=p1&priceChange="+priceChange, String.class);
+        	}
+        }
+        
+        if(result.contains("price changed") || result.contains("Empty")){
+        	//TODO correct
+        }else{
+        	double cp = Double.valueOf(result);
+        	if(cp == Double.valueOf(price)+priceChange){
+        		//TODO correct
+        	}else{
+        		throw new Exception("update price incorrectly!!!");
+        	}
+        }
+        
+		log.info("=============end================");
+		return result;
+    }
+    
+    
+    @RequestMapping("/process6_sync_restart")
+    public String process6_sync_restart()  throws Exception{
+
+    	int priceChange = 1;
+        
+    	//instance 1
+//        String price = restTemplate.getForObject("http://rest-service-end:16000/process_end_query?name=p1", String.class);
+    	String price = "";
+    	if(Math.random()<0.5){
+    		price = restTemplate.getForObject("http://rest-service-5:16005/process5_query_1?name=p1", String.class);
+    	}else{
+    		price = restTemplate.getForObject("http://rest-service-5:16005/process5_query_2?name=p1", String.class);
+    	}
+        
+        //instance 2 (simulated)
+        String result_end = restTemplate.getForObject("http://rest-service-1:16001/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        
+        //simulate restart rest-service-end instance will get error
+        //or it works fine
+        long sleep = 30000;
         try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
         
-//        process6_update();
+        //instance 1 (simulated): correct
+//        String result = restTemplate.getForObject("http://rest-service-end:16000/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        String result = "";
+        if(Math.random()<0.5){
+    		result = restTemplate.getForObject("http://rest-service-5:16005/process5_update_1?name=p1&priceChange="+priceChange, String.class);
+    	}else{
+    		result = restTemplate.getForObject("http://rest-service-5:16005/process5_update_2?name=p1&priceChange="+priceChange, String.class);
+    	}
+        
+        if(result.contains("price changed") || result.contains("Empty")){
+        	//TODO correct
+        }else{
+        	double cp = Double.valueOf(result);
+        	if(cp == Double.valueOf(price)+priceChange){
+        		//TODO correct
+        	}else{
+        		throw new Exception("update price incorrectly!!!");
+        	}
+        }
         
 		log.info("=============end================");
 		return result;
     }
+    
 
-    @RequestMapping("/process6_query")
-    public String process6_query(@RequestParam(value="name", defaultValue="product") String name)  throws Exception{
+    @RequestMapping("/process6_async_scaling")
+    public String process6_async_scaling()  throws Exception{
+
+    	int priceChange = 1;
 
         //refreshdb
-        String refreshResult = restTemplate.getForObject("http://rest-service-end:16000/refreshdb", String.class);
+        Future<String> task = asyncTask.doAsyncQuery_end();
+        String price = task.get();
         
-        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5__query?name="+name, String.class);
+        //simulate extra instance update action
+        Future<String> task_end = asyncTask.doAsyncUpdate_end(priceChange);
+        String result_end = task_end.get();
+        
+        //simulate restart current instance
+        long sleep = 12000;
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+        
+        Future<String> task1 = asyncTask.doAsyncUpdate(priceChange);
+        String result = task1.get();
+        
+        if(result.contains("price changed") || result.contains("Empty")){
+        	//TODO
+        }else{
+        	double cp = Double.valueOf(result);
+        	if(cp == Double.valueOf(price)+priceChange){
+        		//TODO
+        	}else{
+        		throw new Exception("update price incorrectly!!!");
+        	}
+        }
         
 		log.info("=============end================");
 		return result;
     }
-    
-    
-    @RequestMapping("/process6_update")
-    public String process6_update(@RequestParam(value="name", defaultValue="product") String name,
-    		@RequestParam(value="price", defaultValue="0.5") String price)  throws Exception{
-
-        double price2 = Math.abs(Double.valueOf(price));
-        log.info(String.valueOf(price2));
-        
-        //update
-        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_update?name="+name, String.class);
-        
-		log.info("=============end================");
-		return result;
-    }
-    
-    
     
 }
 

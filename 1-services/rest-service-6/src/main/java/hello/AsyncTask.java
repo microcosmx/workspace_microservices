@@ -36,9 +36,21 @@ public class AsyncTask {
     
       
     @Async("myAsync")  
-    public Future<String> doAsyncQuery(String lastName) throws InterruptedException{  
-        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_2?lastName="+lastName, String.class);
+    public Future<String> doAsyncQuery_end() throws InterruptedException{
+		String price = restTemplate.getForObject("http://rest-service-end:16000/process_end_query?name=p1", String.class);
+        return new AsyncResult<>(price);  
+    }
+    
+    @Async("myAsync")  
+    public Future<String> doAsyncUpdate_end(int priceChange) throws InterruptedException{
+    	String result = restTemplate.getForObject("http://rest-service-end:16000/process_end_update?name=p1&priceChange="+priceChange, String.class);
         return new AsyncResult<>(result);  
-    }  
+    }
+    
+    @Async("myAsync")  
+    public Future<String> doAsyncUpdate(int priceChange) throws InterruptedException{
+    	String result = restTemplate.getForObject("http://rest-service-1:16001/process_end_update?name=p1&priceChange="+priceChange, String.class);
+        return new AsyncResult<>(result);  
+    }
       
 }  

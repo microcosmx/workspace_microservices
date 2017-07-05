@@ -24,27 +24,24 @@ public class Application implements CommandLineRunner{
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
 	@Autowired
-	private CustomerRepository repository;
+	private ProductRepository repository;
+	
+	@Autowired
+	private SchedulerBean scheduler;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+	
+	@Bean
+	public SchedulerBean schedulerBean() {
+		return new SchedulerBean();
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 
-		repository.deleteAll();
-
-		// save a couple of customers
-		repository.save(new Customer("Alice", "Smith"));
-		repository.save(new Customer("Bob", "Smith"));
-		
-		// fetch all customers
-		log.info("Customers found with findAll():");
-		log.info("-------------------------------");
-		for (Customer customer : repository.findAll()) {
-			log.info(customer.toString());
-		}
+		scheduler.schedulerSync();
 
 	}
 }

@@ -32,32 +32,36 @@ public class HelloController {
     
 
 
-    @RequestMapping("/hello5_1")
-    public void hello5_1(@RequestParam(value="oldName", defaultValue="Alice") String oldName,
-    		@RequestParam(value="newName", defaultValue="Jason1") String newName) {
+    @RequestMapping("/process5_query_1")
+    public String process5_query_1(@RequestParam(value="name", defaultValue="p1") String name) {
         
-        //simulate heavy tasks
-        long sleep = (long) (Math.random() * 60);
-        try {
-			Thread.sleep(sleep);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+        String result = restTemplate.getForObject("http://rest-service-4:16004/process4_query_1?name="+name, String.class);
         
-        String result = restTemplate.getForObject("http://rest-service-4:16004/hello4_1?oldName="+oldName+"&newName="+newName, String.class);
-        
+        return result;
     }
     
-    @RequestMapping("/hello5_2")
-    public String hello5_2(@RequestParam(value="lastName", defaultValue="Smith") String lastName) {
-        //simulate heavy tasks
-    	long sleep = (long) (Math.random() * 60);
-        try {
-			Thread.sleep(sleep);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-        String result = restTemplate.getForObject("http://rest-service-4:16004/hello4_2?lastName="+lastName, String.class);
+    @RequestMapping("/process5_query_2")
+    public String process5_query_2(@RequestParam(value="name", defaultValue="p1") String name) {
+
+    	String result = restTemplate.getForObject("http://rest-service-4:16004/process4_query_2?name="+name, String.class);
+        
+        return result;
+    }
+    
+    @RequestMapping("/process5_update_1")
+    public String process5_update_1(@RequestParam(value="name", defaultValue="p1") String name,
+    		@RequestParam(value="priceChange", defaultValue="0.3") double priceChange) {
+        
+        String result = restTemplate.getForObject("http://rest-service-4:16004/process4_update_1?name=p1&priceChange="+priceChange, String.class);
+        
+        return result;
+    }
+    
+    @RequestMapping("/process5_update_2")
+    public String process5_update_2(@RequestParam(value="name", defaultValue="p1") String name,
+    		@RequestParam(value="priceChange", defaultValue="0.3") double priceChange) {
+
+    	String result = restTemplate.getForObject("http://rest-service-4:16004/process4_update_2?name=p1&priceChange="+priceChange, String.class);
         
         return result;
     }

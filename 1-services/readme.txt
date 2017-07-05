@@ -1,8 +1,22 @@
 
 tsst sample:
-every 2 secs:
-http://localhost:16006/hello6?cal=60
-http://localhost:16000/refreshdb
+cached map:
+### http://localhost:16000/refreshdb
+http://localhost:16000/process_end_query?name=p1
+http://localhost:16000/process_end_update?name=p1&priceChange=1
+http://localhost:16000/process_end_query?name=p1
+
+local:
+error 1: 
+http://localhost:16006/process6_sync_crossreq (20% error)
+
+error 2:
+http://localhost:16006/process6_sync_restart
+in 12s: restart "rest-service-end"
+
+
+cluster:
+http://localhost:16006/process6_sync
 
 
 
