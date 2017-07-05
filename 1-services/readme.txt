@@ -1,6 +1,7 @@
 
 tsst sample:
-multi thread:
+
+multi thread safe:
 http://localhost:16000/process_end_update_sp
 http://localhost:16000/process_end_update_sp_safe
 
