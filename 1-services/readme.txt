@@ -1,10 +1,9 @@
 
 tsst sample:
-cached map:
-### http://localhost:16000/refreshdb
-http://localhost:16000/process_end_query?name=p1
-http://localhost:16000/process_end_update?name=p1&priceChange=1
-http://localhost:16000/process_end_query?name=p1
+multi thread:
+http://localhost:16000/process_end_update_sp
+http://localhost:16000/process_end_update_sp_safe
+
 
 local:
 error 1: 

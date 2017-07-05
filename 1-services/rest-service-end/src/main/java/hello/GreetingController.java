@@ -7,6 +7,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class GreetingController {
     
     @Autowired
 	private SchedulerBean scheduler;
+    
+    // 定义锁对象
+    private Lock lock = new ReentrantLock();
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
@@ -47,31 +52,78 @@ public class GreetingController {
     /*
      * only support single process with multi-thread
      */
-    @RequestMapping("/process_end_update_sp")
-    public String process_end_update_sp(@RequestParam(value="name", defaultValue="p1") String name,
-    		@RequestParam(value="priceChange", defaultValue="0.3") double priceChange) throws Exception {
-
-		// fetch an individual Product to update
-		Product upt = repository.findByName(name);
-		if(upt != null){
-			if(scheduler.priceMap.containsKey(name)){
-				upt.price = scheduler.priceMap.get(name) + priceChange;
-				repository.save(upt);
-				scheduler.priceMap.put(name, upt.price);
-			}
-			
-			// fetch an individual Products
-	        return String.valueOf(repository.findByName(name).price);
-		}
+    @RequestMapping("/process_end_update_sp_safe")
+    public String process_end_update_sp_safe(@RequestParam(value="name", defaultValue="p1") String name,
+    		@RequestParam(value="priceChange", defaultValue="1") double priceChange) throws Exception {
+    	
+    	try {
+            // 加锁
+            lock.lock();
+            // fetch an individual Product to update
+            log.info("---" + counter.incrementAndGet());
+        	
+    		Product upt = repository.findByName(name);
+    		
+    		if(upt != null){
+    			if(scheduler.priceMap.containsKey(name)){
+    				upt.price = scheduler.priceMap.get(name) + priceChange;
+    				
+    				long sleep = (long)(Math.random()*100);
+    	    		try {
+    	    			Thread.sleep(sleep);
+    	    		} catch (InterruptedException e1) {
+    	    			e1.printStackTrace();
+    	    		}
+    	    		
+    				repository.save(upt);
+    				scheduler.priceMap.put(name, upt.price);
+    			}
+    			
+    			// fetch an individual Products
+    			log.info("-----------------" + repository.findByName(name).price);
+    	        return String.valueOf(repository.findByName(name).price);
+    		}
+        } finally {
+            // 释放锁
+            lock.unlock();
+        }
 		
 		return "Empty";
 		
     }
     
+    @RequestMapping("/process_end_update_sp")
+    public String process_end_update_sp(@RequestParam(value="name", defaultValue="p1") String name,
+    		@RequestParam(value="priceChange", defaultValue="1") double priceChange) throws Exception {
+    	
+    	log.info("---" + counter.incrementAndGet());
+    	
+		Product upt = repository.findByName(name);
+		
+		if(upt != null){
+			if(scheduler.priceMap.containsKey(name)){
+				upt.price = scheduler.priceMap.get(name) + priceChange;
+				
+				long sleep = (long)(Math.random()*100);
+				try {
+					Thread.sleep(sleep);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				
+				repository.save(upt);
+				scheduler.priceMap.put(name, upt.price);
+			}
+			log.info("-----------------" + repository.findByName(name).price);
+	        return String.valueOf(repository.findByName(name).price);
+		}
+		return "Empty";
+    }
+    
     
     @RequestMapping("/process_end_update")
     public String process_end_update(@RequestParam(value="name", defaultValue="p1") String name,
-    		@RequestParam(value="priceChange", defaultValue="0.3") double priceChange) throws Exception {
+    		@RequestParam(value="priceChange", defaultValue="1") double priceChange) throws Exception {
 
 		// fetch an individual Products
 		Product upt = repository.findByName(name);
