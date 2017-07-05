@@ -74,11 +74,13 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 if(outsidePaySuccess){
                     payment.setType(PaymentType.O);
                     paymentRepository.save(payment);
+                    setOrderStatus(info.getTripId(),info.getOrderId());
                     return true;
                 }else{
                     return false;
                 }
             }else{
+                setOrderStatus(info.getTripId(),info.getOrderId());
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
             }
@@ -257,5 +259,22 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     @Override
     public List<AddMoney> queryAddMoney(){
         return addMoneyRepository.findAll();
+    }
+
+    private ModifyOrderStatusResult setOrderStatus(String tripId,String orderId){
+        ModifyOrderStatusInfo info = new ModifyOrderStatusInfo();
+        info.setOrderId(orderId);
+        info.setStatus(1);   //order paid and not collected
+
+        ModifyOrderStatusResult result;
+        if(tripId.startsWith("G") || tripId.startsWith("D")){
+            result = restTemplate.postForObject(
+                    "http://ts-order-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+        }else{
+            result = restTemplate.postForObject(
+                    "http://ts-order-other-service:12032/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+        }
+
+        return result;
     }
 }
