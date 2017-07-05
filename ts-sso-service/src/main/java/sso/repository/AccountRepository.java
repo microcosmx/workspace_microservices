@@ -11,8 +11,8 @@ import java.util.UUID;
 @Repository
 public interface AccountRepository extends MongoRepository<Account, String> {
 
-    @Query("{ 'phoneNum': ?0 }")
-    Account findByPhoneNum(String phoneNum);
+    @Query("{ 'email': ?0 }")
+    Account findByEmail(String email);
 
     @Query("{ 'id': ?0 }")
     Account findById(UUID id);

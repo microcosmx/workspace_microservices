@@ -17,7 +17,6 @@ public class AccountRegisterController {
         return "Welcome to [ Accounts Register Service ] !";
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public RegisterResult createNewAccount(@RequestBody RegisterInfo ri,@CookieValue String YsbCaptcha){
         System.out.println("[Register Service][Register] Verification Code:" + ri.getVerificationCode() +

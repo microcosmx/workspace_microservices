@@ -4,7 +4,6 @@ import login.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import login.service.AccountLoginService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,13 +13,11 @@ public class AccountLoginController {
     @Autowired
     private AccountLoginService accountService;
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
         return "Welcome to [ Accounts Login Service ] !";
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public LoginResult login(@RequestBody LoginInfo li, @CookieValue String YsbCaptcha,  HttpServletResponse response){
         System.out.println("[Login Service][Login] Verification Code:" + li.getVerificationCode() +
@@ -28,7 +25,6 @@ public class AccountLoginController {
         return accountService.login(li,YsbCaptcha, response);
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public LogoutResult logout(@RequestBody LogoutInfo li, HttpServletRequest request, HttpServletResponse response){
         System.out.println("[Login Service][Logout] Logout ID:" + li.getId() + " Token:" + li.getToken());

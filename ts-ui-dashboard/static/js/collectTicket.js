@@ -2,7 +2,7 @@
  * Created by fdse-jichao on 2017/7/4.
  */
 
-$("#execute_order_button").click(function() {
+$("#single_collect_button").click(function() {
     var executeInfo = new Object();
     executeInfo.orderId = $("#single_collect_order_id").val();
     var data = JSON.stringify(executeInfo);

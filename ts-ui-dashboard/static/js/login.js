@@ -4,7 +4,7 @@
 
 $("#login_button").click(function() {
     var loginInfo = new Object();
-    loginInfo.phoneNum = $("#login_phoneNum").val();
+    loginInfo.email = $("#login_email").val();
     loginInfo.password = $("#login_password").val();
     loginInfo.verificationCode = $("#login_verification_code").val();
     var data = JSON.stringify(loginInfo);

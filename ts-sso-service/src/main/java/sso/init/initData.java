@@ -20,7 +20,7 @@ public class initData implements CommandLineRunner {
         Account acc = new Account();
         acc.setDocumentType(DocumentType.ID_CARD.getCode());
         acc.setDocumentNum("DefaultDocumentNumber");
-        acc.setPhoneNum("fdse");
+        acc.setEmail("fdse_microservices@163.com");
         acc.setPassword("DefaultPassword");
         acc.setName("Default User");
         acc.setGender(Gender.MALE.getCode());

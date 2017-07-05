@@ -9,7 +9,7 @@ $("#register_button").click(function() {
     registerInfo.name = $("#register_name").val();
     registerInfo.documentType = $("#register_documentType").val();
     registerInfo.documentNum = $("#register_documentNum").val();
-    registerInfo.phoneNum = $("#register_phoneNum").val();
+    registerInfo.email = $("#register_email").val();
     registerInfo.verificationCode = $("#register_verificationCode").val();
     var data = JSON.stringify(registerInfo);
     $.ajax({

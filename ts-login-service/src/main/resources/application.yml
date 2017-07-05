@@ -1,11 +1,3 @@
-spring:
-  data:
-    mongodb:
-      host: ts-account-mongo
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-      database: ts
-      port: 27017
 
 # HTTP Server
 server:

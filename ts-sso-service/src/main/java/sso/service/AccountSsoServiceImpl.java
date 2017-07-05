@@ -21,25 +21,26 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public Account createAccount(Account account){
         System.out.println("[SSO Service][Create Account] Before:" + account.getId());
         Account resultAcc = accountRepository.save(account);
-        Account oldAcc = accountRepository.findByPhoneNum(account.getPhoneNum());
+        Account oldAcc = accountRepository.findByEmail(account.getEmail());
         System.out.println("[SSO Service][Create Account] After:" + oldAcc.getId());
         return resultAcc;
     }
 
     @Override
     public RegisterResult create(RegisterInfo ri){
-        Account oldAcc = accountRepository.findByPhoneNum(ri.getPhoneNum());
+        Account oldAcc = accountRepository.findByEmail(ri.getEmail());
         if(oldAcc != null){
             RegisterResult rr = new RegisterResult();
             rr.setStatus(false);
             rr.setMessage("Account Already Exists");
             rr.setAccount(null);
             System.out.println("[SSO Service][Register] Fail.Account already exists.");
+            System.out.println("[SSO Service][Register] Register Email:" + ri.getEmail() + " Exist Email:" + oldAcc.getEmail());
             return rr;
         }
         Account account = new Account();
         account.setId(UUID.randomUUID());
-        account.setPhoneNum(ri.getPhoneNum());
+        account.setEmail(ri.getEmail());
         account.setPassword(ri.getPassword());
         account.setName(ri.getName());
         account.setDocumentNum(ri.getDocumentNum());
@@ -65,7 +66,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
             lr.setAccount(null);
             return lr;
         }
-        Account result = accountRepository.findByPhoneNum(li.getPhoneNum());
+        Account result = accountRepository.findByEmail(li.getEmail());
         if(result != null &&
                 result.getPassword() != null && li.getPassword() != null
                 && result.getPassword().equals(li.getPassword())){
@@ -179,7 +180,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
 
     @Override
     public ModifyAccountResult saveChanges(ModifyAccountInfo modifyAccountInfo){
-        Account existAccount = accountRepository.findByPhoneNum(modifyAccountInfo.getNewEmail());
+        Account existAccount = accountRepository.findByEmail(modifyAccountInfo.getNewEmail());
         ModifyAccountResult result = new ModifyAccountResult();
         if(existAccount != null && !modifyAccountInfo.getAccountId().equals(existAccount.getId().toString())){
             System.out.println("[SSO Service][Modify Info] Email exists.");
@@ -196,7 +197,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
             result.setStatus(false);
             result.setMessage("Account Not Found.");
         }else{
-            oldAccount.setPhoneNum(modifyAccountInfo.getNewEmail());
+            oldAccount.setEmail(modifyAccountInfo.getNewEmail());
             oldAccount.setPassword(modifyAccountInfo.getNewPassword());
             accountRepository.save(oldAccount);
             oldAccount.setPassword("");

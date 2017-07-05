@@ -2,14 +2,14 @@ package sso.domain;
 
 public class LoginInfo {
 
-    private String phoneNum;
+    private String email;
 
     private String password;
 
     private String verificationCode;
 
     public LoginInfo() {
-        this.phoneNum = "";
+        this.email = "";
         this.password = "";
         this.verificationCode = "";
     }
@@ -22,12 +22,12 @@ public class LoginInfo {
         this.verificationCode = verificationCode;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
