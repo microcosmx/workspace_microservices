@@ -40,12 +40,6 @@ public class InitData implements CommandLineRunner {
         payment.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
         payment.setType(PaymentType.P);
         paymentRepository.save(payment);
-
-        AddMoney addMoney = new AddMoney();
-        addMoney.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
-        addMoney.setMoney("10000");
-        addMoney.setType(AddMoneyType.A);
-        addMoneyRepository.save(addMoney);
     }
 }
 
