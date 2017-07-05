@@ -21,18 +21,25 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class sample_error_process_cache  {
+	
+	public static int count = 60;
+	
     public static void main(String[] args) {
     	
     	System.setProperty("webdriver.chrome.driver", "/Users/admin/work/workspace_spring/testing/selenium/selenium_webdriver/drivers/chromedriver");
 		WebDriver driver = new ChromeDriver();
 		
-		Timer timer = new Timer();  
-        timer.schedule(new TimerTask() {  
-            public void run() {  
-            	driver.get("http://localhost:16006/hello6?cal=" + Math.random()*100);
-            }  
-        }, 1000, 2000);  
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+            	driver.get("http://localhost:16006/process6_sync_crossreq");
+            	if(count-- < 0){
+            		this.cancel();
+            		timer.cancel();
+            		driver.quit();
+            	}
+            }
+        }, 1000, 1000);
 		
-//        driver.quit();
     }
 }
