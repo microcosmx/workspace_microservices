@@ -16,6 +16,7 @@ docker images|grep none|awk '{print $3 }'|xargs docker rmi
 
 build:
 mvn -Dmaven.test.skip=true clean package
+mvn -Dmaven.test.skip=true clean install
 docker-compose -f docker-compose.yml build
 
 
