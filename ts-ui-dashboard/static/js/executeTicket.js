@@ -24,5 +24,5 @@ $("#execute_order_button").click(function() {
             }
         }
     });
-});;
+});
 

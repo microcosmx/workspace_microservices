@@ -26,7 +26,7 @@ public class CancelController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/cancelOrder", method = RequestMethod.POST)
-    public CancelOrderResult cancelTicket(@RequestBody CancelOrderInfo info, @CookieValue String loginToken){
+    public CancelOrderResult cancelTicket(@RequestBody CancelOrderInfo info, @CookieValue String loginToken,@CookieValue String loginId){
         if(loginToken == null ){
             loginToken = "admin";
         }
@@ -46,7 +46,7 @@ public class CancelController {
             result.setMessage("Not Login");
             return result;
         }else{
-            return cancelService.cancelOrder(info,loginToken);
+            return cancelService.cancelOrder(info,loginToken,loginId);
         }
     }
 

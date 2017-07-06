@@ -36,6 +36,7 @@ public class OrderServiceImpl implements OrderService{
             order.setId(UUID.randomUUID());
             orderRepository.save(order);
             System.out.println("[Order Service][Order Create] Success.");
+            System.out.println("[Order Service][Order Create] Price:" + order.getPrice());
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(order);
@@ -258,13 +259,15 @@ public class OrderServiceImpl implements OrderService{
     public GetOrderPriceResult getOrderPrice(GetOrderPrice info){
         Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
         GetOrderPriceResult result = new GetOrderPriceResult();
-        if(result == null){
+        if(order == null){
+            System.out.println("[Other Service][Get Order Price] Order Not Found.");
             result.setStatus(false);
             result.setMessage("Order Not Found");
             result.setPrice("-1.0");
         }else{
             result.setStatus(true);
             result.setMessage("Success");
+            System.out.println("[Order Service][Get Order Price] Price:" + order.getPrice());
             result.setPrice(order.getPrice());
         }
         return result;

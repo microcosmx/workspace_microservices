@@ -47,8 +47,10 @@ public class PreserveServiceImpl implements PreserveService{
             //3.查询座位余票信息和车次的详情
             System.out.println("[Preserve Service] [Step 3] Check tickets num");
             GetTripAllDetailInfo gtdi = new GetTripAllDetailInfo();
-            gtdi.setFrom(oti.getFrom());
+
+            gtdi.setFrom(oti.getFrom());//todo
             gtdi.setTo(oti.getTo());
+
             gtdi.setTravelDate(oti.getDate());
             gtdi.setTripId(oti.getTripId());
             System.out.println("[Preserve Service] [Step 3] TripId:" + oti.getTripId());
@@ -90,8 +92,12 @@ public class PreserveServiceImpl implements PreserveService{
             order.setId(UUID.randomUUID());
             order.setTrainNumber(oti.getTripId());
             order.setAccountId(UUID.fromString(oti.getAccountId()));
-            order.setFrom(oti.getFrom());
-            order.setTo(oti.getTo());
+
+            String fromStationId = queryForStationId(oti.getFrom());
+            String toStationId = queryForStationId(oti.getTo());
+
+            order.setFrom(fromStationId);
+            order.setTo(toStationId);
             order.setBoughtDate(new Date());
             order.setStatus(OrderStatus.NOTPAID.getCode());
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
@@ -99,18 +105,19 @@ public class PreserveServiceImpl implements PreserveService{
             order.setDocumentType(contacts.getDocumentType());
 
             QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-            queryPriceInfo.setStartingPlaceId(queryForStationId(oti.getFrom()));
-            queryPriceInfo.setEndPlaceId(queryForStationId(oti.getTo()));
+            queryPriceInfo.setStartingPlaceId(fromStationId);
+            queryPriceInfo.setEndPlaceId(toStationId);
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
                 queryPriceInfo.setSeatClass("confortClass");
-                System.out.println("[Preserve Other Service][Seat Class] Confort Class.");
+                System.out.println("[Preserve Service][Seat Class] Confort Class.");
             }else if(oti.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
                 queryPriceInfo.setSeatClass("economyClass");
-                System.out.println("[Preserve Other Service][Seat Class] Economy Class.");
+                System.out.println("[Preserve Service][Seat Class] Economy Class.");
             }
             queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
             String ticketPrice = getPrice(queryPriceInfo);
             order.setPrice(ticketPrice);//Set ticket price
+            System.out.println("[Preserve Service][Order Price] Price is: " + order.getPrice());
 
             order.setSeatClass(oti.getSeatType());
             order.setTravelDate(oti.getDate());
@@ -137,7 +144,9 @@ public class PreserveServiceImpl implements PreserveService{
             System.out.println("[Preserve Service] [Step 4] Do Order Complete");
             otr.setStatus(true);
             otr.setMessage("Success");
-            otr.setOrder(order);
+            otr.setOrder(cor.getOrder());
+            //5.发送notification
+
         }else{
             System.out.println("[Preserve Service][Verify Login] Fail");
             otr.setStatus(false);

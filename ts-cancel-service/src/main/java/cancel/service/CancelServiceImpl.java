@@ -14,7 +14,7 @@ public class CancelServiceImpl implements CancelService{
     private RestTemplate restTemplate;
 
     @Override
-    public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken){
+    public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId){
         GetOrderByIdInfo getFromOrderInfo = new GetOrderByIdInfo();
         getFromOrderInfo.setOrderId(info.getOrderId());
         GetOrderResult orderResult = getOrderByIdFromOrder(getFromOrderInfo);
@@ -33,6 +33,14 @@ public class CancelServiceImpl implements CancelService{
                     finalResult.setStatus(true);
                     finalResult.setMessage("Success.");
                     System.out.println("[Cancel Order Service][Cancel Order] Success.");
+                    //Draw back money
+                    String money = calculateRefund(order);
+                    boolean status = drawbackMoney(money,loginId);
+                    if(status == true){
+                        System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+                    }else{
+                        System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
+                    }
                     return finalResult;
                 }else{
                     CancelOrderResult finalResult = new CancelOrderResult();
@@ -68,6 +76,14 @@ public class CancelServiceImpl implements CancelService{
                         finalResult.setStatus(true);
                         finalResult.setMessage("Success.");
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
+                        //Draw back money
+                        String money = calculateRefund(order);
+                        boolean status = drawbackMoney(money,loginId);
+                        if(status == true){
+                            System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+                        }else{
+                            System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
+                        }
                         return finalResult;
                     }else{
                         CancelOrderResult finalResult = new CancelOrderResult();
@@ -90,6 +106,20 @@ public class CancelServiceImpl implements CancelService{
                 System.out.println("[Cancel Order Service][Cancel Order] Order Not Found.");
                 return result;
             }
+        }
+    }
+
+    public boolean drawbackMoney(String money,String userId){
+        restTemplate = new RestTemplate();
+        System.out.println("[Cancel Order Service][Draw Back Money] Draw back money...");
+        DrawBackInfo info = new DrawBackInfo();
+        info.setMoney(money);
+        info.setUserId(userId);
+        String result = restTemplate.postForObject("http://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
+        if(result.equals("true")){
+            return true;
+        }else{
+            return false;
         }
     }
 

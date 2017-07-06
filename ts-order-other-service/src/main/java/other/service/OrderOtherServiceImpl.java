@@ -35,6 +35,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             order.setId(UUID.randomUUID());
             orderOtherRepository.save(order);
             System.out.println("[Order Other Service][Order Create] Success.");
+            System.out.println("[Order Other Service][Order Create] Price:" + order.getPrice());
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(order);
@@ -264,6 +265,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         }else{
             result.setStatus(true);
             result.setMessage("Success");
+            System.out.println("[Order Other Service][Get Order Price] Price:" + order.getPrice());
             result.setPrice(order.getPrice());
         }
         return result;
