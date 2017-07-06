@@ -471,7 +471,8 @@ function convertNumberToOrderStatus(code){
 
 function convertNumberToDateTimeString(timeNumber){
     var str = new Date(timeNumber);
-    return str.toTimeString();
+
+    return str.toDateString() + " " + str.toTimeString();
 }
 
 function convertNumberToTimeString(timeNumber) {
@@ -483,13 +484,13 @@ function convertNumberToTimeString(timeNumber) {
 function mergeTwoDate(dateOne,dateTwo) {
     var one = new Date(dateOne);
     var two = new Date(dateTwo);
-    var year = one.getFullYear();
-    var month = one.getMonth();
-    var day = one.getDay();
-    var hour = two.getHours();
-    var minute = two.getMinutes();
-    var datetime = year + ":" + month + ":" + day + "  " + hour + ":" + minute;
-    return datetime;
+    // var year = one.getFullYear();
+    // var month = one.getMonth();
+    // var day = one.getDay();
+    // var hour = two.getHours();
+    // var minute = two.getMinutes();
+    // ..var datetime = year + ":" + month + ":" + day + "  " + hour + ":" + minute;
+    return one.toDateString() + " " + two.toTimeString();
 }
 
 function convertStringToTime(string){

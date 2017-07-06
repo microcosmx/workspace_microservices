@@ -19,6 +19,8 @@ $("#flow_preserve_login_button").click(function() {
         success: function(result){
             var obj = result;
             if(obj["status"] == true){
+                $("#user_login_id").html(obj["account"].id);
+                $("#user_login_token").html(obj["token"]);
                 document.cookie = "loginId=" + obj["account"].id;
                 document.cookie = "loginToken=" + obj["token"];
                 $("#flow_preserve_login_status").text(obj["message"]);
