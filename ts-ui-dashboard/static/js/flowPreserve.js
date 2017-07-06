@@ -188,8 +188,9 @@ function refresh_booking_contacts() {
                 "<option value='3'>Other</option>" +
                 "</select>" +
                 "</td>" +
-                "<td class='booking_contacts_documentNumber'>" + "<input id='booking_ne_contacts_documentNum'>" + "</td>" +
-                "<td class='booking_contacts_phoneNumber'>" + "<input id='booking_ne_ceontacts_phoneNum'>" + "</td>" +
+                "<td class='booking_contacts_documentNumber'>" + "<input id='booking_new_contacts_documentNum'>" + "</td>" +
+                "<td class='booking_contacts_phoneNumber'>" + "<input id='booking_new_contacts_phoneNum'>" + "</td>" +
+                "<td>" + "<label><input id='booking_new_contacts_select' class='booking_contacts_select' name='booking_contacts' type='radio' />" + "Select" + "</label>" + "</td>" +
                 "</tr>"
             );
         }
@@ -204,26 +205,58 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
     var contactsId = "";
     var radios = $(".booking_contacts_select");
     var selectContactsStatus = false;
-    for (var j = 0; j < radios.length; j++) {
-        if (radios[j].checked) {
-            contactsId = $(".booking_contacts_contactsId").eq(j).text();
-            selectContactsStatus = true;
-            $("#ticket_confirm_contactsId").text(contactsId);
-            var contactsName = $(".booking_contacts_name").eq(j).text();
-            var documentType = $(".booking_contacts_documentType").eq(j).text();
-            var documentNumber = $(".booking_contacts_documentNumber").eq(j).text();
-            $("#ticket_confirm_contactsName").text(contactsName);
-            $("#ticket_confirm_documentType").text(documentType);
-            $("#ticket_confirm_documentNumber").text(documentNumber);
-            break;
+    if(radios[radios.length - 1].checked){
+        selectContactsStatus = true;
+        preserveCreateNewContacts();
+    }else{
+        for (var j = 0; j < radios.length - 1; j++) {
+            if (radios[j].checked) {
+                contactsId = $(".booking_contacts_contactsId").eq(j).text();
+                selectContactsStatus = true;
+                var contactsName = $(".booking_contacts_name").eq(j).text();
+                var documentType = $(".booking_contacts_documentType").eq(j).text();
+                var documentNumber = $(".booking_contacts_documentNumber").eq(j).text();
+                $("#ticket_confirm_contactsId").text(contactsId);
+                $("#ticket_confirm_contactsName").text(contactsName);
+                $("#ticket_confirm_documentType").text(documentType);
+                $("#ticket_confirm_documentNumber").text(documentNumber);
+                break;
+            }
         }
     }
     if(selectContactsStatus == false){
         alert("Please select contacts.");
         return;
     }
-
 })
+
+function preserveCreateNewContacts(){
+    var addContactsInfo = new Object();
+    addContactsInfo.name = $("#booking_new_contacts_name").val();
+    addContactsInfo.documentType = $("#booking_new_contacts_documentType").val();
+    addContactsInfo.documentNumber = $("#booking_new_contacts_documentNum").val();
+    addContactsInfo.phoneNumber = $("#booking_new_contacts_phoneNum").val();
+    addContactsInfo.accountId = getCookie("loginId");
+    addContactsInfo.loginToken = getCookie("loginToken");
+    var data = JSON.stringify(addContactsInfo);
+    $.ajax({
+        type: "post",
+        url: "/contacts/create",
+        contentType: "application/json",
+        dataType: "json",
+        data:data,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            $("#ticket_confirm_contactsId").text(result["contacts"]["id"]);
+            $("#ticket_confirm_contactsName").text(result["contacts"]["name"]);
+            $("#ticket_confirm_documentType").text(convertNumberToDocumentType(result["contacts"]["documentType"]));
+            $("#ticket_confirm_documentNumber").text(result["contacts"]["documentNumber"]);
+            refresh_booking_contacts();
+        }
+    });
+}
 
 function convertNumberToDocumentType(code) {
     var str = "";
