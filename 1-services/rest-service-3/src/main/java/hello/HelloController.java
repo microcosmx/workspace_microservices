@@ -49,8 +49,8 @@ public class HelloController {
     
     
     @RequestMapping("/hello3_1")
-    public void hello3_1(@RequestParam(value="oldName", defaultValue="Alice") String oldName,
-    		@RequestParam(value="newName", defaultValue="Jason1") String newName) {
+    public void hello3_1(@RequestParam(value="oldState", defaultValue="normal") String oldState,
+    		@RequestParam(value="newState", defaultValue="positive") String newState) {
         
         //simulate heavy tasks
         long sleep = (long) (Math.random() * 300);
@@ -60,7 +60,7 @@ public class HelloController {
 			e1.printStackTrace();
 		}
         
-        String result = restTemplate.getForObject("http://rest-service-2:16002/hello2_1?oldName="+oldName+"&newName="+newName, String.class);
+        String result = restTemplate.getForObject("http://rest-service-2:16002/hello2_1?oldState="+oldState+"&newState="+newState, String.class);
         
         restTemplate.getForObject("http://rest-service-6:16006/hello6_1?msg="+result, String.class);
         
@@ -76,9 +76,9 @@ public class HelloController {
     
     @RequestMapping("/hello3_2")
     public String hello3_2(@RequestParam(value="lastName", defaultValue="Smith") String lastName) {
+    	
         //simulate heavy tasks
-//        long sleep = "task1".equals(msg) ? 1800 : 1200;
-    	long sleep = (long) (Math.random() * 600);
+    	long sleep = (long) (Math.random() * 300);
         try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException e1) {

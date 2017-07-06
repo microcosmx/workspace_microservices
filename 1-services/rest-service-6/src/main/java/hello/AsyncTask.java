@@ -23,13 +23,13 @@ public class AsyncTask {
 	private RestTemplate restTemplate;
     
     @Async("mySimpleAsync")
-    public Future<String> sendAsyncUpdate1(String oldName, String newName) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?oldName="+oldName+"&newName="+newName, String.class);
+    public Future<String> sendAsyncUpdate1(String oldState, String newState) throws InterruptedException{
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?oldState="+oldState+"&newState="+newState, String.class);
         return new AsyncResult<>("update1 sended");
     }
     @Async("mySimpleAsync")
-    public Future<String> sendAsyncUpdate2(String oldName, String newName) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?oldName="+oldName+"&newName="+newName, String.class);
+    public Future<String> sendAsyncUpdate2(String oldState, String newState) throws InterruptedException{
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?oldState="+oldState+"&newState="+newState, String.class);
         return new AsyncResult<>("update2 sended");
     }  
     

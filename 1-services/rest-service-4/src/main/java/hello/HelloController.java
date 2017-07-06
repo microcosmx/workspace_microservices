@@ -32,8 +32,8 @@ public class HelloController {
     
     
     @RequestMapping("/hello4_1")
-    public void hello4_1(@RequestParam(value="oldName", defaultValue="Alice") String oldName,
-    		@RequestParam(value="newName", defaultValue="Jason1") String newName) {
+    public void hello4_1(@RequestParam(value="oldState", defaultValue="normal") String oldState,
+    		@RequestParam(value="newState", defaultValue="positive") String newState) {
         
         //simulate heavy tasks
         long sleep = (long) (Math.random() * 60);
@@ -43,7 +43,7 @@ public class HelloController {
 			e1.printStackTrace();
 		}
         
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?oldName="+oldName+"&newName="+newName, String.class);
+        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?oldState="+oldState+"&newState="+newState, String.class);
         
     }
     

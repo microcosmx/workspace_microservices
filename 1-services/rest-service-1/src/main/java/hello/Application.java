@@ -2,6 +2,7 @@ package hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,13 +22,24 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 public class Application {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	
+	@Autowired
+	private static StatusBean statusBean;
 
 	public static void main(String args[]) {
 		SpringApplication.run(Application.class);
+		
+		statusBean.init();
 	}
 	
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
+	
+	@Bean
+	public StatusBean statusBean() {
+		return new StatusBean();
+	}
+
 }

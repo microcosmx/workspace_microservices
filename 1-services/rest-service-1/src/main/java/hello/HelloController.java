@@ -16,6 +16,9 @@ public class HelloController {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     @Autowired
 	private RestTemplate restTemplate;
+    
+    @Autowired
+	private StatusBean statusBean;
 
     @RequestMapping("/hello1")
     public Value hello1(@RequestParam(value="cal", defaultValue="50") String cal) {
@@ -33,8 +36,8 @@ public class HelloController {
     
     
     @RequestMapping("/hello1_1")
-    public String hello1_1(@RequestParam(value="oldName", defaultValue="Alice") String oldName,
-    		@RequestParam(value="newName", defaultValue="Jason1") String newName) {
+    public String hello1_1(@RequestParam(value="oldState", defaultValue="normal") String oldState,
+    		@RequestParam(value="newState", defaultValue="positive") String newState) {
         //simulate heavy tasks
         long sleep = (long) (Math.random() * 60);
         try {
@@ -43,7 +46,14 @@ public class HelloController {
 			e1.printStackTrace();
 		}
         
-        String result = restTemplate.getForObject("http://rest-service-end:16000/persist?oldName="+oldName+"&newName="+newName, String.class);
+        //Math.random()<0.8 simulate a different state of current micro-service
+        if("normal".equals(oldState)){
+        	String state = Math.random()<0.8? "positive" : "negative";
+        	statusBean.statusMap.put("status", state);
+        	newState = statusBean.statusMap.get("status");
+        }
+        
+        String result = restTemplate.getForObject("http://rest-service-end:16000/persist?oldState="+oldState+"&newState="+newState, String.class);
         
         return result;
     }
@@ -57,6 +67,7 @@ public class HelloController {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
+        
         String result = restTemplate.getForObject("http://rest-service-end:16000/persist_get?lastName="+lastName, String.class);
         
         return result;

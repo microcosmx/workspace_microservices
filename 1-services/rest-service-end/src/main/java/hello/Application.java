@@ -36,8 +36,8 @@ public class Application implements CommandLineRunner{
 		repository.deleteAll();
 
 		// save a couple of customers
-		repository.save(new Customer("Alice", "Smith"));
-		repository.save(new Customer("Bob", "Smith"));
+		repository.save(new Customer("normal", "Smith")); 		//credit positive/negative/normal
+		repository.save(new Customer("not started", "Smith"));	//loan processing/processed/not started
 		
 		// fetch all customers
 		log.info("Customers found with findAll():");

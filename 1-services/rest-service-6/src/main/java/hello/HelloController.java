@@ -36,14 +36,15 @@ public class HelloController {
         //refreshdb
         String refreshResult = restTemplate.getForObject("http://rest-service-end:16000/refreshdb", String.class);
         
-        //async messages
-        Future<String> msg1 = asyncTask.sendAsyncUpdate1("Alice", "Jason1");
-        Future<String> msg2 = asyncTask.sendAsyncUpdate2("Bob", "Jason2");
-        
-        //async tasks
+        //async tasks last return
         Future<String> task1 = asyncTask.doAsyncQuery("Smith");
-        String value = task1.get();
         
+        //async messages first return
+        Future<String> msg1 = asyncTask.sendAsyncUpdate1("normal", "positive"); 	//credit positive/negative/normal
+        Future<String> msg2 = asyncTask.sendAsyncUpdate2("not started", "processing");	//loan processing/processed/not started
+        
+        
+        String value = task1.get();
         
         long sleep = (long) (Math.random() * 600);
         try {
@@ -51,10 +52,10 @@ public class HelloController {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-        if(value.contains("Jason1") && value.contains("Jason2")){
-        	log.info("----------------query result: {}", value);
+        if(value.contains("negative") && value.contains("processing")){
+        	throw new Exception("status error!!");
         }else{
-        	throw new Exception("data updated error!!");
+        	log.info("----------------query result: {}", value);
         }
         
         

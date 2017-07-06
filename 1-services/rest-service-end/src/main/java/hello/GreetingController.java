@@ -39,9 +39,9 @@ public class GreetingController {
     public String refreshdb() {
     	repository.deleteAll();
 
-		// save a couple of customers
-		repository.save(new Customer("Alice", "Smith"));
-		repository.save(new Customer("Bob", "Smith"));
+    	// save a couple of customers
+		repository.save(new Customer("normal", "Smith")); 		//credit positive/negative/normal
+		repository.save(new Customer("not started", "Smith"));	//loan processing/processed/not started
 		
 		// fetch all customers
 		log.info("Customers found with findAll():");
@@ -54,13 +54,13 @@ public class GreetingController {
     }
     
     @RequestMapping("/persist")
-    public String persist(@RequestParam(value="oldName", defaultValue="Alice") String oldName,
-    		@RequestParam(value="newName", defaultValue="Jason1") String newName) throws Exception {
+    public String persist(@RequestParam(value="oldState", defaultValue="normal") String oldState,
+    		@RequestParam(value="newState", defaultValue="positive") String newState) throws Exception {
 
 		// fetch an individual customer
-		Customer upt = repository.findByFirstName(oldName);
+		Customer upt = repository.findByState(oldState);
 		if(upt != null){
-			upt.firstName = newName;
+			upt.state = newState;
 			
 			repository.save(upt);
 			
@@ -72,7 +72,7 @@ public class GreetingController {
 			}
 			
 			// fetch an individual customer
-	        return repository.findByFirstName(newName).toString();
+	        return repository.findByState(newState).toString();
 		}
 		
 		return "Empty";
