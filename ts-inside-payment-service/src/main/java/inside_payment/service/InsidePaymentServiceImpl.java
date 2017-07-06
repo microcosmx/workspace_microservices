@@ -84,7 +84,6 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
             }
-
                 return true;
 
         }else{

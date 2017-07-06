@@ -6,7 +6,7 @@ import cancel.domain.CancelOrderResult;
 
 public interface CancelService {
 
-    CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken);
+    CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId);
 
     CalculateRefundResult calculateRefund(CancelOrderInfo info);
 

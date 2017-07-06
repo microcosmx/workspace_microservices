@@ -138,7 +138,7 @@ public class ExecuteServiceImpl implements ExecuteService{
         restTemplate = new RestTemplate();
         System.out.println("[Execute Service][Execute Order] Executing....");
         ModifyOrderStatusResult cor = restTemplate.postForObject(
-                "http://ts-order-service:12031/order/execute"
+                "http://ts-order-service:12031/order/modifyOrderStatus"
                 ,info,ModifyOrderStatusResult.class);
         return cor;
     }
@@ -147,7 +147,7 @@ public class ExecuteServiceImpl implements ExecuteService{
         restTemplate = new RestTemplate();
         System.out.println("[Execute Service][Execute Order] Executing....");
         ModifyOrderStatusResult cor = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/orderOther/execute"
+                "http://ts-order-other-service:12032/order/modifyOrderStatus"
                 ,info,ModifyOrderStatusResult.class);
         return cor;
     }
