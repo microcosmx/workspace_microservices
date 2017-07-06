@@ -46,12 +46,6 @@ public class HelloController {
         
         String value = task1.get();
         
-        long sleep = (long) (Math.random() * 600);
-        try {
-			Thread.sleep(sleep);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
         if(value.contains("negative") && value.contains("processing")){
         	throw new Exception("status error!!");
         }else{

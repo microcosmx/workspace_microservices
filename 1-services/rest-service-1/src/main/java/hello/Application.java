@@ -19,17 +19,15 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
 @IntegrationComponentScan
-public class Application {
+public class Application implements CommandLineRunner{
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
 	@Autowired
-	private static StatusBean statusBean;
+	private StatusBean statusBean;
 
 	public static void main(String args[]) {
 		SpringApplication.run(Application.class);
-		
-		statusBean.init();
 	}
 	
 	@Bean
@@ -40,6 +38,12 @@ public class Application {
 	@Bean
 	public StatusBean statusBean() {
 		return new StatusBean();
+	}
+
+	@Override
+	public void run(String... arg0) throws Exception {
+		// TODO Auto-generated method stub
+		statusBean.init();
 	}
 
 }
