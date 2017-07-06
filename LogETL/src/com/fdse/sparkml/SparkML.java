@@ -32,18 +32,12 @@ public class SparkML {
 
 	    JavaRDD<Integer> dataSet = jsc.parallelize(l, slices);
 
-	    int count = dataSet.map(new Function<Integer, Integer>() {
-	      @Override
-	      public Integer call(Integer integer) {
+	    int count = dataSet.map(integer -> {
 	        double x = Math.random() * 2 - 1;
 	        double y = Math.random() * 2 - 1;
 	        return (x * x + y * y < 1) ? 1 : 0;
-	      }
-	    }).reduce(new Function2<Integer, Integer, Integer>() {
-	      @Override
-	      public Integer call(Integer integer, Integer integer2) {
+	    }).reduce((integer, integer2) -> {
 	        return integer + integer2;
-	      }
 	    });
 
 	    System.out.println("Pi is roughly " + 4.0 * count / n);
