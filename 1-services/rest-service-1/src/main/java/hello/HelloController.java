@@ -59,6 +59,11 @@ public class HelloController {
 		}
         String result = restTemplate.getForObject("http://rest-service-end:16000/persist_get?lastName="+lastName, String.class);
         
+        //20% chance error
+        if(Math.random() < 0.2){
+        	result = result.replaceAll("Jason1", "Michael");
+        }
+        
         return result;
     }
 }

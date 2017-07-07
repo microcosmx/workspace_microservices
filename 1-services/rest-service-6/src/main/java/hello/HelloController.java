@@ -51,10 +51,10 @@ public class HelloController {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-        if(value.contains("Jason1") && value.contains("Jason2")){
-        	log.info("----------------query result: {}", value);
-        }else{
+        if(value.contains("Michael") && value.contains("Bob")){
         	throw new Exception("data updated error!!");
+        }else{
+        	log.info("----------------query result: {}", value);
         }
         
         
