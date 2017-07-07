@@ -463,6 +463,8 @@ function convertNumberToOrderStatus(code){
         str = "Cancel";
     }else if(code == 5){
         str = "Refunded";
+    }else if(code == 6){
+        str = "Used";
     }else{
         str = "other";
     }
@@ -471,7 +473,8 @@ function convertNumberToOrderStatus(code){
 
 function convertNumberToDateTimeString(timeNumber){
     var str = new Date(timeNumber);
-    return str.toTimeString();
+
+    return str.toDateString() + " " + str.toTimeString();
 }
 
 function convertNumberToTimeString(timeNumber) {
@@ -483,13 +486,13 @@ function convertNumberToTimeString(timeNumber) {
 function mergeTwoDate(dateOne,dateTwo) {
     var one = new Date(dateOne);
     var two = new Date(dateTwo);
-    var year = one.getFullYear();
-    var month = one.getMonth();
-    var day = one.getDay();
-    var hour = two.getHours();
-    var minute = two.getMinutes();
-    var datetime = year + ":" + month + ":" + day + "  " + hour + ":" + minute;
-    return datetime;
+    // var year = one.getFullYear();
+    // var month = one.getMonth();
+    // var day = one.getDay();
+    // var hour = two.getHours();
+    // var minute = two.getMinutes();
+    // ..var datetime = year + ":" + month + ":" + day + "  " + hour + ":" + minute;
+    return one.toDateString() + " " + two.toTimeString();
 }
 
 function convertStringToTime(string){
@@ -501,24 +504,4 @@ function convertStringToTime(string){
     date.setHours(hour);
     date.setMinutes(minute);
     return date;
-}
-
-function convertNumberToOrderStatus(code){
-    var str = "";
-    if(code == 0){
-        str = "Not Paid";
-    }else if(code == 1){
-        str = "Paid & Not Collected";
-    }else if(code == 2){
-        str = "Collected";
-    }else if(code == 3){
-        str = "Cancel & Rebook";
-    }else if(code == 4){
-        str = "Cancel";
-    }else if(code == 5){
-        str = "Refunded";
-    }else{
-        str = "other";
-    }
-    return str;
 }
