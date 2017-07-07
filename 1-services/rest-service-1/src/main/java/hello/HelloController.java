@@ -46,9 +46,9 @@ public class HelloController {
 			e1.printStackTrace();
 		}
         
-        //Math.random()<0.8 simulate a different state of current micro-service
+        //50% chance simulate a different state of current micro-service
         if("normal".equals(oldState)){
-            if(Math.random()>0.8){
+            if(Math.random()<0.5){
             	statusBean.statusMap.put("status", "negative");
             }
         	newState = statusBean.statusMap.get("status");
@@ -71,7 +71,7 @@ public class HelloController {
         
         String result = restTemplate.getForObject("http://rest-service-end:16000/persist_get?lastName="+lastName, String.class);
         
-        //conditionally error
+        //80% chance correct
         if("negative".equals(statusBean.statusMap.get("status"))){
         	if(Math.random()<0.8){
         		result = result.replace("negative", "positive");
