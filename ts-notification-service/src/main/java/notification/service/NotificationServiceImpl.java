@@ -56,7 +56,7 @@ public class NotificationServiceImpl implements NotificationService{
         Mail mail = new Mail();
         mail.setMailFrom("fdse_microservices@163.com");
         mail.setMailTo(info.getEmail());
-        mail.setMailSubject("Oder Create Success");
+        mail.setMailSubject("Order Create Success");
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("username", info.getUsername());
@@ -83,7 +83,7 @@ public class NotificationServiceImpl implements NotificationService{
         Mail mail = new Mail();
         mail.setMailFrom("fdse_microservices@163.com");
         mail.setMailTo(info.getEmail());
-        mail.setMailSubject("Oder Changed Success");
+        mail.setMailSubject("Order Changed Success");
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("username", info.getUsername());
@@ -98,6 +98,27 @@ public class NotificationServiceImpl implements NotificationService{
 
         try {
             mailService.sendEmail(mail,"order_changed_success.ftl");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean order_cancel_success(NotifyInfo info){
+        Mail mail = new Mail();
+        mail.setMailFrom("fdse_microservices@163.com");
+        mail.setMailTo(info.getEmail());
+        mail.setMailSubject("Order Cancel Success");
+
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("username", info.getUsername());
+        model.put("price",info.getPrice());
+        mail.setModel(model);
+
+        try {
+            mailService.sendEmail(mail,"order_cancel_success.ftl");
             return true;
         } catch (Exception e) {
             e.printStackTrace();

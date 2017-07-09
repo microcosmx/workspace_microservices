@@ -30,4 +30,9 @@ public class NotificationController {
     public boolean order_changed_success(@RequestBody NotifyInfo info){
         return service.order_changed_success(info);
     }
+
+    @RequestMapping(value="/notification/order_cancel_success", method = RequestMethod.POST)
+    public boolean order_cancel_success(@RequestBody NotifyInfo info){
+        return service.order_cancel_success(info);
+    }
 }
