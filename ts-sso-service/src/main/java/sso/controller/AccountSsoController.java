@@ -74,6 +74,12 @@ public class AccountSsoController {
         return ssoService.logoutDeleteToken(li);
     }
 
+    @RequestMapping(path = "/account/findById", method = RequestMethod.POST)
+    public GetAccountByIdResult getAccountById(@RequestBody GetAccountByIdInfo info){
+        System.out.println("[SSO Service][Find Account By Id] Account Id:" + info.getAccountId());
+        return ssoService.getAccountById(info);
+    }
+
     @RequestMapping(path = "/verifyLoginToken/{token}", method = RequestMethod.GET)
     public VerifyResult verifyLoginToken(@PathVariable String token){
         return ssoService.verifyLoginToken(token);
