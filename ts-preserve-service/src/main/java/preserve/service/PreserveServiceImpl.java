@@ -146,7 +146,28 @@ public class PreserveServiceImpl implements PreserveService{
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
             //5.发送notification
+            NotifyInfo info = new NotifyInfo();
 
+
+
+            info.setEmail(null);
+            info.setOrderNumber(cor.getOrder().getId().toString());
+            info.setUsername(null);
+            info.setStartingPlace(oti.getFrom());
+            info.setEndPlace(oti.getTo());
+
+            Date startingTime = new Date(cor.getOrder().getTravelDate().getYear(),
+                                         cor.getOrder().getTravelDate().getMonth(),
+                                         cor.getOrder().getTravelDate().getDay(),
+                                         cor.getOrder().getTravelTime().getHours(),
+                                         cor.getOrder().getTravelTime().getMinutes());
+            info.setStartingTime(startingTime.toString());
+            info.setDate(otr.getOrder().getBoughtDate().toString());
+            info.setSeatClass("" + cor.getOrder().getSeatClass());
+            info.setSeatNumber(cor.getOrder().getSeatNumber());
+            info.setPrice(cor.getOrder().getPrice());
+
+            postForNotification(null);
         }else{
             System.out.println("[Preserve Service][Verify Login] Fail");
             otr.setStatus(false);
@@ -154,6 +175,19 @@ public class PreserveServiceImpl implements PreserveService{
             otr.setOrder(null);
         }
         return otr;
+    }
+
+
+
+    private boolean postForNotification(NotifyInfo info){
+        restTemplate = new RestTemplate();
+        System.out.println("[Preserve Other Service][Post For Notification]");
+        String notificationResult = restTemplate.postForObject("http://ts-notification-service:17853//notification/preserve_success",info,String.class);
+        if(notificationResult.equals("true")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private String queryForStationId(String stationName){
