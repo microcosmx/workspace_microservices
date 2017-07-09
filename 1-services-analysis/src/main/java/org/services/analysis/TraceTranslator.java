@@ -22,11 +22,6 @@ public class TraceTranslator {
         for (int k = 0; k < tracelist.length(); k++) {
 
             JSONArray traceobj = tracelist.getJSONArray(k);
-//            System.out.println(traceobj);
-//            JSONArray traceobj = (JSONArray) tracelist.get(k);
-
-            // String call = readFile("./sample/call1x.json");
-            // JSONArray spanlist = new JSONArray(call);
 
             List<HashMap<String, String>> serviceList = new ArrayList<HashMap<String, String>>();
             String traceId = ((JSONObject) traceobj.get(0)).getString("traceId");
@@ -124,7 +119,6 @@ public class TraceTranslator {
             // filter validate service api
             List<HashMap<String, String>> processList = serviceList.stream()
                     .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
-            // processList.stream().forEach(n -> System.out.println(n));
             boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
 
             processList.forEach(n -> {
@@ -219,7 +213,8 @@ public class TraceTranslator {
             }
         });
 
-//        list.forEach(n -> System.out.println(n));
+        list.forEach(n -> System.out.println(n.get("clock")));
+
         writeFile("src/main/resources/sample/trace-data-shiviz.txt", list);
 
     }
@@ -259,7 +254,7 @@ public class TraceTranslator {
             while(iterator.hasNext()){
                 HashMap<String,String> map = iterator.next();
                 Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
-
+                out.write("{");
                 while (entries.hasNext()) {
                     Map.Entry<String, String> entry = entries.next();
                     if(entry.getKey().equals("clock")){
@@ -267,9 +262,8 @@ public class TraceTranslator {
                         String[] c = clocks.split(",");
                         out.write("clock={");
                         for(int i=0,length=c.length; i<length; i++){
-                            System.out.println(c[i]);
                             c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
-                                    + c[i].substring(c[i].indexOf("=")+1,c[i].indexOf("=")+2);
+                                    + c[i].substring(c[i].indexOf("=")+1);
                             if(i < length-1){
                                 out.write(c[i] + ",");
                             }else{
@@ -277,14 +271,14 @@ public class TraceTranslator {
                             }
 
                         }
-                        out.write("}");
+                        out.write(", ");
 
                     }else{
                         out.write(entry.toString() + ", ");
                     }
                 }
 
-                out.write("\r\n");
+                out.write("}\r\n");
             }
         }catch(IOException e){
             e.printStackTrace();
