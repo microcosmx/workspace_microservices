@@ -1,10 +1,7 @@
 package org.services.analysis;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +13,7 @@ public class TraceTranslator {
     public static void main(String[] args) throws JSONException {
 
 //        String traceStr = readFile("src/main/resources/sample/traces1.json");
-        String traceStr = readFile("./sample/trace-data.json");
+        String traceStr = readFile("src/main/resources/sample/trace-data.json");
         JSONArray tracelist = new JSONArray(traceStr);
 
         HashMap<String,HashMap<String,Integer>> clocks = new HashMap<String,HashMap<String,Integer>>();
@@ -223,7 +220,7 @@ public class TraceTranslator {
         });
 
 //        list.forEach(n -> System.out.println(n));
-        writeFile("./sample/trace-data-shiviz.txt", list);
+        writeFile("src/main/resources/sample/trace-data-shiviz.txt", list);
 
     }
 
@@ -261,8 +258,33 @@ public class TraceTranslator {
             Iterator<HashMap<String,String>> iterator = logs.iterator();
             while(iterator.hasNext()){
                 HashMap<String,String> map = iterator.next();
-                System.out.println(map.toString());
-                out.write(map.toString() + "\r\n");
+                Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+
+                while (entries.hasNext()) {
+                    Map.Entry<String, String> entry = entries.next();
+                    if(entry.getKey().equals("clock")){
+                        String clocks = entry.getValue();
+                        String[] c = clocks.split(",");
+                        out.write("clock={");
+                        for(int i=0,length=c.length; i<length; i++){
+                            System.out.println(c[i]);
+                            c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
+                                    + c[i].substring(c[i].indexOf("=")+1,c[i].indexOf("=")+2);
+                            if(i < length-1){
+                                out.write(c[i] + ",");
+                            }else{
+                                out.write(c[i]);
+                            }
+
+                        }
+                        out.write("}");
+
+                    }else{
+                        out.write(entry.toString() + ", ");
+                    }
+                }
+
+                out.write("\r\n");
             }
         }catch(IOException e){
             e.printStackTrace();
