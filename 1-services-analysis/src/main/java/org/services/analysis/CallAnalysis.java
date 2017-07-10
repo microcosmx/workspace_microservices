@@ -26,7 +26,7 @@ public class CallAnalysis {
 		HashMap<String, HashMap<String, Object>> traces = new HashMap<String, HashMap<String, Object>>();
 		List<String> pListAll = new ArrayList<String>();
 
-		String traceStr = readFile("./sample/traces1.json");
+		String traceStr = readFile("./sample/traces-error-normal.json");
 		JSONArray tracelist = new JSONArray(traceStr);
 
 		for (int k = 0; k < tracelist.length(); k++) {
