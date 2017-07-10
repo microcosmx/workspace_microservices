@@ -10,3 +10,14 @@
 # HTTP Server
 server:
   port: 12344  # HTTP (Tomcat) port
+
+
+spring:
+  application:
+    name: ts-register-service
+
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
