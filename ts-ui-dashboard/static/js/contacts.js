@@ -33,37 +33,7 @@ $("#refresh_contacts_button").click(function () {
     refresh_contacts();
 });
 
-function refresh_contacts(){
-    $.ajax({
-        type: "get",
-        url: "/contacts/findAll",
-        contentType: "application/json",
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            var obj = result["contacts"];
-            $("#contacts_list_table").find("tbody").html("");
-            for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#contacts_list_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + i                                                    + "</td>" +
-                    "<td class='all_contacts_id noshow_component'>" + obj[i]["id"]                + "</td>" +
-                    "<td>" + obj[i]["accountId"]                                  + "</td>" +
-                    "<td ><input class='all_contacts_name form-control' value='" + obj[i]["name"] + "'></td>" +
-                    "<td>" + convertNumberToHtmlDocumentType(obj[i]["documentType"])  + "</td>" +
-                    "<td ><input class='all_contacts_documentNum form-control' value='" + obj[i]["documentNumber"] + "'></td>" +
-                    "<td ><input class='all_contacts_phoneNum form-control' value='" + obj[i]["phoneNumber"] + "'></td>" +
-                    "<td>" +  "<button class='all_contacts_update btn btn-primary'>Update</button>" + "<button class='all_contacts_delete btn btn-primary'>Delete</button>" + "</td>" +
-                    "</tr>"
-                );
-            }
-            addListenerToAllContactsTable();
-            alert("Success.");
-        }
-    });
-}
+
 
 function addListenerToAllContactsTable(){
     var allContactsUpdateBtnSet = $(".all_contacts_update");
@@ -124,6 +94,38 @@ function addListenerToAllContactsTable(){
             });
         }
     }
+}
+
+function refresh_contacts(){
+    $.ajax({
+        type: "get",
+        url: "/contacts/findAll",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var obj = result["contacts"];
+            $("#contacts_list_table").find("tbody").html("");
+            for(var i = 0,l = obj.length ; i < l ; i++){
+                $("#contacts_list_table").find("tbody").append(
+                    "<tr>" +
+                    "<td>" + i                                                    + "</td>" +
+                    "<td class='all_contacts_id noshow_component'>" + obj[i]["id"]                + "</td>" +
+                    "<td>" + obj[i]["accountId"]                                  + "</td>" +
+                    "<td ><input class='all_contacts_name form-control' value='" + obj[i]["name"] + "'></td>" +
+                    "<td>" + convertNumberToHtmlDocumentType(obj[i]["documentType"])  + "</td>" +
+                    "<td ><input class='all_contacts_documentNum form-control' value='" + obj[i]["documentNumber"] + "'></td>" +
+                    "<td ><input class='all_contacts_phoneNum form-control' value='" + obj[i]["phoneNumber"] + "'></td>" +
+                    "<td>" +  "<button class='all_contacts_update btn btn-primary'>Update</button>" + "<button class='all_contacts_delete btn btn-primary'>Delete</button>" + "</td>" +
+                    "</tr>"
+                );
+            }
+            addListenerToAllContactsTable();
+            alert("Success.");
+        }
+    });
 }
 
 function convertNumberToHtmlDocumentType(number){
