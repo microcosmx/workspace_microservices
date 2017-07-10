@@ -13,7 +13,7 @@ public class TraceTranslator {
     public static void main(String[] args) throws JSONException {
 
 //        String traceStr = readFile("src/main/resources/sample/traces1.json");
-        String traceStr = readFile("src/main/resources/sample/trace-data.json");
+        String traceStr = readFile("./sample/trace-data.json");
         JSONArray tracelist = new JSONArray(traceStr);
 
         HashMap<String,HashMap<String,Integer>> clocks = new HashMap<String,HashMap<String,Integer>>();
@@ -191,19 +191,49 @@ public class TraceTranslator {
         list.forEach(n -> {
             if(clocks.containsKey(n.get("host"))){
                 HashMap<String,Integer> clock = clocks.get(n.get("host"));
-                if(n.get("src") != null){
-                    clock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
 
-                    clock.put(n.get("host"),Integer.valueOf(clock.get(n.get("host")) +1));
+                if(n.get("src") != null){
+                    HashMap<String,Integer> srcClock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
+
+                    Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry<String, Integer> entry = iterator.next();
+                        if(clock.get(entry.getKey()) != null){
+                            if(entry.getValue() <= clock.get(entry.getKey())){
+                                //don't change clock
+                            }else{  //update clock
+                                clock.put(entry.getKey(),entry.getValue());
+                            }
+                        }else{   //update clock
+                            clock.put(entry.getKey(),entry.getValue());
+                        }
+                    }
+
+                    clock.put(n.get("host"),clock.get(n.get("host")) +1);
+
                 }else{
-                    clock.put(n.get("host"),Integer.valueOf(clock.get(n.get("host")) +1));
+                    clock.put(n.get("host"),clock.get(n.get("host")) +1);
                 }
                 n.put("clock",clock.toString());
                 clocks.put(n.get("host"), clock);
             }else{
                 HashMap<String,Integer> clock = new HashMap<String,Integer>();
                 if(n.get("src") != null){
-                    clock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
+                    HashMap<String,Integer> srcClock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
+
+                    Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry<String, Integer> entry = iterator.next();
+                        if(clock.get(entry.getKey()) != null){
+                            if(entry.getValue() <= clock.get(entry.getKey())){
+                                //don't change clock
+                            }else{  //update clock
+                                clock.put(entry.getKey(),entry.getValue());
+                            }
+                        }else{   //update clock
+                            clock.put(entry.getKey(),entry.getValue());
+                        }
+                    }
                     clock.put(n.get("host"),1);
                 }else{
                     clock.put(n.get("host"),1);
@@ -213,9 +243,7 @@ public class TraceTranslator {
             }
         });
 
-        list.forEach(n -> System.out.println(n.get("clock")));
-
-        writeFile("src/main/resources/sample/trace-data-shiviz.txt", list);
+        writeFile("./sample/trace-data-shiviz.txt", list);
 
     }
 
@@ -243,6 +271,34 @@ public class TraceTranslator {
         }
         return laststr;
     }
+
+    public static boolean write(String path, List<HashMap<String,String>> logs){
+        File writer = new File(path);
+        BufferedWriter out = null;
+        try{
+            writer.createNewFile(); // 创建新文件
+            out = new BufferedWriter(new FileWriter(writer));
+            Iterator<HashMap<String,String>> iterator = logs.iterator();
+            while(iterator.hasNext()){
+                HashMap<String,String> map = iterator.next();
+                out.write(map.toString() + "\r\n");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            if (out != null) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+
+        return true;
+    }
+
 
     public static boolean writeFile(String path, List<HashMap<String,String>> logs){
         File writer = new File(path);
