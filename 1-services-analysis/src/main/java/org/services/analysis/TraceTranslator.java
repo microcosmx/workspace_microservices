@@ -1,10 +1,7 @@
 package org.services.analysis;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +22,6 @@ public class TraceTranslator {
         for (int k = 0; k < tracelist.length(); k++) {
 
             JSONArray traceobj = tracelist.getJSONArray(k);
-//            System.out.println(traceobj);
-//            JSONArray traceobj = (JSONArray) tracelist.get(k);
-
-            // String call = readFile("./sample/call1x.json");
-            // JSONArray spanlist = new JSONArray(call);
 
             List<HashMap<String, String>> serviceList = new ArrayList<HashMap<String, String>>();
             String traceId = ((JSONObject) traceobj.get(0)).getString("traceId");
@@ -127,7 +119,6 @@ public class TraceTranslator {
             // filter validate service api
             List<HashMap<String, String>> processList = serviceList.stream()
                     .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
-            // processList.stream().forEach(n -> System.out.println(n));
             boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
 
             processList.forEach(n -> {
@@ -200,19 +191,49 @@ public class TraceTranslator {
         list.forEach(n -> {
             if(clocks.containsKey(n.get("host"))){
                 HashMap<String,Integer> clock = clocks.get(n.get("host"));
-                if(n.get("src") != null){
-                    clock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
 
-                    clock.put(n.get("host"),Integer.valueOf(clock.get(n.get("host")) +1));
+                if(n.get("src") != null){
+                    HashMap<String,Integer> srcClock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
+
+                    Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry<String, Integer> entry = iterator.next();
+                        if(clock.get(entry.getKey()) != null){
+                            if(entry.getValue() <= clock.get(entry.getKey())){
+                                //don't change clock
+                            }else{  //update clock
+                                clock.put(entry.getKey(),entry.getValue());
+                            }
+                        }else{   //update clock
+                            clock.put(entry.getKey(),entry.getValue());
+                        }
+                    }
+
+                    clock.put(n.get("host"),clock.get(n.get("host")) +1);
+
                 }else{
-                    clock.put(n.get("host"),Integer.valueOf(clock.get(n.get("host")) +1));
+                    clock.put(n.get("host"),clock.get(n.get("host")) +1);
                 }
                 n.put("clock",clock.toString());
                 clocks.put(n.get("host"), clock);
             }else{
                 HashMap<String,Integer> clock = new HashMap<String,Integer>();
                 if(n.get("src") != null){
-                    clock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
+                    HashMap<String,Integer> srcClock = (HashMap<String,Integer>)clocks.get(n.get("src")).clone();
+
+                    Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry<String, Integer> entry = iterator.next();
+                        if(clock.get(entry.getKey()) != null){
+                            if(entry.getValue() <= clock.get(entry.getKey())){
+                                //don't change clock
+                            }else{  //update clock
+                                clock.put(entry.getKey(),entry.getValue());
+                            }
+                        }else{   //update clock
+                            clock.put(entry.getKey(),entry.getValue());
+                        }
+                    }
                     clock.put(n.get("host"),1);
                 }else{
                     clock.put(n.get("host"),1);
@@ -222,7 +243,6 @@ public class TraceTranslator {
             }
         });
 
-//        list.forEach(n -> System.out.println(n));
         writeFile("./sample/trace-data-shiviz.txt", list);
 
     }
@@ -252,6 +272,34 @@ public class TraceTranslator {
         return laststr;
     }
 
+    public static boolean write(String path, List<HashMap<String,String>> logs){
+        File writer = new File(path);
+        BufferedWriter out = null;
+        try{
+            writer.createNewFile(); // 创建新文件
+            out = new BufferedWriter(new FileWriter(writer));
+            Iterator<HashMap<String,String>> iterator = logs.iterator();
+            while(iterator.hasNext()){
+                HashMap<String,String> map = iterator.next();
+                out.write(map.toString() + "\r\n");
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            if (out != null) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     public static boolean writeFile(String path, List<HashMap<String,String>> logs){
         File writer = new File(path);
         BufferedWriter out = null;
@@ -261,8 +309,32 @@ public class TraceTranslator {
             Iterator<HashMap<String,String>> iterator = logs.iterator();
             while(iterator.hasNext()){
                 HashMap<String,String> map = iterator.next();
-                System.out.println(map.toString());
-                out.write(map.toString() + "\r\n");
+                Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+                out.write("{");
+                while (entries.hasNext()) {
+                    Map.Entry<String, String> entry = entries.next();
+                    if(entry.getKey().equals("clock")){
+                        String clocks = entry.getValue();
+                        String[] c = clocks.split(",");
+                        out.write("clock={");
+                        for(int i=0,length=c.length; i<length; i++){
+                            c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
+                                    + c[i].substring(c[i].indexOf("=")+1);
+                            if(i < length-1){
+                                out.write(c[i] + ",");
+                            }else{
+                                out.write(c[i]);
+                            }
+
+                        }
+                        out.write(", ");
+
+                    }else{
+                        out.write(entry.toString() + ", ");
+                    }
+                }
+
+                out.write("}\r\n");
             }
         }catch(IOException e){
             e.printStackTrace();

@@ -1,6 +1,44 @@
 version: '3'
 services:
 
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  # kafka:
+  #   container_name: kafka
+  #   image: spotify/kafka:latest
+  #   ports:
+  #    - 2181:2181
+  #    - 9092:9092
+
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+  
+
   ts-ui-dashboard:
     build: ts-ui-dashboard
     image: ts/ts-ui-dashboard
