@@ -31,7 +31,7 @@
 }
 
 #order_rebook_panel {
-    margin-left:100px;
+    margin-left:50px;
     top:50px;
     width:1200px;
     display: none;
@@ -47,7 +47,7 @@
 }
 
 #ticket_cancel_panel {
-    margin-left:200px;
+    margin-left:100px;
     top:100px;
     width:800px;
     display: none;
@@ -63,7 +63,7 @@
 }
 
 #ticket_rebook_pay_panel {
-     margin-left:200px;
+     margin-left:100px;
      top:100px;
      width:800px;
      display: none;
@@ -79,7 +79,7 @@
  }
 
 #preserve_pay_panel {
-    margin-left:200px;
+    margin-left:100px;
     top:100px;
     width:800px;
     display: none;
