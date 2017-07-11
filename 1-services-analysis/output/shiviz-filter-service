@@ -1,0 +1,2 @@
+{host\=(?<host>[^\,]*)\, clock\=(?<clock>{.*})\, event\=(?<event>[^\,]*)\, api\=(?<API>[^\,]*)\, }
+^=== (?<trace>.*) ===$

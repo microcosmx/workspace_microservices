@@ -395,7 +395,7 @@ $("#ticket_rebook_confirm_confirm_btn").click(function(){
     rebookInfo.oldTripId = $("#ticket_rebook_confirm_old_tripId").text();
     rebookInfo.tripId = $("#ticket_rebook_confirm_new_tripId").text();
     rebookInfo.seatType = $("#ticket_rebook_confirm_seatType").text();
-    rebookInfo.date =  $("#ticket_rebook_confirm_travel_date").text();
+    rebookInfo.date = $("#ticket_rebook_confirm_travel_date").text();
     var data = JSON.stringify(rebookInfo);
     $.ajax({
         type: "post",
@@ -429,11 +429,36 @@ $("#ticket_rebook_pay_panel_cancel").click(function(){
 });
 
 $("#ticket_rebook_pay_panel_confirm").click(function(){
-    alert("Not Complete.");
+    var rebookPayInfo = new Object();
+    rebookPayInfo.orderId = $("#ticket_rebook_confirm_old_order_id").text();;
+    rebookPayInfo.oldTripId = $("#ticket_rebook_confirm_old_tripId").text();;
+    rebookPayInfo.tripId = $("#ticket_rebook_confirm_new_tripId").text();
+    rebookPayInfo.seatType = $("#ticket_rebook_confirm_seatType").text();
+    rebookPayInfo.date = $("#ticket_rebook_confirm_travel_date").text();;
+    var rebookPayInfoData = JSON.stringify(rebookPayInfo);
+    $.ajax({
+        type: "post",
+        url: "/rebook/payDifference",
+        contentType: "application/json",
+        dataType: "json",
+        data: rebookPayInfoData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            alert(result['price']);
+            alert(result['message']);
+        }
+    });
+
     $("#ticket_rebook_pay_panel").css('display','none');
     $("#order_rebook_panel").css('display','none');
 });
 
+
+/**
+ * Used For Single Microservice Test.
+ */
 $("#rebook_pay_button").click(function(){
     var singleRebookInfo = new Object();
     singleRebookInfo.orderId = $("#single_rebook_order_id").val();
