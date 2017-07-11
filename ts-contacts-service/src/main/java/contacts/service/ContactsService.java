@@ -12,7 +12,7 @@ public interface ContactsService {
 
     ArrayList<Contacts> findContactsByAccountId(UUID accountId);
 
-    AddContactsResult create(AddContactsInfo aci);
+    AddContactsResult create(AddContactsInfo aci,String accountId);
 
     DeleteContactsResult delete(UUID contactsId);
 

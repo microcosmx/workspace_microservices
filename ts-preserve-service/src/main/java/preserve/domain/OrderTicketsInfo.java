@@ -10,10 +10,6 @@ public class OrderTicketsInfo {
 
     private int seatType;
 
-    private String loginToken;
-
-    private String accountId;
-
     private Date date;//具体到哪一天
 
     private String from;
@@ -48,13 +44,6 @@ public class OrderTicketsInfo {
         this.seatType = seatType;
     }
 
-    public String getLoginToken() {
-        return loginToken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
-    }
 
     public Date getDate() {
         return date;
@@ -64,13 +53,6 @@ public class OrderTicketsInfo {
         this.date = date;
     }
 
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
 
     public String getFrom() {
         return from;

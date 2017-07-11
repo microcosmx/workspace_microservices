@@ -32,16 +32,16 @@ public class ContactsServiceImpl implements ContactsService{
     }
 
     @Override
-    public AddContactsResult create(AddContactsInfo aci){
+    public AddContactsResult create(AddContactsInfo aci,String accountId){
         Contacts contacts = new Contacts();
         contacts.setId(UUID.randomUUID());
         contacts.setName(aci.getName());
         contacts.setPhoneNumber(aci.getPhoneNumber());
         contacts.setDocumentNumber(aci.getDocumentNumber());
-        contacts.setAccountId(aci.getAccountId());
+        contacts.setAccountId(UUID.fromString(accountId));
         contacts.setDocumentType(aci.getDocumentType());
 
-        ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(aci.getAccountId());
+        ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(UUID.fromString(accountId));
         AddContactsResult acr = new AddContactsResult();
         if(accountContacts.contains(contacts)){
             System.out.println("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");

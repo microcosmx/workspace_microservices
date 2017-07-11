@@ -12,15 +12,15 @@ public class PreserveServiceImpl implements PreserveService{
     private RestTemplate restTemplate;
 
     @Override
-    public OrderTicketsResult preserve(OrderTicketsInfo oti){
-        VerifyResult tokenResult = verifySsoLogin(oti.getLoginToken());
+    public OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken){
+        VerifyResult tokenResult = verifySsoLogin(loginToken);
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
             System.out.println("[Preserve Service][Verify Login] Success");
             //1.黄牛检测
             System.out.println("[Preserve Service] [Step 1] Check Security");
             CheckInfo checkInfo = new CheckInfo();
-            checkInfo.setAccountId(oti.getAccountId());
+            checkInfo.setAccountId(accountId);
             CheckResult result = checkSecurity(checkInfo);
             if(result.isStatus() == false){
                 otr.setStatus(false);
@@ -34,7 +34,7 @@ public class PreserveServiceImpl implements PreserveService{
             GetContactsInfo gci = new GetContactsInfo();
             System.out.println("[Preserve Service] [Step 2] Contacts Id:" + oti.getContactsId());
             gci.setContactsId(oti.getContactsId());
-            gci.setLoginToken(oti.getLoginToken());
+            gci.setLoginToken(loginToken);
             GetContactsResult gcr = getContactsById(gci);
             if(gcr.isStatus() == false){
                 System.out.println("[Preserve Service][Get Contacts] Fail." + gcr.getMessage());
@@ -91,7 +91,7 @@ public class PreserveServiceImpl implements PreserveService{
             Order order = new Order();
             order.setId(UUID.randomUUID());
             order.setTrainNumber(oti.getTripId());
-            order.setAccountId(UUID.fromString(oti.getAccountId()));
+            order.setAccountId(UUID.fromString(accountId));
 
             String fromStationId = queryForStationId(oti.getFrom());
             String toStationId = queryForStationId(oti.getTo());
@@ -130,7 +130,7 @@ public class PreserveServiceImpl implements PreserveService{
                 order.setSeatNumber("SecondClass-" + secondClassRemainNum);
             }
             CreateOrderInfo coi = new CreateOrderInfo();//Send info to create the order.
-            coi.setLoginToken(oti.getLoginToken());
+            coi.setLoginToken(loginToken);
             coi.setOrder(order);
             CreateOrderResult cor = createOrder(coi);
             if(cor.isStatus() == false){
