@@ -5,6 +5,6 @@ import preserve.domain.OrderTicketsResult;
 
 public interface PreserveService {
 
-    OrderTicketsResult preserve(OrderTicketsInfo oti);
+    OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken);
 
 }

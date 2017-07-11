@@ -148,17 +148,11 @@ $("#refresh_booking_contacts_button").click(
 );
 
 function refresh_booking_contacts() {
-    alert("Refresh Booking Contacts");
-    var queryContactsInfo = new Object();
-    queryContactsInfo.accountId = getCookie("loginId");
-    queryContactsInfo.loginToken = getCookie("loginToken");
-    var data = JSON.stringify(queryContactsInfo);
     $.ajax({
-        type: "post",
+        type: "get",
         url: "/contacts/findContacts",
         contentType: "application/json",
         dataType: "json",
-        data: data,
         xhrFields: {
             withCredentials: true
         },
@@ -237,8 +231,6 @@ function preserveCreateNewContacts(){
     addContactsInfo.documentType = $("#booking_new_contacts_documentType").val();
     addContactsInfo.documentNumber = $("#booking_new_contacts_documentNum").val();
     addContactsInfo.phoneNumber = $("#booking_new_contacts_phoneNum").val();
-    addContactsInfo.accountId = getCookie("loginId");
-    addContactsInfo.loginToken = getCookie("loginToken");
     var data = JSON.stringify(addContactsInfo);
     $.ajax({
         type: "post",
@@ -297,8 +289,6 @@ $("#ticket_confirm_confirm_btn").click(function () {
     orderTicketInfo.contactsId = $("#ticket_confirm_contactsId").text();
     orderTicketInfo.tripId = $("#ticket_confirm_tripId").text();
     orderTicketInfo.seatType = $("#ticket_confirm_seatType").text();
-    orderTicketInfo.loginToken = getCookie("loginToken");
-    orderTicketInfo.accountId = getCookie("loginId");
     orderTicketInfo.date = $("#ticket_confirm_travel_date").text();
     orderTicketInfo.from = $("#ticket_confirm_from").text();
     orderTicketInfo.to = $("#ticket_confirm_to").text();

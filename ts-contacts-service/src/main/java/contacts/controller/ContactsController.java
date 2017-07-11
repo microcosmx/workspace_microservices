@@ -44,12 +44,12 @@ public class ContactsController {
 
     /***************************For Normal Use***************************/
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.POST)
-    public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
-        VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
+    @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.GET)
+    public ArrayList<Contacts> findContactsByAccountId(@CookieValue String loginId,@CookieValue String loginToken){
+        VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
-            return contactsService.findContactsByAccountId(UUID.fromString(qci.getAccountId()));
+            return contactsService.findContactsByAccountId(UUID.fromString(loginId));
         }else {
             System.out.println("[ContactsService][VerifyLogin] Fail");
             return new ArrayList<Contacts>();
@@ -85,11 +85,11 @@ public class ContactsController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
-    public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
-        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
+    public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci,@CookieValue String loginId,@CookieValue String loginToken){
+        VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
-            return contactsService.create(aci);
+            return contactsService.create(aci,loginId);
         }else{
             System.out.println("[ContactsService][VerifyLogin] Fail");
             AddContactsResult acr = new AddContactsResult();
