@@ -21,7 +21,7 @@ http://localhost:16004/hello4
 
 
 test:
-http://localhost:16006/process6?optVal=temp_reject
+http://localhost:16006/process6
 
 
 
