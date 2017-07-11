@@ -48,5 +48,41 @@ public class HelloController {
         
 		return value;
     }
+    
+    
+    
+    @RequestMapping("/process6")
+    public String process6(HttpSession session, 
+    		@RequestHeader(value="user-token",required=false) String token, 
+    		@RequestParam(value="optVal", required=false) String optVal)  throws Exception{
+
+    	ValueOperations<String, String> ops = this.template.opsForValue();
+		String key = token != null ? token : UUID.randomUUID().toString();
+		System.out.println("Found key " + key + ", value=" + ops.get(key));
+        
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("user-token", key);
+		
+		if(Math.random()<0.7){
+			ResponseEntity<String> exchange = restTemplate.exchange("http://rest-service-4:16004/hello4?" + (optVal!=null?("optVal="+optVal):""), 
+					HttpMethod.GET,new HttpEntity<Void>(headers), String.class);
+		}else{
+			ResponseEntity<String> exchange = restTemplate.exchange("http://rest-service-5:16005/hello5?" + (optVal!=null?("optVal="+optVal):""), 
+					HttpMethod.GET,new HttpEntity<Void>(headers), String.class);
+		}
+			
+		ResponseEntity<String> exchange2 = restTemplate.exchange("http://rest-service-3:16003/hello3?name=service-6" + (optVal!=null?("&optVal="+optVal):""), 
+				HttpMethod.GET,new HttpEntity<Void>(headers), String.class);
+		
+		String value = exchange2.getBody();
+		
+		log.info("--------------" + value);
+		
+		if(!optVal.equals(value)){
+			throw new Exception("error status!!!");
+		}
+        
+		return value;
+    }
 }
 

@@ -20,6 +20,8 @@ http://localhost:16004/hello4
 --------should be temp_reject but still temp_approve
 
 
+test:
+http://localhost:16006/process6?optVal=temp_reject
 
 
 
