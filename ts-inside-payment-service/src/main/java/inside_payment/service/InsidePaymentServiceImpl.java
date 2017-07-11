@@ -275,4 +275,10 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         }
         return result;
     }
+
+    private boolean sendOrderCreateEmail(){
+        result = restTemplate.postForObject(
+                "http://ts-notification-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+        return true;
+    }
 }

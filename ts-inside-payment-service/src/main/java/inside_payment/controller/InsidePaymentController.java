@@ -21,7 +21,6 @@ public class InsidePaymentController {
 
     @RequestMapping(value="/inside_payment/pay", method = RequestMethod.POST)
     public boolean pay(@RequestBody PaymentInfo info, HttpServletRequest request){
-        System.out.println("[Inside Pay][Pay] Order Id:" + info.getOrderId() + " Trip Id:" + info.getTripId());
         return service.pay(info, request);
     }
 
