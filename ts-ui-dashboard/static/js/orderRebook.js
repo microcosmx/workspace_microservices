@@ -1,3 +1,29 @@
+/**
+ * Used For Single Microservice Test.
+ */
+$("#rebook_pay_button").click(function(){
+    var singleRebookInfo = new Object();
+    singleRebookInfo.orderId = $("#single_rebook_order_id").val();
+    singleRebookInfo.oldTripId = $("#single_rebook_old_trip_id").val();
+    singleRebookInfo.tripId = $("#single_rebook_trip_id").val();
+    singleRebookInfo.seatType = $("#single_rebook_seat_type").val();
+    singleRebookInfo.date = $("#single_rebook_date").val();
+    var singleRebookInfoData = JSON.stringify(singleRebookInfo);
+    $.ajax({
+        type: "post",
+        url: "/rebook/payDifference",
+        contentType: "application/json",
+        dataType: "json",
+        data: singleRebookInfoData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#rebook_payment_result").text(result["status"].toString());
+        }
+    });
+});
+
 
 $("#single_rebook_button").click(function() {
     var singleRebookInfo = new Object();

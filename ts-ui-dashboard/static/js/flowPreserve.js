@@ -148,6 +148,7 @@ $("#refresh_booking_contacts_button").click(
 );
 
 function refresh_booking_contacts() {
+    alert("Refresh Booking Contacts");
     var queryContactsInfo = new Object();
     queryContactsInfo.accountId = getCookie("loginId");
     queryContactsInfo.loginToken = getCookie("loginToken");

@@ -407,12 +407,15 @@ $("#ticket_rebook_confirm_confirm_btn").click(function(){
             withCredentials: true
         },
         success: function(result){
-            if(result["status"] == "true"){
+            if(result["status"] == true){
                 alert(result["message"]);
-                $("#ticket_rebook_pay_panel").css('display','block');
                 //$("#rebook_money_pay").val(result["price"]);
             }else{
                 alert(result["message"]);
+                if(result['price'] != null || result['price'] != 'null'){
+                    $("#rebook_money_pay").val(result["price"]);
+                    $("#ticket_rebook_pay_panel").css('display','block');
+                }
             }
         }
     });
@@ -446,7 +449,6 @@ $("#ticket_rebook_pay_panel_confirm").click(function(){
             withCredentials: true
         },
         success: function (result) {
-            alert(result['price']);
             alert(result['message']);
         }
     });
@@ -456,29 +458,5 @@ $("#ticket_rebook_pay_panel_confirm").click(function(){
 });
 
 
-/**
- * Used For Single Microservice Test.
- */
-$("#rebook_pay_button").click(function(){
-    var singleRebookInfo = new Object();
-    singleRebookInfo.orderId = $("#single_rebook_order_id").val();
-    singleRebookInfo.oldTripId = $("#single_rebook_old_trip_id").val();
-    singleRebookInfo.tripId = $("#single_rebook_trip_id").val();
-    singleRebookInfo.seatType = $("#single_rebook_seat_type").val();
-    singleRebookInfo.date = $("#single_rebook_date").val();
-    var singleRebookInfoData = JSON.stringify(singleRebookInfo);
-    $.ajax({
-        type: "post",
-        url: "/rebook/payDifference",
-        contentType: "application/json",
-        dataType: "json",
-        data: singleRebookInfoData,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (result) {
-            $("#rebook_payment_result").text(result["status"].toString());
-        }
-    });
-});
+
 
