@@ -15,7 +15,7 @@ public class GreetingController {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    private final AtomicLong counter = new AtomicLong();
+    private final AtomicLong counter = new AtomicLong(); 
     
     @Autowired
 	private CustomerRepository repository;
