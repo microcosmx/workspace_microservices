@@ -207,4 +207,21 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         }
         return result;
     }
+
+    public GetAccountByIdResult getAccountById(GetAccountByIdInfo info){
+        Account account = accountRepository.findById(UUID.fromString(info.getAccountId()));
+        GetAccountByIdResult result = new GetAccountByIdResult();
+        if(account == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setAccount(null);
+        }else{
+            result.setStatus(true);
+            result.setMessage("Success");
+            result.setAccount(account);
+        }
+        return result;
+    }
+
 }
+

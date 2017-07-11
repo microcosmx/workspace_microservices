@@ -33,4 +33,5 @@ dependencies {
 
 // Define the main class for the application
 mainClassName = 'org.services.analysis.CallAnalysis'
+//mainClassName = 'org.services.analysis.TraceTranslator'
 

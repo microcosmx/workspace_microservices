@@ -22,4 +22,6 @@ public interface AccountSsoService {
 
     ModifyAccountResult saveChanges(ModifyAccountInfo modifyAccountInfo);
 
+    GetAccountByIdResult getAccountById(GetAccountByIdInfo info);
+
 }

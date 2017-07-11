@@ -81,16 +81,16 @@ public class AccountLoginServiceImpl implements AccountLoginService {
     }
 
     private void handleLogOutResponse(HttpServletRequest request,HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("YsbCaptcha")){
-                continue;
-            }
-            cookie.setMaxAge(0);
-            cookie.setValue(null);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-        }
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie cookie : cookies) {
+//            if(cookie.getName().equals("YsbCaptcha")){
+//                continue;
+//            }
+//            cookie.setMaxAge(0);
+//            cookie.setValue(null);
+//            cookie.setPath("/");
+//            response.addCookie(cookie);
+//        }
     }
 
 }

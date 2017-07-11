@@ -271,9 +271,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                     "http://ts-order-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
         }else{
             result = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+                    "http://ts-order-other-service:12032/orderOther/modifyOrderStatus", info, ModifyOrderStatusResult.class);
         }
-
         return result;
     }
 

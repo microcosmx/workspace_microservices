@@ -33,6 +33,7 @@
         <script type="text/javascript" src="js/orderRebook.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/flowPreserve.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/collectTicket.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/flowRebook.js" defer charset="utf-8"></script>
     </head>
     <body>
     <div class="container">
@@ -1867,7 +1868,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Price: </label>
+                            <label class="col-sm-2 control-label">Trip Id: </label>
                             <div class="col-sm-10">
                                 <input id="preserve_pay_tripId" class="form-control"
                                        readonly="readonly" value=''>
@@ -1951,10 +1952,10 @@
         <div id="flow_two">
 
             <!---My Order Pane---->
-            <div class="step panel panel-default">
+            <div class="flow_rebook panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        My Orders
+                        Flow Rebook Step 1: - View My Orders
                         <button id="refresh_my_order_list_button" type="button" class="btn btn-default btn-sm">Refresh Orders</button>
                     </h3>
                 </div>
@@ -1964,10 +1965,10 @@
             </div>
 
             <!---Ticket Cancel Pane---->
-            <div id="ticket_cancel_panel" class=" panel panel-default">
+            <div id="ticket_cancel_panel" class="flow_rebook panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Cancel Order and Refund
+                        Flow Preserve Step 2: - Cancel Order
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -1990,37 +1991,11 @@
                 </div>
             </div>
 
-            <!---Ticket Change Pay Pane---->
-            <div id="ticket_rebook_pay_panel" class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Pay For Your Rebook
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label">Rebook this Ticket? You need to pay <label id="rebook_money_pay"> none </label> .</label>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-10">
-                                <button id="ticket_rebook_pay_panel_cancel" type="button" class="btn btn-primary">
-                                    No.
-                                </button>
-                                <button id="ticket_rebook_pay_panel_confirm" type="button" class="btn btn-primary">
-                                    Yes.
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <!---Ticket Change Pane---->
             <div id="order_rebook_panel" class=" panel panel-default">
                 <div class="panel-heading">
                     <h3 panel="panel-title">
-                        Change Your Ticket
+                        Flow Rebook Step 2: - Change Your Ticket
                     </h3>
                 </div>
                 <div class="input-box panel-body">
@@ -2071,6 +2046,7 @@
                         <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Train Type</th>
                             <th>Trip Id</th>
                             <th>From</th>
                             <th>To</th>
@@ -2088,7 +2064,89 @@
                     </table>
                 </div>
             </div>
+
+            <!---Ticket Change Comfirm Pane---->
+            <div id="order_rebook_confirm_panel" class=" panel panel-default">
+                <div class='panel-heading'>
+                    <h4 class='panel-title'>
+                        Flow Rebook Step 3: - Confirm Your Ticket Information
+                    </h4>
+                </div>
+                <div class='panel-body'>
+                    <form role='form' class='form-horizontal'>
+                        <div class='div form-group noshow_component'>
+                            <label class='col-sm-2 control-label'>Old Order Id: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_rebook_confirm_old_order_id' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Old Trip Id: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_rebook_confirm_old_tripId' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>New Trip Id: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_rebook_confirm_new_tripId' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Date: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_rebook_confirm_travel_date' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Seat Type: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_rebook_confirm_seatType' class='noshow_component control-label'></label>
+                                <label id='ticket_rebook_confirm_seatType_String' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'></label>
+                            <div class='col-sm-10'>
+                                <button id='ticket_rebook_confirm_cancel_btn' type='button' class='btn btn-default'> No, some information wrong </button>
+                                <button id='ticket_rebook_confirm_confirm_btn' type='button' class='btn btn-primary'> Confirm Ticket </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!---Ticket Change Pay Pane---->
+            <div id="ticket_rebook_pay_panel" class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Flow Rebook Step 4: - Pay For Your Rebook
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Price: </label>
+                            <div class="col-sm-10">
+                                <input id="rebook_money_pay" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="ticket_rebook_pay_panel_confirm" type="button" class="btn btn-primary">Pay</button>
+                                <button id="ticket_rebook_pay_panel_cancel" type="button" class="btn btn-default">No.I regret.</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+
+
+
+
+
 
         <!-------------------------------------------------------------------------------------------------- -->
         <div id="flow_three">
