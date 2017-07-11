@@ -1,1 +1,4 @@
 {traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\, clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+{host\=(?<host>[^\,]*)\, clock\=(?<clock>{.*})\, event\=(?<event>[^\,]*)\, api\=(?<API>[^\,]*)\, }
+^=== (?<trace>.*) ===$
