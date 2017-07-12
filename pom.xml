@@ -20,7 +20,7 @@
 		<module>ts-sso-service</module>
 		<module>ts-verification-code-service</module>
 
-		<!-- <module>ts-contacts-service</module>
+		<module>ts-contacts-service</module>
 		<module>ts-order-service</module>
 		<module>ts-order-other-service</module>
 		<module>ts-config-service</module>
@@ -39,7 +39,7 @@
 		<module>ts-execute-service</module>
 		<module>ts-payment-service</module>
 		<module>ts-rebook-service</module>
-		<module>ts-cancel-service</module> -->
+		<module>ts-cancel-service</module>
 	</modules>
 
 
