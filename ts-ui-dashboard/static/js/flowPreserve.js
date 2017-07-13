@@ -1,5 +1,21 @@
 /***********************************************************/
 /******************Flow For Preserve Ticket*****************/
+/**Before ***/
+function setTodayDatePreserve(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd < 10){
+        dd='0' + dd
+    }
+    if(mm < 10){
+        mm = '0' + mm
+    }
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("travel_booking_date").setAttribute("min", today);
+}
+
 
 /**
  *  Flow Preserve - Step 1 - User Login
@@ -27,8 +43,10 @@ $("#flow_preserve_login_button").click(function() {
                 document.cookie = "loginId=" + obj["account"].id;
                 document.cookie = "loginToken=" + obj["token"];
                 $("#flow_preserve_login_status").text(obj["message"]);
+                $("#user_login_id").text(obj["account"].id);
             }else{
-                setCookie(name, "", -1);
+                setCookie("loginId", "", -1);
+                setCookie("loginToken", "", -1);
                 $("#flow_preserve_login_status").text(obj["message"]);
             }
         }
@@ -146,9 +164,10 @@ function convertNumberToTimeString(timeNumber) {
 /**
  *  Flow Preserve - Step 3 - Query/Add Contacts
  **/
-$("#refresh_booking_contacts_button").click(
-    refresh_booking_contacts()
-);
+
+$("#refresh_booking_contacts_button").click(function(){
+    refresh_booking_contacts();
+})
 
 function refresh_booking_contacts() {
     $.ajax({

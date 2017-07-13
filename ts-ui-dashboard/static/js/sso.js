@@ -145,11 +145,13 @@ $("#logout_button").click(function() {
         },
         success: function(result){
             if(result["status"] == true){
-                $("#user_login_id").html("Not Login");
-                $("#user_login_token").html("Please Login");
+                setCookie("loginId", "", -1);
+                setCookie("loginToken", "", -1);
+                $("#user_login_id").text("Not Login");
             }else if(result["message"] == "Not Login"){
-                $("#user_login_id").html("Not Login");
-                $("#user_login_token").html("Please Login");
+                setCookie("loginId", "", -1);
+                setCookie("loginToken", "", -1);
+                $("#user_login_id").text("Not Login");
             }
         }
     });

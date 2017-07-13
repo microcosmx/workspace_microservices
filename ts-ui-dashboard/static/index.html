@@ -35,7 +35,7 @@
         <script type="text/javascript" src="js/flowRebook.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/order.js" defer charset="utf-8"></script>
     </head>
-    <body>
+    <body onload="onLoadBody()">
     <div class="container">
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
@@ -53,14 +53,12 @@
             </div>
         </nav>
         <!--------------Login Information--------------->
-        <div id="status_set" class="noshow_component">
+        <div id="status_set" class="">
             <ul class="list-group">
-                <li class="list-group-item">
-                    注意：仅在下面为登录状态时才可进行部分敏感操作。请首先登录，获得以下两个值。
+                <li class="list-group-item">Login User ID：
+                    <label id="user_login_id">Not Login</label>
                     <button id="logout_button" type="button" class="btn btn-primary">Logout</button>
                 </li>
-                <li class="list-group-item">Login User ID：<label id="user_login_id">Not Login</label></li>
-                <li class="list-group-item">Login User Token：<label id="user_login_token">Please Login</label></li>
             </ul>
         </div>
 
@@ -1576,7 +1574,7 @@
 
         </div>
 
-        <div id="flow_one">
+        <div id="flow_one" >
             <!-------------------------Flow Preserve Login------------------->
             <div class="flow_preserve panel panel-default">
                 <div class="panel-heading">
@@ -1651,7 +1649,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Date:</label>
                             <div class="col-sm-10">
-                                <input id="travel_booking_date" class="form-control" type="date" name='' value=''>
+                                <input id="travel_booking_date" class="form-control" type="date" name='' value='' min="2017-07-13">
                             </div>
                         </div>
                         <div class="form-group">
@@ -1949,7 +1947,7 @@
             </div>
         </div>
 
-        <div id="flow_two">
+        <div id="flow_two" >
 
             <!---My Order Pane---->
             <div class="flow_rebook panel panel-default">

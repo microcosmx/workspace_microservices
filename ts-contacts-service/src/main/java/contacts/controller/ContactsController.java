@@ -47,6 +47,7 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.GET)
     public ArrayList<Contacts> findContactsByAccountId(@CookieValue String loginId,@CookieValue String loginToken){
+        System.out.println("[Contacts Service][Find Contacts By Account Id:" + loginId);
         VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");

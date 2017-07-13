@@ -25,6 +25,7 @@ $("#login_button").click(function() {
                 $("#user_login_token").html(obj["token"]);
                 document.cookie = "loginId=" + obj["account"].id;
                 document.cookie = "loginToken=" + obj["token"];
+                $("#user_login_id").text(obj["account"].id);
             }
             $("#login_result_status").html(JSON.stringify(obj["status"]));
             $("#login_result_msg").html(obj["message"]);
