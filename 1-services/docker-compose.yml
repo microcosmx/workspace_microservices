@@ -47,7 +47,7 @@ services:
     ports:
       - 16006:16006
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 
@@ -59,7 +59,7 @@ services:
     ports:
       - 16005:16005
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 
@@ -71,7 +71,7 @@ services:
     ports:
       - 16004:16004
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 
@@ -83,7 +83,7 @@ services:
     ports:
       - 16003:16003
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 
@@ -95,7 +95,7 @@ services:
     ports:
       - 16002:16002
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 
@@ -110,7 +110,7 @@ services:
     command:
       java -Xmx200m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=16101 -jar /app/rest-service-1-0.1.0.jar
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 
@@ -122,7 +122,7 @@ services:
     ports:
       - 16000:16000
     deploy:
-      replicas: 6
+      replicas: 2
       restart_policy:
         condition: on-failure
 

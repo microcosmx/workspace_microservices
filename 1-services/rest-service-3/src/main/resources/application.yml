@@ -12,6 +12,6 @@ server:
   port: 16003
   tomcat:
 #    max-threads: 6
-    max-connections: 6
+    max-connections: 3
     accept-count: 3
     
