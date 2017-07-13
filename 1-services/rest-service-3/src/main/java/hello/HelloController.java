@@ -47,12 +47,11 @@ public class HelloController {
     }
     
     @RequestMapping("/hello3_1")
-    public void hello3_1(@RequestParam(value="msg", defaultValue="") String msg) {
+    public String hello3_1(@RequestParam(value="msg", defaultValue="") String msg) {
         
         Value value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal=66", Value.class);
         
         //simulate heavy tasks
-//        long sleep = "msg1".equals(msg) ? 600 : 300;
         long sleep = (long) (Math.random() * 1000);
         try {
 			Thread.sleep(sleep);
@@ -60,27 +59,32 @@ public class HelloController {
 			e1.printStackTrace();
 		}
         
-        String result = restTemplate.getForObject("http://rest-service-6:16006/hello6_1?msg="+msg, String.class);
+        try {
+			Future<String> rest_callback = asyncTask.callbackAsyncMessage1(msg);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        
-//        try {
-//			Future<String> rest_callback = asyncTask.callbackAsyncMessage(msg);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+        return msg;
     }
     
     
     @RequestMapping("/hello3_2")
     public String hello3_2(@RequestParam(value="msg", defaultValue="") String msg) {
         //simulate heavy tasks
-//        long sleep = "task1".equals(msg) ? 1800 : 1200;
     	long sleep = (long) (Math.random() * 1000);
         try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
+		}
+        
+        try {
+			Future<String> rest_callback = asyncTask.callbackAsyncMessage2(msg);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
         
         return msg;

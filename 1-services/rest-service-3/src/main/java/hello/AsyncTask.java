@@ -18,8 +18,14 @@ public class AsyncTask {
 	private RestTemplate restTemplate;
     
     @Async
-    public Future<String> callbackAsyncMessage(String msg) throws InterruptedException{
+    public Future<String> callbackAsyncMessage1(String msg) throws InterruptedException{
     	String result = restTemplate.getForObject("http://rest-service-6:16006/hello6_1?msg="+msg, String.class);
+        return new AsyncResult<>(result);
+    }
+    
+    @Async
+    public Future<String> callbackAsyncMessage2(String msg) throws InterruptedException{
+    	String result = restTemplate.getForObject("http://rest-service-6:16006/hello6_2?msg="+msg, String.class);
         return new AsyncResult<>(result);
     }
     
