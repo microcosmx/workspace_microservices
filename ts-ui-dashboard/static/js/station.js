@@ -1,6 +1,7 @@
 
-/********************************************************************/
-/********************Function For Station Service********************/
+/*************************************************************************/
+/********************Function For Station Service*************************/
+/********************Used For Station Service Single Microservice Test****/
 
 $("#station_update_button").click(function(){
     var stationInfo = new Object();

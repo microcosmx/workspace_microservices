@@ -24,7 +24,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     @Autowired
     PaymentRepository paymentRepository;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
@@ -276,9 +277,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         return result;
     }
 
-    private boolean sendOrderCreateEmail(){
-        result = restTemplate.postForObject(
-                "http://ts-notification-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
-        return true;
-    }
+//    private boolean sendOrderCreateEmail(){
+//        result = restTemplate.postForObject(
+//                "http://ts-notification-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+//        return true;
+//    }
 }

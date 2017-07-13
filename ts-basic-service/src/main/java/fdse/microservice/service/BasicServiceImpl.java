@@ -1,6 +1,7 @@
 package fdse.microservice.service;
 
 import fdse.microservice.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,7 +13,8 @@ import java.util.HashMap;
 @Service
 public class BasicServiceImpl implements BasicService{
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public ResultForTravel queryForTravel(QueryForTravel info){

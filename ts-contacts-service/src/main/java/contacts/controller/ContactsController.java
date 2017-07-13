@@ -14,6 +14,7 @@ public class ContactsController {
     @Autowired
     private ContactsService contactsService;
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
@@ -134,7 +135,6 @@ public class ContactsController {
 //    }
 
     private VerifyResult verifySsoLogin(String loginToken){
-        restTemplate = new RestTemplate();
         System.out.println("[ContactsService][VerifyLogin] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
                 "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,

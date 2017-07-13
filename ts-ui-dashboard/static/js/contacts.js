@@ -1,6 +1,7 @@
 
 /********************************************************************/
 /********************Function For Contacts Service*******************/
+/********************For contacts Service Single Microservice Test***/
 
 $("#add_contacts_button").click(function() {
     var addContactsInfo = new Object();
@@ -8,8 +9,6 @@ $("#add_contacts_button").click(function() {
     addContactsInfo.documentType = $("#add_contacts_documentType").val();
     addContactsInfo.documentNumber = $("#add_contacts_documentNum").val();
     addContactsInfo.phoneNumber = $("#add_contacts_phoneNum").val();
-    addContactsInfo.accountId = $("#user_login_id").html();
-    addContactsInfo.loginToken = $("#user_login_token").html();
     var data = JSON.stringify(addContactsInfo);
     $.ajax({
         type: "post",
@@ -32,8 +31,6 @@ $("#add_contacts_button").click(function() {
 $("#refresh_contacts_button").click(function () {
     refresh_contacts();
 });
-
-
 
 function addListenerToAllContactsTable(){
     var allContactsUpdateBtnSet = $(".all_contacts_update");

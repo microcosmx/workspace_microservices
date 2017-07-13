@@ -12,10 +12,12 @@ import java.util.*;
  */
 @Service
 public class TravelServiceImpl implements TravelService{
+
     @Autowired
     TripRepository repository;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public String create(Information info){

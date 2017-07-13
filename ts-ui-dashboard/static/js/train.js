@@ -1,6 +1,7 @@
 
 /********************************************************************/
 /********************Function For Train Service**********************/
+/********************For Train Service Single Microservice Test******/
 
 document.getElementById("train_update_button").onclick = function post_train_update(){
     var trainInfo = new Object();

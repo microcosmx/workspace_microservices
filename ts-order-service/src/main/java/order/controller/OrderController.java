@@ -14,6 +14,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
@@ -44,12 +45,12 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/query", method = RequestMethod.POST)
-    public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi){
-        System.out.println("[Order Service][Query Orders] Query Orders for " + qi.getAccountId());
-        VerifyResult tokenResult = verifySsoLogin(qi.getLoginToken());
+    public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi,@CookieValue String loginId,@CookieValue String loginToken){
+        System.out.println("[Order Service][Query Orders] Query Orders for " + loginId);
+        VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){
             System.out.println("[Order Service][Verify Login] Success");
-            return orderService.queryOrders(qi);
+            return orderService.queryOrders(qi,loginId);
         }else{
             System.out.println("[Order Service][Verify Login] Fail");
             return new ArrayList<Order>();
@@ -133,7 +134,6 @@ public class OrderController {
     }
 
     private VerifyResult verifySsoLogin(String loginToken){
-        restTemplate = new RestTemplate();
         System.out.println("[Order Service][Verify Login] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
                 "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,

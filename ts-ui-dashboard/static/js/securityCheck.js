@@ -1,11 +1,12 @@
 
-/********************************************************************/
-/********************Function For Security Service**********************/
+/************************************************************************/
+/********************Function For Security Service***********************/
+/********************Used For Security Service Single Microservice Test**/
+
 $("#security_check_button").click(function() {
     var checkInfo = new Object();
     checkInfo.accountId = $("#security_check_account_id").val();
     var data = JSON.stringify(checkInfo);
-
     $.ajax({
         type: "post",
         url: "/security/check",

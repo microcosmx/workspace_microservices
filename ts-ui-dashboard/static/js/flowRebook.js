@@ -1,11 +1,12 @@
+/***********************************************************/
+/******************Flow For Rebook Ticket*******************/
+
 /**
  *  Flow Rebook - Step 1 - Refresh Your Orders
  **/
 
 $("#refresh_my_order_list_button").click(function(){
     var myOrdersQueryInfo = new Object();
-    myOrdersQueryInfo.accountId = $("#user_login_id").html();
-    myOrdersQueryInfo.loginToken = $("#user_login_token").html();
     myOrdersQueryInfo.enableStateQuery = false;
     myOrdersQueryInfo.enableTravelDateQuery = false;
     myOrdersQueryInfo.enableBoughtDateQuery = false;
@@ -134,7 +135,6 @@ function queryForMyOrder(path,data){
             }
             addListenerToOrderCancel();
             addListenerToOrderChange();
-            //addPayButtonListener();
         }
     });
 }
@@ -151,7 +151,6 @@ function addListenerToOrderCancel(){
             $("#ticket_cancel_panel").css('display','block');
             var orderId = $(this).parents("form").find(".my_order_list_id").text();
             $("#ticket_cancel_order_id").text(orderId);
-            //var orderPrice = $(this).parents("form").find(".my_order_list_price").text();
             var cancelOrderInfo = new Object();
             cancelOrderInfo.orderId = orderId;
             var cancelOrderData = JSON.stringify(cancelOrderInfo);
@@ -195,18 +194,6 @@ function addListenerToOrderChange(){
         }
     }
 }
-//
-// function addPayButtonListener(){
-//     var payOrderButtonSet = $(".pay_for_order_not_paid");
-//     for(var i = 0;i < payOrderButtonSet.length;i++){
-//         payOrderButtonSet[i].onclick = function(){
-//             $("#preserve_pay_orderId").val($(this).parents("form").find(".my_order_list_id").text());
-//             $("#preserve_pay_price").val($(this).parents("form").find(".my_order_list_price").text());
-//             $("#preserve_pay_userId").val($(this).parents("form").find(".my_order_list_accountId").text());
-//             $("#preserve_pay_panel").css('display','block');
-//         }
-//     }
-// }
 
 function addPayButtonOrNot(status){
     if(status == '0'){
@@ -375,8 +362,6 @@ function addListenerToRebookTable(){
             }
             $("#ticket_rebook_confirm_travel_date").text($("#travel_rebook_date").val());
             $("#order_rebook_panel").css('display','none');
-            //$("#ticket_rebook_pay_panel").css('display','block');
-            //Connect to rebook service, calculate the money that will pay.
         }
     }
 }
@@ -409,7 +394,6 @@ $("#ticket_rebook_confirm_confirm_btn").click(function(){
         success: function(result){
             if(result["status"] == true){
                 alert(result["message"]);
-                //$("#rebook_money_pay").val(result["price"]);
             }else{
                 alert(result["message"]);
                 if(result['price'] != null || result['price'] != 'null'){

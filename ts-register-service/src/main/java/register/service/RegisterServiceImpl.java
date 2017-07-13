@@ -1,5 +1,6 @@
 package register.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @Override
@@ -24,7 +26,6 @@ public class RegisterServiceImpl implements RegisterService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("verificationCode", ri.getVerificationCode());
         HttpEntity requestEntity = new HttpEntity(body,requestHeaders);
-        restTemplate = new RestTemplate();
         ResponseEntity rssResponse = restTemplate.exchange(
                 "http://ts-verification-code-service:15678/verification/verify",
                 HttpMethod.POST,
@@ -40,7 +41,6 @@ public class RegisterServiceImpl implements RegisterService {
             verifyCodeLr.setStatus(false);
             return verifyCodeLr;
         }
-        restTemplate = new RestTemplate();
         RegisterResult rr = restTemplate.postForObject(
                 "http://ts-sso-service:12349/account/register",
                 ri,RegisterResult.class);
@@ -57,7 +57,7 @@ public class RegisterServiceImpl implements RegisterService {
         }else{
 
         }
-
         return rr;
     }
+
 }

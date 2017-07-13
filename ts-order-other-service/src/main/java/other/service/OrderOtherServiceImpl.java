@@ -77,9 +77,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     }
 
     @Override
-    public ArrayList<Order> queryOrders(QueryInfo qi){
+    public ArrayList<Order> queryOrders(QueryInfo qi,String accountId){
         //1.Get all orders of the user
-        ArrayList<Order> list = orderOtherRepository.findByAccountId(qi.getAccountId());
+        ArrayList<Order> list = orderOtherRepository.findByAccountId(UUID.fromString(accountId));
         System.out.println("[Order Other Service][Query Order][Step 1] Get Orders Number of Account:" + list.size());
         //2.Check is these orders fit the requirement/
         if(qi.isEnableStateQuery() || qi.isEnableBoughtDateQuery() || qi.isEnableTravelDateQuery()){

@@ -1,5 +1,7 @@
-/********************************************************************/
-/********************Function For Payment Service***************/
+/***********************************************************************/
+/********************Function For Payment Service***********************/
+/********************Used For Payment Service Single Microservice Test**/
+
 $("#payment_query_button").click(function(){
     $.ajax({
         type: "get",

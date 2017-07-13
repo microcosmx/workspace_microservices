@@ -1,9 +1,7 @@
 
 /********************************************************************/
 /********************Function For Config Service*********************/
-
-
-
+/********************For Config Service Single Microservice Test*****/
 $("#config_update_button").click(function(){
     var configInfo = new Object();
     configInfo.name = $("#config_update_name").val();

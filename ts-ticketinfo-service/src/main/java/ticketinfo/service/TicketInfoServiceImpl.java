@@ -1,5 +1,6 @@
 package ticketinfo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ticketinfo.domain.QueryForStationId;
@@ -12,7 +13,8 @@ import ticketinfo.domain.ResultForTravel;
 @Service
 public class TicketInfoServiceImpl implements TicketInfoService{
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public ResultForTravel queryForTravel(QueryForTravel info){

@@ -1,6 +1,7 @@
-/**
- * Created by chaoj on 2017/7/3.
- */
+/*****************************************************************************/
+/********************Function For Order Cancel Service************************/
+/********************Used For Order Cancel Service Single Microservice Test***/
+
 $("#single_cancel_button").click(function(){
     document.cookie="loginToken=admin";
     var cancelOrderInfo = new Object();

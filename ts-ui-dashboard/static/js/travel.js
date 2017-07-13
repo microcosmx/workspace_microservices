@@ -1,6 +1,7 @@
 
-/********************************************************************/
+/*********************************************************************/
 /********************Function For Travel Service**********************/
+/********************Used For Travel Service Single Microservice Test*/
 
 // $("#travel_create_button").click(function(){
 //     var travelCreateInfo = new Object();
@@ -59,7 +60,6 @@ $("#travel_queryAll_button").click(function(){
                     "</tr>"
                 );
             }
-            //$("#travel_result").html(JSON.stringify(result));
         }
     });
 });
@@ -89,7 +89,6 @@ $("#travel2_queryAll_button").click(function(){
                     "</tr>"
                 );
             }
-            //$("#travel_result").html(JSON.stringify(result));
         }
     });
 });

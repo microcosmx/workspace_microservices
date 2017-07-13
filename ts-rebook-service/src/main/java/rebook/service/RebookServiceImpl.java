@@ -1,5 +1,6 @@
 package rebook.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rebook.domain.*;
@@ -16,7 +17,8 @@ import java.util.Date;
 @Service
 public class RebookServiceImpl implements RebookService{
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public RebookResult rebook(RebookInfo info, String loginId, String loginToken){
@@ -413,7 +415,6 @@ public class RebookServiceImpl implements RebookService{
     }
 
     private String getPrice(QueryPriceInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Service][Get Price] Checking....");
         String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
         return price;

@@ -16,6 +16,7 @@ public class SecurityServiceImpl implements SecurityService{
     @Autowired
     private SecurityRepository securityRepository;
 
+    @Autowired
     RestTemplate restTemplate;
 
     @Override
@@ -116,7 +117,6 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     private GetOrderInfoForSecurityResult getSecurityOrderInfoFromOrder(GetOrderInfoForSecurity info){
-        restTemplate = new RestTemplate();
         System.out.println("[Security Service][Get Order Info For Security] Getting....");
         GetOrderInfoForSecurityResult result = restTemplate.postForObject(
                 "http://ts-order-service:12031/getOrderInfoForSecurity",info,
@@ -127,7 +127,6 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     private GetOrderInfoForSecurityResult getSecurityOrderOtherInfoFromOrder(GetOrderInfoForSecurity info){
-        restTemplate = new RestTemplate();
         System.out.println("[Security Service][Get Order Other Info For Security] Getting....");
         GetOrderInfoForSecurityResult result = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/getOrderOtherInfoForSecurity",info,

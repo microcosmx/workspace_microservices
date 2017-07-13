@@ -1,6 +1,6 @@
-
-/********************************************************************/
-/********************Function For Register Service*******************/
+/*************************************************************************/
+/********************Function For Register Service************************/
+/********************Used for Register Service Single Microservice Test***/
 
 $("#register_button").click(function() {
     var registerInfo = new Object();

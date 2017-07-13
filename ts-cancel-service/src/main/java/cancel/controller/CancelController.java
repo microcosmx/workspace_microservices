@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class CancelController {
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
@@ -51,7 +52,6 @@ public class CancelController {
     }
 
     private VerifyResult verifySsoLogin(String loginToken){
-        restTemplate = new RestTemplate();
         System.out.println("[Cancel Order Service][Verify Login] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
                 "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,

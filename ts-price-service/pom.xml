@@ -12,10 +12,10 @@
     <name>ts-price-service</name>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>org.services</groupId>
+        <artifactId>ts-service</artifactId>
+        <version>0.1.0</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <properties>

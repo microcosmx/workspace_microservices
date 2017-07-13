@@ -1,6 +1,7 @@
+/*****************************************************************************/
+/********************Function For Notification Service************************/
+/********************Used For Notification Service Single Microservice Test***/
 
-/********************************************************************/
-/********************Function For Notification Service***************/
 $("#notification_send_email_button").click(function(){
     var notificationInfo = new Object();
     notificationInfo.email = $("#notification_email").val();

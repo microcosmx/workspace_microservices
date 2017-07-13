@@ -28,7 +28,8 @@ public class PriceServiceImpl implements PriceService{
     @Autowired
     MongoTemplate mongoTemplate;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public String query(QueryInfo info){

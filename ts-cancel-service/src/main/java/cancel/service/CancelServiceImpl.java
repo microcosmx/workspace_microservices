@@ -1,16 +1,16 @@
 package cancel.service;
 
 import cancel.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
 
 @Service
 public class CancelServiceImpl implements CancelService{
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @Override
@@ -110,7 +110,6 @@ public class CancelServiceImpl implements CancelService{
     }
 
     public boolean drawbackMoney(String money,String userId){
-        restTemplate = new RestTemplate();
         System.out.println("[Cancel Order Service][Draw Back Money] Draw back money...");
         DrawBackInfo info = new DrawBackInfo();
         info.setMoney(money);
@@ -220,14 +219,12 @@ public class CancelServiceImpl implements CancelService{
     }
 
     private ChangeOrderResult cancelFromOrder(ChangeOrderInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Cancel Order Service][Get Contacts By Id] Getting....");
         ChangeOrderResult result = restTemplate.postForObject("http://ts-order-service:12031/order/update",info,ChangeOrderResult.class);
         return result;
     }
 
     private ChangeOrderResult cancelFromOtherOrder(ChangeOrderInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Cancel Order Service][Get Contacts By Id] Getting....");
         ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
         return result;
@@ -235,7 +232,6 @@ public class CancelServiceImpl implements CancelService{
 
 
     private GetOrderResult getOrderByIdFromOrder(GetOrderByIdInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Cancel Order Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/getById/"
@@ -244,7 +240,6 @@ public class CancelServiceImpl implements CancelService{
     }
 
     private GetOrderResult getOrderByIdFromOrderOther(GetOrderByIdInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Cancel Order Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/orderOther/getById/"

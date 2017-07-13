@@ -1,10 +1,9 @@
 package preserveOther.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import preserve.domain.*;
-import preserve.domain.QueryPriceInfo;
-import preserveOther.domain.*;
+import preserveOther.domain.QueryPriceInfo;
 import preserveOther.domain.CheckInfo;
 import preserveOther.domain.CheckResult;
 import preserveOther.domain.Contacts;
@@ -23,13 +22,13 @@ import preserveOther.domain.SeatClass;
 import preserveOther.domain.Trip;
 import preserveOther.domain.TripResponse;
 import preserveOther.domain.VerifyResult;
-
 import java.util.Date;
 import java.util.UUID;
 
 @Service
 public class PreserveOtherServiceImpl implements PreserveOtherService{
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @Override
@@ -178,7 +177,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     }
 
     private String queryForStationId(String stationName){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Get Station Name]");
         QueryForId queryForId = new QueryForId();
         queryForId.setName(stationName);
@@ -187,21 +185,18 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     }
 
     private String getPrice(QueryPriceInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Get Price] Checking....");
         String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
         return price;
     }
 
     private CheckResult checkSecurity(CheckInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Check Security] Checking....");
         CheckResult result = restTemplate.postForObject("http://ts-security-service:11188/security/check",info,CheckResult.class);
         return result;
     }
 
     private VerifyResult verifySsoLogin(String loginToken){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Verify Login] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
                 "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,
@@ -210,7 +205,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     }
 
     private GetTripAllDetailResult getTripAllDetailInformation(GetTripAllDetailInfo gtdi){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Get Trip All Detail Information] Getting....");
         GetTripAllDetailResult gtdr = restTemplate.postForObject(
                 "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo/"
@@ -219,7 +213,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     }
 
     private GetContactsResult getContactsById(GetContactsInfo gci){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Get Contacts By Id] Getting....");
         GetContactsResult gcr = restTemplate.postForObject(
                 "http://ts-contacts-service:12347/contacts/getContactsById/"
@@ -228,7 +221,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     }
 
     private CreateOrderResult createOrder(CreateOrderInfo coi){
-        restTemplate = new RestTemplate();
         System.out.println("[Preserve Other Service][Get Contacts By Id] Creating....");
         CreateOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/orderOther/create"

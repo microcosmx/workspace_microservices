@@ -5,10 +5,6 @@ import java.util.UUID;
 
 public class QueryInfo {
 
-    private UUID accountId;
-
-    private String loginToken;
-
     private Date travelDateStart;
 
     private Date travelDateEnd;
@@ -27,28 +23,6 @@ public class QueryInfo {
 
     public QueryInfo(){
         //Default Constructor
-    }
-
-    public QueryInfo(UUID accountId){
-        this.accountId = accountId;
-        disableTravelDateQuery();
-        disableStateQuery();
-    }
-
-    public UUID getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(UUID accountId) {
-        this.accountId = accountId;
-    }
-
-    public String getLoginToken() {
-        return loginToken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
     }
 
     public Date getTravelDateStart() {

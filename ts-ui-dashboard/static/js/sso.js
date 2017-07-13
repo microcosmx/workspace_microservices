@@ -1,6 +1,7 @@
 
 /********************************************************************/
 /********************Function For SSO Service************************/
+/********************Used For SSO Service Single Microservice Test***/
 
 $("#refresh_account_button").click(function() {
     refresh_account();
@@ -130,8 +131,8 @@ function addListenerToSsoLoginAccountTable(){
 
 $("#logout_button").click(function() {
     var logoutInfo = new Object();
-    logoutInfo.id = $("#user_login_id").html();
-    logoutInfo.token = $("#user_login_token").html();
+    logoutInfo.id = getCookie("loginId");
+    logoutInfo.token = getCookie("loginToken");
     var data = JSON.stringify(logoutInfo);
     $.ajax({
         type: "post",
@@ -153,3 +154,14 @@ $("#logout_button").click(function() {
         }
     });
 });
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i< ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0)
+            return c.substring(name.length,c.length);
+    }
+    return "";
+}

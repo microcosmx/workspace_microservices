@@ -12,7 +12,6 @@ public class AccountSsoController {
     @Autowired
     private AccountSsoService ssoService;
 
-    private RestTemplate restTemplate;
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
@@ -50,7 +49,6 @@ public class AccountSsoController {
         }else{
             //Post token to the sso
             System.out.println("[SSO Service][Login] Password Right. Put token to sso.");
-            restTemplate = new RestTemplate();
             PutLoginResult tokenResult = loginPutToken(lr.getAccount().getId().toString());
             System.out.println("[SSO Service] PutLoginResult Status: " + tokenResult.isStatus());
             if(tokenResult.isStatus() == true){

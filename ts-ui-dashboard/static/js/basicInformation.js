@@ -1,6 +1,6 @@
-
 /********************************************************************/
 /*****************Function For Basic Information*********************/
+/*****************For Basic Information Single Microservice Test*****/
 
 $("#basic_information_button").click(function(){
     var travelInfo = new Object();

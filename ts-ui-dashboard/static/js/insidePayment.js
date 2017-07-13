@@ -1,5 +1,7 @@
-/********************************************************************/
+/**********************************************************************/
 /********************Function For Inside Payment Service***************/
+/********************Used for Inside-Payment Single Microservice Test**/
+
 $("#inside_payment_query_account_button").click(function(){
     $.ajax({
         type: "get",

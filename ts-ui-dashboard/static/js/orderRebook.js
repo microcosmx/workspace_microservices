@@ -1,6 +1,7 @@
-/**
- * Used For Single Microservice Test.
- */
+/*****************************************************************************/
+/********************Function For Order Rebook Service************************/
+/********************Used For Order Rebook Service Single Microservice Test***/
+
 $("#rebook_pay_button").click(function(){
     var singleRebookInfo = new Object();
     singleRebookInfo.orderId = $("#single_rebook_order_id").val();

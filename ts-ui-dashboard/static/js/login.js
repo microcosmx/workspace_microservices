@@ -1,6 +1,7 @@
 
 /********************************************************************/
 /********************Function For Login Service**********************/
+/********************Used For Login Service Single Microservice Test*/
 
 $("#login_button").click(function() {
     var loginInfo = new Object();

@@ -1,12 +1,14 @@
 package execute.serivce;
 
 import execute.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ExecuteServiceImpl implements ExecuteService{
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @Override
@@ -135,7 +137,6 @@ public class ExecuteServiceImpl implements ExecuteService{
 
 
     private ModifyOrderStatusResult executeOrder(ModifyOrderStatusInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Execute Service][Execute Order] Executing....");
         ModifyOrderStatusResult cor = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/modifyOrderStatus"
@@ -144,7 +145,6 @@ public class ExecuteServiceImpl implements ExecuteService{
     }
 
     private ModifyOrderStatusResult executeOrderOther(ModifyOrderStatusInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Execute Service][Execute Order] Executing....");
         ModifyOrderStatusResult cor = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/order/modifyOrderStatus"
@@ -153,7 +153,6 @@ public class ExecuteServiceImpl implements ExecuteService{
     }
 
     private GetOrderResult getOrderByIdFromOrder(GetOrderByIdInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Execute Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/getById/"
@@ -162,7 +161,6 @@ public class ExecuteServiceImpl implements ExecuteService{
     }
 
     private GetOrderResult getOrderByIdFromOrderOther(GetOrderByIdInfo info){
-        restTemplate = new RestTemplate();
         System.out.println("[Execute Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/orderOther/getById/"
