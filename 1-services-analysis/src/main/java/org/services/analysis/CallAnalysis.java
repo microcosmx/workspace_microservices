@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
@@ -23,7 +26,7 @@ public class CallAnalysis {
 		HashMap<String, HashMap<String, Object>> traces = new HashMap<String, HashMap<String, Object>>();
 		List<String> pListAll = new ArrayList<String>();
 
-		String traceStr = readFile("./sample/traces1.json");
+		String traceStr = readFile("./sample/traces-error-report-ui-seq.json");
 		JSONArray tracelist = new JSONArray(traceStr);
 
 		for (int k = 0; k < tracelist.length(); k++) {
@@ -112,6 +115,7 @@ public class CallAnalysis {
 		
 //		traces.forEach((key, val) -> System.out.println(val));
 		
+		System.out.println("---------------result-------------------");
 		//all 
 		double N = traces.keySet().size();
 		//failed
@@ -119,7 +123,8 @@ public class CallAnalysis {
 			return (Boolean)trace.get("failed");
 		}).collect(Collectors.toList()).size();
 		double NS = N - NF;
-		System.out.println(NF + " || " + NS);
+		System.out.println("Failed cases: " + NF);
+		System.out.println("Success cases: " + NS);
 		//method/spectrum list
 		pListAll = pListAll.stream().distinct().collect(Collectors.toList());
 //		methods.stream().forEach(n -> System.out.println(n));
@@ -142,13 +147,23 @@ public class CallAnalysis {
 //		System.out.println(pListNCS);
 		
 		//calculate Suspiciousness
-		//NCF/NF : NCF/NF + NCS/NS
+		//NCF/NF // NCF/NF + NCS/NS
+		//NCF // sqrt(NF*(NCF + NCS))
 		HashMap<String, Double> pListSuspicious = new HashMap<String, Double>();
 		pListAll.stream().forEach(pl -> {
-			double susp = (pListNCF.get(pl)/NF)  /  (pListNCF.get(pl)/NF + pListNCS.get(pl)/NS);
+//			double susp = (pListNCF.get(pl)/NF)  /  (pListNCF.get(pl)/NF + pListNCS.get(pl)/NS);
+			double susp = (pListNCF.get(pl))  / Math.sqrt(NF*(pListNCF.get(pl) + pListNCS.get(pl)));
 			pListSuspicious.put(pl, susp);
 		});
-		System.out.println(pListSuspicious);
+//		System.out.println(pListSuspicious);
+		
+		Map<String, Double> result = pListSuspicious.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		result.entrySet().stream().forEach(System.out::println);
+//		System.out.println(result);
+		
 		
 		
 		
