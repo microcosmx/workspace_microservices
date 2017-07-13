@@ -13,7 +13,8 @@ public class TraceTranslator {
     public static void main(String[] args) throws JSONException {
 
 //        String traceStr = readFile("src/main/resources/sample/traces1.json");
-        String traceStr = readFile("./sample/trace-data.json");
+//        String traceStr = readFile("./sample/trace-data.json");
+        String traceStr = readFile("./sample/traces-error-normal.json");
         JSONArray tracelist = new JSONArray(traceStr);
 
         HashMap<String,HashMap<String,Integer>> clocks = new HashMap<String,HashMap<String,Integer>>();
@@ -97,10 +98,16 @@ public class TraceTranslator {
                             }
                             if ("spring.instance_id".equals(anno.getString("key"))) {
                                 String instance_id = anno.getString("value");
+                                JSONObject endpoint = anno.getJSONObject("endpoint");
+                                String ipv4 = endpoint.getString("ipv4");
+                                String port = String.valueOf(endpoint.get("port"));
+
                                 if(instance_id.indexOf(content.get("serverName")) != -1){
-                                    content.put("server_instance_id", instance_id);
+                                    String new_instance_id = ipv4 + ":" + content.get("serverName") + ":" + port;
+                                    content.put("server_instance_id", new_instance_id);
                                 }else if(instance_id.indexOf(content.get("clientName")) != -1){
-                                    content.put("client_instance_id", instance_id);
+                                    String new_instance_id = ipv4 + ":" + content.get("clientName") + ":" + port;
+                                    content.put("client_instance_id", new_instance_id);
                                 }
                             }
                             if ("http.method".equals(anno.getString("key"))) {
@@ -110,6 +117,9 @@ public class TraceTranslator {
 
                         }
                         content.put("traceId" , traceId);
+                        content.put("api",
+                                content.get("serverName") + "." + content.get("classname") + "." + content.get("methodname"));
+
                     }
 
                     serviceList.add(content);
@@ -120,10 +130,28 @@ public class TraceTranslator {
             List<HashMap<String, String>> processList = serviceList.stream()
                     .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
             boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
+            System.out.println("serviceList:"+serviceList.toString());
+//            System.out.println("processList:"+processList.toString());
+            System.out.println("failed:"+failed);
 
             processList.forEach(n -> {
 
-
+                if(n.get("csTime") != null){
+                    HashMap<String,String> log = new HashMap<String,String>();
+                    log.put("timestamp",n.get("csTime"));
+                    log.put("traceId" , n.get("traceId"));
+                    log.put("spanId" , n.get("spanid"));
+                    log.put("parentId" , n.get("parentid"));
+                    log.put("hostName" , n.get("clientName"));
+                    log.put("host" , n.get("client_instance_id"));
+                    log.put("destName" , n.get("serverName"));
+                    log.put("dest" , n.get("server_instance_id"));
+                    log.put("event" , n.get("serverName") + ":" + n.get("api"));
+                    if(null != n.get("api")){
+                        log.put("api", n.get("api"));
+                    }
+                    logs.add(log);
+                }
                 if(n.get("srTime") != null){
                     HashMap<String,String> log = new HashMap<String,String>();
                     log.put("timestamp",n.get("srTime"));
@@ -134,7 +162,8 @@ public class TraceTranslator {
                     log.put("host" , n.get("server_instance_id"));
                     log.put("srcName" , n.get("clientName"));
                     log.put("src" , n.get("client_instance_id"));
-                    log.put("event", "received message from " + n.get("client_instance_id"));
+//                    log.put("event", "received message from " + n.get("client_instance_id"));
+                    log.put("event", "");
                     logs.add(log);
                 }
                 if(n.get("ssTime") != null){
@@ -147,7 +176,8 @@ public class TraceTranslator {
                     log.put("host" , n.get("server_instance_id"));
                     log.put("destName" , n.get("clientName"));
                     log.put("dest" , n.get("client_instance_id"));
-                    log.put("event" , "sending result to " + n.get("client_instance_id"));
+//                    log.put("event" , "sending result to " + n.get("client_instance_id"));
+                    log.put("event", "");
                     logs.add(log);
                 }
                 if(n.get("crTime") != null){
@@ -160,20 +190,8 @@ public class TraceTranslator {
                     log.put("host" , n.get("client_instance_id"));
                     log.put("srcName" , n.get("serverName"));
                     log.put("src" , n.get("server_instance_id"));
-                    log.put("event" , "received message from " + n.get("server_instance_id"));
-                    logs.add(log);
-                }
-                if(n.get("csTime") != null){
-                    HashMap<String,String> log = new HashMap<String,String>();
-                    log.put("timestamp",n.get("csTime"));
-                    log.put("traceId" , n.get("traceId"));
-                    log.put("spanId" , n.get("spanid"));
-                    log.put("parentId" , n.get("parentid"));
-                    log.put("hostName" , n.get("clientName"));
-                    log.put("host" , n.get("client_instance_id"));
-                    log.put("destName" , n.get("serverName"));
-                    log.put("dest" , n.get("server_instance_id"));
-                    log.put("event" , "sending request " + n.get("httpMethod") + " to " + n.get("server_instance_id"));
+//                    log.put("event" , "received message from " + n.get("server_instance_id"));
+                    log.put("event", "");
                     logs.add(log);
                 }
 
@@ -243,7 +261,9 @@ public class TraceTranslator {
             }
         });
 
-        writeFile("./sample/trace-data-shiviz.txt", list);
+//        writeFile("./sample/trace-data-shiviz.txt", list);
+        writeFile("./output/shiviz-log-error-normal.txt", list);
+
 
     }
 
