@@ -17,7 +17,6 @@ public class TraceTranslator {
         String traceStr = readFile("./sample/traces-error-normal.json");
         JSONArray tracelist = new JSONArray(traceStr);
 
-        HashMap<String,HashMap<String,Integer>> clocks = new HashMap<String,HashMap<String,Integer>>();
         List<HashMap<String,String>> logs = new ArrayList<HashMap<String, String>>();
 
         for (int k = 0; k < tracelist.length(); k++) {
@@ -130,9 +129,6 @@ public class TraceTranslator {
             List<HashMap<String, String>> processList = serviceList.stream()
                     .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
             boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
-            System.out.println("serviceList:"+serviceList.toString());
-//            System.out.println("processList:"+processList.toString());
-            System.out.println("failed:"+failed);
 
             processList.forEach(n -> {
 
@@ -150,6 +146,9 @@ public class TraceTranslator {
                     if(null != n.get("api")){
                         log.put("api", n.get("api"));
                     }
+                    if(n.containsKey("error")){
+                        log.put("error", n.get("error"));
+                    }
                     logs.add(log);
                 }
                 if(n.get("srTime") != null){
@@ -164,6 +163,9 @@ public class TraceTranslator {
                     log.put("src" , n.get("client_instance_id"));
 //                    log.put("event", "received message from " + n.get("client_instance_id"));
                     log.put("event", "");
+                    if(n.containsKey("error")){
+                        log.put("error", n.get("error"));
+                    }
                     logs.add(log);
                 }
                 if(n.get("ssTime") != null){
@@ -178,6 +180,9 @@ public class TraceTranslator {
                     log.put("dest" , n.get("client_instance_id"));
 //                    log.put("event" , "sending result to " + n.get("client_instance_id"));
                     log.put("event", "");
+                    if(n.containsKey("error")){
+                        log.put("error", n.get("error"));
+                    }
                     logs.add(log);
                 }
                 if(n.get("crTime") != null){
@@ -192,6 +197,9 @@ public class TraceTranslator {
                     log.put("src" , n.get("server_instance_id"));
 //                    log.put("event" , "received message from " + n.get("server_instance_id"));
                     log.put("event", "");
+                    if(n.containsKey("error")){
+                        log.put("error", n.get("error"));
+                    }
                     logs.add(log);
                 }
 
@@ -199,6 +207,38 @@ public class TraceTranslator {
             });
 
         }
+
+
+
+//        writeFile("./sample/trace-data-shiviz.txt", list);
+        HashMap<String,String> traceIds = new HashMap<String,String>();
+        logs.forEach(n -> {
+            if(!traceIds.containsKey(n.get("traceId"))){
+                traceIds.put(n.get("traceId"),"");
+            }
+        });
+
+        List<List<HashMap<String,String>>> list = new ArrayList<List<HashMap<String,String>>>();
+        HashMap<List<HashMap<String,String>>, Boolean> failures = new HashMap<List<HashMap<String,String>>, Boolean>();
+        traceIds.forEach((n,s) -> {
+            List l = logs.stream().filter(elem -> {
+                return n.equals(elem.get("traceId"));
+            }).collect(Collectors.toList());
+            List<HashMap<String,String>> listWithClock = clock(l);
+            boolean failed = listWithClock.stream().anyMatch(pl -> pl.containsKey("error"));
+            failures.put(listWithClock,failed);
+            list.add(listWithClock);
+        });
+
+        //(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
+//        List<HashMap<String,String>> list = clock(logs);
+        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
+
+
+    }
+
+    public static List<HashMap<String,String>> clock(List<HashMap<String,String>> logs){
+        HashMap<String,HashMap<String,Integer>> clocks = new HashMap<String,HashMap<String,Integer>>();
 
         List<HashMap<String,String>> list = logs.stream().sorted((log1,log2) -> {
             Long time1 = Long.valueOf(log1.get("timestamp"));
@@ -261,10 +301,7 @@ public class TraceTranslator {
             }
         });
 
-//        writeFile("./sample/trace-data-shiviz.txt", list);
-        writeFile("./output/shiviz-log-error-normal.txt", list);
-
-
+        return list;
     }
 
 
@@ -320,42 +357,112 @@ public class TraceTranslator {
     }
 
 
-    public static boolean writeFile(String path, List<HashMap<String,String>> logs){
+//    public static boolean writeFile(String path, List<HashMap<String,String>> logs){
+//        File writer = new File(path);
+//        BufferedWriter out = null;
+//        try{
+//            writer.createNewFile(); // 创建新文件
+//            out = new BufferedWriter(new FileWriter(writer));
+//            Iterator<HashMap<String,String>> iterator = logs.iterator();
+//            while(iterator.hasNext()){
+//                HashMap<String,String> map = iterator.next();
+//                Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+//                out.write("{");
+//                while (entries.hasNext()) {
+//                    Map.Entry<String, String> entry = entries.next();
+//                    if(entry.getKey().equals("clock")){
+//                        String clocks = entry.getValue();
+//                        String[] c = clocks.split(",");
+//                        out.write("clock={");
+//                        for(int i=0,length=c.length; i<length; i++){
+//                            c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
+//                                    + c[i].substring(c[i].indexOf("=")+1);
+//                            if(i < length-1){
+//                                out.write(c[i] + ",");
+//                            }else{
+//                                out.write(c[i]);
+//                            }
+//
+//                        }
+//                        out.write(", ");
+//
+//                    }else{
+//                        out.write(entry.toString() + ", ");
+//                    }
+//                }
+//
+//                out.write("}\r\n");
+//            }
+//        }catch(IOException e){
+//            e.printStackTrace();
+//            return false;
+//        }finally{
+//            if (out != null) {
+//                try {
+//                    out.flush();
+//                    out.close();
+//                } catch (IOException e1) {
+//                }
+//            }
+//        }
+//
+//        return true;
+//    }
+
+    public static boolean writeFile(String path, List<List<HashMap<String,String>>> logs, HashMap<List<HashMap<String,String>>, Boolean> failures){
         File writer = new File(path);
         BufferedWriter out = null;
         try{
             writer.createNewFile(); // 创建新文件
             out = new BufferedWriter(new FileWriter(writer));
-            Iterator<HashMap<String,String>> iterator = logs.iterator();
-            while(iterator.hasNext()){
-                HashMap<String,String> map = iterator.next();
-                Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
-                out.write("{");
-                while (entries.hasNext()) {
-                    Map.Entry<String, String> entry = entries.next();
-                    if(entry.getKey().equals("clock")){
-                        String clocks = entry.getValue();
-                        String[] c = clocks.split(",");
-                        out.write("clock={");
-                        for(int i=0,length=c.length; i<length; i++){
-                            c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
-                                    + c[i].substring(c[i].indexOf("=")+1);
-                            if(i < length-1){
-                                out.write(c[i] + ",");
-                            }else{
-                                out.write(c[i]);
-                            }
+            int fail = 0;
+            int success = 0;
 
-                        }
-                        out.write(", ");
+            Iterator<List<HashMap<String,String>>> iterator1 = logs.iterator();
+            while(iterator1.hasNext()){
+                List<HashMap<String,String>> list = iterator1.next();
 
-                    }else{
-                        out.write(entry.toString() + ", ");
-                    }
+                boolean failed = failures.get(list);
+                if(failed){
+                    out.write("\r\n=== Fail execution " + (fail++) + " ===\r\n");
+                }else{
+                    out.write("\r\n=== Success execution " + (success++) + " ===\r\n");
                 }
 
-                out.write("}\r\n");
+                Iterator<HashMap<String,String>> iterator = list.iterator();
+                while(iterator.hasNext()){
+                    HashMap<String,String> map = iterator.next();
+                    Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
+                    out.write("{");
+                    while (entries.hasNext()) {
+                        Map.Entry<String, String> entry = entries.next();
+                        if(entry.getKey().equals("clock")){
+                            String clocks = entry.getValue();
+                            String[] c = clocks.split(",");
+                            out.write("clock={");
+                            for(int i=0,length=c.length; i<length; i++){
+                                c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
+                                        + c[i].substring(c[i].indexOf("=")+1);
+                                if(i < length-1){
+                                    out.write(c[i] + ",");
+                                }else{
+                                    out.write(c[i]);
+                                }
+
+                            }
+                            out.write(", ");
+
+                        }else{
+                            out.write(entry.toString() + ", ");
+                        }
+                    }
+
+                    out.write("}\r\n");
+                }
             }
+
+
+
         }catch(IOException e){
             e.printStackTrace();
             return false;
