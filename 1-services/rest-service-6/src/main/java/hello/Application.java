@@ -43,7 +43,7 @@ public class Application implements CommandLineRunner{
 	@Override
 	public void run(String... arg0) throws Exception {
 		// TODO Auto-generated method stub
-		statusBean.init();
+		statusBean.chartMsgs.clear();
 	}
 
 }
