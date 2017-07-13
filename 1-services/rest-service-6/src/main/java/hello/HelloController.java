@@ -29,5 +29,28 @@ public class HelloController {
 		log.info(value.toString());
 		return value;
     }
+    
+    
+    
+    @RequestMapping("/external_process")
+    public Value external_process(@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
+
+        double cal2 = Math.abs(Double.valueOf(cal));
+        log.info(String.valueOf(cal2));
+        
+        Value value = null;
+        if(Math.random() < 0.5){
+        	value = restTemplate.getForObject("http://rest-service-6:16006/hello6", Value.class);
+        }else{
+        	if(Math.random() < 0.5){
+        		value = restTemplate.getForObject("http://rest-service-5:16005/hello5", Value.class);
+        	}else{
+        		value = restTemplate.getForObject("http://rest-service-4:16004/hello4", Value.class);
+        	}
+        }
+        
+		log.info(value.toString());
+		return value;
+    }
 }
 

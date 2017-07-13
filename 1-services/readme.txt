@@ -1,13 +1,7 @@
 
 reproduce:
-step1: 
-6 request in jmeter
-http://localhost:16006/hello6?cal=50
-step2:
-3 request in jmeter: error timeout
-http://localhost:16005/hello5?cal=50
-3 request in jmeter: error timeout
-http://localhost:16004/hello4?cal=50
+
+http://localhost:16006/external_process
 
 
 
