@@ -26,17 +26,21 @@ public class HelloController {
     
     @Autowired  
     private AsyncTask asyncTask;  
+    
+    @Autowired
+	private StatusBean statusBean;
 
     @RequestMapping("/hello6")
-    public String hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws InterruptedException, ExecutionException{
+    public String hello6(@RequestParam(value="cal", defaultValue="50") String cal)  throws Exception{
 
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
+        statusBean.init();
+        
         //async messages
         Future<String> msg1 = asyncTask.sendAsyncMessage1("msg1");
         Future<String> msg2 = asyncTask.sendAsyncMessage2("msg2");
-        
         
         //async tasks
         Future<String> task1 = asyncTask.doAsyncTask1("task1");
@@ -52,21 +56,45 @@ public class HelloController {
 //        }  
 //        log.info("All tasks finished.");  
         
-        String value = task1.get() + task2.get();
+        int index1 = statusBean.chartMsgs.indexOf("msg1");
+        int index2 = statusBean.chartMsgs.indexOf("msg2");
+        int index3 = statusBean.chartMsgs.indexOf("task1");
+        int index4 = statusBean.chartMsgs.indexOf("task2");
         
-		log.info(value.toString());
+        //simulate heavy tasks
+        long sleep = (long) (Math.random() * 600);
+        try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+        
+        log.info("--------" + index1 + "---" + index2 + "---" + index3 + "---" + index4);
+        log.info(statusBean.chartMsgs.toString());
+        
+        
+        //match sequence first
+        if(index4>-1 && index1>index4){
+        	//50% chance error
+//        	if(Math.random() < 0.6){
+        		throw new Exception("chart msg in wrong sequence");
+//        	}
+    	}
+        
 		log.info("=============end================");
-		return value;
+		return statusBean.chartMsgs.toString();
     }
     
     @RequestMapping("/hello6_1")
     public String hello6_1(@RequestParam(value="msg", defaultValue="") String msg) {
+    	statusBean.addKey(msg);
     	log.info("----------------msg1: {}", msg);  
     	return "callback completed";
     }
     
     @RequestMapping("/hello6_2")
     public String hello6_2(@RequestParam(value="msg", defaultValue="") String msg) {
+    	statusBean.addKey(msg);
     	log.info("----------------msg2: {}", msg);  
     	return "callback completed";
     }

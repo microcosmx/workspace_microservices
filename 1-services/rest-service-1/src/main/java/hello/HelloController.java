@@ -29,4 +29,15 @@ public class HelloController {
 		log.info(value.toString());
 		return value;
     }
+    
+    
+    
+    @RequestMapping("/hello1_2")
+    public String hello1_2(@RequestParam(value="msg", defaultValue="") String msg) {
+        
+    	String result = restTemplate.getForObject("http://rest-service-end:16000/hello_end?msg="+msg, String.class);
+        
+        return result;
+        
+    }
 }

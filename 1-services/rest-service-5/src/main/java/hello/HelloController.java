@@ -1,5 +1,6 @@
 package hello;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -28,5 +29,24 @@ public class HelloController {
 		
         log.info(value.toString());
 		return value;
+    }
+    
+    
+    
+    @RequestMapping("/hello5_1")
+    public String hello5_1(@RequestParam(value="msg", defaultValue="") String msg) {
+        
+    	String result = restTemplate.getForObject("http://rest-service-4:16004/hello4_1?msg="+msg, String.class);
+        
+        return result;
+    }
+    
+    @RequestMapping("/hello5_2")
+    public String hello5_2(@RequestParam(value="msg", defaultValue="") String msg) {
+        
+    	String result = restTemplate.getForObject("http://rest-service-4:16004/hello4_2?msg="+msg, String.class);
+        
+        return result;
+        
     }
 }

@@ -49,10 +49,8 @@ public class HelloController {
     @RequestMapping("/hello3_1")
     public String hello3_1(@RequestParam(value="msg", defaultValue="") String msg) {
         
-        Value value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal=66", Value.class);
-        
         //simulate heavy tasks
-        long sleep = (long) (Math.random() * 1000);
+        long sleep = (long) (Math.random() * 300);
         try {
 			Thread.sleep(sleep);
 		} catch (InterruptedException e1) {
@@ -69,25 +67,12 @@ public class HelloController {
         return msg;
     }
     
-    
     @RequestMapping("/hello3_2")
     public String hello3_2(@RequestParam(value="msg", defaultValue="") String msg) {
-        //simulate heavy tasks
-    	long sleep = (long) (Math.random() * 1000);
-        try {
-			Thread.sleep(sleep);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
         
-        try {
-			Future<String> rest_callback = asyncTask.callbackAsyncMessage2(msg);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	String result = restTemplate.getForObject("http://rest-service-2:16002/hello2_2?msg="+msg, String.class);
         
-        return msg;
+        return result;
         
     }
     

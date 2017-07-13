@@ -24,12 +24,12 @@ public class AsyncTask {
     
     @Async("mySimpleAsync")
     public Future<String> sendAsyncMessage1(String msg) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?msg="+msg, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?msg="+msg, String.class);
         return new AsyncResult<>("msg1 sended");  
     }
     @Async("mySimpleAsync")
     public Future<String> sendAsyncMessage2(String msg) throws InterruptedException{
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_1?msg="+msg, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_1?msg="+msg, String.class);
         return new AsyncResult<>("msg2 sended");
     }  
     
@@ -37,13 +37,13 @@ public class AsyncTask {
       
     @Async("myAsync")  
     public Future<String> doAsyncTask1(String msg) throws InterruptedException{  
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?msg="+msg, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_2?msg="+msg, String.class);
         return new AsyncResult<>(result);  
     }  
       
     @Async("myAsync")  
     public Future<String> doAsyncTask2(String msg) throws InterruptedException{  
-        String result = restTemplate.getForObject("http://rest-service-3:16003/hello3_2?msg="+msg, String.class);
+        String result = restTemplate.getForObject("http://rest-service-5:16005/hello5_2?msg="+msg, String.class);
         return new AsyncResult<>(result);  
     }  
 }  
