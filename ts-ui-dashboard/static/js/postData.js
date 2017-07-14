@@ -12,6 +12,7 @@ $("#flow_one_page").click(function(){
     $("#flow_one").css('display','block');
     $("#flow_two").css('display','none');
     $("#flow_three").css('display','none');
+    location.hash="anchor_flow_preserve_login";
 });
 
 $("#flow_two_page").click(function(){

@@ -21,7 +21,7 @@ public class CancelServiceImpl implements CancelService{
         if(orderResult.isStatus() == true){
             Order order = orderResult.getOrder();
             if(order.getStatus() == OrderStatus.NOTPAID.getCode()
-                    || order.getStatus() == OrderStatus.PAID.getCode()){
+                    || order.getStatus() == OrderStatus.PAID.getCode() || order.getStatus() == OrderStatus.CHANGE.getCode()){
 
                 order.setStatus(OrderStatus.CANCEL.getCode());
                 ChangeOrderInfo changeOrderInfo = new ChangeOrderInfo();
@@ -64,7 +64,7 @@ public class CancelServiceImpl implements CancelService{
             if(orderOtherResult.isStatus() == true){
                 Order order = orderOtherResult.getOrder();
                 if(order.getStatus() == OrderStatus.NOTPAID.getCode()
-                        || order.getStatus() == OrderStatus.PAID.getCode()){
+                        || order.getStatus() == OrderStatus.PAID.getCode() || order.getStatus() == OrderStatus.CHANGE.getCode()){
 
                     order.setStatus(OrderStatus.CANCEL.getCode());
                     ChangeOrderInfo changeOrderInfo = new ChangeOrderInfo();
