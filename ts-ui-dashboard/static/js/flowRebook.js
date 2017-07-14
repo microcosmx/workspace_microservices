@@ -22,6 +22,10 @@ function setTodayDateRebook(){
  **/
 
 $("#refresh_my_order_list_button").click(function(){
+    queryMyOrder();
+});
+
+function queryMyOrder(){
     var myOrdersQueryInfo = new Object();
     myOrdersQueryInfo.enableStateQuery = false;
     myOrdersQueryInfo.enableTravelDateQuery = false;
@@ -34,7 +38,7 @@ $("#refresh_my_order_list_button").click(function(){
     $("#my_orders_result").html("");
     queryForMyOrder("/order/query",myOrdersQueryData);
     queryForMyOrder("/orderOther/query",myOrdersQueryData);
-});
+}
 
 function queryForMyOrder(path,data){
     $.ajax({
@@ -139,8 +143,9 @@ function queryForMyOrder(path,data){
                     "<div class='col-sm-10'>" +
                     "<label class='order_id control-label noshow_component' >" + order["id"] + "</label>" +
                     "<label class='order_id control-label noshow_component my_order_list_accountId' >" + order["accountId"] + "</label>" +
-                    "<button type='button' class='ticket_cancel_btn btn btn-primary'>" + "Cancel Order" + "</button>" +
-                    "<button type='button' class='order_rebook_btn btn btn-primary'>" + "Change your railway ticket" + "</button>" +
+                    addCancelAandRebookButtonOrNot(order) +
+                    // "<button type='button' class='ticket_cancel_btn btn btn-primary'>" + "Cancel Order" + "</button>" +
+                    // "<button type='button' class='order_rebook_btn btn btn-primary'>" + "Change your railway ticket" + "</button>" +
                     "</div>" +
                     "</div>" +
                     "</form>" +
@@ -155,13 +160,24 @@ function queryForMyOrder(path,data){
     });
 }
 
+function addCancelAandRebookButtonOrNot(order){
+    var str = "";
+    if(order["status"] == 1){
+        str += "<button type='button' class='order_rebook_btn btn btn-primary'>" + "Change your railway ticket" + "</button>";
+    }
+    if(order["status"] == 1 || order['status'] == 0 || order["status"] == 3){
+        str += "<button type='button' class='ticket_cancel_btn btn btn-primary'>" + "Cancel Order" + "</button>";
+    }
+    return str;
+}
+
 function addListenerToOrderCancel(){
     var ticketCancelButtonSet = $(".ticket_cancel_btn");
     for(var i = 0;i < ticketCancelButtonSet.length;i++){
         ticketCancelButtonSet[i].onclick = function(){
             var orderStatus = $(this).parents("form").find(".my_order_list_status").text();
-            if(orderStatus != 1){
-                alert("Order Can Not Be Changed");
+            if(orderStatus != 1 || orderStatus != 3){
+                alert("Order Can Not Be Cancel");
                 return;
             }
             $("#ticket_cancel_panel").css('display','block');
@@ -203,7 +219,8 @@ function addListenerToOrderChange(){
                 return;
             }
             replaceStationId(changeStartingPlaceId,changeEndPlaceId);
-            $("#order_rebook_panel").css('display','block');
+            //$("#order_rebook_panel").css('display','block');
+            location.hash="anchor_flow_rebook_rebook_orders";
             //Set Information on confirm page
             $("#ticket_rebook_confirm_old_order_id").text($(this).parents("form").find(".my_order_list_id").text());
             $("#ticket_rebook_confirm_old_tripId").text($(this).parents("form").find(".my_order_list_train_number").text());
@@ -296,14 +313,19 @@ function replaceStationId(stationIdOne,stationIdTwo){
 }
 
 $("#travel_rebook_cancel").click(function(){
-    $("#order_rebook_panel").css('display','none');
+    location.hash="anchor_flow_rebook_orders";
+    //$("#order_rebook_panel").css('display','none');
 });
 
 $("#travel_rebook_button").click(function(){
     var travelQueryInfo = new Object();
     travelQueryInfo.startingPlace = $("#travel_rebook_startingPlace").val();
     travelQueryInfo.endPlace = $("#travel_rebook_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_rebook_date").val();
+    travelQueryInfo.departureTime = $("#travel_rebook_date").val();
+    if(travelQueryInfo.departureTime == null || checkDateFormat(travelQueryInfo.departureTime) == false){
+        alert("Departure Date Format Wrong.");
+        return;
+    }
     var travelQueryData = JSON.stringify(travelQueryInfo);
     var train_type = $("#search_rebook_train_type").val();
     var i = 0;
@@ -377,7 +399,8 @@ function addListenerToRebookTable(){
                 $("#ticket_rebook_confirm_seatType_String").text("economy seat");
             }
             $("#ticket_rebook_confirm_travel_date").text($("#travel_rebook_date").val());
-            $("#order_rebook_panel").css('display','none');
+            //$("#order_rebook_panel").css('display','none');
+            location.hash="anchor_flow_rebook_confirm";
         }
     }
 }
@@ -410,11 +433,14 @@ $("#ticket_rebook_confirm_confirm_btn").click(function(){
         success: function(result){
             if(result["status"] == true){
                 alert(result["message"]);
+                location.hash="anchor_flow_rebook_orders";
+                queryMyOrder();
             }else{
                 alert(result["message"]);
                 if(result['price'] != null || result['price'] != 'null'){
                     $("#rebook_money_pay").val(result["price"]);
-                    $("#ticket_rebook_pay_panel").css('display','block');
+                    location.hash="anchor_flow_rebook_pay";
+                    //$("#ticket_rebook_pay_panel").css('display','block');
                 }
             }
         }
@@ -428,7 +454,7 @@ $("#ticket_rebook_confirm_confirm_btn").click(function(){
  */
 
 $("#ticket_rebook_pay_panel_cancel").click(function(){
-    $("#ticket_rebook_pay_panel").css('display','none');
+    //$("#ticket_rebook_pay_panel").css('display','none');
 });
 
 $("#ticket_rebook_pay_panel_confirm").click(function(){
@@ -450,11 +476,13 @@ $("#ticket_rebook_pay_panel_confirm").click(function(){
         },
         success: function (result) {
             alert(result['message']);
+            location.hash="anchor_flow_rebook_orders";
+            queryMyOrder();
         }
     });
 
-    $("#ticket_rebook_pay_panel").css('display','none');
-    $("#order_rebook_panel").css('display','none');
+    //$("#ticket_rebook_pay_panel").css('display','none');
+    //$("#order_rebook_panel").css('display','none');
 });
 
 

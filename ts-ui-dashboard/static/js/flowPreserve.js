@@ -23,8 +23,24 @@ function setTodayDatePreserve(){
 $("#flow_preserve_login_button").click(function() {
     var loginInfo = new Object();
     loginInfo.email = $("#flow_preserve_login_email").val();
+    if(loginInfo.email == null){
+        alert("Email Can Not Be Empty.");
+        return;
+    }
+    if(checkEmailFormat(loginInfo.email) == false){
+        alert("Email Format Wrong.");
+        return;
+    }
     loginInfo.password = $("#flow_preserve_login_password").val();
+    if(loginInfo.password == null || loginInfo.password == ""){
+        alert("Password Can Not Be Empty.");
+        return;
+    }
     loginInfo.verificationCode = $("#flow_preserve_login_verification_code").val();
+    if(loginInfo.verificationCode == null || loginInfo.verificationCode == ""){
+        alert("Verification Code Can Not Be Empty.");
+        return;
+    }
     var data = JSON.stringify(loginInfo);
     $.ajax({
         type: "post",
@@ -44,6 +60,7 @@ $("#flow_preserve_login_button").click(function() {
                 document.cookie = "loginToken=" + obj["token"];
                 $("#flow_preserve_login_status").text(obj["message"]);
                 $("#user_login_id").text(obj["account"].id);
+                location.hash="anchor_flow_preserve_select_trip";
             }else{
                 setCookie("loginId", "", -1);
                 setCookie("loginToken", "", -1);
@@ -59,6 +76,16 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + "; " + expires;
 }
+
+function checkEmailFormat(email){
+    var emailFormat = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    if(!emailFormat.test(email)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 /**
  *  Flow Preserve - Step 2 - Query Trips
  **/
@@ -67,7 +94,11 @@ $("#travel_booking_button").click(function(){
     var travelQueryInfo = new Object();
     travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
     travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
-    travelQueryInfo.departureTime= $("#travel_booking_date").val();
+    travelQueryInfo.departureTime = $("#travel_booking_date").val();
+    if(travelQueryInfo.departureTime == null || checkDateFormat(travelQueryInfo.departureTime) == false){
+        alert("Departure Date Format Wrong.");
+        return;
+    }
     var travelQueryData = JSON.stringify(travelQueryInfo);
     var train_type = $("#search_select_train_type").val();
     var i = 0;
@@ -81,6 +112,15 @@ $("#travel_booking_button").click(function(){
         queryForTravelInfo(travelQueryData,"/travel2/query");
     }
 });
+
+function checkDateFormat(date){
+    var dateFormat = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(!dateFormat.test(date)){
+        return false;
+    }else{
+        return true;
+    }
+}
 
 function queryForTravelInfo(data,path) {
     $.ajax({
@@ -150,6 +190,7 @@ function addListenerToBookingTable(){
                 $("#ticket_confirm_seatType_String").text("economy seat");
             }
             refresh_booking_contacts();
+            location.hash="anchor_flow_preserve_select_contacts";
         }
     }
 }
@@ -215,7 +256,7 @@ function refresh_booking_contacts() {
 }
 
 $("#ticket_select_contacts_cancel_btn").click(function(){
-    alert("You Click ticket_select_contacts_cancel_btn");
+    location.hash="anchor_flow_preserve_select_trip";
 })
 
 $("#ticket_select_contacts_confirm_btn").click(function(){
@@ -244,6 +285,8 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
     if(selectContactsStatus == false){
         alert("Please select contacts.");
         return;
+    }else{
+        location.hash="anchor_flow_preserve_confirm";
     }
 })
 
@@ -292,7 +335,7 @@ function convertNumberToDocumentType(code) {
  */
 
 $("#ticket_confirm_cancel_btn").click(function () {
-    alert("You Click ticket_confirm_cancel_btn");
+    location.hash="anchor_flow_preserve_select_contacts";
 })
 
 $("#ticket_confirm_confirm_btn").click(function () {
@@ -321,11 +364,14 @@ $("#ticket_confirm_confirm_btn").click(function () {
         },
         success: function (result) {
             alert(result["message"]);
-            $("#preserve_pay_panel").css('display','block');
-            $("#preserve_pay_orderId").val(result["order"]["id"]);
-            $("#preserve_pay_price").val(result["order"]["price"]);
-            $("#preserve_pay_userId").val(result["order"]["accountId"]);
-            $("#preserve_pay_tripId").val(result["order"]["trainNumber"]);
+            if(result['status'] == true){
+                //$("#preserve_pay_panel").css('display','block');
+                $("#preserve_pay_orderId").val(result["order"]["id"]);
+                $("#preserve_pay_price").val(result["order"]["price"]);
+                $("#preserve_pay_userId").val(result["order"]["accountId"]);
+                $("#preserve_pay_tripId").val(result["order"]["trainNumber"]);
+                location.hash="anchor_flow_preserve_pay";
+            }
         }
     })
 })
@@ -335,7 +381,7 @@ $("#ticket_confirm_confirm_btn").click(function () {
  */
 
 $("#preserve_pay_later_button").click(function(){
-    $("#preserve_pay_panel").css('display','none');
+    //$("#preserve_pay_panel").css('display','none');
 })
 
 $("#preserve_pay_button").click(function(){
@@ -355,12 +401,13 @@ $("#preserve_pay_button").click(function(){
             if(JSON.stringify(result) == "true"){
                 $("#preserve_collect_order_id").val(info.orderId);
                 alert("Success");
+                location.hash="anchor_flow_preserve_collect";
             }else{
                 alert("Some thing error");
             }
         }
     });
-    $("#preserve_pay_panel").css('display','none');
+    //$("#preserve_pay_panel").css('display','none');
 })
 
 /**
@@ -385,6 +432,7 @@ $("#preserve_collect_button").click(function() {
             if(obj["status"] == true){
                 $("#preserve_execute_order_id").val(executeInfo.orderId);
                 $("#preserve_collect_order_status").html(obj["message"]);
+                location.hash="anchor_flow_preserve_execute";
             }else{
                 $("#preserve_collect_order_status").html(obj["message"]);
             }
