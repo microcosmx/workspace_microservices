@@ -2151,6 +2151,47 @@
                     </form>
                 </div>
             </div>
+
+            <!---Pay For Not Paid Order--->
+            <a name="anchor_flow_order_pay_for_not_paid"></a>
+            <div id="order_pay_for_not_paid" class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Pay for Your Order
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Order Id: </label>
+                            <div class="col-sm-10">
+                                <input id="pay_for_not_paid_orderId" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Price: </label>
+                            <div class="col-sm-10">
+                                <input id="pay_for_not_paid_price" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Trip Id: </label>
+                            <div class="col-sm-10">
+                                <input id="pay_for_not_paid_tripId" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="pay_for_not_paid_pay_button" type="button" class="btn btn-primary">Pay</button>
+                                <button id="pay_for_not_paid_pay_later_button" type="button" class="btn btn-default">No.Pay it later.</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
 

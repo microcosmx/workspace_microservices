@@ -55,14 +55,16 @@ function queryForMyOrder(path,data){
 
             for(var i = 0; i < size;i++){
                 var order = result[i];
+                var fromString = getStationNameById(order['from']);
+                var toString  = getStationNameById(order['to']);
                 $("#my_orders_result").append(
                     "<div class='panel panel-default'>" +
                     "<div class='panel-heading'>" +
                     "<h4 class='panel-title'>" +
                     "<label>" +
-                    "<a data-toggle='collapse' href='#collapse" + i + "'>" +
-                    "From:" + order['from'] + "    ----->    To:" + order['to'] +
-                    "</a>" +
+                    // "<a data-toggle='collapse' href='#collapse" + i + "'>" +
+                    "From:" + fromString + "    ----->    To:" + toString +
+                    // "</a>" +
                     "</label>" +
                     "</h4>" +
                     "</div>" +
@@ -79,13 +81,13 @@ function queryForMyOrder(path,data){
                     "<div class='div form-group'>" +
                     "<label class='col-sm-2 control-label'>From: </label>" +
                     "<div class='col-sm-10'>" +
-                    "<label class='control-label my_order_list_from'>" + order['from'] + "</label>" +
+                    "<label class='control-label my_order_list_from'>" + fromString + "</label>" +
                     "</div>" +
                     "</div>" +
                     "<div class='div form-group'>" +
                     "<label class='col-sm-2 control-label'>To: </label>" +
                     "<div class='col-sm-10'>" +
-                    "<label class='control-label my_order_list_to'>" + order['to'] + "</label>" +
+                    "<label class='control-label my_order_list_to'>" + toString + "</label>" +
                     "</div>" +
                     "</div>" +
                     "<div class='form-group'>" +
@@ -156,6 +158,7 @@ function queryForMyOrder(path,data){
             }
             addListenerToOrderCancel();
             addListenerToOrderChange();
+            addListenerToPayOrderButton();
         }
     });
 }
@@ -176,7 +179,7 @@ function addListenerToOrderCancel(){
     for(var i = 0;i < ticketCancelButtonSet.length;i++){
         ticketCancelButtonSet[i].onclick = function(){
             var orderStatus = $(this).parents("form").find(".my_order_list_status").text();
-            if(orderStatus != 1 || orderStatus != 3){
+            if(orderStatus != 0 && orderStatus != 1 && orderStatus != 3){
                 alert("Order Can Not Be Cancel");
                 return;
             }
@@ -196,7 +199,7 @@ function addListenerToOrderCancel(){
                     withCredentials: true
                 },
                 success: function (result) {
-                    if(result["status"] == "true"){
+                    if(result["status"] == true){
                         $("#cancel_money_refund").text(result["refund"]);
                     }else{
                         $("#cancel_money_refund").text("Error ");
@@ -230,7 +233,7 @@ function addListenerToOrderChange(){
 
 function addPayButtonOrNot(status){
     if(status == '0'){
-        return "<button type='button' class='pay_for_order_not_paid btn btn-primary'>Pay</button>";
+        return "<button type='button' class='pay_for_order_not_paid_btn btn btn-primary'>Pay</button>";
     }else{
         return "";
     }
@@ -275,6 +278,28 @@ function convertNumberToOrderStatus(code){
         str = "other";
     }
     return str;
+}
+
+function getStationNameById(stationId){
+    var stationName;
+    var getStationInfoOne = new Object();
+    getStationInfoOne.stationId =  stationId;
+    var getStationInfoOneData = JSON.stringify(getStationInfoOne);
+    $.ajax({
+        type: "post",
+        url: "/station/queryById",
+        contentType: "application/json",
+        dataType: "json",
+        data:getStationInfoOneData,
+        async: false,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            stationName = result["name"];
+        },
+    });
+    return stationName;
 }
 
 function replaceStationId(stationIdOne,stationIdTwo){
@@ -485,6 +510,54 @@ $("#ticket_rebook_pay_panel_confirm").click(function(){
     //$("#order_rebook_panel").css('display','none');
 });
 
+/**
+ *  Pay For Not Paid Button
+ */
+function addListenerToPayOrderButton(){
+    var orderNotPaidPayButtonSet = $(".pay_for_order_not_paid_btn");
+    for(var i = 0;i < orderNotPaidPayButtonSet.length;i++){
+        orderNotPaidPayButtonSet[i].onclick = function () {
+            var orderId = $(this).parents("form").find(".my_order_list_id").text();
+            var price = $(this).parents("form").find(".my_order_list_price").text();
+            var tripId = $(this).parents("form").find(".my_order_list_train_number").text();
+            $("#pay_for_not_paid_orderId").val(orderId);
+            $("#pay_for_not_paid_price").val(price);
+            $("#pay_for_not_paid_tripId").val(tripId);
+            location.hash="anchor_flow_order_pay_for_not_paid";
+        }
+    }
+}
 
+$("#pay_for_not_paid_pay_later_button").click(function(){
+    location.hash="anchor_flow_rebook_orders";
+    $("#pay_for_not_paid_orderId").val("");
+    $("#pay_for_not_paid_price").val("");
+    $("#pay_for_not_paid_tripId").val("");
+});
+
+$("#pay_for_not_paid_pay_button").click(function(){
+    var orderPayInfo = new Object();
+    orderPayInfo.orderId = $("#pay_for_not_paid_orderId").val();
+    orderPayInfo.tripId = $("#pay_for_not_paid_tripId").val();
+    var orderPayData = JSON.stringify(orderPayInfo);
+    $.ajax({
+        type: "post",
+        url: "/inside_payment/pay",
+        contentType: "application/json",
+        data:orderPayData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if(JSON.stringify(result) == "true"){
+                alert("Success");
+                location.hash="anchor_flow_rebook_orders";
+                queryMyOrder();
+            }else{
+                alert("Some thing error");
+            }
+        }
+    });
+});
 
 

@@ -197,6 +197,9 @@ public class CancelServiceImpl implements CancelService{
     }
 
     private String calculateRefund(Order order){
+        if(order.getStatus() == OrderStatus.NOTPAID.getCode()){
+            return "0.00";
+        }
         Date nowDate = new Date();
         Date startTime = new Date(order.getTravelDate().getYear(),
                                   order.getTravelDate().getMonth(),
