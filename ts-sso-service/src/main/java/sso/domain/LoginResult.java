@@ -3,8 +3,11 @@ package sso.domain;
 public class LoginResult {
 
     private boolean status;
+
     private String message;
+
     private Account account;
+
     private String token;
 
     public boolean getStatus() {

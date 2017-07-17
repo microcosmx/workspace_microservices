@@ -23,8 +23,8 @@ $("#login_button").click(function() {
             if(obj["status"] == true){
                 $("#user_login_id").html(obj["account"].id);
                 $("#user_login_token").html(obj["token"]);
-                document.cookie = "loginId=" + obj["account"].id;
-                document.cookie = "loginToken=" + obj["token"];
+                // document.cookie = "loginId=" + obj["account"].id;
+                // document.cookie = "loginToken=" + obj["token"];
                 $("#user_login_id").text(obj["account"].id);
             }
             $("#login_result_status").html(JSON.stringify(obj["status"]));

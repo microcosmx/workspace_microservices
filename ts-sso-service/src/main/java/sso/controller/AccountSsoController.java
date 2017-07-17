@@ -54,6 +54,7 @@ public class AccountSsoController {
             if(tokenResult.isStatus() == true){
                 System.out.println("[SSO Service][Login] Post to sso:" + tokenResult.getToken());
                 lr.setToken(tokenResult.getToken());
+                lr.setMessage(tokenResult.getMsg());
             }else{
                 System.out.println("[SSO Service][Login] Token Result Fail.");
                 lr.setToken(null);
