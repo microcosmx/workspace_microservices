@@ -1,4 +1,8 @@
 
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
+
 === Fail execution 0 ===
 {traceId=01e9f3177a615512, spanId=01e9f3177a615512, hostName=rest-service-6, srcName=null, src=null, host=172.20.0.9:rest-service-6:16006, clock={"172.20.0.9:rest-service-6:16006":1}, event=, error=Request processing failed; nested exception is org.springframework.web.client.HttpServerErrorException: 500 , parentId=, timestamp=1498806673023000, }
 {traceId=01e9f3177a615512, spanId=ca8bc05d6078a472, hostName=rest-service-6, destName=rest-service-5, host=172.20.0.9:rest-service-6:16006, api=rest-service-5.HelloController.handle5_3, clock={"172.20.0.9:rest-service-6:16006":2}, dest=172.20.0.10:rest-service-5:16005, event=rest-service-5:rest-service-5.HelloController.handle5_3, error=Request processing failed; nested exception is org.springframework.web.client.HttpServerErrorException: 500 null, parentId=01e9f3177a615512, timestamp=1498806673026000, }
