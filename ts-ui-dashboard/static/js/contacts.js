@@ -72,9 +72,9 @@ function addListenerToAllContactsTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_contacts();
-                        alert("Success.");
+                        //alert("Success.");
                     }else{
-                        alert(result["message"]);
+                        //alert(result["message"]);
                     }
                 }
             });
@@ -99,9 +99,9 @@ function addListenerToAllContactsTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_contacts();
-                        alert("Success.");
+                       // alert("Success.");
                     }else{
-                        alert(result["message"]);
+                       //alert(result["message"]);
                     }
                 }
             });
@@ -136,7 +136,7 @@ function refresh_contacts(){
                 );
             }
             addListenerToAllContactsTable();
-            alert("Success.");
+            //alert("Success.");
         }
     });
 }

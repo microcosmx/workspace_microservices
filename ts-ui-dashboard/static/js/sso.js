@@ -31,7 +31,7 @@ function refresh_account() {
                 );
             }
             addListenerToSsoAccountTable();
-            alert("Success.");
+            //alert("Success.");
         }
     });
 }
@@ -57,9 +57,9 @@ function addListenerToSsoAccountTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_account();
-                        alert("Success.");
+                        //alert("Success.");
                     }else{
-                        alert(result["message"]);
+                        //alert(result["message"]);
                     }
                 }
             });
@@ -94,7 +94,7 @@ function refresh_login_account() {
                 );
             }
             addListenerToSsoLoginAccountTable();
-            alert("Success.");
+            //alert("Success.");
         }
     });
 }
@@ -119,9 +119,9 @@ function addListenerToSsoLoginAccountTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_login_account();
-                        alert("Success.");
+                        //alert("Success.");
                     }else{
-                        alert(result["message"]);
+                        //alert(result["message"]);
                     }
                 }
             });

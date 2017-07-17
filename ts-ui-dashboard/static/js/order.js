@@ -46,7 +46,7 @@ function refresh_order(path){
                 );
             }
             addListenerToAllOrderTable();
-            alert("Success.");
+            //alert("Success.");
         }
     });
 }
@@ -78,9 +78,9 @@ function addListenerToAllOrderTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_order();
-                        alert("Success.");
+                        //alert("Success.");
                     }else{
-                        alert(result["message"]);
+                        //alert(result["message"]);
                     }
                 }
             });

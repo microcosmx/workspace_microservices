@@ -124,6 +124,7 @@ function checkDateFormat(date){
 }
 
 function queryForTravelInfo(data,path) {
+    $("#travel_booking_button").attr("disabled",true);
     $.ajax({
         type: "post",
         url: path,
@@ -162,6 +163,9 @@ function queryForTravelInfo(data,path) {
                 }
                 addListenerToBookingTable();
             }
+        },
+        complete: function () {
+            $("#travel_booking_button").attr("disabled",false);
         }
     });
 }
@@ -212,6 +216,7 @@ $("#refresh_booking_contacts_button").click(function(){
 })
 
 function refresh_booking_contacts() {
+    $("#refresh_booking_contacts_button").attr("disabled",true);
     $.ajax({
         type: "get",
         url: "/contacts/findContacts",
@@ -252,6 +257,9 @@ function refresh_booking_contacts() {
                 "<td>" + "<label><input id='booking_new_contacts_select' class='booking_contacts_select' name='booking_contacts' type='radio' />" + "Select" + "</label>" + "</td>" +
                 "</tr>"
             );
+        },
+        complete: function(){
+            $("#refresh_booking_contacts_button").attr("disabled",false);
         }
     });
 }
@@ -292,6 +300,7 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
 })
 
 function preserveCreateNewContacts(){
+    $("#ticket_select_contacts_confirm_btn").attr("disabled",true);
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#booking_new_contacts_name").val();
     addContactsInfo.documentType = $("#booking_new_contacts_documentType").val();
@@ -313,6 +322,9 @@ function preserveCreateNewContacts(){
             $("#ticket_confirm_documentType").text(convertNumberToDocumentType(result["contacts"]["documentType"]));
             $("#ticket_confirm_documentNumber").text(result["contacts"]["documentNumber"]);
             refresh_booking_contacts();
+        },
+        complete: function(){
+            $("#ticket_select_contacts_confirm_btn").attr("disabled",false);
         }
     });
 }
@@ -340,6 +352,7 @@ $("#ticket_confirm_cancel_btn").click(function () {
 })
 
 $("#ticket_confirm_confirm_btn").click(function () {
+    $("#ticket_confirm_confirm_btn").attr("disabled",true);
     var orderTicketInfo = new Object();
     orderTicketInfo.contactsId = $("#ticket_confirm_contactsId").text();
     orderTicketInfo.tripId = $("#ticket_confirm_tripId").text();
@@ -373,6 +386,9 @@ $("#ticket_confirm_confirm_btn").click(function () {
                 $("#preserve_pay_tripId").val(result["order"]["trainNumber"]);
                 location.hash="anchor_flow_preserve_pay";
             }
+        },
+        complete: function(){
+            $("#ticket_confirm_confirm_btn").attr("disabled",false);
         }
     })
 })
@@ -386,6 +402,7 @@ $("#preserve_pay_later_button").click(function(){
 })
 
 $("#preserve_pay_button").click(function(){
+    $("#preserve_pay_button").attr("disabled",true);
     var info = new Object();
     info.orderId = $("#preserve_pay_orderId").val();
     info.tripId = $("#preserve_pay_tripId").val();
@@ -401,11 +418,14 @@ $("#preserve_pay_button").click(function(){
         success: function (result) {
             if(JSON.stringify(result) == "true"){
                 $("#preserve_collect_order_id").val(info.orderId);
-                alert("Success");
+                //alert("Success");
                 location.hash="anchor_flow_preserve_collect";
             }else{
-                alert("Some thing error");
+                //alert("Some thing error");
             }
+        },
+        complete: function(){
+            $("#preserve_pay_button").attr("disabled",false);
         }
     });
     //$("#preserve_pay_panel").css('display','none');
@@ -416,6 +436,7 @@ $("#preserve_pay_button").click(function(){
  */
 
 $("#preserve_collect_button").click(function() {
+    $("#preserve_collect_button").attr("disabled",true);
     var executeInfo = new Object();
     executeInfo.orderId = $("#preserve_collect_order_id").val();
     var data = JSON.stringify(executeInfo);
@@ -437,6 +458,9 @@ $("#preserve_collect_button").click(function() {
             }else{
                 $("#preserve_collect_order_status").html(obj["message"]);
             }
+        },
+        complete: function(){
+            $("#preserve_collect_button").attr("disabled",false);
         }
     });
 });;
@@ -446,6 +470,7 @@ $("#preserve_collect_button").click(function() {
  */
 
 $("#preserve_order_button").click(function() {
+    $("#preserve_order_button").attr("disabled",true);
     var executeInfo = new Object();
     executeInfo.orderId = $("#preserve_execute_order_id").val();
     var data = JSON.stringify(executeInfo);
@@ -465,6 +490,9 @@ $("#preserve_order_button").click(function() {
             }else{
                 $("#preserve_order_status").html(obj["message"]);
             }
+        },
+        complete: function(){
+            $("#preserve_order_button").attr("disabled",false);
         }
     });
 });

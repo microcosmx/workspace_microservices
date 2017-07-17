@@ -61,7 +61,7 @@ function refresh_security_config() {
                 );
             }
             addListenerToAllSecurityConfigTable();
-            alert("Success.");
+            //alert("Success.");
         }
     });
 }
@@ -88,9 +88,9 @@ function addListenerToAllSecurityConfigTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_security_config();
-                        alert("Success.");
+                        //alert("Success.");
                     }else{
-                        alert(result["message"]);
+                        //alert(result["message"]);
                     }
                 }
             });
@@ -114,9 +114,9 @@ function addListenerToAllSecurityConfigTable(){
                 success: function(result){
                     if(result["status"] == true){
                         refresh_security_config();
-                        alert("Success.");
+                        //alert("Success.");
                     }else{
-                        alert(result["message"]);
+                        //alert(result["message"]);
                     }
                 }
             });
