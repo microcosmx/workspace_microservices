@@ -96,11 +96,17 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public PutLoginResult loginPutToken(String loginId){
         PutLoginResult plr = new PutLoginResult();
         if(loginUserList.keySet().contains(loginId)){
-            System.out.println("[SSO Service][Login] Already Login, Token:" + loginId);
-            plr.setStatus(false);
+            System.out.println("[SSO Service][Login] Already Login. Old login session will be kick off");
+//            plr.setStatus(false);
+//            plr.setLoginId(loginId);
+//            plr.setMsg("Already Login");
+//            plr.setToken(null);
+            String token = UUID.randomUUID().toString();
+            loginUserList.put(loginId,token);
+            plr.setStatus(true);
             plr.setLoginId(loginId);
-            plr.setMsg("Already Login");
-            plr.setToken(null);
+            plr.setMsg("Success.Other login session has been kick off.");
+            plr.setToken(token);
 
         }else{
             String token = UUID.randomUUID().toString();
