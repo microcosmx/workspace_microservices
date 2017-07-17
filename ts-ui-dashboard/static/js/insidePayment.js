@@ -79,7 +79,15 @@ $("#inside_payment_query_add_money_button").click(function(){
 $("#inside_payment_pay_button").click(function(){
     var info = new Object();
     info.orderId = $("#inside_payment_orderId").val();
+    if(info.orderId == null || info.orderId == ""){
+        alert("Please the order ID.");
+        return;
+    }
     info.tripId = $("#inside_payment_tripId").val();
+    if(info.tripId == null || info.tripId == ""){
+        alert("Please the trip ID.");
+        return;
+    }
     var data = JSON.stringify(info);
     $.ajax({
         type: "post",

@@ -5,8 +5,20 @@
 $("#config_update_button").click(function(){
     var configInfo = new Object();
     configInfo.name = $("#config_update_name").val();
+    if(configInfo.name == null || configInfo.name == ""){
+        alert("Please input the name of the new config you want to add.");
+        return;
+    }
     configInfo.value = $("#config_update_value").val();
+    if(configInfo.value == null || configInfo.value == ""){
+        alert("Please input the value of the new config you want to add.");
+        return;
+    }
     configInfo.description = $("#config_update_description").val();
+    if(configInfo.description == null || configInfo.description == ""){
+        alert("Please input the description of the new config you want to add.");
+        return;
+    }
     var data = JSON.stringify(configInfo);
     $.ajax({
         type: "post",

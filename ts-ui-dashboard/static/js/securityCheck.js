@@ -6,6 +6,10 @@
 $("#security_check_button").click(function() {
     var checkInfo = new Object();
     checkInfo.accountId = $("#security_check_account_id").val();
+    if(checkInfo.accountId == null || checkInfo.accountId == ""){
+        alert("Please input account id you want to check.");
+        return;
+    }
     var data = JSON.stringify(checkInfo);
     $.ajax({
         type: "post",

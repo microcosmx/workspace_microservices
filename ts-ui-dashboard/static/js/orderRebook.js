@@ -5,10 +5,30 @@
 $("#rebook_pay_button").click(function(){
     var singleRebookInfo = new Object();
     singleRebookInfo.orderId = $("#single_rebook_order_id").val();
+    if(singleRebookInfo.orderId == null || singleRebookInfo.orderId == ""){
+        alert("Please input the order ID.");
+        return;
+    }
     singleRebookInfo.oldTripId = $("#single_rebook_old_trip_id").val();
+    if(singleRebookInfo.oldTripId == null || singleRebookInfo.oldTripId == ""){
+        alert("Please input the old trip ID.");
+        return;
+    }
     singleRebookInfo.tripId = $("#single_rebook_trip_id").val();
+    if(singleRebookInfo.tripId == null || singleRebookInfo.tripId == ""){
+        alert("Please input the new trip Id.");
+        return;
+    }
     singleRebookInfo.seatType = $("#single_rebook_seat_type").val();
+    if(singleRebookInfo.seatType == null || singleRebookInfo.seatType == ""){
+        alert("Please select the seat type.");
+        return;
+    }
     singleRebookInfo.date = $("#single_rebook_date").val();
+    if(singleRebookInfo.date == null || singleRebookInfo.date == ""){
+        alert("Please select the date.");
+        return;
+    }
     var singleRebookInfoData = JSON.stringify(singleRebookInfo);
     $.ajax({
         type: "post",
@@ -29,10 +49,30 @@ $("#rebook_pay_button").click(function(){
 $("#single_rebook_button").click(function() {
     var singleRebookInfo = new Object();
     singleRebookInfo.orderId = $("#single_rebook_order_id").val();
+    if(singleRebookInfo.orderId == null || singleRebookInfo.orderId == ""){
+        alert("Please input the order ID.");
+        return;
+    }
     singleRebookInfo.oldTripId = $("#single_rebook_old_trip_id").val();
+    if(singleRebookInfo.oldTripId == null || singleRebookInfo.oldTripId == ""){
+        alert("Please input the old trip Id.");
+        return;
+    }
     singleRebookInfo.tripId = $("#single_rebook_trip_id").val();
+    if(singleRebookInfo.tripId == null || singleRebookInfo.tripId == ""){
+        alert("Please input the new trip Id.");
+        return;
+    }
     singleRebookInfo.seatType = $("#single_rebook_seat_type").val();
+    if(singleRebookInfo.seatType == null || singleRebookInfo.seatType == ""){
+        alert("Please select the seat type.");
+        return;
+    }
     singleRebookInfo.date = $("#single_rebook_date").val();
+    if(singleRebookInfo.date == null || singleRebookInfo.date == ""){
+        alert("Please select the date.");
+        return;
+    }
     var singleRebookInfoData = JSON.stringify(singleRebookInfo);
     $.ajax({
         type: "post",

@@ -33,8 +33,20 @@ $("#price_queryAll_button").click(function() {
 $("#price_update_button").click(function(){
     var priceUpdateInfo = new Object();
     priceUpdateInfo.placeA = $("#price_update_startingPlace").val();
+    if(priceUpdateInfo.placeA == null || priceUpdateInfo.placeA == ""){
+        alert("Please input starting place.");
+        return;
+    }
     priceUpdateInfo.placeB = $("#price_update_endPlace").val();
+    if(priceUpdateInfo.placeB == null || priceUpdateInfo.placeB == ""){
+        alert("Please input the terminal place.");
+        return;
+    }
     priceUpdateInfo.distance = $("#price_update_distance").val();
+    if(priceUpdateInfo.distance == null || priceUpdateInfo.distance == ""){
+        alert("Please input the distance.");
+        return;
+    }
     var data = JSON.stringify(priceUpdateInfo);
     $.ajax({
         type: "post",

@@ -132,7 +132,15 @@ function addListenerToSsoLoginAccountTable(){
 $("#logout_button").click(function() {
     var logoutInfo = new Object();
     logoutInfo.id = getCookie("loginId");
+    if(logoutInfo.id == null || logoutInfo.id == ""){
+        alert("No cookie named 'loginId' exist.");
+        return;
+    }
     logoutInfo.token = getCookie("loginToken");
+    if(logoutInfo.token == null || logoutInfo.token == ""){
+        alert("No cookie named 'loginToken' exist.");
+        return;
+    }
     var data = JSON.stringify(logoutInfo);
     $.ajax({
         type: "post",

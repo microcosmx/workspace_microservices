@@ -6,17 +6,57 @@
 $("#ticketinfo_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#ticketinfo_tripId").val();
+    if(travelInfo.tripId == null || travelInfo.tripId == ""){
+        alert("Please input the trip ID.");
+        return;
+    }
     travelInfo.trainTypeId = $("#ticketinfo_trainTypeId").val();
+    if(travelInfo.trainTypeId == null || travelInfo.trainTypeId == ""){
+        alert("Please input the ID of the train type.");
+        return;
+    }
     travelInfo.startingStation =  $("#ticketinfo_startingStation").val();
+    if(travelInfo.startingStation == null || travelInfo.startingStation == ""){
+        alert("Please input the start stations.");
+        return;
+    }
     travelInfo.stations = $("#ticketinfo_stations").val();
+    if(travelInfo.stations == null || travelInfo.stations == ""){
+        alert("Please input the middle station.");
+        return;
+    }
     travelInfo.terminalStation = $("#ticketinfo_terminalStation").val();
+    if(travelInfo.terminalStation == null || travelInfo.terminalStation == ""){
+        alert("Please input the terminal station.");
+        return;
+    }
     travelInfo.startingTime = convertStringToTime($("#ticketinfo_startingTime").val());
+    if(travelInfo.startingTime == null || travelInfo.startingTime == ""){
+        alert("Please input the start time.");
+        return;
+    }
     travelInfo.endTime = convertStringToTime($("#ticketinfo_endTime").val());
+    if(travelInfo.endTime == null || travelInfo.endTime == ""){
+        alert("Please input the end time.");
+        return;
+    }
     var ticketInfo = new Object();
     ticketInfo.trip = travelInfo;
     ticketInfo.startingPlace = $("#ticketinfo_startingPlace").val();
+    if(ticketInfo.startingPlace == null || ticketInfo.startingPlace == ""){
+        alert("Please input the start station.");
+        return;
+    }
     ticketInfo.endPlace = $("#ticketinfo_endPlace").val();
+    if(ticketInfo.endPlace == null || ticketInfo.endPlace == ""){
+        alert("Please input the end station.");
+        return;
+    }
     ticketInfo.departureTime = $("#ticketinfo_departureTime").val();
+    if(ticketInfo.departureTime == null || ticketInfo.departureTime == ""){
+        alert("Please input the departure time.");
+        return;
+    }
     var data = JSON.stringify(ticketInfo);
     $.ajax({
         type: "post",

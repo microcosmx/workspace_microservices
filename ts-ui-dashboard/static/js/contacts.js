@@ -6,9 +6,25 @@
 $("#add_contacts_button").click(function() {
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#add_contacts_name").val();
+    if(addContactsInfo.name == null || addContactsInfo.name == ""){
+        alert("Please input the contacts name of the new contacts you want to add.");
+        return;
+    }
     addContactsInfo.documentType = $("#add_contacts_documentType").val();
+    if(addContactsInfo.documentType == null || addContactsInfo.documentType == ""){
+        alert("Please select the document type of the new contacts you want to add.");
+        return;
+    }
     addContactsInfo.documentNumber = $("#add_contacts_documentNum").val();
+    if(addContactsInfo.documentNumber == null || addContactsInfo.documentNumber == ""){
+        alert("Please input the document number of the new contacts you want to add.");
+        return;
+    }
     addContactsInfo.phoneNumber = $("#add_contacts_phoneNum").val();
+    if(addContactsInfo.phoneNumber == null || addContactsInfo.phoneNumber == ""){
+        alert("Please input the phone number of the new contacts you want to add.");
+        return;
+    }
     var data = JSON.stringify(addContactsInfo);
     $.ajax({
         type: "post",

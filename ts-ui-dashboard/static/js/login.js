@@ -6,8 +6,20 @@
 $("#login_button").click(function() {
     var loginInfo = new Object();
     loginInfo.email = $("#login_email").val();
+    if(loginInfo.email == null || loginInfo.email == ""){
+        alert("Please input your email to login.");
+        return;
+    }
     loginInfo.password = $("#login_password").val();
+    if(loginInfo.password == null || loginInfo.password == ""){
+        alert("Please input your password to login.");
+        return;
+    }
     loginInfo.verificationCode = $("#login_verification_code").val();
+    if(loginInfo.verificationCode == null || loginInfo.verificationCode == ""){
+        alert("Please input verification code to login.");
+        return;
+    }
     var data = JSON.stringify(loginInfo);
     $.ajax({
         type: "post",

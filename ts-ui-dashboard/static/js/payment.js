@@ -30,8 +30,20 @@ $("#payment_query_button").click(function(){
 $("#payment_pay_button").click(function(){
     var info = new Object();
     info.orderId = $("#payment_orderId").val();
+    if(info.orderId == null || info.orderId == ""){
+        alert("Please input the order id you want to pay.");
+        return;
+    }
     info.price = $("#payment_price").val();
+    if(info.price == null || info.price == ""){
+        alert("Please input the price you want to pay.");
+        return;
+    }
     info.userId = $("#payment_userId").val();
+    if(info.userId == null || info.userId == ""){
+        alert("Please input the account id.");
+        return;
+    }
     var data = JSON.stringify(info);
     $.ajax({
         type: "post",

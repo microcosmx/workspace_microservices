@@ -174,42 +174,6 @@ function addCancelAandRebookButtonOrNot(order){
     return str;
 }
 
-function addListenerToOrderCancel(){
-    var ticketCancelButtonSet = $(".ticket_cancel_btn");
-    for(var i = 0;i < ticketCancelButtonSet.length;i++){
-        ticketCancelButtonSet[i].onclick = function(){
-            var orderStatus = $(this).parents("form").find(".my_order_list_status").text();
-            if(orderStatus != 0 && orderStatus != 1 && orderStatus != 3){
-                alert("Order Can Not Be Cancel");
-                return;
-            }
-            $("#ticket_cancel_panel").css('display','block');
-            var orderId = $(this).parents("form").find(".my_order_list_id").text();
-            $("#ticket_cancel_order_id").text(orderId);
-            var cancelOrderInfo = new Object();
-            cancelOrderInfo.orderId = orderId;
-            var cancelOrderData = JSON.stringify(cancelOrderInfo);
-            $.ajax({
-                type: "post",
-                url: "/cancelCalculateRefund",
-                contentType: "application/json",
-                dataType: "json",
-                data:cancelOrderData,
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function (result) {
-                    if(result["status"] == true){
-                        $("#cancel_money_refund").text(result["refund"]);
-                    }else{
-                        $("#cancel_money_refund").text("Error ");
-                    }
-                },
-            });
-        }
-    }
-}
-
 function addListenerToOrderChange(){
     var ticketChangeButtonSet = $(".order_rebook_btn");
     for(var i = 0;i < ticketChangeButtonSet.length;i++){
@@ -560,4 +524,69 @@ $("#pay_for_not_paid_pay_button").click(function(){
     });
 });
 
+/**
+ * Cancel Order
+ */
+function addListenerToOrderCancel(){
+    var ticketCancelButtonSet = $(".ticket_cancel_btn");
+    for(var i = 0;i < ticketCancelButtonSet.length;i++){
+        ticketCancelButtonSet[i].onclick = function(){
+            var orderStatus = $(this).parents("form").find(".my_order_list_status").text();
+            if(orderStatus != 0 && orderStatus != 1 && orderStatus != 3){
+                alert("Order Can Not Be Cancel");
+                return;
+            }
+            $("#ticket_cancel_panel").css('display','block');
+            var orderId = $(this).parents("form").find(".my_order_list_id").text();
+            $("#ticket_cancel_order_id").text(orderId);
+            var cancelOrderInfo = new Object();
+            cancelOrderInfo.orderId = orderId;
+            var cancelOrderData = JSON.stringify(cancelOrderInfo);
+            $.ajax({
+                type: "post",
+                url: "/cancelCalculateRefund",
+                contentType: "application/json",
+                dataType: "json",
+                data:cancelOrderData,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+                    if(result["status"] == true){
+                        $("#cancel_money_refund").text(result["refund"]);
+                    }else{
+                        $("#cancel_money_refund").text("Error ");
+                    }
+                },
+            });
+        }
+    }
+}
+
+$("#ticket_cancel_panel_cancel").click(function(){
+    $("#ticket_cancel_panel").css('display','none');
+});
+
+$("#ticket_cancel_panel_confirm").click(function(){
+    var cancelOrderInfo = new Object();
+    cancelOrderInfo.orderId =  $("#ticket_cancel_order_id").text();
+    if(cancelOrderInfo.orderId == null || cancelOrderInfo.orderId == ""){
+        alert("Please input the order ID that you want to cancel.");
+        return;
+    }
+    var cancelOrderInfoData = JSON.stringify(cancelOrderInfo);
+    $.ajax({
+        type: "post",
+        url: "/cancelOrder",
+        contentType: "application/json",
+        dataType: "json",
+        data: cancelOrderInfoData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            alert(result["message"]);
+        }
+    });
+});
 

@@ -6,8 +6,20 @@
 document.getElementById("train_update_button").onclick = function post_train_update(){
     var trainInfo = new Object();
     trainInfo.id = $("#train_update_id").val();
+    if(trainInfo.id == null || trainInfo.id == ""){
+        alert("Please input train ID.");
+        return;
+    }
     trainInfo.economyClass = $("#train_update_economyClass").val();
+    if(trainInfo.economyClass == null || trainInfo.economyClass == ""){
+        alert("Please input the number of the economy class seat.");
+        return;
+    }
     trainInfo.confortClass = $("#train_update_confortClass").val();
+    if(trainInfo.confortClass == null || trainInfo.confortClass == ""){
+        alert("Please input the number of the confort class seat.");
+        return;
+    }
     var data = JSON.stringify(trainInfo);
     $.ajax({
         type: "post",

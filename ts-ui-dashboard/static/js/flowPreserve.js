@@ -23,7 +23,7 @@ function setTodayDatePreserve(){
 $("#flow_preserve_login_button").click(function() {
     var loginInfo = new Object();
     loginInfo.email = $("#flow_preserve_login_email").val();
-    if(loginInfo.email == null){
+    if(loginInfo.email == null || loginInfo.email == ""){
         alert("Email Can Not Be Empty.");
         return;
     }

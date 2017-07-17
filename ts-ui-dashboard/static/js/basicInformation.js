@@ -5,17 +5,57 @@
 $("#basic_information_button").click(function(){
     var travelInfo = new Object();
     travelInfo.tripId = $("#basic_information_tripId").val();
+    if(travelInfo.tripId == null || travelInfo.tripId == ""){
+        alert("Please input the trip ID.");
+        return;
+    }
     travelInfo.trainTypeId = $("#basic_information_trainTypeId").val();
+    if(travelInfo.trainTypeId == null || travelInfo.trainTypeId == ""){
+        alert("Please input the type of the train.");
+        return;
+    }
     travelInfo.startingStation =  $("#basic_information_startingStation").val();
+    if(travelInfo.startingStation == null || travelInfo.startingStation == ""){
+        alert("Please input the starting station.");
+        return;
+    }
     travelInfo.stations = $("#basic_information_stations").val();
+    if(travelInfo.stations == null || travelInfo.stations == ""){
+        alert("Please input the middle station.");
+        return;
+    }
     travelInfo.terminalStation = $("#basic_information_terminalStation").val();
+    if(travelInfo.terminalStation == null || travelInfo.terminalStation == ""){
+        alert("Please input the terminal station.");
+        return;
+    }
     travelInfo.startingTime = convertStringToTime($("#basic_information_startingTime").val());
+    if(travelInfo.startingTime == null || travelInfo.startingTime == ""){
+        alert("Please input the starting time.");
+        return;
+    }
     travelInfo.endTime = convertStringToTime($("#basic_information_endTime").val());
+    if(travelInfo.endTime == null || travelInfo.endTime == ""){
+        alert("Please input the end time.");
+        return;
+    }
     var basicInfo = new Object();
     basicInfo.trip = travelInfo;
     basicInfo.startingPlace = $("#basic_information_startingPlace").val();
+    if(basicInfo.startingPlace == null || basicInfo.startingPlace == ""){
+        alert("Please input the starting place.");
+        return;
+    }
     basicInfo.endPlace = $("#basic_information_endPlace").val();
+    if(basicInfo.endPlace == null || basicInfo.endPlace == ""){
+        alert("Please input the end place.");
+        return;
+    }
     basicInfo.departureTime = $("#basic_information_departureTime").val();
+    if(basicInfo.departureTime == null || basicInfo.departureTime == ""){
+        alert("Please input the departure time.");
+        return;
+    }
     var data = JSON.stringify(basicInfo);
     $.ajax({
         type: "post",

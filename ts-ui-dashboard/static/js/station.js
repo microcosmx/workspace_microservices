@@ -6,7 +6,15 @@
 $("#station_update_button").click(function(){
     var stationInfo = new Object();
     stationInfo.id = $("#station_update_id").val();
+    if(stationInfo.id == null || stationInfo.id == ""){
+        alert("Please input the station id.");
+        return;
+    }
     stationInfo.name = $("#station_update_name").val();
+    if(stationInfo.name == null || stationInfo.name == ""){
+        alert("Please input the station name.");
+        return;
+    }
     var data = JSON.stringify(stationInfo);
     $.ajax({
         type: "post",

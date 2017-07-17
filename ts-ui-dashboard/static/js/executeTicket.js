@@ -6,6 +6,10 @@
 $("#execute_order_button").click(function() {
     var executeInfo = new Object();
     executeInfo.orderId = $("#execute_order_id").val();
+    if(executeInfo.orderId == null || executeInfo.orderId == ""){
+        alert("Please input the order number you want to use.");
+        return;
+    }
     var data = JSON.stringify(executeInfo);
     $.ajax({
         type: "post",
@@ -32,6 +36,10 @@ $("#execute_order_button").click(function() {
 $("#single_collect_button").click(function() {
     var executeInfo = new Object();
     executeInfo.orderId = $("#single_collect_order_id").val();
+    if(executeInfo.orderId == null || executeInfo.orderId == ""){
+        alert("Please input the order number you want to collect.");
+        return;
+    }
     var data = JSON.stringify(executeInfo);
     $.ajax({
         type: "post",
