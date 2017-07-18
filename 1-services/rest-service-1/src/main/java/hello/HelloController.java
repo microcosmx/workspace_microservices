@@ -75,7 +75,7 @@ public class HelloController {
         
         //80% chance correct
         if("negative".equals(statusBean.statusMap.get("status"))){
-        	if(Math.random()<0.8){
+        	if(Math.random()<0.6){
         		result = result.replace("negative", "positive");
             }
         }

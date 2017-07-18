@@ -8,11 +8,6 @@ single:
 http://localhost:16000/persist_get
 http://localhost:16001/hello1_2
 
-swarm:
-http://10.141.211.164:16006/hello6?cal=60
-http://10.141.211.164:16000/persist_get
-
-
 
 mvn repo:
 https://repo1.maven.org/maven2/
@@ -65,6 +60,12 @@ http://10.141.212.22:9000/
 
 
 swarm:
+
+test sample:
+http://10.141.211.164:16006/hello6?cal=60
+http://10.141.211.164:16000/persist_get
+
+build:
 mvn clean package
 docker-compose build
 docker tag my-service-cluster/rest-service-end 10.141.212.25:5555/my-rest-service-end
@@ -98,11 +99,12 @@ docker swarm leave --force
 docker node ls
 docker node rm 0pvy8v3sugtmcbqualswp1rv5
 
-
 swarm ui:
 http://10.141.211.164:9000/
 zipkin:
 http://10.141.211.164:9411/
+
+
 
 
 selenium:
