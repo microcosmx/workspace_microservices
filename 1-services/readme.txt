@@ -6,9 +6,6 @@ http://localhost:16006/cross_timeout
 
 
 
-
-
-
 mvn repo:
 https://repo1.maven.org/maven2/
 
@@ -58,7 +55,15 @@ docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/va
 http://10.141.212.22:9000/
 
 
+
 swarm:
+
+test sample:
+http://10.141.211.164:16006/cross_timeout
+
+build:
+mvn clean package
+docker-compose build
 docker tag my-service-cluster/rest-service-end 10.141.212.25:5555/my-rest-service-end
 docker tag my-service-cluster/rest-service-1 10.141.212.25:5555/my-rest-service-1
 docker tag my-service-cluster/rest-service-2 10.141.212.25:5555/my-rest-service-2
@@ -75,11 +80,27 @@ docker push 10.141.212.25:5555/my-rest-service-4
 docker push 10.141.212.25:5555/my-rest-service-5
 docker push 10.141.212.25:5555/my-rest-service-6
 
-docker stack deploy --compose-file=docker-compose.yml my-compose-swarm
+docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 docker stack ls
 docker stack services my-compose-swarm
 docker stack ps my-compose-swarm
 docker stack rm my-compose-swarm
+
+docker service ls --format "{{.Name}}" | grep "rest-service" | xargs docker service rm
+docker service ls --format "{{.Name}}" | xargs docker service rm
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+docker swarm leave --force
+docker node ls
+docker node rm 0pvy8v3sugtmcbqualswp1rv5
+
+swarm ui:
+http://10.141.211.164:9000/
+zipkin:
+http://10.141.211.164:9411/
+
+
 
 
 selenium:
