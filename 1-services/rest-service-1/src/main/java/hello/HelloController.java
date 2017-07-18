@@ -17,6 +17,8 @@ public class HelloController {
     @Autowired
 	private RestTemplate restTemplate;
     
+    private final AtomicLong counter = new AtomicLong();
+    
     @Autowired
 	private StatusBean statusBean;
 
@@ -79,5 +81,10 @@ public class HelloController {
         }
         
         return result;
+    }
+    
+    
+    public String getState(){
+    	return ""+counter.incrementAndGet();
     }
 }
