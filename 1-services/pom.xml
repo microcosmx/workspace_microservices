@@ -24,4 +24,33 @@
 		<module>rest-service-end</module>
 	</modules>
 
+	<dependencies>
+
+        <dependency>
+            <groupId>myproject.microservices</groupId>
+            <artifactId>micro-service-monitoring-core</artifactId>
+            <version>1.2.2.BUILD-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>myproject.microservices</groupId>
+            <artifactId>micro-service-monitoring-zipkin</artifactId>
+            <version>1.2.2.BUILD-SNAPSHOT</version>
+        </dependency>
+
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-integration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+    </dependencies>
+
 </project>
