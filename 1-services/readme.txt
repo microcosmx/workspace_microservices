@@ -4,6 +4,8 @@ every 2 secs:
 http://localhost:16006/hello6?cal=60
 http://localhost:16000/refreshdb
 
+single:
+http://localhost:16000/persist_get
 
 
 
