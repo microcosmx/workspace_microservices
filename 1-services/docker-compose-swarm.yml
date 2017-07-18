@@ -5,11 +5,13 @@ services:
   mongodb:
     image: mongo
     ports:
-      - "27017:27017"
+      - 27017:27017
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rabbitmq:
     image: rabbitmq:management
@@ -20,6 +22,8 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   # kafka:
   #   container_name: kafka
@@ -27,6 +31,8 @@ services:
   #   ports:
   #    - 2181:2181
   #    - 9092:9092
+  #   networks:
+  #     - my-network
 
 
   zipkin:
@@ -37,6 +43,8 @@ services:
       replicas: 1
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   # redis:
   #   image: redis
@@ -46,13 +54,15 @@ services:
   #     replicas: 1
   #     restart_policy:
   #       condition: on-failure
+  #   networks:
+  #     - my-network
     
   
 
   rest-service-6:
     build: rest-service-6
-    image: my-service-cluster/rest-service-6
-    # image: 10.141.212.25:5555/my-rest-service-6
+    # image: my-service-cluster/rest-service-6
+    image: 10.141.212.25:5555/my-rest-service-6
     restart: always
     ports:
       - 16006:16006
@@ -60,11 +70,13 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rest-service-5:
     build: rest-service-5
-    image: my-service-cluster/rest-service-5
-    # image: 10.141.212.25:5555/my-rest-service-5
+    # image: my-service-cluster/rest-service-5
+    image: 10.141.212.25:5555/my-rest-service-5
     restart: always
     ports:
       - 16005:16005
@@ -72,11 +84,13 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rest-service-4:
     build: rest-service-4
-    image: my-service-cluster/rest-service-4
-    # image: 10.141.212.25:5555/my-rest-service-4
+    # image: my-service-cluster/rest-service-4
+    image: 10.141.212.25:5555/my-rest-service-4
     restart: always
     ports:
       - 16004:16004
@@ -84,11 +98,13 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rest-service-3:
     build: rest-service-3
-    image: my-service-cluster/rest-service-3
-    # image: 10.141.212.25:5555/my-rest-service-3
+    # image: my-service-cluster/rest-service-3
+    image: 10.141.212.25:5555/my-rest-service-3
     restart: always
     ports:
       - 16003:16003
@@ -96,11 +112,13 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rest-service-2:
     build: rest-service-2
-    image: my-service-cluster/rest-service-2
-    # image: 10.141.212.25:5555/my-rest-service-2
+    # image: my-service-cluster/rest-service-2
+    image: 10.141.212.25:5555/my-rest-service-2
     restart: always
     ports:
       - 16002:16002
@@ -108,26 +126,27 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rest-service-1:
     build: rest-service-1
-    image: my-service-cluster/rest-service-1
-    # image: 10.141.212.25:5555/my-rest-service-1
+    # image: my-service-cluster/rest-service-1
+    image: 10.141.212.25:5555/my-rest-service-1
     restart: always
     ports:
       - 16001:16001
-      - 16101:16101
-    command:
-      java -Xmx200m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=16101 -jar /app/rest-service-1-0.1.0.jar
     deploy:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
 
   rest-service-end:
     build: rest-service-end
-    image: my-service-cluster/rest-service-end
-    # image: 10.141.212.25:5555/my-rest-service-end
+    # image: my-service-cluster/rest-service-end
+    image: 10.141.212.25:5555/my-rest-service-end
     restart: always
     ports:
       - 16000:16000
@@ -135,6 +154,13 @@ services:
       replicas: 3
       restart_policy:
         condition: on-failure
+    networks:
+      - my-network
+
+
+networks:
+  my-network:
+    driver: overlay
 
 
 
