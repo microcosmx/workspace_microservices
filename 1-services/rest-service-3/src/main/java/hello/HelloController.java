@@ -29,6 +29,9 @@ import java.util.concurrent.Future;
 public class HelloController {
     
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+
+    public String mytoken = null;
+    
     @Autowired
 	private RestTemplate restTemplate;
     
@@ -43,7 +46,7 @@ public class HelloController {
         
         
     	ValueOperations<String, String> ops = this.template.opsForValue();
-		String key = token != null ? token : UUID.randomUUID().toString();
+		String key = getToken(token);
 		System.out.println("Found key " + key + ", value=" + ops.get(key));
         
 		
@@ -67,6 +70,16 @@ public class HelloController {
 		log.info(value.toString());
 		return value;
     }    
+    
+    
+    public String getToken(String token){
+    	mytoken = token;
+    	if(mytoken == null){
+    		mytoken = UUID.randomUUID().toString();
+    	}
+    	
+    	return mytoken;
+    }
     
     
 }

@@ -26,6 +26,8 @@ public class GreetingController {
 
     private final AtomicLong counter = new AtomicLong();
     
+    public String mytoken = null;
+    
     @Autowired
 	private RestTemplate restTemplate;
     
@@ -37,15 +39,25 @@ public class GreetingController {
     		@RequestHeader(value="user-token",required=false) String token, 
     		@RequestParam(value="optVal", required=false) String optVal) throws Exception {
         
+    	System.out.println("-----------greeting controller-----------");
         
     	ValueOperations<String, String> ops = this.template.opsForValue();
-		String key = token != null ? token : UUID.randomUUID().toString();
+		String key = getToken(token);
 		if(optVal != null){
 			ops.set(key, optVal);
 		}
 		System.out.println("Found key " + key + ", value=" + ops.get(key));
         
         return ops.get(key);
+    }
+    
+    public String getToken(String token){
+    	mytoken = token;
+    	if(mytoken == null){
+    		mytoken = UUID.randomUUID().toString();
+    	}
+    	
+    	return mytoken;
     }
     
     
