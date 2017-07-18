@@ -21,9 +21,14 @@ public class HelloController {
     @Autowired
 	private RestTemplate restTemplate;
     
+    public final AtomicLong counter = new AtomicLong();
+    
     @RequestMapping("/hello3")
     public Value hello3(@RequestParam(value="name", defaultValue="service-6") String name, 
     		@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
+    	
+    	
+    	log.info("-------access-----: " + counter.incrementAndGet());
 
         double cal2 = Math.pow(Double.valueOf(cal), 2)/100; 
         log.info(String.valueOf(cal2));
@@ -38,6 +43,8 @@ public class HelloController {
         }
         
 		log.info(value.toString());
+		
+		log.info("-------leave-----: " + counter.decrementAndGet());
         
 		return value;
     }    

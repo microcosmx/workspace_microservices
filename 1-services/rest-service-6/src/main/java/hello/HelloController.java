@@ -43,7 +43,7 @@ public class HelloController {
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
-        int access_times = (int) (Math.random() * 12);
+        int access_times = (int) (Math.random() * 6);
         log.info("--------------------" + access_times);
         
         for(int i = 0; i < access_times; i++){

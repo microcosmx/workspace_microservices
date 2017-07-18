@@ -2,10 +2,13 @@ package hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.SpanAdjuster;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
@@ -25,6 +28,9 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 public class Application extends AsyncConfigurerSupport {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	
+	@Autowired
+	private HelloController helloController;
 
 	public static void main(String args[]) {
 		SpringApplication.run(Application.class);
@@ -45,4 +51,19 @@ public class Application extends AsyncConfigurerSupport {
         executor.initialize();
         return executor;
     }
+	
+	
+	@Bean
+	public SpanAdjuster spanCollector() {
+		return new SpanAdjuster() {
+			@Override 
+			public Span adjust(Span span) {
+				System.out.println(span.tags());
+				return span.toBuilder()
+						.tag("controller_state", "=" + span.tags().get("http.host") + "=" + helloController.counter.get())
+						//.name(span.getName() + "::" + greetingController.mytoken)
+						.build();
+			}
+		};
+	}
 }
