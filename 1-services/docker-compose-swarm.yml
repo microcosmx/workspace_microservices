@@ -151,7 +151,7 @@ services:
     ports:
       - 16000:16000
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:

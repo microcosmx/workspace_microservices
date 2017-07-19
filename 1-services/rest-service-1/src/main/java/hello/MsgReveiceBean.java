@@ -24,6 +24,7 @@ import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.SubscribableChannel;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Dave Syer
@@ -33,16 +34,26 @@ import org.springframework.messaging.SubscribableChannel;
 public class MsgReveiceBean {
 
 	private static Logger logger = LoggerFactory.getLogger(MsgReveiceBean.class);
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Autowired
+    private MsgSendingBean sendingBean;
 
 	@StreamListener(Sink.INPUT)
 	public void loggerSink(Object payload) {
+		
+		long sleep = (long) (Math.random() * 300);
 		try {
-			Thread.sleep(1);
+			Thread.sleep(sleep);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logger.info("message received: " + payload);
+		
+		sendingBean.sayHello(Double.valueOf(payload.toString()));
 	}
 
 }

@@ -43,8 +43,10 @@ public class MsgReveiceBean {
 
 	@StreamListener(Sink.INPUT)
 	public void loggerSink(Object payload) {
+		
+		long sleep = (long) (Math.random() * 300);
 		try {
-			Thread.sleep(1);
+			Thread.sleep(sleep);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

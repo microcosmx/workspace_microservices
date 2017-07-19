@@ -1,9 +1,17 @@
 spring:
   application:
-    name: rest-service-5
+    name: rest-service-2
 
   rabbitmq:
     host: rabbitmq
+    listener:
+      retry:
+        enabled: false
+        max-attempts: 1
+    template:
+      retry:
+        enabled: false
+        max-attempts: 1
 
   zipkin:
     baseUrl: http://zipkin:9411/

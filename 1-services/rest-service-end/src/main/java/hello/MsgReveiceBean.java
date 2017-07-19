@@ -16,6 +16,8 @@
 
 package hello;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +39,33 @@ public class MsgReveiceBean {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	private final AtomicLong counter = new AtomicLong();
+	public double lastVal = 30;
 
 	@StreamListener(Sink.INPUT)
-	public void loggerSink(Object payload) {
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void loggerSink(Object payload) throws Exception {
+
 		logger.info("-------------message received: " + payload);
+		
+		double newVal = Double.valueOf(payload.toString());
+		
+		logger.info(counter.get() + " : " + lastVal);
+		
+		int index = (int) ((counter.incrementAndGet()-1)%9);
+		if(index < 3){
+			lastVal = Math.min(lastVal, newVal);
+		}else if(index < 6){
+			lastVal = Math.min(lastVal, newVal);
+		}else{
+			lastVal = (lastVal + newVal)/2;
+		}
+		
+		logger.info(index + " : " + lastVal);
+		
+		if(lastVal > 100){
+			throw new Exception("error price calculation");
+		}
 	}
 
 }

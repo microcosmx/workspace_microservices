@@ -3,6 +3,9 @@ test sample:
 http://localhost:16006/process_queue6?cal=66
 http://localhost:16005/process_queue5?cal=66
 http://localhost:16004/process_queue4?cal=66
+http://localhost:16006/process_queue6?cal=30
+http://localhost:16005/process_queue5?cal=30
+http://localhost:16004/process_queue4?cal=30
 
 
 mvn repo:

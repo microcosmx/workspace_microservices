@@ -26,13 +26,13 @@ public class HelloController {
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
-        //async messaging
+        //queue messaging
     	log.info("message 51");
-    	sendingBean.sayHello(cal2);
+    	sendingBean.sayHello(cal2*1.03-3);
     	log.info("message 52");
-    	sendingBean.sayHello(cal2*2);
+    	sendingBean.sayHello(cal2*1.06-6);
     	log.info("message 53");
-    	sendingBean.sayHello(cal2*3);
+    	sendingBean.sayHello(cal2*10-10);
         
         
     	String value = "success";

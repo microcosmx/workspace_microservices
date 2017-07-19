@@ -23,16 +23,16 @@ public class HelloController {
     @RequestMapping("/process_queue4")
     public String process_queue4(@RequestParam(value="cal", defaultValue="50") String cal) {
 
-        double cal2 = (Double.valueOf(cal) + 10)/1.1; 
+        double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
-        //async messaging
+        //queue messaging
     	log.info("message 41");
-    	sendingBean.sayHello(cal2);
+    	sendingBean.sayHello((cal2+3)/1.03);
     	log.info("message 42");
-    	sendingBean.sayHello(cal2);
+    	sendingBean.sayHello((cal2+6)/1.06);
     	log.info("message 43");
-    	sendingBean.sayHello(cal2);
+    	sendingBean.sayHello((cal2+12)/1.12);
         
         
     	String value = "success";
