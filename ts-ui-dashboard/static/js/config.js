@@ -20,6 +20,8 @@ $("#config_update_button").click(function(){
         return;
     }
     var data = JSON.stringify(configInfo);
+    $("#config_update_button").attr("disabled",true);
+    $("#single_update_config_status").text("false");
     $.ajax({
         type: "post",
         url: "/config/update",
@@ -31,12 +33,18 @@ $("#config_update_button").click(function(){
         },
         success: function(result){
             $("#config_result").html(result);
+            $("#single_update_config_status").text("true");
+        },
+        complete: function(){
+            $("#config_update_button").attr("disabled",false);
         }
     });
 });
 
 //------For config query------------
 $("#config_query_button").click(function(){
+    $("#config_query_button").attr("disabled",true);
+    $("#single_list_config_status").text("false");
     $.ajax({
         type: "get",
         url: "/config/queryAll",
@@ -57,7 +65,11 @@ $("#config_query_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_list_config_status").text("true");
             //$("#config_result").html(result);
+        },
+        complete: function(){
+            $("#config_query_button").attr("disabled",false);
         }
     });
 });

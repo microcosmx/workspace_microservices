@@ -52,7 +52,6 @@ function queryForMyOrder(path,data){
         },
         success: function(result){
             var size = result.length;
-
             for(var i = 0; i < size;i++){
                 var order = result[i];
                 var fromString = getStationNameById(order['from']);
@@ -255,7 +254,7 @@ function getStationNameById(stationId){
         contentType: "application/json",
         dataType: "json",
         data:getStationInfoOneData,
-        async: false,
+        async: true,
         xhrFields: {
             withCredentials: true
         },
@@ -513,7 +512,7 @@ $("#pay_for_not_paid_pay_button").click(function(){
             withCredentials: true
         },
         success: function (result) {
-            if(JSON.stringify(result) == "true"){
+            if(JSON.stringify(result) == true){
                 alert("Success");
                 location.hash="anchor_flow_rebook_orders";
                 queryMyOrder();

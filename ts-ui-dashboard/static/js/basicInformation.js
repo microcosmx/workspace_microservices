@@ -57,6 +57,8 @@ $("#basic_information_button").click(function(){
         return;
     }
     var data = JSON.stringify(basicInfo);
+    $("#basic_information_button").attr("disabled",true);
+    $("#single_query_basic_info_status").text("false");
     $.ajax({
         type: "post",
         url: "/basic/queryForTravel",
@@ -79,6 +81,10 @@ $("#basic_information_button").click(function(){
                 "<td>" + result["prices"]["confortClass"] + "</td>" +
                 "</tr>"
             );
+            $("#single_query_basic_info_status").text("true");
+        },
+        complete: function(){
+            $("#basic_information_button").attr("disabled",false);
         }
     });
 });

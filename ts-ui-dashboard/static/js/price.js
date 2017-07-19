@@ -3,6 +3,8 @@
 /********************Function For Price Service**********************/
 
 $("#price_queryAll_button").click(function() {
+    $("#price_queryAll_button").attr("disabled",true);
+    $("#single_list_price_status").text("false");
     $.ajax({
         type: "get",
         url: "/price/queryAll",
@@ -26,6 +28,10 @@ $("#price_queryAll_button").click(function() {
                     "</tr>"
                 );
             }
+            $("#single_list_price_status").text("true");
+        },
+        complete: function(){
+            $("#price_queryAll_button").attr("disabled",false);
         }
     });
 });
@@ -48,6 +54,8 @@ $("#price_update_button").click(function(){
         return;
     }
     var data = JSON.stringify(priceUpdateInfo);
+    $("#price_update_button").attr("disabled",true);
+    $("#single_update_price_status").text("false");
     $.ajax({
         type: "post",
         url: "/price/update",
@@ -58,7 +66,11 @@ $("#price_update_button").click(function(){
             withCredentials: true
         },
         success: function (result) {
+            $("#single_update_price_status").text("true");
             // $("#price_result").html(result);
+        },
+        complete: function(){
+            $("#price_update_button").attr("disabled",false);
         }
     });
 });

@@ -11,6 +11,8 @@ $("#execute_order_button").click(function() {
         return;
     }
     var data = JSON.stringify(executeInfo);
+    $("#execute_order_button").attr("disabled",true);
+    $("#execute_order_status").text("false");
     $.ajax({
         type: "post",
         url: "/execute/execute",
@@ -23,10 +25,14 @@ $("#execute_order_button").click(function() {
         success: function(result){
             var obj = result;
             if(obj["status"] == true){
-                $("#execute_order_status").html(obj["message"]);
+                $("#execute_order_message").html(obj["message"]);
             }else{
-                $("#execute_order_status").html(obj["message"]);
+                $("#execute_order_message").html(obj["message"]);
             }
+            $("#execute_order_status").text("true");
+        },
+        complete: function(){
+            $("#execute_order_button").attr("disabled",false);
         }
     });
 });
@@ -41,6 +47,8 @@ $("#single_collect_button").click(function() {
         return;
     }
     var data = JSON.stringify(executeInfo);
+    $("#single_collect_button").attr("disabled",true);
+    $("#single_collect_order_status").text("false");
     $.ajax({
         type: "post",
         url: "/execute/collected",
@@ -53,10 +61,14 @@ $("#single_collect_button").click(function() {
         success: function(result){
             var obj = result;
             if(obj["status"] == true){
-                $("#single_collect_order_status").html(obj["message"]);
+                $("#single_collect_order_result").html(obj["message"]);
             }else{
-                $("#single_collect_order_status").html(obj["message"]);
+                $("#single_collect_order_result").html(obj["message"]);
             }
+            $("#single_collect_order_status").text("true");
+        },
+        complete: function(){
+            $("#single_collect_button").attr("disabled",false);
         }
     });
 });;

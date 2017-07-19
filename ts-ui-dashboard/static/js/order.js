@@ -20,6 +20,8 @@ $("#refresh_order_button").click(function(){
 });
 
 function refresh_order(path){
+    $("#refresh_order_button").attr("disabled",true);
+    $("#order_list_status").text("false");
     $.ajax({
         type: "get",
         url: path,
@@ -29,24 +31,31 @@ function refresh_order(path){
             withCredentials: true
         },
         success: function(result){
-            var obj = result["orders"];
-            for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#all_order_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td class='all_order_id noshow_component'>" + obj[i]["id"] + "</td>" +
-                    "<td>" + obj[i]["id"] + "</td>" +
-                    "<td class='all_order_trainNum'>" + obj[i]["trainNumber"] + "</td>" +
-                    "<td>" + obj[i]["from"] + "</td>" +
-                    "<td>" + obj[i]["to"] + "</td>" +
-                    "<td>" + mergeTwoDate(obj[i]["travelDate"],obj[i]["travelTime"]) + "</td>" +
-                    "<td>" + convertNumberToHtmlOrderStatus(obj[i]["status"]) + "</td>" +
-                    "<td>" + "<button class='all_order_update btn btn-primary'>Update</button>" + "</td>" +
-                    "</tr>"
-                );
+            $("#order_list_status").text("true");
+            if(result["status"] == true){
+                var obj = result["orders"];
+                for(var i = 0,l = obj.length ; i < l ; i++){
+                    $("#all_order_table").find("tbody").append(
+                        "<tr>" +
+                        "<td>" + i + "</td>" +
+                        "<td class='all_order_id noshow_component'>" + obj[i]["id"] + "</td>" +
+                        "<td>" + obj[i]["id"] + "</td>" +
+                        "<td class='all_order_trainNum'>" + obj[i]["trainNumber"] + "</td>" +
+                        "<td>" + obj[i]["from"] + "</td>" +
+                        "<td>" + obj[i]["to"] + "</td>" +
+                        "<td>" + mergeTwoDate(obj[i]["travelDate"],obj[i]["travelTime"]) + "</td>" +
+                        "<td>" + convertNumberToHtmlOrderStatus(obj[i]["status"]) + "</td>" +
+                        "<td>" + "<button class='all_order_update btn btn-primary'>Update</button>" + "</td>" +
+                        "</tr>"
+                    );
+                }
+                addListenerToAllOrderTable();
+                $("#order_list_status").text("true");
+                //alert("Success.");
             }
-            addListenerToAllOrderTable();
-            //alert("Success.");
+        },
+        complete: function(){
+            $("#refresh_order_button").attr("disabled",false);
         }
     });
 }
@@ -66,6 +75,7 @@ function addListenerToAllOrderTable(){
             }else{
                 path = "/orderOther/modifyOrderStatus";
             }
+            $("#order_list_status").text("false");
             $.ajax({
                 type: "post",
                 url: path,
@@ -76,12 +86,15 @@ function addListenerToAllOrderTable(){
                     withCredentials: true
                 },
                 success: function(result){
+                    $("#order_list_status").text("true");
                     if(result["status"] == true){
                         refresh_order();
                         //alert("Success.");
                     }else{
                         //alert(result["message"]);
                     }
+                },
+                complete: function(){
                 }
             });
         }
@@ -97,7 +110,8 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
             "<option value='4'>Cancel</option>" +
-            "<option value='5'>Refunded</option>";
+            "<option value='5'>Refunded</option>" +
+            "<option value='6'>Used</option>";
     }else if(number == 1){
         result +=
             "<option value='0'>Not Paid</option>" +
@@ -105,7 +119,8 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
             "<option value='4'>Cancel</option>" +
-            "<option value='5'>Refunded</option>";
+            "<option value='5'>Refunded</option>" +
+            "<option value='6'>Used</option>";
     }else if(number == 2){
         result +=
             "<option value='0'>Not Paid</option>" +
@@ -113,7 +128,8 @@ function convertNumberToHtmlOrderStatus(number){
             "<option selected='selected' value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
             "<option value='4'>Cancel</option>" +
-            "<option value='5'>Refunded</option>";
+            "<option value='5'>Refunded</option>" +
+            "<option value='6'>Used</option>";
     }else if(number == 3){
         result +=
             "<option value='0'>Not Paid</option>" +
@@ -121,7 +137,8 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='2'>Collected</option>" +
             "<option selected='selected' value='3'>Cancel & Rebook</option>" +
             "<option value='4'>Cancel</option>" +
-            "<option value='5'>Refunded</option>";
+            "<option value='5'>Refunded</option>" +
+            "<option value='6'>Used</option>";
     }else if(number == 4){
         result +=
             "<option value='0'>Not Paid</option>" +
@@ -129,7 +146,8 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
             "<option selected='selected' value='4'>Cancel</option>" +
-            "<option value='5'>Refunded</option>";
+            "<option value='5'>Refunded</option>" +
+            "<option value='6'>Used</option>";
     }else if(number == 5) {
         result +=
             "<option value='0'>Not Paid</option>" +
@@ -137,7 +155,17 @@ function convertNumberToHtmlOrderStatus(number){
             "<option value='2'>Collected</option>" +
             "<option value='3'>Cancel & Rebook</option>" +
             "<option value='4'>Cance</option>" +
-            "<option selected='selected' value='5'>Refunded</option>";
+            "<option selected='selected' value='5'>Refunded</option>" +
+            "<option value='6'>Used</option>";
+    }else if(number == 6){
+        result +=
+            "<option value='0'>Not Paid</option>" +
+            "<option value='1'>Paid & Not Collected</option>" +
+            "<option value='2'>Collected</option>" +
+            "<option value='3'>Cancel & Rebook</option>" +
+            "<option value='4'>Cance</option>" +
+            "<option value='5'>Refunded</option>" +
+            "<option selected='selected' value='6'>Used</option>";
     }
     result += "</select>";
     return result;

@@ -2,8 +2,7 @@
 /********************************************************************/
 /********************Function For Train Service**********************/
 /********************For Train Service Single Microservice Test******/
-
-document.getElementById("train_update_button").onclick = function post_train_update(){
+$("#train_update_button").click(function(){
     var trainInfo = new Object();
     trainInfo.id = $("#train_update_id").val();
     if(trainInfo.id == null || trainInfo.id == ""){
@@ -21,6 +20,8 @@ document.getElementById("train_update_button").onclick = function post_train_upd
         return;
     }
     var data = JSON.stringify(trainInfo);
+    $("#train_update_button").attr("disabled",true);
+    $("#single_update_train_status").text("false");
     $.ajax({
         type: "post",
         url: "/train/update",
@@ -31,15 +32,25 @@ document.getElementById("train_update_button").onclick = function post_train_upd
             withCredentials: true
         },
         success: function(result){
-            $("#train_result").html(JSON.stringify(result));
+            //$("#train_result").html(JSON.stringify(result));
+            $("#single_update_train_status").text("true");
+        },
+        complete: function(){
+            $("#train_update_button").attr("disabled",false);
         }
     });
-}
+});
 
-document.getElementById("train_query_button").onclick = function post_train_query(){
+
+// document.getElementById("train_update_button").onclick = function post_train_update(){
+//
+// }
+$("#train_query_button").click(function(){
     // var trainInfo = new Object();
     // trainInfo.id = $("#train_query_id").val();
     // var data = JSON.stringify(trainInfo);
+    $("#train_query_button").attr("disabled",true);
+    $("#single_list_train_status").text("false");
     $.ajax({
         type: "get",
         url: "/train/query",
@@ -61,10 +72,14 @@ document.getElementById("train_query_button").onclick = function post_train_quer
                     "</tr>"
                 );
             }
+            $("#single_list_train_status").text("true");
             //$("#train_result").html(JSON.stringify(result));
+        },
+        complete: function(){
+            $("#train_query_button").attr("disabled",false);
         }
     });
-}
+});
 
 //------For Train delete------------
 // document.getElementById("train_delete_button").onclick = function post_train_delete(){

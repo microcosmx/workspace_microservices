@@ -58,6 +58,8 @@ $("#ticketinfo_button").click(function(){
         return;
     }
     var data = JSON.stringify(ticketInfo);
+    $("#ticketinfo_button").attr("disabled",true);
+    $("#single_list_ticketInfo_status").text("false");
     $.ajax({
         type: "post",
         url: "/ticketinfo/queryForTravel",
@@ -80,6 +82,10 @@ $("#ticketinfo_button").click(function(){
                 "<td>" + result["prices"]["confortClass"] + "</td>" +
                 "</tr>"
             );
+            $("#single_list_ticketInfo_status").text("true");
+        },
+        complete: function(){
+            $("#ticketinfo_button").attr("disabled",false);
         }
     });
 });

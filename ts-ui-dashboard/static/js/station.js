@@ -16,19 +16,32 @@ $("#station_update_button").click(function(){
         return;
     }
     var data = JSON.stringify(stationInfo);
+    $("#station_update_button").attr("disabled",true);
+    $("#station_update_status").text("false");
     $.ajax({
         type: "post",
         url: "/station/update",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         data:data,
         xhrFields: {
             withCredentials: true
         },
+        success: function(result){
+            if(result == "true"){
+                //
+            }
+            $("#station_update_status").text("true");
+        },
+        complete: function(){
+            $("#station_update_button").attr("disabled",false);
+        }
     });
 });
 
 $("#station_query_button").click(function(){
+    $("#station_query_button").attr("disabled",true);
+    $("#single_list_station_status").text("false");
     $.ajax({
         type: "get",
         url: "/station/query",
@@ -48,6 +61,10 @@ $("#station_query_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_list_station_status").text("true");
+        },
+        complete: function(){
+            $("#station_query_button").attr("disabled",false);
         }
     });
 });

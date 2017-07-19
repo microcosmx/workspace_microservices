@@ -4,8 +4,11 @@ package rebook.domain;
  * Created by Administrator on 2017/6/27.
  */
 public class RebookResult {
+
     private boolean status;
+
     private String message;
+
     private String price;
 
     private Order order;
