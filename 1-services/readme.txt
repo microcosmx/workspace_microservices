@@ -1,11 +1,18 @@
 
 test sample:
+right:
 http://localhost:16006/process_queue6?cal=66
 http://localhost:16005/process_queue5?cal=66
 http://localhost:16004/process_queue4?cal=66
+error seq :
+http://localhost:16006/process_queue6?cal=66
+http://localhost:16004/process_queue4?cal=66
+http://localhost:16005/process_queue5?cal=66
+error seq still right:
 http://localhost:16006/process_queue6?cal=30
-http://localhost:16005/process_queue5?cal=30
 http://localhost:16004/process_queue4?cal=30
+http://localhost:16005/process_queue5?cal=30
+
 
 
 mvn repo:

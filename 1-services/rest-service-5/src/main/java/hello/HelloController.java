@@ -32,7 +32,7 @@ public class HelloController {
     	log.info("message 52");
     	sendingBean.sayHello(cal2*1.06-6);
     	log.info("message 53");
-    	sendingBean.sayHello(cal2*10-10);
+    	sendingBean.sayHello(cal2*3-3);
         
         
     	String value = "success";

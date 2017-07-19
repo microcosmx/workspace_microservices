@@ -64,6 +64,7 @@ public class MsgReveiceBean {
 		logger.info(index + " : " + lastVal);
 		
 		if(lastVal > 100){
+			counter.set(0);
 			throw new Exception("error price calculation");
 		}
 	}
