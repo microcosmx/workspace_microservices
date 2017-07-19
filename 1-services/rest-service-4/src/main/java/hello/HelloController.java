@@ -16,16 +16,28 @@ public class HelloController {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     @Autowired
 	private RestTemplate restTemplate;
+    
+    @Autowired
+    private MsgSendingBean sendingBean;
 
-    @RequestMapping("/hello4")
-    public String hello4(@RequestParam(value="cal", defaultValue="50") String cal) {
+    @RequestMapping("/process_queue4")
+    public String process_queue4(@RequestParam(value="cal", defaultValue="50") String cal) {
 
         double cal2 = (Double.valueOf(cal) + 10)/1.1; 
         log.info(String.valueOf(cal2));
         
-    	String value = restTemplate.getForObject(
-				"http://rest-service-3:16003/hello3?cal="+cal2, String.class);
+        //async messaging
+    	log.info("message 41");
+    	sendingBean.sayHello(cal2);
+    	log.info("message 42");
+    	sendingBean.sayHello(cal2);
+    	log.info("message 43");
+    	sendingBean.sayHello(cal2);
+        
+        
+    	String value = "success";
 		log.info(value.toString());
+		log.info("=============end================");
 		return value;
     }
 }

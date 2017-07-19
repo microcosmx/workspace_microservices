@@ -1,6 +1,6 @@
 spring:
   application:
-    name: rest-service-4
+    name: rest-service-6
 
   rabbitmq:
     host: rabbitmq
@@ -14,12 +14,12 @@ spring:
   cloud:
     stream:
       bindings:
-        input:
-          group: queue-1-group
-          destination: my-rest-service-queue-1
+        output:
+          group: queue-group-3
+          destination: my-rest-service-queue-3
           contentType: text/plain
           binder: rabbit
-#        custominput:
+#        customoutput:
 #          group: queue-1-group
 #          destination: my-rest-service-queue-1
 #          contentType: text/plain

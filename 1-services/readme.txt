@@ -1,8 +1,8 @@
 
 test sample:
-http://localhost:16006/hello6?cal=66
-http://localhost:16006/hello6?cal=96
-http://localhost:16006/hello6?cal=136
+http://localhost:16006/process_queue6?cal=66
+http://localhost:16005/process_queue5?cal=66
+http://localhost:16004/process_queue4?cal=66
 
 
 mvn repo:
@@ -58,7 +58,9 @@ http://10.141.212.22:9000/
 swarm:
 
 test sample:
-http://localhost:16006/hello6?cal=66
+http://localhost:16006/process_queue6?cal=66
+http://localhost:16005/process_queue5?cal=66
+http://localhost:16004/process_queue4?cal=66
 
 build:
 mvn clean package

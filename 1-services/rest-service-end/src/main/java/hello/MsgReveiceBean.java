@@ -21,11 +21,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.Input;
-import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Dave Syer
@@ -35,6 +34,9 @@ import org.springframework.messaging.SubscribableChannel;
 public class MsgReveiceBean {
 
 	private static Logger logger = LoggerFactory.getLogger(MsgReveiceBean.class);
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@StreamListener(Sink.INPUT)
 	public void loggerSink(Object payload) {
@@ -44,7 +46,7 @@ public class MsgReveiceBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logger.info("message received: " + payload);
+		logger.info("-------------message received: " + payload);
 	}
 
 }

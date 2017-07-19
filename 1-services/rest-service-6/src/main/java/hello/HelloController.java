@@ -18,19 +18,19 @@ public class HelloController {
     @Autowired
     private MsgSendingBean sendingBean;
 
-    @RequestMapping("/hello6")
-    public String hello6(@RequestParam(value="cal", defaultValue="50") String cal) {
+    @RequestMapping("/process_queue6")
+    public String process_queue6(@RequestParam(value="cal", defaultValue="50") String cal) {
 
         double cal2 = Math.abs(Double.valueOf(cal));
         log.info(String.valueOf(cal2));
         
         //async messaging
-    	log.info("message 1");
-    	sendingBean.sayHello("message 1:" + cal2);
-    	log.info("message 2");
-    	sendingBean.sayHello("message 2:" + cal2*2);
-    	log.info("message 3");
-    	sendingBean.sayHello("message 3:" + cal2*3);
+    	log.info("message 61");
+    	sendingBean.sayHello(cal2);
+    	log.info("message 62");
+    	sendingBean.sayHello(cal2/2);
+    	log.info("message 63");
+    	sendingBean.sayHello(cal2/3);
         
         
     	String value = "success";

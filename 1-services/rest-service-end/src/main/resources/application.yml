@@ -14,9 +14,9 @@ spring:
   cloud:
     stream:
       bindings:
-        output:
-          group: queue-1-group
-          destination: my-rest-service-queue-1
+        input:
+          group: queue-group-x
+          destination: my-rest-service-queue-x
           contentType: text/plain
           binder: rabbit
 
