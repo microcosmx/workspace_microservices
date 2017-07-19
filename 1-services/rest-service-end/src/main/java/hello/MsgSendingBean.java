@@ -23,12 +23,4 @@ public class MsgSendingBean {
          source.output().send(MessageBuilder.withPayload(name).build());
     }
     
-    
-//    @Autowired
-//    private CustomSource customSource;
-//    public interface CustomSource {
-//        String OUTPUT = "customoutput";
-//        @Output(CustomSource.OUTPUT)
-//        MessageChannel output();
-//    }
 }

@@ -14,10 +14,16 @@ spring:
   cloud:
     stream:
       bindings:
-        input:
+        output:
+          group: queue-1-group
           destination: my-rest-service-queue-1
           contentType: text/plain
           binder: rabbit
+#        customoutput:
+#          group: queue-1-group
+#          destination: my-rest-service-queue-1
+#          contentType: text/plain
+#          binder: rabbit
 
 server:
   port: 16006

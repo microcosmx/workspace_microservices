@@ -15,6 +15,7 @@ spring:
     stream:
       bindings:
         output:
+          group: queue-1-group
           destination: my-rest-service-queue-1
           contentType: text/plain
           binder: rabbit

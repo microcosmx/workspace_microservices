@@ -18,9 +18,12 @@ package hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.messaging.SubscribableChannel;
 
 /**
  * @author Dave Syer
@@ -43,3 +46,31 @@ public class MsgReveiceBean {
 	}
 
 }
+
+
+
+//@EnableBinding(CustomSink.class)
+//public class MsgReveiceBean {
+//	
+//	private static Logger logger = LoggerFactory.getLogger(MsgReveiceBean.class);
+//	
+//	@Autowired
+//	private CustomSink customSink;
+//	
+//	@StreamListener(CustomSink.INPUT)
+//	public void loggerSink(Object payload) {
+//		try {
+//			Thread.sleep(1);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		logger.info("message received: " + payload);
+//	}
+//}
+//
+//interface CustomSink {
+//	String INPUT = "custominput";
+//	@Input(CustomSink.INPUT)
+//	SubscribableChannel input();
+//}

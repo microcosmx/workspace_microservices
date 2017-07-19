@@ -18,13 +18,13 @@ public class HelloController {
 	private RestTemplate restTemplate;
 
     @RequestMapping("/hello2")
-    public Value hello2(@RequestParam(value="cal", defaultValue="50") String cal) {
+    public String hello2(@RequestParam(value="cal", defaultValue="50") String cal) {
 
         double cal2 = Math.sqrt(Double.valueOf(cal))*10; 
         log.info(String.valueOf(cal2));
         
-    	Value value = restTemplate.getForObject(
-				"http://rest-service-1:16001/hello1?cal="+cal2, Value.class);
+        String value = restTemplate.getForObject(
+				"http://rest-service-1:16001/hello1?cal="+cal2, String.class);
         
 		log.info(value.toString());
 		return value;

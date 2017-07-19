@@ -20,7 +20,7 @@ public class GreetingController {
     private MsgSendingBean sendingBean;
 
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
+    public String greeting(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
     	// log.info(cal);
 
     	double cal2 = Math.abs(Double.valueOf(cal)-50); 
@@ -33,15 +33,8 @@ public class GreetingController {
     	sendingBean.sayHello("message 2:" + cal2*2);
     	log.info("message 3");
     	sendingBean.sayHello("message 3:" + cal2*3);
-        
-    	Greeting value = null;
-        if(cal2 < 6){
-        	throw new Exception("unexpected small input");
-        }else if(cal2 < 100){
-        	value = new Greeting(counter.incrementAndGet(), Double.valueOf(cal2)<100);
-        }else{
-        	throw new Exception("unexpected input scope");
-        }
+    	
+    	String value = "success";
         
         log.info("--------service end-----------");
         log.info(value.toString());

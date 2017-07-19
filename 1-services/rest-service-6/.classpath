@@ -65,8 +65,8 @@
   <classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-crypto/4.2.2.RELEASE/spring-security-crypto-4.2.2.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.8.10/aspectjrt-1.8.10.jar"/>
   <classpathentry kind="var" path="M2_REPO/myproject/microservices/micro-service-monitoring-zipkin/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-zipkin-1.2.2.BUILD-SNAPSHOT.jar" sourcepath="M2_REPO/myproject/microservices/micro-service-monitoring-zipkin/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-zipkin-1.2.2.BUILD-SNAPSHOT-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/io/zipkin/java/zipkin/1.23.2/zipkin-1.23.2.jar"/>
-  <classpathentry kind="var" path="M2_REPO/io/zipkin/reporter/zipkin-reporter/0.7.0/zipkin-reporter-0.7.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/zipkin/java/zipkin/1.28.0/zipkin-1.28.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/zipkin/reporter/zipkin-reporter/1.0.0/zipkin-reporter-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-aop/1.5.3.RELEASE/spring-boot-starter-aop-1.5.3.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjweaver/1.8.10/aspectjweaver-1.8.10.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-integration/1.5.3.RELEASE/spring-boot-starter-integration-1.5.3.RELEASE.jar"/>
