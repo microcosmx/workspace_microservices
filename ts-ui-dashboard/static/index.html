@@ -69,6 +69,7 @@
                     <h3 class="panel-title">
                         SSO Account List
                         <button id="refresh_account_button" type="button" class="btn btn-default btn-sm">Refresh Accounts</button>
+                        <label id="account_list_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -91,6 +92,7 @@
                     <h3 class="panel-title">
                         SSO Login Account List
                         <button id="refresh_login_account_button" type="button" class="btn btn-default btn-sm">Refresh Login Accounts</button>
+                        <label id="login_list_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -116,6 +118,7 @@
                     <h3 class="panel-title">
                         Security Config List
                         <button id="refresh_security_config_button" type="button" class="btn btn-default btn-sm">Refresh Security Config</button>
+                        <label id="security_list_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -155,8 +158,9 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2">
-                                    <label class="control-label">Check Status:</label>
-                                    <span id="security_check_status"></span>
+                                    <label class="control-label">Check Message:</label>
+                                    <span id="security_check_message"></span>
+                                    <span id="security_check_status" class="noshow_component"></span>
                                 </div>
                             </div>
                         </form>
@@ -188,7 +192,8 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Check Status:</label>
-                                    <span id="execute_order_status"></span>
+                                    <span id="execute_order_message"></span>
+                                    <span id="execute_order_status" class="noshow_component"></span>
                                 </div>
                             </div>
                         </form>
@@ -204,6 +209,7 @@
                         <input class='order_type' name="order_type" type="checkbox" value="1" />高铁/城际
                         <input class='order_type' name="order_type" type="checkbox" value="2" />普通列车
                         <button id="refresh_order_button" type="button" class="btn btn-default btn-sm">Refresh Orders</button>
+                        <label id="order_list_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="group panel-body">
@@ -279,6 +285,7 @@
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Rebook Result:</label>
                                     <span id="single_rebook_result"></span>
+                                    <span id="single_rebook_status" class="noshow_component"></span>
                                 </div>
                             </div>
                         </form>
@@ -303,6 +310,7 @@
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Rebook Result:</label>
                                     <span id="rebook_payment_result"></span>
+                                    <label id="rebook_pay_status" class="noshow_component"></label>
                                 </div>
                             </div>
                         </form>
@@ -337,9 +345,11 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Cancel Status:</label>
-                                    <span id="single_cancel_order_status"></span>
+                                    <span id="single_cancel_order_result"></span>
+                                    <label id="single_cancel_order_status" class="noshow_component"></label>
                                     <label class="control-label">Check Refund:</label>
-                                    <span id="single_cancel_refund_status"></span>
+                                    <span id="single_cancel_refund_result"></span>
+                                    <label id="single_cancel_refund_status" class="noshow_component"></label>
                                 </div>
                             </div>
                         </form>
@@ -371,7 +381,8 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Collect Status:</label>
-                                    <span id="single_collect_order_status"></span>
+                                    <span id="single_collect_order_result"></span>
+                                    <label id="single_collect_order_status" class="noshow_component"></label>
                                 </div>
                             </div>
                         </form>
@@ -450,13 +461,13 @@
                                     <button id="register_button" type="button" class="btn btn-primary">Sign Up</button>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group  noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Register Status:</label>
                                     <span id="register_result_status"></span>
                                 </div>
                             </div>
-                            <div class="form-group noshow_component">
+                            <div class="form-group">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Register Message:</label>
                                     <span id="register_result_msg"></span>
@@ -512,13 +523,13 @@
                                     <button id="login_button" type="button" class="btn btn-primary">Sign In</button>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group noshow_component">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Login Status:</label>
                                     <span id="login_result_status"></span>
                                 </div>
                             </div>
-                            <div class="form-group noshow_component">
+                            <div class="form-group ">
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Login Message:</label>
                                     <span id="login_result_msg"></span>
@@ -601,6 +612,7 @@
                                 <div class="col-sm-offset-2">
                                     <label class="control-label">Contacts Info:</label>
                                     <span id="add_contacts_result_contacts"></span>
+                                    <label id="single_add_contacts_status" class="noshow_component"></label>
                                 </div>
                             </div>
                         </form>
@@ -610,6 +622,7 @@
                     <h3 class="panel-title">
                         Your Contacts List
                         <button id="refresh_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                        <label id="single_list_contacts_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="group panel-body">
@@ -692,9 +705,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="travel_update_button" type="button" class="btn btn-primary">
-                                    Update Trip
-                                </button>
+                                <button id="travel_update_button" type="button" class="btn btn-primary">Update Trip</button>
+                                <label id="single_travel_update_status" class="noshow_component"></label>
                             </div>
                         </div>
                     </form>
@@ -703,6 +715,7 @@
                     <h3 class="panel-title">
                         Train List
                         <button id="travel_queryAll_button" type="button" class="btn btn-default btn-sm">Query Travel</button>
+                        <label id="single_list_travel_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -716,250 +729,6 @@
                             <th>Terminal Station Id</th>
                             <th>Starting Time</th>
                             <th>End Time</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--This is an empty table body-->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!------------------------------------Station-------------------------->
-            <div class="step panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Station Service
-                    </h3>
-                </div>
-
-                    <div class="input-box panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Station Id: </label>
-                                <div class="col-sm-10">
-                                    <input id="station_update_id" class="form-control" name='id' value='shanghai'>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Station Name: </label>
-                                <div class="col-sm-10">
-                                    <input id="station_update_name" class="form-control" name='name' value='shang hai'>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button id="station_update_button" type="button" class="btn btn-primary">Update Station</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Station List
-                            <button id="station_query_button" type="button" class="btn btn-default btn-sm">
-                                Query Station
-                            </button>
-                        </h3>
-                    </div>
-                    <div class="result panel-body">
-                        <table id="query_station_list_table" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Station Id</th>
-                                <th>Station Name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--This is an empty table body-->
-                            </tbody>
-                        </table>
-                    </div>
-
-            </div>
-
-            <!------------------------------------Train---------------------------->
-            <div class="step panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Train Service
-                    </h3>
-                </div>
-                <div class="input-box panel-body">
-                    <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Train Id: </label>
-                            <div class="col-sm-10">
-                                <input id="train_update_id" class="form-control" name='id'
-                                       value='GaoTieOne'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Economy Class: </label>
-                            <div class="col-sm-10">
-                                <input id="train_update_economyClass" class="form-control" name='economyClass'
-                                       value='120'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Confort Class: </label>
-                            <div class="col-sm-10">
-                                <input id="train_update_confortClass" class="form-control" name='confortClass'
-                                       value='60'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button id="train_update_button" type="button" class="btn btn-primary">
-                                    Update Train Type
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Train List
-                        <button id="train_query_button" type="button" class="btn btn-default btn-sm">
-                            Query Train Type
-                        </button>
-                    </h3>
-                </div>
-                <div class="result panel-body">
-                    <table id="query_train_list_table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Train Id</th>
-                            <th>First Class Seat Number</th>
-                            <th>Second Class Seat Number</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--This is an empty table body-->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!------------------------------------Config--------------------------->
-            <div class="step panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Config Service
-                    </h3>
-                </div>
-                <div class="input-box panel-body">
-                    <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Config name: </label>
-                            <div class="col-sm-10">
-                                <input id="config_update_name" class="form-control" name='name'
-                                       value='DirectTicketAllocationProportion'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Config value: </label>
-                            <div class="col-sm-10">
-                                <input id="config_update_value" class="form-control" name='value'
-                                       value='50%'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Description: </label>
-                            <div class="col-sm-10">
-                                <input id="config_update_description" class="form-control" name='description'
-                                       value=''>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button id="config_update_button" type="button" class="btn btn-primary">
-                                    Update Config
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Config List
-                        <button id="config_query_button" type="button" class="btn btn-default btn-sm">
-                            Query Config
-                        </button>
-                    </h3>
-                </div>
-                <div class="result panel-body">
-                    <table id="query_config_list_table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Config Name</th>
-                            <th>Config Value</th>
-                            <th>Config Description</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--This is an empty table body-->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-------------------------------------Price--------------------------->
-            <div class="step panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Price Service
-                    </h3>
-                </div>
-                <div class="input-box panel-body">
-                    <form role="form" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Starting Place: </label>
-                            <div class="col-sm-10">
-                                <input id="price_update_startingPlace" class="form-control" name='startingPlace'
-                                       value='shanghai'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">End Place: </label>
-                            <div class="col-sm-10">
-                                <input id="price_update_endPlace" class="form-control" name='endPlace'
-                                       value='beijing'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Distance:</label>
-                            <div class="col-sm-10">
-                                <input id="price_update_distance" class="form-control" name='distance'
-                                       value='300'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button id="price_update_button" type="button" class="btn btn-primary">
-                                    Update Distance
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Price List
-                        <button id="price_queryAll_button" type="button" class="btn btn-default btn-sm">
-                            Query Price
-                        </button>
-                    </h3>
-                </div>
-                <div class="result panel-body" id="price_result_talbe">
-                    <table id="query_price_list_table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>PlaceA</th>
-                            <th>PlaceB</th>
-                            <th>TrainType Id</th>
-                            <th>Seat Class</th>
-                            <th>Price</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -1029,9 +798,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="travel2_update_button" type="button" class="btn btn-primary">
-                                    Update Trip
-                                </button>
+                                <button id="travel2_update_button" type="button" class="btn btn-primary">Update Trip</button>
+                                <label id="single_travel_other_update_status" class="noshow_component"></label>
                             </div>
                         </div>
                     </form>
@@ -1040,6 +808,7 @@
                     <h3 class="panel-title">
                         Train List
                         <button id="travel2_queryAll_button" type="button" class="btn btn-default btn-sm">Query Travel2</button>
+                        <label id="single_travel_other_query_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -1056,6 +825,241 @@
                         </tr>
                         </thead>
                         <tbody id="query_travel2_list_table_result">
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!------------------------------------Station-------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Station Service
+                    </h3>
+                </div>
+
+                    <div class="input-box panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Station Id: </label>
+                                <div class="col-sm-10">
+                                    <input id="station_update_id" class="form-control" name='id' value='shanghai'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Station Name: </label>
+                                <div class="col-sm-10">
+                                    <input id="station_update_name" class="form-control" name='name' value='shang hai'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="station_update_button" type="button" class="btn btn-primary">Update Station</button>
+                                    <label id="station_update_status" class="noshow_component"></label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Station List
+                            <button id="station_query_button" type="button" class="btn btn-default btn-sm">Query Station</button>
+                            <label id="single_list_station_status" class="noshow_component"></label>
+                        </h3>
+                    </div>
+                    <div class="result panel-body">
+                        <table id="query_station_list_table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Station Id</th>
+                                <th>Station Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--This is an empty table body-->
+                            </tbody>
+                        </table>
+                    </div>
+
+            </div>
+
+            <!------------------------------------Train---------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Train Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Train Id: </label>
+                            <div class="col-sm-10">
+                                <input id="train_update_id" class="form-control" name='id'
+                                       value='GaoTieOne'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Economy Class: </label>
+                            <div class="col-sm-10">
+                                <input id="train_update_economyClass" class="form-control" name='economyClass'
+                                       value='120'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Confort Class: </label>
+                            <div class="col-sm-10">
+                                <input id="train_update_confortClass" class="form-control" name='confortClass'
+                                       value='60'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="train_update_button" type="button" class="btn btn-primary">Update Train Type</button>
+                                <label id="single_update_train_status" class="noshow_component"></label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Train List
+                        <button id="train_query_button" type="button" class="btn btn-default btn-sm">Query Train Type</button>
+                        <label id="single_list_train_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_train_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Train Id</th>
+                            <th>First Class Seat Number</th>
+                            <th>Second Class Seat Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!------------------------------------Config--------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Config Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Config name: </label>
+                            <div class="col-sm-10">
+                                <input id="config_update_name" class="form-control" name='name'
+                                       value='DirectTicketAllocationProportion'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Config value: </label>
+                            <div class="col-sm-10">
+                                <input id="config_update_value" class="form-control" name='value'
+                                       value='50%'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Description: </label>
+                            <div class="col-sm-10">
+                                <input id="config_update_description" class="form-control" name='description' value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="config_update_button" type="button" class="btn btn-primary">Update Config</button>
+                                <label id="single_update_config_status" class="noshow_component"></label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Config List
+                        <button id="config_query_button" type="button" class="btn btn-default btn-sm">Query Config</button>
+                        <label id="single_list_config_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="result panel-body">
+                    <table id="query_config_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Config Name</th>
+                            <th>Config Value</th>
+                            <th>Config Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-------------------------------------Price--------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Price Service
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Starting Place: </label>
+                            <div class="col-sm-10">
+                                <input id="price_update_startingPlace" class="form-control" name='startingPlace' value='shanghai'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">End Place: </label>
+                            <div class="col-sm-10">
+                                <input id="price_update_endPlace" class="form-control" name='endPlace' value='beijing'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Distance:</label>
+                            <div class="col-sm-10">
+                                <input id="price_update_distance" class="form-control" name='distance'
+                                       value='300'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="price_update_button" type="button" class="btn btn-primary">Update Distance</button>
+                                <label id="single_update_price_status" class="noshow_component"></label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Price List
+                        <button id="price_queryAll_button" type="button" class="btn btn-default btn-sm">Query Price</button>
+                        <label id="single_list_price_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="result panel-body" id="price_result_talbe">
+                    <table id="query_price_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>PlaceA</th>
+                            <th>PlaceB</th>
+                            <th>TrainType Id</th>
+                            <th>Seat Class</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         <!--This is an empty table body-->
                         </tbody>
                     </table>
@@ -1142,9 +1146,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="basic_information_button" type="button" class="btn btn-primary">
-                                    Query Basic Information
-                                </button>
+                                <button id="basic_information_button" type="button" class="btn btn-primary">Query Basic Information</button>
+                                <label id="single_query_basic_info_status" class="noshow_component"></label>
                             </div>
                         </div>
                     </form>
@@ -1254,9 +1257,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="ticketinfo_button" type="button" class="btn btn-primary">
-                                    Query Ticket Information
-                                </button>
+                                <button id="ticketinfo_button" type="button" class="btn btn-primary">Query Ticket Information</button>
+                                <label id="single_list_ticketInfo_status" class="noshow_component"></label>
                             </div>
                         </div>
                     </form>
@@ -1377,15 +1379,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="notification_send_email_button" type="button" class="btn btn-primary">
-                                    Send Email
-                                </button>
+                                <button id="notification_send_email_button" type="button" class="btn btn-primary">Send Email</button>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Result: </label>
                             <div class="col-sm-10">
                                 <span id ="notification_result"></span>
+                                <span id ="notification_status" class="noshow_component"></span>
                             </div>
                         </div>
                     </form>
@@ -1418,9 +1419,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="inside_payment_pay_button" type="button" class="btn btn-primary">
-                                    Pay
-                                </button>
+                                <button id="inside_payment_pay_button" type="button" class="btn btn-primary">Pay</button>
+                                <label id="single_inside_payment_status" class="noshow_component"></label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1435,6 +1435,7 @@
                     <h3 class="panel-title">
                         Inside Payment List
                         <button id="inside_payment_query_payment_button" type="button" class="btn btn-default btn-sm">Query</button>
+                        <label id="single_list_insite_payment_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -1459,6 +1460,7 @@
                     <h3 class="panel-title">
                         User Balance
                         <button id="inside_payment_query_account_button" type="button" class="btn btn-default btn-sm">Query</button>
+                        <label id="single_user_balance_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -1480,6 +1482,7 @@
                     <h3 class="panel-title">
                         Add Money List
                         <button id="inside_payment_query_add_money_button" type="button" class="btn btn-default btn-sm">Query</button>
+                        <label id="single_list_insite_payment_add_money_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -1533,15 +1536,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="payment_pay_button" type="button" class="btn btn-primary">
-                                    Pay
-                                </button>
+                                <button id="payment_pay_button" type="button" class="btn btn-primary">Pay</button>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Result: </label>
                             <div class="col-sm-10">
                                 <span id ="payment_result"></span>
+                                <label id="single_payment_status" class="noshow_component"></label>
                             </div>
                         </div>
                     </form>
@@ -1550,6 +1552,7 @@
                     <h3 class="panel-title">
                         Payment List
                         <button id="payment_query_button" type="button" class="btn btn-default btn-sm">Query</button>
+                        <label id="single_list_payment_status" class="noshow_component"></label>
                     </h3>
                 </div>
                 <div class="result panel-body">
@@ -2194,11 +2197,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
 
         <!-------------------------------------------------------------------------------------------------- -->
         <div id="flow_three">

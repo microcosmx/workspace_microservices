@@ -3,6 +3,8 @@
 /********************Used for Inside-Payment Single Microservice Test**/
 
 $("#inside_payment_query_account_button").click(function(){
+    $("#inside_payment_query_account_button").attr("disabled",true);
+    $("#single_user_balance_status").text("false");
     $.ajax({
         type: "get",
         url: "/inside_payment/queryAccount",
@@ -21,11 +23,17 @@ $("#inside_payment_query_account_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_user_balance_status").text("true");
+        },
+        complete: function(){
+            $("#inside_payment_query_account_button").attr("disabled",false);
         }
     });
 });
 
 $("#inside_payment_query_payment_button").click(function(){
+    $("#inside_payment_query_payment_button").attr("disabled",true);
+    $("#single_list_insite_payment_status").text("false");
     $.ajax({
         type: "get",
         url: "/inside_payment/queryPayment",
@@ -47,11 +55,17 @@ $("#inside_payment_query_payment_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_list_insite_payment_status").text("true");
+        },
+        complete: function(){
+            $("#inside_payment_query_payment_button").attr("disabled",false);
         }
     });
 });
 
 $("#inside_payment_query_add_money_button").click(function(){
+    $("#inside_payment_query_add_money_button").attr("disabled",true);
+    $("#single_list_insite_payment_add_money_status").text("false");
     $.ajax({
         type: "get",
         url: "/inside_payment/queryAddMoney",
@@ -72,6 +86,10 @@ $("#inside_payment_query_add_money_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_list_insite_payment_add_money_status").text("true");
+        },
+        complete: function(){
+            $("#inside_payment_query_add_money_button").attr("disabled",false);
         }
     });
 });
@@ -89,6 +107,8 @@ $("#inside_payment_pay_button").click(function(){
         return;
     }
     var data = JSON.stringify(info);
+    $("#inside_payment_pay_button").attr("disabled",true);
+    $("#single_inside_payment_status").text("false");
     $.ajax({
         type: "post",
         url: "/inside_payment/pay",
@@ -99,6 +119,10 @@ $("#inside_payment_pay_button").click(function(){
         },
         success: function (result) {
             $("#inside_payment_result").html(result.toString());
+            $("#single_inside_payment_status").text("true");
+        },
+        complete: function(){
+            $("#inside_payment_pay_button").attr("disabled",false);
         }
     });
 });

@@ -8,6 +8,8 @@ $("#refresh_account_button").click(function() {
 });
 
 function refresh_account() {
+    $("#refresh_account_button").attr("disabled",true);
+    $("#account_list_status").text("false");
     $.ajax({
         type: "get",
         url: "/account/findAll",
@@ -31,7 +33,11 @@ function refresh_account() {
                 );
             }
             addListenerToSsoAccountTable();
+            $("#account_list_status").text("true");
             //alert("Success.");
+        },
+        complete:function(){
+            $("#refresh_account_button").attr("disabled",false);
         }
     });
 }
@@ -45,6 +51,7 @@ function addListenerToSsoAccountTable(){
             modifyInfo.newEmail = $(this).parents("tr").find(".sso_account_email").val();
             modifyInfo.newPassword = $(this).parents("tr").find(".sso_account_password").val();
             var data = JSON.stringify(modifyInfo);
+            $("#account_list_status").text("false");
             $.ajax({
                 type: "post",
                 url: "/account/modify",
@@ -55,12 +62,15 @@ function addListenerToSsoAccountTable(){
                     withCredentials: true
                 },
                 success: function(result){
+                    $("#account_list_status").text("true");
                     if(result["status"] == true){
                         refresh_account();
                         //alert("Success.");
                     }else{
                         //alert(result["message"]);
                     }
+                },
+                complete: function(){
                 }
             });
         }
@@ -72,6 +82,8 @@ $("#refresh_login_account_button").click(function() {
 });
 
 function refresh_login_account() {
+    $("#refresh_login_account_button").attr("disabled",true);
+    $("#login_list_status").text("false");
     $.ajax({
         type: "get",
         url: "/account/findAllLogin",
@@ -94,7 +106,11 @@ function refresh_login_account() {
                 );
             }
             addListenerToSsoLoginAccountTable();
+            $("#login_list_status").text("true");
             //alert("Success.");
+        },
+        complete:function(){
+            $("#refresh_login_account_button").attr("disabled",false);
         }
     });
 }
@@ -107,6 +123,7 @@ function addListenerToSsoLoginAccountTable(){
             logoutInfo.id = $(this).parents("tr").find(".account_kick_id").text();
             logoutInfo.token = $(this).parents("tr").find(".account_kick_token").text();
             var data = JSON.stringify(logoutInfo);
+            $("#login_list_status").text("false");
             $.ajax({
                 type: "post",
                 url: "/logout",
@@ -123,6 +140,9 @@ function addListenerToSsoLoginAccountTable(){
                     }else{
                         //alert(result["message"]);
                     }
+                    $("#login_list_status").text("true");
+                },
+                complete: function(){
                 }
             });
         }

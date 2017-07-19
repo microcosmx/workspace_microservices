@@ -63,9 +63,10 @@ $("#flow_preserve_login_button").click(function() {
                 $("#user_login_id").text(obj["account"].id);
                 location.hash="anchor_flow_preserve_select_trip";
             }else{
-                setCookie("loginId", "", -1);
-                setCookie("loginToken", "", -1);
-                $("#flow_preserve_login_status").text(obj["message"]);
+                // setCookie("loginId", "", -1);
+                // setCookie("loginToken", "", -1);
+                //alert(obj["message"]);
+                $("#flow_preserve_login_msg").text(obj["message"]);
             }
         }
     });

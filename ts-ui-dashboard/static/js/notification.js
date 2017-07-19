@@ -56,7 +56,8 @@ $("#notification_send_email_button").click(function(){
     }
     var data = JSON.stringify(notificationInfo);
     var type = $("#notification_type").val();
-
+    $("#notification_send_email_button").attr("disabled",true);
+    $("#notification_status").text("false");
     if(type == 0){
         $.ajax({
             type: "post",
@@ -68,6 +69,10 @@ $("#notification_send_email_button").click(function(){
             },
             success: function (result) {
                 $("#notification_result").html(result);
+                $("#notification_status").text("true");
+            },
+            complete: function(){
+                $("#notification_send_email_button").attr("disabled",false);
             }
         });
     }else if(type == 1){
@@ -81,6 +86,10 @@ $("#notification_send_email_button").click(function(){
             },
             success: function (result) {
                 $("#notification_result").html(result);
+                $("#notification_status").text("true");
+            },
+            complete: function(){
+                $("#notification_send_email_button").attr("disabled",false);
             }
         });
     }else if(type == 2){
@@ -94,6 +103,10 @@ $("#notification_send_email_button").click(function(){
             },
             success: function (result) {
                 $("#notification_result").html(result);
+                $("#notification_status").text("true");
+            },
+            complete: function(){
+                $("#notification_send_email_button").attr("disabled",false);
             }
         });
     }

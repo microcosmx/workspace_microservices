@@ -21,6 +21,8 @@ $("#login_button").click(function() {
         return;
     }
     var data = JSON.stringify(loginInfo);
+    $("#login_button").attr("disabled",true);
+    $("#login_result_status").text("false");
     $.ajax({
         type: "post",
         url: "/login",
@@ -32,17 +34,21 @@ $("#login_button").click(function() {
         },
         success: function(result){
             var obj = result;
+            $("#login_result_status").text("true");
             if(obj["status"] == true){
                 $("#user_login_id").html(obj["account"].id);
                 $("#user_login_token").html(obj["token"]);
-                // document.cookie = "loginId=" + obj["account"].id;
-                // document.cookie = "loginToken=" + obj["token"];
+                document.cookie = "loginId=" + obj["account"].id;
+                document.cookie = "loginToken=" + obj["token"];
                 $("#user_login_id").text(obj["account"].id);
             }
             $("#login_result_status").html(JSON.stringify(obj["status"]));
             $("#login_result_msg").html(obj["message"]);
             $("#login_result_account").html(JSON.stringify(obj["account"]));
             $("#login_result_token").html(JSON.stringify(obj["token"]));
+        },
+        complete: function(){
+            $("#login_button").attr("disabled",false);
         }
     });
 });

@@ -3,6 +3,8 @@
 /********************Used For Payment Service Single Microservice Test**/
 
 $("#payment_query_button").click(function(){
+    $("#payment_query_button").attr("disabled",true);
+    $("#single_list_payment_status").text("false");
     $.ajax({
         type: "get",
         url: "/payment/query",
@@ -23,6 +25,10 @@ $("#payment_query_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_list_payment_status").text("true");
+        },
+        complete: function(){
+            $("#payment_query_button").attr("disabled",false);
         }
     });
 });
@@ -45,6 +51,8 @@ $("#payment_pay_button").click(function(){
         return;
     }
     var data = JSON.stringify(info);
+    $("#payment_pay_button").attr("disabled",true);
+    $("#single_payment_status").text("false");
     $.ajax({
         type: "post",
         url: "/payment/pay",
@@ -55,6 +63,10 @@ $("#payment_pay_button").click(function(){
         },
         success: function (result) {
             $("#payment_result").html(result.toString());
+            $("#single_payment_status").text("true");
+        },
+        complete: function(){
+            $("#payment_pay_button").attr("disabled",false);
         }
     });
 });

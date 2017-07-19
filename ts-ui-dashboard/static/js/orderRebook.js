@@ -30,6 +30,8 @@ $("#rebook_pay_button").click(function(){
         return;
     }
     var singleRebookInfoData = JSON.stringify(singleRebookInfo);
+    $("#rebook_pay_button").attr("disabled",true);
+    $("#rebook_pay_status").text("false");
     $.ajax({
         type: "post",
         url: "/rebook/payDifference",
@@ -41,7 +43,12 @@ $("#rebook_pay_button").click(function(){
         },
         success: function (result) {
             $("#rebook_payment_result").text(result["status"].toString());
+            $("#rebook_pay_status").text("true");
+        },
+        complete: function(){
+            $("#rebook_pay_button").attr("disabled",false);
         }
+
     });
 });
 
@@ -74,6 +81,8 @@ $("#single_rebook_button").click(function() {
         return;
     }
     var singleRebookInfoData = JSON.stringify(singleRebookInfo);
+    $("#single_rebook_button").attr("disabled",true);
+    $("#single_rebook_status").text("false");
     $.ajax({
         type: "post",
         url: "/rebook/rebook",
@@ -84,7 +93,7 @@ $("#single_rebook_button").click(function() {
             withCredentials: true
         },
         success: function (result) {
-            if(result["status"]){
+            if(result["status"] == true){
                 $("#single_rebook_result").text("true");
             }else{
                 $("#single_rebook_result").text(result["message"].toString());
@@ -92,6 +101,10 @@ $("#single_rebook_button").click(function() {
                     $("#rebook_price").val(result["price"]);
                 //}
             }
+            $("#single_rebook_status").text("true");
+        },
+        complete: function(){
+            $("#single_rebook_button").attr("disabled",false);
         }
     });
 });

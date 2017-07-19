@@ -36,6 +36,8 @@
 //------For Trip retrieve------------
 
 $("#travel_queryAll_button").click(function(){
+    $("#travel_queryAll_button").attr("disabled",true);
+    $("#single_list_travel_status").text("false");
     $.ajax({
         type: "get",
         url: "/travel/queryAll",
@@ -60,11 +62,17 @@ $("#travel_queryAll_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_list_travel_status").text("true");
+        },
+        complete: function(){
+            $("#travel_queryAll_button").attr("disabled",false);
         }
     });
 });
 
 $("#travel2_queryAll_button").click(function(){
+    $("#travel2_queryAll_button").attr("disabled",true);
+    $("#single_travel_other_query_status").text("false");
     $.ajax({
         type: "get",
         url: "/travel2/queryAll",
@@ -89,6 +97,10 @@ $("#travel2_queryAll_button").click(function(){
                     "</tr>"
                 );
             }
+            $("#single_travel_other_query_status").text("true");
+        },
+        complete: function(){
+            $("#travel2_queryAll_button").attr("disabled",false);
         }
     });
 });
@@ -132,6 +144,8 @@ $("#travel_update_button").click(function(){
         return;
     }
     var data = JSON.stringify(travelInfo);
+    $("#travel_update_button").attr("disabled",true);
+    $("#single_travel_update_status").text("false");
     $.ajax({
         type: "post",
         url: "/travel/update",
@@ -143,7 +157,11 @@ $("#travel_update_button").click(function(){
         },
         success: function(result){
             $("#travel_result").html(JSON.stringify(result));
+            $("#single_travel_update_status").text("true");
         },
+        complete: function(){
+            $("#travel_update_button").attr("disabled",false);
+        }
     });
 });
 
@@ -185,6 +203,8 @@ $("#travel2_update_button").click(function(){
         return;
     }
     var data = JSON.stringify(travelInfo);
+    $("#travel2_update_button").attr("disabled",true);
+    $("#single_travel_other_update_status").text("false");
     $.ajax({
         type: "post",
         url: "/travel2/update",
@@ -196,7 +216,11 @@ $("#travel2_update_button").click(function(){
         },
         success: function(result){
             $("#travel2_result").html(JSON.stringify(result));
+            $("#single_travel_other_update_status").text("true");
         },
+        complete: function(){
+            $("#travel2_update_button").attr("disabled",false);
+        }
     });
 });
 

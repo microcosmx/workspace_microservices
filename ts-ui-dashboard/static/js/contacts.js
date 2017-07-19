@@ -26,6 +26,8 @@ $("#add_contacts_button").click(function() {
         return;
     }
     var data = JSON.stringify(addContactsInfo);
+    $("#add_contacts_button").attr("disabled",true);
+    $("#add_contacts_result_status").text("false");
     $.ajax({
         type: "post",
         url: "/contacts/create",
@@ -36,10 +38,16 @@ $("#add_contacts_button").click(function() {
             withCredentials: true
         },
         success: function(result){
+            if(obj["status"] == true){
+                //
+            }
+            $("#add_contacts_result_status").text("true");
             var obj = result;
-            $("#add_contacts_result_status").html(JSON.stringify(obj["status"]));
             $("#add_contacts_result_msg").html(obj["message"]);
             $("#add_contacts_result_contacts").html(JSON.stringify(obj["contacts"]));
+        },
+        complete: function(){
+            $("#add_contacts_button").attr("disabled",false);
         }
     });
 });
@@ -60,6 +68,7 @@ function addListenerToAllContactsTable(){
             modifyInfo.phoneNumber = $(this).parents("tr").find(".all_contacts_phoneNum").val();
             modifyInfo.loginToken = "NotNeed";
             var data = JSON.stringify(modifyInfo);
+            $("#order_list_status").text("false");
             $.ajax({
                 type: "post",
                 url: "/contacts/modifyContacts",
@@ -76,6 +85,9 @@ function addListenerToAllContactsTable(){
                     }else{
                         //alert(result["message"]);
                     }
+                    $("#order_list_status").text("true");
+                },
+                complete: function(){
                 }
             });
         }
@@ -87,6 +99,7 @@ function addListenerToAllContactsTable(){
             deleteInfo.contactsId = $(this).parents("tr").find(".all_contacts_id").text();
             deleteInfo.loginToken = "NotNeed";
             var data = JSON.stringify(deleteInfo);
+            $("#order_list_status").text("false");
             $.ajax({
                 type: "post",
                 url: "/contacts/deleteContacts",
@@ -103,6 +116,9 @@ function addListenerToAllContactsTable(){
                     }else{
                        //alert(result["message"]);
                     }
+                    $("#order_list_status").text("true");
+                },
+                complete: function(){
                 }
             });
         }
@@ -110,6 +126,8 @@ function addListenerToAllContactsTable(){
 }
 
 function refresh_contacts(){
+    $("#refresh_contacts_button").attr("disabled",true);
+    $("#register_result_status").text("false");
     $.ajax({
         type: "get",
         url: "/contacts/findAll",
@@ -119,24 +137,30 @@ function refresh_contacts(){
             withCredentials: true
         },
         success: function(result){
-            var obj = result["contacts"];
-            $("#contacts_list_table").find("tbody").html("");
-            for(var i = 0,l = obj.length ; i < l ; i++){
-                $("#contacts_list_table").find("tbody").append(
-                    "<tr>" +
-                    "<td>" + i                                                    + "</td>" +
-                    "<td class='all_contacts_id noshow_component'>" + obj[i]["id"]                + "</td>" +
-                    "<td>" + obj[i]["accountId"]                                  + "</td>" +
-                    "<td ><input class='all_contacts_name form-control' value='" + obj[i]["name"] + "'></td>" +
-                    "<td>" + convertNumberToHtmlDocumentType(obj[i]["documentType"])  + "</td>" +
-                    "<td ><input class='all_contacts_documentNum form-control' value='" + obj[i]["documentNumber"] + "'></td>" +
-                    "<td ><input class='all_contacts_phoneNum form-control' value='" + obj[i]["phoneNumber"] + "'></td>" +
-                    "<td>" +  "<button class='all_contacts_update btn btn-primary'>Update</button>" + "<button class='all_contacts_delete btn btn-primary'>Delete</button>" + "</td>" +
-                    "</tr>"
-                );
+            if(result["status"] == true){
+                var obj = result["contacts"];
+                $("#contacts_list_table").find("tbody").html("");
+                for(var i = 0,l = obj.length ; i < l ; i++){
+                    $("#contacts_list_table").find("tbody").append(
+                        "<tr>" +
+                        "<td>" + i                                                    + "</td>" +
+                        "<td class='all_contacts_id noshow_component'>" + obj[i]["id"]                + "</td>" +
+                        "<td>" + obj[i]["accountId"]                                  + "</td>" +
+                        "<td ><input class='all_contacts_name form-control' value='" + obj[i]["name"] + "'></td>" +
+                        "<td>" + convertNumberToHtmlDocumentType(obj[i]["documentType"])  + "</td>" +
+                        "<td ><input class='all_contacts_documentNum form-control' value='" + obj[i]["documentNumber"] + "'></td>" +
+                        "<td ><input class='all_contacts_phoneNum form-control' value='" + obj[i]["phoneNumber"] + "'></td>" +
+                        "<td>" +  "<button class='all_contacts_update btn btn-primary'>Update</button>" + "<button class='all_contacts_delete btn btn-primary'>Delete</button>" + "</td>" +
+                        "</tr>"
+                    );
+                }
+                addListenerToAllContactsTable();
+                //alert("Success.");
             }
-            addListenerToAllContactsTable();
-            //alert("Success.");
+            $("#register_result_status").text("true");
+        },
+        complete: function(){
+            $("#refresh_contacts_button").attr("disabled",false);
         }
     });
 }

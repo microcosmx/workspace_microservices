@@ -40,6 +40,8 @@ $("#register_button").click(function() {
         return;
     }
     var data = JSON.stringify(registerInfo);
+    $("#register_button").attr("disabled",true);
+    $("#register_result_status").text("false");
     $.ajax({
         type: "post",
         url: "/register",
@@ -50,10 +52,17 @@ $("#register_button").click(function() {
             withCredentials: true
         },
         success: function(result){
+            if(result["status"] == true){
+                //
+            }
+            $("#register_result_status").text("true");
             var obj = result;
-            $("#register_result_status").html(JSON.stringify(obj["status"]));
+            //$("#register_result_status").html(JSON.stringify(obj["status"]));
             $("#register_result_msg").html(obj["message"]);
             $("#register_result_account").html(JSON.stringify(obj["account"]));
+        },
+        complete: function(){
+            $("#register_button").attr("disabled",false);
         }
     });
 });
