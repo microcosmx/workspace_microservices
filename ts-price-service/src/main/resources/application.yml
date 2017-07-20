@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ts-price-service
   data:
     mongodb:
       host: ts-price-mongo

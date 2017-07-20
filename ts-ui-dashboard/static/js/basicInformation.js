@@ -83,6 +83,9 @@ $("#basic_information_button").click(function(){
             );
             $("#single_query_basic_info_status").text("true");
         },
+        error: function(){
+            $("#single_query_basic_info_status").text("false");
+        },
         complete: function(){
             $("#basic_information_button").attr("disabled",false);
         }

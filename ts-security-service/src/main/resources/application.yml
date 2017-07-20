@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ts-security-service
   data:
     mongodb:
       host: ts-security-mongo

@@ -65,7 +65,7 @@ function refresh_security_config() {
                         "<td class='list_security_config_name'>" + obj[i]["name"] + "</td>" +
                         "<td ><input class='list_security_config_id_value form-control' value='" + obj[i]["value"] + "'></td>" +
                         "<td ><input class='list_security_config_id_description form-control' value='" + obj[i]["description"] + "'></td>" +
-                        "<td>" + "<button class='security_config_update_btn btn btn-primary'>Update</button>" + "<button class='security_config_delete btn btn-primary'>Delete</button>" + "</td>" +
+                        "<td>" + "<button class='security_config_update_btn btn btn-primary'>Update</button>" + "<button class='security_config_delete btn btn-primary noshow_component'>Delete</button>" + "</td>" +
                         "</tr>"
                     );
                 }

@@ -1,12 +1,14 @@
-# HTTP Server
-server:
-  port: 18673  # HTTP (Tomcat) port
-
 spring:
+  application:
+    name: ts-inside-payment-service
+
+  server:
+    port: 18673
+
   data:
     mongodb:
       host: ts-inside-payment-mongo
-#      username: user
-#      password: ${MONGODB_PASSWORD}
+#     username: user
+#     password: ${MONGODB_PASSWORD}
       database: ts
       port: 27017

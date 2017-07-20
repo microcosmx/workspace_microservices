@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ts-train-service
   data:
     mongodb:
       host: ts-train-mongo

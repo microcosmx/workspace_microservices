@@ -3,6 +3,8 @@ server:
   port: 12031  # HTTP (Tomcat) port
 
 spring:
+  application:
+    name: ts-order-service
   data:
     mongodb:
       host: ts-order-mongo

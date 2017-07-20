@@ -35,6 +35,9 @@ $("#config_update_button").click(function(){
             $("#config_result").html(result);
             $("#single_update_config_status").text("true");
         },
+        error: function(){
+            $("#single_update_config_status").text("false");
+        },
         complete: function(){
             $("#config_update_button").attr("disabled",false);
         }
@@ -67,6 +70,9 @@ $("#config_query_button").click(function(){
             }
             $("#single_list_config_status").text("true");
             //$("#config_result").html(result);
+        },
+        error: function(){
+            $("#single_list_config_status").text("false");
         },
         complete: function(){
             $("#config_query_button").attr("disabled",false);

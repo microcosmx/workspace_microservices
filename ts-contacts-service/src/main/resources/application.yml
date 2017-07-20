@@ -1,4 +1,9 @@
+server:
+  port: 12347
+
 spring:
+  application:
+    name: ts-contacts-service
   data:
     mongodb:
       host: ts-contacts-mongo
@@ -7,6 +12,3 @@ spring:
       database: ts
       port: 27017
 
-# HTTP Server
-server:
-  port: 12347  # HTTP (Tomcat) port

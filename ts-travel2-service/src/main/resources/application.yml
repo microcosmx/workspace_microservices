@@ -3,6 +3,8 @@ server:
   port: 16346  # HTTP (Tomcat) port
 
 spring:
+  application:
+    name: ts-travel2-service
   data:
     mongodb:
       host: ts-travel2-mongo

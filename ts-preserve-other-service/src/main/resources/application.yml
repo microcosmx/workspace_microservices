@@ -10,3 +10,7 @@
 # HTTP Server
 server:
   port: 14569 # HTTP (Tomcat) port
+
+spring:
+  application:
+    name: ts-preserve-other-service
