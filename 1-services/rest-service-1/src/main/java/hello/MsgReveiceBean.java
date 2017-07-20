@@ -16,6 +16,8 @@
 
 package hello;
 
+import java.util.concurrent.Future;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +40,16 @@ public class MsgReveiceBean {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Autowired
-    private MsgSendingBean sendingBean;
+    @Autowired  
+    private AsyncTask asyncTask;  
 
 	@StreamListener(Sink.INPUT)
 	public void loggerSink(Object payload) {
 		
-		long sleep = (long) (Math.random() * 300);
-		try {
-			Thread.sleep(sleep);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		logger.info("message received: " + payload);
 		
-		sendingBean.sayHello(Double.valueOf(payload.toString()));
+        asyncTask.sendAsyncUpdate(payload.toString());
+    	
 	}
 
 }
