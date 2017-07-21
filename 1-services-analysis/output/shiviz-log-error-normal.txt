@@ -6,6 +6,12 @@
 success 3 <==> failed 3
 #structure=[{"host":"a","clock":{"a":1,"b":2,"c":2,"d":1}},{"host":"b","clock":{"b":1,"c":2,"d":1}},{"host":"b","clock":{"b":2,"c":2,"d":1}},{"host":"c","clock":{"c":1,"d":1}},{"host":"c","clock":{"c":2,"d":1}},{"host":"d","clock":{"d":1}}]
 
+success 9 <==> failed 9
+#structure=[{"host":"a","clock":{"a":1,"b":2,"c":2}},{"host":"b","clock":{"b":1,"c":2}},{"host":"b","clock":{"b":2,"c":2}},{"host":"c","clock":{"c":1}},{"host":"c","clock":{"c":2}}]
+
+success 2 <==> failed 2
+#structure=[{"host":"b","clock":{"b":1,"c":2,"d":2}},{"host":"c","clock":{"c":1,"d":2}},{"host":"c","clock":{"c":2,"d":2}},{"host":"d","clock":{"d":1}},{"host":"d","clock":{"d":2}}]
+
 === Fail execution 0 ===
 {traceId=01e9f3177a615512, spanId=01e9f3177a615512, hostName=rest-service-6, srcName=null, src=null, host=172.20.0.9:rest-service-6:16006, clock={"172.20.0.9:rest-service-6:16006":1}, event=, error=Request processing failed; nested exception is org.springframework.web.client.HttpServerErrorException: 500 , parentId=, timestamp=1498806673023000, }
 {traceId=01e9f3177a615512, spanId=ca8bc05d6078a472, hostName=rest-service-6, destName=rest-service-5, host=172.20.0.9:rest-service-6:16006, api=rest-service-5.HelloController.handle5_3, clock={"172.20.0.9:rest-service-6:16006":2}, dest=172.20.0.10:rest-service-5:16005, event=rest-service-5:rest-service-5.HelloController.handle5_3, error=Request processing failed; nested exception is org.springframework.web.client.HttpServerErrorException: 500 null, parentId=01e9f3177a615512, timestamp=1498806673026000, }

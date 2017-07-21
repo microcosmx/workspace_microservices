@@ -208,12 +208,17 @@ public class CancelServiceImpl implements CancelService{
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(order.getTravelTime());
+        int hour = cal2.get(Calendar.HOUR);
+        int minute = cal2.get(Calendar.MINUTE);
+        int second = cal2.get(Calendar.SECOND);
         Date startTime = new Date(year,
                                   month,
                                   day,
-                                  order.getTravelTime().getHours(),
-                                  order.getTravelTime().getMinutes(),
-                                  order.getTravelTime().getSeconds());
+                                  hour,
+                                  minute,
+                                  second);
         System.out.println("[Cancel Order] nowDate  :" + nowDate.toString());
         System.out.println("[Cancel Order] startTime:" + startTime.toString());
         if(nowDate.after(startTime)){

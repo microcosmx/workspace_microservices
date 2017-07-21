@@ -25,7 +25,7 @@ public class InitData implements CommandLineRunner{
         info.setStartingStationId("shanghai");
         info.setStationsId("beijing");
         info.setTerminalStationId("taiyuan");
-        info.setStartingTime(new Date("Mon May 04 09:51:52 GMT+0800 2013"));
+        info.setStartingTime(new Date("Mon May 04 09:00:00 GMT+0800 2013"));
         info.setEndTime(new Date("Mon May 04 15:51:52 GMT+0800 2013"));
         service.create(info);
 
@@ -34,7 +34,7 @@ public class InitData implements CommandLineRunner{
         info.setStartingStationId("shanghai");
         info.setStationsId("beijing");
         info.setTerminalStationId("taiyuan");
-        info.setStartingTime(new Date("Mon May 04 12:51:52 GMT+0800 2013"));
+        info.setStartingTime(new Date("Mon May 04 12:00:00 GMT+0800 2013"));
         info.setEndTime(new Date("Mon May 04 17:51:52 GMT+0800 2013"));
         service.create(info);
 
@@ -43,7 +43,7 @@ public class InitData implements CommandLineRunner{
         info.setStartingStationId("shanghai");
         info.setStationsId("beijing");
         info.setTerminalStationId("taiyuan");
-        info.setStartingTime(new Date("Mon May 04 14:51:52 GMT+0800 2013"));
+        info.setStartingTime(new Date("Mon May 04 14:00:00 GMT+0800 2013"));
         info.setEndTime(new Date("Mon May 04 20:51:52 GMT+0800 2013"));
         service.create(info);
 
@@ -52,7 +52,7 @@ public class InitData implements CommandLineRunner{
         info.setStartingStationId("nanjing");
         info.setStationsId("shanghaihongqiao");
         info.setTerminalStationId("beijing");
-        info.setStartingTime(new Date("Mon May 04 08:31:52 GMT+0800 2013"));
+        info.setStartingTime(new Date("Mon May 04 08:00:00 GMT+0800 2013"));
         info.setEndTime(new Date("Mon May 04 17:21:52 GMT+0800 2013"));
         service.create(info);
 
@@ -61,7 +61,7 @@ public class InitData implements CommandLineRunner{
         info.setStartingStationId("taiyuan");
         info.setStationsId("nanjing");
         info.setTerminalStationId("shanghai");
-        info.setStartingTime(new Date("Mon May 04 07:51:52 GMT+0800 2013"));
+        info.setStartingTime(new Date("Mon May 04 07:00:00 GMT+0800 2013"));
         info.setEndTime(new Date("Mon May 04 19:59:52 GMT+0800 2013"));
         service.create(info);
     }

@@ -509,12 +509,13 @@ $("#pay_for_not_paid_pay_button").click(function(){
         type: "post",
         url: "/inside_payment/pay",
         contentType: "application/json",
+        dataType: "text",
         data:orderPayData,
         xhrFields: {
             withCredentials: true
         },
         success: function (result) {
-            if(JSON.stringify(result) == true){
+            if(result == "true"){
                 alert("Success");
                 location.hash="anchor_flow_rebook_orders";
                 queryMyOrder();
