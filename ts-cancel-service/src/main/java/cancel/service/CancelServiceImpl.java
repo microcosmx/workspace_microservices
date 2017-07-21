@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @Service
@@ -200,13 +201,20 @@ public class CancelServiceImpl implements CancelService{
         if(order.getStatus() == OrderStatus.NOTPAID.getCode()){
             return "0.00";
         }
+        System.out.println("[Cancel Order] Order Travel Date:" + order.getTravelDate().toString());
         Date nowDate = new Date();
-        Date startTime = new Date(order.getTravelDate().getYear(),
-                                  order.getTravelDate().getMonth(),
-                                  order.getTravelDate().getDay(),
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(order.getTravelDate());
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        Date startTime = new Date(year,
+                                  month,
+                                  day,
                                   order.getTravelTime().getHours(),
-                                  order.getTravelTime().getMinutes());
-        System.out.println("[Cancel Order] nowDate:" + nowDate.toString());
+                                  order.getTravelTime().getMinutes(),
+                                  order.getTravelTime().getSeconds());
+        System.out.println("[Cancel Order] nowDate  :" + nowDate.toString());
         System.out.println("[Cancel Order] startTime:" + startTime.toString());
         if(nowDate.after(startTime)){
             System.out.println("[Cancel Order] Ticket expire refund 0");

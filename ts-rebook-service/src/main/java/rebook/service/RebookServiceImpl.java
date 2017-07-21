@@ -25,15 +25,15 @@ public class RebookServiceImpl implements RebookService{
         RebookResult rebookResult = new RebookResult();
 
         //黄牛检测
-        CheckInfo checkInfo = new CheckInfo();
-        checkInfo.setAccountId(loginId);
-        CheckResult checkResult = checkSecurity(checkInfo);
-        if(checkResult.isStatus() == false){
-            rebookResult.setStatus(false);
-            rebookResult.setMessage(checkResult.getMessage());
-            rebookResult.setOrder(null);
-            return rebookResult;
-        }
+//        CheckInfo checkInfo = new CheckInfo();
+//        checkInfo.setAccountId(loginId);
+//        CheckResult checkResult = checkSecurity(checkInfo);
+//        if(checkResult.isStatus() == false){
+//            rebookResult.setStatus(false);
+//            rebookResult.setMessage(checkResult.getMessage());
+//            rebookResult.setOrder(null);
+//            return rebookResult;
+//        }
 
         QueryOrderResult queryOrderResult;
         //改签只能改签一次，查询订单状态来判断是否已经改签过

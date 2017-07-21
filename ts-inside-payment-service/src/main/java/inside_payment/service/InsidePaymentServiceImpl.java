@@ -19,13 +19,13 @@ import java.util.*;
 public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Autowired
-    AddMoneyRepository addMoneyRepository;
+    public AddMoneyRepository addMoneyRepository;
 
     @Autowired
-    PaymentRepository paymentRepository;
+    public PaymentRepository paymentRepository;
 
     @Autowired
-    RestTemplate restTemplate;
+    public RestTemplate restTemplate;
 
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){

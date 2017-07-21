@@ -16,11 +16,13 @@ import java.util.List;
  */
 @RestController
 public class InsidePaymentController {
+
     @Autowired
-    InsidePaymentService service;
+    public InsidePaymentService service;
 
     @RequestMapping(value="/inside_payment/pay", method = RequestMethod.POST)
     public boolean pay(@RequestBody PaymentInfo info, HttpServletRequest request){
+        System.out.println("[Inside Payment Service][Pay] Pay for:" + info.getOrderId());
         return service.pay(info, request);
     }
 

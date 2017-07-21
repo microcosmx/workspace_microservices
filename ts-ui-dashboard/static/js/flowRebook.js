@@ -254,14 +254,16 @@ function getStationNameById(stationId){
         contentType: "application/json",
         dataType: "json",
         data:getStationInfoOneData,
-        async: true,
+        async: false,
         xhrFields: {
             withCredentials: true
         },
         success: function (result) {
             stationName = result["name"];
+            //alert("AJAX Station Name:" + stationName);
         },
     });
+    //alert("Return Station Name:" + stationName);
     return stationName;
 }
 

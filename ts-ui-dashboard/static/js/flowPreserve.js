@@ -412,12 +412,13 @@ $("#preserve_pay_button").click(function(){
         type: "post",
         url: "/inside_payment/pay",
         contentType: "application/json",
+        dataType: "text",
         data:data,
         xhrFields: {
             withCredentials: true
         },
         success: function (result) {
-            if(JSON.stringify(result) == "true"){
+            if(result == "true"){
                 $("#preserve_collect_order_id").val(info.orderId);
                 //alert("Success");
                 location.hash="anchor_flow_preserve_collect";

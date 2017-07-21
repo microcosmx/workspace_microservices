@@ -122,8 +122,10 @@ public class PreserveServiceImpl implements PreserveService{
             System.out.println("[Preserve Service][Order Price] Price is: " + order.getPrice());
 
             order.setSeatClass(oti.getSeatType());
+            System.out.println("[Preserve Service][Order] Order Travel Date:" + oti.getDate().toString());
             order.setTravelDate(oti.getDate());
             order.setTravelTime(trip.getStartingTime());
+
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
                 int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
                 order.setSeatNumber("FirstClass-" + firstClassRemainNum);
