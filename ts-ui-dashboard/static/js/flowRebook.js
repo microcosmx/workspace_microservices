@@ -22,6 +22,9 @@ function setTodayDateRebook(){
  **/
 
 $("#refresh_my_order_list_button").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     queryMyOrder();
 });
 
@@ -308,6 +311,9 @@ $("#travel_rebook_cancel").click(function(){
 });
 
 $("#travel_rebook_button").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     var travelQueryInfo = new Object();
     travelQueryInfo.startingPlace = $("#travel_rebook_startingPlace").val();
     travelQueryInfo.endPlace = $("#travel_rebook_terminalPlace").val();
@@ -318,7 +324,6 @@ $("#travel_rebook_button").click(function(){
     }
     var travelQueryData = JSON.stringify(travelQueryInfo);
     var train_type = $("#search_rebook_train_type").val();
-    var i = 0;
     $("#tickets_change_list_table").find("tbody").html("");
     if(train_type == 0){
         queryForRebookTravelInfo(travelQueryData,"/travel/query");
@@ -331,6 +336,9 @@ $("#travel_rebook_button").click(function(){
 });
 
 function queryForRebookTravelInfo(data,path) {
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     $.ajax({
         type: "post",
         url: path,
@@ -404,6 +412,9 @@ $("#ticket_rebook_confirm_cancel_btn").click(function(){
 });
 
 $("#ticket_rebook_confirm_confirm_btn").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     var rebookInfo = new Object();
     rebookInfo.orderId = $("#ticket_rebook_confirm_old_order_id").text();
     rebookInfo.oldTripId = $("#ticket_rebook_confirm_old_tripId").text();
@@ -448,6 +459,9 @@ $("#ticket_rebook_pay_panel_cancel").click(function(){
 });
 
 $("#ticket_rebook_pay_panel_confirm").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     var rebookPayInfo = new Object();
     rebookPayInfo.orderId = $("#ticket_rebook_confirm_old_order_id").text();;
     rebookPayInfo.oldTripId = $("#ticket_rebook_confirm_old_tripId").text();;
@@ -501,6 +515,9 @@ $("#pay_for_not_paid_pay_later_button").click(function(){
 });
 
 $("#pay_for_not_paid_pay_button").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     var orderPayInfo = new Object();
     orderPayInfo.orderId = $("#pay_for_not_paid_orderId").val();
     orderPayInfo.tripId = $("#pay_for_not_paid_tripId").val();
@@ -570,6 +587,9 @@ $("#ticket_cancel_panel_cancel").click(function(){
 });
 
 $("#ticket_cancel_panel_confirm").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     var cancelOrderInfo = new Object();
     cancelOrderInfo.orderId =  $("#ticket_cancel_order_id").text();
     if(cancelOrderInfo.orderId == null || cancelOrderInfo.orderId == ""){
@@ -587,6 +607,9 @@ $("#ticket_cancel_panel_confirm").click(function(){
             withCredentials: true
         },
         success: function (result) {
+            if(result["status"] == true){
+                $("#ticket_cancel_panel").css('display','none');
+            }
             alert(result["message"]);
         }
     });

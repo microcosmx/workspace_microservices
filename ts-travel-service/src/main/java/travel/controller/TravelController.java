@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import travel.domain.*;
 import travel.service.TravelService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +46,13 @@ public class TravelController {
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel/query", method= RequestMethod.POST)
     public List<TripResponse> query(@RequestBody QueryInfo info){
+        if(info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
+                info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
+                info.getDepartureTime() == null){
+            System.out.println("[Travel Service][Travel Query] Fail.Something null.");
+            List<TripResponse> errorList = new ArrayList<>();
+            return errorList;
+        }
         System.out.println("[Travel Service] Query TripResponse");
         return travelService.query(info);
     }
