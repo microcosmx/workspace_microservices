@@ -20,6 +20,17 @@ public class AccountLoginController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public LoginResult login(@RequestBody LoginInfo li, @CookieValue String YsbCaptcha,  HttpServletResponse response){
+        if(YsbCaptcha == null || YsbCaptcha.length() == 0 ||
+                li.getEmail() == null || li.getEmail().length() == 0 ||
+                li.getPassword() == null || li.getPassword().length() == 0 ||
+                li.getVerificationCode() == null || li.getEmail().length() == 0){
+            LoginResult errorResult = new LoginResult();
+            errorResult.setAccount(null);
+            errorResult.setMessage("Verification Code or Email or Password format wrong.");
+            errorResult.setStatus(false);
+            errorResult.setToken(null);
+            return errorResult;
+        }
         System.out.println("[Login Service][Login] Verification Code:" + li.getVerificationCode() +
                 " VerifyCookie:" + YsbCaptcha);
         return accountService.login(li,YsbCaptcha, response);

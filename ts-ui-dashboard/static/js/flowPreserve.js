@@ -217,6 +217,9 @@ $("#refresh_booking_contacts_button").click(function(){
 })
 
 function refresh_booking_contacts() {
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     $("#refresh_booking_contacts_button").attr("disabled",true);
     $.ajax({
         type: "get",
@@ -270,6 +273,9 @@ $("#ticket_select_contacts_cancel_btn").click(function(){
 })
 
 $("#ticket_select_contacts_confirm_btn").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     var contactsId = "";
     var radios = $(".booking_contacts_select");
     var selectContactsStatus = false;
@@ -301,6 +307,9 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
 })
 
 function preserveCreateNewContacts(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     $("#ticket_select_contacts_confirm_btn").attr("disabled",true);
     var addContactsInfo = new Object();
     addContactsInfo.name = $("#booking_new_contacts_name").val();
@@ -353,6 +362,9 @@ $("#ticket_confirm_cancel_btn").click(function () {
 })
 
 $("#ticket_confirm_confirm_btn").click(function () {
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     $("#ticket_confirm_confirm_btn").attr("disabled",true);
     var orderTicketInfo = new Object();
     orderTicketInfo.contactsId = $("#ticket_confirm_contactsId").text();
@@ -400,9 +412,13 @@ $("#ticket_confirm_confirm_btn").click(function () {
 
 $("#preserve_pay_later_button").click(function(){
     //$("#preserve_pay_panel").css('display','none');
+    location.hash="anchor_flow_preserve_pay";
 })
 
 $("#preserve_pay_button").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
     $("#preserve_pay_button").attr("disabled",true);
     var info = new Object();
     info.orderId = $("#preserve_pay_orderId").val();
