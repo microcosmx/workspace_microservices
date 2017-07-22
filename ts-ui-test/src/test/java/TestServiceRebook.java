@@ -1,0 +1,139 @@
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Created by ZDH on 2017/7/20.
+ */
+public class TestServiceRebook {
+
+    static String orderId = "";
+    public static void login(WebDriver driver){
+        driver.findElement(By.id("flow_one_page")).click();
+        //locate Login email input
+        WebElement elementLoginID = driver.findElement(By.id("flow_preserve_login_email"));
+        elementLoginID.clear();
+        elementLoginID.sendKeys("fdse_microservices@163.com");
+
+        //locate Login pwd input
+        WebElement elementLoginPwd = driver.findElement(By.id("flow_preserve_login_password"));
+        elementLoginPwd.clear();
+        elementLoginPwd.sendKeys("DefaultPassword");
+
+        //locate Login Login submit
+        driver.findElement(By.id("flow_preserve_login_button")).click();
+
+        //Thread.sleep(100);
+        //get login status
+        String statusLogin = driver.findElement(By.id("flow_preserve_login_msg")).getText();
+
+        if(statusLogin.startsWith("Success")) {
+            System.out.println("Login status:"+statusLogin);
+            driver.findElement(By.id("microservice_page")).click();
+        }
+        else if(statusLogin ==null || statusLogin.length() <= 0) {
+            System.out.println("False,Failed to login! StatusLogin is NULL");
+            driver.quit();
+        }
+        else {
+            System.out.println("Failed to login!" + "Wrong login Id or password!");
+            driver.quit();
+        }
+    }
+    public static void getOrders(WebDriver driver){
+        WebElement elementRefreshOrdersBtn = driver.findElement(By.id("refresh_order_button"));
+        WebElement elementOrdertypeGTCJ = driver.findElement(By.xpath("//*[@id='microservices']/div[4]/div[1]/h3/input[1]"));
+        WebElement elementOrdertypePT = driver.findElement(By.xpath("//*[@id='microservices']/div[4]/div[1]/h3/input[2]"));
+        elementOrdertypeGTCJ.click();
+        elementOrdertypePT.click();
+        if(elementOrdertypeGTCJ.isEnabled() || elementOrdertypePT.isEnabled()){
+            elementRefreshOrdersBtn.click();
+            System.out.println("Show Orders according database!");
+        }
+        else {
+            elementRefreshOrdersBtn.click();
+            Alert javascriptConfirm = driver.switchTo().alert();
+            javascriptConfirm.accept();
+            elementOrdertypeGTCJ.click();
+            elementOrdertypePT.click();
+            elementRefreshOrdersBtn.click();
+        }
+        //gain oeders
+        List<WebElement> ordersList = driver.findElements(By.xpath("//table[@id='all_order_table']/tbody/tr"));
+        //Confirm ticket selection
+        if (ordersList.size() > 0) {
+            Random rand = new Random();
+            int i = rand.nextInt(100) % ordersList.size(); //int范围类的随机数
+            orderId =  ordersList.get(i).findElement(By.xpath("td[3]")).getText();
+            WebElement elementOrderStatus = ordersList.get(i).findElement(By.xpath("td[8]/select"));
+            Select selSeat = new Select(elementOrderStatus);
+            selSeat.selectByValue("1"); //2st
+            ordersList.get(i).findElement(By.xpath("td[9]/button")).click();
+            System.out.println("Success get orderId and update order status! orderId:"+orderId);
+        }
+        else{
+            System.out.println("Cant't get orders information1");
+            driver.quit();
+        }
+    }
+    public static void testTicketRebook(WebDriver driver) throws InterruptedException{
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        if(orderId ==null || orderId.length() <= 0) {
+            System.out.println("Failed,orderId is NULL!");
+            driver.quit();
+        }
+        driver.findElement(By.id("single_rebook_order_id")).clear();
+
+        driver.findElement(By.id("single_rebook_order_id")).sendKeys(orderId);
+        //driver.findElement(By.id("single_rebook_order_id")).sendKeys("8177ac5a-61ac-42f4-83f4-bd7b394d0531");
+        //js.executeScript("document.getElementById('single_rebook_order_id').value=orderId");
+        js.executeScript("document.getElementById('single_rebook_old_trip_id').value='G1234'");
+        js.executeScript("document.getElementById('single_rebook_trip_id').value='G1235'");
+        WebElement elementRebookSeatType = driver.findElement(By.id("single_rebook_seat_type"));
+        Select selSeat = new Select(elementRebookSeatType);
+        selSeat.selectByValue("2"); //2st
+
+        js.executeScript("document.getElementById('single_rebook_date').value='2017-08-21'");
+        driver.findElement(By.id("single_rebook_button")).click();
+        Thread.sleep(1000);
+        //get rebook status
+        String statusRebook = driver.findElement(By.id("single_rebook_result")).getText();
+        if(statusRebook ==null || statusRebook.length() <= 0) {
+            System.out.println("Failed,Status of Rebook btn is NULL!");
+            driver.quit();
+        }
+        else if(statusRebook.startsWith("Please")) {
+            System.out.println(statusRebook);
+            driver.findElement(By.id("rebook_pay_button")).click();
+            Thread.sleep(1000);
+            String statusRebookPayment = driver.findElement(By.id("rebook_payment_result")).getText();
+            System.out.println("Rebook payment status:"+statusRebookPayment);
+        }
+        else
+            System.out.println("Rebook status:"+statusRebook);
+    }
+
+    public static void main(String[] args) throws InterruptedException{
+        // Create a new instance of the Chrome driver
+        // Notice that the remainder of the code relies on the interface,
+        // not the implementation.
+        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        // And now use this to visit TTS
+        driver.navigate().to("http://10.141.212.24/");
+
+        //login
+        login(driver);
+
+        getOrders(driver);
+        //test Ticket Rebook
+        testTicketRebook(driver);
+
+        //Close the browser
+        driver.quit();
+    }
+}
