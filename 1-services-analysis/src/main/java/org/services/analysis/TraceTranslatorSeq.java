@@ -1,32 +1,35 @@
 package org.services.analysis;
 
-/**
- * Created by Administrator on 2017/7/19.
- */
-/**
- * Created by Administrator on 2017/7/11.
- */
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 /**
  * Created by hh on 2017-07-08.
  */
-public class TraceTranslatorSeq {
+public class TraceTranslator {
     public static void main(String[] args) throws JSONException {
 
-//        String traceStr = readFile("src/main/resources/sample/traces1.json");
-//        String traceStr = readFile("./sample/trace-data.json");
-        String traceStr = readFile("./sample/traces-error-normal.json");
-//        String traceStr = readFile("./sample/trace-error-processes-seq.json");
-//        String traceStr = readFile("./sample/trace-error-processes-seq(chance).json");
-//        String traceStr = readFile("./sample/trace-error-processes-seq-status.json");
+//        String path = "src/main/resources/sample/traces1.json";
+//        String path = "./sample/trace-data.json";
+//        String path = "./sample/traces-error-normal.json";
+        String path = "./sample/trace-error-processes-seq.json";
+//        String path = "./sample/trace-error-processes-seq(chance).json";
+//        String path = "./sample/trace-error-processes-seq-status.json";
+//        String path = "./sample/traces-error-cross-timeout-status.json";
+
+
+        String traceStr = readFile(path);
+
         JSONArray tracelist = new JSONArray(traceStr);
 
         List<HashMap<String,String>> logs = new ArrayList<HashMap<String, String>>();
+
+        HashMap<String,String> states = new HashMap<String,String>();
 
         for (int k = 0; k < tracelist.length(); k++) {
 
@@ -125,13 +128,28 @@ public class TraceTranslatorSeq {
                             String instance_id = anno.getString("value");
                             JSONObject endpoint = anno.getJSONObject("endpoint");
                             String ipv4 = endpoint.getString("ipv4");
-                            String port = String.valueOf(endpoint.get("port"));
+//                            String port = String.valueOf(endpoint.get("port"));
 
-                            if(instance_id.indexOf(content.get("serverName")) != -1){
-                                String new_instance_id = ipv4 + ":" + content.get("serverName") + ":" + port;
+                            if(content.get("serverName")!=null && instance_id.indexOf(content.get("serverName")) != -1){
+                                String key = content.get("serverName") + ":" + ipv4;
+                                String new_instance_id;
+                                if(states.containsKey(key)){
+                                    new_instance_id = content.get("serverName") + ":" + states.get(key) + ":" + ipv4;
+                                }else{
+                                    new_instance_id = content.get("serverName") + ":" + ipv4;
+                                }
+
                                 content.put("server_instance_id", new_instance_id);
-                            }else if(instance_id.indexOf(content.get("clientName")) != -1){
-                                String new_instance_id = ipv4 + ":" + content.get("clientName") + ":" + port;
+                            }
+                            if(content.get("clientName")!=null  && instance_id.indexOf(content.get("clientName")) != -1){
+                                String key = content.get("clientName") + ":" + ipv4;
+                                String new_instance_id;
+                                if(states.containsKey(key)){
+                                    new_instance_id = content.get("clientName") + ":" + states.get(key) + ":" + ipv4;
+                                }else{
+//                                    new_instance_id = ipv4 + ":" + content.get("clientName") + ":" + port;
+                                    new_instance_id = content.get("clientName") + ":" + ipv4 ;
+                                }
                                 content.put("client_instance_id", new_instance_id);
                             }
                         }
@@ -147,7 +165,7 @@ public class TraceTranslatorSeq {
                             String port = String.valueOf(endpoint.get("port"));
                             String serviceName = String.valueOf(endpoint.get("serviceName"));
 
-                            String hostId = ipv4 + ":" + serviceName + ":" + port;
+                            String hostId = serviceName + ":" + ipv4 ;
                             content.put("hostId", hostId);
                             content.put("serviceName", serviceName);
 
@@ -160,10 +178,21 @@ public class TraceTranslatorSeq {
                             String port = String.valueOf(endpoint.get("port"));
                             String serviceName = String.valueOf(endpoint.get("serviceName"));
 
-                            String hostId = ipv4 + ":" + serviceName + ":" + port;
+                            String hostId = serviceName + ":" + ipv4 ;
                             content.put("hostId", hostId);
                             content.put("serviceName", serviceName);
                         }
+                        if ("controller_state".equals(anno.getString("key"))) {
+                            String state = anno.getString("value");
+                            JSONObject endpoint = anno.getJSONObject("endpoint");
+                            String ipv4 = endpoint.getString("ipv4");
+                            String serviceName = String.valueOf(endpoint.get("serviceName"));
+                            content.put("state",state);
+                            content.put("ipv4State",ipv4);
+                            content.put("serviceNameState",serviceName);
+                            states.put(serviceName +":" + ipv4, state);
+                        }
+
 
                     }
 
@@ -201,7 +230,7 @@ public class TraceTranslatorSeq {
                     log.put("host" , n.get("client_instance_id"));
                     log.put("destName" , n.get("serverName"));
                     log.put("dest" , n.get("server_instance_id"));
-                    log.put("event" , n.get("api"));
+                    log.put("event" , "");
                     log.put("type", "cs");
                     if(null != n.get("api")){
                         log.put("api", n.get("api"));
@@ -222,7 +251,7 @@ public class TraceTranslatorSeq {
                     log.put("srcName" , n.get("clientName"));
                     log.put("src" , n.get("client_instance_id"));
 //                    log.put("event", "received message from " + n.get("client_instance_id"));
-                    log.put("event", "");
+                    log.put("event", n.get("api"));
                     log.put("type", "sr");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
@@ -236,11 +265,17 @@ public class TraceTranslatorSeq {
                     log.put("parentId" , n.get("parentid"));
                     log.put("timestamp",n.get("ssTime"));
                     log.put("hostName" , n.get("serverName"));
+
+//                    if(n.get("state") != null){
+//                        log.put("host", n.get("serviceNameState") + ":" + n.get("state") + ":" + n.get("ipv4State"));
+//                    }else{
+//                        log.put("host" , n.get("server_instance_id"));
+//                    }
                     log.put("host" , n.get("server_instance_id"));
                     log.put("destName" , n.get("clientName"));
                     log.put("dest" , n.get("client_instance_id"));
 //                    log.put("event" , "sending result to " + n.get("client_instance_id"));
-                    log.put("event", "");
+                    log.put("event", n.get("api"));
                     log.put("type", "ss");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
@@ -311,10 +346,12 @@ public class TraceTranslatorSeq {
 
         //(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
 //        List<HashMap<String,String>> list = clock(logs);
-        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
-//        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
+//        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
+        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
+//        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
+
 
     }
 
@@ -332,15 +369,164 @@ public class TraceTranslatorSeq {
         return (HashMap<String,Integer>)clock.clone();
     }
 
+    //sort the log for one trace according to the calling sequences
+    public static List<HashMap<String,String>> sortLog(List<HashMap<String,String>> logs){
+//        List<HashMap<String,String>> list = logs.stream().sorted((log1,log2) -> {
+//            Long time1 = Long.valueOf(log1.get("timestamp"));
+//            Long time2 = Long.valueOf(log2.get("timestamp"));
+//            return time1.compareTo(time2);
+//        }).collect(Collectors.toList());
+        List<HashMap<String,String>> list = null ;
+
+        HashMap<String,String> log = logs.get(0);
+        String traceId = log.get("traceId");
+
+        HashMap<String,Span> spans = new HashMap<String, Span>();
+        HashMap<String,List<String>> spanRelation = new HashMap<String, List<String>>();
+        logs.forEach(n -> {
+            String spanId = n.get("spanId");
+            if(spans.containsKey(spanId)){
+                Span span = spans.get(spanId);
+                span.addLog(n);
+            }else{
+                Span span = new Span(n.get("traceId"), n.get("spanId"), n.get("parentId"));
+                span.addLog(n);
+                spans.put(spanId,span);
+            }
+
+            if(spanRelation.containsKey(n.get("parentId"))){
+                List<String> childs = spanRelation.get(n.get("parentId"));
+                childs.add(spanId);
+            }else{
+                List<String> childs = new ArrayList<String>();
+                childs.add(spanId);
+                spanRelation.put(n.get("parentId"),childs);
+            }
+        });
+
+        List<HashMap<String,String>> forwardLogs = new ArrayList<HashMap<String,String>>();
+        List<HashMap<String,String>> backwardLogs = new ArrayList<HashMap<String,String>>();
+        List<Span> sortedSpan = new ArrayList<Span>();
+
+        Span entrance = spans.get(traceId);
+
+        setChilds(spanRelation,entrance,spans);
+
+        traverse(entrance, forwardLogs, backwardLogs, spans);
+
+        Stack<HashMap<String,String>> stack = new Stack<HashMap<String,String>>();
+        backwardLogs.forEach(n ->{
+            stack.push(n);
+        });
+
+        while(!stack.isEmpty()){
+            forwardLogs.add(stack.pop());
+        }
+
+        return forwardLogs;
+    }
+
+    public static void setChilds(HashMap<String,List<String>> spanRelation, Span entrance, HashMap<String,Span> spans){
+        Span s = entrance;
+
+        if(spanRelation.containsKey(s.getSpanId())){
+            s.setChilds(spanRelation.get(s.getSpanId()));
+            Iterator<String> iterator = s.getChilds().iterator();
+            while(iterator.hasNext()){
+                String childId = iterator.next();
+                s = spans.get(childId);
+                setChilds(spanRelation,s,spans);
+            }
+        }
+    }
+
+    public static void traverse(Span entrance,List<HashMap<String,String>> forwardLogs,List<HashMap<String,String>> backwardLogs, HashMap<String,Span> spans){
+        //from the entrance to end
+        Span s = entrance;
+
+        HashMap<String,String> cs = null;
+        HashMap<String,String> sr = null;
+        HashMap<String,String> ss = null;
+        HashMap<String,String> cr = null;
+
+        Iterator<HashMap<String,String>> iterator = s.getLogs().iterator();
+        while(iterator.hasNext()){
+            HashMap<String,String> log1 = iterator.next();
+            if("cs".equals(log1.get("type"))){
+                cs = log1;
+            }
+            if("sr".equals(log1.get("type"))){
+                sr = log1;
+            }
+            if("ss".equals(log1.get("type"))){
+                ss = log1;
+            }
+            if("cr".equals(log1.get("type"))){
+                cr = log1;
+            }
+        }
+
+        if(cs != null){
+            forwardLogs.add(cs);
+        }
+        if(sr != null){
+            forwardLogs.add(sr);
+        }
+        if(cr != null){
+            backwardLogs.add(cr);
+        }
+        if(ss != null){
+            backwardLogs.add(ss);
+        }
+
+
+        if(s.getChilds() != null){
+//            List<String> sortedChilds = s.getChilds().stream().sorted((spanId1,spanId2) -> {
+//                Span span1 = spans.get(spanId1);
+//                Span span2 = spans.get(spanId2);
+//
+//                HashMap<String,String> sr1 = null;
+//                HashMap<String,String> sr2 = null;
+//
+//                Iterator<HashMap<String,String>> ite1 = span1.getLogs().iterator();
+//                while(ite1.hasNext()){
+//                    HashMap<String,String> log1 = ite1.next();
+//                    if("sr".equals(log1.get("type"))){
+//                        sr1 = log1;
+//                    }
+//                }
+//
+//                Iterator<HashMap<String,String>> ite2 = span2.getLogs().iterator();
+//                while(ite2.hasNext()){
+//                    HashMap<String,String> log2 = ite2.next();
+//                    if("sr".equals(log2.get("type"))){
+//                        sr2 = log2;
+//                    }
+//                }
+//
+//                System.out.println("sr1:"+sr1.get("timestamp"));
+//                System.out.println("sr2:"+sr2.get("timestamp"));
+//                Long time1 = Long.valueOf(sr1.get("timestamp"));
+//                Long time2 = Long.valueOf(sr2.get("timestamp"));
+//                return time1.compareTo(time2);
+//            }).collect(Collectors.toList());
+
+//            Iterator<String> iterator1 = sortedChilds.iterator();
+            Iterator<String> iterator1 = s.getChilds().iterator();
+            while(iterator1.hasNext()){
+                String childId = iterator1.next();
+                traverse(spans.get(childId), forwardLogs, backwardLogs, spans);
+            }
+        }
+
+
+    }
+
     public static List<HashMap<String,String>> clock2(List<HashMap<String,String>> logs){
         HashMap<String,HashMap<String,Integer>> clocks = new HashMap<String,HashMap<String,Integer>>();
         List<Clock> allClocks = new ArrayList<Clock>();
 
-        List<HashMap<String,String>> list = logs.stream().sorted((log1,log2) -> {
-            Long time1 = Long.valueOf(log1.get("timestamp"));
-            Long time2 = Long.valueOf(log2.get("timestamp"));
-            return time1.compareTo(time2);
-        }).collect(Collectors.toList());
+        List<HashMap<String,String>> list = sortLog(logs);
 
         list.forEach(n -> {
             if(clocks.containsKey(n.get("host"))){
@@ -502,7 +688,7 @@ public class TraceTranslatorSeq {
         File writer = new File(path);
         BufferedWriter out = null;
         try{
-            writer.createNewFile(); // 创建新文件
+            writer.createNewFile(); // 鍒涘缓鏂版枃浠?
             out = new BufferedWriter(new FileWriter(writer));
             Iterator<HashMap<String,String>> iterator = logs.iterator();
             while(iterator.hasNext()){
@@ -530,7 +716,7 @@ public class TraceTranslatorSeq {
 //        File writer = new File(path);
 //        BufferedWriter out = null;
 //        try{
-//            writer.createNewFile(); // 创建新文件
+//            writer.createNewFile(); // 鍒涘缓鏂版枃浠?
 //            out = new BufferedWriter(new FileWriter(writer));
 //            Iterator<HashMap<String,String>> iterator = logs.iterator();
 //            while(iterator.hasNext()){
@@ -582,7 +768,7 @@ public class TraceTranslatorSeq {
         File writer = new File(path);
         BufferedWriter out = null;
         try{
-            writer.createNewFile(); // 创建新文件
+            writer.createNewFile(); // 鍒涘缓鏂版枃浠?
             out = new BufferedWriter(new FileWriter(writer));
             int fail = 0;
             int success = 0;
@@ -610,8 +796,8 @@ public class TraceTranslatorSeq {
                             String[] c = clocks.split(",");
                             out.write("clock={");
                             for(int i=0,length=c.length; i<length; i++){
-                                c[i] = "\"" + c[i].substring(1,c[i].indexOf("=")) + "\":"
-                                        + c[i].substring(c[i].indexOf("=")+1);
+                                c[i] = "\"" + c[i].substring(1,c[i].lastIndexOf("=")) + "\":"
+                                        + c[i].substring(c[i].lastIndexOf("=")+1);
                                 if(i < length-1){
                                     out.write(c[i] + ",");
                                 }else{
@@ -648,4 +834,3 @@ public class TraceTranslatorSeq {
         return true;
     }
 }
-
