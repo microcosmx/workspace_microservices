@@ -20,9 +20,9 @@ public class TraceTranslatorSeq {
 //        String path = "src/main/resources/sample/traces1.json";
 //        String path = "./sample/trace-data.json";
 //        String path = "./sample/traces-error-normal.json";
-        String path = "./sample/trace-error-processes-seq.json";
+//        String path = "./sample/trace-error-processes-seq.json";
 //        String path = "./sample/trace-error-processes-seq(chance).json";
-//        String path = "./sample/trace-error-processes-seq-status.json";
+       String path = "./sample/trace-error-processes-seq-status.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 
 
@@ -350,9 +350,9 @@ public class TraceTranslatorSeq {
         //(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
 //        List<HashMap<String,String>> list = clock(logs);
 //        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
-        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
+//        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
-//        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
+        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
 //        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
 
 
@@ -702,6 +702,7 @@ public class TraceTranslatorSeq {
             String tempString = null;
             while ((tempString = reader.readLine()) != null) {
                 laststr = laststr + tempString;
+                System.out.println("reading");
             }
             reader.close();
         } catch (IOException e) {

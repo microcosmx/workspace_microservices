@@ -39,7 +39,8 @@
 		<module>ts-payment-service</module>
 		<module>ts-rebook-service</module>
 		<module>ts-cancel-service</module>
-	</modules>
+        <module>1_services_analysis_mvn</module>
+    </modules>
 
 
 	<dependencies>
