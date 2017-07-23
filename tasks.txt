@@ -2,53 +2,13 @@
 
 2017.7.17 －－－ 2017.7.23
 
-7.17:
+7.24 － 7.25:
 开发＋论文任务：
-周翔：继续重现第6个故障 ＋ introduction前3节
-徐琛杰：购票微服务bug修复，trace-error-normal.json转化 ＋ 微服务系统（benchmark）第1节初稿半页＋
-冀超：购票微服务bug修复，trace-error-normal.json可视化，结构化搜索和故障比较 ＋ introduction第5,6节初稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第1节初稿, bib文件
+周翔：论文第二章industry第一节初稿
+徐琛杰：购票微服务bug重现＋收集日志＋可视化：微服务临时存储，（参考 1-error-normal）
+冀超：购票微服务bug重现＋收集日志＋可视化：BOM计数返回值越界，（参考 1-error-normal）
+周代宏：测试购票微服务的故障重现（success／fail test case） + related work 第1节初稿, bib文件
 
-7.18:
-开发＋论文任务：
-周翔：继续重现第6个故障 ＋ introduction第4节
-徐琛杰：购票微服务bug修复，trace-error-processes-seq.json转化 ＋ 微服务系统（benchmark）第1节初稿半页＋
-冀超：购票微服务bug修复，trace-error-processes-seq.json可视化，结构化搜索和故障比较 ＋ introduction第5,6节初稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第1节初稿
 
-7.19:
-开发＋论文任务：
-周翔：继续重现第7个故障 ＋ introduction第5节
-徐琛杰：trace-error-processes-seq(chance).json转化 ＋ 微服务系统（benchmark）第3节初稿半页＋
-冀超：trace-error-processes-seq(chance).json可视化，结构化搜索和故障比较 ＋ 微服务系统（benchmark）第2节初稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第2节初稿
-
-7.20:
-开发＋论文任务：
-周翔：继续重现第7个故障＋ introduction第6节
-徐琛杰：trace-error-processes-seq-status.json转化 ＋ 微服务系统（benchmark）第3节初稿半页＋
-冀超：trace-error-processes-seq-status.json可视化，结构化搜索和故障比较 ＋ 微服务系统（benchmark）第2节初稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第2节初稿
-
-7.21:
-开发＋论文任务：
-周翔：继续重现第8个故障 ＋ industry第1节
-徐琛杰：trace-error-report-ui-seq.json转化 ＋ 微服务系统（benchmark）第1节终稿半页＋
-冀超：trace-error-report-ui-seq.json可视化，结构化搜索和故障比较 ＋ 微服务系统（benchmark）第2节终稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第1节终稿
-
-7.22:
-开发＋论文任务：
-周翔：继续重现第8个故障 ＋ industry第2节
-徐琛杰：购票微服务故障重现bug1 ＋ 微服务系统（benchmark）第3节终稿半页＋
-冀超：购票微服务故障重现bug1 ＋ 微服务系统（benchmark）第2节终稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第1节终稿
-
-7.23:
-开发＋论文任务：
-周翔：继续重现第6个故障 ＋ industry第3节
-徐琛杰：购票微服务故障重现bug1 ＋ 微服务系统（benchmark）第3节终稿半页＋
-冀超：购票微服务故障重现bug1 ＋ 微服务系统（benchmark）第2节终稿半页＋
-周代宏：测试购票微服务，单服务和多服务测试脚本 + related work 第2节终稿
 
 
