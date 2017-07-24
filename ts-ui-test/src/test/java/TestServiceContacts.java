@@ -2,14 +2,29 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ZDH on 2017/7/21.
  */
 public class TestServiceContacts {
-    public static void testContacts(WebDriver driver)throws InterruptedException{
+    private WebDriver driver;
+    private String baseUrl;
+    @BeforeClass
+    public void setUp() throws Exception {
+        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
+        driver = new ChromeDriver();
+        baseUrl = "http://10.141.212.21/";
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+    @Test
+    public void testContacts()throws Exception{
+        driver.get(baseUrl + "/");
         driver.findElement(By.id("refresh_contacts_button")).click();
         Thread.sleep(1000);
         List<WebElement> contactsList = driver.findElements(By.xpath("//table[@id='contacts_list_table']/tbody/tr"));
@@ -21,20 +36,8 @@ public class TestServiceContacts {
             System.out.println("False,Contacts List's size is 0 or Failed");
 
     }
-    public static void main(String[] args) throws InterruptedException{
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-
-        // And now use this to visit TTS
-        driver.navigate().to("http://10.141.212.24/");
-
-        //test contacts
-        testContacts(driver);
-
-        //Close the browser
+    @AfterClass
+    public void tearDown() throws Exception {
         driver.quit();
     }
 }

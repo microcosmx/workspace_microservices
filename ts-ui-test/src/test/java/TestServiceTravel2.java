@@ -3,15 +3,30 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ZDH on 2017/7/21.
  */
 public class TestServiceTravel2 {
-    public static void testTravel2(WebDriver driver) throws InterruptedException{
+    private WebDriver driver;
+    private String baseUrl;
+    @BeforeClass
+    public void setUp() throws Exception {
+        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
+        driver = new ChromeDriver();
+        baseUrl = "http://10.141.212.21/";
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+    @Test
+    public void testTravel2() throws Exception{
+        driver.get(baseUrl + "/");
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('travel2_update_tripId').value='Z1234'");
         js.executeScript("document.getElementById('travel2_update_trainTypeId').value='ZhiDa'");
@@ -30,7 +45,8 @@ public class TestServiceTravel2 {
 //        }else
 //            System.out.println("Sign Up btn status:"+statusSignIn);
     }
-    public static void testQueryTravel2(WebDriver driver) throws InterruptedException{
+    @Test (dependsOnMethods = {"testTravel2"})
+    public void testQueryTravel2() throws Exception{
         driver.findElement(By.id("travel2_queryAll_button")).click();
         Thread.sleep(1000);
         //gain Travel list
@@ -41,21 +57,8 @@ public class TestServiceTravel2 {
         else
             System.out.println("Failed to Query Travel2 or Travel2 list size is 0");
     }
-
-    public static void main(String[] args) throws InterruptedException{
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-
-        // And now use this to visit TTS
-        driver.navigate().to("http://10.141.212.21/");
-
-        //test Travel
-        testTravel2(driver);
-        testQueryTravel2(driver);
-        //Close the browser
+    @AfterClass
+    public void tearDown() throws Exception {
         driver.quit();
     }
 }

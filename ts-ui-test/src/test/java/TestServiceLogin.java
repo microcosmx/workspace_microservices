@@ -1,39 +1,66 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ZDH on 2017/7/21.
  */
 public class TestServiceLogin {
-    public static void testSignIn(WebDriver driver) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementById('login_email').value='chaojifudan@outlook.com'");
-        js.executeScript("document.getElementById('login_password').value='DefaultPassword'");
-
+    private WebDriver driver;
+    private String baseUrl;
+    public static void login(WebDriver driver,String username,String password){
+        driver.findElement(By.id("login_email")).clear();
+        driver.findElement(By.id("login_email")).sendKeys(username);
+        driver.findElement(By.id("login_password")).clear();
+        driver.findElement(By.id("login_password")).sendKeys(password);
         driver.findElement(By.id("login_button")).click();
-        String statusSignIn = driver.findElement(By.id("login_result_msg")).getText();
-        if(statusSignIn ==null || statusSignIn.length() <= 0) {
-            System.out.println("Failed,Status of Sign In btn is NULL!");
-            driver.quit();
-        }else
-            System.out.println("Sign Up btn status:"+statusSignIn);
     }
-    public static void main(String[] args) throws InterruptedException{
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
+    @BeforeClass
+    public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
+        baseUrl = "http://10.141.212.21/";
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+    @DataProvider(name="user")
+    public Object[][] Users(){
+        return new Object[][]{
+                {"fdse_microservices@163","DefaultPassword",false},
+                {"fdse_microservices@163.com","DefaultPass",false},
+                {"fdse_microservices@163.com","DefaultPassword",true},
+                {"error","error",false},
+                //{"","","请先输入您的邮箱帐号"},
+                //{"fdse_microservices@163.com"," ","帐号或密码错误"},
+                //{" ","DefaultPassword","请先输入您的邮箱帐号"},
+                //{"error","error","帐号或密码错误"},
+        };
+    }
+    @Test (dataProvider="user")
+    public void testSignIn(String username,String password,boolean expectText)throws Exception{
+        driver.get(baseUrl + "/");
 
-        // And now use this to visit TTS
-        driver.navigate().to("http://10.141.212.24/");
+        //call function login
+        login(driver,username,password);
+        Thread.sleep(1000);
 
-        //test sso
-        testSignIn(driver);
-
-        //Close the browser
+        //get login status
+        String statusSignIn = driver.findElement(By.id("login_result_msg")).getText();
+        if (!"".equals(statusSignIn))
+            System.out.println("Sign Up btn status: "+statusSignIn);
+        else
+            System.out.println("False，Status of Sign In btn is NULL!");
+        System.out.println(expectText);
+        Assert.assertEquals(statusSignIn.startsWith("Success"),expectText);
+    }
+    @AfterClass
+    public void tearDown() throws Exception {
         driver.quit();
     }
 }
