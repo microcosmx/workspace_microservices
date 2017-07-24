@@ -15,6 +15,7 @@ public class TraceTranslator {
 //        String traceStr = readFile("src/main/resources/sample/traces1.json");
 //        String traceStr = readFile("./sample/trace-data.json");
         String traceStr = readFile("./sample/traces-error-normal.json");
+
         JSONArray tracelist = new JSONArray(traceStr);
 
         List<HashMap<String,String>> logs = new ArrayList<HashMap<String, String>>();
