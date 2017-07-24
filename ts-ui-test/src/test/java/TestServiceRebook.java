@@ -1,49 +1,64 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ZDH on 2017/7/20.
  */
 public class TestServiceRebook {
-
-    static String orderId = "";
-    public static void login(WebDriver driver){
+    private WebDriver driver;
+    private String baseUrl;
+    private String orderId = "";
+    public static void login(WebDriver driver,String username,String password){
         driver.findElement(By.id("flow_one_page")).click();
-        //locate Login email input
-        WebElement elementLoginID = driver.findElement(By.id("flow_preserve_login_email"));
-        elementLoginID.clear();
-        elementLoginID.sendKeys("fdse_microservices@163.com");
-
-        //locate Login pwd input
-        WebElement elementLoginPwd = driver.findElement(By.id("flow_preserve_login_password"));
-        elementLoginPwd.clear();
-        elementLoginPwd.sendKeys("DefaultPassword");
-
-        //locate Login Login submit
+        driver.findElement(By.id("flow_preserve_login_email")).clear();
+        driver.findElement(By.id("flow_preserve_login_email")).sendKeys(username);
+        driver.findElement(By.id("flow_preserve_login_password")).clear();
+        driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
+    }
+    @BeforeClass
+    public void setUp() throws Exception {
+        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
+        driver = new ChromeDriver();
+        baseUrl = "http://10.141.212.21/";
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+    @Test
+    public void login()throws Exception{
+        driver.get(baseUrl + "/");
 
-        //Thread.sleep(100);
+        //define username and password
+        String username = "fdse_microservices@163.com";
+        String password = "DefaultPassword";
+
+        //call function login
+        login(driver,username,password);
+        Thread.sleep(1000);
+
         //get login status
         String statusLogin = driver.findElement(By.id("flow_preserve_login_msg")).getText();
-
         if(statusLogin.startsWith("Success")) {
             System.out.println("Login status:"+statusLogin);
             driver.findElement(By.id("microservice_page")).click();
         }
-        else if(statusLogin ==null || statusLogin.length() <= 0) {
+        else if("".equals(statusLogin))
             System.out.println("False,Failed to login! StatusLogin is NULL");
-            driver.quit();
-        }
-        else {
+        else
             System.out.println("Failed to login!" + "Wrong login Id or password!");
-            driver.quit();
-        }
+
+        Assert.assertEquals(statusLogin.startsWith("Success"),true);
     }
-    public static void getOrders(WebDriver driver){
+    @Test (dependsOnMethods = {"login"})
+    public void getOrders()throws Exception{
         WebElement elementRefreshOrdersBtn = driver.findElement(By.id("refresh_order_button"));
         WebElement elementOrdertypeGTCJ = driver.findElement(By.xpath("//*[@id='microservices']/div[4]/div[1]/h3/input[1]"));
         WebElement elementOrdertypePT = driver.findElement(By.xpath("//*[@id='microservices']/div[4]/div[1]/h3/input[2]"));
@@ -74,17 +89,22 @@ public class TestServiceRebook {
             ordersList.get(i).findElement(By.xpath("td[9]/button")).click();
             System.out.println("Success get orderId and update order status! orderId:"+orderId);
         }
-        else{
+        else
             System.out.println("Cant't get orders information1");
-            driver.quit();
-        }
+        Assert.assertEquals(ordersList.size() > 0,true);
+        Assert.assertEquals(orderId.equals(""),false);
     }
-    public static void testTicketRebook(WebDriver driver) throws InterruptedException{
+    @Test (dependsOnMethods = {"getOrders"})
+    public void testTicketRebook()throws Exception{
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        if(orderId ==null || orderId.length() <= 0) {
-            System.out.println("Failed,orderId is NULL!");
-            driver.quit();
-        }
+//        if(orderId ==null || orderId.length() <= 0) {
+//            System.out.println("Failed,orderId is NULL!");
+//            driver.quit();
+//        }
+//        if (!"".equals(orderId))
+//            System.out.println("Sign Up btn status: "+statusSignIn);
+//        else
+//            System.out.println("False，Status of Sign In btn is NULL!");
         driver.findElement(By.id("single_rebook_order_id")).clear();
 
         driver.findElement(By.id("single_rebook_order_id")).sendKeys(orderId);
@@ -101,9 +121,12 @@ public class TestServiceRebook {
         Thread.sleep(1000);
         //get rebook status
         String statusRebook = driver.findElement(By.id("single_rebook_result")).getText();
-        if(statusRebook ==null || statusRebook.length() <= 0) {
+        if("".equals(statusRebook)){
             System.out.println("Failed,Status of Rebook btn is NULL!");
-            driver.quit();
+            Assert.assertEquals(!"".equals(statusRebook), true);
+        }
+        else if(statusRebook.startsWith("You haven't paid")){
+            System.out.println("Failed,You haven't paid the original ticket!");
         }
         else if(statusRebook.startsWith("Please")) {
             System.out.println(statusRebook);
@@ -111,29 +134,16 @@ public class TestServiceRebook {
             Thread.sleep(1000);
             String statusRebookPayment = driver.findElement(By.id("rebook_payment_result")).getText();
             System.out.println("Rebook payment status:"+statusRebookPayment);
+            Assert.assertEquals(statusRebookPayment.startsWith("true"), true);
         }
-        else
-            System.out.println("Rebook status:"+statusRebook);
+        else {
+            System.out.println("Rebook status:" + statusRebook);
+            Assert.assertEquals(statusRebook.startsWith("true"), true);
+        }
     }
 
-    public static void main(String[] args) throws InterruptedException{
-        // Create a new instance of the Chrome driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
-        System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-
-        // And now use this to visit TTS
-        driver.navigate().to("http://10.141.212.24/");
-
-        //login
-        login(driver);
-
-        getOrders(driver);
-        //test Ticket Rebook
-        testTicketRebook(driver);
-
-        //Close the browser
+    @AfterClass
+    public void tearDown() throws Exception {
         driver.quit();
     }
 }
