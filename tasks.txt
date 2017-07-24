@@ -1,14 +1,27 @@
 
+工作计划
 
-2017.7.17 －－－ 2017.7.23
+7.24-25
+周翔: 论文第二章“ndustry study”第一节：study process
+冀超: 车票预定出现了订单状态异常的故障制造重现+日志转换+可视化故障比较，参考分支1-error-normal
+徐琛杰: 订单支付默认选项“站内支付”会一定概率的变为默认“第三方支付”的故障制造重现，参考分支1-error-temp-storage，注意挑选合适的值做微服务状态
+周代宏: 论文related works第一节+故障重现的自动化测试用例（正确+错误）
 
-7.24 － 7.25:
-开发＋论文任务：
-周翔：论文第二章industry第一节初稿
-徐琛杰：购票微服务bug重现＋收集日志＋可视化：微服务临时存储，（参考 1-error-normal）
-冀超：购票微服务bug重现＋收集日志＋可视化：BOM计数返回值越界，（参考 1-error-normal）
-周代宏：测试购票微服务的故障重现（success／fail test case） + related work 第1节初稿, bib文件
+7.26-27
+周翔: 论文第二章“ndustry study”第二节：typical fault
+冀超: 退票造成的异步订单状态更新异常的故障制造重现+日志转换+可视化故障比较，参考分支1-error-process-seq
+徐琛杰: 订单支付调用链请求超时造成的订单查询的timeout，参考分支1-error-cross-timeout-status，注意挑选合适的值做微服务状态
+周代宏: 论文related works第一节完成+故障重现的自动化测试用例（正确+错误）
 
+7.28-29
+周翔: 论文第二章“ndustry study”第三节：fault localization practise
+冀超: 多次改签(多次traces)造成的订单状态更新异常的故障制造重现+日志转换+可视化故障比较，参考分支1-error-queue
+徐琛杰: 构造顺序和状态均相关的黄牛验证错误的故障制造重现，参考分支1-error-processes-seq-status(chance)，注意挑选合适的值做微服务状态
+周代宏: 论文related works第一节终稿＋bib整理+故障重现的自动化测试用例（正确+错误）
 
-
+7.30
+周翔：整理第二章“ndustry study”的文字
+冀超：验收三个基本故障的重现和可视化
+徐琛杰：验收三个服务状态相关的故障的重现和可视化
+周代宏：验收论文related works第一节终稿和测试用例
 
