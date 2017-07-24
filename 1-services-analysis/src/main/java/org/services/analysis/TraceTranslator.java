@@ -24,20 +24,22 @@ public class TraceTranslator {
 //        String path = "./sample/traces-error-normal.json";
 //        String path = "./sample/trace-error-processes-seq.json";
 //        String path = "./sample/trace-error-processes-seq(chance).json";
-        String path = "./sample/trace-error-processes-seq-status.json";
+//        String path = "./sample/trace-error-processes-seq-status.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
+//        String path = "./sample/trace-error-queue-seq-multi.json";
+//        String path = "./sample/traces-error-cross-timeout-status.json";
+//          String path = "./sample/traces-error-external-normal.json";
+        String path = "./sample/traces-error-report-ui-seq.json";
 
 //        String destPath = "./output/shiviz-log-error-normal.txt";
 //        String destPath = "./output/shiviz-error-processes-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq(chance).txt";
-        String destPath = "./output/shiviz-error-processes-seq-status.txt";
+//        String destPath = "./output/shiviz-error-processes-seq-status.txt";
 //        String destPath = "./output/shiviz-traces-error-cross-timeout-status.txt;
+//        String destPath = "./output/shiviz-error-cross-timeout-status.txt";
+//          String destPath = "./output/shiviz-error-external-normal.txt";
+        String destPath = "./output/shiviz-error-report-ui-seq.txt";
 
-        //        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
-//        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
-//        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
-//        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
-//        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
 
         String traceStr = readFile(path);
 
