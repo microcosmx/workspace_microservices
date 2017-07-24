@@ -2,6 +2,12 @@
 
 ^=== (?<trace>.*) ===$
 
+success 1 <==> failed 1 Long--Long
+
+success 3 <==> failed 0 Short--Short
+
+success 5 <==> failed 0 Long--Short
+
 === Fail execution 0 ===
 {traceId=862986aaf08a1731, spanId=862986aaf08a1731, hostName=rest-service-6, srcName=null, src=null, host=rest-service-6:172.20.0.10, clock={"rest-service-6:172.20.0.10":1}, event=rest-service-6.HelloController.hello6, type=sr, error=Request processing failed; nested exception is java.lang.Exception: status error!!, parentId=, timestamp=1499741172858000, }
 {traceId=862986aaf08a1731, spanId=78ba5c0e4a48de73, hostName=rest-service-6, destName=rest-service-end, host=rest-service-6:172.20.0.10, api=rest-service-end.GreetingController.refreshdb, clock={"rest-service-6:172.20.0.10":2}, dest=rest-service-end:172.20.0.2, event=, type=cs, parentId=862986aaf08a1731, timestamp=1499741172860000, }

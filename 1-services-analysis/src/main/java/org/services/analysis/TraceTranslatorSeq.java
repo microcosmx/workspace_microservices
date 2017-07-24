@@ -22,7 +22,9 @@ public class TraceTranslatorSeq {
 //        String path = "./sample/traces-error-normal.json";
 //        String path = "./sample/trace-error-processes-seq.json";
 //        String path = "./sample/trace-error-processes-seq(chance).json";
-       String path = "./sample/trace-error-processes-seq-status.json";
+//        String path = "./sample/trace-error-processes-seq-status.json";
+//        String path = "./sample/trace-error-queue-seq-multi.json";
+        String path = "./sample/cluster/trace-error-processes-seq-status(chance).json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 
 
@@ -352,7 +354,10 @@ public class TraceTranslatorSeq {
 //        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
-        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
+//        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
+//        writeFile("./output/shiviz-error-queue-seq-multi.txt", list, failures);
+
+        writeFile("./output/trace-error-processes-seq-status(chance).txt", list, failures);
 //        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
 
 
