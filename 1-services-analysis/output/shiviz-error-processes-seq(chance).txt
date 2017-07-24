@@ -2,11 +2,12 @@
 
 ^=== (?<trace>.*) ===$
 
-success 0 <==> failed 0 Long--Long
+Fail 0 <--> Success 2 Long-Short
 
-success 2 <==> failed 2 Short-Short
+Fail 2 <--> Success 2 Short-Short
 
-success 3 <==> failed 3 Long-Short
+File 0 <--> Success 0 Long-Long
+
 
 === Success execution 0 ===
 {traceId=502741c39852341d, spanId=502741c39852341d, hostName=rest-service-6, srcName=null, src=null, host=rest-service-6:172.20.0.9, clock={"rest-service-6:172.20.0.9":1}, event=rest-service-6.HelloController.hello6, type=sr, parentId=, timestamp=1499065947345000, }

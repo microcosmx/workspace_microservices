@@ -4,14 +4,15 @@
 /**
  * Created by Administrator on 2017/7/11.
  */
+package org.services.analysis;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 /**
  * Created by hh on 2017-07-08.
  */
@@ -23,9 +24,20 @@ public class TraceTranslator {
 //        String path = "./sample/traces-error-normal.json";
 //        String path = "./sample/trace-error-processes-seq.json";
 //        String path = "./sample/trace-error-processes-seq(chance).json";
-//        String path = "./sample/trace-error-processes-seq-status.json";
-        String path = "./sample/traces-error-cross-timeout-status.json";
+        String path = "./sample/trace-error-processes-seq-status.json";
+//        String path = "./sample/traces-error-cross-timeout-status.json";
 
+//        String destPath = "./output/shiviz-log-error-normal.txt";
+//        String destPath = "./output/shiviz-error-processes-seq.txt";
+//        String destPath = "./output/shiviz-error-processes-seq(chance).txt";
+        String destPath = "./output/shiviz-error-processes-seq-status.txt";
+//        String destPath = "./output/shiviz-traces-error-cross-timeout-status.txt;
+
+        //        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
+//        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
+//        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
+//        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
+//        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
 
         String traceStr = readFile(path);
 
@@ -354,7 +366,8 @@ public class TraceTranslator {
 //        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
-        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
+//        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
+        writeFile(destPath, list, failures);
 
 
     }
