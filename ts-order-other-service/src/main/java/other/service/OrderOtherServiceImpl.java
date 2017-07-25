@@ -298,6 +298,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             result.setMessage("Order Not Found");
             result.setOrder(null);
         }else{
+            System.out.println("[Order Other Service] Order Price:" + order.getPrice());
             result.setStatus(true);
             result.setMessage("Success.");
             result.setOrder(order);

@@ -39,22 +39,22 @@
 		<module>ts-payment-service</module>
 		<module>ts-rebook-service</module>
 		<module>ts-cancel-service</module>
-        <module>1_services_analysis_mvn</module>
+        <!--<module>1_services_analysis_mvn</module>-->
     </modules>
 
 
 	<dependencies>
 
-        <dependency>
-            <groupId>myproject.microservices</groupId>
-            <artifactId>micro-service-monitoring-core</artifactId>
-            <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>myproject.microservices</groupId>
-            <artifactId>micro-service-monitoring-zipkin</artifactId>
-            <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>myproject.microservices</groupId>-->
+            <!--<artifactId>micro-service-monitoring-core</artifactId>-->
+            <!--<version>1.2.2.BUILD-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>myproject.microservices</groupId>-->
+            <!--<artifactId>micro-service-monitoring-zipkin</artifactId>-->
+            <!--<version>1.2.2.BUILD-SNAPSHOT</version>-->
+        <!--</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

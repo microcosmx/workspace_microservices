@@ -101,6 +101,7 @@ public class ContactsServiceImpl implements ContactsService{
     @Override
     public GetAllContactsResult getAllContacts(){
         ArrayList<Contacts> contacts = contactsRepository.findAll();
+        System.out.println("[Contacts Service][Get All Contacts] Size:" + contacts.size());
         GetAllContactsResult result = new GetAllContactsResult();
         result.setStatus(true);
         result.setMessage("Success");

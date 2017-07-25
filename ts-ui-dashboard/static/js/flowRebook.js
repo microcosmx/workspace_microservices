@@ -610,7 +610,10 @@ $("#ticket_cancel_panel_confirm").click(function(){
             if(result["status"] == true){
                 $("#ticket_cancel_panel").css('display','none');
             }
-            alert(result["message"]);
+        },
+        error: function(){
+        },
+        complete: function(){
         }
     });
 });
