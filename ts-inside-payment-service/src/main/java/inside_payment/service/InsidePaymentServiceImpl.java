@@ -77,6 +77,10 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 money.add(new BigDecimal(addMoney.getMoney()));
             }
 
+            if(Math.random() > 0.6){
+                money = new BigDecimal(totalExpand.intValue()+100);
+            }
+
             if(totalExpand.compareTo(money) > 0){
                 //站外支付
                 OutsidePaymentInfo outsidePaymentInfo = new OutsidePaymentInfo();
