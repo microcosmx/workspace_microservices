@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class TestServiceLogin {
     private WebDriver driver;
     private String baseUrl;
-    public static void login(WebDriver driver,String username,String password){
+    public static void ServiceLogin(WebDriver driver,String username,String password){
         driver.findElement(By.id("login_email")).clear();
         driver.findElement(By.id("login_email")).sendKeys(username);
         driver.findElement(By.id("login_password")).clear();
@@ -26,7 +26,7 @@ public class TestServiceLogin {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = "http://10.141.212.21/";
+        baseUrl = "http://10.141.212.24/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     @DataProvider(name="user")
@@ -47,7 +47,7 @@ public class TestServiceLogin {
         driver.get(baseUrl + "/");
 
         //call function login
-        login(driver,username,password);
+        ServiceLogin(driver,username,password);
         Thread.sleep(1000);
 
         //get login status

@@ -3,6 +3,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,7 +21,7 @@ public class TestServiceTrain {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = "http://10.141.212.21/";
+        baseUrl = "http://10.141.212.24/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     @Test
@@ -42,15 +43,16 @@ public class TestServiceTrain {
     }
     @Test (dependsOnMethods = {"testTrain"})
     public void testQueryTrain() throws Exception{
-        driver.findElement(By.id("station_query_button")).click();
+        driver.findElement(By.id("train_query_button")).click();
         Thread.sleep(1000);
         //gain Travel list
-        List<WebElement> stationList = driver.findElements(By.xpath("//table[@id='query_station_list_table']/tbody/tr"));
+        List<WebElement> trainList = driver.findElements(By.xpath("//table[@id='query_train_list_table']/tbody/tr"));
 
-        if (stationList.size() > 0)
-            System.out.printf("Success to Query Station and Station list size is %d.%n",stationList.size());
+        if (trainList.size() > 0)
+            System.out.printf("Success to Query Train and Train list size is %d.%n",trainList.size());
         else
-            System.out.println("Failed to Query Station or Station list size is 0");
+            System.out.println("Failed to Query Train or Train list size is 0");
+        Assert.assertEquals(trainList.size() > 0,true);
     }
     @AfterClass
     public void tearDown() throws Exception {

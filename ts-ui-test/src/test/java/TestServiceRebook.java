@@ -29,12 +29,13 @@ public class TestServiceRebook {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = "http://10.141.212.21/";
+        baseUrl = "http://10.141.212.24/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     @Test
     public void login()throws Exception{
         driver.get(baseUrl + "/");
+        //Go to flow_one_page
 
         //define username and password
         String username = "fdse_microservices@163.com";
@@ -59,6 +60,7 @@ public class TestServiceRebook {
     }
     @Test (dependsOnMethods = {"login"})
     public void getOrders()throws Exception{
+
         WebElement elementRefreshOrdersBtn = driver.findElement(By.id("refresh_order_button"));
         WebElement elementOrdertypeGTCJ = driver.findElement(By.xpath("//*[@id='microservices']/div[4]/div[1]/h3/input[1]"));
         WebElement elementOrdertypePT = driver.findElement(By.xpath("//*[@id='microservices']/div[4]/div[1]/h3/input[2]"));
