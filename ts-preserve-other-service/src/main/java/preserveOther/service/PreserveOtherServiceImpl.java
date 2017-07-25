@@ -120,7 +120,16 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             order.setFrom(fromStationId);
             order.setTo(toStationId);
             order.setBoughtDate(new Date());
-            order.setStatus(OrderStatus.NOTPAID.getCode());
+
+            /************************************************/
+            /********** Fault Reproduce - Error Normal*********/
+            /**
+             * 正确的情况：order.setStatus(OrderStatus.NOTPAID.getCode());
+             * 逻辑错误的情况：开发人员写这里的时候，误将订好票认为已经出票所以把状态写成了【已取票】
+             */
+            order.setStatus(OrderStatus.COLLECTED.getCode());
+            /************************************************/
+
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
             order.setContactsName(contacts.getName());
             order.setDocumentType(contacts.getDocumentType());
