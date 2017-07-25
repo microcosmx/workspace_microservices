@@ -29,20 +29,33 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
-        QueryOrderResult result;
+//        QueryOrderResult result;
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
+
+        GetOrderByIdInfo getOrderByIdInfo = new GetOrderByIdInfo();
+        getOrderByIdInfo.setOrderId(info.getOrderId());
+        GetOrderResult result;
+
         if(info.getTripId().startsWith("G") || info.getTripId().startsWith("D")){
-             result = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+            result = restTemplate.postForObject("http://ts-order-service:12031/order/getById",getOrderByIdInfo,GetOrderResult.class);
+             //result = restTemplate.postForObject(
+             //       "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }else{
-             result = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/orderOther/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+            result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/getById",getOrderByIdInfo,GetOrderResult.class);
+            //result = restTemplate.postForObject(
+            //      "http://ts-order-other-service:12032/orderOther/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }
 
         if(result.isStatus()){
+
+            if(result.getOrder().getStatus() != OrderStatus.NOTPAID.getCode()){
+                System.out.println("[Inside Payment Service][Pay] Error. Order status Not allowed to Pay.");
+                return false;
+            }
+
             Payment payment = new Payment();
             payment.setOrderId(info.getOrderId());
-            payment.setPrice(result.getPrice());
+            payment.setPrice(result.getOrder().getPrice());
             payment.setUserId(userId);
 
             //判断一下账户余额够不够，不够要去站外支付
@@ -56,7 +69,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 Payment p = paymentsIterator.next();
                 totalExpand.add(new BigDecimal(p.getPrice()));
             }
-            totalExpand.add(new BigDecimal(result.getPrice()));
+            totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
 
             BigDecimal money = new BigDecimal("0");
             while(addMoniesIterator.hasNext()){
@@ -69,7 +82,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 OutsidePaymentInfo outsidePaymentInfo = new OutsidePaymentInfo();
                 outsidePaymentInfo.setOrderId(info.getOrderId());
                 outsidePaymentInfo.setUserId(userId);
-                outsidePaymentInfo.setPrice(result.getPrice());
+                outsidePaymentInfo.setPrice(result.getOrder().getPrice());
                 boolean outsidePaySuccess = restTemplate.postForObject(
                         "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
                 if(outsidePaySuccess){

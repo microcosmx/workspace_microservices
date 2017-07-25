@@ -439,6 +439,7 @@ $("#preserve_pay_button").click(function(){
                 //alert("Success");
                 location.hash="anchor_flow_preserve_collect";
             }else{
+                alert("Pay Fail. Reason Not Clear.Please check the order status before you try.");
                 //alert("Some thing error");
             }
         },
