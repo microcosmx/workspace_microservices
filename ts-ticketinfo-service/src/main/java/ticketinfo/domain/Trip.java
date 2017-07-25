@@ -1,42 +1,25 @@
 package ticketinfo.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * Created by Chenjie Xu on 2017/5/9.
  */
 public class Trip {
-    @Valid
-    @Id
+
     private TripId tripId;
 
-    @Valid
-    @NotNull
     private String trainTypeId;
 
-    @Valid
-    @NotNull
     private String startingStation;
 
     //中间停靠站，最开始的版本只设置一站，也就是说只有起始站、一个停靠站、终点站，在之后的版本中，停靠站扩展为若干站
-    @Valid
     private String stations;
 
-    @Valid
-    @NotNull
     private String terminalStation;
 
-    @Valid
-    @NotNull
     private Date startingTime;
 
-    @Valid
-    @NotNull
     private Date endTime;
 
     public Trip(){

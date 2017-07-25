@@ -1,16 +1,12 @@
 package rebook.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 import java.util.UUID;
 
-@Document(collection = "orders")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
 
-    @Id
     private UUID id;
 
     private Date boughtDate;
