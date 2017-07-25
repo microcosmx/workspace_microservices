@@ -29,6 +29,14 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     public String tempAddMoney;
 
+    {
+        if(Math.random() < 0.3){
+            tempAddMoney = "10000";
+        }else{
+            tempAddMoney = "0";
+        }
+    }
+
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
 //        QueryOrderResult result;
@@ -79,9 +87,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 money.add(new BigDecimal(addMoney.getMoney()));
             }
 
-            if(Math.random() < 0.4){
-                money = new BigDecimal(totalExpand.intValue()+100);
-            }
+            money = new BigDecimal(totalExpand.toString()).subtract(new BigDecimal("5000")).add(new BigDecimal(tempAddMoney));
 
             if(totalExpand.compareTo(money) > 0){
                 //站外支付
