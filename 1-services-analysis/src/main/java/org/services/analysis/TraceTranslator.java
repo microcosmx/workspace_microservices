@@ -26,6 +26,9 @@ public class TraceTranslator {
 //        String path = "./sample/trace-error-processes-seq(chance).json";
 //        String path = "./sample/trace-error-processes-seq-status.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
+
+//        String path = "./sample/trace-error-queue-seq-multi.json";
+
 //        String path = "./sample/trace-error-queue-seq-multi.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 //          String path = "./sample/traces-error-external-normal.json";
@@ -39,6 +42,7 @@ public class TraceTranslator {
 //        String destPath = "./output/shiviz-error-cross-timeout-status.txt";
 //          String destPath = "./output/shiviz-error-external-normal.txt";
         String destPath = "./output/shiviz-error-report-ui-seq.txt";
+
 
 
         String traceStr = readFile(path);
@@ -121,100 +125,100 @@ public class TraceTranslator {
 
 
                 //binaryAnnotation
-                if (name.contains("message:")) {
-                    if ("message:input".equals(name)) {
-                        content.put("api", content.get("service") + "." + "message_received");
+//                if (name.contains("message:")) {
+//                    if ("message:input".equals(name)) {
+//                        content.put("api", content.get("service") + "." + "message_received");
+//                    }
+//                } else {
+                JSONArray binaryAnnotations = spanobj.getJSONArray("binaryAnnotations");
+                for (int i = 0; i < binaryAnnotations.length(); i++) {
+                    JSONObject anno = binaryAnnotations.getJSONObject(i);
+                    if ("error".equals(anno.getString("key"))) {
+                        content.put("error", anno.getString("value"));
                     }
-                } else {
-                    JSONArray binaryAnnotations = spanobj.getJSONArray("binaryAnnotations");
-                    for (int i = 0; i < binaryAnnotations.length(); i++) {
-                        JSONObject anno = binaryAnnotations.getJSONObject(i);
-                        if ("error".equals(anno.getString("key"))) {
-                            content.put("error", anno.getString("value"));
-                        }
-                        if ("mvc.controller.class".equals(anno.getString("key"))
-                                && !"BasicErrorController".equals(anno.getString("value"))) {
-                            String classname = anno.getString("value");
-                            content.put("classname", classname);
-                        }
-                        if ("mvc.controller.method".equals(anno.getString("key"))
-                                && !"errorHtml".equals(anno.getString("value"))) {
-                            String methodname = anno.getString("value");
-                            content.put("methodname", methodname);
-                        }
-                        if ("spring.instance_id".equals(anno.getString("key"))) {
-                            String instance_id = anno.getString("value");
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String ipv4 = endpoint.getString("ipv4");
+                    if ("mvc.controller.class".equals(anno.getString("key"))
+                            && !"BasicErrorController".equals(anno.getString("value"))) {
+                        String classname = anno.getString("value");
+                        content.put("classname", classname);
+                    }
+                    if ("mvc.controller.method".equals(anno.getString("key"))
+                            && !"errorHtml".equals(anno.getString("value"))) {
+                        String methodname = anno.getString("value");
+                        content.put("methodname", methodname);
+                    }
+                    if ("spring.instance_id".equals(anno.getString("key"))) {
+                        String instance_id = anno.getString("value");
+                        JSONObject endpoint = anno.getJSONObject("endpoint");
+                        String ipv4 = endpoint.getString("ipv4");
 //                            String port = String.valueOf(endpoint.get("port"));
 
-                            if(content.get("serverName")!=null && instance_id.indexOf(content.get("serverName")) != -1){
-                                String key = content.get("serverName") + ":" + ipv4;
-                                String new_instance_id;
-                                if(states.containsKey(key)){
-                                    new_instance_id = content.get("serverName") + ":" + states.get(key) + ":" + ipv4;
-                                }else{
-                                    new_instance_id = content.get("serverName") + ":" + ipv4;
-                                }
-
-                                content.put("server_instance_id", new_instance_id);
+                        if(content.get("serverName")!=null && instance_id.indexOf(content.get("serverName")) != -1){
+                            String key = content.get("serverName") + ":" + ipv4;
+                            String new_instance_id;
+                            if(states.containsKey(key)){
+                                new_instance_id = content.get("serverName") + ":" + states.get(key) + ":" + ipv4;
+                            }else{
+                                new_instance_id = content.get("serverName") + ":" + ipv4;
                             }
-                            if(content.get("clientName")!=null  && instance_id.indexOf(content.get("clientName")) != -1){
-                                String key = content.get("clientName") + ":" + ipv4;
-                                String new_instance_id;
-                                if(states.containsKey(key)){
-                                    new_instance_id = content.get("clientName") + ":" + states.get(key) + ":" + ipv4;
-                                }else{
+
+                            content.put("server_instance_id", new_instance_id);
+                        }
+                        if(content.get("clientName")!=null  && instance_id.indexOf(content.get("clientName")) != -1){
+                            String key = content.get("clientName") + ":" + ipv4;
+                            String new_instance_id;
+                            if(states.containsKey(key)){
+                                new_instance_id = content.get("clientName") + ":" + states.get(key) + ":" + ipv4;
+                            }else{
 //                                    new_instance_id = ipv4 + ":" + content.get("clientName") + ":" + port;
-                                    new_instance_id = content.get("clientName") + ":" + ipv4 ;
-                                }
-                                content.put("client_instance_id", new_instance_id);
+                                new_instance_id = content.get("clientName") + ":" + ipv4 ;
                             }
+                            content.put("client_instance_id", new_instance_id);
                         }
-                        if ("http.method".equals(anno.getString("key"))) {
-                            String httpMethod = anno.getString("value");
-                            content.put("httpMethod", httpMethod);
-                        }
-                        if ("class".equals(anno.getString("key"))) {
-                            String c = anno.getString("value");
-                            content.put("class", c);
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String ipv4 = endpoint.getString("ipv4");
-                            String port = String.valueOf(endpoint.get("port"));
-                            String serviceName = String.valueOf(endpoint.get("serviceName"));
+                    }
+                    if ("http.method".equals(anno.getString("key"))) {
+                        String httpMethod = anno.getString("value");
+                        content.put("httpMethod", httpMethod);
+                    }
+                    if ("class".equals(anno.getString("key"))) {
+                        String c = anno.getString("value");
+                        content.put("class", c);
+                        JSONObject endpoint = anno.getJSONObject("endpoint");
+                        String ipv4 = endpoint.getString("ipv4");
+                        String port = String.valueOf(endpoint.get("port"));
+                        String serviceName = String.valueOf(endpoint.get("serviceName"));
 
-                            String hostId = serviceName + ":" + ipv4 ;
-                            content.put("hostId", hostId);
-                            content.put("serviceName", serviceName);
-
-                        }
-                        if ("method".equals(anno.getString("key"))) {
-                            String method = anno.getString("value");
-                            content.put("method", method);
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String ipv4 = endpoint.getString("ipv4");
-                            String port = String.valueOf(endpoint.get("port"));
-                            String serviceName = String.valueOf(endpoint.get("serviceName"));
-
-                            String hostId = serviceName + ":" + ipv4 ;
-                            content.put("hostId", hostId);
-                            content.put("serviceName", serviceName);
-                        }
-                        if ("controller_state".equals(anno.getString("key"))) {
-                            String state = anno.getString("value");
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String ipv4 = endpoint.getString("ipv4");
-                            String serviceName = String.valueOf(endpoint.get("serviceName"));
-                            content.put("state",state);
-                            content.put("ipv4State",ipv4);
-                            content.put("serviceNameState",serviceName);
-                            states.put(serviceName +":" + ipv4, state);
-                        }
-
+                        String hostId = serviceName + ":" + ipv4 ;
+                        content.put("hostId", hostId);
+                        content.put("serviceName", serviceName);
 
                     }
+                    if ("method".equals(anno.getString("key"))) {
+                        String method = anno.getString("value");
+                        content.put("method", method);
+                        JSONObject endpoint = anno.getJSONObject("endpoint");
+                        String ipv4 = endpoint.getString("ipv4");
+                        String port = String.valueOf(endpoint.get("port"));
+                        String serviceName = String.valueOf(endpoint.get("serviceName"));
+
+                        String hostId = serviceName + ":" + ipv4 ;
+                        content.put("hostId", hostId);
+                        content.put("serviceName", serviceName);
+                    }
+                    if ("controller_state".equals(anno.getString("key"))) {
+                        String state = anno.getString("value");
+                        JSONObject endpoint = anno.getJSONObject("endpoint");
+                        String ipv4 = endpoint.getString("ipv4");
+                        String serviceName = String.valueOf(endpoint.get("serviceName"));
+                        content.put("state",state);
+                        content.put("ipv4State",ipv4);
+                        content.put("serviceNameState",serviceName);
+                        states.put(serviceName +":" + ipv4, state);
+                    }
+
 
                 }
+
+
 
                 if(content.get("serverName") != null && (content.get("classname") != null || content.get("methodname") != null)){
                     content.put("api",
@@ -222,6 +226,21 @@ public class TraceTranslator {
                 }else if(content.get("hostId") != null && (content.get("class") != null || content.get("method") != null)){
                     content.put("api",
                             content.get("hostId") + "." + content.get("class") + "." + content.get("method"));
+                }
+                if (name.contains("message:")) {
+                    if(content.get("serverName") != null){
+                        if ("message:input".equals(name)) {
+                            content.put("api", content.get("serverName") + "." + "message_received");
+                        }else if("message:output".equals(name)){
+                            content.put("api", content.get("serverName") + "." + "message_received");
+                        }
+                    }else if(content.get("clientName") != null){
+                        if ("message:input".equals(name)) {
+                            content.put("api", content.get("clientName") + "." + "message_send");
+                        }else if("message:output".equals(name)){
+                            content.put("api", content.get("clientName") + "." + "message_send");
+                        }
+                    }
                 }
 
 
@@ -236,7 +255,7 @@ public class TraceTranslator {
                     .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
             boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
 
-            processList.forEach(n -> {
+            serviceList.forEach(n -> {
 
                 if(n.get("csTime") != null){
                     HashMap<String,String> log = new HashMap<String,String>();
@@ -248,7 +267,13 @@ public class TraceTranslator {
                     log.put("host" , n.get("client_instance_id"));
                     log.put("destName" , n.get("serverName"));
                     log.put("dest" , n.get("server_instance_id"));
-                    log.put("event" , "");
+
+                    if(n.get("spanname").contains("message:")){
+                        log.put("event" , n.get("api"));
+                    }else{
+                        log.put("event" , "");
+                    }
+
                     log.put("type", "cs");
                     if(null != n.get("api")){
                         log.put("api", n.get("api"));
@@ -268,7 +293,6 @@ public class TraceTranslator {
                     log.put("host" , n.get("server_instance_id"));
                     log.put("srcName" , n.get("clientName"));
                     log.put("src" , n.get("client_instance_id"));
-//                    log.put("event", "received message from " + n.get("client_instance_id"));
                     log.put("event", n.get("api"));
                     log.put("type", "sr");
                     if(n.containsKey("error")){
@@ -283,16 +307,10 @@ public class TraceTranslator {
                     log.put("parentId" , n.get("parentid"));
                     log.put("timestamp",n.get("ssTime"));
                     log.put("hostName" , n.get("serverName"));
-
-//                    if(n.get("state") != null){
-//                        log.put("host", n.get("serviceNameState") + ":" + n.get("state") + ":" + n.get("ipv4State"));
-//                    }else{
-//                        log.put("host" , n.get("server_instance_id"));
-//                    }
                     log.put("host" , n.get("server_instance_id"));
                     log.put("destName" , n.get("clientName"));
                     log.put("dest" , n.get("client_instance_id"));
-//                    log.put("event" , "sending result to " + n.get("client_instance_id"));
+
                     log.put("event", n.get("api"));
                     log.put("type", "ss");
                     if(n.containsKey("error")){
@@ -310,8 +328,13 @@ public class TraceTranslator {
                     log.put("host" , n.get("client_instance_id"));
                     log.put("srcName" , n.get("serverName"));
                     log.put("src" , n.get("server_instance_id"));
-//                    log.put("event" , "received message from " + n.get("server_instance_id"));
-                    log.put("event", "");
+
+                    if(n.get("spanname").contains("message:")){
+                        log.put("event" , n.get("api"));
+                    }else{
+                        log.put("event" , "");
+                    }
+
                     log.put("type", "cr");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
@@ -369,7 +392,11 @@ public class TraceTranslator {
 //        writeFile("./output/shiviz-error-processes-seq(chance).txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq-status.txt", list, failures);
 //        writeFile("./output/shiviz-traces-error-cross-timeout-status.txt", list, failures);
+
+//        writeFile("./output/shiviz-error-queue-seq-multi.txt", list, failures);
+
         writeFile(destPath, list, failures);
+
 
 
     }
@@ -387,6 +414,8 @@ public class TraceTranslator {
         }
         return (HashMap<String,Integer>)clock.clone();
     }
+
+
 
     //sort the log for one trace according to the calling sequences
     public static List<HashMap<String,String>> sortLog(List<HashMap<String,String>> logs){
@@ -581,7 +610,7 @@ public class TraceTranslator {
             if(clocks.containsKey(n.get("host"))){
                 HashMap<String,Integer> clock = clocks.get(n.get("host"));
 
-                if(n.get("src") != null){
+                if(n.containsKey("src")){
                     HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"));
 
                     Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
@@ -610,7 +639,7 @@ public class TraceTranslator {
             }else{
                 HashMap<String,Integer> clock = new HashMap<String,Integer>();
 
-                if(n.get("src") != null){
+                if(n.containsKey("src")){
                     HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"));
 
                     Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
@@ -888,7 +917,7 @@ public class TraceTranslator {
         File writer = new File(path);
         BufferedWriter out = null;
         try{
-            writer.createNewFile(); 
+            writer.createNewFile(); // 鍒涘缓鏂版枃浠?
             out = new BufferedWriter(new FileWriter(writer));
             int fail = 0;
             int success = 0;
