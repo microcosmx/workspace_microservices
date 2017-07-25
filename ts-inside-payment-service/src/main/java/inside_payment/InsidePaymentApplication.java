@@ -26,4 +26,18 @@ public class InsidePaymentApplication {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
+
+    @Bean
+    public SpanAdjuster spanCollector() {
+        return new SpanAdjuster() {
+            @Override
+            public Span adjust(Span span) {
+                System.out.println(span.tags());
+                return span.toBuilder()
+                        .tag("controller_state", "=" + span.tags().get("http.host") + "=" + greetingController.mytoken)
+                        //.name(span.getName() + "::" + greetingController.mytoken)
+                        .build();
+            }
+        };
+    }
 }

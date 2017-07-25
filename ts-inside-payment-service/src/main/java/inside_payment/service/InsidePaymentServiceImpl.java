@@ -27,6 +27,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     @Autowired
     public RestTemplate restTemplate;
 
+    public String tempAddMoney;
+
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
 //        QueryOrderResult result;
@@ -77,7 +79,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 money.add(new BigDecimal(addMoney.getMoney()));
             }
 
-            if(Math.random() > 0.6){
+            if(Math.random() < 0.4){
                 money = new BigDecimal(totalExpand.intValue()+100);
             }
 
