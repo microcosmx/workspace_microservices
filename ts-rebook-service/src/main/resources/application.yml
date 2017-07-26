@@ -2,6 +2,9 @@
 server:
   port: 18886  # HTTP (Tomcat) port
 
+spring:
+  application:
+    name: ts-rebook-service
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:
