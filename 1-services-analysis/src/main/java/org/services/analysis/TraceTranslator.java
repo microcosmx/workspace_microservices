@@ -4,7 +4,6 @@
 /**
  * Created by Administrator on 2017/7/11.
  */
-package org.services.analysis;
 
 import java.io.*;
 import java.util.*;
@@ -30,18 +29,18 @@ public class TraceTranslator {
 //        String path = "./sample/trace-error-queue-seq-multi.json";
 
 //        String path = "./sample/trace-error-queue-seq-multi.json";
-//        String path = "./sample/traces-error-cross-timeout-status.json";
+        String path = "./sample/traces-error-cross-timeout-status.json";
 //          String path = "./sample/traces-error-external-normal.json";
-        String path = "./sample/traces-error-report-ui-seq.json";
+//        String path = "./sample/traces-error-report-ui-seq.json";
 
 //        String destPath = "./output/shiviz-log-error-normal.txt";
 //        String destPath = "./output/shiviz-error-processes-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq(chance).txt";
 //        String destPath = "./output/shiviz-error-processes-seq-status.txt";
 //        String destPath = "./output/shiviz-traces-error-cross-timeout-status.txt;
-//        String destPath = "./output/shiviz-error-cross-timeout-status.txt";
+        String destPath = "./output/shiviz-error-cross-timeout-status.txt";
 //          String destPath = "./output/shiviz-error-external-normal.txt";
-        String destPath = "./output/shiviz-error-report-ui-seq.txt";
+//        String destPath = "./output/shiviz-error-report-ui-seq.txt";
 
 
 
@@ -590,14 +589,33 @@ public class TraceTranslator {
             }).collect(Collectors.toList());
 
             Iterator<String> iterator1 = sortedChilds.iterator();
-//            Iterator<String> iterator1 = s.getChilds().iterator();
+            List<HashMap<String,String>> childsLogs = new ArrayList<HashMap<String,String>>();
+
             while(iterator1.hasNext()){
+                List<HashMap<String,String>> childForwardLogs = new ArrayList<HashMap<String,String>>();
+                List<HashMap<String,String>> childBackwardLogs = new ArrayList<HashMap<String,String>>();
                 String childId = iterator1.next();
-                traverse(spans.get(childId), forwardLogs, backwardLogs, spans);
+                traverse(spans.get(childId), childForwardLogs, childBackwardLogs, spans);
+                childsLogs.addAll(mergeForwardAndBackwardLogs(childForwardLogs,childBackwardLogs));
             }
+
+            forwardLogs.addAll(childsLogs);
         }
 
 
+    }
+
+    public static List<HashMap<String,String>> mergeForwardAndBackwardLogs(List<HashMap<String,String>> forwardLogs, List<HashMap<String,String>> backwardLogs){
+        Stack<HashMap<String,String>> stack = new Stack<HashMap<String,String>>();
+        backwardLogs.forEach(n ->{
+            stack.push(n);
+        });
+
+        while(!stack.isEmpty()){
+            forwardLogs.add(stack.pop());
+        }
+
+        return forwardLogs;
     }
 
     public static List<HashMap<String,String>> clock2(List<HashMap<String,String>> logs){
@@ -610,7 +628,7 @@ public class TraceTranslator {
             if(clocks.containsKey(n.get("host"))){
                 HashMap<String,Integer> clock = clocks.get(n.get("host"));
 
-                if(n.containsKey("src")){
+                if(n.get("src") != null){
                     HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"));
 
                     Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
@@ -639,7 +657,7 @@ public class TraceTranslator {
             }else{
                 HashMap<String,Integer> clock = new HashMap<String,Integer>();
 
-                if(n.containsKey("src")){
+                if(n.get("src") != null){
                     HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"));
 
                     Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
