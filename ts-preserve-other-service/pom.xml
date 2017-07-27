@@ -43,11 +43,6 @@
             <version>2.2.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>fdse.microservice</groupId>
-            <artifactId>ts-preserve-service</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
 
     <build>
