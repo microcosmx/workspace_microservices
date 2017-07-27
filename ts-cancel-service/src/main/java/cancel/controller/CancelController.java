@@ -27,7 +27,8 @@ public class CancelController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/cancelOrder", method = RequestMethod.POST)
-    public CancelOrderResult cancelTicket(@RequestBody CancelOrderInfo info, @CookieValue String loginToken,@CookieValue String loginId){
+    public CancelOrderResult cancelTicket(@RequestBody CancelOrderInfo info, @CookieValue String loginToken, @CookieValue String loginId){
+        System.out.println("[Cancel Order Service][Cancel Ticket] info:" + info.getOrderId());
         if(loginToken == null ){
             loginToken = "admin";
         }
@@ -47,7 +48,14 @@ public class CancelController {
             result.setMessage("Not Login");
             return result;
         }else{
-            return cancelService.cancelOrder(info,loginToken,loginId);
+            System.out.println("[Cancel Order Service][Cancel Ticket] Verify Success");
+            try{
+                return cancelService.cancelOrder(info,loginToken,loginId);
+            }catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+
         }
     }
 
