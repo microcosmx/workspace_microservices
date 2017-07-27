@@ -2,6 +2,7 @@ package inside_payment.service;
 
 import inside_payment.domain.*;
 import inside_payment.repository.AddMoneyRepository;
+import inside_payment.repository.ModifyOrderStatusRepository;
 import inside_payment.repository.PaymentRepository;
 import inside_payment.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -27,10 +30,21 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     @Autowired
     public RestTemplate restTemplate;
 
+    @Autowired
+    public ModifyOrderStatusRepository modifyOrderStatusRepository;
+
+    public String accountIdForSpan;
+
+    public boolean payingForSpan = false;
+
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
 //        QueryOrderResult result;
+        AtomicLong counter;
+
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
+
+        counterIncrement(userId);
 
         GetOrderByIdInfo getOrderByIdInfo = new GetOrderByIdInfo();
         getOrderByIdInfo.setOrderId(info.getOrderId());
@@ -50,6 +64,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
             if(result.getOrder().getStatus() != OrderStatus.NOTPAID.getCode()){
                 System.out.println("[Inside Payment Service][Pay] Error. Order status Not allowed to Pay.");
+                counterDecrement(userId);
                 return false;
             }
 
@@ -89,8 +104,10 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                     payment.setType(PaymentType.O);
                     paymentRepository.save(payment);
                     setOrderStatus(info.getTripId(),info.getOrderId());
+                    counterDecrement(userId);
                     return true;
                 }else{
+                    counterDecrement(userId);
                     return false;
                 }
             }else{
@@ -98,12 +115,29 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
             }
+            counterDecrement(userId);
                 return true;
 
         }else{
+            counterDecrement(userId);
             return false;
         }
     }
+
+    private void counterIncrement(String accountId){
+        ModifyOrderStatus modifyOrderStatus = new ModifyOrderStatus();
+        modifyOrderStatus.setAccountId(accountId);
+        modifyOrderStatus.setModify(1);
+        modifyOrderStatusRepository.save(modifyOrderStatus);
+    }
+
+    private void counterDecrement(String accountId){
+        ModifyOrderStatus modifyOrderStatus = new ModifyOrderStatus();
+        modifyOrderStatus.setAccountId(accountId);
+        modifyOrderStatus.setModify(2);
+        modifyOrderStatusRepository.save(modifyOrderStatus);
+    }
+
 
     @Override
     public boolean createAccount(CreateAccountInfo info){
@@ -274,7 +308,40 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         return addMoneyRepository.findAll();
     }
 
+    @Override
+    public Boolean queryModifyOrder(ModifyOrderInfo info){
+        int count1;
+        int count2;
+        accountIdForSpan = info.getAccountId();
+
+        do{
+            count1 = 0;
+            count2 = 0;
+            payingForSpan = true;
+            List<ModifyOrderStatus> list = modifyOrderStatusRepository.findByAccountId(info.getAccountId());
+            Iterator<ModifyOrderStatus> iterator = list.iterator();
+
+            while(iterator.hasNext()){
+                ModifyOrderStatus modifyOrderStatus = iterator.next();
+                if(1 == modifyOrderStatus.getModify()){
+                    count1++;
+                }else{
+                    count2++;
+                }
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }while(count1 != count2);
+
+        payingForSpan = false;
+        return true;
+    }
+
     private ModifyOrderStatusResult setOrderStatus(String tripId,String orderId){
+
         ModifyOrderStatusInfo info = new ModifyOrderStatusInfo();
         info.setOrderId(orderId);
         info.setStatus(1);   //order paid and not collected
@@ -287,6 +354,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             result = restTemplate.postForObject(
                     "http://ts-order-other-service:12032/orderOther/modifyOrderStatus", info, ModifyOrderStatusResult.class);
         }
+
         return result;
     }
 

@@ -4,12 +4,16 @@ import com.google.gson.Gson;
 import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -17,10 +21,15 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Override
     public Order findOrderById(UUID id){
         return orderRepository.findById(id);
     }
+
+
 
     @Override
     public CreateOrderResult create(Order order){
@@ -79,6 +88,18 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public ArrayList<Order> queryOrders(QueryInfo qi,String accountId){
+
+        Future<Boolean> paymentWillNotChangeOrderStatus = queryPayment(accountId);
+        try {
+            if(!paymentWillNotChangeOrderStatus.get()){
+                return null;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         //1.Get all orders of the user
         ArrayList<Order> list = orderRepository.findByAccountId(UUID.fromString(accountId));
         System.out.println("[Order Service][Query Order][Step 1] Get Orders Number of Account:" + list.size());
@@ -136,6 +157,15 @@ public class OrderServiceImpl implements OrderService{
             System.out.println("[Order Service][Query Order] Get order num:" + list.size());
             return list;
         }
+    }
+
+    private Future<Boolean> queryPayment(String accountId){
+        ModifyOrderInfo info = new ModifyOrderInfo();
+        info.setAccountId(accountId);
+        //async messages
+        Boolean result = restTemplate.postForObject(
+                "http://ts-inside-payment-service:18673/payment/queryModifyOrder", info, Boolean.class);
+        return new AsyncResult<>(result);
     }
 
     @Override

@@ -16,6 +16,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     @Autowired
     private OrderOtherRepository orderOtherRepository;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Override
     public Order findOrderById(UUID id){
         return orderOtherRepository.findById(id);
@@ -78,6 +81,18 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public ArrayList<Order> queryOrders(QueryInfo qi,String accountId){
+
+        Future<Boolean> paymentWillNotChangeOrderStatus = queryPayment(accountId);
+        try {
+            if(!paymentWillNotChangeOrderStatus.get()){
+                return null;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         //1.Get all orders of the user
         ArrayList<Order> list = orderOtherRepository.findByAccountId(UUID.fromString(accountId));
         System.out.println("[Order Other Service][Query Order][Step 1] Get Orders Number of Account:" + list.size());
@@ -135,6 +150,15 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             System.out.println("[Order Other Service][Query Order] Get order num:" + list.size());
             return list;
         }
+    }
+
+    private Future<Boolean> queryPayment(String accountId){
+        ModifyOrderInfo info = new ModifyOrderInfo();
+        info.setAccountId(accountId);
+        //async messages
+        Boolean result = restTemplate.postForObject(
+                "http://ts-inside-payment-service:18673/payment/queryModifyOrder", info, Boolean.class);
+        return new AsyncResult<>(result);
     }
 
     @Override

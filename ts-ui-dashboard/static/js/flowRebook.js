@@ -47,6 +47,7 @@ function queryForMyOrder(path,data){
     $.ajax({
         type: "post",
         url: path,
+        timeout: 2000,
         contentType: "application/json",
         dataType: "json",
         data:data,

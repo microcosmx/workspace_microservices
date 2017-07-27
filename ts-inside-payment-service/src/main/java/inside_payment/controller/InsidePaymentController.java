@@ -60,4 +60,9 @@ public class InsidePaymentController {
     public List<AddMoney> queryAddMoney(){
         return service.queryAddMoney();
     }
+
+    @RequestMapping(value="/inside_payment/queryModifyOrder", method = RequestMethod.POST)
+    public Boolean queryModifyOrder(@RequestBody ModifyOrderInfo info){
+        return service.queryModifyOrder(info);
+    }
 }

@@ -8,12 +8,15 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.SpanAdjuster;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
 @IntegrationComponentScan
-public class OrderApplication {
+public class
+OrderApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(OrderApplication.class, args);
     }
