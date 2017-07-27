@@ -25,7 +25,7 @@ public class TestServiceNotification {
     public void testNotification() throws Exception{
         driver.get(baseUrl + "/");
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementById('notification_email').value='fdse_microservices@163.com'");
+        js.executeScript("document.getElementById('notification_email').value='daihongok@163.com'");
         js.executeScript("document.getElementById('notification_orderNumber').value='123456789'");
         js.executeScript("document.getElementById('notification_username').value='fdse_microservices'");
         js.executeScript("document.getElementById('notification_startingPlace').value='Shang Hai'");
@@ -51,11 +51,13 @@ public class TestServiceNotification {
 
         //get Notification status
         String statusSendemail = driver.findElement(By.id("notification_result")).getText();
-        if(statusSendemail.startsWith("Success"))
-            System.out.println("Send email status:"+statusSendemail);
-        else if("".equals(statusSendemail))
+        if("".equals(statusSendemail))
             System.out.println("Failed to Send email! Send email status is NULL");
-        Assert.assertEquals(statusSendemail.startsWith("Success"),true);
+        else if(statusSendemail.startsWith("true"))
+            System.out.println("Send email status:"+statusSendemail);
+        else
+            System.out.println("Failed to Send email! Send email status："+statusSendemail);
+        Assert.assertEquals(statusSendemail.startsWith("true"),true);
     }
     @AfterClass
     public void tearDown() throws Exception {

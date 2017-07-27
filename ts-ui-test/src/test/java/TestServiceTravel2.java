@@ -3,6 +3,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -56,6 +57,7 @@ public class TestServiceTravel2 {
             System.out.printf("Success to Query Travel2 and Travel2 list size is %d.%n",travel2List.size());
         else
             System.out.println("Failed to Query Travel2 or Travel2 list size is 0");
+        Assert.assertEquals(travel2List.size() > 0,true);
     }
     @AfterClass
     public void tearDown() throws Exception {

@@ -110,6 +110,7 @@ public class TestServiceTravel {
             System.out.printf("Success to Query Travel and Travel list size is %d.%n",travelList.size());
         else
             System.out.println("Failed to Query Travel or Travel list size is 0");
+        Assert.assertEquals(travelList.size() > 0,true);
     }
     @AfterClass
     public void tearDown() throws Exception {

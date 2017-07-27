@@ -40,7 +40,7 @@ public class TestServiceBasicInfo {
         js.executeScript("document.getElementById('basic_information_endPlace').value='Tai Yuan'");
 
         js.executeScript("document.getElementById('basic_information_departureTime').value='2017-08-20'");
-        driver.findElement(By.id("price_update_button")).click();
+        driver.findElement(By.id("basic_information_button")).click();
         Thread.sleep(1000);
 
         //gain BasicInfo list
