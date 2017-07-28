@@ -42,14 +42,12 @@ public class TestServicePayment {
 
         //get login status
         String statusLogin = driver.findElement(By.id("flow_preserve_login_msg")).getText();
-        if(statusLogin.startsWith("Success")) {
-            System.out.println("Login status:"+statusLogin);
-            driver.findElement(By.id("microservice_page")).click();
-        }
-        else if("".equals(statusLogin))
-            System.out.println("False,Failed to login! StatusLogin is NULL");
+        if("".equals(statusLogin))
+            System.out.println("Failed to Login! Status is Null!");
+        else if(statusLogin.startsWith("Success"))
+            System.out.println("Success to Login! Status:"+statusLogin);
         else
-            System.out.println("Failed to login!" + "Wrong login Id or password!");
+            System.out.println("Failed to Login! Status:"+statusLogin);
 
         Assert.assertEquals(statusLogin.startsWith("Success"),true);
         driver.findElement(By.id("microservice_page")).click();

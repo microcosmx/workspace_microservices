@@ -47,10 +47,12 @@ public class TestFlowOne {
 
         //get login status
         String statusLogin = driver.findElement(By.id("flow_preserve_login_msg")).getText();
-        if (!"".equals(statusLogin))
-            System.out.println("Success: "+statusLogin);
+        if("".equals(statusLogin))
+            System.out.println("Failed to Login! Status is Null!");
+        else if(statusLogin.startsWith("Success"))
+            System.out.println("Success to Login! Status:"+statusLogin);
         else
-            System.out.println("False，status login is null!");
+            System.out.println("Failed to Login! Status:"+statusLogin);
         Assert.assertEquals(statusLogin.startsWith("Success"),true);
     }
     @Test (dependsOnMethods = {"testLogin"})
@@ -88,6 +90,7 @@ public class TestFlowOne {
         }
         if(ticketsList.size() > 0) {
             //Pick up a train at random and book tickets
+            System.out.printf("Success to search tickets，the tickets list size is:%d%n",ticketsList.size());
             Random rand = new Random();
             int i = rand.nextInt(1000) % ticketsList.size(); //int范围类的随机数
             WebElement elementBookingSeat = ticketsList.get(i).findElement(By.xpath("td[10]/select"));
@@ -130,6 +133,7 @@ public class TestFlowOne {
             contactsList.get(i).findElement(By.xpath("td[7]/label/input")).click();
         }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
+        System.out.println("Ticket contacts selected btn is clicked");
         Thread.sleep(1000);
     }
     @Test (dependsOnMethods = {"testBooking"})
@@ -185,7 +189,45 @@ public class TestFlowOne {
         Thread.sleep(1000);
         String itemCollectOrderId = driver.findElement(By.id("preserve_collect_order_id")).getAttribute("value");
         Assert.assertEquals(!"".equals(itemCollectOrderId),true);
-        System.out.println("Success to Book Ticket!");
+        System.out.println("Success to pay and book ticket!");
+    }
+    @Test (dependsOnMethods = {"testTicketPay"})
+    public void testTicketCollect ()throws Exception {
+        String itemCollectOrderId = driver.findElement(By.id("preserve_collect_order_id")).getAttribute("value");
+        boolean bCollectOrderId = !"".equals(itemCollectOrderId);
+        if(bCollectOrderId == false)
+            System.out.println("Ticket payment failed!");
+        Assert.assertEquals(bCollectOrderId,true);
+
+        driver.findElement(By.id("preserve_collect_button")).click();
+        Thread.sleep(1000);
+        String statusCollectOrderId = driver.findElement(By.id("preserve_collect_order_status")).getText();
+
+        if("".equals(statusCollectOrderId))
+            System.out.println("Failed to Collect Ticket! Status is Null!");
+        else if(statusCollectOrderId.startsWith("Success"))
+            System.out.println("Success to Collect Ticket! Status:"+statusCollectOrderId);
+        else
+            System.out.println("Failed to Collect Ticket! Status is:"+statusCollectOrderId);
+        Assert.assertEquals(statusCollectOrderId.startsWith("Success"),true);
+    }
+    @Test (dependsOnMethods = {"testTicketCollect"})
+    public void testEnterStation ()throws Exception {
+        String itemEnterOrderId = driver.findElement(By.id("preserve_execute_order_id")).getAttribute("value");
+        if("".equals(itemEnterOrderId))
+            System.out.println("Enter Station,No Order Id,failed");
+        Assert.assertEquals(!"".equals(itemEnterOrderId),true);
+
+        driver.findElement(By.id("preserve_order_button")).click();
+        Thread.sleep(1000);
+        String statusEnterStation = driver.findElement(By.id("preserve_order_status")).getText();
+        if("".equals(statusEnterStation))
+            System.out.println("Failed to Enter Station! Status is Null!");
+        else if(statusEnterStation.startsWith("Success"))
+            System.out.println("Success to Enter Station! Status:"+statusEnterStation);
+        else
+            System.out.println("Failed to Enter Station! Status is:"+statusEnterStation);
+        Assert.assertEquals(statusEnterStation.startsWith("Success"),true);
     }
     @AfterClass
     public void tearDown() throws Exception {
