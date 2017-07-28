@@ -1,4 +1,4 @@
-package order.domain;
+package other.domain;
 
 /**
  * Created by hh on 2017-07-27.

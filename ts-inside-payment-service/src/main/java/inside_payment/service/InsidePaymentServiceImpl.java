@@ -82,15 +82,18 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             BigDecimal totalExpand = new BigDecimal("0");
             while(paymentsIterator.hasNext()){
                 Payment p = paymentsIterator.next();
-                totalExpand.add(new BigDecimal(p.getPrice()));
+                totalExpand = totalExpand.add(new BigDecimal(p.getPrice()));
             }
-            totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
+            totalExpand = totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
 
             BigDecimal money = new BigDecimal("0");
             while(addMoniesIterator.hasNext()){
                 AddMoney addMoney = addMoniesIterator.next();
-                money.add(new BigDecimal(addMoney.getMoney()));
+                money = money.add(new BigDecimal(addMoney.getMoney()));
             }
+            System.out.println("totalExpand:"+totalExpand.toString());
+            System.out.println("money:"+money.toString());
+            System.out.println();
 
             if(totalExpand.compareTo(money) > 0){
                 //站外支付
@@ -192,13 +195,12 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
             List<Payment> payments = paymentRepository.findByUserId(userId);
             Iterator<Payment> iterator = payments.iterator();
-            String totalExpand = "0";
+            BigDecimal totalExpand = new BigDecimal("0");
             while(iterator.hasNext()){
                 Payment p = iterator.next();
-                BigDecimal expand = new BigDecimal(totalExpand);
-                totalExpand = expand.add(new BigDecimal(p.getPrice())).toString();
+                totalExpand = totalExpand.add(new BigDecimal(p.getPrice()));
             }
-            String balanceMoney = new BigDecimal(money).subtract(new BigDecimal(totalExpand)).toString();
+            String balanceMoney = new BigDecimal(money).subtract(totalExpand).toString();
             Balance balance = new Balance();
             balance.setUserId(userId);
             balance.setBalance(balanceMoney);

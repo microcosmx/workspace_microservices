@@ -5,10 +5,15 @@ import other.domain.*;
 import other.repository.OrderOtherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 
 @Service
 public class OrderOtherServiceImpl implements OrderOtherService{
@@ -157,7 +162,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         info.setAccountId(accountId);
         //async messages
         Boolean result = restTemplate.postForObject(
-                "http://ts-inside-payment-service:18673/payment/queryModifyOrder", info, Boolean.class);
+                "http://ts-inside-payment-service:18673/inside_payment/queryModifyOrder", info, Boolean.class);
         return new AsyncResult<>(result);
     }
 
