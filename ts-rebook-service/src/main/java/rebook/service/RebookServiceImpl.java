@@ -214,7 +214,6 @@ public class RebookServiceImpl implements RebookService{
             rebookResult.setOrder(null);
             return rebookResult;
         }
-
     }
 
     private RebookResult updateOrder(Order order, RebookInfo info, GetTripAllDetailResult gtdr,String ticketPrice, String loginId, String loginToken){
