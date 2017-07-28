@@ -26,7 +26,7 @@ public class PaymentServiceImpl implements PaymentService{
     public boolean pay(PaymentInfo info){
         if(paymentRepository.findByOrderId(info.getOrderId()) == null){
             try {
-                Thread.sleep(10000);
+                Thread.sleep(100000000);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
