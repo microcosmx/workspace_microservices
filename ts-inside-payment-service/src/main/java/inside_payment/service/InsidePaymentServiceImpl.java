@@ -67,14 +67,14 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             BigDecimal totalExpand = new BigDecimal("0");
             while(paymentsIterator.hasNext()){
                 Payment p = paymentsIterator.next();
-                totalExpand.add(new BigDecimal(p.getPrice()));
+                totalExpand = totalExpand.add(new BigDecimal(p.getPrice()));
             }
-            totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
+            totalExpand = totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
 
             BigDecimal money = new BigDecimal("0");
             while(addMoniesIterator.hasNext()){
                 AddMoney addMoney = addMoniesIterator.next();
-                money.add(new BigDecimal(addMoney.getMoney()));
+                money = money.add(new BigDecimal(addMoney.getMoney()));
             }
 
             if(totalExpand.compareTo(money) > 0){
