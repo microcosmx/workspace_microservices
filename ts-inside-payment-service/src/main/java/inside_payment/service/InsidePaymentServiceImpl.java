@@ -30,7 +30,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     public String tempAddMoney;
 
     {
-        if(Math.random() < 0.99){
+        if(Math.random() < 1){
             tempAddMoney = "10000";
         }else{
             tempAddMoney = "0";
