@@ -30,7 +30,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     public String tempAddMoney;
 
     {
-        if(Math.random() < 0.3){
+        if(Math.random() < 0.99){
             tempAddMoney = "10000";
         }else{
             tempAddMoney = "0";
@@ -77,17 +77,20 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             BigDecimal totalExpand = new BigDecimal("0");
             while(paymentsIterator.hasNext()){
                 Payment p = paymentsIterator.next();
-                totalExpand.add(new BigDecimal(p.getPrice()));
+                totalExpand = totalExpand.add(new BigDecimal(p.getPrice()));
             }
-            totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
+            totalExpand = totalExpand.add(new BigDecimal(result.getOrder().getPrice()));
 
             BigDecimal money = new BigDecimal("0");
             while(addMoniesIterator.hasNext()){
                 AddMoney addMoney = addMoniesIterator.next();
-                money.add(new BigDecimal(addMoney.getMoney()));
+                money = money.add(new BigDecimal(addMoney.getMoney()));
             }
 
-            money = new BigDecimal(totalExpand.toString()).subtract(new BigDecimal("5000")).add(new BigDecimal(tempAddMoney));
+            System.out.println("tempAddMoney"+tempAddMoney);
+            money = money.add(new BigDecimal(tempAddMoney));
+            System.out.println("money"+money.toString());
+            System.out.println("totalExpand"+totalExpand.toString());
 
             if(totalExpand.compareTo(money) > 0){
                 //站外支付

@@ -8,10 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import register.domain.AddContactsInfo;
 import register.domain.CreateAccountInfo;
 import register.domain.RegisterInfo;
 import register.domain.RegisterResult;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -49,11 +52,17 @@ public class RegisterServiceImpl implements RegisterService {
             System.out.println("[Register Service] Get Price Account.");
             CreateAccountInfo createAccountInfo = new CreateAccountInfo();
             createAccountInfo.setUserId(rr.getAccount().getId().toString());
-            createAccountInfo.setMoney("10000");
+            createAccountInfo.setMoney("2000");
             System.out.println("[Register Service] Get Price Account.");
             boolean  createAccountSuccess = restTemplate.postForObject(
                     "http://ts-inside-payment-service:18673/inside_payment/createAccount",
                     createAccountInfo,Boolean.class);
+
+//            AddContactsInfo contacts_One = new AddContactsInfo();
+//            contacts_One.setDocumentType(1);
+//            contacts_One.setName("Contacts_One");
+//            contacts_One.setDocumentNumber("DocumentNumber_One");
+//            contacts_One.setPhoneNumber("ContactsPhoneNum_One");
         }else{
 
         }

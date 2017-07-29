@@ -422,7 +422,7 @@ services:
         ports:
           - 18673:18673
         deploy:
-          replicas: 3
+          replicas: 6
           restart_policy:
             condition: on-failure
         networks:
