@@ -36,7 +36,7 @@
 		<!--<module>ts-security-service</module>-->
 		<!--<module>ts-inside-payment-service</module>-->
 		<!--<module>ts-execute-service</module>-->
-		<!--<module>ts-payment-service</module>-->
+		<module>ts-payment-service</module>
 		<!--<module>ts-rebook-service</module>-->
 		<!--<module>ts-cancel-service</module>-->
         <!--<module>1_services_analysis_mvn</module>-->

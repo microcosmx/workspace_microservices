@@ -27,6 +27,9 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private AsyncTask asyncTask;
+
     @Override
     public Order findOrderById(UUID id){
         return orderRepository.findById(id);
@@ -92,11 +95,26 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public ArrayList<Order> queryOrders(QueryInfo qi,String accountId) throws Exception{
 
-        Future<Boolean> paymentWillNotChangeOrderStatus = queryPayment(accountId);
 
-        if(!paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS)){
-            return null;
+        Future<Boolean> paymentWillNotChangeOrderStatus = asyncTask.queryPayment(accountId);
+
+        try{
+            System.out.println("paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS); before");
+            Boolean paying = paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS);
+            System.out.println("paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS); after");
+            if(!paying){
+                return null;
+            }
+        }catch (TimeoutException e){
+            System.out.println("TimeoutException");
+            paymentWillNotChangeOrderStatus.cancel(true);
+            throw e;
+        }catch (ExecutionException e){
+            throw e;
+        }catch (InterruptedException e){
+            throw e;
         }
+
 
 
         //1.Get all orders of the user
@@ -158,15 +176,7 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
-    @Async("QueryPaymentAsync")
-    private Future<Boolean> queryPayment(String accountId){
-        ModifyOrderInfo info = new ModifyOrderInfo();
-        info.setAccountId(accountId);
-        //async messages
-        Boolean result = restTemplate.postForObject(
-                "http://ts-inside-payment-service:18673/inside_payment/queryModifyOrder", info, Boolean.class);
-        return new AsyncResult<>(result);
-    }
+
 
     @Override
     public ChangeOrderResult saveChanges(Order order){

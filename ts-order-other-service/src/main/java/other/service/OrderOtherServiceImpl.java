@@ -13,6 +13,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -25,6 +26,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private AsyncTask asyncTask;
 
     @Override
     public Order findOrderById(UUID id){
@@ -89,9 +93,18 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     @Override
     public ArrayList<Order> queryOrders(QueryInfo qi,String accountId) throws Exception{
 
-        Future<Boolean> paymentWillNotChangeOrderStatus = queryPayment(accountId);
-        if(!paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS)){
-            return null;
+        Future<Boolean> paymentWillNotChangeOrderStatus = asyncTask.queryPayment(accountId);
+        try{
+            if(!paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS)){
+                return null;
+            }
+        }catch (TimeoutException e){
+            paymentWillNotChangeOrderStatus.cancel(true);
+            throw e;
+        }catch (ExecutionException e){
+            throw e;
+        }catch (InterruptedException e){
+            throw e;
         }
 
         //1.Get all orders of the user
