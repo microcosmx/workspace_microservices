@@ -1,3 +1,7 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
+
 
 === Success execution 0 ===
 {traceId=11fe2fbdcb6c8092, spanId=11fe2fbdcb6c8092, hostName=ts-inside-payment-service, srcName=null, src=null, host=ts-inside-payment-service:4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f:Paying:172.18.0.25, clock={"ts-inside-payment-service:4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f:Paying:172.18.0.25":1}, event=ts-inside-payment-service.InsidePaymentController.pay, type=sr, parentId=, timestamp=1501342514987000, }

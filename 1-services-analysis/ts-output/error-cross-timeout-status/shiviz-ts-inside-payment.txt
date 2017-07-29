@@ -1,3 +1,9 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
+
+Fail0 --  Success0
+
 
 === Fail execution 0 ===
 {traceId=cc8de578b90bcde0, spanId=cc8de578b90bcde0, hostName=ts-order-service, srcName=null, src=null, host=ts-order-service:172.18.0.10, clock={"ts-order-service:172.18.0.10":1}, event=ts-order-service.OrderController.queryOrders, type=sr, error=Request processing failed; nested exception is java.util.concurrent.TimeoutException, parentId=, timestamp=1501342517902000, }

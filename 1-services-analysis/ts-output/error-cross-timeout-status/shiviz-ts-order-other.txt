@@ -1,3 +1,8 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
+
+Success1 --  Fail0
 
 === Success execution 0 ===
 {traceId=1aec2702bd1a7d97, spanId=1aec2702bd1a7d97, hostName=ts-order-other-service, srcName=null, src=null, host=ts-order-other-service:172.18.0.12, clock={"ts-order-other-service:172.18.0.12":1}, event=ts-order-other-service.null.error, type=sr, parentId=, timestamp=1501342519946000, }
