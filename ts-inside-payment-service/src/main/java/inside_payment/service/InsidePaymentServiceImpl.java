@@ -40,8 +40,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
 //        QueryOrderResult result;
-        AtomicLong counter;
 
+
+        payingForSpan = true;
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
 
         counterIncrement(userId);
@@ -65,6 +66,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             if(result.getOrder().getStatus() != OrderStatus.NOTPAID.getCode()){
                 System.out.println("[Inside Payment Service][Pay] Error. Order status Not allowed to Pay.");
                 counterDecrement(userId);
+                payingForSpan = false;
                 return false;
             }
 
@@ -108,9 +110,11 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                     paymentRepository.save(payment);
                     setOrderStatus(info.getTripId(),info.getOrderId());
                     counterDecrement(userId);
+                    payingForSpan = false;
                     return true;
                 }else{
                     counterDecrement(userId);
+                    payingForSpan = false;
                     return false;
                 }
             }else{
@@ -119,10 +123,12 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 paymentRepository.save(payment);
             }
             counterDecrement(userId);
+            payingForSpan = false;
                 return true;
 
         }else{
             counterDecrement(userId);
+            payingForSpan = false;
             return false;
         }
     }
@@ -319,7 +325,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         do{
             count1 = 0;
             count2 = 0;
-            payingForSpan = true;
+
             List<ModifyOrderStatus> list = modifyOrderStatusRepository.findByAccountId(info.getAccountId());
             Iterator<ModifyOrderStatus> iterator = list.iterator();
 
