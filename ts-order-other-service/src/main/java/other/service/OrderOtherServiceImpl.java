@@ -153,6 +153,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         }
     }
 
+    @Async("QueryPaymentAsync")
     private Future<Boolean> queryPayment(String accountId){
         ModifyOrderInfo info = new ModifyOrderInfo();
         info.setAccountId(accountId);

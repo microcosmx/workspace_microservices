@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -157,6 +158,7 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    @Async("QueryPaymentAsync")
     private Future<Boolean> queryPayment(String accountId){
         ModifyOrderInfo info = new ModifyOrderInfo();
         info.setAccountId(accountId);
