@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
@@ -85,17 +87,11 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     }
 
     @Override
-    public ArrayList<Order> queryOrders(QueryInfo qi,String accountId){
+    public ArrayList<Order> queryOrders(QueryInfo qi,String accountId) throws Exception{
 
         Future<Boolean> paymentWillNotChangeOrderStatus = queryPayment(accountId);
-        try {
-            if(!paymentWillNotChangeOrderStatus.get()){
-                return null;
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        if(!paymentWillNotChangeOrderStatus.get(2000, TimeUnit.MILLISECONDS)){
+            return null;
         }
 
         //1.Get all orders of the user

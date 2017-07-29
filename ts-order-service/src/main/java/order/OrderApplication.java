@@ -23,6 +23,8 @@ OrderApplication {
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        builder.setConnectTimeout(3000);
+        builder.setReadTimeout(3000);
         return builder.build();
     }
 }

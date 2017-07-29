@@ -44,7 +44,7 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/query", method = RequestMethod.POST)
-    public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi,@CookieValue String loginId,@CookieValue String loginToken){
+    public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi,@CookieValue String loginId,@CookieValue String loginToken) throws Exception{
         System.out.println("[Order Service][Query Orders] Query Orders for " + loginId);
         VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){

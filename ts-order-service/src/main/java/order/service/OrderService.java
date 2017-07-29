@@ -14,7 +14,7 @@ public interface OrderService {
 
     CancelOrderResult cancelOrder(CancelOrderInfo coi);
 
-    ArrayList<Order> queryOrders(QueryInfo qi,String accountId);
+    ArrayList<Order> queryOrders(QueryInfo qi,String accountId) throws Exception;
 
     OrderAlterResult alterOrder(OrderAlterInfo oai);
 

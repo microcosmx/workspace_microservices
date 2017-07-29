@@ -47,12 +47,15 @@ function queryForMyOrder(path,data){
     $.ajax({
         type: "post",
         url: path,
-        timeout: 2000,
+        // timeout: 2000,
         contentType: "application/json",
         dataType: "json",
         data:data,
         xhrFields: {
             withCredentials: true
+        },
+        error : function(xhr,textStatus){
+            alert('error:'+textStatus);
         },
         success: function(result){
             var size = result.length;
