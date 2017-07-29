@@ -344,7 +344,6 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             }
         }while(count1 != count2);
 
-        payingForSpan = false;
         return true;
     }
 
