@@ -6,7 +6,8 @@ import org.springframework.web.client.RestTemplate;
 import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
-
+import rebook.globalValue.GlobalValue;
+import rebook.queue.MsgSendingBean;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,9 @@ public class RebookServiceImpl implements RebookService{
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private MsgSendingBean sendingBean;
 
     @Override
     public RebookResult rebook(RebookInfo info, String loginId, String loginToken){
@@ -66,9 +70,14 @@ public class RebookServiceImpl implements RebookService{
             rebookResult.setMessage("You have already changed your ticket and you can only change one time.");
             rebookResult.setOrder(null);
             return rebookResult;
-        }else if(status == OrderStatus.COLLECTED.getCode()){
+        }else if(status == OrderStatus.COLLECTED.getCode()) {
             rebookResult.setStatus(false);
             rebookResult.setMessage("You have already collected your ticket and you can change it now.");
+            rebookResult.setOrder(null);
+            return rebookResult;
+        }else if(status == OrderStatus.USED.getCode()){
+             rebookResult.setStatus(false);
+            rebookResult.setMessage("You cannot rebook a ticket that has been used.");
             rebookResult.setOrder(null);
             return rebookResult;
         } else{
@@ -146,7 +155,6 @@ public class RebookServiceImpl implements RebookService{
                 return rebookResult;
             }
             return updateOrder(order,info,gtdr,ticketPrice,loginId,loginToken);
-
         }else if(priceOld.compareTo(priceNew) == 0){
             //do nothing
             return updateOrder(order,info,gtdr,ticketPrice,loginId,loginToken);
@@ -318,9 +326,24 @@ public class RebookServiceImpl implements RebookService{
                     "http://ts-travel-service:12346/travel/getTripAllDetailInfo"
                     ,gtdi,GetTripAllDetailResult.class);
         }else{
-            gtdr = restTemplate.postForObject(
-                    "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
-                    ,gtdi,GetTripAllDetailResult.class);
+
+            System.out.println("[Rebook Service][Get Trip Detail] Ready to send GTDI in queue.");
+            sendingBean.sendSeachTravlDetailInfo(gtdi);
+            //在此处轮询，直到拿到gtdr
+            System.out.println("[Rebook Service][Get Trip Detail] Ready to receive GTDI in queue.");
+            while (true){
+                if(GlobalValue.gtdrs.isEmpty() == false){
+                    System.out.println("[Rebook Service][Get Trip Detail] Get a gtdi in queue.");
+                    gtdr = GlobalValue.gtdrs.poll();
+                    break;
+                }
+            }
+//            gtdr = restTemplate.postForObject(
+//                    "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
+//                    ,gtdi,GetTripAllDetailResult.class);
+
+
+
         }
         return gtdr;
     }
