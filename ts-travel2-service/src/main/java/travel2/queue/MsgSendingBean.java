@@ -1,5 +1,6 @@
 package travel2.queue;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
@@ -20,7 +21,9 @@ public class MsgSendingBean {
 
 	public void returnTravel2DetailInfoResult(GetTripAllDetailResult gtdr) {
 		System.out.println("[Travel Other Service][Sending Bean] Send a GTDR to queue.");
-		source.output().send(MessageBuilder.withPayload(gtdr).build());
+		Gson gson = new Gson();
+		String gtdrString = gson.toJson(gtdr);
+		source.output().send(MessageBuilder.withPayload(gtdrString).build());
 	}
 }
 

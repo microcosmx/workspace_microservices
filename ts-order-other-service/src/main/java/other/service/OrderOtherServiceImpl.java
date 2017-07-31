@@ -17,6 +17,11 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     private OrderOtherRepository orderOtherRepository;
 
     @Override
+    public void initOrder(Order order){
+        orderOtherRepository.save(order);
+    }
+
+    @Override
     public Order findOrderById(UUID id){
         return orderOtherRepository.findById(id);
     }
@@ -195,36 +200,47 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public  CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti){
-        ArrayList<Order> orders = orderOtherRepository.findByTravelDateAndTrainNumber(csti.getTravelDate(),csti.getTrainNumber());
+        ArrayList<Order> orders = orderOtherRepository.findByTrainNumber(csti.getTrainNumber());
         CalculateSoldTicketResult cstr = new CalculateSoldTicketResult();
         cstr.setTravelDate(csti.getTravelDate());
         cstr.setTrainNumber(csti.getTrainNumber());
         System.out.println("[Order Other Service][Calculate Sold Ticket] Get Orders Number:" + orders.size());
         for(Order order : orders){
-            if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
-                continue;
-            }
-            if(order.getSeatClass() == SeatClass.NONE.getCode()){
-                cstr.setNoSeat(cstr.getNoSeat() + 1);
-            }else if(order.getSeatClass() == SeatClass.BUSINESS.getCode()){
-                cstr.setBusinessSeat(cstr.getBusinessSeat() + 1);
-            }else if(order.getSeatClass() == SeatClass.FIRSTCLASS.getCode()){
-                cstr.setFirstClassSeat(cstr.getFirstClassSeat() + 1);
-            }else if(order.getSeatClass() == SeatClass.SECONDCLASS.getCode()){
-                cstr.setSecondClassSeat(cstr.getSecondClassSeat() + 1);
-            }else if(order.getSeatClass() == SeatClass.HARDSEAT.getCode()){
-                cstr.setHardSeat(cstr.getHardSeat() + 1);
-            }else if(order.getSeatClass() == SeatClass.SOFTSEAT.getCode()){
-                cstr.setSoftSeat(cstr.getSoftSeat() + 1);
-            }else if(order.getSeatClass() == SeatClass.HARDBED.getCode()){
-                cstr.setHardBed(cstr.getHardBed() + 1);
-            }else if(order.getSeatClass() == SeatClass.SOFTBED.getCode()){
-                cstr.setSoftBed(cstr.getSoftBed() + 1);
-            }else if(order.getSeatClass() == SeatClass.HIGHSOFTBED.getCode()){
-                cstr.setHighSoftBed(cstr.getHighSoftBed() + 1);
+            if(order.getTravelDate().getYear() == csti.getTravelDate().getYear() &&
+                    order.getTravelDate().getMonth() == csti.getTravelDate().getMonth() &&
+                    order.getTravelDate().getDay() == csti.getTravelDate().getDay()){
+                System.out.println("[Order Other Service] 查出一张本日期的订单：" + csti.getTravelDate().toString());
+                if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
+                    continue;
+                }
+                if(order.getSeatClass() == SeatClass.NONE.getCode()){
+                    cstr.setNoSeat(cstr.getNoSeat() + 1);
+                }else if(order.getSeatClass() == SeatClass.BUSINESS.getCode()){
+                    cstr.setBusinessSeat(cstr.getBusinessSeat() + 1);
+                }else if(order.getSeatClass() == SeatClass.FIRSTCLASS.getCode()){
+                    cstr.setFirstClassSeat(cstr.getFirstClassSeat() + 1);
+                }else if(order.getSeatClass() == SeatClass.SECONDCLASS.getCode()){
+                    cstr.setSecondClassSeat(cstr.getSecondClassSeat() + 1);
+                }else if(order.getSeatClass() == SeatClass.HARDSEAT.getCode()){
+                    cstr.setHardSeat(cstr.getHardSeat() + 1);
+                }else if(order.getSeatClass() == SeatClass.SOFTSEAT.getCode()){
+                    cstr.setSoftSeat(cstr.getSoftSeat() + 1);
+                }else if(order.getSeatClass() == SeatClass.HARDBED.getCode()){
+                    cstr.setHardBed(cstr.getHardBed() + 1);
+                }else if(order.getSeatClass() == SeatClass.SOFTBED.getCode()){
+                    cstr.setSoftBed(cstr.getSoftBed() + 1);
+                }else if(order.getSeatClass() == SeatClass.HIGHSOFTBED.getCode()){
+                    cstr.setHighSoftBed(cstr.getHighSoftBed() + 1);
+                }else{
+                    System.out.println("[Order Other Service][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
+                }
+
             }else{
-                System.out.println("[Order Other Service][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
+
             }
+
+
+
         }
         return cstr;
     }

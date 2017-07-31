@@ -34,7 +34,7 @@ public class InitData implements CommandLineRunner{
         service.create(info);
 
         info.setId("ZhiDa");
-        info.setConfortClass(60);
+        info.setConfortClass(2);
         info.setEconomyClass(120);
         service.create(info);
 

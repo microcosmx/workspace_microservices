@@ -16,6 +16,7 @@
 
 package travel2.queue;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -34,7 +35,11 @@ public class MsgReveiceBean {
 
 	@StreamListener(Sink.INPUT)
 	public void receiveQueueInfo(Object payload) {
-		GetTripAllDetailInfo gtdi = (GetTripAllDetailInfo) payload;
+		String gtdiString = payload.toString();
+		System.out.println("[Travel Other Service][Receive Bean] payload String:" + gtdiString);
+
+		Gson gson = new Gson();
+		GetTripAllDetailInfo gtdi = gson.fromJson(gtdiString,GetTripAllDetailInfo.class);
 		System.out.println("[Travel Other Service][Receive Bean] Receive a GTDI from queue.");
 		asyncTask.asyncSearchTripAllDetailInfo(gtdi);
 	}

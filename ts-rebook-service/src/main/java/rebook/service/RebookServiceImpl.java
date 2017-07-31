@@ -325,27 +325,36 @@ public class RebookServiceImpl implements RebookService{
             gtdr = restTemplate.postForObject(
                     "http://ts-travel-service:12346/travel/getTripAllDetailInfo"
                     ,gtdi,GetTripAllDetailResult.class);
+            return gtdr;
         }else{
 
             System.out.println("[Rebook Service][Get Trip Detail] Ready to send GTDI in queue.");
             sendingBean.sendSeachTravlDetailInfo(gtdi);
             //在此处轮询，直到拿到gtdr
             System.out.println("[Rebook Service][Get Trip Detail] Ready to receive GTDI in queue.");
+            int nowGlobal = GlobalValue.count;
+
+            /********轮询获取返回值********/
             while (true){
+                if(nowGlobal == 0){
+                    try{
+                        Thread.sleep(15000);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                //System.out.println("[Rebook Service][Waiting.....]");
                 if(GlobalValue.gtdrs.isEmpty() == false){
-                    System.out.println("[Rebook Service][Get Trip Detail] Get a gtdi in queue.");
-                    gtdr = GlobalValue.gtdrs.poll();
-                    break;
+                    System.out.println("[Rebook Service][Got Trip Detail] Get a gtdi in queue.");
+                    gtdr = GlobalValue.getGtdr();
+                    return gtdr;
                 }
             }
 //            gtdr = restTemplate.postForObject(
 //                    "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
 //                    ,gtdi,GetTripAllDetailResult.class);
 
-
-
         }
-        return gtdr;
     }
 
     private CreateOrderResult createOrder(Order order, String loginToken, String tripId){

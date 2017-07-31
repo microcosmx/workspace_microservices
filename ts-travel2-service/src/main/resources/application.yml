@@ -5,6 +5,16 @@ server:
 spring:
   application:
     name: ts-travel2-service
+  rabbitmq:
+    host: rabbitmq
+    listener:
+      retry:
+        enabled: false
+        max-attempts: 1
+    template:
+      retry:
+        enabled: false
+        max-attempts: 1
   data:
     mongodb:
       host: ts-travel2-mongo
@@ -12,7 +22,6 @@ spring:
 #      password: ${MONGODB_PASSWORD}
       database: ts
       port: 27017
-
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:

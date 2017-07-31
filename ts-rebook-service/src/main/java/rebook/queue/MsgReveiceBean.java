@@ -16,6 +16,7 @@
 
 package rebook.queue;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -30,11 +31,22 @@ import rebook.globalValue.GlobalValue;
 @EnableBinding(Sink.class)
 public class MsgReveiceBean {
 
+	@Autowired
+	private AsyncTask asyncTask;
+
 	@StreamListener(Sink.INPUT)
 	public void receiveQueueInfo(Object payload) {
-		GetTripAllDetailResult gtdi = (GetTripAllDetailResult) payload;
+		System.out.println("[Rebook Service][Receive Bean] Payload:" + payload.toString());
+		Gson gson = new Gson();
+		GetTripAllDetailResult gtdr = gson.fromJson(payload.toString(),GetTripAllDetailResult.class);
 		System.out.println("[Rebook Service][Receive Bean] Get a gtdi fron queue.");
-		GlobalValue.gtdrs.offer(gtdi);
+
+		int sleepLength  = 0;
+		if(GlobalValue.count == 0){
+			sleepLength = 10000;
+			GlobalValue.count += 1;
+		}
+		asyncTask.putGetTripAllDetailResultIntoQueue(gtdr,sleepLength);
 	}
 
 }

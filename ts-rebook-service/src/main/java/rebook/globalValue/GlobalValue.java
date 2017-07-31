@@ -11,5 +11,16 @@ import java.util.Queue;
 public class GlobalValue {
 
     public static Queue<GetTripAllDetailResult> gtdrs = new LinkedList<GetTripAllDetailResult>();
+    public static int count = 0;
+
+    public static GetTripAllDetailResult getGtdr(){
+        System.out.println("[Rebook Service][Global Value] Poll");
+        return gtdrs.poll();
+    }
+
+    public static void offerGtdr(GetTripAllDetailResult gtdr){
+        gtdrs.offer(gtdr);
+        System.out.println("[Rebook Service][Rebook Service][Global Value] Offer");
+    }
 
 }

@@ -1,5 +1,6 @@
 package rebook.queue;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
@@ -20,8 +21,10 @@ public class MsgSendingBean {
 
 	public void sendSeachTravlDetailInfo(GetTripAllDetailInfo gtdi){
 		System.out.println("[Rebook Service][Sending Bean] Send a gtdi to queue.");
+		Gson gson = new Gson();
+		String gtdiString = gson.toJson(gtdi);
 		source.output().send(
-				MessageBuilder.withPayload(gtdi)
+				MessageBuilder.withPayload(gtdiString)
 						.build());
 	}
 }
