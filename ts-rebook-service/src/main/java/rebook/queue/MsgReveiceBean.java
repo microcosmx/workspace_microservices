@@ -39,12 +39,11 @@ public class MsgReveiceBean {
 		System.out.println("[Rebook Service][Receive Bean] Payload:" + payload.toString());
 		Gson gson = new Gson();
 		GetTripAllDetailResult gtdr = gson.fromJson(payload.toString(),GetTripAllDetailResult.class);
-		System.out.println("[Rebook Service][Receive Bean] Get a gtdi fron queue.");
+		System.out.println("[Rebook Service][Receive Bean] Get a gtdi from queue.");
 
 		int sleepLength  = 0;
 		if(GlobalValue.count == 0){
 			sleepLength = 10000;
-			GlobalValue.count += 1;
 		}
 		asyncTask.putGetTripAllDetailResultIntoQueue(gtdr,sleepLength);
 	}

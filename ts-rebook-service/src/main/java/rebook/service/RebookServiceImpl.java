@@ -339,6 +339,7 @@ public class RebookServiceImpl implements RebookService{
                 if(nowGlobal == 0){
                     try{
                         System.out.println("[Rebook Service][Global Value = 0]睡眠前：");
+                        GlobalValue.count++;
                         Thread.sleep(15000);
                         System.out.println("[Rebook Service][Global Value = 0]睡眠后：");
                     }catch(Exception e){
@@ -347,8 +348,7 @@ public class RebookServiceImpl implements RebookService{
                 }
                 //System.out.println("[Rebook Service][Waiting.....]");
                 if(GlobalValue.gtdrs.isEmpty() == false){
-
-                    System.out.println("[Rebook Service][Got Trip Detail][Global Value:" + GlobalValue.count + "] Get a gtdr in queue.");
+                    System.out.println("[Rebook Service][Got Trip Detail][Global Value:" + nowGlobal + "] Get a gtdr in queue.");
                     gtdr = GlobalValue.getGtdr();
                     return gtdr;
                 }

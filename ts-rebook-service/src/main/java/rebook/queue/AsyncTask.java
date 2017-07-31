@@ -20,6 +20,7 @@ public class AsyncTask {
     
     @Async("mySimpleAsync")
     public void putGetTripAllDetailResultIntoQueue(GetTripAllDetailResult gtdr,int sleepLengh){
+
         try{
             Thread.sleep(sleepLengh);
         }catch (Exception e){
