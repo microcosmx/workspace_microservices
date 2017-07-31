@@ -6,16 +6,16 @@ spring:
   application:
     name: ts-rebook-service
 
-  rabbitmq:
-    host: rabbitmq
-    listener:
-      retry:
-        enabled: false
-        max-attempts: 1
-    template:
-      retry:
-        enabled: false
-        max-attempts: 1
+#  rabbitmq:
+#    host: rabbitmq
+#    listener:
+#      retry:
+#        enabled: false
+#        max-attempts: 1
+#    template:
+#      retry:
+#        enabled: false
+#        max-attempts: 1
 
   zipkin:
     baseUrl: http://zipkin:9411/
@@ -23,11 +23,11 @@ spring:
     sampler:
       percentage: 1.0
 
-  cloud:
-    stream:
-      bindings:
-        output:
-          group: queue-group-rebook
-          destination: ts-rebook-service-queue-output
-          contentType: text/plain
-          binder: rabbit
+#  cloud:
+#    stream:
+#      bindings:
+#        output:
+#          group: queue-group-rebook
+#          destination: ts-rebook-service-queue-output
+#          contentType: text/plain
+#          binder: rabbit
