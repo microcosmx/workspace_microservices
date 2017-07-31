@@ -206,9 +206,26 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         cstr.setTrainNumber(csti.getTrainNumber());
         System.out.println("[Order Other Service][Calculate Sold Ticket] Get Orders Number:" + orders.size());
         for(Order order : orders){
-            if(order.getTravelDate().getYear() == csti.getTravelDate().getYear() &&
-                    order.getTravelDate().getMonth() == csti.getTravelDate().getMonth() &&
-                    order.getTravelDate().getDay() == csti.getTravelDate().getDay()){
+            Calendar orderCanlendar = Calendar.getInstance();
+            orderCanlendar.setTime(order.getTravelDate());
+            int orderYear = orderCanlendar.get(Calendar.YEAR);
+            int orderMonth = orderCanlendar.get(Calendar.MONTH);
+            int orderDay = orderCanlendar.get(Calendar.DAY_OF_MONTH);
+
+
+
+            Calendar cstiCalendar = Calendar.getInstance();
+            cstiCalendar.setTime(csti.getTravelDate());
+            int cstiYear = cstiCalendar.get(Calendar.YEAR);
+            int cstiMonth = cstiCalendar.get(Calendar.MONTH);
+            int cstiDay = cstiCalendar.get(Calendar.DAY_OF_MONTH);
+
+
+            System.out.println("[年对比]：" + cstiYear + "-" + orderYear);
+            System.out.println("[月对比]：" + cstiMonth + "-" + orderMonth);
+            System.out.println("[日对比]：" + cstiDay + "-" + orderDay);
+
+            if(cstiYear == orderYear && cstiMonth == orderMonth && cstiDay == orderDay){
                 System.out.println("[Order Other Service] 查出一张本日期的订单：" + csti.getTravelDate().toString());
                 if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
                     continue;
@@ -236,11 +253,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
                 }
 
             }else{
-
+                System.out.println("[Order Other Service] 不是本日期订单：" + csti.getTravelDate().toString());
+                System.out.println("[Order Other Service] 订单日期：" + order.getTravelDate().toString() + " " + order.getTrainNumber());
             }
-
-
-
         }
         return cstr;
     }
