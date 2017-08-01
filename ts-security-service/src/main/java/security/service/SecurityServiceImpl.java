@@ -104,7 +104,7 @@ public class SecurityServiceImpl implements SecurityService{
         System.out.println("[Security Service] Max In One Hour:" + configMaxInHour.getValue() + " Max Not Use:" + configMaxNotUse.getValue());
         int oneHourLine = Integer.parseInt(configMaxInHour.getValue());
         int totalValidLine = Integer.parseInt(configMaxNotUse.getValue());
-        if(orderInOneHour > oneHourLine || totalValidOrder > totalValidLine){
+        if(orderInOneHour >= oneHourLine || totalValidOrder >= totalValidLine){
             result.setStatus(false);
             result.setAccountId(info.getAccountId());
             result.setMessage("Too much order in last one hour or too much valid order");

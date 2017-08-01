@@ -1,6 +1,8 @@
 package preserveOther.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import preserveOther.domain.QueryPriceInfo;
@@ -24,6 +26,8 @@ import preserveOther.domain.TripResponse;
 import preserveOther.domain.VerifyResult;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Service
 public class PreserveOtherServiceImpl implements PreserveOtherService{
@@ -75,7 +79,44 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             gtdi.setTravelDate(oti.getDate());
             gtdi.setTripId(oti.getTripId());
             System.out.println("[Preserve Other Service] [Step 3] TripId:" + oti.getTripId());
-            GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi);
+            Future<GetTripAllDetailResult> gtdrFuture = getTripAllDetailInformation(gtdi);
+
+
+
+            //4.下达订单请求 设置order的各个信息
+            System.out.println("[Preserve Other Service] [Step 4] Do Order");
+            Contacts contacts = gcr.getContacts();
+            Order order = new Order();
+            order.setId(UUID.randomUUID());
+            order.setTrainNumber(oti.getTripId());
+            order.setAccountId(UUID.fromString(accountId));
+
+            String fromStationId = queryForStationId(oti.getFrom());
+            String toStationId = queryForStationId(oti.getTo());
+
+            order.setFrom(fromStationId);
+            order.setTo(toStationId);
+            order.setBoughtDate(new Date());
+            order.setStatus(OrderStatus.NOTPAID.getCode());
+            order.setContactsDocumentNumber(contacts.getDocumentNumber());
+            order.setContactsName(contacts.getName());
+            order.setDocumentType(contacts.getDocumentType());
+
+            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+            queryPriceInfo.setStartingPlaceId(fromStationId);
+            queryPriceInfo.setEndPlaceId(toStationId);
+
+
+            //3.查询座位余票信息和车次的详情
+            //***************************************************************
+            GetTripAllDetailResult gtdr = null;
+            try {
+                gtdr = gtdrFuture.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             if(gtdr.isStatus() == false){
                 System.out.println("[Preserve Other Service][Search For Trip Detail Information] " + gcr.getMessage());
                 otr.setStatus(false);
@@ -106,28 +147,12 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             }
             Trip trip = gtdr.getTrip();
             System.out.println("[Preserve Other Service] [Step 3] Tickets Enough");
-            //4.下达订单请求 设置order的各个信息
-            System.out.println("[Preserve Other Service] [Step 4] Do Order");
-            Contacts contacts = gcr.getContacts();
-            Order order = new Order();
-            order.setId(UUID.randomUUID());
-            order.setTrainNumber(oti.getTripId());
-            order.setAccountId(UUID.fromString(accountId));
+            //***************************************************************
 
-            String fromStationId = queryForStationId(oti.getFrom());
-            String toStationId = queryForStationId(oti.getTo());
 
-            order.setFrom(fromStationId);
-            order.setTo(toStationId);
-            order.setBoughtDate(new Date());
-            order.setStatus(OrderStatus.NOTPAID.getCode());
-            order.setContactsDocumentNumber(contacts.getDocumentNumber());
-            order.setContactsName(contacts.getName());
-            order.setDocumentType(contacts.getDocumentType());
 
-            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-            queryPriceInfo.setStartingPlaceId(fromStationId);
-            queryPriceInfo.setEndPlaceId(toStationId);
+
+
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
                 queryPriceInfo.setSeatClass("confortClass");
                 System.out.println("[Preserve Other Service][Seat Class] Confort Class.");
@@ -206,12 +231,13 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
         return tokenResult;
     }
 
-    private GetTripAllDetailResult getTripAllDetailInformation(GetTripAllDetailInfo gtdi){
+    @Async("mySimpleAsync")
+    private Future<GetTripAllDetailResult> getTripAllDetailInformation(GetTripAllDetailInfo gtdi){
         System.out.println("[Preserve Other Service][Get Trip All Detail Information] Getting....");
         GetTripAllDetailResult gtdr = restTemplate.postForObject(
                 "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo/"
                 ,gtdi,GetTripAllDetailResult.class);
-        return gtdr;
+        return new AsyncResult<>(gtdr);
     }
 
     private GetContactsResult getContactsById(GetContactsInfo gci){

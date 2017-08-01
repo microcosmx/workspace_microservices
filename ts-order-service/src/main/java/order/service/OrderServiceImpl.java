@@ -22,6 +22,12 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findById(id);
     }
 
+
+    public int orderNumberInLastOneHour;
+    public String accountId;
+
+
+
     @Override
     public CreateOrderResult create(Order order){
         System.out.println("[Order Service][Create Order] Ready Create Order" + new Gson().toJson(order));
@@ -335,6 +341,12 @@ public class OrderServiceImpl implements OrderService{
         }
         result.setOrderNumInLastOneHour(countOrderInOneHour);
         result.setOrderNumOfValidOrder(countTotalValidOrder);
+
+        synchronized(this){
+            accountId = info.getAccountId();
+            orderNumberInLastOneHour = countOrderInOneHour;
+        }
+
         return result;
     }
 

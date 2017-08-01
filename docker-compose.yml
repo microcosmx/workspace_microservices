@@ -45,7 +45,7 @@ services:
         condition: on-failure
     networks:
       - my-network
-  
+
 
   ts-ui-dashboard:
     build: ts-ui-dashboard

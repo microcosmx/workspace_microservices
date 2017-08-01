@@ -115,6 +115,17 @@ public class TravelServiceImpl implements TravelService{
             gtdr.setTripResponse(null);
             gtdr.setTrip(null);
         }else{
+            //simulate heavy tasks
+            System.out.println("try to sleep");
+            long sleep = (long) (Math.random() * 30000) + 30000;
+            System.out.println("sleep:"+sleep);
+            try {
+                System.out.println("sleep before");
+                Thread.sleep(sleep);
+                System.out.println("sleep after");
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
             TripResponse tripResponse = getTickets(trip,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
             if(tripResponse == null){
                 gtdr.setStatus(false);

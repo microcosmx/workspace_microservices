@@ -75,6 +75,102 @@ public class InitData implements CommandLineRunner {
         orderThree.setStatus(0);
         orderThree.setPrice("100.0");
         service.initOrder(orderThree);
+
+        Order orderFour = new Order();
+        orderFour.setId(UUID.randomUUID());
+        orderFour.setBoughtDate(new Date());
+        orderFour.setTravelDate(new Date("Sat Jul 29 09:00:00 GMT+0800 2017"));
+        orderFour.setTravelTime(new Date("Mon May 04 19:00:00 GMT+0800 2013"));
+        orderFour.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+        orderFour.setContactsName("Contacts_One");
+        orderFour.setDocumentType(1);
+        orderFour.setContactsDocumentNumber("DocumentNumber_One");
+        orderFour.setTrainNumber("G1235");
+        orderFour.setCoachNumber(5);
+        orderFour.setSeatClass(2);
+        orderFour.setSeatNumber("FirstClass-30");
+        orderFour.setFrom("shanghai");
+        orderFour.setTo("beijing");
+        orderFour.setStatus(0);
+        orderFour.setPrice("100.0");
+        service.initOrder(orderFour);
+
+        Order userTwoOrder = new Order();
+        userTwoOrder.setId(UUID.randomUUID());
+        userTwoOrder.setBoughtDate(new Date());
+        userTwoOrder.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
+        userTwoOrder.setTravelTime(new Date("Mon May 04 09:02:00 GMT+0800 2013"));
+        userTwoOrder.setAccountId(UUID.fromString("03830807-a1ac-4942-aa10-dbe6ed7c7bdf"));
+        userTwoOrder.setContactsName("Contacts_One");
+        userTwoOrder.setDocumentType(1);
+        userTwoOrder.setContactsDocumentNumber("DocumentNumber_One");
+        userTwoOrder.setTrainNumber("G1237");
+        userTwoOrder.setCoachNumber(5);
+        userTwoOrder.setSeatClass(2);
+        userTwoOrder.setSeatNumber("FirstClass-30");
+        userTwoOrder.setFrom("nanjing");
+        userTwoOrder.setTo("shanghaihongqiao");
+        userTwoOrder.setStatus(0);
+        userTwoOrder.setPrice("100.0");
+        service.initOrder(userTwoOrder);
+
+
+        Order userTwoOrderTwo = new Order();
+        userTwoOrderTwo.setId(UUID.randomUUID());
+        userTwoOrderTwo.setBoughtDate(new Date());
+        userTwoOrderTwo.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
+        userTwoOrderTwo.setTravelTime(new Date("Mon May 04 09:01:00 GMT+0800 2013"));
+        userTwoOrderTwo.setAccountId(UUID.fromString("03830807-a1ac-4942-aa10-dbe6ed7c7bdf"));
+        userTwoOrderTwo.setContactsName("Contacts_One");
+        userTwoOrderTwo.setDocumentType(1);
+        userTwoOrderTwo.setContactsDocumentNumber("DocumentNumber_One");
+        userTwoOrderTwo.setTrainNumber("G1234");
+        userTwoOrderTwo.setCoachNumber(5);
+        userTwoOrderTwo.setSeatClass(2);
+        userTwoOrderTwo.setSeatNumber("FirstClass-30");
+        userTwoOrderTwo.setFrom("shanghai");
+        userTwoOrderTwo.setTo("beijing");
+        userTwoOrderTwo.setStatus(0);
+        userTwoOrderTwo.setPrice("100.0");
+        service.initOrder(userTwoOrderTwo);
+
+        Order userTwoOrderThree = new Order();
+        userTwoOrderThree.setId(UUID.randomUUID());
+        userTwoOrderThree.setBoughtDate(new Date());
+        userTwoOrderThree.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
+        userTwoOrderThree.setTravelTime(new Date("Mon May 04 09:00:00 GMT+0800 2013"));
+        userTwoOrderThree.setAccountId(UUID.fromString("03830807-a1ac-4942-aa10-dbe6ed7c7bdf"));
+        userTwoOrderThree.setContactsName("Contacts_One");
+        userTwoOrderThree.setDocumentType(1);
+        userTwoOrderThree.setContactsDocumentNumber("DocumentNumber_One");
+        userTwoOrderThree.setTrainNumber("G1235");
+        userTwoOrderThree.setCoachNumber(5);
+        userTwoOrderThree.setSeatClass(2);
+        userTwoOrderThree.setSeatNumber("FirstClass-30");
+        userTwoOrderThree.setFrom("shanghai");
+        userTwoOrderThree.setTo("beijing");
+        userTwoOrderThree.setStatus(0);
+        userTwoOrderThree.setPrice("100.0");
+        service.initOrder(userTwoOrderThree);
+
+        Order userTwoOrderFour = new Order();
+        userTwoOrderFour.setId(UUID.randomUUID());
+        userTwoOrderFour.setBoughtDate(new Date());
+        userTwoOrderFour.setTravelDate(new Date("Sat Jul 29 09:00:00 GMT+0800 2017"));
+        userTwoOrderFour.setTravelTime(new Date("Mon May 04 19:00:00 GMT+0800 2013"));
+        userTwoOrderFour.setAccountId(UUID.fromString("03830807-a1ac-4942-aa10-dbe6ed7c7bdf"));
+        userTwoOrderFour.setContactsName("Contacts_One");
+        userTwoOrderFour.setDocumentType(1);
+        userTwoOrderFour.setContactsDocumentNumber("DocumentNumber_One");
+        userTwoOrderFour.setTrainNumber("G1235");
+        userTwoOrderFour.setCoachNumber(5);
+        userTwoOrderFour.setSeatClass(2);
+        userTwoOrderFour.setSeatNumber("FirstClass-30");
+        userTwoOrderFour.setFrom("shanghai");
+        userTwoOrderFour.setTo("beijing");
+        userTwoOrderFour.setStatus(0);
+        userTwoOrderFour.setPrice("100.0");
+        service.initOrder(userTwoOrderFour);
     }
 
 }
