@@ -42,7 +42,7 @@ public class MsgReveiceBean {
 		System.out.println("[Rebook Service][Receive Bean] Get a gtdi from queue.");
 
 		int sleepLength  = 0;
-		if(GlobalValue.count == 0){
+		if(GlobalValue.count % 2 == 0){
 			sleepLength = 10000;
 		}
 		asyncTask.putGetTripAllDetailResultIntoQueue(gtdr,sleepLength);

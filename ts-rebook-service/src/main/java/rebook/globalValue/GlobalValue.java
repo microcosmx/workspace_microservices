@@ -20,7 +20,7 @@ public class GlobalValue {
 
     public static void offerGtdr(GetTripAllDetailResult gtdr){
         gtdrs.offer(gtdr);
-        System.out.println("[Rebook Service][Rebook Service][Glocal Value: + " + count + " +] Offer");
+        System.out.println("[Rebook Service][Rebook Service][Glocal Value: " + count + "] Offer");
     }
 
 }

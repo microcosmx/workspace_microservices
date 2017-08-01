@@ -227,7 +227,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
             if(cstiYear == orderYear && cstiMonth == orderMonth && cstiDay == orderDay){
                 System.out.println("[Order Other Service] 查出一张本日期的订单：" + csti.getTravelDate().toString());
-                if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
+                if(order.getStatus() == OrderStatus.CANCEL.getCode() || order.getStatus() == OrderStatus.REFUNDS.getCode()){
                     continue;
                 }
                 if(order.getSeatClass() == SeatClass.NONE.getCode()){

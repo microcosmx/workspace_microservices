@@ -104,6 +104,7 @@ public class RebookServiceImpl implements RebookService{
         gtdi.setTripId(info.getTripId());
         GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi,info.getTripId());
         if(gtdr.isStatus() == false){
+            System.out.println("[Rebook Service]Trip All Detail Information查询失败");
             rebookResult.setStatus(false);
             rebookResult.setMessage(gtdr.getMessage());
             rebookResult.setOrder(null);
@@ -112,17 +113,24 @@ public class RebookServiceImpl implements RebookService{
             TripResponse tripResponse = gtdr.getTripResponse();
             if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
                 if(tripResponse.getConfortClass() == 0){
+                    System.out.println("[Rebook Service][Error]一等座数量不足");
                     rebookResult.setStatus(false);
                     rebookResult.setMessage("Seat Not Enough");
                     rebookResult.setOrder(null);
                     return rebookResult;
+                }else{
+                    System.out.println("[Rebook Service]一等座数量充足");
                 }
             }else{
                 if(tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode()){
                     if(tripResponse.getConfortClass() == 0){
+                        System.out.println("[Rebook Service]二等座数量不足");
                         rebookResult.setStatus(false);
                         rebookResult.setMessage("Seat Not Enough");
                         rebookResult.setOrder(null);
+                        return rebookResult;
+                    }else{
+                        System.out.println("[Rebook Service]二等座数量充足");
                     }
                 }
             }
@@ -335,22 +343,31 @@ public class RebookServiceImpl implements RebookService{
             int nowGlobal = GlobalValue.count;
 
             /********轮询获取返回值********/
-            while (true){
-                if(nowGlobal == 0){
+            for(;;){
+                if(nowGlobal % 2 == 0){
                     try{
-                        System.out.println("[Rebook Service][Global Value = 0]睡眠前：");
+                        System.out.println("[Rebook Service][Global Value = " + nowGlobal + "]睡眠前：");
                         GlobalValue.count++;
-                        Thread.sleep(15000);
-                        System.out.println("[Rebook Service][Global Value = 0]睡眠后：");
+                        for(int i = 0;i < 15;i++){
+                            Thread.sleep(1000);
+                            System.out.println("[Rebook Service] 睡眠：" + i + "秒");
+                        }
+                        System.out.println("[Rebook Service][Global Value = " + nowGlobal + "]睡眠后：");
                     }catch(Exception e){
                         e.printStackTrace();
                     }
                 }
-                //System.out.println("[Rebook Service][Waiting.....]");
                 if(GlobalValue.gtdrs.isEmpty() == false){
                     System.out.println("[Rebook Service][Got Trip Detail][Global Value:" + nowGlobal + "] Get a gtdr in queue.");
                     gtdr = GlobalValue.getGtdr();
                     return gtdr;
+                }else{
+                    System.out.println("[Rebook Service][Got Trip Detail] GTDR empty");
+                    try{
+                        Thread.sleep(1000);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
 //            gtdr = restTemplate.postForObject(
