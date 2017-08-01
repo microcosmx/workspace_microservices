@@ -43,8 +43,9 @@ public class MsgReveiceBean {
 
 		int sleepLength  = 0;
 		if(GlobalValue.count % 2 == 0){
-			sleepLength = 10000;
+			sleepLength = 7000;
 		}
+		GlobalValue.count++;
 		asyncTask.putGetTripAllDetailResultIntoQueue(gtdr,sleepLength);
 	}
 
