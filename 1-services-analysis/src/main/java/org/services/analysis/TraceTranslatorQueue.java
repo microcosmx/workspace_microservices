@@ -22,8 +22,15 @@ public class TraceTranslatorQueue {
 
 //
 
-        String path = "./sample/trace-error-queue-seq-multi.json";
-        String destPath = "./output/shiviz-error-queue-seq-multi.txt";
+//        String path = "./sample/trace-error-queue-seq-multi.json";
+//        String destPath = "./output/shiviz-error-queue-seq-multi.txt";
+
+//        String path = "./ts-sample/ts-error-queue/success.json";
+//        String destPath = "./ts-output/error-queue/shiviz-error-queue-success.txt";
+
+        String path = "./ts-sample/ts-error-queue/fail.json";
+        String destPath = "./ts-output/error-queue/shiviz-error-queue-fail.txt";
+
         String traceStr = readFile(path);
         JSONArray tracelist = new JSONArray(traceStr);
         List<HashMap<String,String>> logs = new ArrayList<HashMap<String, String>>();
