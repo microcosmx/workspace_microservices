@@ -38,7 +38,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     public boolean payingForSpan = false;
 
     @Override
-    public boolean pay(PaymentInfo info, HttpServletRequest request){
+    public synchronized boolean pay(PaymentInfo info, HttpServletRequest request){
 //        QueryOrderResult result;
 
 
@@ -317,7 +317,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     }
 
     @Override
-    public Boolean queryModifyOrder(ModifyOrderInfo info){
+    public synchronized Boolean queryModifyOrder(ModifyOrderInfo info){
         int count1;
         int count2;
         accountIdForSpan = info.getAccountId();
