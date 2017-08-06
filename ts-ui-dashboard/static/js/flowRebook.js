@@ -609,6 +609,9 @@ $("#ticket_cancel_panel_confirm").click(function(){
         success: function (result) {
             if(result["status"] == true){
                 $("#ticket_cancel_panel").css('display','none');
+            }else{
+                $("#ticket_cancel_panel").css('display','none');
+                alert(result["message"]);
             }
         },
         error: function(){
