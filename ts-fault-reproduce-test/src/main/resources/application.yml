@@ -1,0 +1,11 @@
+server:
+  port: 12399
+
+spring:
+  application:
+    name: ts-fault-reproduce-test
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
