@@ -26,7 +26,7 @@ public class GreetingController {
     	double cal2 = Math.abs(Double.valueOf(cal)-50); 
     	log.info(String.valueOf(cal2));
     	
-    	//async messaging
+    	//inside_payment.async messaging
     	log.info("message 1");
     	sendingBean.sayHello("message 1:" + cal2);
     	log.info("message 2");
