@@ -1,5 +1,5 @@
 
-=== Success execution 0 ===
+=== Fail execution 0 ===
 {traceId=d8924ba1e2c34f9f, spanId=d8924ba1e2c34f9f, hostName=ts-rebook-service, srcName=null, src=null, host=ts-rebook-service:172.19.0.34, clock={"ts-rebook-service:172.19.0.34":1}, event=ts-rebook-service.RebookController.rebook, type=sr, parentId=, timestamp=1501579266732000, }
 {traceId=d8924ba1e2c34f9f, spanId=9af2770ba912f802, hostName=ts-rebook-service, destName=ts-order-other-service, host=ts-rebook-service:172.19.0.34, api=ts-order-other-service.OrderOtherController.getOrderById, clock={"ts-rebook-service:172.19.0.34":2}, dest=ts-order-other-service:172.19.0.23, event=, type=cs, parentId=d8924ba1e2c34f9f, timestamp=1501579253257000, }
 {traceId=d8924ba1e2c34f9f, spanId=9af2770ba912f802, hostName=ts-order-other-service, srcName=ts-rebook-service, src=ts-rebook-service:172.19.0.34, host=ts-order-other-service:172.19.0.23, clock={"ts-rebook-service:172.19.0.34":2,"ts-order-other-service:172.19.0.23":1}, event=ts-order-other-service.OrderOtherController.getOrderById, type=sr, parentId=d8924ba1e2c34f9f, timestamp=1501579253260000, }

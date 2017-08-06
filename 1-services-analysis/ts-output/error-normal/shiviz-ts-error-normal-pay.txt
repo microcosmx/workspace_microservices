@@ -2,7 +2,7 @@
 
 ^=== (?<trace>.*) ===$
 
-=== Success execution 0 ===
+=== Fail execution 0 ===
 {traceId=cfc6be1393e671b2, spanId=cfc6be1393e671b2, hostName=ts-inside-payment-service, srcName=null, src=null, host=ts-inside-payment-service:172.19.0.36, clock={"ts-inside-payment-service:172.19.0.36":1}, event=ts-inside-payment-service.InsidePaymentController.pay, type=sr, parentId=, timestamp=1501127066597000, }
 {traceId=cfc6be1393e671b2, spanId=f6532d9f207088f6, hostName=ts-inside-payment-service, destName=ts-order-other-service, host=ts-inside-payment-service:172.19.0.36, api=ts-order-other-service.OrderOtherController.getOrderById, clock={"ts-inside-payment-service:172.19.0.36":2}, dest=ts-order-other-service:172.19.0.41, event=, type=cs, parentId=cfc6be1393e671b2, timestamp=1501127066788000, }
 {traceId=cfc6be1393e671b2, spanId=f6532d9f207088f6, hostName=ts-order-other-service, srcName=ts-inside-payment-service, src=ts-inside-payment-service:172.19.0.36, host=ts-order-other-service:172.19.0.41, clock={"ts-inside-payment-service:172.19.0.36":2,"ts-order-other-service:172.19.0.41":1}, event=ts-order-other-service.OrderOtherController.getOrderById, type=sr, parentId=cfc6be1393e671b2, timestamp=1501127066804500, }

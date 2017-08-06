@@ -28,8 +28,8 @@ public class TraceTranslatorQueue {
 //        String path = "./ts-sample/ts-error-queue/success.json";
 //        String destPath = "./ts-output/error-queue/shiviz-error-queue-success.txt";
 
-        String path = "./ts-sample/ts-error-queue/fail.json";
-        String destPath = "./ts-output/error-queue/shiviz-error-queue-fail.txt";
+        String path = "./ts-sample/ts-external-normal/ts-external-normal.json";
+        String destPath = "./ts-output/ts-external-normal/shiviz-external-normal.txt";
 
         String traceStr = readFile(path);
         JSONArray tracelist = new JSONArray(traceStr);

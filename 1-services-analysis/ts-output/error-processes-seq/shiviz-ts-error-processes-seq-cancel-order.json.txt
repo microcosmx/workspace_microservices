@@ -2,7 +2,7 @@
 
 ^=== (?<trace>.*) ===$
 
-=== Success execution 0 ===
+=== Fail execution 0 ===
 {traceId=d3ff232408172c01, spanId=d3ff232408172c01, hostName=ts-cancel-service, srcName=null, src=null, host=ts-cancel-service:172.19.0.8, clock={"ts-cancel-service:172.19.0.8":1}, event=ts-cancel-service.CancelController.cancelTicket, type=sr, parentId=, timestamp=1501158189197000, }
 {traceId=d3ff232408172c01, spanId=e3ec7a76e479b9c0, hostName=ts-cancel-service, destName=ts-sso-service, host=ts-cancel-service:172.19.0.8, api=ts-sso-service.AccountSsoController.verifyLoginToken, clock={"ts-cancel-service:172.19.0.8":2}, dest=ts-sso-service:172.19.0.21, event=, type=cs, parentId=d3ff232408172c01, timestamp=1501158189213000, }
 {traceId=d3ff232408172c01, spanId=e3ec7a76e479b9c0, hostName=ts-sso-service, srcName=ts-cancel-service, src=ts-cancel-service:172.19.0.8, host=ts-sso-service:172.19.0.21, clock={"ts-cancel-service:172.19.0.8":2,"ts-sso-service:172.19.0.21":1}, event=ts-sso-service.AccountSsoController.verifyLoginToken, type=sr, parentId=d3ff232408172c01, timestamp=1501158189215000, }
