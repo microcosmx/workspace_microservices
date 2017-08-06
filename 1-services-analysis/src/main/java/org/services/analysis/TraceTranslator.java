@@ -161,9 +161,9 @@ public class TraceTranslator {
                             String key = content.get("serverName") + ":" + ipv4;
                             String new_instance_id;
                             if(states.containsKey(key)){
-                                new_instance_id = content.get("serverName") + ":" + states.get(key) + ":" + ipv4;
+                                new_instance_id = content.get("serverName") + ":" + states.get(key);
                             }else{
-                                new_instance_id = content.get("serverName") + ":" + ipv4;
+                                new_instance_id = content.get("serverName") ;
                             }
 
                             content.put("server_instance_id", new_instance_id);
@@ -172,10 +172,10 @@ public class TraceTranslator {
                             String key = content.get("clientName") + ":" + ipv4;
                             String new_instance_id;
                             if(states.containsKey(key)){
-                                new_instance_id = content.get("clientName") + ":" + states.get(key) + ":" + ipv4;
+                                new_instance_id = content.get("clientName") + ":" + states.get(key) ;
                             }else{
 //                                    new_instance_id = ipv4 + ":" + content.get("clientName") + ":" + port;
-                                new_instance_id = content.get("clientName") + ":" + ipv4 ;
+                                new_instance_id = content.get("clientName")  ;
                             }
                             content.put("client_instance_id", new_instance_id);
                         }
