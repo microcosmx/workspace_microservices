@@ -22,25 +22,7 @@ public class PaymentController {
 
     @RequestMapping(path="/payment/pay",method= RequestMethod.POST)
     public boolean pay(@RequestBody PaymentInfo info){
-
-        /****1.设定超时 一半概率超时***/
-        double random = Math.random();
-        if(random > 0.5){
-            System.out.println("[Payment Service] 超时分支");
-            try{
-                Thread.sleep(3000);
-                return service.pay(info);
-            }catch (Exception e){
-                e.printStackTrace();
-                return false;
-            }
-        }else{
-            System.out.println("[Payment Service] 正常分支");
-            return service.pay(info);
-        }
-
-        //return service.pay(info);
-
+        return service.pay(info);
     }
 
     @RequestMapping(path="/payment/addMoney",method= RequestMethod.POST)

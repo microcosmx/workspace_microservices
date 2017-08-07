@@ -91,7 +91,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 outsidePaymentInfo.setPrice(result.getOrder().getPrice());
 
 
-                /****这里异步调用站外支付***/
+                /****这里异步调用第三方支付***/
 //                boolean outsidePaySuccess = restTemplate.postForObject(
 //                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
                 boolean outsidePaySuccess = false;

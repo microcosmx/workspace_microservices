@@ -20,8 +20,10 @@ public class AsyncTask {
 
     @Async("mySimpleAsync")
     public Future<Boolean> sendAsyncCallToPaymentService(OutsidePaymentInfo outsidePaymentInfo) throws InterruptedException{
-        Boolean paymentStatus = restTemplate.postForObject("http://ts-payment-service:19001/payment/pay",outsidePaymentInfo,Boolean.class);
-        return new AsyncResult<>(paymentStatus);
+        System.out.println("[Inside Payment Service][Async Task] Begin.");
+        Boolean value = restTemplate.getForObject("http://rest-service-external:16100", Boolean.class);
+        System.out.println("[Inside Payment Service][Async Task] Value:" + value);
+        return new AsyncResult<>(value);
     }
     
 }  
