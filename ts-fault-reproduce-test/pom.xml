@@ -12,7 +12,6 @@
 
     <name>ts-fault-reproduce-test</name>
 
-
     <parent>
         <groupId>org.services</groupId>
         <artifactId>ts-service</artifactId>

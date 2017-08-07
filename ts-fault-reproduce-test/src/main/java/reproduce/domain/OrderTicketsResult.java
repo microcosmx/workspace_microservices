@@ -1,4 +1,4 @@
-package domain;
+package reproduce.domain;
 
 public class OrderTicketsResult {
 

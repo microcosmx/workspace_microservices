@@ -1,4 +1,4 @@
-package domain;
+package reproduce.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

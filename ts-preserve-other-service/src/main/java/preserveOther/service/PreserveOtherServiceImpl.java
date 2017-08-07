@@ -23,6 +23,7 @@ import preserveOther.domain.Trip;
 import preserveOther.domain.TripResponse;
 import preserveOther.domain.VerifyResult;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -127,7 +128,15 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
              * 正确的情况：order.setStatus(OrderStatus.NOTPAID.getCode());
              * 逻辑错误的情况：开发人员写这里的时候，误将订好票认为已经出票所以把状态写成了【已取票】
              */
-            order.setStatus(OrderStatus.COLLECTED.getCode());
+
+            double op = new Random().nextDouble();
+            if(op > 0.5){
+                System.out.println("[Preserve Other Service][Preserve] 订单状态人为写错");
+                order.setStatus(OrderStatus.COLLECTED.getCode());
+            }else{
+                System.out.println("[Preserve Other Service][Preserve] 订单状态正确");
+                order.setStatus(OrderStatus.NOTPAID.getCode());
+            }
             /************************************************/
 
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
