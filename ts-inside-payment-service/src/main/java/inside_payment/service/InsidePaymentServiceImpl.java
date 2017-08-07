@@ -33,8 +33,11 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
     @Autowired
     public RestTemplate restTemplate;
 
+    @Autowired
+    public AsyncTask asyncTask;
+
     @Override
-    public boolean pay(PaymentInfo info, HttpServletRequest request) throws InterruptedException, ExecutionException, TimeoutException {
+    public boolean pay(PaymentInfo info, HttpServletRequest request) {
 //        QueryOrderResult result;
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
 
@@ -94,14 +97,23 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
                 if(outsidePaySuccess){
                     payment.setType(PaymentType.O);
                     paymentRepository.save(payment);
-                    Future<ModifyOrderStatusResult> task = setOrderStatus(info.getTripId(),info.getOrderId());
-                    task.get(2000, TimeUnit.MILLISECONDS);
+                    Future<ModifyOrderStatusResult> task = asyncTask.setOrderStatus(info.getTripId(),info.getOrderId());
+                    try {
+                        task.get(2000, TimeUnit.MILLISECONDS);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        throws e;
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (TimeoutException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }else{
                     return false;
                 }
             }else{
-                Future<ModifyOrderStatusResult> task = setOrderStatus(info.getTripId(),info.getOrderId());
+                Future<ModifyOrderStatusResult> task = asyncTask.setOrderStatus(info.getTripId(),info.getOrderId());
                 task.get(2000, TimeUnit.MILLISECONDS);
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
@@ -282,22 +294,22 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
         return addMoneyRepository.findAll();
     }
 
-    @Async("mySimpleAsync")
-    private Future<ModifyOrderStatusResult> setOrderStatus(String tripId, String orderId){
-        ModifyOrderStatusInfo info = new ModifyOrderStatusInfo();
-        info.setOrderId(orderId);
-        info.setStatus(1);   //order paid and not collected
-
-        ModifyOrderStatusResult result;
-        if(tripId.startsWith("G") || tripId.startsWith("D")){
-            result = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
-        }else{
-            result = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/orderOther/modifyOrderStatus", info, ModifyOrderStatusResult.class);
-        }
-        return new AsyncResult<>(result);
-    }
+//    @Async("mySimpleAsync")
+//    private Future<ModifyOrderStatusResult> setOrderStatus(String tripId, String orderId){
+//        ModifyOrderStatusInfo info = new ModifyOrderStatusInfo();
+//        info.setOrderId(orderId);
+//        info.setStatus(1);   //order paid and not collected
+//
+//        ModifyOrderStatusResult result;
+//        if(tripId.startsWith("G") || tripId.startsWith("D")){
+//            result = restTemplate.postForObject(
+//                    "http://ts-order-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+//        }else{
+//            result = restTemplate.postForObject(
+//                    "http://ts-order-other-service:12032/orderOther/modifyOrderStatus", info, ModifyOrderStatusResult.class);
+//        }
+//        return new AsyncResult<>(result);
+//    }
 
 //    private boolean sendOrderCreateEmail(){
 //        result = restTemplate.postForObject(
