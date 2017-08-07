@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class OrderOtherServiceImpl implements OrderOtherService{
@@ -21,8 +22,19 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         return orderOtherRepository.findById(id);
     }
 
+    public final AtomicLong counter = new AtomicLong();
+
     @Override
     public CreateOrderResult create(Order order){
+        System.out.println("counter:" + counter.incrementAndGet());
+
+        //Thread sleep//'
+        try{
+            Thread.sleep(20000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
         System.out.println("[Order Other Service][Create Order] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderOtherRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
@@ -40,6 +52,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             cor.setMessage("Success");
             cor.setOrder(order);
         }
+
+        System.out.println("counter:" + counter.decrementAndGet());
+
         return cor;
     }
 
@@ -238,6 +253,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public ModifyOrderStatusResult modifyOrder(ModifyOrderStatusInfo info){
+
         Order order = orderOtherRepository.findById(UUID.fromString(info.getOrderId()));
         ModifyOrderStatusResult result = new ModifyOrderStatusResult();
         if(order == null){
@@ -251,6 +267,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             result.setMessage("Success");
             result.setOrder(order);
         }
+
         return result;
     }
 
@@ -291,6 +308,8 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public GetOrderResult getOrderById(GetOrderByIdInfo info){
+
+
         Order order = orderOtherRepository.findById(UUID.fromString(info.getOrderId()));
         GetOrderResult result = new GetOrderResult();
         if(order == null){
@@ -302,6 +321,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             result.setMessage("Success.");
             result.setOrder(order);
         }
+
         return result;
     }
 

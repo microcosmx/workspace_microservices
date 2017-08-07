@@ -1,6 +1,10 @@
 # HTTP Server
 server:
   port: 12032  # HTTP (Tomcat) port
+  tomcat:
+    #    max-threads: 6
+        max-connections: 1
+        accept-count: 1
 
 spring:
   application:

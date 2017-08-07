@@ -508,7 +508,18 @@ services:
           - my-network
 
 
-
+  ts-reproduction-service:
+        build: ts-reproduction-service
+        image: ts/ts-reproduction-service
+        restart: always
+        ports:
+          - 19867:19867
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
 
 networks:
   my-network:

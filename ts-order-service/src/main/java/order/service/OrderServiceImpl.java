@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -22,8 +23,19 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findById(id);
     }
 
+    public final AtomicLong counter = new AtomicLong();
+
     @Override
     public CreateOrderResult create(Order order){
+
+        System.out.println("counter"+counter.incrementAndGet());
+        //Thread sleep//'
+        try{
+            Thread.sleep(20000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
         System.out.println("[Order Service][Create Order] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
@@ -41,6 +53,8 @@ public class OrderServiceImpl implements OrderService{
             cor.setMessage("Success");
             cor.setOrder(order);
         }
+
+        System.out.println("counter"+counter.decrementAndGet());
         return cor;
     }
 
@@ -239,6 +253,10 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public ModifyOrderStatusResult modifyOrder(ModifyOrderStatusInfo info){
+
+
+
+
         Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
         ModifyOrderStatusResult result = new ModifyOrderStatusResult();
         if(order == null){
@@ -252,6 +270,9 @@ public class OrderServiceImpl implements OrderService{
             result.setMessage("Success");
             result.setOrder(order);
         }
+
+
+
         return result;
     }
 
@@ -293,6 +314,8 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public GetOrderResult getOrderById(GetOrderByIdInfo info){
+
+
         Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
         GetOrderResult result = new GetOrderResult();
         if(order == null){
@@ -304,6 +327,7 @@ public class OrderServiceImpl implements OrderService{
             result.setMessage("Success.");
             result.setOrder(order);
         }
+
         return result;
     }
 

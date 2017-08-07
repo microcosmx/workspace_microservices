@@ -5,18 +5,24 @@ import inside_payment.repository.AddMoneyRepository;
 import inside_payment.repository.PaymentRepository;
 import inside_payment.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Administrator on 2017/6/20.
  */
 @Service
-public class InsidePaymentServiceImpl implements InsidePaymentService{
+public class InsidePaymentServiceImpl  implements InsidePaymentService  {
 
     @Autowired
     public AddMoneyRepository addMoneyRepository;
@@ -28,7 +34,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     public RestTemplate restTemplate;
 
     @Override
-    public boolean pay(PaymentInfo info, HttpServletRequest request){
+    public boolean pay(PaymentInfo info, HttpServletRequest request) throws InterruptedException, ExecutionException, TimeoutException {
 //        QueryOrderResult result;
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
 
@@ -88,13 +94,15 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 if(outsidePaySuccess){
                     payment.setType(PaymentType.O);
                     paymentRepository.save(payment);
-                    setOrderStatus(info.getTripId(),info.getOrderId());
+                    Future<ModifyOrderStatusResult> task = setOrderStatus(info.getTripId(),info.getOrderId());
+                    task.get(2000, TimeUnit.MILLISECONDS);
                     return true;
                 }else{
                     return false;
                 }
             }else{
-                setOrderStatus(info.getTripId(),info.getOrderId());
+                Future<ModifyOrderStatusResult> task = setOrderStatus(info.getTripId(),info.getOrderId());
+                task.get(2000, TimeUnit.MILLISECONDS);
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
             }
@@ -274,7 +282,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         return addMoneyRepository.findAll();
     }
 
-    private ModifyOrderStatusResult setOrderStatus(String tripId,String orderId){
+    @Async("mySimpleAsync")
+    private Future<ModifyOrderStatusResult> setOrderStatus(String tripId, String orderId){
         ModifyOrderStatusInfo info = new ModifyOrderStatusInfo();
         info.setOrderId(orderId);
         info.setStatus(1);   //order paid and not collected
@@ -287,7 +296,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             result = restTemplate.postForObject(
                     "http://ts-order-other-service:12032/orderOther/modifyOrderStatus", info, ModifyOrderStatusResult.class);
         }
-        return result;
+        return new AsyncResult<>(result);
     }
 
 //    private boolean sendOrderCreateEmail(){

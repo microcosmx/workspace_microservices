@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -21,7 +23,7 @@ public class InsidePaymentController {
     public InsidePaymentService service;
 
     @RequestMapping(value="/inside_payment/pay", method = RequestMethod.POST)
-    public boolean pay(@RequestBody PaymentInfo info, HttpServletRequest request){
+    public boolean pay(@RequestBody PaymentInfo info, HttpServletRequest request) throws InterruptedException, ExecutionException, TimeoutException {
         System.out.println("[Inside Payment Service][Pay] Pay for:" + info.getOrderId());
         return service.pay(info, request);
     }
