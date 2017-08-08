@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
  * Created by Administrator on 2017/6/20.
  */
 public interface InsidePaymentService {
-    boolean pay(PaymentInfo info, HttpServletRequest request) ;
+    boolean pay(PaymentInfo info, HttpServletRequest request) throws InterruptedException, ExecutionException, TimeoutException;
     boolean createAccount(CreateAccountInfo info);
     boolean addMoney(AddMoneyInfo info);
     List<Payment> queryPayment();

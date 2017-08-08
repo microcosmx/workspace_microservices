@@ -37,7 +37,7 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
     public AsyncTask asyncTask;
 
     @Override
-    public boolean pay(PaymentInfo info, HttpServletRequest request) {
+    public boolean pay(PaymentInfo info, HttpServletRequest request) throws InterruptedException, ExecutionException, TimeoutException{
 //        QueryOrderResult result;
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
 
@@ -102,11 +102,14 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
                         task.get(2000, TimeUnit.MILLISECONDS);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        throws e;
+                        task.cancel(true);
+                        throw e;
                     } catch (ExecutionException e) {
                         e.printStackTrace();
+                        throw e;
                     } catch (TimeoutException e) {
                         e.printStackTrace();
+                        throw e;
                     }
                     return true;
                 }else{
@@ -114,7 +117,19 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
                 }
             }else{
                 Future<ModifyOrderStatusResult> task = asyncTask.setOrderStatus(info.getTripId(),info.getOrderId());
-                task.get(2000, TimeUnit.MILLISECONDS);
+                try {
+                    task.get(2000, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    task.cancel(true);
+                    throw e;
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    throw e;
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                    throw e;
+                }
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
             }

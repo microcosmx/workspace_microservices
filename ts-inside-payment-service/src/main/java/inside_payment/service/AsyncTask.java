@@ -21,7 +21,7 @@ public class AsyncTask {
 	private RestTemplate restTemplate;
 
     @Async("mySimpleAsync")
-    public Future<ModifyOrderStatusResult> setOrderStatus(String tripId, String orderId){
+    public Future<ModifyOrderStatusResult> setOrderStatus(String tripId, String orderId) throws InterruptedException{
         ModifyOrderStatusInfo info = new ModifyOrderStatusInfo();
         info.setOrderId(orderId);
         info.setStatus(1);   //order paid and not collected
