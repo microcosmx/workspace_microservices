@@ -32,8 +32,8 @@ public class TraceTranslator {
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 //        String path = "./ts-sample/ts-error-normal/error-normal-raw.json";
 //        String path = "./sample/ts-error-normal/ts-error-normal-preserve.json";
-        String path = "./ts-sample/ts-error-processes-seq/error-processes-seq.json";
-//          String path = "./sample/traces-error-external-normal.json";
+//        String path = "./ts-sample/ts-error-processes-seq/error-processes-seq.json";
+          String path = "./ts-sample/ts-external-normal/error-external-normal.json";
 //        String path = "./sample/traces-error-report-ui-seq.json";
 
 //        String destPath = "./output/shiviz-log-error-normal.txt";
@@ -43,9 +43,9 @@ public class TraceTranslator {
 //        String destPath = "./output/shiviz-traces-error-cross-timeout-status.txt;
 //        String destPath = "./ts-output/error-normal/shiviz-ts-error-normal.txt";
 //        String destPath = "./output/shiviz-ts-error-normal-preserve.txt";
-        String destPath = "./ts-output/error-processes-seq/shiviz-ts-error-processes-seq.txt";
+//        String destPath = "./ts-output/error-processes-seq/shiviz-ts-error-processes-seq.txt";
 //        String destPath = "./output/shiviz-error-cross-timeout-status.txt";
-//          String destPath = "./output/shiviz-error-external-normal.txt";
+          String destPath = "./ts-output/error-external-normal/shiviz-error-external-normal.txt";
 //        String destPath = "./output/shiviz-error-report-ui-seq.txt";
 
 
