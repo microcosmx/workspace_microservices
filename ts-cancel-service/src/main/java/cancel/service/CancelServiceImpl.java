@@ -90,23 +90,37 @@ public class CancelServiceImpl implements CancelService{
                      * 退款流程前期使用时间太长导致，在检查订单状态的时候发现订单状态已经处于不能退款的状态，导致退款失败
                      * 由于先发生的退款操作异步时间太长，使得修改订单状态的操作抢先完成，使得退款不能正常进行
                      */
-                    //1.首先退还订单金额
+
+                    //1.首先退还订单金额(将订单状态改为-退款中，然后退款)
                     String money = calculateRefund(order);
-                    Future<Boolean> taskDrawBackMoney = asyncTask.drawBackMoneyForOrderCan(money,loginId,order.getId().toString());
-                    //2.然后修改订单的状态至【已取消】
+                    Future<Boolean> taskDrawBackMoney = asyncTask.drawBackMoneyForOrderCan(money,loginId,order.getId().toString(),loginToken);
+
+                    //2.然后修改订单的状态至【已取消】（将订单状态改为-已退款）
                     Future<ChangeOrderResult> taskCancelOrder = asyncTask.updateOtherOrderStatusToCancel(changeOrderInfo);
 
                     ChangeOrderResult changeOrderResult = null;
                     boolean drawBackMoneyStatus = false;
-                    while(!taskCancelOrder.isDone() || !taskDrawBackMoney.isDone()){}
+
+                    boolean status = true;
+                    while(!taskCancelOrder.isDone() || !taskDrawBackMoney.isDone()){
+                        if(!taskDrawBackMoney.isDone() && taskCancelOrder.isDone()){
+                            status = false;
+                        }
+                    }
                     System.out.println("[Cancel Order Service][Cancel Order] Two Process Done");
                     drawBackMoneyStatus = taskDrawBackMoney.get();
                     changeOrderResult = taskCancelOrder.get();
 
 
                     /********************************************************************************/
-
                     if(changeOrderResult.isStatus() == true && drawBackMoneyStatus == true){
+
+                        if(status == false){
+                            System.out.println("[Cancel Order Service]成功复现Processes Seq");
+                        }else{
+                            System.out.println("[Cancel Order Service]没有复现Processes Seq");
+                        }
+
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(true);
                         finalResult.setMessage("Success.");

@@ -8,7 +8,8 @@ public enum OrderStatus {
     CHANGE    (3,"Cancel & Rebook"),
     CANCEL    (4,"Cancel"),
     REFUNDS   (5,"Refunded"),
-    USED      (6,"Used");
+    USED      (6,"Used"),
+    Canceling (100,"Canceling");
 
     private int code;
     private String name;
