@@ -100,12 +100,21 @@ http.createServer(function (req, res) {
           handleResponse(response);
         }).end();
     }else{
-
-
+        // var resObj = {
+        //   id: counter++,
+        //   result: (params.cal < 100 && params.cal > 0)
+        // };
+        //
+        // // res.writeHead(200,{
+        // //   "Content-Type":'text/plain',
+        // //   'charset':'utf-8',
+        // //   'Access-Control-Allow-Origin':'*',
+        // //   'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS'
+        // // });
+        //
+        // res.write(JSON.stringify(resObj));
         var resObj = true;
         res.write(JSON.stringify(resObj));
-
-
     }
 
     res.end();
