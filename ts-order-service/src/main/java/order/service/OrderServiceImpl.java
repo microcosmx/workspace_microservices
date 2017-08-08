@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService{
         System.out.println("counter"+counter.incrementAndGet());
         //Thread sleep//'
         try{
-            Thread.sleep(40000);
+            Thread.sleep(500000);
         }catch(InterruptedException e){
             e.printStackTrace();
         }

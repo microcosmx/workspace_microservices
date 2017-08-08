@@ -30,7 +30,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
         //Thread sleep//'
         try{
-            Thread.sleep(40000);
+            Thread.sleep(50000);
         }catch(InterruptedException e){
             e.printStackTrace();
         }

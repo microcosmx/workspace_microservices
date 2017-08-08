@@ -37,22 +37,25 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
     public AsyncTask asyncTask;
 
     @Override
-    public boolean pay(PaymentInfo info, HttpServletRequest request) throws InterruptedException, ExecutionException, TimeoutException{
+    public boolean pay(PaymentInfo info, HttpServletRequest request) throws Exception{
 //        QueryOrderResult result;
         String userId = CookieUtil.getCookieByName(request,"loginId").getValue();
 
-        GetOrderByIdInfo getOrderByIdInfo = new GetOrderByIdInfo();
-        getOrderByIdInfo.setOrderId(info.getOrderId());
+        Future<GetOrderResult> getOrderTask = asyncTask.getOrder(info);
         GetOrderResult result;
-
-        if(info.getTripId().startsWith("G") || info.getTripId().startsWith("D")){
-            result = restTemplate.postForObject("http://ts-order-service:12031/order/getById",getOrderByIdInfo,GetOrderResult.class);
-             //result = restTemplate.postForObject(
-             //       "http://ts-order-service:12031/order/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
-        }else{
-            result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/getById",getOrderByIdInfo,GetOrderResult.class);
-            //result = restTemplate.postForObject(
-            //      "http://ts-order-other-service:12032/orderOther/price", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+        try {
+            result = getOrderTask.get(2000, TimeUnit.MILLISECONDS);
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+            System.out.println("Timeout");
+            getOrderTask.cancel(true);
+            throw e;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            throw e;
         }
 
         if(result.isStatus()){
@@ -99,15 +102,18 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
                     paymentRepository.save(payment);
                     Future<ModifyOrderStatusResult> task = asyncTask.setOrderStatus(info.getTripId(),info.getOrderId());
                     try {
-                        task.get(2000, TimeUnit.MILLISECONDS);
-                    } catch (InterruptedException e) {
+                        System.out.println("task.get(2000, TimeUnit.MILLISECONDS);before");
+                        System.out.println(task.get(100, TimeUnit.MILLISECONDS));
+                        System.out.println("task.get(2000, TimeUnit.MILLISECONDS);after");
+                    } catch (TimeoutException e) {
                         e.printStackTrace();
+                        System.out.println("Timeout");
                         task.cancel(true);
                         throw e;
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                         throw e;
-                    } catch (TimeoutException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                         throw e;
                     }
@@ -118,15 +124,18 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
             }else{
                 Future<ModifyOrderStatusResult> task = asyncTask.setOrderStatus(info.getTripId(),info.getOrderId());
                 try {
-                    task.get(2000, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
+                    System.out.println("else:task.get(2000, TimeUnit.MILLISECONDS);before");
+                    task.get(100, TimeUnit.MILLISECONDS);
+                    System.out.println("else:task.get(2000, TimeUnit.MILLISECONDS);after");
+                } catch (TimeoutException e) {
                     e.printStackTrace();
+                    System.out.println("Timeout");
                     task.cancel(true);
                     throw e;
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                     throw e;
-                } catch (TimeoutException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                     throw e;
                 }
@@ -308,6 +317,7 @@ public class InsidePaymentServiceImpl  implements InsidePaymentService  {
     public List<AddMoney> queryAddMoney(){
         return addMoneyRepository.findAll();
     }
+
 
 //    @Async("mySimpleAsync")
 //    private Future<ModifyOrderStatusResult> setOrderStatus(String tripId, String orderId){
