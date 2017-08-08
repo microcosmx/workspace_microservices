@@ -5,10 +5,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import reproduction.async.AsyncTask;
 import reproduction.domain.Information;
+import reproduction.domain.Order;
 import reproduction.domain.OrderTicketsInfo;
 import reproduction.domain.OrderTicketsResult;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -23,25 +26,35 @@ public class ReproductionServiceImpl implements ReproductionService{
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    AsyncTask asyncTask;
+
     @Override
     public OrderTicketsResult reproduct(OrderTicketsInfo info, String loginId, String loginToken) throws InterruptedException, ExecutionException, TimeoutException {
-        Future<OrderTicketsResult> preserve = preserve(info);
-        Future<OrderTicketsResult> refreshOrder = refreshOrder(info);
-        refreshOrder.get(2000, TimeUnit.MILLISECONDS);
+        Future<OrderTicketsResult> preserve = asyncTask.preserve(info, loginId, loginToken);
+        Thread.sleep(15000);
+        Future<Boolean> payTask = asyncTask.pay(loginId, loginToken);
+        payTask.get(2000, TimeUnit.MILLISECONDS);
         return preserve.get();
     }
 
-    @Async("mySimpleAsync")
-    private Future<OrderTicketsResult> preserve(OrderTicketsInfo info){
-        OrderTicketsResult result = restTemplate.postForObject("http://ts-preserve-service:14568/preserve"
-                ,info,OrderTicketsResult.class);
-        return new AsyncResult<>(result);
+    @Override
+    public OrderTicketsResult reproductCorrect(OrderTicketsInfo info, String loginId, String loginToken) throws InterruptedException, ExecutionException, TimeoutException {
+        Future<OrderTicketsResult> preserve = asyncTask.preserve(info, loginId, loginToken);
+        Thread.sleep(100000);
+        Future<Boolean> payTask = asyncTask.pay(loginId, loginToken);
+        payTask.get(2000, TimeUnit.MILLISECONDS);
+        return preserve.get();
     }
 
-    @Async("mySimpleAsync")
-    private Future<OrderTicketsResult> refreshOrder(OrderTicketsInfo info){
-        OrderTicketsResult result = restTemplate.postForObject("http://ts-order-service:12031/order/query"
-                ,info,OrderTicketsResult.class);
-        return new AsyncResult<>(result);
+    @Override
+    public OrderTicketsResult reproductOther(OrderTicketsInfo info, String loginId, String loginToken) throws InterruptedException, ExecutionException, TimeoutException {
+        return null;
     }
+
+    @Override
+    public OrderTicketsResult reproductOtherCorrect(OrderTicketsInfo info, String loginId, String loginToken) throws InterruptedException, ExecutionException, TimeoutException {
+        return null;
+    }
+
 }
