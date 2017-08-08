@@ -1,10 +1,10 @@
-/**
- * Created by hh on 2017-07-08.
- */
-/**
- * Created by Administrator on 2017/7/11.
- */
-package org.services.analysis;
+///**
+// * Created by hh on 2017-07-08.
+// */
+///**
+// * Created by Administrator on 2017/7/11.
+// */
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,23 +30,31 @@ public class TraceTranslator {
 
 //        String path = "./sample/trace-error-queue-seq-multi.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
-//        String path = "./ts-sample/ts-error-normal/error-normal-raw.json";
-//        String path = "./sample/ts-error-normal/ts-error-normal-preserve.json";
-//        String path = "./ts-sample/ts-error-processes-seq/error-processes-seq.json";
-          String path = "./ts-sample/ts-external-normal/error-external-normal.json";
+//        String path = "./sample/cross-timeout/inside-payment.json";
+//        String path = "./sample/cross-timeout/order.json";
+//        String path = "./sample/cross-timeout/order-other.json";
+//        String path = "./sample/cross-timeout/payment.json";
+//          String path = "./sample/traces-error-external-normal.json";
 //        String path = "./sample/traces-error-report-ui-seq.json";
+//        String path = "./sample/temp-storage/inside-payment.json";
+//        String path = "./sample/processes-seq-status/travel.json";
+//        String path = "./sample/processes-seq-status/preserve.json";
+        String path = "./sample/cross-timeout/paying.json";
 
 //        String destPath = "./output/shiviz-log-error-normal.txt";
 //        String destPath = "./output/shiviz-error-processes-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq(chance).txt";
 //        String destPath = "./output/shiviz-error-processes-seq-status.txt";
 //        String destPath = "./output/shiviz-traces-error-cross-timeout-status.txt;
-//        String destPath = "./ts-output/error-normal/shiviz-ts-error-normal.txt";
-//        String destPath = "./output/shiviz-ts-error-normal-preserve.txt";
-//        String destPath = "./ts-output/error-processes-seq/shiviz-ts-error-processes-seq.txt";
-//        String destPath = "./output/shiviz-error-cross-timeout-status.txt";
-          String destPath = "./ts-output/error-external-normal/shiviz-error-external-normal.txt";
+//        String destPath = "./output/shiviz-ts-inside-payment.txt";
+//        String destPath = "./output/shiviz-ts-order.txt";
+//        String destPath = "./output/shiviz-ts-order-other.txt";
+//        String destPath = "./output/shiviz-ts-payment.txt";
+//          String destPath = "./output/shiviz-error-external-normal.txt";
 //        String destPath = "./output/shiviz-error-report-ui-seq.txt";
+//        String destPath = "./output/shiviz-error-processes-seq-status-travel.txt";
+//        String destPath = "./output/shiviz-error-processes-seq-status-preserve.txt";
+        String destPath = "./output/shiviz-error-paying.txt";
 
 
 
@@ -163,7 +171,7 @@ public class TraceTranslator {
                             if(states.containsKey(key)){
                                 new_instance_id = content.get("serverName") + ":" + states.get(key);
                             }else{
-                                new_instance_id = content.get("serverName") ;
+                                new_instance_id = content.get("serverName");
                             }
 
                             content.put("server_instance_id", new_instance_id);
@@ -172,10 +180,9 @@ public class TraceTranslator {
                             String key = content.get("clientName") + ":" + ipv4;
                             String new_instance_id;
                             if(states.containsKey(key)){
-                                new_instance_id = content.get("clientName") + ":" + states.get(key) ;
+                                new_instance_id = content.get("clientName") + ":" + states.get(key);
                             }else{
-//                                    new_instance_id = ipv4 + ":" + content.get("clientName") + ":" + port;
-                                new_instance_id = content.get("clientName")  ;
+                                new_instance_id = content.get("clientName") ;
                             }
                             content.put("client_instance_id", new_instance_id);
                         }
@@ -192,7 +199,8 @@ public class TraceTranslator {
                         String port = String.valueOf(endpoint.get("port"));
                         String serviceName = String.valueOf(endpoint.get("serviceName"));
 
-                        String hostId = serviceName + ":" + ipv4 ;
+//                        String hostId = serviceName + ":" + ipv4 ;
+                        String hostId = serviceName ;
                         content.put("hostId", hostId);
                         content.put("serviceName", serviceName);
 
@@ -205,7 +213,8 @@ public class TraceTranslator {
                         String port = String.valueOf(endpoint.get("port"));
                         String serviceName = String.valueOf(endpoint.get("serviceName"));
 
-                        String hostId = serviceName + ":" + ipv4 ;
+//                        String hostId = serviceName + ":" + ipv4 ;
+                        String hostId = serviceName ;
                         content.put("hostId", hostId);
                         content.put("serviceName", serviceName);
                     }
