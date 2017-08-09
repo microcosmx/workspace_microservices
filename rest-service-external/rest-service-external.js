@@ -44,7 +44,7 @@ var sleep = function(array, callback) {
 
 //测试数据
 var arr = [
-  {name:'mocksleep', delay:100}
+  {name:'mocksleep', delay:2500}
 ];
 
 // sleep(arr, function(error, data) {
