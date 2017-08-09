@@ -81,10 +81,54 @@ docker:
 docker tag ts/ts-ui-dashboard 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker tag ts/ts-login-service 10.141.212.25:5555/cluster-ts-login-service
 docker tag ts/ts-register-service 10.141.212.25:5555/cluster-ts-register-service
+docker tag ts/ts-sso-service 10.141.212.25:5555/cluster-ts-sso-service
+docker tag ts/ts-verification-code-service 10.141.212.25:5555/cluster-ts-verification-code-service
+docker tag ts/ts-contacts-service 10.141.212.25:5555/cluster-ts-contacts-service
+docker tag ts/ts-order-service 10.141.212.25:5555/cluster-ts-order-service
+docker tag ts/ts-order-other-service 10.141.212.25:5555/cluster-ts-order-other-service
+docker tag ts/ts-config-service 10.141.212.25:5555/cluster-ts-config-service
+docker tag ts/ts-station-service 10.141.212.25:5555/cluster-ts-station-service
+docker tag ts/ts-train-service 10.141.212.25:5555/cluster-ts-train-service
+docker tag ts/ts-travel-service 10.141.212.25:5555/cluster-ts-travel-service
+docker tag ts/ts-travel2-service 10.141.212.25:5555/cluster-ts-travel2-service
+docker tag ts/ts-preserve-service 10.141.212.25:5555/cluster-ts-preserve-service
+docker tag ts/ts-preserve-other-service 10.141.212.25:5555/cluster-ts-preserve-other-service
+docker tag ts/ts-basic-service 10.141.212.25:5555/cluster-ts-basic-service
+docker tag ts/ts-ticketinfo-service 10.141.212.25:5555/cluster-ts-ticketinfo-service
+docker tag ts/ts-price-service 10.141.212.25:5555/cluster-ts-price-service
+docker tag ts/ts-notification-service 10.141.212.25:5555/cluster-ts-notification-service
+docker tag ts/ts-security-service 10.141.212.25:5555/cluster-ts-security-service
+docker tag ts/ts-inside-payment-service 10.141.212.25:5555/cluster-ts-inside-payment-service
+docker tag ts/ts-execute-service 10.141.212.25:5555/cluster-ts-execute-service
+docker tag ts/ts-payment-service 10.141.212.25:5555/cluster-ts-payment-service
+docker tag ts/ts-rebook-service 10.141.212.25:5555/cluster-ts-rebook-service
+docker tag ts/ts-cancel-service 10.141.212.25:5555/cluster-ts-cancel-service
 
 docker push 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker push 10.141.212.25:5555/cluster-ts-login-service
 docker push 10.141.212.25:5555/cluster-ts-register-service
+docker push 10.141.212.25:5555/cluster-ts-sso-service
+docker push 10.141.212.25:5555/cluster-ts-verification-code-service
+docker push 10.141.212.25:5555/cluster-ts-contacts-service
+docker push 10.141.212.25:5555/cluster-ts-order-service
+docker push 10.141.212.25:5555/cluster-ts-order-other-service
+docker push 10.141.212.25:5555/cluster-ts-config-service
+docker push 10.141.212.25:5555/cluster-ts-station-service
+docker push 10.141.212.25:5555/cluster-ts-train-service
+docker push 10.141.212.25:5555/cluster-ts-travel-service
+docker push 10.141.212.25:5555/cluster-ts-travel2-service
+docker push 10.141.212.25:5555/cluster-ts-preserve-service
+docker push 10.141.212.25:5555/cluster-ts-preserve-other-service
+docker push 10.141.212.25:5555/cluster-ts-basic-service
+docker push 10.141.212.25:5555/cluster-ts-ticketinfo-service
+docker push 10.141.212.25:5555/cluster-ts-price-service
+docker push 10.141.212.25:5555/cluster-ts-notification-service
+docker push 10.141.212.25:5555/cluster-ts-security-service
+docker push 10.141.212.25:5555/cluster-ts-inside-payment-service
+docker push 10.141.212.25:5555/cluster-ts-execute-service
+docker push 10.141.212.25:5555/cluster-ts-payment-service
+docker push 10.141.212.25:5555/cluster-ts-rebook-service
+docker push 10.141.212.25:5555/cluster-ts-cancel-service
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 docker stack ls
