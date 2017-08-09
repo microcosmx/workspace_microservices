@@ -281,6 +281,7 @@ public class TraceTranslator {
                     log.put("host" , n.get("client_instance_id"));
                     log.put("destName" , n.get("serverName"));
                     log.put("dest" , n.get("server_instance_id"));
+                    log.put("api", n.get("api"));
 
                     if(n.get("spanname").contains("message:")){
                         log.put("event" , n.get("api"));
@@ -307,6 +308,7 @@ public class TraceTranslator {
                     log.put("host" , n.get("server_instance_id"));
                     log.put("srcName" , n.get("clientName"));
                     log.put("src" , n.get("client_instance_id"));
+                    log.put("api", n.get("api"));
                     log.put("event", n.get("api"));
                     log.put("type", "sr");
                     if(n.containsKey("error")){
@@ -324,6 +326,7 @@ public class TraceTranslator {
                     log.put("host" , n.get("server_instance_id"));
                     log.put("destName" , n.get("clientName"));
                     log.put("dest" , n.get("client_instance_id"));
+                    log.put("api", n.get("api"));
 
                     log.put("event", n.get("api"));
                     log.put("type", "ss");
@@ -342,6 +345,7 @@ public class TraceTranslator {
                     log.put("host" , n.get("client_instance_id"));
                     log.put("srcName" , n.get("serverName"));
                     log.put("src" , n.get("server_instance_id"));
+                    log.put("api", n.get("api"));
 
                     if(n.get("spanname").contains("message:")){
                         log.put("event" , n.get("api"));
@@ -363,6 +367,7 @@ public class TraceTranslator {
                     log.put("timestamp",n.get("time"));
                     log.put("hostName" , n.get("serviceName"));
                     log.put("host" , n.get("hostId"));
+                    log.put("api", n.get("api"));
                     log.put("event", n.get("api"));
                     log.put("type", "async");
                     if(n.containsKey("error")){
@@ -466,6 +471,25 @@ public class TraceTranslator {
                 childs.add(spanId);
                 spanRelation.put(n.get("parentId"),childs);
             }
+        });
+
+        //add the event for cs & cr
+        HashMap<String,String> apis = new HashMap<String, String>();
+        logs.forEach(n -> {
+            String api = n.get("api");
+            apis.put(n.get("spanId"), n.get("api"));
+        });
+        logs.forEach(n -> {
+            if("cs".equals(n.get("type")) || "cr".equals(n.get("type"))){
+                if("".equals(n.get("event"))){
+                    n.put("event", apis.get(n.get("parentId")));
+                }
+            }else if("sr".equals(n.get("type")) || "ss".equals(n.get("type"))){
+                n.put("event", n.get("api"));
+            }else if("async".equals(n.get("type"))){
+                n.put("event", n.get("api"));
+            }
+            n.remove("api");
         });
 
         List<HashMap<String,String>> forwardLogs = new ArrayList<HashMap<String,String>>();
