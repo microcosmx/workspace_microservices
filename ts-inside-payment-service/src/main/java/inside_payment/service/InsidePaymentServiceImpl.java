@@ -1,5 +1,6 @@
 package inside_payment.service;
 
+import inside_payment.async.AsyncTask;
 import inside_payment.domain.*;
 import inside_payment.repository.AddMoneyRepository;
 import inside_payment.repository.PaymentRepository;
@@ -11,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -26,6 +29,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Autowired
     public RestTemplate restTemplate;
+
+    @Autowired
+    private AsyncTask asyncTask;
 
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
@@ -83,8 +89,26 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 outsidePaymentInfo.setOrderId(info.getOrderId());
                 outsidePaymentInfo.setUserId(userId);
                 outsidePaymentInfo.setPrice(result.getOrder().getPrice());
-                boolean outsidePaySuccess = restTemplate.postForObject(
-                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
+
+
+                /****这里异步调用第三方支付***/
+//                boolean outsidePaySuccess = restTemplate.postForObject(
+//                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
+                boolean outsidePaySuccess = false;
+                try{
+                    System.out.println("[Payment Service][Turn To Outside Patment] Async Task Begin");
+                    Future<Boolean> task = asyncTask.sendAsyncCallToPaymentService(outsidePaymentInfo);
+                    outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
+
+                }catch (Exception e){
+                    System.out.println("[Inside Payment][Turn to Outside Payment] Time Out.");
+                    //e.printStackTrace();
+                    return false;
+                }
+
+
+
+
                 if(outsidePaySuccess){
                     payment.setType(PaymentType.O);
                     paymentRepository.save(payment);

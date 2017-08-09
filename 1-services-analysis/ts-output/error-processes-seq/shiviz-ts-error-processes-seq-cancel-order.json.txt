@@ -1,3 +1,6 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
 
 === Success execution 0 ===
 {traceId=d3ff232408172c01, spanId=d3ff232408172c01, hostName=ts-cancel-service, srcName=null, src=null, host=ts-cancel-service:172.19.0.8, clock={"ts-cancel-service:172.19.0.8":1}, event=ts-cancel-service.CancelController.cancelTicket, type=sr, parentId=, timestamp=1501158189197000, }
