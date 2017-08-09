@@ -58,6 +58,7 @@ docker run -d --name myredis -p 6379:6379 redis
 docker ui:
 docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 http://10.141.212.22:9000/
+http://10.141.211.160:9000
 
 
 
@@ -71,6 +72,12 @@ build:
 mvn clean package
 docker-compose build
 
+ansible:
+/etc/ansible/hosts
+ansible docker-machines -a "/bin/echo hello" -u root
+docker pull 10.141.212.25:5555/cluster-ts-ui-dashboard
+
+docker:
 docker tag ts/ts-ui-dashboard 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker tag ts/ts-login-service 10.141.212.25:5555/cluster-ts-login-service
 docker tag ts/ts-register-service 10.141.212.25:5555/cluster-ts-register-service
