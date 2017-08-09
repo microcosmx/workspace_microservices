@@ -23,7 +23,6 @@ services:
   #   networks:
   #     - my-network
 
-
   zipkin:
     image: openzipkin/zipkin
     ports:
@@ -504,7 +503,18 @@ services:
         networks:
           - my-network
 
-
+  rest-service-external:
+        build: rest-service-external
+        image: node
+        restart: always
+        ports:
+          - 16100:16100
+        deploy:
+          replicas: 6
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
 
 
 networks:

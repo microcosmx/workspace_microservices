@@ -1,5 +1,8 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
 
-=== Success execution 0 ===
+^=== (?<trace>.*) ===$
+
+=== Fail execution 0 ===
 {traceId=d3ff232408172c01, spanId=d3ff232408172c01, hostName=ts-cancel-service, srcName=null, src=null, host=ts-cancel-service:172.19.0.8, clock={"ts-cancel-service:172.19.0.8":1}, event=ts-cancel-service.CancelController.cancelTicket, type=sr, parentId=, timestamp=1501158189197000, }
 {traceId=d3ff232408172c01, spanId=e3ec7a76e479b9c0, hostName=ts-cancel-service, destName=ts-sso-service, host=ts-cancel-service:172.19.0.8, api=ts-sso-service.AccountSsoController.verifyLoginToken, clock={"ts-cancel-service:172.19.0.8":2}, dest=ts-sso-service:172.19.0.21, event=, type=cs, parentId=d3ff232408172c01, timestamp=1501158189213000, }
 {traceId=d3ff232408172c01, spanId=e3ec7a76e479b9c0, hostName=ts-sso-service, srcName=ts-cancel-service, src=ts-cancel-service:172.19.0.8, host=ts-sso-service:172.19.0.21, clock={"ts-cancel-service:172.19.0.8":2,"ts-sso-service:172.19.0.21":1}, event=ts-sso-service.AccountSsoController.verifyLoginToken, type=sr, parentId=d3ff232408172c01, timestamp=1501158189215000, }
@@ -29,7 +32,7 @@
 {traceId=d3ff232408172c01, spanId=2f22d80bad3d8e35, hostName=ts-cancel-service, srcName=ts-order-other-service, src=ts-order-other-service:172.19.0.18, host=ts-cancel-service:172.19.0.8, clock={"ts-order-other-service:172.19.0.18":8,"ts-cancel-service:172.19.0.8":13,"ts-sso-service:172.19.0.21":4,"ts-order-service:172.19.0.4":2}, event=, type=cr, parentId=435b09f519e81c1c, timestamp=1501158189324000, }
 {traceId=d3ff232408172c01, spanId=d3ff232408172c01, hostName=ts-cancel-service, destName=null, host=ts-cancel-service:172.19.0.8, clock={"ts-order-other-service:172.19.0.18":8,"ts-cancel-service:172.19.0.8":14,"ts-sso-service:172.19.0.21":4,"ts-order-service:172.19.0.4":2}, dest=null, event=ts-cancel-service.CancelController.cancelTicket, type=ss, parentId=, timestamp=1501158191292000, }
 
-=== Success execution 1 ===
+=== Success execution 0 ===
 {traceId=9f9622fa80ca1d3b, spanId=9f9622fa80ca1d3b, hostName=ts-cancel-service, srcName=null, src=null, host=ts-cancel-service:172.19.0.8, clock={"ts-cancel-service:172.19.0.8":1}, event=ts-cancel-service.CancelController.cancelTicket, type=sr, parentId=, timestamp=1501157331128000, }
 {traceId=9f9622fa80ca1d3b, spanId=970a00e9668f458c, hostName=ts-cancel-service, destName=ts-sso-service, host=ts-cancel-service:172.19.0.8, api=ts-sso-service.AccountSsoController.verifyLoginToken, clock={"ts-cancel-service:172.19.0.8":2}, dest=ts-sso-service:172.19.0.29, event=, type=cs, parentId=9f9622fa80ca1d3b, timestamp=1501157331142000, }
 {traceId=9f9622fa80ca1d3b, spanId=970a00e9668f458c, hostName=ts-sso-service, srcName=ts-cancel-service, src=ts-cancel-service:172.19.0.8, host=ts-sso-service:172.19.0.29, clock={"ts-cancel-service:172.19.0.8":2,"ts-sso-service:172.19.0.29":1}, event=ts-sso-service.AccountSsoController.verifyLoginToken, type=sr, parentId=9f9622fa80ca1d3b, timestamp=1501157331144000, }

@@ -338,7 +338,7 @@ public class TraceTranslatorQueue {
                     log.put("hostName" , n.get("serviceName"));
                     log.put("host" , n.get("hostId"));
                     log.put("event", n.get("api"));
-                    log.put("type", "async");
+                    log.put("type", "inside_payment.async");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
                     }
@@ -502,7 +502,7 @@ public class TraceTranslatorQueue {
             if("cr".equals(log1.get("type"))){
                 cr = log1;
             }
-            if("async".equals(log1.get("type"))){
+            if("inside_payment.async".equals(log1.get("type"))){
                 async = log1;
             }
         }
@@ -540,7 +540,7 @@ public class TraceTranslatorQueue {
                         sr1 = log1;
                     }else if("sr".equals(log1.get("type"))){
                         sr1 = log1;
-                    }else if("async".equals(log1.get("type"))){
+                    }else if("inside_payment.async".equals(log1.get("type"))){
                         sr1 = log1;
                     }
                 }
@@ -552,7 +552,7 @@ public class TraceTranslatorQueue {
                         sr2 = log2;
                     }else if("sr".equals(log2.get("type"))){
                         sr2 = log2;
-                    }else if("async".equals(log2.get("type"))){
+                    }else if("inside_payment.async".equals(log2.get("type"))){
                         sr2 = log2;
                     }
                 }

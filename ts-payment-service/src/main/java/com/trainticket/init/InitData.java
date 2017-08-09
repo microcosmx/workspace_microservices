@@ -28,7 +28,7 @@ public class InitData implements CommandLineRunner {
 //        service.pay(info2);
         Payment payment = new Payment();
         payment.setOrderId("5ad7750b-a68b-49c0-a8c0-32776b067701");
-        payment.setPrice("100.0");
+        payment.setPrice("10000.0");
         payment.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
         paymentRepository.save(payment);
     }
