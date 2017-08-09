@@ -44,7 +44,7 @@ var sleep = function(array, callback) {
 
 //测试数据
 var arr = [
-  {name:'mocksleep', delay:3000}
+  {name:'mocksleep', delay:100}
 ];
 
 // sleep(arr, function(error, data) {
@@ -81,9 +81,9 @@ http.createServer(function (req, res) {
 
         console.log("-------greeting_async----------");
         var options = {
-            hostname: 'rest-service-1',
-            port: '16001',
-            path: '/hello1_callback?cal_back=60'
+            hostname: 'ts-inside-payment-service',
+            port: '18673',
+            path: '/hello1_callback?result=true'
           };
         function handleResponse(response) {
           var serverData = '';
@@ -113,6 +113,7 @@ http.createServer(function (req, res) {
         // // });
         //
         // res.write(JSON.stringify(resObj));
+        console.log("-------greeting_sync----------");
         var resObj = true;
         res.write(JSON.stringify(resObj));
     }

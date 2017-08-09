@@ -98,7 +98,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 try{
                     System.out.println("[Payment Service][Turn To Outside Patment] Async Task Begin");
                     Future<Boolean> task = asyncTask.sendAsyncCallToPaymentService(outsidePaymentInfo);
-                    outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
+                    outsidePaySuccess = task.get(4000,TimeUnit.MILLISECONDS).booleanValue();
 
                 }catch (Exception e){
                     System.out.println("[Inside Payment][Turn to Outside Payment] Time Out.");
