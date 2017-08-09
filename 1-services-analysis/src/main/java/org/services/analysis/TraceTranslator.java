@@ -6,6 +6,7 @@
 // */
 
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.json.JSONArray;
@@ -627,22 +628,149 @@ public class TraceTranslator {
                 return time1.compareTo(time2);
             }).collect(Collectors.toList());
 
+//            Iterator<String> iterator1 = sortedChilds.iterator();
+//            List<HashMap<String,String>> childsLogs = new ArrayList<HashMap<String,String>>();
+//
+//            while(iterator1.hasNext()){
+//                List<HashMap<String,String>> childForwardLogs = new ArrayList<HashMap<String,String>>();
+//                List<HashMap<String,String>> childBackwardLogs = new ArrayList<HashMap<String,String>>();
+//                String childId = iterator1.next();
+//                traverse(spans.get(childId), childForwardLogs, childBackwardLogs, spans);
+//                childsLogs.addAll(mergeForwardAndBackwardLogs(childForwardLogs,childBackwardLogs));
+//            }
+//            forwardLogs.addAll(childsLogs);
             Iterator<String> iterator1 = sortedChilds.iterator();
-            List<HashMap<String,String>> childsLogs = new ArrayList<HashMap<String,String>>();
+            List<List<HashMap<String,String>>> childLogLists = new ArrayList<List<HashMap<String,String>>>();
 
             while(iterator1.hasNext()){
                 List<HashMap<String,String>> childForwardLogs = new ArrayList<HashMap<String,String>>();
                 List<HashMap<String,String>> childBackwardLogs = new ArrayList<HashMap<String,String>>();
                 String childId = iterator1.next();
                 traverse(spans.get(childId), childForwardLogs, childBackwardLogs, spans);
-                childsLogs.addAll(mergeForwardAndBackwardLogs(childForwardLogs,childBackwardLogs));
+                childLogLists.add(mergeForwardAndBackwardLogs(childForwardLogs,childBackwardLogs));
             }
+
+            List<HashMap<String,String>> childsLogs = mergeChildLogLists(childLogLists);
 
             forwardLogs.addAll(childsLogs);
         }
 
 
     }
+
+    private static List<HashMap<String,String>> mergeChildLogLists(List<List<HashMap<String,String>>> childLogLists){
+        List<HashMap<String,String>> childsLogs = new ArrayList<HashMap<String,String>>();
+        List<HashMap<String, String>> logs;
+        List<HashMap<String,String>> childLogList;
+        HashMap<String, String> earlist;
+
+        while(!childLogLists.isEmpty()){
+            logs = new ArrayList<HashMap<String,String>>();
+
+            for(int i=0, size = childLogLists.size(); i<size; i++){
+                childLogList = childLogLists.get(i);
+                if(!childLogList.isEmpty()){
+                    logs.add(childLogList.get(0));
+                }
+            }
+
+            earlist = findEarliest(logs, childLogLists);
+            childsLogs.add(earlist);
+
+            for(int i=0, length = logs.size(); i<length; i++){
+                if(earlist == logs.get(i)){
+                    childLogList = childLogLists.get(i);
+                    childLogList.remove(0);
+                    if(childLogList.isEmpty()){
+                        childLogLists.remove(childLogList);
+                    }
+                }
+            }
+        }
+
+        return childsLogs;
+    }
+
+    private static HashMap<String, String> findEarliest(List<HashMap<String, String>> logs, List<List<HashMap<String, String>>> logLists){
+
+        HashMap<String, String> earlist = logs.get(0);
+        List<HashMap<String, String>> logListEarlist = logLists.get(0);
+
+        Iterator<HashMap<String, String>> iterator1 = logs.iterator();
+        Iterator<List<HashMap<String, String>>> iterator2 = logLists.iterator();
+        while(iterator1.hasNext() && iterator2.hasNext()){
+            HashMap<String, String> log = iterator1.next();
+            List<HashMap<String, String>> logList = iterator2.next();
+            if(compareLog(log, earlist, logList, logListEarlist)){
+                earlist = log;
+                logListEarlist = logList;
+            }
+        }
+
+        return earlist;
+    }
+
+    /*   log1 happens before log2 return true;
+         log2 happens before log1 return false;
+     */
+    private static boolean compareLog(HashMap<String, String> log1, HashMap<String, String> log2, List<HashMap<String, String>> logs1, List<HashMap<String, String>> logs2){
+        long timestamp1 = Long.valueOf(log1.get("timestamp"));
+        long timestamp2 = Long.valueOf(log2.get("timestamp"));
+        String host1 = log1.get("host");
+        String host2 = log2.get("host");
+
+        if(host1.equals(host2)){
+            if(timestamp1 <= timestamp2){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            Iterator<HashMap<String, String>> iterator1 = logs1.iterator();
+            Iterator<HashMap<String, String>> iterator2 = logs2.iterator();
+            HashMap<String, String> log3 = null;
+            HashMap<String, String> log4 = null;
+
+            //log1 before log3, log3 before log2, then log1 before log2
+            while(iterator1.hasNext()){
+                log3 = iterator1.next();
+                if(host2.equals(log3.get("host"))){
+                    break;
+                }
+            }
+
+            if(log3 != null){
+                long timestamp = Long.valueOf(log3.get("timestamp"));
+                if(timestamp <= timestamp2){
+                    return true;
+                }
+            }
+
+            //log2 before log4, log4 before log1, then log2 before log1
+            while(iterator2.hasNext()){
+                log4 = iterator2.next();
+                if(host1.equals(log4.get("host"))){
+                    break;
+                }
+            }
+
+            if(log4 != null){
+                long timestamp = Long.valueOf(log4.get("timestamp"));
+                if(timestamp <= timestamp1){
+                    return false;
+                }
+            }
+
+            //still can't compare, then just compare timestamp, maybe wrong
+            //but 1->2 or 2->1 both are meaningful
+            if(timestamp1 <= timestamp2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
 
     public static List<HashMap<String,String>> mergeForwardAndBackwardLogs(List<HashMap<String,String>> forwardLogs, List<HashMap<String,String>> backwardLogs){
         Stack<HashMap<String,String>> stack = new Stack<HashMap<String,String>>();
