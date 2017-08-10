@@ -1,3 +1,8 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
+
+Fail 0 --- Success 0
 
 === Fail execution 0 ===
 {traceId=9f4be26dc5a89727, spanId=9f4be26dc5a89727, hostName=ts-reproduction-service, srcName=null, src=null, host=ts-reproduction-service, clock={"ts-reproduction-service":1}, event=ts-reproduction-service.ReproductionController.error, type=sr, error=Request processing failed; nested exception is java.util.concurrent.TimeoutException, parentId=, timestamp=1502197203183000, }
