@@ -28,8 +28,8 @@ public class TraceTranslator {
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 
 //        String path = "./sample/trace-error-queue-seq-multi.json";
-        String path = "./ts-sample/ts-external-normal/error-external-normal.json";
-//        String path = "./sample/trace-error-queue-seq-multi.json";
+        String path = "./ts-sample/ts-error-normal/error-normal.json";
+///        String path = "./sample/trace-error-queue-seq-multi.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 //        String path = "./sample/cross-timeout/inside-payment.json";
 //        String path = "./sample/cross-timeout/order.json";
@@ -41,7 +41,8 @@ public class TraceTranslator {
 //        String path = "./sample/processes-seq-status/travel.json";
 //        String path = "./sample/processes-seq-status/preserve.json";
 //        String path = "./sample/cross-timeout/paying.json";
-        String destPath = "./ts-output/error-external-normal/shiviz-error-external-normal.txt";
+        String destPath = "./ts-output/error-normal/shiviz-ts-error-normal.txt";
+//        String destPath = "./ts-output/error-external-normal/shiviz-error-external-normal.txt";
 //        String destPath = "./output/shiviz-log-error-normal.txt";
 //        String destPath = "./output/shiviz-error-processes-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq(chance).txt";
