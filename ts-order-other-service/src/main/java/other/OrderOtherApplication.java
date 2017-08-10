@@ -38,7 +38,7 @@ public class OrderOtherApplication {
             @Override
             public Span adjust(Span span) {
                 return span.toBuilder()
-                        .tag("controller_state", orderServiceImpl.orderNumberInLastOneHour.get() < 5? "<5":"5")
+                        .tag("controller_state", orderOtherServiceImpl.orderNumberInLastOneHour.get() < 5? "<5":"5")
                         //.name(span.getName() + "--------------------")
                         .build();
             }

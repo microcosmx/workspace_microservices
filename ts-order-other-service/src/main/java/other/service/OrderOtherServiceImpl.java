@@ -17,7 +17,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     @Autowired
     private OrderOtherRepository orderOtherRepository;
 
-    public AtomicInteger orderNumberInLastOneHour;
+    public AtomicInteger orderNumberInLastOneHour = new AtomicInteger();
 
     @Override
     public Order findOrderById(UUID id){

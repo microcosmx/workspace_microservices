@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     RestTemplate restTemplate;
 
-    public AtomicInteger orderNumberInLastOneHour;
+    public AtomicInteger orderNumberInLastOneHour = new AtomicInteger();
 
     @Override
     public Order findOrderById(UUID id){
