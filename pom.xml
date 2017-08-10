@@ -27,7 +27,7 @@
 		<!--<module>ts-train-service</module>-->
 		<!--<module>ts-travel-service</module>-->
 		<!--<module>ts-travel2-service</module>-->
-		<!--<module>ts-preserve-service</module>-->
+		<module>ts-preserve-service</module>
 		<!--<module>ts-preserve-other-service</module>-->
 		<!--<module>ts-basic-service</module>-->
 		<!--<module>ts-ticketinfo-service</module>-->

@@ -37,6 +37,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
             System.out.println("[Preserve Other Service][Verify Login] Success");
+
             //1.黄牛检测
             System.out.println("[Preserve Service] [Step 1] Check Security");
             CheckInfo checkInfo = new CheckInfo();
@@ -50,6 +51,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 return otr;
             }
             System.out.println("[Preserve Service] [Step 1] Check Security Complete. ");
+
             //2.查询联系人信息 -- 修改，通过基础信息微服务作为中介
             System.out.println("[Preserve Other Service] [Step 2] Find contacts");
             GetContactsInfo gci = new GetContactsInfo();
@@ -106,6 +108,11 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             }
             Trip trip = gtdr.getTrip();
             System.out.println("[Preserve Other Service] [Step 3] Tickets Enough");
+
+
+
+
+
             //4.下达订单请求 设置order的各个信息
             System.out.println("[Preserve Other Service] [Step 4] Do Order");
             Contacts contacts = gcr.getContacts();
@@ -169,6 +176,8 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
             //5.发送notification
+
+
         }else{
             System.out.println("[Preserve Other Service][Verify Login] Fail");
             otr.setStatus(false);

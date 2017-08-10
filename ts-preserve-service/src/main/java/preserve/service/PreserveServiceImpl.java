@@ -19,18 +19,7 @@ public class PreserveServiceImpl implements PreserveService{
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
             System.out.println("[Preserve Service][Verify Login] Success");
-            //1.黄牛检测
-            System.out.println("[Preserve Service] [Step 1] Check Security");
-            CheckInfo checkInfo = new CheckInfo();
-            checkInfo.setAccountId(accountId);
-            CheckResult result = checkSecurity(checkInfo);
-            if(result.isStatus() == false){
-                otr.setStatus(false);
-                otr.setMessage(result.getMessage());
-                otr.setOrder(null);
-                return otr;
-            }
-            System.out.println("[Preserve Service] [Step 1] Check Security Complete");
+
             //2.查询联系人信息 -- 修改，通过基础信息微服务作为中介
             System.out.println("[Preserve Service] [Step 2] Find contacts");
             GetContactsInfo gci = new GetContactsInfo();
@@ -87,6 +76,26 @@ public class PreserveServiceImpl implements PreserveService{
             }
             Trip trip = gtdr.getTrip();
             System.out.println("[Preserve Service] [Step 3] Tickets Enough");
+
+            //1.黄牛检测
+            System.out.println("[Preserve Service] [Step 1] Check Security");
+            CheckInfo checkInfo = new CheckInfo();
+            checkInfo.setAccountId(accountId);
+            CheckResult result = checkSecurity(checkInfo);
+            if(result.isStatus() == false){
+                otr.setStatus(false);
+                otr.setMessage(result.getMessage());
+                otr.setOrder(null);
+                return otr;
+            }
+            System.out.println("[Preserve Service] [Step 1] Check Security Complete");
+
+            try{
+                Thread.sleep(20000);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+
             //4.下达订单请求 设置order的各个信息
             System.out.println("[Preserve Service] [Step 4] Do Order");
             Contacts contacts = gcr.getContacts();
@@ -172,6 +181,13 @@ public class PreserveServiceImpl implements PreserveService{
 //            info.setPrice(cor.getOrder().getPrice());
 //
 //            postForNotification(null);
+
+            //access Order Service Again
+            GetOrderInfoForSecurity infoOrder = new GetOrderInfoForSecurity();
+            infoOrder.setAccountId(order.getAccountId().toString());
+            infoOrder.setCheckDate(order.getBoughtDate());
+            GetOrderInfoForSecurityResult orderResult = getSecurityOrderInfoFromOrder(infoOrder);
+
         }else{
             System.out.println("[Preserve Service][Verify Login] Fail");
             otr.setStatus(false);
@@ -181,7 +197,15 @@ public class PreserveServiceImpl implements PreserveService{
         return otr;
     }
 
-
+    private GetOrderInfoForSecurityResult getSecurityOrderInfoFromOrder(GetOrderInfoForSecurity info){
+        System.out.println("[Security Service][Get Order Info For Security] Getting....");
+        GetOrderInfoForSecurityResult result = restTemplate.postForObject(
+                "http://ts-order-service:12031/getOrderInfoForSecurity",info,
+                GetOrderInfoForSecurityResult.class);
+        System.out.println("[Security Service][Get Order Info For Security] Last One Hour:" + result.getOrderNumInLastOneHour()
+                + " Total Valid Order:" + result.getOrderNumOfValidOrder());
+        return result;
+    }
 
     private boolean postForNotification(NotifyInfo info){
         System.out.println("[Preserve Other Service][Post For Notification]");
