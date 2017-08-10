@@ -17,23 +17,23 @@ public class InitData implements CommandLineRunner{
     private ContactsService service;
 
     public void run(String... args)throws Exception{
-        Contacts contacts_One = new Contacts();
-        contacts_One.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
-        contacts_One.setDocumentType(DocumentType.ID_CARD.getCode());
-        contacts_One.setName("Contacts_One");
-        contacts_One.setDocumentNumber("DocumentNumber_One");
-        contacts_One.setPhoneNumber("ContactsPhoneNum_One");
-        contacts_One.setId(UUID.randomUUID());
+//        Contacts contacts_One = new Contacts();
+//        contacts_One.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+//        contacts_One.setDocumentType(DocumentType.ID_CARD.getCode());
+//        contacts_One.setName("Contacts_One");
+//        contacts_One.setDocumentNumber("DocumentNumber_One");
+//        contacts_One.setPhoneNumber("ContactsPhoneNum_One");
+//        contacts_One.setId(UUID.randomUUID());
+//
+//        Contacts contacts_Two = new Contacts();
+//        contacts_Two.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+//        contacts_Two.setDocumentType(DocumentType.ID_CARD.getCode());
+//        contacts_Two.setName("Contacts_Two");
+//        contacts_Two.setDocumentNumber("DocumentNumber_Two");
+//        contacts_Two.setPhoneNumber("ContactsPhoneNum_Two");
+//        contacts_Two.setId(UUID.randomUUID());
 
-        Contacts contacts_Two = new Contacts();
-        contacts_Two.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
-        contacts_Two.setDocumentType(DocumentType.ID_CARD.getCode());
-        contacts_Two.setName("Contacts_Two");
-        contacts_Two.setDocumentNumber("DocumentNumber_Two");
-        contacts_Two.setPhoneNumber("ContactsPhoneNum_Two");
-        contacts_Two.setId(UUID.randomUUID());
-
-        service.createContacts(contacts_One);
-        service.createContacts(contacts_Two);
+//        service.createContacts(contacts_One);
+//        service.createContacts(contacts_Two);
     }
 }

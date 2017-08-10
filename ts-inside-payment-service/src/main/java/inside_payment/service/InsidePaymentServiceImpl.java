@@ -7,7 +7,6 @@ import inside_payment.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
@@ -263,10 +262,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             payment.setType(PaymentType.E);
             paymentRepository.save(payment);
         }
-
         return true;
-
-
     }
 
     @Override

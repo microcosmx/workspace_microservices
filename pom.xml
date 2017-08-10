@@ -40,7 +40,7 @@
 		<module>ts-rebook-service</module>
 		<module>ts-cancel-service</module>
         <!--<module>1_services_analysis_mvn</module>-->
-        <module>ts-fault-reproduce-test</module>
+        <!--<module>ts-fault-reproduce-test</module>-->
     </modules>
 
 

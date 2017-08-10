@@ -2,17 +2,17 @@ version: '3'
 services:
 
 
-  rabbitmq:
-    image: rabbitmq:management
-    ports:
-      - 5672:5672
-      - 15672:15672
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    networks:
-      - my-network
+#  rabbitmq:
+#    image: rabbitmq:management
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
+#    networks:
+#      - my-network
 
   # kafka:
   #   container_name: kafka
@@ -73,18 +73,18 @@ services:
     networks:
       - my-network
 
-  ts-fault-reproduce-test:
-    build: ts-fault-reproduce-test
-    image: ts/ts-fault-reproduce-test
-    restart: always
-    ports:
-      - 12399:12399
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-    networks:
-      - my-network
+#  ts-fault-reproduce-test:
+#    build: ts-fault-reproduce-test
+#    image: ts/ts-fault-reproduce-test
+#    restart: always
+#    ports:
+#      - 12399:12399
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
+#    networks:
+#      - my-network
 
   ts-account-mongo:
     image: mongo
