@@ -25,7 +25,7 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/create", method = RequestMethod.POST)
-    public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){
+    public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi) throws Exception{
         System.out.println("[Order Service][Create Order] Create Order form " + coi.getOrder().getFrom() + " --->"
             + coi.getOrder().getTo() + " at " + coi.getOrder().getTravelDate());
         VerifyResult tokenResult = verifySsoLogin(coi.getLoginToken());

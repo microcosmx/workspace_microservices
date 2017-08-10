@@ -8,7 +8,7 @@ public interface OrderService {
 
     Order findOrderById(UUID id);
 
-    CreateOrderResult create(Order newOrder);
+    CreateOrderResult create(Order newOrder) throws Exception;
 
     ChangeOrderResult saveChanges(Order order);
 
@@ -16,7 +16,7 @@ public interface OrderService {
 
     ArrayList<Order> queryOrders(QueryInfo qi,String accountId);
 
-    OrderAlterResult alterOrder(OrderAlterInfo oai);
+    OrderAlterResult alterOrder(OrderAlterInfo oai) throws Exception;
 
     CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti);
 

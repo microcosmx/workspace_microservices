@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Autowired
     private OrderOtherRepository orderOtherRepository;
+
+    public AtomicInteger orderNumberInLastOneHour;
 
     @Override
     public Order findOrderById(UUID id){
@@ -328,6 +331,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         }
         result.setOrderNumInLastOneHour(countOrderInOneHour);
         result.setOrderNumOfValidOrder(countTotalValidOrder);
+
+        orderNumberInLastOneHour.set(countOrderInOneHour);
+
         return result;
     }
 

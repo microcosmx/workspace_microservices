@@ -5,11 +5,10 @@ import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -17,13 +16,71 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    RestTemplate restTemplate;
+
+    public AtomicInteger orderNumberInLastOneHour;
+
     @Override
     public Order findOrderById(UUID id){
         return orderRepository.findById(id);
     }
 
     @Override
-    public CreateOrderResult create(Order order){
+    public CreateOrderResult create(Order order) throws Exception{
+
+        //最终一致性检查，判断没有超过一小时最大订单数
+        //check the order number in last one hour
+        ArrayList<Order> orders = orderRepository.findByAccountId(order.getAccountId());
+        int countOrderInOneHour = 0;
+        int countTotalValidOrder = 0;
+        Date dateFrom = order.getBoughtDate();
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(dateFrom );
+        ca.add(Calendar.HOUR_OF_DAY, -1);
+        dateFrom = ca.getTime();
+        for(Order order1 : orders){
+            if(order1.getStatus() == OrderStatus.NOTPAID.getCode() ||
+                    order1.getStatus() == OrderStatus.PAID.getCode() ||
+                    order1.getStatus() == OrderStatus.COLLECTED.getCode()){
+                countTotalValidOrder += 1;
+            }
+            if(order1.getBoughtDate().after(dateFrom)){
+                countOrderInOneHour += 1;
+            }
+        }
+
+        GetOrderInfoForSecurity infoOrder = new GetOrderInfoForSecurity();
+        infoOrder.setAccountId(order.getAccountId().toString());
+        infoOrder.setCheckDate(order.getBoughtDate());
+        GetOrderInfoForSecurityResult orderOtherResult = getSecurityOrderOtherInfoFromOrder(infoOrder);
+        int orderInOneHour = orderOtherResult.getOrderNumInLastOneHour() + countOrderInOneHour;
+        int totalValidOrder = orderOtherResult.getOrderNumOfValidOrder() + countTotalValidOrder;
+
+        GetAllSecurityConfigResult result = getSecurityConfig();
+        List<SecurityConfig> securityConfigList = result.getResult();
+        Iterator<SecurityConfig> iterator = securityConfigList.iterator();
+        SecurityConfig config;
+        while(iterator.hasNext()){
+             config = iterator.next();
+             if("max_order_1_hour".equals(config.getName())){
+                 int oneHourLine = Integer.parseInt(config.getValue());
+                 if(orderInOneHour >= oneHourLine){
+                     throw new Exception("status error!!");
+                 }
+             }
+             if("max_order_not_use".equals(config.getName())){
+                 int totalValidLine = Integer.parseInt(config.getValue());
+                 if(totalValidOrder >= totalValidLine){
+                     throw new Exception("status error!!");
+                 }
+             }
+        }
+
+
+
+
+
         System.out.println("[Order Service][Create Order] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
@@ -45,7 +102,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderAlterResult alterOrder(OrderAlterInfo oai){
+    public OrderAlterResult alterOrder(OrderAlterInfo oai) throws Exception{
         OrderAlterResult oar = new OrderAlterResult();
         UUID oldOrderId = oai.getPreviousOrderId();
         Order oldOrder = findOrderById(oldOrderId);
@@ -335,6 +392,9 @@ public class OrderServiceImpl implements OrderService{
         }
         result.setOrderNumInLastOneHour(countOrderInOneHour);
         result.setOrderNumOfValidOrder(countTotalValidOrder);
+
+        orderNumberInLastOneHour.set(countOrderInOneHour);
+
         return result;
     }
 
@@ -351,6 +411,22 @@ public class OrderServiceImpl implements OrderService{
             result.setStatus(true);
             result.setMessage("Success.");
         }
+        return result;
+    }
+
+    private GetOrderInfoForSecurityResult getSecurityOrderOtherInfoFromOrder(GetOrderInfoForSecurity info){
+        System.out.println("[Security Service][Get Order Other Info For Security] Getting....");
+        GetOrderInfoForSecurityResult result = restTemplate.postForObject(
+                "http://ts-order-other-service:12032/getOrderOtherInfoForSecurity",info,
+                GetOrderInfoForSecurityResult.class);
+        System.out.println("[Security Service][Get Order Other Info For Security] Last One Hour:" + result.getOrderNumInLastOneHour()
+                + " Total Valid Order:" + result.getOrderNumOfValidOrder());
+        return result;
+    }
+
+    private GetAllSecurityConfigResult getSecurityConfig(){
+        GetAllSecurityConfigResult result = restTemplate.getForObject("http://ts-security-service:11188/securityConfig/findAll",
+                GetAllSecurityConfigResult.class);
         return result;
     }
 }
