@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
-import rebook.globalValue.GlobalValue;
 import rebook.queue.MsgSendingBean;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -336,30 +335,31 @@ public class RebookServiceImpl implements RebookService{
             return gtdr;
         }else{
 
-            System.out.println("[Rebook Service][Get Trip Detail] Ready to send GTDI in queue.");
-            sendingBean.sendSeachTravlDetailInfo(gtdi);
-            //在此处轮询，直到拿到gtdr
-            System.out.println("[Rebook Service][Get Trip Detail] Ready to receive GTDI in queue.");
-            int nowGlobal = GlobalValue.count;
-
-            /********轮询获取返回值********/
-            for(;;){
-                if(GlobalValue.gtdrs.isEmpty() == false){
-                    System.out.println("[Rebook Service][Got Trip Detail][Global Value:" + nowGlobal + "] Get a gtdr in queue.");
-                    gtdr = GlobalValue.getGtdr();
-                    return gtdr;
-                }else{
-                    System.out.println("[Rebook Service][Got Trip Detail] GTDR empty");
-                    try{
-                        Thread.sleep(1000);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-//            gtdr = restTemplate.postForObject(
-//                    "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
-//                    ,gtdi,GetTripAllDetailResult.class);
+//            System.out.println("[Rebook Service][Get Trip Detail] Ready to send GTDI in queue.");
+//            sendingBean.sendSeachTravlDetailInfo(gtdi);
+//            //在此处轮询，直到拿到gtdr
+//            System.out.println("[Rebook Service][Get Trip Detail] Ready to receive GTDI in queue.");
+//            int nowGlobal = GlobalValue.count;
+//
+//            /********轮询获取返回值********/
+//            for(;;){
+//                if(GlobalValue.gtdrs.isEmpty() == false){
+//                    System.out.println("[Rebook Service][Got Trip Detail][Global Value:" + nowGlobal + "] Get a gtdr in queue.");
+//                    gtdr = GlobalValue.getGtdr();
+//                    return gtdr;
+//                }else{
+//                    System.out.println("[Rebook Service][Got Trip Detail] GTDR empty");
+//                    try{
+//                        Thread.sleep(300);
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+            gtdr = restTemplate.postForObject(
+                    "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
+                    ,gtdi,GetTripAllDetailResult.class);
+            return gtdr;
 
         }
     }

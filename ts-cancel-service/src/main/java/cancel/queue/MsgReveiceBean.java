@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package rebook.queue;
+package cancel.queue;
 
+import cancel.domain.ChangeOrderResult;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import rebook.domain.GetTripAllDetailResult;
-import rebook.globalValue.GlobalValue;
 
-/**
- * @author Dave Syer
- *
- */
 @EnableBinding(Sink.class)
 public class MsgReveiceBean {
 
@@ -36,14 +31,10 @@ public class MsgReveiceBean {
 
 	@StreamListener(Sink.INPUT)
 	public void receiveQueueInfo(Object payload) {
-		System.out.println("[Rebook Service][Receive Bean] Payload:" + payload.toString());
+		System.out.println("[Cancel Order Service][Receive Bean] Payload:" + payload.toString());
 		Gson gson = new Gson();
-		GetTripAllDetailResult gtdr = gson.fromJson(payload.toString(),GetTripAllDetailResult.class);
-		System.out.println("[Rebook Service][Receive Bean] Get a gtdi from queue.");
-
-		int sleepLength  = 0;
-		GlobalValue.count++;
-		asyncTask.putGetTripAllDetailResultIntoQueue(gtdr,sleepLength);
+		ChangeOrderResult changeOrderResult = gson.fromJson(payload.toString(),ChangeOrderResult.class);
+		GlobalValue.changeOrderResult = changeOrderResult;
 	}
 
 }

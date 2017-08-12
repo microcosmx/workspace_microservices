@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: ts-inside-payment-service
-
   data:
     mongodb:
       host: ts-inside-payment-mongo
@@ -12,9 +11,9 @@ spring:
 #     password: ${MONGODB_PASSWORD}
       database: ts
       port: 27017
-
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:
     sampler:
       percentage: 1.0
+

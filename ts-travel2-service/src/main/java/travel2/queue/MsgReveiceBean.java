@@ -23,10 +23,6 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import travel2.domain.GetTripAllDetailInfo;
 
-/**
- * @author Dave Syer
- *
- */
 @EnableBinding(Sink.class)
 public class MsgReveiceBean {
 	

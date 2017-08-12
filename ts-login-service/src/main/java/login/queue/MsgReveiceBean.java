@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package rebook.queue;
+package login.queue;
 
 import com.google.gson.Gson;
+import login.domain.LoginResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import rebook.domain.GetTripAllDetailResult;
-import rebook.globalValue.GlobalValue;
 
 /**
  * @author Dave Syer
@@ -38,12 +37,8 @@ public class MsgReveiceBean {
 	public void receiveQueueInfo(Object payload) {
 		System.out.println("[Rebook Service][Receive Bean] Payload:" + payload.toString());
 		Gson gson = new Gson();
-		GetTripAllDetailResult gtdr = gson.fromJson(payload.toString(),GetTripAllDetailResult.class);
-		System.out.println("[Rebook Service][Receive Bean] Get a gtdi from queue.");
-
-		int sleepLength  = 0;
-		GlobalValue.count++;
-		asyncTask.putGetTripAllDetailResultIntoQueue(gtdr,sleepLength);
+		LoginResult loginResult = gson.fromJson(payload.toString(),LoginResult.class);
+		GlobalValue.lr = loginResult;
 	}
 
 }

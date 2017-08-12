@@ -19,3 +19,26 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
+  rabbitmq:
+    host: rabbitmq
+    listener:
+      retry:
+        enabled: false
+        max-attempts: 1
+    template:
+      retry:
+        enabled: false
+        max-attempts: 1
+  cloud:
+    stream:
+      bindings:
+        output:
+          group: ts-preserve-other
+          destination: ts-preserve-other-search-travel2-detail-info-queue
+          contentType: text/plain
+          binder: rabbit
+        input:
+          group: ts-travel2
+          destination: ts-travel2-return-travel2-detail-info-queue
+          contentType: text/plain
+          binder: rabbit

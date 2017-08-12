@@ -1,9 +1,13 @@
 package cancel.service;
 
 import cancel.domain.*;
+import cancel.queue.GlobalValue;
+import cancel.queue.MsgSendingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import sun.awt.windows.ThemeReader;
+
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +17,9 @@ public class CancelServiceImpl implements CancelService{
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private MsgSendingBean sendingBean;
 
     @Override
     public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId){
@@ -242,7 +249,22 @@ public class CancelServiceImpl implements CancelService{
 
     private ChangeOrderResult cancelFromOtherOrder(ChangeOrderInfo info){
         System.out.println("[Cancel Order Service][Get Contacts By Id] Getting....");
-        ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
+        sendingBean.sendCancelInfoToOrderOther(info);
+        ChangeOrderResult result = null;
+        for(;;){
+            if(GlobalValue.changeOrderResult != null){
+                result = GlobalValue.changeOrderResult;
+                GlobalValue.changeOrderResult = null;
+                break;
+            }else{
+                try{
+                    Thread.sleep(500);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        //ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
         return result;
     }
 

@@ -7,9 +7,31 @@ server:
 spring:
   application:
     name: ts-login-service
-
+  rabbitmq:
+    host: rabbitmq
+    listener:
+      retry:
+        enabled: false
+        max-attempts: 1
+    template:
+      retry:
+        enabled: false
+        max-attempts: 1
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:
     sampler:
       percentage: 1.0
+  cloud:
+    stream:
+      bindings:
+        output:
+          group: ts-login
+          destination: ts-login-to-sso
+          contentType: text/plain
+          binder: rabbit
+        input:
+          group: ts-sso
+          destination: ts-return-login-to-sso
+          contentType: text/plain
+          binder: rabbit

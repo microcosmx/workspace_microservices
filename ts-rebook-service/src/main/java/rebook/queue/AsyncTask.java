@@ -21,12 +21,12 @@ public class AsyncTask {
     @Async("mySimpleAsync")
     public void putGetTripAllDetailResultIntoQueue(GetTripAllDetailResult gtdr,int sleepLengh){
 
-        try{
-            Thread.sleep(sleepLengh);
-            System.out.println("[Rebook Service][Async Task] 睡眠长度:" + sleepLengh);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            Thread.sleep(sleepLengh);
+//            System.out.println("[Rebook Service][Async Task] 睡眠长度:" + sleepLengh);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         GlobalValue.offerGtdr(gtdr);
         System.out.println("[Rebook Service][AsyncTask] Put GTDR into queue - " + GlobalValue.count++);
     }
