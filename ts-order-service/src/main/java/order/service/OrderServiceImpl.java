@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService{
         System.out.println("counter"+counter.incrementAndGet());
         //Thread sleep//'
         try{
-            Thread.sleep(50000);
+            Thread.sleep(30000);
         }catch(InterruptedException e){
             e.printStackTrace();
         }
@@ -376,6 +376,16 @@ public class OrderServiceImpl implements OrderService{
             result.setMessage("Success.");
         }
         return result;
+    }
+
+    @Override
+    public boolean longConnection(){
+        try{
+            Thread.sleep(20000);
+        }catch(InterruptedException e){
+            return false;
+        }
+        return true;
     }
 }
 

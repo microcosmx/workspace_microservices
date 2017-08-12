@@ -123,6 +123,11 @@ public class OrderController {
         return orderService.deleteOrder(info);
     }
 
+    @RequestMapping(path="/order/longConnection",method = RequestMethod.GET)
+    public boolean longConnection(){
+        return orderService.longConnection();
+    }
+
     /***************For super admin(Single Service Test*******************/
 
     @CrossOrigin(origins = "*")

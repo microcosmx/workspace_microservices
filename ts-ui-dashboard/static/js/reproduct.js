@@ -90,3 +90,27 @@ $("#reproduct_ticket_confirm_correct_btn").click(function () {
         }
     })
 })
+
+$("#reproduct_long_connection_btn").click(function () {
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
+    $("#reproduct_long_connection_btn").attr("disabled",true);
+    path = "/order/longConnection";
+
+    $.ajax({
+        type: "get",
+        url: path,
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            alert(result.toString());
+        },
+        complete: function(){
+            $("#reproduct_long_connection_btn").attr("disabled",false);
+        }
+    })
+})
