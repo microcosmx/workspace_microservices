@@ -5,12 +5,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import preserveOther.domain.*;
+import preserveOther.domain.CheckInfo;
+import preserveOther.domain.CheckResult;
+import preserveOther.domain.Contacts;
+import preserveOther.domain.CreateOrderInfo;
+import preserveOther.domain.CreateOrderResult;
+import preserveOther.domain.GetContactsInfo;
+import preserveOther.domain.GetContactsResult;
+import preserveOther.domain.GetTripAllDetailInfo;
+import preserveOther.domain.GetTripAllDetailResult;
+import preserveOther.domain.Order;
+import preserveOther.domain.OrderStatus;
+import preserveOther.domain.OrderTicketsInfo;
+import preserveOther.domain.OrderTicketsResult;
+import preserveOther.domain.QueryForId;
+import preserveOther.domain.QueryPriceInfo;
+import preserveOther.domain.SeatClass;
+import preserveOther.domain.Trip;
+import preserveOther.domain.TripResponse;
+import preserveOther.domain.VerifyResult;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
 @Service
 public class PreserveOtherServiceImpl implements PreserveOtherService{
+
+    public static int count = 0;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -186,7 +207,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setStatus(true);
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
-            //5.发送notification
         }else{
             System.out.println("[Preserve Other Service][Verify Login] Fail");
             otr.setStatus(false);
@@ -249,7 +269,16 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
 
     private CheckResult checkSecurity(CheckInfo info){
         System.out.println("[Preserve Other Service][Check Security] Checking....");
-        CheckResult result = restTemplate.postForObject("http://ts-security-service:11188/security/check",info,CheckResult.class);
+        CheckResult result  = null;
+        if(count == 0){
+            result = restTemplate.postForObject("http://ts-security-service:11188/security/checkInOneHour",info,CheckResult.class);
+        }else if(count == 1){
+            result = restTemplate.postForObject("http://ts-security-service:11188/security/checkTotalNumber",info,CheckResult.class);
+        }else{
+            result = restTemplate.postForObject("http://ts-security-service:11188/security/check",info,CheckResult.class);
+        }
+        count++;
+//        CheckResult result = restTemplate.postForObject("http://ts-security-service:11188/security/check",info,CheckResult.class);
         return result;
     }
 
