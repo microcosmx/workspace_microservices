@@ -19,7 +19,7 @@ public class AccountLoginController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public LoginResult login(@RequestBody LoginInfo li, @CookieValue String YsbCaptcha,  HttpServletResponse response){
+    public LoginResult login(@RequestBody LoginInfo li, @CookieValue(defaultValue = "admin") String YsbCaptcha,  HttpServletResponse response){
         if(YsbCaptcha == null || YsbCaptcha.length() == 0 ||
                 li.getEmail() == null || li.getEmail().length() == 0 ||
                 li.getPassword() == null || li.getPassword().length() == 0 ||

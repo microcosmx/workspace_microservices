@@ -3,25 +3,7 @@ package preserveOther.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import preserveOther.domain.QueryPriceInfo;
-import preserveOther.domain.CheckInfo;
-import preserveOther.domain.CheckResult;
-import preserveOther.domain.Contacts;
-import preserveOther.domain.CreateOrderInfo;
-import preserveOther.domain.CreateOrderResult;
-import preserveOther.domain.GetContactsInfo;
-import preserveOther.domain.GetContactsResult;
-import preserveOther.domain.GetTripAllDetailInfo;
-import preserveOther.domain.GetTripAllDetailResult;
-import preserveOther.domain.Order;
-import preserveOther.domain.OrderStatus;
-import preserveOther.domain.OrderTicketsInfo;
-import preserveOther.domain.OrderTicketsResult;
-import preserveOther.domain.QueryForId;
-import preserveOther.domain.SeatClass;
-import preserveOther.domain.Trip;
-import preserveOther.domain.TripResponse;
-import preserveOther.domain.VerifyResult;
+import preserveOther.domain.*;
 import preserveOther.queue.GlobalValue;
 import preserveOther.queue.MsgSendingBean;
 
@@ -37,7 +19,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     private MsgSendingBean sendingBean;
 
     @Override
-    public OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken){
+    public OrderTicketsResult preserve(OrderTicketsInfoWithOrderId oti, String accountId, String loginToken){
         VerifyResult tokenResult = verifySsoLogin(loginToken);
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
@@ -115,7 +97,11 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             System.out.println("[Preserve Other Service] [Step 4] Do Order");
             Contacts contacts = gcr.getContacts();
             Order order = new Order();
-            order.setId(UUID.randomUUID());
+            if(oti.getOrderId() == null || oti.getOrderId().length() == 0){
+                order.setId(UUID.randomUUID());
+            }else{
+                order.setId(UUID.fromString(oti.getOrderId()));
+            }
             order.setTrainNumber(oti.getTripId());
             order.setAccountId(UUID.fromString(accountId));
 

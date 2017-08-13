@@ -17,6 +17,7 @@
 package other.queue;
 
 import com.google.gson.Gson;
+import com.mongodb.TaggableReadPreference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;

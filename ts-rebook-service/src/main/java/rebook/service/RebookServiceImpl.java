@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
-import rebook.queue.MsgSendingBean;
+//import rebook.queue.MsgSendingBean;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,8 +20,8 @@ public class RebookServiceImpl implements RebookService{
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private MsgSendingBean sendingBean;
+//    @Autowired
+//    private MsgSendingBean sendingBean;
 
     @Override
     public RebookResult rebook(RebookInfo info, String loginId, String loginToken){

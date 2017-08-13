@@ -20,16 +20,16 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
-  cloud:
-    stream:
-      bindings:
-        output:
-          group: ts-rebook
-          destination: ts-rebook-search-travel2-detail-info-queue
-          contentType: text/plain
-          binder: rabbit
-        input:
-          group: ts-travel2
-          destination: ts-return-rebook-search-travel2-detail-info-queue
-          contentType: text/plain
-          binder: rabbit
+#  cloud:
+#    stream:
+#      bindings:
+#        output:
+#          group: ts-rebook
+#          destination: ts-rebook-search-travel2-detail-info-queue
+#          contentType: text/plain
+#          binder: rabbit
+#        input:
+#          group: ts-travel2
+#          destination: ts-return-rebook-search-travel2-detail-info-queue
+#          contentType: text/plain
+#          binder: rabbit

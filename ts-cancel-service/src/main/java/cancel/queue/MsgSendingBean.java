@@ -20,7 +20,7 @@ public class MsgSendingBean {
 	}
 
 	public void sendCancelInfoToOrderOther(ChangeOrderInfo changeOrderInfo){
-		System.out.println("[Cancel Order Service][Sending Bean] Send Login Into To SSO");
+		System.out.println("[Cancel Order Service][Sending Bean] Send Change Order Into To SSO");
 		Gson gson = new Gson();
 		String changeOrderInfoData = gson.toJson(changeOrderInfo);
 		System.out.println("[Cancel Order Service][Sending Bean] Sending Data:" + changeOrderInfoData);

@@ -60,6 +60,20 @@ services:
     networks:
       - my-network
 
+  ts-launcher:
+    build: ts-launcher
+    image: ts/ts-launcher
+    restart: always
+    ports:
+      - 12898:12898
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
+
+
   ts-login-service:
     build: ts-login-service
     image: ts/ts-login-service
