@@ -10,10 +10,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.concurrent.Future;
 
 @Component
 public class AsyncTask {
@@ -22,7 +24,7 @@ public class AsyncTask {
     private RestTemplate restTemplate;
 
     @Async("mySimpleAsync")
-    public OrderTicketsResult sendOrderTicket(String orderId,String loginId,String loginToken){
+    public Future<OrderTicketsResult> sendOrderTicket(String orderId, String loginId, String loginToken){
         OrderTicketsInfoWithOrderId orderTicketsInfoWithOrderId =
                 new OrderTicketsInfoWithOrderId(
                         "aded7dc5-06a7-4503-8e21-b7cad7a1f386",
@@ -41,11 +43,11 @@ public class AsyncTask {
                 HttpMethod.POST, requestEntityPreserveOrder, OrderTicketsResult.class);
         OrderTicketsResult orderTicketsResult = (OrderTicketsResult)rssResponsePreserveOrder.getBody();
         System.out.println("[退票结果] " + orderTicketsResult.getMessage());
-        return orderTicketsResult;
+        return new AsyncResult(orderTicketsResult);
     }
 
     @Async("mySimpleAsync")
-    public CancelOrderResult sendOrderCancel(String orderId,String loginId,String loginToken){
+    public Future<CancelOrderResult> sendOrderCancel(String orderId,String loginId,String loginToken){
         CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);
         HttpHeaders requestHeadersCancelOrder = new HttpHeaders();
         requestHeadersCancelOrder.add("Cookie","loginId=" + loginId);
@@ -56,7 +58,7 @@ public class AsyncTask {
                 HttpMethod.POST, requestEntityCancelOrder, CancelOrderResult.class);
         CancelOrderResult cancelOrderResult = (CancelOrderResult) rssResponseCancelOrder.getBody();
         System.out.println("[退票结果] " + cancelOrderResult.getMessage());
-        return cancelOrderResult;
+        return new AsyncResult(cancelOrderResult);
     }
 
 
