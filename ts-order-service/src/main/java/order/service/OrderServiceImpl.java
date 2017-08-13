@@ -31,6 +31,7 @@ public class OrderServiceImpl implements OrderService{
 
         //最终一致性检查，判断没有超过一小时最大订单数
         //check the order number in last one hour
+        String message = "";
         ArrayList<Order> orders = orderRepository.findByAccountId(order.getAccountId());
         int countOrderInOneHour = 0;
         int countTotalValidOrder = 0;
@@ -66,13 +67,15 @@ public class OrderServiceImpl implements OrderService{
              if("max_order_1_hour".equals(config.getName())){
                  int oneHourLine = Integer.parseInt(config.getValue());
                  if(orderInOneHour >= oneHourLine){
-                     throw new Exception("status error!!");
+                     message = "status error";
+//                     throw new Exception("status error!!");
                  }
              }
              if("max_order_not_use".equals(config.getName())){
                  int totalValidLine = Integer.parseInt(config.getValue());
                  if(totalValidOrder >= totalValidLine){
-                     throw new Exception("status error!!");
+//                     throw new Exception("status error!!");
+                     message = "status error";
                  }
              }
         }
@@ -84,7 +87,11 @@ public class OrderServiceImpl implements OrderService{
         System.out.println("[Order Service][Create Order] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
-        if(accountOrders.contains(order)){
+        if("status error".equals(message)){
+            cor.setStatus(false);
+            cor.setMessage(message);
+            cor.setOrder(null);
+        }else if(accountOrders.contains(order)){
             System.out.println("[Order Service][Order Create] Fail.Order already exists.");
             cor.setStatus(false);
             cor.setMessage("Order already exist");

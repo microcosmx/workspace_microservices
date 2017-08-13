@@ -14,7 +14,7 @@ public class PreserveServiceImpl implements PreserveService{
     private RestTemplate restTemplate;
 
     @Override
-    public OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken){
+    public OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken) throws Exception{
         VerifyResult tokenResult = verifySsoLogin(loginToken);
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
@@ -146,7 +146,7 @@ public class PreserveServiceImpl implements PreserveService{
             coi.setLoginToken(loginToken);
             coi.setOrder(order);
             CreateOrderResult cor = createOrder(coi);
-            if(cor.isStatus() == false){
+            if(cor.isStatus() == false && !cor.getMessage().equals("status error")){
                 System.out.println("[Preserve Service][Create Order Fail] Create Order Fail." +
                         "Reason:" + cor.getMessage());
                 otr.setStatus(false);
@@ -187,6 +187,10 @@ public class PreserveServiceImpl implements PreserveService{
             infoOrder.setAccountId(order.getAccountId().toString());
             infoOrder.setCheckDate(order.getBoughtDate());
             GetOrderInfoForSecurityResult orderResult = getSecurityOrderInfoFromOrder(infoOrder);
+
+            if(cor.getMessage().equals("status error")){
+                throw new Exception("status error!!");
+            }
 
         }else{
             System.out.println("[Preserve Service][Verify Login] Fail");
