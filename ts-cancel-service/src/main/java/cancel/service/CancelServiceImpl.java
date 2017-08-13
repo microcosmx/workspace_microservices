@@ -91,35 +91,18 @@ public class CancelServiceImpl implements CancelService{
                      * 由于先发生的退款操作异步时间太长，使得修改订单状态的操作抢先完成，使得退款不能正常进行
                      */
 
-                    //1.首先退还订单金额(将订单状态改为-退款中，然后退款)
+
                     String money = calculateRefund(order);
-                    Future<Boolean> taskDrawBackMoney = asyncTask.drawBackMoneyForOrderCan(money,loginId,order.getId().toString(),loginToken);
+                    Future<ChangeOrderResult> cancellingTask = asyncTask.cancelling(money,loginId,order.getId().toString(),loginToken);
+                    Future<Boolean> drawBackMoneyTask = asyncTask.drawBackMoney(money,loginId,order.getId().toString(),loginToken);
 
-                    //2.然后修改订单的状态至【已取消】（将订单状态改为-已退款）
-                    Future<ChangeOrderResult> taskCancelOrder = asyncTask.updateOtherOrderStatusToCancel(changeOrderInfo);
+//                    //2.然后修改订单的状态至【已取消】（将订单状态改为-已退款）
+//                    Future<ChangeOrderResult> taskCancelOrder = asyncTask.updateOtherOrderStatusToCancel(changeOrderInfo);
 
-                    ChangeOrderResult changeOrderResult = null;
-                    boolean drawBackMoneyStatus = false;
-
-                    boolean status = true;
-                    while(!taskCancelOrder.isDone() || !taskDrawBackMoney.isDone()){
-                        if(!taskDrawBackMoney.isDone() && taskCancelOrder.isDone()){
-                            status = false;
-                        }
-                    }
-                    System.out.println("[Cancel Order Service][Cancel Order] Two Process Done");
-                    drawBackMoneyStatus = taskDrawBackMoney.get();
-                    changeOrderResult = taskCancelOrder.get();
-
+                    boolean drawBackMoneyStatus = drawBackMoneyTask.get();
 
                     /********************************************************************************/
-                    if(changeOrderResult.isStatus() == true && drawBackMoneyStatus == true){
-
-                        if(status == false){
-                            System.out.println("[Cancel Order Service]成功复现Processes Seq");
-                        }else{
-                            System.out.println("[Cancel Order Service]没有复现Processes Seq");
-                        }
+                    if(drawBackMoneyStatus == true){
 
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(true);
@@ -127,29 +110,14 @@ public class CancelServiceImpl implements CancelService{
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         System.out.println("[Cancel Order Service][Draw Back Money] Success.");
                         return finalResult;
-                    }else if(changeOrderResult.isStatus() == true && drawBackMoneyStatus == false){
+                    }else{
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(false);
                         finalResult.setMessage("Fail.");
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
                         return finalResult;
-                    }else if(changeOrderResult.isStatus() == false && drawBackMoneyStatus == true){
-                        CancelOrderResult finalResult = new CancelOrderResult();
-                        finalResult.setStatus(false);
-                        finalResult.setMessage("Fail.");
-                        System.out.println("[Cancel Order Service][Cancel Order] Fail.");
-                        System.out.println("[Cancel Order Service][Draw Back Money] Success.");
-                        return finalResult;
-                    }else{
-                        CancelOrderResult finalResult = new CancelOrderResult();
-                        finalResult.setStatus(false);
-                        finalResult.setMessage("Fail.");
-                        System.out.println("[Cancel Order Service][Cancel Order] Fail.");
-                        System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
-                        return finalResult;
                     }
-
 //
 //                    if(changeOrderResult.isStatus() == true){
 //                        CancelOrderResult finalResult = new CancelOrderResult();

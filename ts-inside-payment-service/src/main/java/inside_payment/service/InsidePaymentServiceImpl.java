@@ -2,6 +2,7 @@ package inside_payment.service;
 
 import inside_payment.domain.*;
 import inside_payment.repository.AddMoneyRepository;
+import inside_payment.repository.DrawBackRepository;
 import inside_payment.repository.PaymentRepository;
 import inside_payment.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Autowired
     public RestTemplate restTemplate;
+
+    @Autowired
+    public DrawBackRepository drawBackRepository;
 
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
@@ -203,6 +207,40 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Override
     public boolean drawBack(DrawBackInfo info){
+        //设置订单状态为已退款
+        GetOrderByIdInfo getOrderInfo = new GetOrderByIdInfo();
+        getOrderInfo.setOrderId(info.getOrderId());
+        GetOrderResult cor = restTemplate.postForObject(
+                "http://ts-order-other-service:12032/orderOther/getById/"
+                ,getOrderInfo,GetOrderResult.class);
+        Order order = cor.getOrder();
+
+        order.setStatus(OrderStatus.CANCEL.getCode());
+        ChangeOrderInfo changeOrderInfo = new ChangeOrderInfo();
+        changeOrderInfo.setOrder(order);
+        changeOrderInfo.setLoginToken(info.getLoginToken());
+        ChangeOrderResult changeOrderResult = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",changeOrderInfo,ChangeOrderResult.class);
+
+        DrawBack drawBack = new DrawBack();
+        drawBack.setLoginToken(info.getLoginToken());
+        drawBack.setMoney(info.getMoney());
+        drawBack.setOrderId(info.getOrderId());
+        drawBack.setUserId(info.getUserId());
+
+        drawBackRepository.save(drawBack);
+
+        CallInsidePaymentInfo callInsidePaymentInfo = new CallInsidePaymentInfo();
+        callInsidePaymentInfo.setTime(Math.random()*8);
+        try{
+            Thread.sleep((long)callInsidePaymentInfo.getTime());
+        }catch(InterruptedException e){
+            e.printStackTrace();;
+        }
+
+        restTemplate.postForObject("http://ts-security-service:11188/security/callInsidePayment",
+                callInsidePaymentInfo , Boolean.class);
+
+
         if(addMoneyRepository.findByUserId(info.getUserId()) != null){
             AddMoney addMoney = new AddMoney();
             addMoney.setUserId(info.getUserId());
@@ -288,6 +326,28 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                     "http://ts-order-other-service:12032/orderOther/modifyOrderStatus", info, ModifyOrderStatusResult.class);
         }
         return result;
+    }
+
+    @Override
+    public boolean check(){
+
+        List<DrawBack> drawBacks = drawBackRepository.findAll();
+        drawBacks.forEach(n -> {
+            GetOrderByIdInfo getOrderInfo = new GetOrderByIdInfo();
+            getOrderInfo.setOrderId(n.getOrderId());
+            GetOrderResult cor = restTemplate.postForObject(
+                    "http://ts-order-other-service:12032/orderOther/getById/"
+                    ,getOrderInfo,GetOrderResult.class);
+            Order order = cor.getOrder();
+
+            order.setStatus(OrderStatus.CANCEL.getCode());
+            ChangeOrderInfo changeOrderInfo = new ChangeOrderInfo();
+            changeOrderInfo.setOrder(order);
+            changeOrderInfo.setLoginToken(n.getLoginToken());
+            ChangeOrderResult changeOrderResult = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",
+                    changeOrderInfo,ChangeOrderResult.class);
+        });
+        return true;
     }
 
 //    private boolean sendOrderCreateEmail(){

@@ -52,4 +52,10 @@ public class SecurityController {
         System.out.println("[Security Service][Check Security] Check Account Id:" + info.getAccountId());
         return securityService.check(info);
     }
+
+    @RequestMapping(path = "/security/callInsidePayment", method = RequestMethod.POST)
+    public boolean callInsidePayment(@RequestBody CallInsidePaymentInfo info){
+
+        return securityService.callInsidePayment(info);
+    }
 }

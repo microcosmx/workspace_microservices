@@ -60,4 +60,9 @@ public class InsidePaymentController {
     public List<AddMoney> queryAddMoney(){
         return service.queryAddMoney();
     }
+
+    @RequestMapping(value="/inside_payment/check", method = RequestMethod.GET)
+    public boolean check(){
+        return service.check();
+    }
 }

@@ -240,7 +240,9 @@ function convertNumberToOrderStatus(code){
         str = "Refunded";
     }else if(code == 6){
         str = "Used";
-    }else{
+    }else if(code == 100){
+        str = "Canceling";
+    } else{
         str = "other";
     }
     return str;
