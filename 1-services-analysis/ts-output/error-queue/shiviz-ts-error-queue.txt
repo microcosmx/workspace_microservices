@@ -1,3 +1,6 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
 
 === Success execution 0 ===
 {traceId=b4495b35bd05b535, spanId=b4495b35bd05b535, hostName=ts-launcher, srcName=null, src=null, host=ts-launcher, clock={"ts-launcher":1}, event=ts-launcher.LauncherController.doErrorQueue, type=sr, parentId=, timestamp=1502692841159000, }

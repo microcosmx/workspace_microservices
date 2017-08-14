@@ -1,3 +1,6 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
 
 === Fail execution 0 ===
 {traceId=888354a6c898c0ba, spanId=888354a6c898c0ba, hostName=ts-preserve-other-service, srcName=null, src=null, host=ts-preserve-other-service, clock={"ts-preserve-other-service":1}, event=ts-preserve-other-service.PreserveOtherController.preserve, type=sr, parentId=, timestamp=1502601019371000, }
