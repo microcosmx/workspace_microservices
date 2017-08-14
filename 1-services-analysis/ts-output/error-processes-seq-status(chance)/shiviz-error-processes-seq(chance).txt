@@ -1,3 +1,4 @@
+Fail 0 --- Success 1
 
 === Fail execution 0 ===
 {traceId=7dcff9de941777bf, spanId=7dcff9de941777bf, hostName=ts-preserve-service, srcName=null, src=null, host=ts-preserve-service, clock={"ts-preserve-service":1}, event=ts-preserve-service.PreserveController.preserve, type=sr, error=Request processing failed; nested exception is java.lang.Exception: status error!!, parentId=, timestamp=1502689614218000, }
