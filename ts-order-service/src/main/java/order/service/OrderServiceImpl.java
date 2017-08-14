@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public CreateOrderResult create(Order order){
 
-        System.out.println("counter"+counter.incrementAndGet());
+        System.out.println("counter:"+counter.incrementAndGet());
         //Thread sleep//'
         try{
             Thread.sleep(30000);
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService{
             cor.setOrder(order);
         }
 
-        System.out.println("counter"+counter.decrementAndGet());
+        System.out.println("counter:"+counter.decrementAndGet());
         return cor;
     }
 
@@ -380,11 +380,14 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public boolean longConnection(){
+        System.out.println("counter:"+counter.incrementAndGet());
         try{
             Thread.sleep(20000);
         }catch(InterruptedException e){
+            System.out.println("counter"+counter.decrementAndGet());
             return false;
         }
+        System.out.println("counter:"+counter.decrementAndGet());
         return true;
     }
 }
