@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Future;
 
 @Service
@@ -99,7 +101,12 @@ public class CancelServiceImpl implements CancelService{
 //                    //2.然后修改订单的状态至【已取消】（将订单状态改为-已退款）
 //                    Future<ChangeOrderResult> taskCancelOrder = asyncTask.updateOtherOrderStatusToCancel(changeOrderInfo);
 
+                    ChangeOrderResult changeOrderResult = cancellingTask.get();
                     boolean drawBackMoneyStatus = drawBackMoneyTask.get();
+
+                    QueryInfo queryInfo = new QueryInfo();
+                    queryInfo.
+                    List<Order> list = queryOtherOrder(,loginId,loginToken);
 
                     /********************************************************************************/
                     if(drawBackMoneyStatus == true){
@@ -310,6 +317,14 @@ public class CancelServiceImpl implements CancelService{
                 "http://ts-order-other-service:12032/orderOther/getById/"
                 ,info,GetOrderResult.class);
         return cor;
+    }
+
+    private List<Order> queryOtherOrder(QueryInfo info, String loginId, String loginToken){
+
+        List<Order> list = restTemplate.postForObject(
+                "http://ts-order-other-service:12032/orderOther/query/"
+                ,info,List.class);
+        return list;
     }
 
 }
