@@ -42,7 +42,7 @@ public class AsyncTask {
                 "http://ts-preserve-other-service:14569/preserveOther",
                 HttpMethod.POST, requestEntityPreserveOrder, OrderTicketsResult.class);
         OrderTicketsResult orderTicketsResult = (OrderTicketsResult)rssResponsePreserveOrder.getBody();
-        System.out.println("[退票结果] " + orderTicketsResult.getMessage());
+        System.out.println("[预定结果] " + orderTicketsResult.getMessage());
         return new AsyncResult(orderTicketsResult);
     }
 
@@ -54,7 +54,7 @@ public class AsyncTask {
         requestHeadersCancelOrder.add("Cookie","loginToken=" + loginToken);
         HttpEntity<CancelOrderInfo> requestEntityCancelOrder = new HttpEntity(cancelOrderInfo, requestHeadersCancelOrder);
         ResponseEntity rssResponseCancelOrder = restTemplate.exchange(
-                "http://ts-preserve-service:14568/preserve",
+                "http://ts-cancel-service:18885/cancelOrder",
                 HttpMethod.POST, requestEntityCancelOrder, CancelOrderResult.class);
         CancelOrderResult cancelOrderResult = (CancelOrderResult) rssResponseCancelOrder.getBody();
         System.out.println("[退票结果] " + cancelOrderResult.getMessage());
