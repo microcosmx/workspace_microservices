@@ -1,5 +1,6 @@
 package inside_payment.service;
 
+import inside_payment.async.AsyncTask;
 import inside_payment.domain.*;
 import inside_payment.repository.AddMoneyRepository;
 import inside_payment.repository.DrawBackRepository;
@@ -12,6 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -30,6 +34,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
     @Autowired
     public DrawBackRepository drawBackRepository;
+
+    @Autowired
+    AsyncTask asyncTask;
 
     @Override
     public boolean pay(PaymentInfo info, HttpServletRequest request){
@@ -206,9 +213,12 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
     }
 
     @Override
-    public boolean drawBack(DrawBackInfo info){
+    public boolean drawBack(DrawBackInfo info)  {
         //设置订单状态为已退款
         GetOrderByIdInfo getOrderInfo = new GetOrderByIdInfo();
+        System.out.println();
+        System.out.println("info.getOrderId()"+info.getOrderId());
+        System.out.println();
         getOrderInfo.setOrderId(info.getOrderId());
         GetOrderResult cor = restTemplate.postForObject(
                 "http://ts-order-other-service:12032/orderOther/getById/"
@@ -221,6 +231,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         changeOrderInfo.setLoginToken(info.getLoginToken());
         ChangeOrderResult changeOrderResult = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",changeOrderInfo,ChangeOrderResult.class);
 
+        //退款记录
         DrawBack drawBack = new DrawBack();
         drawBack.setLoginToken(info.getLoginToken());
         drawBack.setMoney(info.getMoney());
@@ -229,16 +240,16 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
         drawBackRepository.save(drawBack);
 
-        CallInsidePaymentInfo callInsidePaymentInfo = new CallInsidePaymentInfo();
-        callInsidePaymentInfo.setTime(Math.random()*8);
-        try{
-            Thread.sleep((long)callInsidePaymentInfo.getTime());
-        }catch(InterruptedException e){
-            e.printStackTrace();;
-        }
-
-        restTemplate.postForObject("http://ts-security-service:11188/security/callInsidePayment",
-                callInsidePaymentInfo , Boolean.class);
+//        CallInsidePaymentInfo callInsidePaymentInfo = new CallInsidePaymentInfo();
+//        callInsidePaymentInfo.setTime(Math.random()*8);
+//        try{
+//            Thread.sleep((long)callInsidePaymentInfo.getTime());
+//        }catch(InterruptedException e){
+//            e.printStackTrace();
+//        }
+//
+//        restTemplate.postForObject("http://ts-security-service:11188/security/callInsidePayment",
+//                callInsidePaymentInfo , Boolean.class);
 
 
         if(addMoneyRepository.findByUserId(info.getUserId()) != null){
@@ -247,10 +258,31 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
             addMoney.setMoney(info.getMoney());
             addMoney.setType(AddMoneyType.D);
             addMoneyRepository.save(addMoney);
+
+            try {
+                Future<ChangeOrderResult> changeOrderResultFuture = asyncTask.reCalculateRefundMoney(info.getOrderId(), info.getMoney(), info.getLoginToken());
+                changeOrderResultFuture.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e){
+                e.printStackTrace();
+            }
+
+
             return true;
         }else{
+            try {
+                Future<ChangeOrderResult> changeOrderResultFuture = asyncTask.reCalculateRefundMoney(info.getOrderId(), info.getMoney(), info.getLoginToken());
+                changeOrderResultFuture.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e){
+                e.printStackTrace();
+            }
             return false;
         }
+
+
     }
 
     @Override

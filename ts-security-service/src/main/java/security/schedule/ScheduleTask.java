@@ -15,9 +15,9 @@ public class ScheduleTask {
     private RestTemplate restTemplate;
 
     //每天凌晨1点调用inside payment
-    @Scheduled(cron="0 0 1 * * ?")
+//    @Scheduled(cron="0 0 1 * * ?")
 //    @Scheduled(fixedRate = 5000)
-    public void callInsidePayment() {
-        Boolean result = restTemplate.getForObject("http://ts-inside-payment-service:18673/inside_payment/check",Boolean.class);
-    }
+//    public void callInsidePayment() {
+//        Boolean result = restTemplate.getForObject("http://ts-inside-payment-service:18673/inside_payment/check",Boolean.class);
+//    }
 }

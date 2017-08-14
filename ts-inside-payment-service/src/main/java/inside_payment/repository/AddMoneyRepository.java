@@ -11,4 +11,6 @@ import java.util.List;
 public interface AddMoneyRepository extends CrudRepository<AddMoney,String> {
     List<AddMoney> findByUserId(String userId);
     List<AddMoney> findAll();
+    AddMoney findByUserIdAndMoney(String userId, String money);
+    boolean deleteByUserIdAndMoney(String userId, String moeny);
 }

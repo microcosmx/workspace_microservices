@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface DrawBackRepository extends CrudRepository<DrawBack,String> {
     List<DrawBack> findAll();
-
+    DrawBack findByOrderId(String orderId);
 }

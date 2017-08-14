@@ -3,13 +3,16 @@ package cancel.service;
 import cancel.async.AsyncTask;
 import cancel.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Future;
 
 @Service
@@ -23,6 +26,9 @@ public class CancelServiceImpl implements CancelService{
 
     @Override
     public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId) throws Exception{
+
+        boolean wrongStatus = false;
+
         GetOrderByIdInfo getFromOrderInfo = new GetOrderByIdInfo();
         getFromOrderInfo.setOrderId(info.getOrderId());
         GetOrderResult orderResult = getOrderByIdFromOrder(getFromOrderInfo);
@@ -50,12 +56,14 @@ public class CancelServiceImpl implements CancelService{
                     }else{
                         System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
                     }
+                    checkStatus(wrongStatus);
                     return finalResult;
                 }else{
                     CancelOrderResult finalResult = new CancelOrderResult();
                     finalResult.setStatus(false);
                     finalResult.setMessage(changeOrderResult.getMessage());
                     System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
+                    checkStatus(wrongStatus);
                     return finalResult;
                 }
 
@@ -64,6 +72,7 @@ public class CancelServiceImpl implements CancelService{
                 result.setStatus(false);
                 result.setMessage("Order Status Cancel Not Permitted");
                 System.out.println("[Cancel Order Service][Cancel Order] Order Status Not Permitted.");
+                checkStatus(wrongStatus);
                 return result;
             }
         }else{
@@ -93,9 +102,9 @@ public class CancelServiceImpl implements CancelService{
                      * 由于先发生的退款操作异步时间太长，使得修改订单状态的操作抢先完成，使得退款不能正常进行
                      */
 
+                    Future<ChangeOrderResult> cancellingTask = asyncTask.cancelling(loginId,order.getId().toString(),loginToken);
 
                     String money = calculateRefund(order);
-                    Future<ChangeOrderResult> cancellingTask = asyncTask.cancelling(money,loginId,order.getId().toString(),loginToken);
                     Future<Boolean> drawBackMoneyTask = asyncTask.drawBackMoney(money,loginId,order.getId().toString(),loginToken);
 
 //                    //2.然后修改订单的状态至【已取消】（将订单状态改为-已退款）
@@ -104,9 +113,17 @@ public class CancelServiceImpl implements CancelService{
                     ChangeOrderResult changeOrderResult = cancellingTask.get();
                     boolean drawBackMoneyStatus = drawBackMoneyTask.get();
 
-                    QueryInfo queryInfo = new QueryInfo();
-                    queryInfo.
-                    List<Order> list = queryOtherOrder(,loginId,loginToken);
+                    List<Order> list = queryOtherOrder(loginId,loginToken);
+                    Iterator<Order> iterator = list.iterator();
+                    Order o;
+
+                    while(iterator.hasNext()){
+                        o = iterator.next();
+                        if(o.getStatus() == OrderStatus.Canceling.getCode()){
+                            wrongStatus = true;
+                        }
+
+                    }
 
                     /********************************************************************************/
                     if(drawBackMoneyStatus == true){
@@ -116,6 +133,7 @@ public class CancelServiceImpl implements CancelService{
                         finalResult.setMessage("Success.");
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+                        checkStatus(wrongStatus);
                         return finalResult;
                     }else{
                         CancelOrderResult finalResult = new CancelOrderResult();
@@ -123,6 +141,7 @@ public class CancelServiceImpl implements CancelService{
                         finalResult.setMessage("Fail.");
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
+                        checkStatus(wrongStatus);
                         return finalResult;
                     }
 //
@@ -152,6 +171,7 @@ public class CancelServiceImpl implements CancelService{
                     result.setStatus(false);
                     result.setMessage("Order Status Cancel Not Permitted");
                     System.out.println("[Cancel Order Service][Cancel Order] Order Status Not Permitted.");
+                    checkStatus(wrongStatus);
                     return result;
                 }
             }else{
@@ -159,6 +179,7 @@ public class CancelServiceImpl implements CancelService{
                 result.setStatus(false);
                 result.setMessage("Order Not Found");
                 System.out.println("[Cancel Order Service][Cancel Order] Order Not Found.");
+                checkStatus(wrongStatus);
                 return result;
             }
         }
@@ -269,6 +290,9 @@ public class CancelServiceImpl implements CancelService{
         }else{
             double totalPrice = Double.parseDouble(order.getPrice());
             double price = totalPrice * 0.8;
+            if(Math.random()<0.5){
+                price = totalPrice * 0.7;
+            }
             DecimalFormat priceFormat = new java.text.DecimalFormat("0.00");
             String str = priceFormat.format(price);
             System.out.println("[Cancel Order]calculate refund - " + str);
@@ -319,12 +343,24 @@ public class CancelServiceImpl implements CancelService{
         return cor;
     }
 
-    private List<Order> queryOtherOrder(QueryInfo info, String loginId, String loginToken){
+    private List<Order> queryOtherOrder(String loginId, String loginToken){
 
-        List<Order> list = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/orderOther/query/"
-                ,info,List.class);
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Cookie","loginId=" + loginId);
+        requestHeaders.add("Cookie","loginToken=" + loginToken);
+        QueryInfo info = new QueryInfo();
+        HttpEntity<QueryInfo> requestEntity = new HttpEntity(info, requestHeaders);
+
+        ResponseEntity rssResponse = restTemplate.exchange("http://ts-order-other-service:12032/orderOther/query", HttpMethod.POST, requestEntity, List.class);
+        List<Order> list = (List)rssResponse.getBody();
+
         return list;
+    }
+
+    private void checkStatus(boolean wrongStatus) throws Exception{
+        if(wrongStatus){
+            throw new Exception("status error!!");
+        }
     }
 
 }
