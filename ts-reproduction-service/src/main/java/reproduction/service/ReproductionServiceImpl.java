@@ -87,36 +87,10 @@ public class ReproductionServiceImpl implements ReproductionService{
         System.out.println();
         System.out.println("endTime - startTime:"+ (endTime.getTime() - startTime.getTime()));
         System.out.println();
-        if(endTime.getTime() - startTime.getTime() < 40000){
+        if(endTime.getTime() - startTime.getTime() < 37000){
             return true;
         }else{
             return false;
         }
-
-
-//        Calendar calDateA = Calendar.getInstance();
-//        calDateA.setTime(startTime);
-//        Calendar calDateB = Calendar.getInstance();
-//        calDateB.setTime(endTime);
-//
-//        if(calDateA.get(Calendar.HOUR_OF_DAY) == calDateB.get(Calendar.HOUR_OF_DAY)){
-//            if(  calDateB.get(Calendar.MINUTE) == calDateA.get(Calendar.MINUTE) ){
-//                if(calDateB.get(Calendar.SECOND) - calDateA.get(Calendar.SECOND) < 40){
-//                    System.out.println();
-//                    System.out.println("startTime:"+calDateA.get(Calendar.SECOND));
-//                    System.out.println("endTime:"+calDateB.get(Calendar.SECOND));
-//                    System.out.println();
-//                    return true;
-//                }else{
-//                    return false;
-//                }
-//
-//            }else{
-//                return false;
-//            }
-//        }else{
-//            return false;
-//        }
-
     }
 }
