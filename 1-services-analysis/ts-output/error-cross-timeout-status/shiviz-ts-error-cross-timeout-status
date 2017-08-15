@@ -2,7 +2,7 @@
 
 ^=== (?<trace>.*) ===$
 
-Fail 0 --- Success 0
+Fail 0 --- Success 2
 
 
 === Fail execution 0 ===
