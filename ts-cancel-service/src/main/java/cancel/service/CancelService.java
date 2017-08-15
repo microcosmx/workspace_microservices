@@ -10,4 +10,7 @@ public interface CancelService {
 
     CalculateRefundResult calculateRefund(CancelOrderInfo info);
 
+    String calculateRefund2(CancelOrderInfo info);
+
+
 }

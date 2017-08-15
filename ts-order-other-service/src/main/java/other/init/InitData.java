@@ -24,7 +24,7 @@ public class InitData implements CommandLineRunner {
         order.setContactsName("Contacts_One");
         order.setDocumentType(1);
         order.setContactsDocumentNumber("DocumentNumber_One");
-        order.setTrainNumber("Z1237");
+        order.setTrainNumber("Z1231");
         order.setCoachNumber(5);
         order.setSeatClass(2);
         order.setSeatNumber("FirstClass-30");
@@ -43,7 +43,7 @@ public class InitData implements CommandLineRunner {
         orderTwo.setContactsName("Contacts_One");
         orderTwo.setDocumentType(1);
         orderTwo.setContactsDocumentNumber("DocumentNumber_One");
-        orderTwo.setTrainNumber("Z1234");
+        orderTwo.setTrainNumber("Z1232");
         orderTwo.setCoachNumber(5);
         orderTwo.setSeatClass(2);
         orderTwo.setSeatNumber("FirstClass-30");
@@ -62,7 +62,7 @@ public class InitData implements CommandLineRunner {
         orderThree.setContactsName("Contacts_One");
         orderThree.setDocumentType(1);
         orderThree.setContactsDocumentNumber("DocumentNumber_One");
-        orderThree.setTrainNumber("Z1235");
+        orderThree.setTrainNumber("Z1233");
         orderThree.setCoachNumber(5);
         orderThree.setSeatClass(2);
         orderThree.setSeatNumber("FirstClass-30");
@@ -71,6 +71,44 @@ public class InitData implements CommandLineRunner {
         orderThree.setStatus(1);
         orderThree.setPrice("1000.0");
         service.create(orderThree);
+
+        Order orderFour = new Order();
+        orderFour.setId(UUID.randomUUID());
+        orderFour.setBoughtDate(new Date());
+        orderFour.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
+        orderFour.setTravelTime(new Date("Mon May 04 09:01:00 GMT+0800 2013"));
+        orderFour.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+        orderFour.setContactsName("Contacts_Four");
+        orderFour.setDocumentType(1);
+        orderFour.setContactsDocumentNumber("DocumentNumber_One");
+        orderFour.setTrainNumber("Z1234");
+        orderFour.setCoachNumber(5);
+        orderFour.setSeatClass(2);
+        orderFour.setSeatNumber("FirstClass-30");
+        orderFour.setFrom("shanghai");
+        orderFour.setTo("beijing");
+        orderFour.setStatus(1);
+        orderFour.setPrice("3000.0");
+        service.create(orderFour);
+
+        Order orderFive = new Order();
+        orderFive.setId(UUID.randomUUID());
+        orderFive.setBoughtDate(new Date());
+        orderFive.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
+        orderFive.setTravelTime(new Date("Mon May 04 09:00:00 GMT+0800 2013"));
+        orderFive.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+        orderFive.setContactsName("Contacts_Five");
+        orderFive.setDocumentType(1);
+        orderFive.setContactsDocumentNumber("DocumentNumber_One");
+        orderFive.setTrainNumber("Z1235");
+        orderFive.setCoachNumber(5);
+        orderFive.setSeatClass(2);
+        orderFive.setSeatNumber("FirstClass-30");
+        orderFive.setFrom("shanghai");
+        orderFive.setTo("beijing");
+        orderFive.setStatus(1);
+        orderFive.setPrice("1000.0");
+        service.create(orderFive);
     }
 
 }

@@ -65,4 +65,9 @@ public class InsidePaymentController {
     public boolean check(){
         return service.check();
     }
+
+    @RequestMapping(value="/inside_payment/equal", method = RequestMethod.GET)
+    public boolean equal(){
+        return service.equal();
+    }
 }

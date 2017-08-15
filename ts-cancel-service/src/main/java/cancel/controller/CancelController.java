@@ -25,6 +25,11 @@ public class CancelController {
         return cancelService.calculateRefund(info);
     }
 
+    @RequestMapping(path = "/cancelCalculateRefund2", method = RequestMethod.POST)
+    public String calculate2(@RequestBody CancelOrderInfo info){
+        return cancelService.calculateRefund2(info);
+    }
+
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/cancelOrder", method = RequestMethod.POST)
     public CancelOrderResult cancelTicket(@RequestBody CancelOrderInfo info, @CookieValue String loginToken, @CookieValue String loginId){

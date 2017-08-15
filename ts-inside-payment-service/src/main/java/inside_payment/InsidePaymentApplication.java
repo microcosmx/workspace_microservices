@@ -1,6 +1,7 @@
 package inside_payment;
 
 import inside_payment.async.AsyncTask;
+import inside_payment.service.InsidePaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +24,7 @@ import org.springframework.web.client.RestTemplate;
 public class InsidePaymentApplication {
 
     @Autowired
-    AsyncTask asyncTask;
+    inside_payment.service.InsidePaymentServiceImpl InsidePaymentServiceImpl;
 
     public static void main(String[] args) {
         SpringApplication.run(InsidePaymentApplication.class, args);
@@ -39,15 +40,16 @@ public class InsidePaymentApplication {
         return new SpanAdjuster() {
             @Override
             public Span adjust(Span span) {
-//                if(asyncTask == null){
-//                    System.out.println("asyncTask:"+null);
-//                }
-//                if(asyncTask.equal == null){
-//                    System.out.println("asyncTask.equal:"+null);
-//                }
-//                System.out.println("asyncTask.equal.get()" + asyncTask.equal.get());
+                String s = null;
+                if(InsidePaymentServiceImpl.equal.get() == 0){
+                    s = "NotInit";
+                }else if(InsidePaymentServiceImpl.equal.get() == 1){
+                    s = "equal";
+                }else if(InsidePaymentServiceImpl.equal.get() == 2){
+                    s = "notEqual";
+                }
                 return span.toBuilder()
-                        .tag("controller_state", asyncTask.equal.get()==1?"equal":"notEqual")
+                        .tag("controller_state", s)
                         //.name(span.getName() + "--------------------")
                         .build();
             }

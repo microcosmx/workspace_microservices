@@ -37,9 +37,9 @@ public class AsyncTask {
     @Async("mySimpleAsync")
     public Future<ChangeOrderResult> cancelling(String userId,String orderId,String loginToken) throws InterruptedException{
 
-//        if(Math.random() < 0.5){
+        if(Math.random() < 0.5){
             Thread.sleep(4000);
-//        }
+        }
 
         //1.查询订单信息
         GetOrderByIdInfo getOrderInfo = new GetOrderByIdInfo();
@@ -60,7 +60,8 @@ public class AsyncTask {
     }
 
     @Async("mySimpleAsync")
-    public Future<Boolean> drawBackMoney(String money, String userId,String orderId,String loginToken){
+    public Future<Boolean> drawBackMoney(String money, String userId,String orderId,String loginToken) throws InterruptedException{
+        Thread.sleep(2000);
         //3.执行退款
         DrawBackInfo info = new DrawBackInfo();
         info.setMoney(money);

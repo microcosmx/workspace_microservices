@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class CancelServiceImpl implements CancelService{
@@ -23,6 +24,8 @@ public class CancelServiceImpl implements CancelService{
 
     @Autowired
     private AsyncTask asyncTask;
+
+    private final AtomicInteger counter = new AtomicInteger();
 
     @Override
     public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId) throws Exception{
@@ -113,17 +116,26 @@ public class CancelServiceImpl implements CancelService{
                     ChangeOrderResult changeOrderResult = cancellingTask.get();
                     boolean drawBackMoneyStatus = drawBackMoneyTask.get();
 
-                    List<Order> list = queryOtherOrder(loginId,loginToken);
-                    Iterator<Order> iterator = list.iterator();
-                    Order o;
+                    //查询订单的状态，如果是退款中，在最后抛出Exception
+                    GetOrderByIdInfo getOrderInfo = new GetOrderByIdInfo();
+                    getOrderInfo.setOrderId(order.getId().toString());
+                    GetOrderResult cor = restTemplate.postForObject(
+                            "http://ts-order-other-service:12032/orderOther/getById/"
+                            ,getOrderInfo,GetOrderResult.class);
+                    Order o = cor.getOrder();
 
-                    while(iterator.hasNext()){
-                        o = iterator.next();
-                        if(o.getStatus() == OrderStatus.Canceling.getCode()){
-                            wrongStatus = true;
-                        }
-
+                    if(o.getStatus() == OrderStatus.Canceling.getCode()){
+                        wrongStatus = true;
                     }
+
+//                    ArrayList<Order> list = queryOtherOrder(loginId,loginToken);
+                    //Iterator<Order> iterator = list.iterator();
+
+//                    for(Order o: list){
+//                        if(o.getStatus() == OrderStatus.Canceling.getCode()){
+//                            wrongStatus = true;
+//                        }
+//                    }
 
                     /********************************************************************************/
                     if(drawBackMoneyStatus == true){
@@ -260,6 +272,14 @@ public class CancelServiceImpl implements CancelService{
         }
     }
 
+    public String calculateRefund2(CancelOrderInfo info){
+        GetOrderByIdInfo getFromOrderInfo = new GetOrderByIdInfo();
+        getFromOrderInfo.setOrderId(info.getOrderId());
+        GetOrderResult orderResult = getOrderByIdFromOrderOther(getFromOrderInfo);
+        Order order = orderResult.getOrder();
+        return calculateRefund(order);
+    }
+
     private String calculateRefund(Order order){
         if(order.getStatus() == OrderStatus.NOTPAID.getCode()){
             return "0.00";
@@ -289,13 +309,22 @@ public class CancelServiceImpl implements CancelService{
             return "0";
         }else{
             double totalPrice = Double.parseDouble(order.getPrice());
-            double price = totalPrice * 0.8;
-            if(Math.random()<0.5){
+            double price ;
+
+            int c = counter.incrementAndGet() % 6;
+            if(c ==  1 || c == 2 || c == 3){
+                price = totalPrice * 0.8;
+            }else if(c ==  4 || c == 5){
+                price = totalPrice * 0.8;
+            }else {
                 price = totalPrice * 0.7;
             }
+
             DecimalFormat priceFormat = new java.text.DecimalFormat("0.00");
             String str = priceFormat.format(price);
+            System.out.println();
             System.out.println("[Cancel Order]calculate refund - " + str);
+            System.out.println();
             return str;
         }
     }
@@ -343,7 +372,7 @@ public class CancelServiceImpl implements CancelService{
         return cor;
     }
 
-    private List<Order> queryOtherOrder(String loginId, String loginToken){
+    private ArrayList<Order> queryOtherOrder(String loginId, String loginToken){
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.add("Cookie","loginId=" + loginId);
@@ -351,13 +380,16 @@ public class CancelServiceImpl implements CancelService{
         QueryInfo info = new QueryInfo();
         HttpEntity<QueryInfo> requestEntity = new HttpEntity(info, requestHeaders);
 
-        ResponseEntity rssResponse = restTemplate.exchange("http://ts-order-other-service:12032/orderOther/query", HttpMethod.POST, requestEntity, List.class);
-        List<Order> list = (List)rssResponse.getBody();
+        ResponseEntity rssResponse = restTemplate.exchange("http://ts-order-other-service:12032/orderOther/query", HttpMethod.POST, requestEntity, ArrayList.class);
+        ArrayList<Order> list = (ArrayList)rssResponse.getBody();
 
         return list;
     }
 
     private void checkStatus(boolean wrongStatus) throws Exception{
+        Boolean result = restTemplate.getForObject(
+                "http://ts-inside-payment-service:18673/inside_payment/equal"
+                ,Boolean.class);
         if(wrongStatus){
             throw new Exception("status error!!");
         }
