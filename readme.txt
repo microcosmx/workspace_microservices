@@ -74,6 +74,7 @@ docker-compose build
 
 ansible:
 /etc/ansible/hosts
+ansible docker-masters -a "/bin/echo hello" -u root
 ansible docker-machines -a "/bin/echo hello" -u root
 docker pull 10.141.212.25:5555/cluster-ts-ui-dashboard
 
@@ -129,6 +130,9 @@ docker push 10.141.212.25:5555/cluster-ts-execute-service
 docker push 10.141.212.25:5555/cluster-ts-payment-service
 docker push 10.141.212.25:5555/cluster-ts-rebook-service
 docker push 10.141.212.25:5555/cluster-ts-cancel-service
+
+docker network prune ingress
+docker network create --ingress --driver overlay ingress
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 docker stack ls
