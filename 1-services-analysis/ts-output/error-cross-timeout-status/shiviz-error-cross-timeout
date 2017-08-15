@@ -1,3 +1,7 @@
+{traceId\=(?<traceId>[^\,]*)\, spanId\=(?<spanId>[^\,]*)\, hostName\=(?<hostName>[^\,]*)\,( srcName\=(?<srcName>[^\,]*)\,)?( destName\=(?<destName>[^\,]*)\,)?( src\=(?<src>[^\,]*)\,)? host\=(?<host>[^\,]*)\,( api\=(?<API>[^\,]*)\,)? clock\=(?<clock>{.*})\,( dest\=(?<dest>[^\,]*)\,)? event\=(?<event>[^\,]*)\, type\=(?<type>[^\,]*)\,( error\=(?<error>[^\,]*)\,)? parentId\=(?<parentId>[^\,]*)\, timestamp=(?<timestamp>\d*)\, }
+
+^=== (?<trace>.*) ===$
+
 Success 1  ---    Fail 0
 
 === Success execution 0 ===
