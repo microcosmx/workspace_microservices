@@ -2,7 +2,9 @@ package error.processseq;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -83,11 +85,13 @@ public class TestErrorProcessSeq {
         cancelOrder();
         //get order status
         getOrderStatus();
-        System.out.println("The status of order "+orderID+"is "+orderStatus);
-        Assert.assertEquals(orderStatus.startsWith("Other"),true);
+        System.out.println("The status of order "+orderID+" is "+orderStatus);
+        Assert.assertEquals(orderStatus.startsWith("other"),true);
     }
     @Test (dependsOnMethods = {"testCancelTicketsError"})
     public void testCancelTicketsCorrect() throws Exception{
+        Thread.sleep(60000);
+
         searchTickets();
         selectContacts();
         confirmTicket();
@@ -98,7 +102,7 @@ public class TestErrorProcessSeq {
 
         getOrderStatus();
 
-        System.out.println("The status of order "+orderID+"is "+orderStatus);
+        System.out.println("The status of order "+orderID+" is "+orderStatus);
         Assert.assertEquals(orderStatus.startsWith("Cancel"),true);
     }
 
@@ -212,11 +216,21 @@ public class TestErrorProcessSeq {
         driver.findElement(By.id("ticket_confirm_confirm_btn")).click();
         Thread.sleep(1000);
         System.out.println("Confirm Ticket!");
-        Alert javascriptConfirm = driver.switchTo().alert();
-        String statusAlert = driver.switchTo().alert().getText();
-        System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-        Assert.assertEquals(statusAlert.startsWith("Success"),true);
-        javascriptConfirm.accept();
+
+        Alert javascriptConfirm = null;
+        String statusAlert;
+
+        try {
+            new WebDriverWait(driver, 30).until(ExpectedConditions
+                    .alertIsPresent());
+            javascriptConfirm = driver.switchTo().alert();
+            statusAlert = driver.switchTo().alert().getText();
+            System.out.println("The Alert information of Confirming Ticket："+statusAlert);
+            Assert.assertEquals(statusAlert.startsWith("Success"),true);
+            javascriptConfirm.accept();
+        } catch (NoAlertPresentException NofindAlert) {
+            NofindAlert.printStackTrace();
+        }
     }
     public void payTicket ()throws Exception {
         orderID = driver.findElement(By.id("preserve_pay_orderId")).getAttribute("value");
@@ -255,25 +269,22 @@ public class TestErrorProcessSeq {
     }
     public void cancelOrder() throws Exception{
         System.out.printf("The orders list size is:%d%n",myOrdersList.size());
-        String myOrderID = "";
         int i;
         //Find the first not paid order .
         for(i = 0;i < myOrdersList.size();i++) {
             //while(!(statusOrder.startsWith("Not")) && i < myOrdersList.size()) {
             //statusOrder = myOrdersList.get(i).findElement(By.xpath("/div[2]/div/div/form/div[7]/div/label[2]")).getText();
-            myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
+            String myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
             //Search the orders paid but not collected
             if(myOrderID.equals(orderID))
                 break;
-            else
-                i++;
         }
         if(i == myOrdersList.size() || i > myOrdersList.size())
             System.out.println("Failed,can't find the order!");
         Assert.assertEquals(i < myOrdersList.size(),true);
 
         orderStatus = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
-        System.out.println("The status of order "+myOrderID+"is "+orderStatus);
+        System.out.println("The status of order "+orderID+" is "+orderStatus);
         Assert.assertEquals(!"".equals(orderStatus),true);
 
         myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[12]/div/button[2]")).click();
@@ -282,7 +293,7 @@ public class TestErrorProcessSeq {
         //String statusCancle = driver.findElement(By.id());
         //System.out.println("The Alert information of Payment："+statusAlert);
         driver.findElement(By.id("ticket_cancel_panel_confirm")).click();
-        Thread.sleep(1000);
+        Thread.sleep(10000);
     }
 
     /**
@@ -301,18 +312,15 @@ public class TestErrorProcessSeq {
             System.out.println("Failed to show my orders list，the list size is 0 or No orders in this user!");
         Assert.assertEquals(myOrdersList.size() > 0,true);
 
-        String myOrderID = "";
         int i;
         //Find the first not paid order .
         for(i = 0;i < myOrdersList.size();i++) {
             //while(!(statusOrder.startsWith("Not")) && i < myOrdersList.size()) {
             //statusOrder = myOrdersList.get(i).findElement(By.xpath("/div[2]/div/div/form/div[7]/div/label[2]")).getText();
-            myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
+            String myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
             //Search the orders paid but not collected
             if(myOrderID.equals(orderID))
                 break;
-            else
-                i++;
         }
         if(i == myOrdersList.size() || i > myOrdersList.size())
             System.out.println("Failed,can't find the order!");
@@ -320,7 +328,7 @@ public class TestErrorProcessSeq {
 
         orderStatus = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
 
-        System.out.println("The status of order "+myOrderID+"is "+orderStatus);
+        System.out.println("The status of order "+orderID+" is "+orderStatus);
         Assert.assertEquals(!"".equals(orderStatus),true);
     }
 
