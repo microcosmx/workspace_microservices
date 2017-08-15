@@ -101,12 +101,13 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                     outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
 
                 }catch (Exception e){
-                    System.out.println("[Inside Payment][Turn to Outside Payment] Time Out.");
+                    System.out.println("[Inside Payment][Turn to Outside Payment] 外部服务调用超时.");
                     //e.printStackTrace();
                     return false;
                 }
 
 
+                System.out.println("[Inside Payment][Turn to Outside Payment] 外部服务调用正常.");
 
 
                 if(outsidePaySuccess){
