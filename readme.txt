@@ -1,19 +1,3 @@
------------------------------------------------------------------------
-Ts-Error-Normal 简单逻辑错误
-Fail 与 Success的主要区别点：
-    contacts调用的接口不一样
-Fail 与 Fail 与 Success的区别点：
-    security调用的接口不一样
-
-执行过程：
-第一次订票：联系人是空的，填写并选择联系人
-第二次订票：联系人有一条了但是不管它，继续填写并选择联系人，注意证件号要写的一样，写的一样
-第三次订票：联系人有两条了但是不管它，继续填写并选择联系人，注意证件号要写的一样，写的一样
-
-理论上只有第一次订票应该成功，因为后边两次证件号重复但是人不重复不应该创建成功
-主要就是要收集这三次操作的日志
-------------------------------------------------------------------------
-
 
 build:
 mvn clean package
@@ -74,6 +58,7 @@ docker run -d --name myredis -p 6379:6379 redis
 docker ui:
 docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 http://10.141.212.22:9000/
+http://10.141.211.160:9000
 
 
 
@@ -87,13 +72,63 @@ build:
 mvn clean package
 docker-compose build
 
+ansible:
+/etc/ansible/hosts
+ansible docker-machines -a "/bin/echo hello" -u root
+docker pull 10.141.212.25:5555/cluster-ts-ui-dashboard
+
+docker:
 docker tag ts/ts-ui-dashboard 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker tag ts/ts-login-service 10.141.212.25:5555/cluster-ts-login-service
 docker tag ts/ts-register-service 10.141.212.25:5555/cluster-ts-register-service
+docker tag ts/ts-sso-service 10.141.212.25:5555/cluster-ts-sso-service
+docker tag ts/ts-verification-code-service 10.141.212.25:5555/cluster-ts-verification-code-service
+docker tag ts/ts-contacts-service 10.141.212.25:5555/cluster-ts-contacts-service
+docker tag ts/ts-order-service 10.141.212.25:5555/cluster-ts-order-service
+docker tag ts/ts-order-other-service 10.141.212.25:5555/cluster-ts-order-other-service
+docker tag ts/ts-config-service 10.141.212.25:5555/cluster-ts-config-service
+docker tag ts/ts-station-service 10.141.212.25:5555/cluster-ts-station-service
+docker tag ts/ts-train-service 10.141.212.25:5555/cluster-ts-train-service
+docker tag ts/ts-travel-service 10.141.212.25:5555/cluster-ts-travel-service
+docker tag ts/ts-travel2-service 10.141.212.25:5555/cluster-ts-travel2-service
+docker tag ts/ts-preserve-service 10.141.212.25:5555/cluster-ts-preserve-service
+docker tag ts/ts-preserve-other-service 10.141.212.25:5555/cluster-ts-preserve-other-service
+docker tag ts/ts-basic-service 10.141.212.25:5555/cluster-ts-basic-service
+docker tag ts/ts-ticketinfo-service 10.141.212.25:5555/cluster-ts-ticketinfo-service
+docker tag ts/ts-price-service 10.141.212.25:5555/cluster-ts-price-service
+docker tag ts/ts-notification-service 10.141.212.25:5555/cluster-ts-notification-service
+docker tag ts/ts-security-service 10.141.212.25:5555/cluster-ts-security-service
+docker tag ts/ts-inside-payment-service 10.141.212.25:5555/cluster-ts-inside-payment-service
+docker tag ts/ts-execute-service 10.141.212.25:5555/cluster-ts-execute-service
+docker tag ts/ts-payment-service 10.141.212.25:5555/cluster-ts-payment-service
+docker tag ts/ts-rebook-service 10.141.212.25:5555/cluster-ts-rebook-service
+docker tag ts/ts-cancel-service 10.141.212.25:5555/cluster-ts-cancel-service
 
 docker push 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker push 10.141.212.25:5555/cluster-ts-login-service
 docker push 10.141.212.25:5555/cluster-ts-register-service
+docker push 10.141.212.25:5555/cluster-ts-sso-service
+docker push 10.141.212.25:5555/cluster-ts-verification-code-service
+docker push 10.141.212.25:5555/cluster-ts-contacts-service
+docker push 10.141.212.25:5555/cluster-ts-order-service
+docker push 10.141.212.25:5555/cluster-ts-order-other-service
+docker push 10.141.212.25:5555/cluster-ts-config-service
+docker push 10.141.212.25:5555/cluster-ts-station-service
+docker push 10.141.212.25:5555/cluster-ts-train-service
+docker push 10.141.212.25:5555/cluster-ts-travel-service
+docker push 10.141.212.25:5555/cluster-ts-travel2-service
+docker push 10.141.212.25:5555/cluster-ts-preserve-service
+docker push 10.141.212.25:5555/cluster-ts-preserve-other-service
+docker push 10.141.212.25:5555/cluster-ts-basic-service
+docker push 10.141.212.25:5555/cluster-ts-ticketinfo-service
+docker push 10.141.212.25:5555/cluster-ts-price-service
+docker push 10.141.212.25:5555/cluster-ts-notification-service
+docker push 10.141.212.25:5555/cluster-ts-security-service
+docker push 10.141.212.25:5555/cluster-ts-inside-payment-service
+docker push 10.141.212.25:5555/cluster-ts-execute-service
+docker push 10.141.212.25:5555/cluster-ts-payment-service
+docker push 10.141.212.25:5555/cluster-ts-rebook-service
+docker push 10.141.212.25:5555/cluster-ts-cancel-service
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 docker stack ls
