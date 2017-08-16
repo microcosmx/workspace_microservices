@@ -389,6 +389,9 @@ $("#ticket_confirm_confirm_btn").click(function () {
         xhrFields: {
             withCredentials: true
         },
+        error: function (result) {
+            alert(result);
+        },
         success: function (result) {
             alert(result["message"]);
             if(result['status'] == true){
