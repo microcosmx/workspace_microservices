@@ -3,7 +3,7 @@ services:
 
 
   rabbitmq:
-    image: rabbitmq:management
+    image: 10.141.212.25:5555/cluster-ts-rabbitmq-management
     ports:
       - 5672:5672
       - 15672:15672
@@ -25,7 +25,7 @@ services:
 
 
   zipkin:
-    image: openzipkin/zipkin
+    image: 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
     ports:
       - 9411:9411
     deploy:
@@ -36,7 +36,7 @@ services:
       - my-network
 
   redis:
-    image: redis
+    image: 10.141.212.25:5555/cluster-ts-redis
     ports:
       - 6379:6379
     deploy:
@@ -76,7 +76,7 @@ services:
       - my-network
 
   ts-account-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -141,7 +141,7 @@ services:
       - my-network
 
   ts-contacts-mongo:
-      image: mongo
+      image: 10.141.212.25:5555/cluster-ts-mongo
       deploy:
         replicas: 1
         restart_policy:
@@ -163,7 +163,7 @@ services:
       - my-network
 
   ts-order-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -186,7 +186,7 @@ services:
       - my-network
 
   ts-order-other-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -209,7 +209,7 @@ services:
       - my-network
 
   ts-config-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -231,7 +231,7 @@ services:
       - my-network
 
   ts-station-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -253,7 +253,7 @@ services:
       - my-network
 
   ts-train-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -275,7 +275,7 @@ services:
       - my-network
 
   ts-travel-mongo:
-    image: mongo
+    image: 10.141.212.25:5555/cluster-ts-mongo
     deploy:
       replicas: 1
       restart_policy:
@@ -297,7 +297,7 @@ services:
         - my-network
 
   ts-travel2-mongo:
-      image: mongo
+      image: 10.141.212.25:5555/cluster-ts-mongo
       deploy:
         replicas: 1
         restart_policy:
@@ -372,7 +372,7 @@ services:
           - my-network
 
   ts-price-mongo:
-        image: mongo
+        image: 10.141.212.25:5555/cluster-ts-mongo
         deploy:
           replicas: 1
           restart_policy:
@@ -407,7 +407,7 @@ services:
           - my-network
 
   ts-security-mongo:
-        image: mongo
+        image: 10.141.212.25:5555/cluster-ts-mongo
         deploy:
           replicas: 1
           restart_policy:
@@ -429,7 +429,7 @@ services:
           - my-network
 
   ts-inside-payment-mongo:
-        image: mongo
+        image: 10.141.212.25:5555/cluster-ts-mongo
         deploy:
           replicas: 1
           restart_policy:
@@ -464,7 +464,7 @@ services:
           - my-network
 
   ts-payment-mongo:
-        image: mongo
+        image: 10.141.212.25:5555/cluster-ts-mongo
         deploy:
           replicas: 1
           restart_policy:
@@ -486,7 +486,7 @@ services:
           - my-network
 
   ts-rebook-mongo:
-        image: mongo
+        image: 10.141.212.25:5555/cluster-ts-mongo
         deploy:
           replicas: 1
           restart_policy:
