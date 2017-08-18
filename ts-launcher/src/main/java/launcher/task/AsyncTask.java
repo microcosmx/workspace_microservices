@@ -53,11 +53,12 @@ public class AsyncTask {
         requestHeadersInsidePayment.add("Cookie","loginToken=" + loginToken);
         HttpEntity<PaymentInfo> requestEntityInsidePayment = new HttpEntity(requestHeadersInsidePayment);
         ResponseEntity rssResponseInsidePayment = restTemplate.exchange(
-                "",
+                "http://ts-inside-payment-service:18673/inside_payment/pay",
                 HttpMethod.POST,requestEntityInsidePayment, Boolean.class
         );
-        boolean result = (Boolean)rssResponseInsidePayment.getBody()  ;
-
+        boolean result = (Boolean)rssResponseInsidePayment.getBody();
+        System.out.println("[支付结果] " + result);
+        return new AsyncResult(result);
     }
     @Async("mySimpleAsync")
     public Future<CancelOrderResult> sendOrderCancel(String orderId,String loginId,String loginToken){

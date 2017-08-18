@@ -38,69 +38,21 @@ public class LauncherServiceImpl implements LauncherService {
         String orderId = UUID.randomUUID().toString();
 
         //2.预定并预设id
-
-//        OrderTicketsInfoWithOrderId orderTicketsInfoWithOrderId =
-//                new OrderTicketsInfoWithOrderId(
-//                        "aded7dc5-06a7-4503-8e21-b7cad7a1f386",
-//                        "Z1234",
-//                        2,
-//                        new Date(1504137600000L),
-//                        "Shang Hai",
-//                        "Tai Yuan",
-//                        orderId);
-//        HttpHeaders requestHeadersPreserveOrder = new HttpHeaders();
-//        requestHeadersPreserveOrder.add("Cookie","loginId=" + loginId);
-//        requestHeadersPreserveOrder.add("Cookie","loginToken=" + loginToken);
-//        HttpEntity<CancelOrderInfo> requestEntityPreserveOrder = new HttpEntity(orderTicketsInfoWithOrderId, requestHeadersPreserveOrder);
-//        ResponseEntity rssResponsePreserveOrder = restTemplate.exchange(
-//                "http://ts-preserve-other-service:14569/preserveOther",
-//                HttpMethod.POST, requestEntityPreserveOrder, OrderTicketsResult.class);
-//        OrderTicketsResult orderTicketsResult = (OrderTicketsResult)rssResponsePreserveOrder.getBody();
-//        System.out.println("[退票结果] " + orderTicketsResult.getMessage());
         Future<OrderTicketsResult> taskResult = asyncTask.sendOrderTicket(orderId,loginId,loginToken);
         try{
-            System.out.println("[等待中] count=" + count);
             OrderTicketsResult orderTicketsResult = taskResult.get();
         }catch (Exception e){
             e.printStackTrace();
         }
 
-
-//        if(count % 2 == 0){
-//            try{
-//                System.out.println("[等待中] count=" + count);
-//                OrderTicketsResult orderTicketsResult = taskResult.get();
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }else{
-//            System.out.println("[不等待中] count=" + count);
-//        }
-//        count++;
-
-        //        try{
-//            int sleepTime;
-//            System.out.println("[Launcher Service] Count:" + count);
-//            if(count % 2 == 0){
-//                sleepTime = 6000;
-//                System.out.println("[Launcher Service] Count:" + count + " sleep:" + sleepTime);
-//
-//                count++;
-//            }else{
-//                sleepTime = 0;
-//                System.out.println("[Launcher Service] Count:" + count + " sleep:" + sleepTime);
-//
-//                count++;
-//            }
-//            //模拟用户点击延迟
-//            Thread.sleep(sleepTime);
-//            System.out.println("[Launcher Service]睡眠时间：" + sleepTime);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-
         //2.支付操作
-
+        Future<Boolean> payResult  = asyncTask.sendInsidePayment(
+                orderId,"Z1234",loginId,loginToken);
+        try{
+            OrderTicketsResult orderTicketsResult = taskResult.get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         //3.执行退票操作
         Future<CancelOrderResult> taskCancelResult = asyncTask.sendOrderCancel(orderId,loginId,loginToken);
 //        CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);
