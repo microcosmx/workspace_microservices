@@ -64,10 +64,6 @@ http://10.141.211.160:9000
 
 swarm:
 
-test sample:
-http://10.141.211.164:16006/hello6?cal=60
-http://10.141.211.164:16000/persist_get
-
 build:
 mvn clean package
 docker-compose build
@@ -159,9 +155,11 @@ docker node ls
 docker node rm 0pvy8v3sugtmcbqualswp1rv5
 
 swarm ui:
-http://10.141.211.164:9000/
+http://10.141.211.160:9000/
 zipkin:
-http://10.141.211.164:9411/
+http://10.141.211.160:9411/
+app:
+http://10.141.211.160/
 
 
 
