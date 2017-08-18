@@ -28,9 +28,8 @@ public class TraceTranslator {
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 
 //        String path = "./sample/trace-error-queue-seq-multi.json";
-//        String path = "./ts-sample/ts-error-normal/error-normal.json";
-        String path = "./ts-sample/ts-error-queue/error-queue.json";
-///        String path = "./sample/trace-error-queue-seq-multi.json";
+
+//        String path = "./sample/trace-error-queue-seq-multi.json";
 //        String path = "./sample/traces-error-cross-timeout-status.json";
 //        String path = "./sample/cross-timeout/inside-payment.json";
 //        String path = "./sample/cross-timeout/order.json";
@@ -41,10 +40,8 @@ public class TraceTranslator {
 //        String path = "./sample/temp-storage/inside-payment.json";
 //        String path = "./sample/processes-seq-status/travel.json";
 //        String path = "./sample/processes-seq-status/preserve.json";
-//        String path = "./sample/cross-timeout/paying.json";
-        String destPath = "./ts-output/error-queue/shiviz-ts-error-queue.txt";
-//        String destPath = "./ts-output/error-normal/shiviz-ts-error-normal.txt";
-//        String destPath = "./ts-output/error-external-normal/shiviz-error-external-normal.txt";
+        String path = "./sample/cross-timeout/paying.json";
+
 //        String destPath = "./output/shiviz-log-error-normal.txt";
 //        String destPath = "./output/shiviz-error-processes-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq(chance).txt";
@@ -58,7 +55,7 @@ public class TraceTranslator {
 //        String destPath = "./output/shiviz-error-report-ui-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq-status-travel.txt";
 //        String destPath = "./output/shiviz-error-processes-seq-status-preserve.txt";
-//        String destPath = "./output/shiviz-error-paying.txt";
+        String destPath = "./output/shiviz-error-paying.txt";
 
 
 
@@ -250,11 +247,11 @@ public class TraceTranslator {
                         if ("message:input".equals(name)) {
                             content.put("api", content.get("serverName") + "." + "message_received");
                         }else if("message:output".equals(name)){
-                            content.put("api", content.get("serverName") + "." + "message_received");
+                            content.put("api", content.get("serverName") + "." + "message_send");
                         }
                     }else if(content.get("clientName") != null){
                         if ("message:input".equals(name)) {
-                            content.put("api", content.get("clientName") + "." + "message_send");
+                            content.put("api", content.get("clientName") + "." + "message_received");
                         }else if("message:output".equals(name)){
                             content.put("api", content.get("clientName") + "." + "message_send");
                         }
@@ -269,9 +266,9 @@ public class TraceTranslator {
 
 
             // filter validate service api
-            List<HashMap<String, String>> processList = serviceList.stream()
-                    .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
-            boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
+//            List<HashMap<String, String>> processList = serviceList.stream()
+//                    .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
+//            boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
 
             serviceList.forEach(n -> {
 
@@ -286,9 +283,11 @@ public class TraceTranslator {
                     log.put("destName" , n.get("serverName"));
                     log.put("dest" , n.get("server_instance_id"));
                     log.put("api", n.get("api"));
+                    log.put("spanname",n.get("spanname"));
 
                     if(n.get("spanname").contains("message:")){
                         log.put("event" , n.get("api"));
+                        log.put("queue","queue");
                     }else{
                         log.put("event" , "");
                     }
@@ -313,10 +312,14 @@ public class TraceTranslator {
                     log.put("srcName" , n.get("clientName"));
                     log.put("src" , n.get("client_instance_id"));
                     log.put("api", n.get("api"));
+                    log.put("spanname",n.get("spanname"));
                     log.put("event", n.get("api"));
                     log.put("type", "sr");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
+                    }
+                    if(n.get("spanname").contains("message:")){
+                        log.put("queue","queue");
                     }
                     logs.add(log);
                 }
@@ -331,11 +334,15 @@ public class TraceTranslator {
                     log.put("destName" , n.get("clientName"));
                     log.put("dest" , n.get("client_instance_id"));
                     log.put("api", n.get("api"));
+                    log.put("spanname",n.get("spanname"));
 
                     log.put("event", n.get("api"));
                     log.put("type", "ss");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
+                    }
+                    if(n.get("spanname").contains("message:")){
+                        log.put("queue","queue");
                     }
                     logs.add(log);
                 }
@@ -350,9 +357,12 @@ public class TraceTranslator {
                     log.put("srcName" , n.get("serverName"));
                     log.put("src" , n.get("server_instance_id"));
                     log.put("api", n.get("api"));
+                    log.put("spanname",n.get("spanname"));
 
                     if(n.get("spanname").contains("message:")){
                         log.put("event" , n.get("api"));
+                        log.put("queue","queue");
+
                     }else{
                         log.put("event" , "");
                     }
@@ -372,10 +382,14 @@ public class TraceTranslator {
                     log.put("hostName" , n.get("serviceName"));
                     log.put("host" , n.get("hostId"));
                     log.put("api", n.get("api"));
+                    log.put("spanname",n.get("spanname"));
                     log.put("event", n.get("api"));
-                    log.put("type", "inside_payment.async");
+                    log.put("type", "async");
                     if(n.containsKey("error")){
                         log.put("error", n.get("error"));
+                    }
+                    if(n.get("spanname").contains("message:")){
+                        log.put("queue","queue");
                     }
                     logs.add(log);
                 }
@@ -424,17 +438,22 @@ public class TraceTranslator {
 
     }
 
-    public static HashMap<String,Integer> findSrcClock(List<Clock> allClocks, String traceId, String spanId, String type){
+    public static HashMap<String,Integer> findSrcClock(List<Clock> allClocks, String traceId, String spanId, String type, String queue, String parentId){
         HashMap<String,Integer> clock = null;
         Clock item;
 
         for(int i= allClocks.size() - 1; i >= 0 ; i--){
             item = allClocks.get(i);
-            if(item.isSrc(traceId, spanId, type)){
+            if(item.isSrc(traceId, spanId, type, queue, parentId)){
                 clock = item.getClock();
                 break;
             }
         }
+
+        if(clock == null){
+            System.out.println();
+        }
+
         return (HashMap<String,Integer>)clock.clone();
     }
 
@@ -460,7 +479,7 @@ public class TraceTranslator {
                 Span span = spans.get(spanId);
                 span.addLog(n);
             }else{
-                Span span = new Span(n.get("traceId"), n.get("spanId"), n.get("parentId"));
+                Span span = new Span(n.get("traceId"), n.get("spanId"), n.get("parentId"), n.get("spanname"));
                 span.addLog(n);
                 spans.put(spanId,span);
             }
@@ -518,14 +537,11 @@ public class TraceTranslator {
 
         traverse(entrance, forwardLogs, backwardLogs, spans);
 
-        Stack<HashMap<String,String>> stack = new Stack<HashMap<String,String>>();
-        backwardLogs.forEach(n ->{
-            stack.push(n);
-        });
+        forwardLogs = mergeForwardAndBackwardLogs(forwardLogs, backwardLogs);
 
-        while(!stack.isEmpty()){
-            forwardLogs.add(stack.pop());
-        }
+        forwardLogs.forEach(n -> {
+            n.remove("spanname");
+        });
 
         return forwardLogs;
     }
@@ -533,8 +549,45 @@ public class TraceTranslator {
     public static void setChilds(HashMap<String,List<String>> spanRelation, Span entrance, HashMap<String, Span> spans){
         Span s = entrance;
 
+        //Queue,add the src and srcName for queue receive(sr),dest& destName for queue send(cs)
+        if("message:input".equals(s.getSpanname())){
+            Span parent = spans.get(s.getParentId());
+            HashMap<String,String> parentCs = null;
+            HashMap<String,String> sr = null;
+
+            Iterator<HashMap<String,String>> parentIterator = parent.getLogs().iterator();
+            while(parentIterator.hasNext()){
+                HashMap<String,String> log = parentIterator.next();
+                if("cs".equals(log.get("type"))){
+                    parentCs = log;
+                    break;
+                }
+            }
+
+            Iterator<HashMap<String,String>> sIterator = s.getLogs().iterator();
+            while(sIterator.hasNext()){
+                HashMap<String,String> log = sIterator.next();
+                if("sr".equals(log.get("type"))){
+                    sr = log;
+                    break;
+                }
+            }
+
+            if(sr != null && parentCs != null){
+                sr.put("src",parentCs.get("host"));
+                sr.put("srcName",parentCs.get("hostName"));
+                parentCs.put("dest",sr.get("host"));
+                parentCs.put("destName",sr.get("hostName"));
+            }else{
+                System.out.println(sr);
+                System.out.println(parentCs);
+            }
+
+        }
+
         if(spanRelation.containsKey(s.getSpanId())){
             s.setChilds(spanRelation.get(s.getSpanId()));
+
             Iterator<String> iterator = s.getChilds().iterator();
             while(iterator.hasNext()){
                 String childId = iterator.next();
@@ -569,7 +622,7 @@ public class TraceTranslator {
             if("cr".equals(log1.get("type"))){
                 cr = log1;
             }
-            if("inside_payment.async".equals(log1.get("type"))){
+            if("async".equals(log1.get("type"))){
                 async = log1;
             }
         }
@@ -607,7 +660,7 @@ public class TraceTranslator {
                         sr1 = log1;
                     }else if("sr".equals(log1.get("type"))){
                         sr1 = log1;
-                    }else if("inside_payment.async".equals(log1.get("type"))){
+                    }else if("async".equals(log1.get("type"))){
                         sr1 = log1;
                     }
                 }
@@ -619,7 +672,7 @@ public class TraceTranslator {
                         sr2 = log2;
                     }else if("sr".equals(log2.get("type"))){
                         sr2 = log2;
-                    }else if("inside_payment.async".equals(log2.get("type"))){
+                    }else if("async".equals(log2.get("type"))){
                         sr2 = log2;
                     }
                 }
@@ -799,7 +852,7 @@ public class TraceTranslator {
                 HashMap<String,Integer> clock = clocks.get(n.get("host"));
 
                 if(n.get("src") != null){
-                    HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"));
+                    HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"), n.get("queue"), n.get("parentId"));
 
                     Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
                     while (iterator.hasNext()) {
@@ -823,12 +876,12 @@ public class TraceTranslator {
                 n.put("clock",clock.toString());
 
                 clocks.put(n.get("host"), clock);
-                allClocks.add(new Clock(n.get("type"), n.get("host"), n.get("src"), n.get("traceId"), n.get("spanId"), (HashMap<String,Integer>)clock.clone()));
+                allClocks.add(new Clock(n.get("type"), n.get("host"), n.get("src"), n.get("traceId"), n.get("spanId"), n.get("parentId"), (HashMap<String,Integer>)clock.clone()));
             }else{
                 HashMap<String,Integer> clock = new HashMap<String,Integer>();
 
                 if(n.get("src") != null){
-                    HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"));
+                    HashMap<String,Integer> srcClock = findSrcClock(allClocks, n.get("traceId"), n.get("spanId"), n.get("type"), n.get("queue"), n.get("parentId"));
 
                     Iterator<Map.Entry<String,Integer>> iterator = srcClock.entrySet().iterator();
                     while (iterator.hasNext()) {
@@ -850,7 +903,13 @@ public class TraceTranslator {
                 n.put("clock",clock.toString());
 
                 clocks.put(n.get("host"), clock);
-                allClocks.add(new Clock(n.get("type"), n.get("host"), n.get("src"), n.get("traceId"), n.get("spanId"), (HashMap<String,Integer>)clock.clone()));
+                allClocks.add(new Clock(n.get("type"), n.get("host"), n.get("src"), n.get("traceId"), n.get("spanId"), n.get("parentId"), (HashMap<String,Integer>)clock.clone()));
+            }
+        });
+
+        list.forEach(n -> {
+            if(n.containsKey("queue")){
+                n.remove("queue");
             }
         });
 
