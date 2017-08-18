@@ -1,10 +1,8 @@
 package launcher.task;
 
-import launcher.domain.CancelOrderInfo;
-import launcher.domain.CancelOrderResult;
-import launcher.domain.OrderTicketsInfoWithOrderId;
-import launcher.domain.OrderTicketsResult;
+import launcher.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.FunctionReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,6 +12,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.Date;
 import java.util.concurrent.Future;
 
@@ -46,6 +45,20 @@ public class AsyncTask {
         return new AsyncResult(orderTicketsResult);
     }
 
+    @Async("mySimpleAsync")
+    public Future<Boolean>  sendInsidePayment(String orderId,String tripId,String loginId,String loginToken) {
+        PaymentInfo paymentInfo = new PaymentInfo(orderId,tripId);
+        HttpHeaders requestHeadersInsidePayment = new HttpHeaders();
+        requestHeadersInsidePayment.add("Cookie","loginId=" + loginId);
+        requestHeadersInsidePayment.add("Cookie","loginToken=" + loginToken);
+        HttpEntity<PaymentInfo> requestEntityInsidePayment = new HttpEntity(requestHeadersInsidePayment);
+        ResponseEntity rssResponseInsidePayment = restTemplate.exchange(
+                "",
+                HttpMethod.POST,requestEntityInsidePayment, Boolean.class
+        );
+        boolean result = (Boolean)rssResponseInsidePayment.getBody()  ;
+
+    }
     @Async("mySimpleAsync")
     public Future<CancelOrderResult> sendOrderCancel(String orderId,String loginId,String loginToken){
         CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);

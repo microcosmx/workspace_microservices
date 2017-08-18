@@ -58,18 +58,25 @@ public class LauncherServiceImpl implements LauncherService {
 //        OrderTicketsResult orderTicketsResult = (OrderTicketsResult)rssResponsePreserveOrder.getBody();
 //        System.out.println("[退票结果] " + orderTicketsResult.getMessage());
         Future<OrderTicketsResult> taskResult = asyncTask.sendOrderTicket(orderId,loginId,loginToken);
-
-        if(count % 2 == 0){
-            try{
-                System.out.println("[等待中] count=" + count);
-                OrderTicketsResult orderTicketsResult = taskResult.get();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }else{
-            System.out.println("[不等待中] count=" + count);
+        try{
+            System.out.println("[等待中] count=" + count);
+            OrderTicketsResult orderTicketsResult = taskResult.get();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        count++;
+
+
+//        if(count % 2 == 0){
+//            try{
+//                System.out.println("[等待中] count=" + count);
+//                OrderTicketsResult orderTicketsResult = taskResult.get();
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }else{
+//            System.out.println("[不等待中] count=" + count);
+//        }
+//        count++;
 
         //        try{
 //            int sleepTime;
@@ -91,6 +98,8 @@ public class LauncherServiceImpl implements LauncherService {
 //        }catch(Exception e){
 //            e.printStackTrace();
 //        }
+
+        //2.支付操作
 
         //3.执行退票操作
         Future<CancelOrderResult> taskCancelResult = asyncTask.sendOrderCancel(orderId,loginId,loginToken);
