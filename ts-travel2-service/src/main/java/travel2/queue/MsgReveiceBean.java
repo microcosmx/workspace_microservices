@@ -33,12 +33,12 @@ public class MsgReveiceBean {
 	public void receiveQueueInfo(Object payload) {
 		String gtdiString = payload.toString();
 		System.out.println("[Travel Other Service][Receive Bean] payload String:" + gtdiString);
-		try{
-			//模拟延迟
-			Thread.sleep(3000);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+//		try{
+//			//模拟延迟
+//			Thread.sleep(3000);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
 		Gson gson = new Gson();
 		GetTripAllDetailInfo gtdi = gson.fromJson(gtdiString,GetTripAllDetailInfo.class);
 		System.out.println("[Travel Other Service][Receive Bean] Receive a GTDI from queue.");

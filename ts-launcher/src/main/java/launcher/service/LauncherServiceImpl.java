@@ -44,15 +44,29 @@ public class LauncherServiceImpl implements LauncherService {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        //2.支付操作
-        Future<Boolean> payResult  = asyncTask.sendInsidePayment(
-                orderId,"Z1234",loginId,loginToken);
         try{
             OrderTicketsResult orderTicketsResult = taskResult.get();
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        //2.支付操作
+        Future<Boolean> payResult  = asyncTask.sendInsidePayment(
+                orderId,"Z1234",loginId,loginToken);
+
+        try{
+            if(new Random().nextBoolean() == false){
+                System.out.println("[Launcher Service]不等待支付结果直接返回");
+                //do nothing, just send continue to reproduce faults.
+            }else{
+                //do wait until result
+                boolean payResultValue = payResult.get().booleanValue();
+                System.out.println("[Launcher Service]支付结果：" + payResultValue);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         //3.执行退票操作
         Future<CancelOrderResult> taskCancelResult = asyncTask.sendOrderCancel(orderId,loginId,loginToken);
 //        CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);
