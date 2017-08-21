@@ -431,6 +431,9 @@ $("#ticket_confirm_confirm_btn").click(function () {
                 location.hash="anchor_flow_preserve_pay";
             }
         },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Error");
+        },
         complete: function(){
             $("#ticket_confirm_confirm_btn").attr("disabled",false);
         }
