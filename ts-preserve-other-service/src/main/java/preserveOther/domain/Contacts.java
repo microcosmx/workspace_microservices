@@ -82,10 +82,6 @@ public class Contacts {
             return false;
         }
         Contacts other = (Contacts) obj;
-        return name.equals(other.getName())
-                && accountId .equals( other.getAccountId() )
-                && documentNumber.equals(other.getDocumentNumber())
-                && phoneNumber.equals(other.getPhoneNumber())
-                && documentType == other.getDocumentType();
+        return documentNumber.equals(other.getDocumentNumber());
     }
 }

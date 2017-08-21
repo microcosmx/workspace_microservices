@@ -43,18 +43,25 @@ public class ContactsServiceImpl implements ContactsService{
 
         ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(UUID.fromString(accountId));
         AddContactsResult acr = new AddContactsResult();
-        if(accountContacts.contains(contacts)){
-            System.out.println("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");
-            acr.setStatus(false);
-            acr.setMessage("Contacts Already Exists");
-            acr.setContacts(null);
-        }else{
+//        if(accountContacts.contains(contacts)){
+//            System.out.println("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");
+//            acr.setStatus(false);
+//            acr.setMessage("Contacts Already Exists");
+//            acr.setContacts(null);
+//        }else{
+
             contactsRepository.save(contacts);
             System.out.println("[Contacts-Add&Delete-Service][AddContacts] Success.");
             acr.setStatus(true);
             acr.setMessage("Success");
             acr.setContacts(contacts);
-        }
+            /*******证件号重复就返回true*********/
+            if(accountContacts.contains(contacts)){
+                acr.setExists(true);
+            }else{
+                acr.setExists(false);
+            }
+//        }
         return acr;
     }
 

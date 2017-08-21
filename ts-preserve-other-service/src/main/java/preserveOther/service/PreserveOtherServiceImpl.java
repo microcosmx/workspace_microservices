@@ -62,6 +62,10 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             String otiString = gson.toJson(oti);
             System.out.println("[打印出oti]:" + otiString);
 
+
+            AddContactsResult addContactsResult = null;
+
+
             if(oti.getIsCreateContacts().equals("true")){
                 //先查询联系人数量
 
@@ -73,7 +77,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 String number = oti.getContactsDocumentNumber();
                 String phone = oti.getContactsPhoneNumber();
 
-                AddContactsResult addContactsResult;
+
                 if(contactsNum > 0){
                     System.out.println("[Preserve Service]准备创建联系人check");
                     addContactsResult = addContacts(name,type,number,phone,accountId);
@@ -207,6 +211,12 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setStatus(true);
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
+
+            /**********如果用户添加联系人切联系人重复，抛出异常***********/
+            if(oti.getIsCreateContacts().equals("true") && addContactsResult.isExists() == true){
+                throw new RuntimeException();
+            }
+
         }else{
             System.out.println("[Preserve Other Service][Verify Login] Fail");
             otr.setStatus(false);
