@@ -80,6 +80,9 @@ ansible:
 /etc/ansible/hosts
 ansible docker-masters -a "/bin/echo hello" -u root
 ansible docker-machines -a "/bin/echo hello" -u root
+ansible docker-masters -a "docker pull mongo" -u root
+ansible docker-machines -a "docker pull mongo" -u root
+rabbitmq:management, openzipkin/zipkin:latest
 docker pull 10.141.212.25:5555/cluster-ts-ui-dashboard
 
 docker:
@@ -108,6 +111,11 @@ docker tag ts/ts-execute-service 10.141.212.25:5555/cluster-ts-execute-service
 docker tag ts/ts-payment-service 10.141.212.25:5555/cluster-ts-payment-service
 docker tag ts/ts-rebook-service 10.141.212.25:5555/cluster-ts-rebook-service
 docker tag ts/ts-cancel-service 10.141.212.25:5555/cluster-ts-cancel-service
+docker tag mongo 10.141.212.25:5555/cluster-ts-mongo
+docker tag rabbitmq:management 10.141.212.25:5555/cluster-ts-rabbitmq-management
+docker tag redis 10.141.212.25:5555/cluster-ts-redis
+docker tag openzipkin/zipkin 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
+
 
 docker push 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker push 10.141.212.25:5555/cluster-ts-login-service
@@ -134,6 +142,10 @@ docker push 10.141.212.25:5555/cluster-ts-execute-service
 docker push 10.141.212.25:5555/cluster-ts-payment-service
 docker push 10.141.212.25:5555/cluster-ts-rebook-service
 docker push 10.141.212.25:5555/cluster-ts-cancel-service
+docker push 10.141.212.25:5555/cluster-ts-mongo
+docker push 10.141.212.25:5555/cluster-ts-rabbitmq-management
+docker push 10.141.212.25:5555/cluster-ts-redis
+docker push 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
 
 docker network prune
 docker network rm ingress
@@ -155,9 +167,11 @@ docker node ls
 docker node rm 0pvy8v3sugtmcbqualswp1rv5
 
 swarm ui:
-http://10.141.211.161:9000/
+http://10.141.211.160:9000/
 zipkin:
-http://10.141.211.161:9411/
+http://10.141.211.160:9411/
+app:
+http://10.141.211.160/
 
 
 
