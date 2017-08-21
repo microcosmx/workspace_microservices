@@ -117,6 +117,7 @@ public class CancelServiceImpl implements CancelService{
 
                         if(status == false){
                             System.out.println("[Cancel Order Service]成功复现Processes Seq");
+                            throw new RuntimeException("[Error Process Seq]");
                         }else{
                             System.out.println("[Cancel Order Service]没有复现Processes Seq");
                         }
