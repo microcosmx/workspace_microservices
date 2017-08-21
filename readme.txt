@@ -59,18 +59,22 @@ docker ui:
 docker rm portainer-ui-local
 docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 http://10.141.212.22:9000/
-http://10.141.211.160:9000
+http://10.141.211.161:9000
 
 
 
 swarm:
 
 test sample:
-http://10.141.211.160/
+http://10.141.211.161/
 
 build:
 mvn clean package
 docker-compose build
+docker-compose up
+docker swarm init --advertise-addr 10.141.211.161
+docker swarm join-token manager
+docker swarm join-token worker
 
 ansible:
 /etc/ansible/hosts
@@ -131,7 +135,8 @@ docker push 10.141.212.25:5555/cluster-ts-payment-service
 docker push 10.141.212.25:5555/cluster-ts-rebook-service
 docker push 10.141.212.25:5555/cluster-ts-cancel-service
 
-docker network prune ingress
+docker network prune
+docker network rm ingress
 docker network create --ingress --driver overlay ingress
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
@@ -150,9 +155,9 @@ docker node ls
 docker node rm 0pvy8v3sugtmcbqualswp1rv5
 
 swarm ui:
-http://10.141.211.160:9000/
+http://10.141.211.161:9000/
 zipkin:
-http://10.141.211.160:9411/
+http://10.141.211.161:9411/
 
 
 
