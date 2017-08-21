@@ -443,6 +443,9 @@ $("#preserve_pay_button").click(function(){
                 //alert("Some thing error");
             }
         },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Error");
+        },
         complete: function(){
             $("#preserve_pay_button").attr("disabled",false);
         }
