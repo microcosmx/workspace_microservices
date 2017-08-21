@@ -212,9 +212,9 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
 
-            /**********如果用户添加联系人切联系人重复，抛出异常***********/
+            /**********如果用户添加联系人且联系人重复，抛出异常***********/
             if(oti.getIsCreateContacts().equals("true") && addContactsResult.isExists() == true){
-                throw new RuntimeException();
+                throw new RuntimeException("[Normal Error]");
             }
 
         }else{
