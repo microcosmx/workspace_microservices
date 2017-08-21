@@ -577,6 +577,9 @@ function addListenerToOrderCancel(){
                         $("#cancel_money_refund").text("Error ");
                     }
                 },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Error");
+                },
             });
         }
     }
