@@ -49,16 +49,21 @@ public class LauncherServiceImpl implements LauncherService {
         Future<Boolean> payResult  = asyncTask.sendInsidePayment(
                 orderId,"Z1234",loginId,loginToken);
 
+        boolean isFault;//error queue是否重现
         try{
             if(new Random().nextBoolean() == false){
                 System.out.println("[Launcher Service]不等待支付结果直接返回");
+                isFault = true;
+                //inside-payment-service的pay方法有固定三秒的延迟
                 //do nothing, just send continue to reproduce faults.
             }else{
                 //do wait until result
                 boolean payResultValue = payResult.get().booleanValue();
                 System.out.println("[Launcher Service]支付结果：" + payResultValue);
+                isFault = false;
             }
         }catch(Exception e){
+            isFault = true;
             e.printStackTrace();
         }
 
@@ -74,6 +79,15 @@ public class LauncherServiceImpl implements LauncherService {
 //                HttpMethod.POST, requestEntityCancelOrder, CancelOrderResult.class);
 //        CancelOrderResult cancelOrderResult = (CancelOrderResult) rssResponseCancelOrder.getBody();
 //        System.out.println("[退票结果] " + cancelOrderResult.getMessage());
+        for(;;){
+            if(taskCancelResult.isDone()){
+                if(isFault  == true){
+                    throw new RuntimeException("[Error Queue]");
+                }else{
+                    return;
+                }
+            }
+        }
     }
 
 }
