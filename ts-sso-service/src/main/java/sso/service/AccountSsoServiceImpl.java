@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sso.domain.*;
 import sso.repository.AccountRepository;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import sso.repository.LoginTokenRepository;
+
+import java.util.*;
 
 @Service
 public class AccountSsoServiceImpl implements AccountSsoService{
@@ -15,7 +14,10 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Autowired
     private AccountRepository accountRepository;
 
-    private static HashMap<String,String > loginUserList = new HashMap<>();
+    @Autowired
+    private LoginTokenRepository loginTokenRepository;
+
+//    private static HashMap<String,String > loginUserList = new HashMap<>();
 
     @Override
     public Account createAccount(Account account){
@@ -95,14 +97,15 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Override
     public PutLoginResult loginPutToken(String loginId){
         PutLoginResult plr = new PutLoginResult();
-        if(loginUserList.keySet().contains(loginId)){
+
+        if(containsToken(loginId)){
             System.out.println("[SSO Service][Login] Already Login. Old login session will be kick off");
-//            plr.setStatus(false);
-//            plr.setLoginId(loginId);
-//            plr.setMsg("Already Login");
-//            plr.setToken(null);
             String token = UUID.randomUUID().toString();
-            loginUserList.put(loginId,token);
+            LoginToken loginToken1 = new LoginToken();
+            loginToken1.setAccountId(loginId);
+            loginToken1.setLoginToken(token);
+            loginTokenRepository.save(loginToken1);
+
             plr.setStatus(true);
             plr.setLoginId(loginId);
             plr.setMsg("Success.Other login session has been kick off.");
@@ -110,7 +113,11 @@ public class AccountSsoServiceImpl implements AccountSsoService{
 
         }else{
             String token = UUID.randomUUID().toString();
-            loginUserList.put(loginId,token);
+            LoginToken loginToken1 = new LoginToken();
+            loginToken1.setAccountId(loginId);
+            loginToken1.setLoginToken(token);
+            loginTokenRepository.save(loginToken1);
+
             System.out.println("[SSO Service][Login] Login Success. Id:" + loginId + " Token:" + token);
             plr.setStatus(true);
             plr.setLoginId(loginId);
@@ -120,17 +127,51 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         return plr;
     }
 
+    private boolean containsToken(String loginId){
+        List<LoginToken> list = loginTokenRepository.findAll();
+        Iterator<LoginToken> iterator = list.iterator();
+        LoginToken loginToken;
+        boolean contain = false;
+        while(iterator.hasNext()){
+            loginToken = iterator.next();
+            if(loginToken.getAccountId().equals(loginId)){
+                contain = true;
+                break;
+            }
+        }
+
+        return contain;
+    }
+
+    private boolean containsLoginToken(String token){
+        List<LoginToken> list = loginTokenRepository.findAll();
+        Iterator<LoginToken> iterator = list.iterator();
+        LoginToken loginToken;
+        boolean contain = false;
+        while(iterator.hasNext()){
+            loginToken = iterator.next();
+            if(loginToken.getLoginToken().equals(token)){
+                contain = true;
+                break;
+            }
+        }
+
+        return contain;
+    }
+
+
     @Override
     public LogoutResult logoutDeleteToken(LogoutInfo li){
         LogoutResult lr = new LogoutResult();
-        if(!loginUserList.keySet().contains(li.getId())){
+        if(!containsToken(li.getId())){
             System.out.println("[SSO Service][Logout] Already Logout. LogoutId:" + li.getId());
            lr.setStatus(false);
            lr.setMessage("Not Login");
         }else{
-            String savedToken = loginUserList.get(li.getId());
-            if(savedToken.equals(li.getToken())){
-                loginUserList.remove(li.getId());
+            LoginToken loginToken = loginTokenRepository.findByAccountId(li.getId());
+
+            if(loginToken.getLoginToken().equals(li.getToken())){
+                loginTokenRepository.deleteByLoginToken(li.getToken());
                 lr.setStatus(true);
                 lr.setMessage("Success");
             }else{
@@ -145,7 +186,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public VerifyResult verifyLoginToken(String verifyToken){
         System.out.println("[SSO Service][Verify] Verify token:" + verifyToken);
         VerifyResult vr = new VerifyResult();
-        if(loginUserList.values().contains(verifyToken) || verifyToken.equals("admin")){
+        if(containsLoginToken(verifyToken) || verifyToken.equals("admin")){
             vr.setStatus(true);
             vr.setMessage("Verify Success.");
             System.out.println("[SSO Service][Verify] Success.Token:" + verifyToken);
@@ -173,10 +214,12 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Override
     public GetLoginAccountList findAllLoginAccount(){
         ArrayList<LoginAccountValue> values = new ArrayList<>();
-        for(Map.Entry<String,String> entry : loginUserList.entrySet()){
-            LoginAccountValue value = new LoginAccountValue(entry.getKey(),entry.getValue());
+        List<LoginToken> list = loginTokenRepository.findAll();
+        list.forEach(n -> {
+            LoginAccountValue value = new LoginAccountValue(n.getAccountId(),n.getLoginToken());
             values.add(value);
-        }
+        });
+
         GetLoginAccountList getLoginAccountList = new GetLoginAccountList();
         getLoginAccountList.setStatus(true);
         getLoginAccountList.setMessage("Success");
