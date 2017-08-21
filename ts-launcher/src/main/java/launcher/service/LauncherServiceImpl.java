@@ -44,11 +44,6 @@ public class LauncherServiceImpl implements LauncherService {
         }catch (Exception e){
             e.printStackTrace();
         }
-        try{
-            OrderTicketsResult orderTicketsResult = taskResult.get();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
         //2.支付操作
         Future<Boolean> payResult  = asyncTask.sendInsidePayment(

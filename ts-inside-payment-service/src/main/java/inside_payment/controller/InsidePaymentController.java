@@ -25,7 +25,7 @@ public class InsidePaymentController {
 
         try{
 			//模拟延迟
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
