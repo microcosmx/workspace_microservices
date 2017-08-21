@@ -59,23 +59,30 @@ docker ui:
 docker rm portainer-ui-local
 docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 http://10.141.212.22:9000/
-http://10.141.211.160:9000
+http://10.141.211.161:9000
 
 
 
 swarm:
 
 test sample:
-http://10.141.211.160/
+http://10.141.211.161/
 
 build:
 mvn clean package
 docker-compose build
+docker-compose up
+docker swarm init --advertise-addr 10.141.211.161
+docker swarm join-token manager
+docker swarm join-token worker
 
 ansible:
 /etc/ansible/hosts
 ansible docker-masters -a "/bin/echo hello" -u root
 ansible docker-machines -a "/bin/echo hello" -u root
+ansible docker-masters -a "docker pull mongo" -u root
+ansible docker-machines -a "docker pull mongo" -u root
+rabbitmq:management, openzipkin/zipkin:latest
 docker pull 10.141.212.25:5555/cluster-ts-ui-dashboard
 
 docker:
@@ -104,6 +111,11 @@ docker tag ts/ts-execute-service 10.141.212.25:5555/cluster-ts-execute-service
 docker tag ts/ts-payment-service 10.141.212.25:5555/cluster-ts-payment-service
 docker tag ts/ts-rebook-service 10.141.212.25:5555/cluster-ts-rebook-service
 docker tag ts/ts-cancel-service 10.141.212.25:5555/cluster-ts-cancel-service
+docker tag mongo 10.141.212.25:5555/cluster-ts-mongo
+docker tag rabbitmq:management 10.141.212.25:5555/cluster-ts-rabbitmq-management
+docker tag redis 10.141.212.25:5555/cluster-ts-redis
+docker tag openzipkin/zipkin 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
+
 
 docker push 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker push 10.141.212.25:5555/cluster-ts-login-service
@@ -130,8 +142,13 @@ docker push 10.141.212.25:5555/cluster-ts-execute-service
 docker push 10.141.212.25:5555/cluster-ts-payment-service
 docker push 10.141.212.25:5555/cluster-ts-rebook-service
 docker push 10.141.212.25:5555/cluster-ts-cancel-service
+docker push 10.141.212.25:5555/cluster-ts-mongo
+docker push 10.141.212.25:5555/cluster-ts-rabbitmq-management
+docker push 10.141.212.25:5555/cluster-ts-redis
+docker push 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
 
-docker network prune ingress
+docker network prune
+docker network rm ingress
 docker network create --ingress --driver overlay ingress
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
@@ -153,6 +170,8 @@ swarm ui:
 http://10.141.211.160:9000/
 zipkin:
 http://10.141.211.160:9411/
+app:
+http://10.141.211.160/
 
 
 
