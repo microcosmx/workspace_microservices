@@ -16,13 +16,13 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- *测试paymenn访问order Timeout bug：限定订单微服务访问数量限制，当超过一定数量时，其他微服务访问订单微服务会出现timeout问题。
- *系统初始化状态：order微服务一次访问数量限定为1个。（为方便模拟，设定为1，其他数量同理）
+ *测试order service访问Timeout bug：限定订单微服务访问数量限制，当超过一定数量时，访问订单微服务会出现timeout问题。
+ *系统初始化状态：order微服务一次访问数量限定为2个。（为方便模拟，设定为2，其他数量同理）
  *测试流程：正常下单两次，但两次confirm时，后台处理存在差异：
- *       correct情况：cifirm后，后台正常处理，能很快的完成order的访问，完成付款，下单成功，order服务会很快释放。
- *                   此时从myorder中查询其他未付款的订单（需要访问order服务），能正常付款
+ *       correct情况：cifirm后，后台正常处理，能很快的完成order的访问，下单成功，order服务会很快释放。
+ *                   此时进行第二次下单，会成功
  *       error情况：cifirm后，后台处理延迟，order微服务会长时间占用，才能下单成功。
- *                 在order被占用的情况下，从myorder中查询其他未付款的订单（需要访问order服务），则不能完成付款，会抛Timeout
+ *                 在order被占用的情况下，此时进行第二次下单（需要访问order微服务），则不能完成下单，会抛Timeout，下单失败
  */
 public class TestErrorTimeOutChance {
     private WebDriver driver;
@@ -45,7 +45,7 @@ public class TestErrorTimeOutChance {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = "http://10.141.212.21/";
+        baseUrl = "http://10.141.212.24/";
         username = "fdse_microservices@163.com";
         password = "DefaultPassword";
         trainType = "1"; //设定票类型为高铁
@@ -55,7 +55,7 @@ public class TestErrorTimeOutChance {
     /**
      *系统先登录
      */
-    @BeforeTest
+    @Test
     public void testLogin()throws Exception{
         driver.get(baseUrl + "/");
 
@@ -77,7 +77,7 @@ public class TestErrorTimeOutChance {
     /**
      *购买高铁票，并付款
      */
-    @Test
+    @Test (dependsOnMethods = {"testLogin"})
     public void testConfirmTicketCorrect() throws Exception{
         searchTickets();
         selectContacts();
@@ -109,7 +109,7 @@ public class TestErrorTimeOutChance {
 
         //locate booking Date input
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementById('travel_booking_date').value='2017-08-31'");
+        js.executeScript("document.getElementById('travel_booking_date').value='2017-09-30'");
 
         //locate Train Type input
         WebElement elementBookingTraintype = driver.findElement(By.id("search_select_train_type"));
@@ -207,7 +207,7 @@ public class TestErrorTimeOutChance {
         }
         Assert.assertEquals(bStatusConfirm,true);
 
-        driver.findElement(By.id("reproduct_ticket_confirm_correct_btn")).click();
+        driver.findElement(By.id("reproduct_ticket_confirm_error_btn")).click();
         Thread.sleep(1000);
         System.out.println("Confirm Ticket! The btn is confirm_correct");
     }
@@ -216,7 +216,7 @@ public class TestErrorTimeOutChance {
         String statusAlert;
 
         try {
-            new WebDriverWait(driver, 30).until(ExpectedConditions
+            new WebDriverWait(driver, 60).until(ExpectedConditions
                     .alertIsPresent());
             javascriptConfirm = driver.switchTo().alert();
             statusAlert = driver.switchTo().alert().getText();
@@ -261,6 +261,8 @@ public class TestErrorTimeOutChance {
         }
         Assert.assertEquals(bStatusConfirm,true);
 
+        driver.findElement(By.id("reproduct_long_connection_btn")).click();
+        Thread.sleep(2000);
         driver.findElement(By.id("reproduct_ticket_confirm_error_btn")).click();
         Thread.sleep(1000);
         System.out.println("Confirm Ticket! The btn is confirm_error");
@@ -270,12 +272,12 @@ public class TestErrorTimeOutChance {
         String statusAlert;
 
         try {
-            new WebDriverWait(driver, 30).until(ExpectedConditions
+            new WebDriverWait(driver, 60).until(ExpectedConditions
                     .alertIsPresent());
             javascriptConfirm = driver.switchTo().alert();
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-            Assert.assertEquals(statusAlert.startsWith("Timeout"),true);
+            Assert.assertEquals(statusAlert.startsWith("Success"),false);
             javascriptConfirm.accept();
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
