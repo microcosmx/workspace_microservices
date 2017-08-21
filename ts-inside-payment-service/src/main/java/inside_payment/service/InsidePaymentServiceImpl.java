@@ -98,8 +98,13 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 try{
                     System.out.println("[Payment Service][Turn To Outside Patment] Async Task Begin");
                     Future<Boolean> task = asyncTask.sendAsyncCallToPaymentService(outsidePaymentInfo);
-                    outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
-
+                    if(new Random().nextBoolean() == true){
+                        //一半的概率短延时，导致超时。 external固定延迟2秒
+                        outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
+                    }else{
+                        //一半的概率长延时，使得正常返回
+                        outsidePaySuccess = task.get(6000,TimeUnit.MILLISECONDS).booleanValue();
+                    }
                 }catch (Exception e){
                     System.out.println("[Inside Payment][Turn to Outside Payment] 外部服务调用超时.");
                     //e.printStackTrace();
