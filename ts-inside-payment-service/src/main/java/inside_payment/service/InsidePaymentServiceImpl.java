@@ -108,7 +108,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 }catch (Exception e){
                     System.out.println("[Inside Payment][Turn to Outside Payment] 外部服务调用超时.");
                     //e.printStackTrace();
-                    return false;
+                    throw new RuntimeException("[Error External Normal]");
+                    //return false;
                 }
 
 
