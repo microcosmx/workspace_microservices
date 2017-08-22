@@ -572,9 +572,13 @@ function addListenerToOrderCancel(){
                 xhrFields: {
                     withCredentials: true
                 },
+                error: function (result) {
+                    alert("status error!!");
+                },
                 success: function (result) {
                     if(result["status"] == true){
                         $("#cancel_money_refund").text(result["refund"]);
+                        alert("success");
                     }else{
                         $("#cancel_money_refund").text("Error ");
                     }
