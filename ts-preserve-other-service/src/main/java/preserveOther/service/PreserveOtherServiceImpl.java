@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import preserveOther.domain.*;
-import preserveOther.queue.GlobalValue;
-import preserveOther.queue.MsgSendingBean;
 
 import java.util.Date;
 import java.util.UUID;
@@ -15,8 +13,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
 
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    private MsgSendingBean sendingBean;
 
     @Override
     public OrderTicketsResult preserve(OrderTicketsInfoWithOrderId oti, String accountId, String loginToken){
@@ -198,25 +194,25 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
     private GetTripAllDetailResult getTripAllDetailInformation(GetTripAllDetailInfo gtdi){
 
 
-        System.out.println("[Preserve Other Service][Get Trip All Detail Information] Getting....");
-        sendingBean.sendSeachTravlDetailInfo(gtdi);
-        GetTripAllDetailResult gtdr = null;
-        for(;;){
-            if(GlobalValue.getTripAllDetailResult != null){
-                gtdr = GlobalValue.getTripAllDetailResult;
-                GlobalValue.getTripAllDetailResult = null;
-                break;
-            }else{
-                try{
-                    Thread.sleep(500);
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-//        GetTripAllDetailResult gtdr = restTemplate.postForObject(
-//                "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo/"
-//                ,gtdi,GetTripAllDetailResult.class);
+//        System.out.println("[Preserve Other Service][Get Trip All Detail Information] Getting....");
+//        sendingBean.sendSeachTravlDetailInfo(gtdi);
+//        GetTripAllDetailResult gtdr = null;
+//        for(;;){
+//            if(GlobalValue.getTripAllDetailResult != null){
+//                gtdr = GlobalValue.getTripAllDetailResult;
+//                GlobalValue.getTripAllDetailResult = null;
+//                break;
+//            }else{
+//                try{
+//                    Thread.sleep(500);
+//                }catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+        GetTripAllDetailResult gtdr = restTemplate.postForObject(
+                "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo/"
+                ,gtdi,GetTripAllDetailResult.class);
         return gtdr;
     }
 

@@ -5,16 +5,6 @@ server:
 spring:
   application:
     name: ts-travel2-service
-  rabbitmq:
-    host: rabbitmq
-    listener:
-      retry:
-        enabled: false
-        max-attempts: 1
-    template:
-      retry:
-        enabled: false
-        max-attempts: 1
   data:
     mongodb:
       host: ts-travel2-mongo
@@ -27,30 +17,3 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
-  cloud:
-    stream:
-      bindings:
-        output:
-          group: ts-travel2
-          destination: ts-travel2-return-travel2-detail-info-queue
-          contentType: text/plain
-          binder: rabbit
-        input:
-          group: ts-preserve-other
-          destination: ts-preserve-other-search-travel2-detail-info-queue
-          contentType: text/plain
-          binder: rabbit
-
-#  cloud:
-#    stream:
-#      bindings:
-#        output:
-#          group: ts-travel2
-#          destination: ts-return-rebook-search-travel2-detail-info-queue
-#          contentType: text/plain
-#          binder: rabbit
-#        input:
-#          group: ts-rebook
-#          destination: ts-rebook-search-travel2-detail-info-queue
-#          contentType: text/plain
-#          binder: rabbit
