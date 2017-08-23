@@ -23,7 +23,7 @@ public class TestErrorExtNormal {
     private List<WebElement> myOrdersList;
     private String trainType;//0--all,1--GaoTie,2--others
     private String orderID; //非高铁票订单号
-    private String orderStatus; //非高铁票订单号
+    //private String orderStatus; //非高铁票订单号
     //define username and password
     public static void login(WebDriver driver,String username,String password){
         driver.findElement(By.id("flow_one_page")).click();
@@ -82,7 +82,7 @@ public class TestErrorExtNormal {
     }
 
     @Test (dataProvider="user")
-    public void testCancelTickets(String userid,String password) throws Exception{
+    public void testExternalNormal(String userid,String password) throws Exception{
         driver.get(baseUrl + "/");
         userRegister(userid,password);
         userLogin(userid,password);
@@ -90,13 +90,6 @@ public class TestErrorExtNormal {
         selectContacts();
         confirmTicket();
         payTicket();
-
-        viewOrders();
-        cancelOrder();
-        //get order status
-        //getOrderStatus();
-        //System.out.println("The status of order "+orderID+" is "+orderStatus);
-        //Assert.assertEquals(orderStatus.startsWith("Cancel"),true);
     }
 
     /**
@@ -286,55 +279,8 @@ public class TestErrorExtNormal {
         Assert.assertEquals(bStatusPay,true);
 
         driver.findElement(By.id("preserve_pay_button")).click();
-        Thread.sleep(1000);
-        String itemCollectOrderId = driver.findElement(By.id("preserve_collect_order_id")).getAttribute("value");
-        Assert.assertEquals(!"".equals(itemCollectOrderId),true);
-        System.out.println("Success to pay and book ticket!");
-    }
+        System.out.println("pay  ticket!");
 
-    /**
-     *查询订单，测试cancel
-     */
-    public void viewOrders() throws Exception{
-        driver.findElement(By.id("flow_two_page")).click();
-        driver.findElement(By.id("refresh_my_order_list_button")).click();
-        Thread.sleep(1000);
-        //gain my oeders
-        myOrdersList = driver.findElements(By.xpath("//div[@id='my_orders_result']/div"));
-        if (myOrdersList.size() > 0) {
-            System.out.printf("Success to show my orders list，the list size is:%d%n",myOrdersList.size());
-        }
-        else
-            System.out.println("Failed to show my orders list，the list size is 0 or No orders in this user!");
-        Assert.assertEquals(myOrdersList.size() > 0,true);
-    }
-    public void cancelOrder() throws Exception{
-        System.out.printf("The orders list size is:%d%n",myOrdersList.size());
-        int i;
-        //Find the first not paid order .
-        for(i = 0;i < myOrdersList.size();i++) {
-            //while(!(statusOrder.startsWith("Not")) && i < myOrdersList.size()) {
-            //statusOrder = myOrdersList.get(i).findElement(By.xpath("/div[2]/div/div/form/div[7]/div/label[2]")).getText();
-            String myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
-            //Search the orders paid but not collected
-            if(myOrderID.equals(orderID))
-                break;
-        }
-        if(i == myOrdersList.size() || i > myOrdersList.size())
-            System.out.println("Failed,can't find the order!");
-        Assert.assertEquals(i < myOrdersList.size(),true);
-
-        orderStatus = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
-        System.out.println("The status of order "+orderID+" is "+orderStatus);
-        Assert.assertEquals(!"".equals(orderStatus),true);
-
-        myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[12]/div/button[2]")).click();
-        Thread.sleep(1000);
-
-        //String statusCancle = driver.findElement(By.id());
-        //System.out.println("The Alert information of Payment："+statusAlert);
-        driver.findElement(By.id("ticket_cancel_panel_confirm")).click();
-        Thread.sleep(1000);
         Alert javascriptConfirm = null;
         String statusAlert;
 
@@ -349,43 +295,9 @@ public class TestErrorExtNormal {
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
         }
+
     }
 
-    /**
-     *查询订单，查看取消订单状态
-     */
-    public void getOrderStatus() throws Exception{
-        driver.findElement(By.id("flow_two_page")).click();
-        driver.findElement(By.id("refresh_my_order_list_button")).click();
-        Thread.sleep(1000);
-        //gain my oeders
-        myOrdersList = driver.findElements(By.xpath("//div[@id='my_orders_result']/div"));
-        if (myOrdersList.size() > 0) {
-            System.out.printf("Success to show my orders list，the list size is:%d%n",myOrdersList.size());
-        }
-        else
-            System.out.println("Failed to show my orders list，the list size is 0 or No orders in this user!");
-        Assert.assertEquals(myOrdersList.size() > 0,true);
-
-        int i;
-        //Find the first not paid order .
-        for(i = 0;i < myOrdersList.size();i++) {
-            //while(!(statusOrder.startsWith("Not")) && i < myOrdersList.size()) {
-            //statusOrder = myOrdersList.get(i).findElement(By.xpath("/div[2]/div/div/form/div[7]/div/label[2]")).getText();
-            String myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
-            //Search the orders paid but not collected
-            if(myOrderID.equals(orderID))
-                break;
-        }
-        if(i == myOrdersList.size() || i > myOrdersList.size())
-            System.out.println("Failed,can't find the order!");
-        Assert.assertEquals(i < myOrdersList.size(),true);
-
-        orderStatus = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
-
-        System.out.println("The status of order "+orderID+" is "+orderStatus);
-        Assert.assertEquals(!"".equals(orderStatus),true);
-    }
 
     @AfterClass
     public void tearDown() throws Exception {
