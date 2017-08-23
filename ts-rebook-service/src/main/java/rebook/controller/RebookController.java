@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
+//import rebook.queue.MsgSendingBean;
 import rebook.service.RebookService;
 
 /**
@@ -14,6 +15,9 @@ public class RebookController {
 
     @Autowired
     RebookService service;
+
+//    @Autowired
+//    private MsgSendingBean sendingBean;
 
     @RequestMapping(value="/rebook/payDifference", method = RequestMethod.POST)
     public RebookResult payDifference(@RequestBody RebookInfo info, @CookieValue String loginId, @CookieValue String loginToken){

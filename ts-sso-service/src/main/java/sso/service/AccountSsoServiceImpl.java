@@ -56,6 +56,8 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         return rr;
     }
 
+
+
     @Override
     public LoginResult login(LoginInfo li){
         if(li == null){

@@ -167,11 +167,13 @@ public class Travel2ServiceImpl implements Travel2Service{
         //设置返回的车票信息
         TripResponse response = new TripResponse();
         if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
+            System.out.println("[Travel2 Service] First Seat:" + trainType.getConfortClass()*percent + " Sold:" + result.getFirstClassSeat());
             int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
             int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
             response.setConfortClass(confort);
             response.setEconomyClass(economy);
         }else{
+            System.out.println("[Travel2 Service] First Seat:" + trainType.getConfortClass()*percent + " Sold:" + result.getFirstClassSeat());
             int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
             int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
             response.setConfortClass(confort);

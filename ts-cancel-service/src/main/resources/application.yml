@@ -9,3 +9,26 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
+  rabbitmq:
+    host: rabbitmq
+    listener:
+      retry:
+        enabled: false
+        max-attempts: 1
+    template:
+      retry:
+        enabled: false
+        max-attempts: 1
+  cloud:
+    stream:
+      bindings:
+        output:
+          group: ts-cancel-inside-payment
+          destination: ts-rebook-search-travel2-detail-info-queue
+          contentType: text/plain
+          binder: rabbit
+        input:
+          group: ts-return-cancel-inside-payment
+          destination: ts-return-rebook-search-travel2-detail-info-queue
+          contentType: text/plain
+          binder: rabbit

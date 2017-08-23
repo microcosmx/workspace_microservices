@@ -1,14 +1,14 @@
 package cancel.service;
 
-import cancel.async.AsyncTask;
 import cancel.domain.*;
+import cancel.queue.GlobalValue;
+import cancel.queue.MsgSendingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.Future;
 
 @Service
 public class CancelServiceImpl implements CancelService{
@@ -17,15 +17,14 @@ public class CancelServiceImpl implements CancelService{
     private RestTemplate restTemplate;
 
     @Autowired
-    private AsyncTask asyncTask;
+    private MsgSendingBean sendingBean;
 
     @Override
-    public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId) throws Exception{
+    public CancelOrderResult cancelOrder(CancelOrderInfo info,String loginToken,String loginId){
         GetOrderByIdInfo getFromOrderInfo = new GetOrderByIdInfo();
         getFromOrderInfo.setOrderId(info.getOrderId());
         GetOrderResult orderResult = getOrderByIdFromOrder(getFromOrderInfo);
         if(orderResult.isStatus() == true){
-            System.out.println("[Cancel Order Service][Cancel Order] Order found G|H");
             Order order = orderResult.getOrder();
             if(order.getStatus() == OrderStatus.NOTPAID.getCode()
                     || order.getStatus() == OrderStatus.PAID.getCode() || order.getStatus() == OrderStatus.CHANGE.getCode()){
@@ -69,110 +68,36 @@ public class CancelServiceImpl implements CancelService{
             getFromOtherOrderInfo.setOrderId(info.getOrderId());
             GetOrderResult orderOtherResult = getOrderByIdFromOrderOther(getFromOtherOrderInfo);
             if(orderOtherResult.isStatus() == true){
-                System.out.println("[Cancel Order Service][Cancel Order] Order found Z|K|Other");
-
                 Order order = orderOtherResult.getOrder();
                 if(order.getStatus() == OrderStatus.NOTPAID.getCode()
                         || order.getStatus() == OrderStatus.PAID.getCode() || order.getStatus() == OrderStatus.CHANGE.getCode()){
-
-                    System.out.println("[Cancel Order Service][Cancel Order] Order status ok");
 
                     order.setStatus(OrderStatus.CANCEL.getCode());
                     ChangeOrderInfo changeOrderInfo = new ChangeOrderInfo();
                     changeOrderInfo.setLoginToken(loginToken);
                     changeOrderInfo.setOrder(order);
-//                    ChangeOrderResult changeOrderResult = cancelFromOtherOrder(changeOrderInfo);
-
-
-                    /***********************Fault Reproduce - Error Process Seq*************************/
-                    /**
-                     * 订单取消首先退款，然后重置订单状态为已取消，二使用异步操作进行
-                     * 退款流程前期使用时间太长导致，在检查订单状态的时候发现订单状态已经处于不能退款的状态，导致退款失败
-                     * 由于先发生的退款操作异步时间太长，使得修改订单状态的操作抢先完成，使得退款不能正常进行
-                     */
-
-                    //1.首先退还订单金额(将订单状态改为-退款中，然后退款)
-                    String money = calculateRefund(order);
-                    Future<Boolean> taskDrawBackMoney = asyncTask.drawBackMoneyForOrderCan(money,loginId,order.getId().toString(),loginToken);
-
-                    //2.然后修改订单的状态至【已取消】（将订单状态改为-已退款）
-                    Future<ChangeOrderResult> taskCancelOrder = asyncTask.updateOtherOrderStatusToCancel(changeOrderInfo);
-
-                    ChangeOrderResult changeOrderResult = null;
-                    boolean drawBackMoneyStatus = false;
-
-                    boolean status = true;
-                    while(!taskCancelOrder.isDone() || !taskDrawBackMoney.isDone()){
-                        if(!taskDrawBackMoney.isDone() && taskCancelOrder.isDone()){
-                            status = false;
-                        }
-                    }
-                    System.out.println("[Cancel Order Service][Cancel Order] Two Process Done");
-                    drawBackMoneyStatus = taskDrawBackMoney.get();
-                    changeOrderResult = taskCancelOrder.get();
-
-
-                    /********************************************************************************/
-                    if(changeOrderResult.isStatus() == true && drawBackMoneyStatus == true){
-
-                        if(status == false){
-                            System.out.println("[Cancel Order Service]成功复现Processes Seq");
-                            throw new RuntimeException("[Error Process Seq]");
-                        }else{
-                            System.out.println("[Cancel Order Service]没有复现Processes Seq");
-                        }
-
+                    ChangeOrderResult changeOrderResult = cancelFromOtherOrder(changeOrderInfo);
+                    if(changeOrderResult.isStatus() == true){
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(true);
                         finalResult.setMessage("Success.");
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
-                        System.out.println("[Cancel Order Service][Draw Back Money] Success.");
-                        return finalResult;
-                    }else if(changeOrderResult.isStatus() == true && drawBackMoneyStatus == false){
-                        CancelOrderResult finalResult = new CancelOrderResult();
-                        finalResult.setStatus(false);
-                        finalResult.setMessage("Fail.");
-                        System.out.println("[Cancel Order Service][Cancel Order] Success.");
-                        System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
-                        return finalResult;
-                    }else if(changeOrderResult.isStatus() == false && drawBackMoneyStatus == true){
-                        CancelOrderResult finalResult = new CancelOrderResult();
-                        finalResult.setStatus(false);
-                        finalResult.setMessage("Fail.");
-                        System.out.println("[Cancel Order Service][Cancel Order] Fail.");
-                        System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+                        //Draw back money
+                        String money = calculateRefund(order);
+                        boolean status = drawbackMoney(money,loginId);
+                        if(status == true){
+                            System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+                        }else{
+                            System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
+                        }
                         return finalResult;
                     }else{
                         CancelOrderResult finalResult = new CancelOrderResult();
                         finalResult.setStatus(false);
-                        finalResult.setMessage("Fail.");
-                        System.out.println("[Cancel Order Service][Cancel Order] Fail.");
-                        System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
+                        finalResult.setMessage(changeOrderResult.getMessage());
+                        System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
                         return finalResult;
                     }
-
-//
-//                    if(changeOrderResult.isStatus() == true){
-//                        CancelOrderResult finalResult = new CancelOrderResult();
-//                        finalResult.setStatus(true);
-//                        finalResult.setMessage("Success.");
-//                        System.out.println("[Cancel Order Service][Cancel Order] Success.");
-//                        //Draw back money
-//                        String money = calculateRefund(order);
-//                        boolean status = drawbackMoney(money,loginId);
-//                        if(status == true){
-//                            System.out.println("[Cancel Order Service][Draw Back Money] Success.");
-//                        }else{
-//                            System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
-//                        }
-//                        return finalResult;
-//                    }else{
-//                        CancelOrderResult finalResult = new CancelOrderResult();
-//                        finalResult.setStatus(false);
-//                        finalResult.setMessage(changeOrderResult.getMessage());
-//                        System.out.println("[Cancel Order Service][Cancel Order] Fail.Reason:" + changeOrderResult.getMessage());
-//                        return finalResult;
-//                    }
                 }else{
                     CancelOrderResult result = new CancelOrderResult();
                     result.setStatus(false);
@@ -190,6 +115,18 @@ public class CancelServiceImpl implements CancelService{
         }
     }
 
+    public boolean drawbackMoney(String money,String userId){
+        System.out.println("[Cancel Order Service][Draw Back Money] Draw back money...");
+        DrawBackInfo info = new DrawBackInfo();
+        info.setMoney(money);
+        info.setUserId(userId);
+        String result = restTemplate.postForObject("http://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
+        if(result.equals("true")){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public CalculateRefundResult calculateRefund(CancelOrderInfo info){
         GetOrderByIdInfo getFromOrderInfo = new GetOrderByIdInfo();
@@ -228,7 +165,7 @@ public class CancelServiceImpl implements CancelService{
             getFromOtherOrderInfo.setOrderId(info.getOrderId());
             GetOrderResult orderOtherResult = getOrderByIdFromOrderOther(getFromOtherOrderInfo);
             if(orderOtherResult.isStatus() == true){
-                Order order = orderOtherResult.getOrder();
+                Order order = orderResult.getOrder();
                 if(order.getStatus() == OrderStatus.NOTPAID.getCode()
                         || order.getStatus() == OrderStatus.PAID.getCode()){
                     if(order.getStatus() == OrderStatus.NOTPAID.getCode()){
@@ -302,30 +239,31 @@ public class CancelServiceImpl implements CancelService{
         }
     }
 
-
     private ChangeOrderResult cancelFromOrder(ChangeOrderInfo info){
-        System.out.println("[Cancel Order Service][Change Order Status] Changing....");
+        System.out.println("[Cancel Order Service][Get Contacts By Id] Getting....");
         ChangeOrderResult result = restTemplate.postForObject("http://ts-order-service:12031/order/update",info,ChangeOrderResult.class);
         return result;
     }
 
     private ChangeOrderResult cancelFromOtherOrder(ChangeOrderInfo info){
-        System.out.println("[Cancel Order Service][Change Order Status] Changing....");
-        ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
-        return result;
-    }
-
-    public boolean drawbackMoney(String money,String userId){
-        System.out.println("[Cancel Order Service][Draw Back Money] Draw back money...");
-        DrawBackInfo info = new DrawBackInfo();
-        info.setMoney(money);
-        info.setUserId(userId);
-        String result = restTemplate.postForObject("http://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
-        if(result.equals("true")){
-            return true;
-        }else{
-            return false;
+        System.out.println("[Cancel Order Service][Get Contacts By Id] Getting....");
+        sendingBean.sendCancelInfoToOrderOther(info);
+        ChangeOrderResult result = null;
+        for(;;){
+            if(GlobalValue.changeOrderResult != null){
+                result = GlobalValue.changeOrderResult;
+                GlobalValue.changeOrderResult = null;
+                break;
+            }else{
+                try{
+                    Thread.sleep(500);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
+        //ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
+        return result;
     }
 
 

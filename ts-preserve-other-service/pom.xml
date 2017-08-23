@@ -25,6 +25,25 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -42,11 +61,6 @@
             <artifactId>json-path</artifactId>
             <version>2.2.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>fdse.microservice</groupId>
-            <artifactId>ts-preserve-service</artifactId>
-            <version>1.0</version>
         </dependency>
     </dependencies>
 

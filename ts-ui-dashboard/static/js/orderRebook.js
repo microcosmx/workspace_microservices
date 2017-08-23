@@ -81,7 +81,7 @@ $("#single_rebook_button").click(function() {
         return;
     }
     var singleRebookInfoData = JSON.stringify(singleRebookInfo);
-    $("#single_rebook_button").attr("disabled",true);
+    //$("#single_rebook_button").attr("disabled",true);
     $("#single_rebook_status").text("false");
     $.ajax({
         type: "post",
@@ -104,7 +104,7 @@ $("#single_rebook_button").click(function() {
             $("#single_rebook_status").text("true");
         },
         complete: function(){
-            $("#single_rebook_button").attr("disabled",false);
+            //$("#single_rebook_button").attr("disabled",false);
         }
     });
 });
