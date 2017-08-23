@@ -23,12 +23,12 @@ spring:
     stream:
       bindings:
         output:
-          group: ts-cancel-inside-payment
-          destination: ts-rebook-search-travel2-detail-info-queue
+          group: ts-cancel
+          destination: ts-cancel-order
           contentType: text/plain
           binder: rabbit
         input:
-          group: ts-return-cancel-inside-payment
-          destination: ts-return-rebook-search-travel2-detail-info-queue
+          group: ts-return-cancel
+          destination: ts-return-cancel-order
           contentType: text/plain
           binder: rabbit

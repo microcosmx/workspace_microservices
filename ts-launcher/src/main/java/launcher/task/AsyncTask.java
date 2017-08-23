@@ -101,6 +101,7 @@ public class AsyncTask {
         System.out.println("[支付结果] " + result);
         return new AsyncResult(result);
     }
+
     @Async("mySimpleAsync")
     public Future<CancelOrderResult> sendOrderCancel(String orderId,String loginId,String loginToken){
         CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);
