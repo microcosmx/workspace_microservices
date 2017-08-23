@@ -572,13 +572,10 @@ function addListenerToOrderCancel(){
                 xhrFields: {
                     withCredentials: true
                 },
-                error: function (result) {
-                    alert("status error!!");
-                },
                 success: function (result) {
                     if(result["status"] == true){
                         $("#cancel_money_refund").text(result["refund"]);
-                        alert("success");
+
                     }else{
                         $("#cancel_money_refund").text("Error ");
                     }
@@ -612,15 +609,18 @@ $("#ticket_cancel_panel_confirm").click(function(){
         xhrFields: {
             withCredentials: true
         },
+        error: function () {
+            $("#ticket_cancel_panel").css('display','none');
+            alert("status error!!");
+        },
         success: function (result) {
             if(result["status"] == true){
                 $("#ticket_cancel_panel").css('display','none');
+                alert("success");
             }else{
                 $("#ticket_cancel_panel").css('display','none');
                 alert(result["message"]);
             }
-        },
-        error: function(){
         },
         complete: function(){
         }
