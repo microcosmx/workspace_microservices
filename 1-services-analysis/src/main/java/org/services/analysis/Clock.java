@@ -1,3 +1,5 @@
+package org.services.analysis;
+
 import java.util.HashMap;
 
 /**
