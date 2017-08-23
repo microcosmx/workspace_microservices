@@ -27,14 +27,13 @@ public class TestErrorProcessSeqStaCha {
     private WebDriver driver;
     private String baseUrl;
     private List<WebElement> myOrdersList;
-    //define username and password
-    private String username = "fdse_microservices@163.com";
-    private String password = "DefaultPassword";
+
     private String trainType;//0--all,1--GaoTie,2--others
     private String orderID; //高铁票订单号
     //private String orderID; //高铁票订单号
     private int bookingNumAax;
     private int bookingTimes;
+    private double errorRate;
 
     public static void login(WebDriver driver,String username,String password){
         driver.findElement(By.id("flow_one_page")).click();
@@ -49,35 +48,15 @@ public class TestErrorProcessSeqStaCha {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://10.141.212.24/";
-        username = "chaojifudan@outlook.com";
-        password = "DefaultPassword";
+
         trainType = "1"; //设定票类型为高铁
         bookingNumAax = 5;
-        bookingTimes = 2;
+
+        errorRate = 0.2;
+
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    /**
-     *系统先登录
-     */
-    @Test
-    public void testLogin()throws Exception{
-        driver.get(baseUrl + "/");
-
-        //call function login
-        login(driver,username,password);
-        Thread.sleep(1000);
-
-        //get login status
-        String statusLogin = driver.findElement(By.id("flow_preserve_login_msg")).getText();
-        if("".equals(statusLogin))
-            System.out.println("Failed to Login! Status is Null!");
-        else if(statusLogin.startsWith("Success"))
-            System.out.println("Success to Login! Status:"+statusLogin);
-        else
-            System.out.println("Failed to Login! Status:"+statusLogin);
-        Assert.assertEquals(statusLogin.startsWith("Success"),true);
-    }
 
     @DataProvider(name="user")
     public Object[][] Users(){
@@ -118,29 +97,25 @@ public class TestErrorProcessSeqStaCha {
         };
     }
     @Test (dataProvider="user")
-    public void testCancelTickets(String userid,String password) throws Exception{
+    public void testBooking(String userid,String password) throws Exception{
         driver.get(baseUrl + "/");
         userRegister(userid,password);
         userLogin(userid,password);
-        searchTickets();
-        selectContacts();
-        confirmTicket();
-
-    }
-
-    /**
-     *购买非高铁票，并付款
-     */
-    @Test (dependsOnMethods = {"testLogin"})
-    public void booking() throws Exception {
-        int i=0;
-        while (i++ < bookingTimes) {
-            testBooking();
-            testSelectContacts();
-            testTicketConfirm();
+        double bookTimes;
+        if(Math.random()< errorRate)
+            bookTimes = bookingNumAax+1;
+        else {
+            Random rand = new Random();
+            bookTimes = 1 + rand.nextInt(10) % 2;
         }
-    }
 
+        for(int i = 0;i < bookTimes; i++){
+            searchTickets();
+            selectContacts();
+            confirmTicket();
+        }
+
+    }
 
     /**
      *注册新用户
@@ -316,29 +291,7 @@ public class TestErrorProcessSeqStaCha {
             NofindAlert.printStackTrace();
         }
     }
-    public void payTicket ()throws Exception {
-        orderID = driver.findElement(By.id("preserve_pay_orderId")).getAttribute("value");
-        String itemPrice = driver.findElement(By.id("preserve_pay_price")).getAttribute("value");
-        String itemTripId = driver.findElement(By.id("preserve_pay_tripId")).getAttribute("value");
-        boolean bOrderId = !"".equals(orderID);
-        boolean bPrice = !"".equals(itemPrice);
-        boolean bTripId = !"".equals(itemTripId);
-        boolean bStatusPay = bOrderId && bPrice && bTripId;
-        if(bStatusPay == false)
-            System.out.println("Confirming Ticket failed!");
-        Assert.assertEquals(bStatusPay,true);
 
-        driver.findElement(By.id("preserve_pay_button")).click();
-        Thread.sleep(1000);
-        String itemCollectOrderId = driver.findElement(By.id("preserve_collect_order_id")).getAttribute("value");
-        Assert.assertEquals(!"".equals(itemCollectOrderId),true);
-        System.out.println("Success to pay and book ticket!");
-    }
-
-
-
-
-    @Test (dependsOnMethods = {"booking"})
     public void testAlertConfirm() throws Exception{
         Alert javascriptConfirm = null;
         String statusAlert;
