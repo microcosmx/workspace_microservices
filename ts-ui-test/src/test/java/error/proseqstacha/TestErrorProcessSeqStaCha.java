@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -75,6 +76,44 @@ public class TestErrorProcessSeqStaCha {
         Assert.assertEquals(statusLogin.startsWith("Success"),true);
     }
 
+    @DataProvider(name="user")
+    public Object[][] Users(){
+        return new Object[][]{
+                {"fdse101@163.com","DefaultPassword"},
+                {"fdse102@163.com","DefaultPassword"},
+                {"fdse103@163.com","DefaultPassword"},
+                {"fdse104@163.com","DefaultPassword"},
+                {"fdse105@163.com","DefaultPassword"},
+                {"fdse106@163.com","DefaultPassword"},
+                {"fdse107@163.com","DefaultPassword"},
+                {"fdse108@163.com","DefaultPassword"},
+                {"fdse109@163.com","DefaultPassword"},
+                {"fdse110@163.com","DefaultPassword"},
+
+                {"fdse111@163.com","DefaultPassword"},
+                {"fdse112@163.com","DefaultPassword"},
+                {"fdse113@163.com","DefaultPassword"},
+                {"fdse114@163.com","DefaultPassword"},
+                {"fdse115@163.com","DefaultPassword"},
+                {"fdse116@163.com","DefaultPassword"},
+                {"fdse117@163.com","DefaultPassword"},
+                {"fdse118@163.com","DefaultPassword"},
+                {"fdse119@163.com","DefaultPassword"},
+                {"fdse120@163.com","DefaultPassword"},
+
+                {"fdse121@163.com","DefaultPassword"},
+                {"fdse122@163.com","DefaultPassword"},
+                {"fdse123@163.com","DefaultPassword"},
+                {"fdse124@163.com","DefaultPassword"},
+                {"fdse125@163.com","DefaultPassword"},
+                {"fdse126@163.com","DefaultPassword"},
+                {"fdse127@163.com","DefaultPassword"},
+                {"fdse128@163.com","DefaultPassword"},
+                {"fdse129@163.com","DefaultPassword"},
+                {"fdse130@163.com","DefaultPassword"},
+
+        };
+    }
     /**
      *购买非高铁票，并付款
      */
@@ -218,8 +257,8 @@ public class TestErrorProcessSeqStaCha {
                 javascriptConfirm = driver.switchTo().alert();
                 statusAlert = driver.switchTo().alert().getText();
                 System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-                Assert.assertEquals(statusAlert.startsWith("Success"),true);
                 javascriptConfirm.accept();
+                Assert.assertEquals(statusAlert.startsWith("Success"),true);
             } catch (NoAlertPresentException NofindAlert) {
                 NofindAlert.printStackTrace();
             }
