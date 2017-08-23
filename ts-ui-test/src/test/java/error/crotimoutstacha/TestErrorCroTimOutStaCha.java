@@ -57,16 +57,16 @@ public class TestErrorCroTimOutStaCha {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse101@163.com","DefaultPassword"},
-                {"fdse102@163.com","DefaultPassword"},
-                {"fdse103@163.com","DefaultPassword"},
-                {"fdse104@163.com","DefaultPassword"},
-                {"fdse105@163.com","DefaultPassword"},
-                {"fdse106@163.com","DefaultPassword"},
-                {"fdse107@163.com","DefaultPassword"},
-                {"fdse108@163.com","DefaultPassword"},
-                {"fdse109@163.com","DefaultPassword"},
-                {"fdse110@163.com","DefaultPassword"},
+                {"fdse401@163.com","DefaultPassword"},
+                {"fdse402@163.com","DefaultPassword"},
+                {"fdse403@163.com","DefaultPassword"},
+                {"fdse404@163.com","DefaultPassword"},
+                {"fdse405@163.com","DefaultPassword"},
+                {"fdse406@163.com","DefaultPassword"},
+                {"fdse407@163.com","DefaultPassword"},
+                {"fdse408@163.com","DefaultPassword"},
+                {"fdse409@163.com","DefaultPassword"},
+                {"fdse410@163.com","DefaultPassword"},
 
                 {"fdse111@163.com","DefaultPassword"},
                 {"fdse112@163.com","DefaultPassword"},
@@ -102,7 +102,6 @@ public class TestErrorCroTimOutStaCha {
         searchTickets();
         selectContacts();
         confirmTicket();
-        alertConfirm();
     }
 
     /**
@@ -271,11 +270,29 @@ public class TestErrorCroTimOutStaCha {
 
         if(Math.random()<errorRate){
             driver.findElement(By.id("reproduct_long_connection_btn")).click();
+
             driver.findElement(By.id("reproduct_ticket_confirm_error_btn")).click();
+            System.out.println("Confirm Ticket!");
+            Alert javascriptConfirm = null;
+            //String statusAlert;
+            try {
+                new WebDriverWait(driver, 60).until(ExpectedConditions
+                        .alertIsPresent());
+                javascriptConfirm = driver.switchTo().alert();
+                //statusAlert = driver.switchTo().alert().getText();
+                //System.out.println("The Alert information of Confirming Ticket："+statusAlert);
+                javascriptConfirm.accept();
+            } catch (NoAlertPresentException NofindAlert) {
+                NofindAlert.printStackTrace();
+            }
+            alertConfirm();
         }
-        else
+        else {
             driver.findElement(By.id("reproduct_ticket_confirm_error_btn")).click();
-        System.out.println("Confirm Ticket! The btn is confirm_correct");
+            System.out.println("Confirm Ticket!");
+            alertConfirm();
+        }
+
     }
     public void alertConfirm() throws Exception{
         Alert javascriptConfirm = null;
