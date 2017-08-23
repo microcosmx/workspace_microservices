@@ -13,7 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.swing.text.StyledEditorKit;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.Future;
 
 @Component
@@ -21,6 +24,44 @@ public class AsyncTask {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Async("mySimpleAsync")
+    public Future<ArrayList<Order>> sendQueryOrder(String loginId,String loginToken){
+        QueryInfo queryOrderInfo = new QueryInfo();
+        queryOrderInfo.disableBoughtDateQuery();
+        queryOrderInfo.disableTravelDateQuery();
+        queryOrderInfo.enableStateQuery(new Random().nextInt(3));
+
+        HttpHeaders requestHeadersPreserveOrder = new HttpHeaders();
+        requestHeadersPreserveOrder.add("Cookie","loginId=" + loginId);
+        requestHeadersPreserveOrder.add("Cookie","loginToken=" + loginToken);
+        HttpEntity<CancelOrderInfo> requestEntityQueryOrder = new HttpEntity(queryOrderInfo, requestHeadersPreserveOrder);
+        ResponseEntity rssResponseQueryOrder = restTemplate.exchange(
+                "http://ts-order-service:12031/order/query",
+                HttpMethod.POST, requestEntityQueryOrder, ArrayList.class);
+        ArrayList<Order> queryOrderResult = (ArrayList<Order>) rssResponseQueryOrder.getBody();
+        System.out.println("[查询结果Order数量] " + queryOrderResult.size());
+        return new AsyncResult(queryOrderResult);
+    }
+
+    @Async("mySimpleAsync")
+    public Future<ArrayList<Order>> sendQueryOtherOrder(String loginId,String loginToken){
+        QueryInfo queryOrderInfo = new QueryInfo();
+        queryOrderInfo.disableBoughtDateQuery();
+        queryOrderInfo.disableTravelDateQuery();
+        queryOrderInfo.enableStateQuery(new Random().nextInt(3));
+
+        HttpHeaders requestHeadersPreserveOrder = new HttpHeaders();
+        requestHeadersPreserveOrder.add("Cookie","loginId=" + loginId);
+        requestHeadersPreserveOrder.add("Cookie","loginToken=" + loginToken);
+        HttpEntity<CancelOrderInfo> requestEntityQueryOrder = new HttpEntity(queryOrderInfo, requestHeadersPreserveOrder);
+        ResponseEntity rssResponseQueryOrder = restTemplate.exchange(
+                "http://ts-order-other-service:12032/orderOther/query",
+                HttpMethod.POST, requestEntityQueryOrder, ArrayList.class);
+        ArrayList<Order> queryOrderResult = (ArrayList<Order>) rssResponseQueryOrder.getBody();
+        System.out.println("[查询结果OrderOther数量] " + queryOrderResult.size());
+        return new AsyncResult(queryOrderResult);
+    }
 
     @Async("mySimpleAsync")
     public Future<OrderTicketsResult> sendOrderTicket(String orderId, String loginId, String loginToken){

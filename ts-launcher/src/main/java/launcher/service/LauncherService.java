@@ -5,6 +5,6 @@ package launcher.service;
  */
 public interface LauncherService {
 
-    public void doErrorQueue();
+    public void doErrorQueue(String email,String password);
 
 }

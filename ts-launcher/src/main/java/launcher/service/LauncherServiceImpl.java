@@ -1,10 +1,13 @@
 package launcher.service;
 
+import com.sun.org.apache.regexp.internal.RE;
 import launcher.domain.*;
 import launcher.task.AsyncTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Future;
@@ -21,11 +24,36 @@ public class LauncherServiceImpl implements LauncherService {
     public static int count = 0;
 
     @Override
-    public void doErrorQueue(){
+    public void doErrorQueue(String email,String password){
+        //0.注册
+        RegisterInfo registerInfo = new RegisterInfo(email,password);
+        RegisterResult registerResult = restTemplate.postForObject(
+                "http://ts-register-service:12344/register",
+                registerInfo,RegisterResult.class);
+        System.out.println("[注册结果] " + registerResult.getMessage());
+
+        //0.1 随机多注册一个或者两个用户
+        if(new Random().nextBoolean()){
+            String randomEmailOne = new Random().nextInt(10000000) + "@fudan.edu.cn";
+            RegisterInfo registerInfoExtraOne = new RegisterInfo(randomEmailOne,"passwordpassword");
+            RegisterResult registerResultExtraOne = restTemplate.postForObject(
+                    "http://ts-register-service:12344/register",
+                    registerInfoExtraOne,RegisterResult.class);
+            System.out.println("[随机多注册第1个账户]" + registerResultExtraOne.getMessage());
+            if(new Random().nextBoolean()){
+                String randomEmailTwo = new Random().nextInt(10000000) + "@fudan.edu.cn";
+                RegisterInfo registerInfoExtraTwo = new RegisterInfo(randomEmailTwo,"passwordpassword");
+                RegisterResult registerResultExtraTwo = restTemplate.postForObject(
+                        "http://ts-register-service:12344/register",
+                        registerInfoExtraTwo,RegisterResult.class);
+                System.out.println("[随机多注册第2个账户]" + registerResultExtraTwo.getMessage());
+            }
+        }
+
         //1.登录
         LoginInfo loginInfo = new LoginInfo(
-                "fdse_microservices@163.com",
-                "DefaultPassword",
+                email,
+                password,
                 "abcd");
         LoginResult loginResult = restTemplate.postForObject(
                 "http://ts-login-service:12342/login",
@@ -79,6 +107,19 @@ public class LauncherServiceImpl implements LauncherService {
 //                HttpMethod.POST, requestEntityCancelOrder, CancelOrderResult.class);
 //        CancelOrderResult cancelOrderResult = (CancelOrderResult) rssResponseCancelOrder.getBody();
 //        System.out.println("[退票结果] " + cancelOrderResult.getMessage());
+
+        //4.随机查询两次订单什么的
+        Future<ArrayList<Order>> orderListTask = asyncTask.sendQueryOrder(loginId,loginToken);
+        Future<ArrayList<Order>> orderOtherListTask = asyncTask.sendQueryOtherOrder(loginId,loginToken);
+        for(;;){
+            //等上边俩完了
+            if(orderListTask.isDone() && orderOtherListTask.isDone()){
+                break;
+            }
+        }
+
+
+        //5.最终决定要不要抛出异常
         for(;;){
             if(taskCancelResult.isDone()){
                 if(isFault  == true){

@@ -34,12 +34,12 @@ public class InitData implements CommandLineRunner{
         service.create(info);
 
         info.setId("ZhiDa");
-        info.setConfortClass(30);
+        info.setConfortClass(100);
         info.setEconomyClass(120);
         service.create(info);
 
         info.setId("TeKuai");
-        info.setConfortClass(80);
+        info.setConfortClass(100);
         info.setEconomyClass(200);
         service.create(info);
 

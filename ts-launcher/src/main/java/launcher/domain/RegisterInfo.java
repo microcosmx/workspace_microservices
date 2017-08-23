@@ -1,13 +1,11 @@
 package launcher.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+/**
+ * RegisterInfo:  Container for saving the register information.
+ */
+public class RegisterInfo {
 
-import java.util.UUID;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Account {
-
-    private UUID id;
+    private String email;
 
     private String password;
 
@@ -19,23 +17,25 @@ public class Account {
 
     private String documentNum;
 
-    private String email;
+    private String verificationCode;
 
-    public Account(){
+    public RegisterInfo(){
         gender = Gender.OTHER.getCode();
-        password = "defaultPassword";
         name = "None";
+        password = "defaultPassword";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
-        email = "0123456789";
+        email = "352323";
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public RegisterInfo(String newEmail,String newPassword){
+        email = newEmail;
+        password = newPassword;
+        gender = Gender.MALE.getCode();
+        name = "None";
+        documentType = DocumentType.ID_CARD.getCode();
+        documentNum = "0123456789";
+        verificationCode = "abcd";
     }
 
     public String getPassword() {
@@ -84,5 +84,13 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }
