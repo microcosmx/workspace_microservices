@@ -15,29 +15,29 @@
     </parent>
 
 	<modules>
-		<!--<module>ts-login-service</module>-->
-		<!--<module>ts-register-service</module>-->
-		<!--<module>ts-sso-service</module>-->
-		<!--<module>ts-verification-code-service</module>-->
-		<!--<module>ts-contacts-service</module>-->
-		<!--<module>ts-order-service</module>-->
+		<module>ts-login-service</module>
+		<module>ts-register-service</module>
+		<module>ts-sso-service</module>
+		<module>ts-verification-code-service</module>
+		<module>ts-contacts-service</module>
+		<module>ts-order-service</module>
 		<module>ts-order-other-service</module>
-		<!--<module>ts-config-service</module>-->
-		<!--<module>ts-station-service</module>-->
-		<!--<module>ts-train-service</module>-->
-		<!--<module>ts-travel-service</module>-->
-		<!--<module>ts-travel2-service</module>-->
-		<!--<module>ts-preserve-service</module>-->
-		<!--<module>ts-preserve-other-service</module>-->
-		<!--<module>ts-basic-service</module>-->
-		<!--<module>ts-ticketinfo-service</module>-->
-		<!--<module>ts-price-service</module>-->
-		<!--<module>ts-notification-service</module>-->
-		<!--<module>ts-security-service</module>-->
+		<module>ts-config-service</module>
+		<module>ts-station-service</module>
+		<module>ts-train-service</module>
+		<module>ts-travel-service</module>
+		<module>ts-travel2-service</module>
+		<module>ts-preserve-service</module>
+		<module>ts-preserve-other-service</module>
+		<module>ts-basic-service</module>
+		<module>ts-ticketinfo-service</module>
+		<module>ts-price-service</module>
+		<module>ts-notification-service</module>
+		<module>ts-security-service</module>
 		<module>ts-inside-payment-service</module>
-		<!--<module>ts-execute-service</module>-->
-		<!--<module>ts-payment-service</module>-->
-		<!--<module>ts-rebook-service</module>-->
+		<module>ts-execute-service</module>
+		<module>ts-payment-service</module>
+		<module>ts-rebook-service</module>
 		<module>ts-cancel-service</module>
         <!--<module>1_services_analysis_mvn</module>-->
     </modules>
