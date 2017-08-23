@@ -49,7 +49,7 @@ public class RegisterServiceImpl implements RegisterService {
             System.out.println("[Register Service] Get Price Account.");
             CreateAccountInfo createAccountInfo = new CreateAccountInfo();
             createAccountInfo.setUserId(rr.getAccount().getId().toString());
-            createAccountInfo.setMoney("10000");
+            createAccountInfo.setMoney("0");
             System.out.println("[Register Service] Get Price Account.");
             boolean  createAccountSuccess = restTemplate.postForObject(
                     "http://ts-inside-payment-service:18673/inside_payment/createAccount",
