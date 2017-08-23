@@ -2,10 +2,13 @@ package error.proseqsta;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
@@ -24,8 +27,6 @@ public class TestErrorProSeqSta {
     private List<WebElement> myOrdersList;
     private String trainType;//0--all,1--GaoTie,2--others
     private String orderID; //非高铁票订单号
-    private String username;
-    private String password;
     private String orderStatus; //非高铁票订单状态
 
     public static void login(WebDriver driver,String username,String password){
@@ -36,36 +37,99 @@ public class TestErrorProSeqSta {
         driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
     }
-    //获取指定位数的随机字符串(包含数字,0<length)
-    public static String getRandomString(int length) {
-        //随机字符串的随机字符库
-        String KeyString = "0123456789";
-        StringBuffer sb = new StringBuffer();
-        int len = KeyString.length();
-        for (int i = 0; i < length; i++) {
-            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
-        }
-        return sb.toString();
-    }
+
     @BeforeClass
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://10.141.212.24/";
         trainType = "2";
-        username = "fdse_microservices@163.com";
-        password = "DefaultPassword";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+
+    @DataProvider(name="user")
+    public Object[][] Users(){
+        return new Object[][]{
+                {"fdse301@163.com","DefaultPassword"},
+                {"fdse302@163.com","DefaultPassword"},
+                {"fdse303@163.com","DefaultPassword"},
+                {"fdse304@163.com","DefaultPassword"},
+                {"fdse305@163.com","DefaultPassword"},
+                {"fdse306@163.com","DefaultPassword"},
+                {"fdse307@163.com","DefaultPassword"},
+                {"fdse308@163.com","DefaultPassword"},
+                {"fdse309@163.com","DefaultPassword"},
+                {"fdse310@163.com","DefaultPassword"},
+
+                {"fdse311@163.com","DefaultPassword"},
+                {"fdse312@163.com","DefaultPassword"},
+                {"fdse313@163.com","DefaultPassword"},
+                {"fdse314@163.com","DefaultPassword"},
+                {"fdse315@163.com","DefaultPassword"},
+                {"fdse316@163.com","DefaultPassword"},
+                {"fdse317@163.com","DefaultPassword"},
+                {"fdse318@163.com","DefaultPassword"},
+                {"fdse319@163.com","DefaultPassword"},
+                {"fdse320@163.com","DefaultPassword"},
+
+                {"fdse321@163.com","DefaultPassword"},
+                {"fdse322@163.com","DefaultPassword"},
+                {"fdse323@163.com","DefaultPassword"},
+                {"fdse324@163.com","DefaultPassword"},
+                {"fdse325@163.com","DefaultPassword"},
+                {"fdse326@163.com","DefaultPassword"},
+                {"fdse327@163.com","DefaultPassword"},
+                {"fdse328@163.com","DefaultPassword"},
+                {"fdse329@163.com","DefaultPassword"},
+                {"fdse330@163.com","DefaultPassword"},
+
+        };
+    }
+
+    @Test (dataProvider="user")
+    public void testCancelTickets(String userid,String password) throws Exception{
+        driver.get(baseUrl + "/");
+        userRegister(userid,password);
+        userLogin(userid,password);
+        searchTickets();
+        selectContacts();
+        confirmTicket();
+        payTicket();
+
+        viewOrders();
+        cancelOrder();
+        //get order status
+        getOrderStatus();
+        System.out.println("The status of order "+orderID+" is "+orderStatus);
+        Assert.assertEquals(orderStatus.startsWith("Cancel"),true);
+    }
+
+    /**
+     *注册新用户
+     */
+    public void userRegister(String userid,String password)throws Exception{
+        driver.findElement(By.id("microservice_page")).click();
+        driver.findElement(By.id("register_email")).clear();
+        driver.findElement(By.id("register_email")).sendKeys(userid);
+        driver.findElement(By.id("register_password")).clear();
+        driver.findElement(By.id("register_password")).sendKeys(password);
+
+        driver.findElement(By.id("register_button")).click();
+        Thread.sleep(1000);
+
+        String statusSignUp = driver.findElement(By.id("register_result_msg")).getText();
+        if ("".equals(statusSignUp))
+            System.out.println("Failed,Status of Sign Up btn is NULL!");
+        else
+            System.out.println("Sign Up btn status:"+statusSignUp);
+        Assert.assertEquals(statusSignUp.startsWith("Success"),true);
     }
     /**
      *系统先登录
      */
-    @Test
-    public void testLogin()throws Exception{
-        driver.get(baseUrl + "/");
-
+    public void userLogin(String userid,String password)throws Exception{
         //call function login
-        login(driver,username,password);
+        login(driver,userid,password);
         Thread.sleep(1000);
 
         //get login status
@@ -82,8 +146,8 @@ public class TestErrorProSeqSta {
     /**
      *购买非高铁票，并付款
      */
-    @Test (dependsOnMethods = {"testLogin"})
-    public void testBooking() throws Exception{
+    public void searchTickets() throws Exception{
+        driver.findElement(By.id("flow_one_page")).click();
         //locate booking startingPlace input
         WebElement elementBookingStartingPlace = driver.findElement(By.id("travel_booking_startingPlace"));
         elementBookingStartingPlace.clear();
@@ -135,9 +199,7 @@ public class TestErrorProSeqSta {
             System.out.println("Tickets search failed!!!");
         Assert.assertEquals(ticketsList.size() > 0,true);
     }
-    // @Test(enabled = false)
-    @Test (dependsOnMethods = {"testBooking"})
-    public void testSelectContacts()throws Exception{
+    public void selectContacts()throws Exception{
         List<WebElement> contactsList = driver.findElements(By.xpath("//table[@id='contacts_booking_list_table']/tbody/tr"));
         //Confirm ticket selection
         if (contactsList.size() == 0) {
@@ -150,29 +212,28 @@ public class TestErrorProSeqSta {
         Assert.assertEquals(contactsList.size() > 0,true);
 
         if (contactsList.size() == 1){
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            String contats = "Contacts"+getRandomString(5);
-            String idNumber = getRandomString(8);
-            String phoneNumber = getRandomString(11);
-            js.executeScript("document.getElementByClassName('booking_contacts_name').value='"+contats+"'");
-            js.executeScript("document.getElementByClassName('booking_contacts_documentType').value='ID Card'");
-            js.executeScript("document.getElementByClassName('booking_contacts_documentNumber').value='"+idNumber+"'");
-            js.executeScript("document.getElementByClassName('booking_contacts_phoneNumber').value='"+phoneNumber+"'");
-            contactsList.get(0).findElement(By.xpath("td[7]/label/input")).click();
+            contactsList.get(0).findElement(By.xpath("td[2]/input")).sendKeys("Contacts_Test");
+
+            WebElement elementContactstype = contactsList.get(0).findElement(By.xpath("td[3]/select"));
+            Select selTraintype = new Select(elementContactstype);
+            selTraintype.selectByValue("1"); //ID type:ID Card
+
+            contactsList.get(0).findElement(By.xpath("td[4]/input")).sendKeys("DocumentNumber_Test");
+            contactsList.get(0).findElement(By.xpath("td[5]/input")).sendKeys("ContactsPhoneNum_Test");
+            contactsList.get(0).findElement(By.xpath("td[6]/label/input")).click();
         }
 
         if (contactsList.size() > 1) {
 
             Random rand = new Random();
             int i = rand.nextInt(100) % (contactsList.size() - 1); //int范围类的随机数
-            contactsList.get(i).findElement(By.xpath("td[7]/label/input")).click();
+            contactsList.get(i).findElement(By.xpath("td[6]/label/input")).click();
         }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
         System.out.println("Ticket contacts selected btn is clicked");
         Thread.sleep(1000);
     }
-    @Test (dependsOnMethods = {"testBooking"})
-    public void testTicketConfirm ()throws Exception{
+    public void confirmTicket()throws Exception{
         String itemFrom = driver.findElement(By.id("ticket_confirm_from")).getText();
         String itemTo = driver.findElement(By.id("ticket_confirm_to")).getText();
         String itemTripId = driver.findElement(By.id("ticket_confirm_tripId")).getText();
@@ -201,14 +262,23 @@ public class TestErrorProSeqSta {
         driver.findElement(By.id("ticket_confirm_confirm_btn")).click();
         Thread.sleep(1000);
         System.out.println("Confirm Ticket!");
-        Alert javascriptConfirm = driver.switchTo().alert();
-        String statusAlert = driver.switchTo().alert().getText();
-        System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-        Assert.assertEquals(statusAlert.startsWith("Success"),true);
-        javascriptConfirm.accept();
+
+        Alert javascriptConfirm = null;
+        String statusAlert;
+
+        try {
+            new WebDriverWait(driver, 30).until(ExpectedConditions
+                    .alertIsPresent());
+            javascriptConfirm = driver.switchTo().alert();
+            statusAlert = driver.switchTo().alert().getText();
+            System.out.println("The Alert information of Confirming Ticket："+statusAlert);
+            javascriptConfirm.accept();
+            Assert.assertEquals(statusAlert.startsWith("Success"),true);
+        } catch (NoAlertPresentException NofindAlert) {
+            NofindAlert.printStackTrace();
+        }
     }
-    @Test (dependsOnMethods = {"testTicketConfirm"})
-    public void testTicketPay ()throws Exception {
+    public void payTicket ()throws Exception {
         orderID = driver.findElement(By.id("preserve_pay_orderId")).getAttribute("value");
         String itemPrice = driver.findElement(By.id("preserve_pay_price")).getAttribute("value");
         String itemTripId = driver.findElement(By.id("preserve_pay_tripId")).getAttribute("value");
@@ -228,10 +298,9 @@ public class TestErrorProSeqSta {
     }
 
     /**
-     *查询订单，测试能否cancel
+     *查询订单，测试cancel
      */
-    @Test (dependsOnMethods = {"testLogin","testTicketPay"})
-    public void testViewOrders() throws Exception{
+    public void viewOrders() throws Exception{
         driver.findElement(By.id("flow_two_page")).click();
         driver.findElement(By.id("refresh_my_order_list_button")).click();
         Thread.sleep(1000);
@@ -244,22 +313,20 @@ public class TestErrorProSeqSta {
             System.out.println("Failed to show my orders list，the list size is 0 or No orders in this user!");
         Assert.assertEquals(myOrdersList.size() > 0,true);
     }
-    @Test (dependsOnMethods = {"testViewOrders"})
-    public void testCancelOrder() throws Exception{
+    public void cancelOrder() throws Exception{
         System.out.printf("The orders list size is:%d%n",myOrdersList.size());
-        String myOrderID;
         int i;
         //Find the first not paid order .
         for(i = 0;i < myOrdersList.size();i++) {
             //while(!(statusOrder.startsWith("Not")) && i < myOrdersList.size()) {
             //statusOrder = myOrdersList.get(i).findElement(By.xpath("/div[2]/div/div/form/div[7]/div/label[2]")).getText();
-            myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
+            String myOrderID = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[1]/div/label")).getText();
             //Search the orders paid but not collected
             if(myOrderID.equals(orderID))
                 break;
         }
         if(i == myOrdersList.size() || i > myOrdersList.size())
-            System.out.printf("Failed,can't find the order!");
+            System.out.println("Failed,can't find the order!");
         Assert.assertEquals(i < myOrdersList.size(),true);
 
         orderStatus = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
@@ -269,8 +336,24 @@ public class TestErrorProSeqSta {
         myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[12]/div/button[2]")).click();
         Thread.sleep(1000);
 
+        //String statusCancle = driver.findElement(By.id());
+        //System.out.println("The Alert information of Payment："+statusAlert);
         driver.findElement(By.id("ticket_cancel_panel_confirm")).click();
-        Thread.sleep(10000);
+        Thread.sleep(1000);
+        Alert javascriptConfirm = null;
+        String statusAlert;
+
+        try {
+            new WebDriverWait(driver, 60).until(ExpectedConditions
+                    .alertIsPresent());
+            javascriptConfirm = driver.switchTo().alert();
+            statusAlert = driver.switchTo().alert().getText();
+            System.out.println("The Alert information of Confirming Ticket："+statusAlert);
+            javascriptConfirm.accept();
+            Assert.assertEquals(statusAlert.startsWith("Success"),true);
+        } catch (NoAlertPresentException NofindAlert) {
+            NofindAlert.printStackTrace();
+        }
     }
     /**
      *查询订单，查看取消订单状态
