@@ -1,4 +1,4 @@
-package org.services.analysis;///**
+///**
 // * Created by hh on 2017-07-08.
 // */
 ///**
@@ -40,7 +40,12 @@ public class TraceTranslator {
 //        String path = "./sample/temp-storage/inside-payment.json";
 //        String path = "./sample/processes-seq-status/travel.json";
 //        String path = "./sample/processes-seq-status/preserve.json";
-        String path = "./sample/cross-timeout/paying.json";
+//        String path = "./sample/cross-timeout/paying.json";
+//        String path = "./sample/preserve-other.json";
+//        String path = "./sample/register.json";
+//        String path = "./sample/login.json";
+        String path = "./sample/contacts.json";
+//        String path = "./sample/travel2.json";
 
 //        String destPath = "./output/shiviz-log-error-normal.txt";
 //        String destPath = "./output/shiviz-error-processes-seq.txt";
@@ -55,374 +60,389 @@ public class TraceTranslator {
 //        String destPath = "./output/shiviz-error-report-ui-seq.txt";
 //        String destPath = "./output/shiviz-error-processes-seq-status-travel.txt";
 //        String destPath = "./output/shiviz-error-processes-seq-status-preserve.txt";
-        String destPath = "./output/shiviz-error-paying.txt";
+//        String destPath = "./output/shiviz-error-paying.txt";
+
+//        String destPath = "./output/shiviz-error-preserve-other.txt";
+//        String destPath = "./output/shiviz-error-register.txt";
+//        String destPath = "./output/shiviz-error-login.txt";
+        String destPath = "./output/shiviz-error-contacts.txt";
+//        String destPath = "./output/shiviz-error-travel2.txt";
+
+        List<File> fileLists = getListFiles("./sample/error-normal");
+        Iterator<File> fileIterator = fileLists.iterator();
+
+        while(fileIterator.hasNext()){
+            File file = fileIterator.next();
+            path = file.getPath();
+            String microserviceName = path.substring(path.lastIndexOf("/")+1,path.lastIndexOf("."));
+            int testCaseNumber = 30;
+
+
+            String traceStr = readFile(path);
+
+            JSONArray tracelist = new JSONArray(traceStr);
+
+            List<HashMap<String,String>> logs = new ArrayList<HashMap<String, String>>();
+
+            HashMap<String,String> states = new HashMap<String,String>();
+
+            for (int k = 0; k < tracelist.length(); k++) {
+
+                JSONArray traceobj = tracelist.getJSONArray(k);
+
+                List<HashMap<String, String>> serviceList = new ArrayList<HashMap<String, String>>();
+                String traceId = ((JSONObject) traceobj.get(0)).getString("traceId");
+
+                for (int j = 0; j < traceobj.length(); j++) {
+                    JSONObject spanobj = (JSONObject) traceobj.get(j);
+
+                    // String traceId = spanobj.getString("traceId");
+                    String id = spanobj.getString("id");
+                    String pid = "";
+                    if (spanobj.has("parentId")) {
+                        pid = spanobj.getString("parentId");
+                    }
+                    String name = spanobj.getString("name");
+                    String time = String.valueOf(spanobj.getLong("timestamp"));
+
+                    HashMap<String, String> content = new HashMap<String, String>();
+                    content.put("traceId" , traceId);
+                    content.put("spanid", id);
+                    content.put("parentid", pid);
+                    content.put("spanname", name);
 
 
 
-        String traceStr = readFile(path);
-
-        JSONArray tracelist = new JSONArray(traceStr);
-
-        List<HashMap<String,String>> logs = new ArrayList<HashMap<String, String>>();
-
-        HashMap<String,String> states = new HashMap<String,String>();
-
-        for (int k = 0; k < tracelist.length(); k++) {
-
-            JSONArray traceobj = tracelist.getJSONArray(k);
-
-            List<HashMap<String, String>> serviceList = new ArrayList<HashMap<String, String>>();
-            String traceId = ((JSONObject) traceobj.get(0)).getString("traceId");
-
-            for (int j = 0; j < traceobj.length(); j++) {
-                JSONObject spanobj = (JSONObject) traceobj.get(j);
-
-                // String traceId = spanobj.getString("traceId");
-                String id = spanobj.getString("id");
-                String pid = "";
-                if (spanobj.has("parentId")) {
-                    pid = spanobj.getString("parentId");
-                }
-                String name = spanobj.getString("name");
-                String time = String.valueOf(spanobj.getLong("timestamp"));
-
-                HashMap<String, String> content = new HashMap<String, String>();
-                content.put("traceId" , traceId);
-                content.put("spanid", id);
-                content.put("parentid", pid);
-                content.put("spanname", name);
-
-
-
-                //annotation
-                if(spanobj.has("annotations")) {
-                    JSONArray annotations = spanobj.getJSONArray("annotations");
-                    for (int i = 0; i < annotations.length(); i++) {
-                        JSONObject anno = annotations.getJSONObject(i);
-                        if ("cs".equals(anno.getString("value"))) {
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String service = endpoint.getString("serviceName");
-                            content.put("clientName", service);
-                            String csTime = String.valueOf(anno.getLong("timestamp"));
-                            content.put("csTime", csTime);
-                        }
-                        if ("sr".equals(anno.getString("value"))) {
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String service = endpoint.getString("serviceName");
-                            content.put("serverName", service);
-                            String srTime = String.valueOf(anno.getLong("timestamp"));
-                            content.put("srTime", srTime);
-                        }
-                        if ("ss".equals(anno.getString("value"))) {
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String service = endpoint.getString("serviceName");
-                            content.put("serverName", service);
-                            String ssTime = String.valueOf(anno.getLong("timestamp"));
-                            content.put("ssTime", ssTime);
-                        }
-                        if ("cr".equals(anno.getString("value"))) {
-                            JSONObject endpoint = anno.getJSONObject("endpoint");
-                            String service = endpoint.getString("serviceName");
-                            content.put("clientName", service);
-                            String crTime = String.valueOf(anno.getLong("timestamp"));
-                            content.put("crTime", crTime);
+                    //annotation
+                    if(spanobj.has("annotations")) {
+                        JSONArray annotations = spanobj.getJSONArray("annotations");
+                        for (int i = 0; i < annotations.length(); i++) {
+                            JSONObject anno = annotations.getJSONObject(i);
+                            if ("cs".equals(anno.getString("value"))) {
+                                JSONObject endpoint = anno.getJSONObject("endpoint");
+                                String service = endpoint.getString("serviceName");
+                                content.put("clientName", service);
+                                String csTime = String.valueOf(anno.getLong("timestamp"));
+                                content.put("csTime", csTime);
+                            }
+                            if ("sr".equals(anno.getString("value"))) {
+                                JSONObject endpoint = anno.getJSONObject("endpoint");
+                                String service = endpoint.getString("serviceName");
+                                content.put("serverName", service);
+                                String srTime = String.valueOf(anno.getLong("timestamp"));
+                                content.put("srTime", srTime);
+                            }
+                            if ("ss".equals(anno.getString("value"))) {
+                                JSONObject endpoint = anno.getJSONObject("endpoint");
+                                String service = endpoint.getString("serviceName");
+                                content.put("serverName", service);
+                                String ssTime = String.valueOf(anno.getLong("timestamp"));
+                                content.put("ssTime", ssTime);
+                            }
+                            if ("cr".equals(anno.getString("value"))) {
+                                JSONObject endpoint = anno.getJSONObject("endpoint");
+                                String service = endpoint.getString("serviceName");
+                                content.put("clientName", service);
+                                String crTime = String.valueOf(anno.getLong("timestamp"));
+                                content.put("crTime", crTime);
+                            }
                         }
                     }
-                }
 
 
 
-                //if annotation doesn't exist
-                if(!spanobj.has("annotations")){
-                    content.put("time",time);
-                }
+                    //if annotation doesn't exist
+                    if(!spanobj.has("annotations")){
+                        content.put("time",time);
+                    }
 
 
-                //binaryAnnotation
+                    //binaryAnnotation
 //                if (name.contains("message:")) {
 //                    if ("message:input".equals(name)) {
 //                        content.put("api", content.get("service") + "." + "message_received");
 //                    }
 //                } else {
-                JSONArray binaryAnnotations = spanobj.getJSONArray("binaryAnnotations");
-                for (int i = 0; i < binaryAnnotations.length(); i++) {
-                    JSONObject anno = binaryAnnotations.getJSONObject(i);
-                    if ("error".equals(anno.getString("key"))) {
-                        content.put("error", anno.getString("value"));
-                    }
-                    if ("mvc.controller.class".equals(anno.getString("key"))
-                            && !"BasicErrorController".equals(anno.getString("value"))) {
-                        String classname = anno.getString("value");
-                        content.put("classname", classname);
-                    }
-                    if ("mvc.controller.method".equals(anno.getString("key"))
-                            && !"errorHtml".equals(anno.getString("value"))) {
-                        String methodname = anno.getString("value");
-                        content.put("methodname", methodname);
-                    }
-                    if ("spring.instance_id".equals(anno.getString("key"))) {
-                        String instance_id = anno.getString("value");
-                        JSONObject endpoint = anno.getJSONObject("endpoint");
-                        String ipv4 = endpoint.getString("ipv4");
+                    JSONArray binaryAnnotations = spanobj.getJSONArray("binaryAnnotations");
+                    for (int i = 0; i < binaryAnnotations.length(); i++) {
+                        JSONObject anno = binaryAnnotations.getJSONObject(i);
+                        if ("error".equals(anno.getString("key"))) {
+                            content.put("error", anno.getString("value"));
+                        }
+                        if ("mvc.controller.class".equals(anno.getString("key"))
+                                && !"BasicErrorController".equals(anno.getString("value"))) {
+                            String classname = anno.getString("value");
+                            content.put("classname", classname);
+                        }
+                        if ("mvc.controller.method".equals(anno.getString("key"))
+                                && !"errorHtml".equals(anno.getString("value"))) {
+                            String methodname = anno.getString("value");
+                            content.put("methodname", methodname);
+                        }
+                        if ("spring.instance_id".equals(anno.getString("key"))) {
+                            String instance_id = anno.getString("value");
+                            JSONObject endpoint = anno.getJSONObject("endpoint");
+                            String ipv4 = endpoint.getString("ipv4");
 //                            String port = String.valueOf(endpoint.get("port"));
 
-                        if(content.get("serverName")!=null && instance_id.indexOf(content.get("serverName")) != -1){
-                            String key = content.get("serverName") + ":" + ipv4;
-                            String new_instance_id;
-                            if(states.containsKey(key)){
-                                new_instance_id = content.get("serverName") + ":" + states.get(key);
-                            }else{
-                                new_instance_id = content.get("serverName");
-                            }
+                            if(content.get("serverName")!=null && instance_id.indexOf(content.get("serverName")) != -1){
+                                String key = content.get("serverName") + ":" + ipv4;
+                                String new_instance_id;
+                                if(states.containsKey(key)){
+                                    new_instance_id = content.get("serverName") + ":" + states.get(key);
+                                }else{
+                                    new_instance_id = content.get("serverName");
+                                }
 
-                            content.put("server_instance_id", new_instance_id);
-                        }
-                        if(content.get("clientName")!=null  && instance_id.indexOf(content.get("clientName")) != -1){
-                            String key = content.get("clientName") + ":" + ipv4;
-                            String new_instance_id;
-                            if(states.containsKey(key)){
-                                new_instance_id = content.get("clientName") + ":" + states.get(key);
-                            }else{
-                                new_instance_id = content.get("clientName") ;
+                                content.put("server_instance_id", new_instance_id);
                             }
-                            content.put("client_instance_id", new_instance_id);
+                            if(content.get("clientName")!=null  && instance_id.indexOf(content.get("clientName")) != -1){
+                                String key = content.get("clientName") + ":" + ipv4;
+                                String new_instance_id;
+                                if(states.containsKey(key)){
+                                    new_instance_id = content.get("clientName") + ":" + states.get(key);
+                                }else{
+                                    new_instance_id = content.get("clientName") ;
+                                }
+                                content.put("client_instance_id", new_instance_id);
+                            }
                         }
-                    }
-                    if ("http.method".equals(anno.getString("key"))) {
-                        String httpMethod = anno.getString("value");
-                        content.put("httpMethod", httpMethod);
-                    }
-                    if ("class".equals(anno.getString("key"))) {
-                        String c = anno.getString("value");
-                        content.put("class", c);
-                        JSONObject endpoint = anno.getJSONObject("endpoint");
-                        String ipv4 = endpoint.getString("ipv4");
-                        String port = String.valueOf(endpoint.get("port"));
-                        String serviceName = String.valueOf(endpoint.get("serviceName"));
+                        if ("http.method".equals(anno.getString("key"))) {
+                            String httpMethod = anno.getString("value");
+                            content.put("httpMethod", httpMethod);
+                        }
+                        if ("class".equals(anno.getString("key"))) {
+                            String c = anno.getString("value");
+                            content.put("class", c);
+                            JSONObject endpoint = anno.getJSONObject("endpoint");
+                            String ipv4 = endpoint.getString("ipv4");
+                            String port = String.valueOf(endpoint.get("port"));
+                            String serviceName = String.valueOf(endpoint.get("serviceName"));
 
 //                        String hostId = serviceName + ":" + ipv4 ;
-                        String hostId = serviceName ;
-                        content.put("hostId", hostId);
-                        content.put("serviceName", serviceName);
+                            String hostId = serviceName ;
+                            content.put("hostId", hostId);
+                            content.put("serviceName", serviceName);
 
-                    }
-                    if ("method".equals(anno.getString("key"))) {
-                        String method = anno.getString("value");
-                        content.put("method", method);
-                        JSONObject endpoint = anno.getJSONObject("endpoint");
-                        String ipv4 = endpoint.getString("ipv4");
-                        String port = String.valueOf(endpoint.get("port"));
-                        String serviceName = String.valueOf(endpoint.get("serviceName"));
+                        }
+                        if ("method".equals(anno.getString("key"))) {
+                            String method = anno.getString("value");
+                            content.put("method", method);
+                            JSONObject endpoint = anno.getJSONObject("endpoint");
+                            String ipv4 = endpoint.getString("ipv4");
+                            String port = String.valueOf(endpoint.get("port"));
+                            String serviceName = String.valueOf(endpoint.get("serviceName"));
 
 //                        String hostId = serviceName + ":" + ipv4 ;
-                        String hostId = serviceName ;
-                        content.put("hostId", hostId);
-                        content.put("serviceName", serviceName);
-                    }
-                    if ("controller_state".equals(anno.getString("key"))) {
-                        String state = anno.getString("value");
-                        JSONObject endpoint = anno.getJSONObject("endpoint");
-                        String ipv4 = endpoint.getString("ipv4");
-                        String serviceName = String.valueOf(endpoint.get("serviceName"));
-                        content.put("state",state);
-                        content.put("ipv4State",ipv4);
-                        content.put("serviceNameState",serviceName);
-                        states.put(serviceName +":" + ipv4, state);
-                    }
-
-
-                }
-
-
-
-                if(content.get("serverName") != null && (content.get("classname") != null || content.get("methodname") != null)){
-                    content.put("api",
-                            content.get("serverName") + "." + content.get("classname") + "." + content.get("methodname"));
-                }else if(content.get("hostId") != null && (content.get("class") != null || content.get("method") != null)){
-                    content.put("api",
-                            content.get("hostId") + "." + content.get("class") + "." + content.get("method"));
-                }
-                if (name.contains("message:")) {
-                    if(content.get("serverName") != null){
-                        if ("message:input".equals(name)) {
-                            content.put("api", content.get("serverName") + "." + "message_received");
-                        }else if("message:output".equals(name)){
-                            content.put("api", content.get("serverName") + "." + "message_send");
+                            String hostId = serviceName ;
+                            content.put("hostId", hostId);
+                            content.put("serviceName", serviceName);
                         }
-                    }else if(content.get("clientName") != null){
-                        if ("message:input".equals(name)) {
-                            content.put("api", content.get("clientName") + "." + "message_received");
-                        }else if("message:output".equals(name)){
-                            content.put("api", content.get("clientName") + "." + "message_send");
+                        if ("controller_state".equals(anno.getString("key"))) {
+                            String state = anno.getString("value");
+                            JSONObject endpoint = anno.getJSONObject("endpoint");
+                            String ipv4 = endpoint.getString("ipv4");
+                            String serviceName = String.valueOf(endpoint.get("serviceName"));
+                            content.put("state",state);
+                            content.put("ipv4State",ipv4);
+                            content.put("serviceNameState",serviceName);
+                            states.put(serviceName +":" + ipv4, state);
+                        }
+
+
+                    }
+
+
+
+                    if(content.get("serverName") != null && (content.get("classname") != null || content.get("methodname") != null)){
+                        content.put("api",
+                                content.get("serverName") + "." + content.get("classname") + "." + content.get("methodname"));
+                    }else if(content.get("hostId") != null && (content.get("class") != null || content.get("method") != null)){
+                        content.put("api",
+                                content.get("hostId") + "." + content.get("class") + "." + content.get("method"));
+                    }
+                    if (name.contains("message:")) {
+                        if(content.get("serverName") != null){
+                            if ("message:input".equals(name)) {
+                                content.put("api", content.get("serverName") + "." + "message_received");
+                            }else if("message:output".equals(name)){
+                                content.put("api", content.get("serverName") + "." + "message_send");
+                            }
+                        }else if(content.get("clientName") != null){
+                            if ("message:input".equals(name)) {
+                                content.put("api", content.get("clientName") + "." + "message_received");
+                            }else if("message:output".equals(name)){
+                                content.put("api", content.get("clientName") + "." + "message_send");
+                            }
                         }
                     }
+
+
+                    serviceList.add(content);
                 }
 
 
-                serviceList.add(content);
-            }
 
 
-
-
-            // filter validate service api
+                // filter validate service api
 //            List<HashMap<String, String>> processList = serviceList.stream()
 //                    .filter(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
 //            boolean failed = processList.stream().anyMatch(pl -> pl.containsKey("error"));
 
-            serviceList.forEach(n -> {
+                serviceList.forEach(n -> {
 
-                if(n.get("csTime") != null){
-                    HashMap<String,String> log = new HashMap<String,String>();
-                    log.put("traceId" , n.get("traceId"));
-                    log.put("spanId" , n.get("spanid"));
-                    log.put("parentId" , n.get("parentid"));
-                    log.put("timestamp",n.get("csTime"));
-                    log.put("hostName" , n.get("clientName"));
-                    log.put("host" , n.get("client_instance_id"));
-                    log.put("destName" , n.get("serverName"));
-                    log.put("dest" , n.get("server_instance_id"));
-                    log.put("api", n.get("api"));
-                    log.put("spanname",n.get("spanname"));
-
-                    if(n.get("spanname").contains("message:")){
-                        log.put("event" , n.get("api"));
-                        log.put("queue","queue");
-                    }else{
-                        log.put("event" , "");
-                    }
-
-                    log.put("type", "cs");
-                    if(null != n.get("api")){
+                    if(n.get("csTime") != null){
+                        HashMap<String,String> log = new HashMap<String,String>();
+                        log.put("traceId" , n.get("traceId"));
+                        log.put("spanId" , n.get("spanid"));
+                        log.put("parentId" , n.get("parentid"));
+                        log.put("timestamp",n.get("csTime"));
+                        log.put("hostName" , n.get("clientName"));
+                        log.put("host" , n.get("client_instance_id"));
+                        log.put("destName" , n.get("serverName"));
+                        log.put("dest" , n.get("server_instance_id"));
                         log.put("api", n.get("api"));
-                    }
-                    if(n.containsKey("error")){
-                        log.put("error", n.get("error"));
-                    }
-                    logs.add(log);
-                }
-                if(n.get("srTime") != null){
-                    HashMap<String,String> log = new HashMap<String,String>();
-                    log.put("traceId" , n.get("traceId"));
-                    log.put("spanId" , n.get("spanid"));
-                    log.put("parentId" , n.get("parentid"));
-                    log.put("timestamp",n.get("srTime"));
-                    log.put("hostName" , n.get("serverName"));
-                    log.put("host" , n.get("server_instance_id"));
-                    log.put("srcName" , n.get("clientName"));
-                    log.put("src" , n.get("client_instance_id"));
-                    log.put("api", n.get("api"));
-                    log.put("spanname",n.get("spanname"));
-                    log.put("event", n.get("api"));
-                    log.put("type", "sr");
-                    if(n.containsKey("error")){
-                        log.put("error", n.get("error"));
-                    }
-                    if(n.get("spanname").contains("message:")){
-                        log.put("queue","queue");
-                    }
-                    logs.add(log);
-                }
-                if(n.get("ssTime") != null){
-                    HashMap<String,String> log = new HashMap<String,String>();
-                    log.put("traceId" , n.get("traceId"));
-                    log.put("spanId" , n.get("spanid"));
-                    log.put("parentId" , n.get("parentid"));
-                    log.put("timestamp",n.get("ssTime"));
-                    log.put("hostName" , n.get("serverName"));
-                    log.put("host" , n.get("server_instance_id"));
-                    log.put("destName" , n.get("clientName"));
-                    log.put("dest" , n.get("client_instance_id"));
-                    log.put("api", n.get("api"));
-                    log.put("spanname",n.get("spanname"));
+                        log.put("spanname",n.get("spanname"));
 
-                    log.put("event", n.get("api"));
-                    log.put("type", "ss");
-                    if(n.containsKey("error")){
-                        log.put("error", n.get("error"));
-                    }
-                    if(n.get("spanname").contains("message:")){
-                        log.put("queue","queue");
-                    }
-                    logs.add(log);
-                }
-                if(n.get("crTime") != null){
-                    HashMap<String,String> log = new HashMap<String,String>();
-                    log.put("traceId" , n.get("traceId"));
-                    log.put("spanId" , n.get("spanid"));
-                    log.put("parentId" , n.get("parentid"));
-                    log.put("timestamp",n.get("crTime"));
-                    log.put("hostName" , n.get("clientName"));
-                    log.put("host" , n.get("client_instance_id"));
-                    log.put("srcName" , n.get("serverName"));
-                    log.put("src" , n.get("server_instance_id"));
-                    log.put("api", n.get("api"));
-                    log.put("spanname",n.get("spanname"));
+                        if(n.get("spanname").contains("message:")){
+                            log.put("event" , n.get("api"));
+                            log.put("queue","queue");
+                        }else{
+                            log.put("event" , "");
+                        }
 
-                    if(n.get("spanname").contains("message:")){
-                        log.put("event" , n.get("api"));
-                        log.put("queue","queue");
+                        log.put("type", "cs");
+                        if(null != n.get("api")){
+                            log.put("api", n.get("api"));
+                        }
+                        if(n.containsKey("error")){
+                            log.put("error", n.get("error"));
+                        }
+                        logs.add(log);
+                    }
+                    if(n.get("srTime") != null){
+                        HashMap<String,String> log = new HashMap<String,String>();
+                        log.put("traceId" , n.get("traceId"));
+                        log.put("spanId" , n.get("spanid"));
+                        log.put("parentId" , n.get("parentid"));
+                        log.put("timestamp",n.get("srTime"));
+                        log.put("hostName" , n.get("serverName"));
+                        log.put("host" , n.get("server_instance_id"));
+                        log.put("srcName" , n.get("clientName"));
+                        log.put("src" , n.get("client_instance_id"));
+                        log.put("api", n.get("api"));
+                        log.put("spanname",n.get("spanname"));
+                        log.put("event", n.get("api"));
+                        log.put("type", "sr");
+                        if(n.containsKey("error")){
+                            log.put("error", n.get("error"));
+                        }
+                        if(n.get("spanname").contains("message:")){
+                            log.put("queue","queue");
+                        }
+                        logs.add(log);
+                    }
+                    if(n.get("ssTime") != null){
+                        HashMap<String,String> log = new HashMap<String,String>();
+                        log.put("traceId" , n.get("traceId"));
+                        log.put("spanId" , n.get("spanid"));
+                        log.put("parentId" , n.get("parentid"));
+                        log.put("timestamp",n.get("ssTime"));
+                        log.put("hostName" , n.get("serverName"));
+                        log.put("host" , n.get("server_instance_id"));
+                        log.put("destName" , n.get("clientName"));
+                        log.put("dest" , n.get("client_instance_id"));
+                        log.put("api", n.get("api"));
+                        log.put("spanname",n.get("spanname"));
 
-                    }else{
-                        log.put("event" , "");
+                        log.put("event", n.get("api"));
+                        log.put("type", "ss");
+                        if(n.containsKey("error")){
+                            log.put("error", n.get("error"));
+                        }
+                        if(n.get("spanname").contains("message:")){
+                            log.put("queue","queue");
+                        }
+                        logs.add(log);
+                    }
+                    if(n.get("crTime") != null){
+                        HashMap<String,String> log = new HashMap<String,String>();
+                        log.put("traceId" , n.get("traceId"));
+                        log.put("spanId" , n.get("spanid"));
+                        log.put("parentId" , n.get("parentid"));
+                        log.put("timestamp",n.get("crTime"));
+                        log.put("hostName" , n.get("clientName"));
+                        log.put("host" , n.get("client_instance_id"));
+                        log.put("srcName" , n.get("serverName"));
+                        log.put("src" , n.get("server_instance_id"));
+                        log.put("api", n.get("api"));
+                        log.put("spanname",n.get("spanname"));
+
+                        if(n.get("spanname").contains("message:")){
+                            log.put("event" , n.get("api"));
+                            log.put("queue","queue");
+
+                        }else{
+                            log.put("event" , "");
+                        }
+
+                        log.put("type", "cr");
+                        if(n.containsKey("error")){
+                            log.put("error", n.get("error"));
+                        }
+                        logs.add(log);
+                    }
+                    if(n.get("time") != null){
+                        HashMap<String,String> log = new HashMap<String,String>();
+                        log.put("traceId" , n.get("traceId"));
+                        log.put("spanId" , n.get("spanid"));
+                        log.put("parentId" , n.get("parentid"));
+                        log.put("timestamp",n.get("time"));
+                        log.put("hostName" , n.get("serviceName"));
+                        log.put("host" , n.get("hostId"));
+                        log.put("api", n.get("api"));
+                        log.put("spanname",n.get("spanname"));
+                        log.put("event", n.get("api"));
+                        log.put("type", "async");
+                        if(n.containsKey("error")){
+                            log.put("error", n.get("error"));
+                        }
+                        if(n.get("spanname").contains("message:")){
+                            log.put("queue","queue");
+                        }
+                        logs.add(log);
                     }
 
-                    log.put("type", "cr");
-                    if(n.containsKey("error")){
-                        log.put("error", n.get("error"));
-                    }
-                    logs.add(log);
-                }
-                if(n.get("time") != null){
-                    HashMap<String,String> log = new HashMap<String,String>();
-                    log.put("traceId" , n.get("traceId"));
-                    log.put("spanId" , n.get("spanid"));
-                    log.put("parentId" , n.get("parentid"));
-                    log.put("timestamp",n.get("time"));
-                    log.put("hostName" , n.get("serviceName"));
-                    log.put("host" , n.get("hostId"));
-                    log.put("api", n.get("api"));
-                    log.put("spanname",n.get("spanname"));
-                    log.put("event", n.get("api"));
-                    log.put("type", "async");
-                    if(n.containsKey("error")){
-                        log.put("error", n.get("error"));
-                    }
-                    if(n.get("spanname").contains("message:")){
-                        log.put("queue","queue");
-                    }
-                    logs.add(log);
-                }
 
+                });
 
-            });
-
-        }
+            }
 
 
 
 //        writeFile("./sample/trace-data-shiviz.txt", list);
-        HashMap<String,String> traceIds = new HashMap<String,String>();
-        logs.forEach(n -> {
-            if(!traceIds.containsKey(n.get("traceId"))){
-                traceIds.put(n.get("traceId"),"");
-            }
-        });
+            HashMap<String,String> traceIds = new HashMap<String,String>();
+            logs.forEach(n -> {
+                if(!traceIds.containsKey(n.get("traceId"))){
+                    traceIds.put(n.get("traceId"),"");
+                }
+            });
 
-        List<List<HashMap<String,String>>> list = new ArrayList<List<HashMap<String,String>>>();
-        HashMap<List<HashMap<String,String>>, Boolean> failures = new HashMap<List<HashMap<String,String>>, Boolean>();
-        traceIds.forEach((n,s) -> {
-            List l = logs.stream().filter(elem -> {
-                return n.equals(elem.get("traceId"));
-            }).collect(Collectors.toList());
+            List<List<HashMap<String,String>>> list = new ArrayList<List<HashMap<String,String>>>();
+            HashMap<List<HashMap<String,String>>, Boolean> failures = new HashMap<List<HashMap<String,String>>, Boolean>();
+            traceIds.forEach((n,s) -> {
+                List l = logs.stream().filter(elem -> {
+                    return n.equals(elem.get("traceId"));
+                }).collect(Collectors.toList());
 //            List<HashMap<String,String>> listWithClock = clock(l);
-            List<HashMap<String,String>> listWithClock = clock2(l);
-            boolean failed = listWithClock.stream().anyMatch(pl -> pl.containsKey("error"));
-            failures.put(listWithClock,failed);
-            list.add(listWithClock);
-        });
+                List<HashMap<String,String>> listWithClock = clock2(l);
 
-        //(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
+                boolean failed = listWithClock.stream().anyMatch(pl -> pl.containsKey("error"));
+                failures.put(listWithClock,failed);
+                list.add(listWithClock);
+            });
+
+            //(elem -> !"message:output".equals(elem.get("spanname"))).collect(Collectors.toList());
 //        List<HashMap<String,String>> list = clock(logs);
 //        writeFile("./output/shiviz-log-error-normal.txt", list, failures);
 //        writeFile("./output/shiviz-error-processes-seq.txt", list, failures);
@@ -432,11 +452,91 @@ public class TraceTranslator {
 
 //        writeFile("./output/shiviz-error-queue-seq-multi.txt", list, failures);
 
-        writeFile(destPath, list, failures);
+
+
+            List<List<HashMap<String,String>>> listSorted = sortListByTime(list);
+            listSorted.forEach(n -> {
+                System.out.println("event number:" + n.size());
+            });
+            writeFile(destPath, listSorted, failures, microserviceName, testCaseNumber);
+
+
+        });
+
 
 
 
     }
+
+
+
+    private static ArrayList<File> getListFiles(Object obj) {
+        File directory = null;
+        if (obj instanceof File) {
+            directory = (File) obj;
+        } else {
+            directory = new File(obj.toString());
+        }
+        ArrayList<File> files = new ArrayList<File>();
+        if (directory.isFile()) {
+            files.add(directory);
+            return files;
+        } else if (directory.isDirectory()) {
+            File[] fileArr = directory.listFiles();
+            for (int i = 0; i < fileArr.length; i++) {
+                File fileOne = fileArr[i];
+                files.addAll(getListFiles(fileOne));
+            }
+        }
+        return files;
+    }
+
+    private static List<List<HashMap<String,String>>> sortListByTime(List<List<HashMap<String,String>>> list){
+        List<List<HashMap<String,String>>> result = new ArrayList<List<HashMap<String,String>>>();
+        Iterator<List<HashMap<String,String>>> iterator = list.iterator();
+        List<HashMap<String,String>> logs;
+        HashMap<String, String> log;
+        HashMap<String, String> times = new HashMap<String, String>();
+        HashMap<String, List<HashMap<String,String>>> traceIdAndList = new HashMap<String, List<HashMap<String,String>>>();
+
+        while(iterator.hasNext()){
+            logs = iterator.next();
+
+            log = logs.get(0);
+            String traceId = log.get("traceId");
+            traceIdAndList.put(traceId, logs);
+            for (HashMap<String, String> stringStringHashMap : logs) {
+                if(stringStringHashMap.get("spanId").equals(traceId)){
+                    times.put(stringStringHashMap.get("timestamp"), traceId);
+                    break;
+                }
+            }
+
+//            if(!times.containsKey(traceId)){
+//                for (HashMap<String, String> stringStringHashMap : logs) {
+//                    if(stringStringHashMap.get("parentId").equals(traceId)){
+//                        times.put(stringStringHashMap.get("timestamp"), traceId);
+//                        break;
+//                    }
+//                }
+//            }
+        }
+
+        Long[] timestamps = new Long[times.size()];
+        Iterator<String> iterator1 = times.keySet().iterator();
+        for(int i=0; i< timestamps.length; i++){
+            timestamps[i] = Long.valueOf(iterator1.next());
+        }
+        Arrays.sort(timestamps);
+
+        for(int i=0; i< timestamps.length; i++){
+            String traceId1 = times.get(String.valueOf(timestamps[i]));
+            result.add(traceIdAndList.get(traceId1));
+        }
+
+        return result;
+    }
+
 
     public static HashMap<String,Integer> findSrcClock(List<Clock> allClocks, String traceId, String spanId, String type, String queue, String parentId){
         HashMap<String,Integer> clock = null;
@@ -677,8 +777,8 @@ public class TraceTranslator {
                     }
                 }
 
-                System.out.println("sr1:"+sr1.get("timestamp"));
-                System.out.println("sr2:"+sr2.get("timestamp"));
+//                System.out.println("sr1:"+sr1.get("timestamp"));
+//                System.out.println("sr2:"+sr2.get("timestamp"));
                 Long time1 = Long.valueOf(sr1.get("timestamp"));
                 Long time2 = Long.valueOf(sr2.get("timestamp"));
                 return time1.compareTo(time2);
@@ -994,7 +1094,7 @@ public class TraceTranslator {
             String tempString = null;
             while ((tempString = reader.readLine()) != null) {
                 laststr = laststr + tempString;
-                System.out.println("reading");
+//                System.out.println("reading");
             }
             reader.close();
         } catch (IOException e) {
@@ -1160,14 +1260,21 @@ public class TraceTranslator {
 //        return true;
 //    }
 
-    public static boolean writeFile(String path, List<List<HashMap<String,String>>> logs, HashMap<List<HashMap<String,String>>, Boolean> failures){
+    public static boolean writeFile(String path, List<List<HashMap<String,String>>> logs, HashMap<List<HashMap<String,String>>, Boolean> failures, String microserviceName, int testCaseNumber){
         File writer = new File(path);
         BufferedWriter out = null;
         try{
-            writer.createNewFile(); // 鍒涘缓鏂版枃浠?
+            writer.createNewFile();
             out = new BufferedWriter(new FileWriter(writer));
             int fail = 0;
             int success = 0;
+            int testCase = 0;
+
+            int dividend = logs.size()/testCaseNumber;
+            if(dividend == 0){
+                dividend = 1;
+            }
+            System.out.println("dividend:" + dividend);
 
             Iterator<List<HashMap<String,String>>> iterator1 = logs.iterator();
             while(iterator1.hasNext()){
@@ -1175,9 +1282,9 @@ public class TraceTranslator {
 
                 boolean failed = failures.get(list);
                 if(failed){
-                    out.write("\r\n=== Fail execution " + (fail++) + " ===\r\n");
+                    out.write("\r\n=== " + "TestCase" + ((testCase++)/dividend) + " " + microserviceName + " Fail execution " + (fail++) + " ===\r\n");
                 }else{
-                    out.write("\r\n=== Success execution " + (success++) + " ===\r\n");
+                    out.write("\r\n=== " + "TestCase" + ((testCase++)/dividend) + " " + microserviceName + " Success execution " + (success++) + " ===\r\n");
                 }
 
                 Iterator<HashMap<String,String>> iterator = list.iterator();
