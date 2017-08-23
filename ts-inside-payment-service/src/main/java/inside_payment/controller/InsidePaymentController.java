@@ -22,13 +22,6 @@ public class InsidePaymentController {
 
     @RequestMapping(value="/inside_payment/pay", method = RequestMethod.POST)
     public boolean pay(@RequestBody PaymentInfo info, HttpServletRequest request){
-
-        try{
-			//模拟延迟
-			Thread.sleep(50);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
         System.out.println("[Inside Payment Service][Pay] Pay for:" + info.getOrderId());
         return service.pay(info, request);
     }

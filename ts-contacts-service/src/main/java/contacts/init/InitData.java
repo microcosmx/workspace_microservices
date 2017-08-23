@@ -31,7 +31,7 @@ public class InitData implements CommandLineRunner{
         contacts_Two.setName("Contacts_Two");
         contacts_Two.setDocumentNumber("DocumentNumber_Two");
         contacts_Two.setPhoneNumber("ContactsPhoneNum_Two");
-        contacts_Two.setId(UUID.fromString("aded7dc5-06a7-4503-8e21-b7cad7a1f386"));
+        contacts_Two.setId(UUID.randomUUID());
 
         service.createContacts(contacts_One);
         service.createContacts(contacts_Two);

@@ -17,11 +17,6 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     private OrderOtherRepository orderOtherRepository;
 
     @Override
-    public void initOrder(Order order){
-        orderOtherRepository.save(order);
-    }
-
-    @Override
     public Order findOrderById(UUID id){
         return orderOtherRepository.findById(id);
     }
@@ -37,7 +32,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             cor.setMessage("Order already exist");
             cor.setOrder(null);
         }else{
-            order.setId(order.getId());
+            order.setId(UUID.randomUUID());
             orderOtherRepository.save(order);
             System.out.println("[Order Other Service][Order Create] Success.");
             System.out.println("[Order Other Service][Order Create] Price:" + order.getPrice());
@@ -200,61 +195,35 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public  CalculateSoldTicketResult queryAlreadySoldOrders(CalculateSoldTicketInfo csti){
-        ArrayList<Order> orders = orderOtherRepository.findByTrainNumber(csti.getTrainNumber());
+        ArrayList<Order> orders = orderOtherRepository.findByTravelDateAndTrainNumber(csti.getTravelDate(),csti.getTrainNumber());
         CalculateSoldTicketResult cstr = new CalculateSoldTicketResult();
         cstr.setTravelDate(csti.getTravelDate());
         cstr.setTrainNumber(csti.getTrainNumber());
         System.out.println("[Order Other Service][Calculate Sold Ticket] Get Orders Number:" + orders.size());
         for(Order order : orders){
-            Calendar orderCanlendar = Calendar.getInstance();
-            orderCanlendar.setTime(order.getTravelDate());
-            int orderYear = orderCanlendar.get(Calendar.YEAR);
-            int orderMonth = orderCanlendar.get(Calendar.MONTH);
-            int orderDay = orderCanlendar.get(Calendar.DAY_OF_MONTH);
-
-
-
-            Calendar cstiCalendar = Calendar.getInstance();
-            cstiCalendar.setTime(csti.getTravelDate());
-            int cstiYear = cstiCalendar.get(Calendar.YEAR);
-            int cstiMonth = cstiCalendar.get(Calendar.MONTH);
-            int cstiDay = cstiCalendar.get(Calendar.DAY_OF_MONTH);
-
-
-            System.out.println("[年对比]：" + cstiYear + "-" + orderYear);
-            System.out.println("[月对比]：" + cstiMonth + "-" + orderMonth);
-            System.out.println("[日对比]：" + cstiDay + "-" + orderDay);
-
-            if(cstiYear == orderYear && cstiMonth == orderMonth && cstiDay == orderDay){
-                System.out.println("[Order Other Service] 查出一张本日期的订单：" + csti.getTravelDate().toString());
-                if(order.getStatus() == OrderStatus.CANCEL.getCode() || order.getStatus() == OrderStatus.REFUNDS.getCode()){
-                    continue;
-                }
-                if(order.getSeatClass() == SeatClass.NONE.getCode()){
-                    cstr.setNoSeat(cstr.getNoSeat() + 1);
-                }else if(order.getSeatClass() == SeatClass.BUSINESS.getCode()){
-                    cstr.setBusinessSeat(cstr.getBusinessSeat() + 1);
-                }else if(order.getSeatClass() == SeatClass.FIRSTCLASS.getCode()){
-                    cstr.setFirstClassSeat(cstr.getFirstClassSeat() + 1);
-                }else if(order.getSeatClass() == SeatClass.SECONDCLASS.getCode()){
-                    cstr.setSecondClassSeat(cstr.getSecondClassSeat() + 1);
-                }else if(order.getSeatClass() == SeatClass.HARDSEAT.getCode()){
-                    cstr.setHardSeat(cstr.getHardSeat() + 1);
-                }else if(order.getSeatClass() == SeatClass.SOFTSEAT.getCode()){
-                    cstr.setSoftSeat(cstr.getSoftSeat() + 1);
-                }else if(order.getSeatClass() == SeatClass.HARDBED.getCode()){
-                    cstr.setHardBed(cstr.getHardBed() + 1);
-                }else if(order.getSeatClass() == SeatClass.SOFTBED.getCode()){
-                    cstr.setSoftBed(cstr.getSoftBed() + 1);
-                }else if(order.getSeatClass() == SeatClass.HIGHSOFTBED.getCode()){
-                    cstr.setHighSoftBed(cstr.getHighSoftBed() + 1);
-                }else{
-                    System.out.println("[Order Other Service][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
-                }
-
+            if(order.getStatus() >= OrderStatus.CHANGE.getCode()){
+                continue;
+            }
+            if(order.getSeatClass() == SeatClass.NONE.getCode()){
+                cstr.setNoSeat(cstr.getNoSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.BUSINESS.getCode()){
+                cstr.setBusinessSeat(cstr.getBusinessSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.FIRSTCLASS.getCode()){
+                cstr.setFirstClassSeat(cstr.getFirstClassSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.SECONDCLASS.getCode()){
+                cstr.setSecondClassSeat(cstr.getSecondClassSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.HARDSEAT.getCode()){
+                cstr.setHardSeat(cstr.getHardSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.SOFTSEAT.getCode()){
+                cstr.setSoftSeat(cstr.getSoftSeat() + 1);
+            }else if(order.getSeatClass() == SeatClass.HARDBED.getCode()){
+                cstr.setHardBed(cstr.getHardBed() + 1);
+            }else if(order.getSeatClass() == SeatClass.SOFTBED.getCode()){
+                cstr.setSoftBed(cstr.getSoftBed() + 1);
+            }else if(order.getSeatClass() == SeatClass.HIGHSOFTBED.getCode()){
+                cstr.setHighSoftBed(cstr.getHighSoftBed() + 1);
             }else{
-                System.out.println("[Order Other Service] 不是本日期订单：" + csti.getTravelDate().toString());
-                System.out.println("[Order Other Service] 订单日期：" + order.getTravelDate().toString() + " " + order.getTrainNumber());
+                System.out.println("[Order Other Service][Calculate Sold Tickets] Seat class not exists. Order ID:" + order.getId());
             }
         }
         return cstr;

@@ -33,6 +33,4 @@ public interface OrderOtherService {
     GetOrderInfoForSecurityResult checkSecurityAboutOrder(GetOrderInfoForSecurity info);
 
     DeleteOrderResult deleteOrder(DeleteOrderInfo info);
-
-    void initOrder(Order order);
 }

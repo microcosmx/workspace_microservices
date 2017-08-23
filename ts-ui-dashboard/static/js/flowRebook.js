@@ -84,14 +84,12 @@ function queryForMyOrder(path,data){
                     "<label class='col-sm-2 control-label'>From: </label>" +
                     "<div class='col-sm-10'>" +
                     "<label class='control-label my_order_list_from'>" + fromString + "</label>" +
-                    "<label class='control-label noshow_component my_order_list_from_id'>" + order["from"] + "</label>" +
                     "</div>" +
                     "</div>" +
                     "<div class='div form-group'>" +
                     "<label class='col-sm-2 control-label'>To: </label>" +
                     "<div class='col-sm-10'>" +
                     "<label class='control-label my_order_list_to'>" + toString + "</label>" +
-                    "<label class='control-label noshow_component my_order_list_to_id'>" + order["to"] + "</label>" +
                     "</div>" +
                     "</div>" +
                     "<div class='form-group'>" +
@@ -182,8 +180,8 @@ function addListenerToOrderChange(){
     var ticketChangeButtonSet = $(".order_rebook_btn");
     for(var i = 0;i < ticketChangeButtonSet.length;i++){
         ticketChangeButtonSet[i].onclick = function(){
-            var changeStartingPlaceId = $(this).parents("form").find(".my_order_list_from_id").text();
-            var changeEndPlaceId = $(this).parents("form").find(".my_order_list_to_id").text();
+            var changeStartingPlaceId = $(this).parents("form").find(".my_order_list_from").text();
+            var changeEndPlaceId = $(this).parents("form").find(".my_order_list_to").text();
             var orderStatus = $(this).parents("form").find(".my_order_list_status").text();
             if(orderStatus != 1){
                 alert("Order Can Not Be Changed");

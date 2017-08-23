@@ -18,26 +18,26 @@ public class InitData implements CommandLineRunner {
     OrderService service;
 
     public void run(String... args)throws Exception{
-//        Order order = new Order();
-//        order.setId(UUID.fromString("5ad7750b-a68b-49c0-a8c0-32776b067703"));
-//        order.setBoughtDate(new Date());
-//        order.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
-//        order.setTravelTime(new Date("Mon May 04 09:02:00 GMT+0800 2013"));
-//        order.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
-//        order.setContactsName("Contacts_One");
-//        order.setDocumentType(1);
-//        order.setContactsDocumentNumber("DocumentNumber_One");
-//        order.setTrainNumber("G1237");
-//        order.setCoachNumber(5);
-//        order.setSeatClass(2);
-//        order.setSeatNumber("FirstClass-30");
-//        order.setFrom("nanjing");
-//        order.setTo("shanghaihongqiao");
-//        order.setStatus(0);
-//        order.setPrice("100.0");
-//        service.initOrder(order);
-//
-//
+        Order order = new Order();
+        order.setId(UUID.fromString("5ad7750b-a68b-49c0-a8c0-32776b067703"));
+        order.setBoughtDate(new Date());
+        order.setTravelDate(new Date("Sat Jul 29 00:00:00 GMT+0800 2017"));
+        order.setTravelTime(new Date("Mon May 04 09:02:00 GMT+0800 2013"));
+        order.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+        order.setContactsName("Contacts_One");
+        order.setDocumentType(1);
+        order.setContactsDocumentNumber("DocumentNumber_One");
+        order.setTrainNumber("G1237");
+        order.setCoachNumber(5);
+        order.setSeatClass(2);
+        order.setSeatNumber("FirstClass-30");
+        order.setFrom("nanjing");
+        order.setTo("shanghaihongqiao");
+        order.setStatus(0);
+        order.setPrice("100.0");
+        service.initOrder(order);
+
+
 //        Order orderTwo = new Order();
 //        orderTwo.setId(UUID.fromString("8177ac5a-61ac-42f4-83f4-bd7b394d0531"));
 //        orderTwo.setBoughtDate(new Date());

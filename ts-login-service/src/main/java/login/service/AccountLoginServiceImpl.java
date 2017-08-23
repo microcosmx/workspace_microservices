@@ -4,8 +4,6 @@ import login.domain.LoginInfo;
 import login.domain.LoginResult;
 import login.domain.LogoutInfo;
 import login.domain.LogoutResult;
-import login.queue.GlobalValue;
-import login.queue.MsgSendingBean;
 import login.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -25,12 +23,8 @@ import java.util.UUID;
 @Service
 public class AccountLoginServiceImpl implements AccountLoginService {
 
-
     @Autowired
     private RestTemplate restTemplate;
-
-    @Autowired
-    private MsgSendingBean sendingBean;
 
     //cookie失效时间，秒为单位
     public static final int COOKIE_EXPIRED = 21600;
@@ -58,17 +52,9 @@ public class AccountLoginServiceImpl implements AccountLoginService {
             verifyCodeLr.setMessage("Verification Code Wrong.");
             return verifyCodeLr;
         }
-
-
-
-//        LoginResult lr = restTemplate.postForObject(
-//                "http://ts-sso-service:12349/account/login",
-//                li,LoginResult.class);
-        LoginResult lr = getLoginResult(li);
-
-
-
-
+        LoginResult lr = restTemplate.postForObject(
+                "http://ts-sso-service:12349/account/login",
+                li,LoginResult.class);
         //将cookie放到response中
         System.out.println("[Login Service] Status:" + lr.getStatus());
         if(lr.getStatus() == false){
@@ -91,31 +77,6 @@ public class AccountLoginServiceImpl implements AccountLoginService {
         }
         handleLogOutResponse(request, response);
         return lr;
-    }
-
-    private LoginResult getLoginResult(LoginInfo loginInfo){
-        System.out.println("[SSO Service][Get Login Result]准备发出请求");
-        sendingBean.sendLoginInfoToSso(loginInfo);
-        LoginResult loginResult  = null;
-        for(;;){
-            if(GlobalValue.lr != null){
-                loginResult = GlobalValue.lr;
-                GlobalValue.lr = null;
-                break;
-            }else{
-                try{
-                    Thread.sleep(500);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        System.out.println("[SSO Service][Get Login Result]收到登录结果");
-        return loginResult;
-//        LoginResult lr = restTemplate.postForObject(
-//                "http://ts-sso-service:12349/account/login",
-//                loginInfo,LoginResult.class);
-//        return lr;
     }
 
     private void handleLogOutResponse(HttpServletRequest request,HttpServletResponse response) {

@@ -5,31 +5,8 @@ server:
 spring:
   application:
     name: ts-rebook-service
-  rabbitmq:
-    host: rabbitmq
-    listener:
-      retry:
-        enabled: false
-        max-attempts: 1
-    template:
-      retry:
-        enabled: false
-        max-attempts: 1
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:
     sampler:
       percentage: 1.0
-#  cloud:
-#    stream:
-#      bindings:
-#        output:
-#          group: ts-rebook
-#          destination: ts-rebook-search-travel2-detail-info-queue
-#          contentType: text/plain
-#          binder: rabbit
-#        input:
-#          group: ts-travel2
-#          destination: ts-return-rebook-search-travel2-detail-info-queue
-#          contentType: text/plain
-#          binder: rabbit
