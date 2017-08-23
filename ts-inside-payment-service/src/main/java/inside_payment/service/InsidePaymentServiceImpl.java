@@ -94,7 +94,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 /****这里异步调用第三方支付***/
 //                boolean outsidePaySuccess = restTemplate.postForObject(
 //                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
-                boolean outsidePaySuccess = false;
+                boolean outsidePaySuccess = true;
                 try{
                     System.out.println("[Payment Service][Turn To Outside Patment] Async Task Begin");
                     Future<Boolean> task = asyncTask.sendAsyncCallToPaymentService(outsidePaymentInfo);
@@ -108,8 +108,12 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
                 }catch (Exception e){
                     System.out.println("[Inside Payment][Turn to Outside Payment] 外部服务调用超时.");
                     //e.printStackTrace();
-                    throw new RuntimeException("[Error External Normal]");
+                    outsidePaySuccess = false;
                     //return false;
+                }
+
+                if(outsidePaySuccess == false){
+                    throw new RuntimeException("[Error External Normal]");
                 }
 
 

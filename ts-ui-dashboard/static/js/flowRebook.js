@@ -484,6 +484,12 @@ $("#ticket_rebook_pay_panel_confirm").click(function(){
             alert(result['message']);
             location.hash="anchor_flow_rebook_orders";
             queryMyOrder();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Error");
+        },
+        complete: function(){
+
         }
     });
 
@@ -541,6 +547,12 @@ $("#pay_for_not_paid_pay_button").click(function(){
             }else{
                 alert("Some thing error");
             }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Error");
+        },
+        complete: function(){
+
         }
     });
 });
