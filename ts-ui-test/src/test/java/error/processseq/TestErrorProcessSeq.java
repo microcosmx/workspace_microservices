@@ -48,38 +48,38 @@ public class TestErrorProcessSeq {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse301@163.com","DefaultPassword"},
-                {"fdse302@163.com","DefaultPassword"},
-                {"fdse303@163.com","DefaultPassword"},
-                {"fdse304@163.com","DefaultPassword"},
-                {"fdse305@163.com","DefaultPassword"},
-                {"fdse306@163.com","DefaultPassword"},
-                {"fdse307@163.com","DefaultPassword"},
-                {"fdse308@163.com","DefaultPassword"},
-                {"fdse309@163.com","DefaultPassword"},
-                {"fdse310@163.com","DefaultPassword"},
+                {"fdse101@163.com","DefaultPassword"},
+                {"fdse102@163.com","DefaultPassword"},
+                {"fdse103@163.com","DefaultPassword"},
+                {"fdse104@163.com","DefaultPassword"},
+                {"fdse105@163.com","DefaultPassword"},
+                {"fdse106@163.com","DefaultPassword"},
+                {"fdse107@163.com","DefaultPassword"},
+                {"fdse108@163.com","DefaultPassword"},
+                {"fdse109@163.com","DefaultPassword"},
+                {"fdse110@163.com","DefaultPassword"},
 
-                {"fdse311@163.com","DefaultPassword"},
-                {"fdse312@163.com","DefaultPassword"},
-                {"fdse313@163.com","DefaultPassword"},
-                {"fdse314@163.com","DefaultPassword"},
-                {"fdse315@163.com","DefaultPassword"},
-                {"fdse316@163.com","DefaultPassword"},
-                {"fdse317@163.com","DefaultPassword"},
-                {"fdse318@163.com","DefaultPassword"},
-                {"fdse319@163.com","DefaultPassword"},
-                {"fdse320@163.com","DefaultPassword"},
+                {"fdse111@163.com","DefaultPassword"},
+                {"fdse112@163.com","DefaultPassword"},
+                {"fdse113@163.com","DefaultPassword"},
+                {"fdse114@163.com","DefaultPassword"},
+                {"fdse115@163.com","DefaultPassword"},
+                {"fdse116@163.com","DefaultPassword"},
+                {"fdse117@163.com","DefaultPassword"},
+                {"fdse118@163.com","DefaultPassword"},
+                {"fdse119@163.com","DefaultPassword"},
+                {"fdse120@163.com","DefaultPassword"},
 
-                {"fdse321@163.com","DefaultPassword"},
-                {"fdse322@163.com","DefaultPassword"},
-                {"fdse323@163.com","DefaultPassword"},
-                {"fdse324@163.com","DefaultPassword"},
-                {"fdse325@163.com","DefaultPassword"},
-                {"fdse326@163.com","DefaultPassword"},
-                {"fdse327@163.com","DefaultPassword"},
-                {"fdse328@163.com","DefaultPassword"},
-                {"fdse329@163.com","DefaultPassword"},
-                {"fdse330@163.com","DefaultPassword"},
+                {"fdse121@163.com","DefaultPassword"},
+                {"fdse122@163.com","DefaultPassword"},
+                {"fdse123@163.com","DefaultPassword"},
+                {"fdse124@163.com","DefaultPassword"},
+                {"fdse125@163.com","DefaultPassword"},
+                {"fdse126@163.com","DefaultPassword"},
+                {"fdse127@163.com","DefaultPassword"},
+                {"fdse128@163.com","DefaultPassword"},
+                {"fdse129@163.com","DefaultPassword"},
+                {"fdse130@163.com","DefaultPassword"},
 
         };
     }
@@ -270,8 +270,8 @@ public class TestErrorProcessSeq {
             javascriptConfirm = driver.switchTo().alert();
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-            javascriptConfirm.accept();
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
+            javascriptConfirm.accept();
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
         }
@@ -337,21 +337,7 @@ public class TestErrorProcessSeq {
         //String statusCancle = driver.findElement(By.id());
         //System.out.println("The Alert information of Payment："+statusAlert);
         driver.findElement(By.id("ticket_cancel_panel_confirm")).click();
-        Thread.sleep(1000);
-        Alert javascriptConfirm = null;
-        String statusAlert;
-
-        try {
-            new WebDriverWait(driver, 60).until(ExpectedConditions
-                    .alertIsPresent());
-            javascriptConfirm = driver.switchTo().alert();
-            statusAlert = driver.switchTo().alert().getText();
-            System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-            javascriptConfirm.accept();
-            Assert.assertEquals(statusAlert.startsWith("Success"),true);
-        } catch (NoAlertPresentException NofindAlert) {
-            NofindAlert.printStackTrace();
-        }
+        Thread.sleep(10000);
     }
 
     /**
