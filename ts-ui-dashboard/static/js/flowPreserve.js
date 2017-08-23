@@ -435,6 +435,7 @@ $("#preserve_pay_button").click(function(){
         },
         success: function (result) {
             if(result == "true"){
+                alert("Success");
                 $("#preserve_collect_order_id").val(info.orderId);
                 //alert("Success");
                 location.hash="anchor_flow_preserve_collect";
