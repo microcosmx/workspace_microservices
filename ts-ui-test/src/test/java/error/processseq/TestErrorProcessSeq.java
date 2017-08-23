@@ -97,9 +97,9 @@ public class TestErrorProcessSeq {
         viewOrders();
         cancelOrder();
         //get order status
-        //getOrderStatus();
-        //System.out.println("The status of order "+orderID+" is "+orderStatus);
-        //Assert.assertEquals(orderStatus.startsWith("Cancel"),true);
+        getOrderStatus();
+        System.out.println("The status of order "+orderID+" is "+orderStatus);
+        Assert.assertEquals(orderStatus.startsWith("Cancel"),true);
     }
 
     /**
