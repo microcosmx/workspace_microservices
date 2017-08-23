@@ -42,7 +42,7 @@ public class TestErrorProSeqSta {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = "http://10.141.212.24/";
+        baseUrl = "http://10.141.212.21/";
         trainType = "2";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
@@ -50,9 +50,9 @@ public class TestErrorProSeqSta {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse301@163.com","DefaultPassword"},
-                {"fdse302@163.com","DefaultPassword"},
-                {"fdse303@163.com","DefaultPassword"},
+                {"fdse201@163.com","DefaultPassword"},
+                {"fdse202@163.com","DefaultPassword"},
+                {"fdse203@163.com","DefaultPassword"},
                 {"fdse304@163.com","DefaultPassword"},
                 {"fdse305@163.com","DefaultPassword"},
                 {"fdse306@163.com","DefaultPassword"},
@@ -350,7 +350,7 @@ public class TestErrorProSeqSta {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
-            Assert.assertEquals(statusAlert.startsWith("Success"),true);
+            Assert.assertEquals(statusAlert.startsWith("success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
         }
