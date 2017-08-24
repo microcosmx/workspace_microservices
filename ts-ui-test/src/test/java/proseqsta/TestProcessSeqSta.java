@@ -43,6 +43,17 @@ public class TestProcessSeqSta {
         driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
     }
+    //获取指定位数的随机字符串(包含数字,0<length)
+    public static String getRandomString(int length) {
+        //随机字符串的随机字符库
+        String KeyString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb = new StringBuffer();
+        int len = KeyString.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
+    }
     @BeforeClass
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
@@ -61,38 +72,38 @@ public class TestProcessSeqSta {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse201@163.com","DefaultPassword"},
-                {"fdse202@163.com","DefaultPassword"},
-                {"fdse103@163.com","DefaultPassword"},
-                {"fdse104@163.com","DefaultPassword"},
-                {"fdse105@163.com","DefaultPassword"},
-                {"fdse106@163.com","DefaultPassword"},
-                {"fdse107@163.com","DefaultPassword"},
-                {"fdse108@163.com","DefaultPassword"},
-                {"fdse109@163.com","DefaultPassword"},
-                {"fdse110@163.com","DefaultPassword"},
+                {"fdse401@163.com","DefaultPassword"},
+                {"fdse402@163.com","DefaultPassword"},
+                {"fdse403@163.com","DefaultPassword"},
+                {"fdse404@163.com","DefaultPassword"},
+                {"fdse405@163.com","DefaultPassword"},
+                {"fdse406@163.com","DefaultPassword"},
+                {"fdse407@163.com","DefaultPassword"},
+                {"fdse408@163.com","DefaultPassword"},
+                {"fdse409@163.com","DefaultPassword"},
+                {"fdse410@163.com","DefaultPassword"},
 
-                {"fdse111@163.com","DefaultPassword"},
-                {"fdse112@163.com","DefaultPassword"},
-                {"fdse113@163.com","DefaultPassword"},
-                {"fdse114@163.com","DefaultPassword"},
-                {"fdse115@163.com","DefaultPassword"},
-                {"fdse116@163.com","DefaultPassword"},
-                {"fdse117@163.com","DefaultPassword"},
-                {"fdse118@163.com","DefaultPassword"},
-                {"fdse119@163.com","DefaultPassword"},
-                {"fdse120@163.com","DefaultPassword"},
+                {"fdse411@163.com","DefaultPassword"},
+                {"fdse412@163.com","DefaultPassword"},
+                {"fdse413@163.com","DefaultPassword"},
+                {"fdse414@163.com","DefaultPassword"},
+                {"fdse415@163.com","DefaultPassword"},
+                {"fdse416@163.com","DefaultPassword"},
+                {"fdse417@163.com","DefaultPassword"},
+                {"fdse418@163.com","DefaultPassword"},
+                {"fdse419@163.com","DefaultPassword"},
+                {"fdse420@163.com","DefaultPassword"},
 
-                {"fdse121@163.com","DefaultPassword"},
-                {"fdse122@163.com","DefaultPassword"},
-                {"fdse123@163.com","DefaultPassword"},
-                {"fdse124@163.com","DefaultPassword"},
-                {"fdse125@163.com","DefaultPassword"},
-                {"fdse126@163.com","DefaultPassword"},
-                {"fdse127@163.com","DefaultPassword"},
-                {"fdse128@163.com","DefaultPassword"},
-                {"fdse129@163.com","DefaultPassword"},
-                {"fdse130@163.com","DefaultPassword"},
+                {"fdse421@163.com","DefaultPassword"},
+                {"fdse422@163.com","DefaultPassword"},
+                {"fdse423@163.com","DefaultPassword"},
+                {"fdse424@163.com","DefaultPassword"},
+                {"fdse425@163.com","DefaultPassword"},
+                {"fdse426@163.com","DefaultPassword"},
+                {"fdse427@163.com","DefaultPassword"},
+                {"fdse428@163.com","DefaultPassword"},
+                {"fdse429@163.com","DefaultPassword"},
+                {"fdse430@163.com","DefaultPassword"},
 
         };
     }
@@ -226,24 +237,22 @@ public class TestProcessSeqSta {
             System.out.println("Show Contacts failed!");
         Assert.assertEquals(contactsList.size() > 0,true);
 
-        if (contactsList.size() == 1){
-            contactsList.get(0).findElement(By.xpath("td[2]/input")).sendKeys("Contacts_Test");
+        int contact_i=contactsList.size()-1;
 
-            WebElement elementContactstype = contactsList.get(0).findElement(By.xpath("td[3]/select"));
-            Select selTraintype = new Select(elementContactstype);
-            selTraintype.selectByValue("1"); //ID type:ID Card
+        String contactName = getRandomString(5);
+        String documentType = "1";//ID Card
+        String idNumber = getRandomString(8);
+        String phoneNumber = getRandomString(11);
+        contactsList.get(contact_i).findElement(By.xpath("td[2]/input")).sendKeys(contactName);
 
-            contactsList.get(0).findElement(By.xpath("td[4]/input")).sendKeys("DocumentNumber_Test");
-            contactsList.get(0).findElement(By.xpath("td[5]/input")).sendKeys("ContactsPhoneNum_Test");
-            contactsList.get(0).findElement(By.xpath("td[6]/label/input")).click();
-        }
+        WebElement elementContactstype = contactsList.get(contact_i).findElement(By.xpath("td[3]/select"));
+        Select selTraintype = new Select(elementContactstype);
+        selTraintype.selectByValue(documentType); //ID type
 
-        if (contactsList.size() > 1) {
+        contactsList.get(contact_i).findElement(By.xpath("td[4]/input")).sendKeys(idNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[5]/input")).sendKeys(phoneNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[6]/label/input")).click();
 
-            Random rand = new Random();
-            int i = rand.nextInt(100) % (contactsList.size() - 1); //int范围类的随机数
-            contactsList.get(i).findElement(By.xpath("td[6]/label/input")).click();
-        }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
         System.out.println("Ticket contacts selected btn is clicked");
         Thread.sleep(1000);
