@@ -106,14 +106,16 @@ public class TestProcessSeqSta {
             bookTimes = bookingNumAax+1;
         else {
             Random rand = new Random();
-            bookTimes = 1 + rand.nextInt(10) % 2;
+            bookTimes = 1 + rand.nextInt(10) % 3;
         }
 
         for(int i = 0;i < bookTimes; i++){
             searchTickets();
             selectContacts();
             confirmTicket();
+            Assert.assertEquals(i < bookingNumAax,true);
         }
+
 
     }
 
@@ -273,14 +275,14 @@ public class TestProcessSeqSta {
         Assert.assertEquals(bStatusConfirm,true);
 
         driver.findElement(By.id("ticket_confirm_confirm_btn")).click();
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         System.out.println("Confirm Ticket!");
 
         Alert javascriptConfirm = null;
         String statusAlert;
 
         try {
-            new WebDriverWait(driver, 30).until(ExpectedConditions
+            new WebDriverWait(driver, 40).until(ExpectedConditions
                     .alertIsPresent());
             javascriptConfirm = driver.switchTo().alert();
             statusAlert = driver.switchTo().alert().getText();
@@ -311,10 +313,6 @@ public class TestProcessSeqSta {
         }
 
     }
-    /**
-     *查询订单数量，测试能否成功订到第6张票或者更多
-     */
-    @Test (dependsOnMethods = {"testLogin","booking"})
     public void testViewOrders() throws Exception{
         driver.findElement(By.id("flow_two_page")).click();
         driver.findElement(By.id("refresh_my_order_list_button")).click();
