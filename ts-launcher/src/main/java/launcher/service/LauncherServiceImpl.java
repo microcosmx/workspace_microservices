@@ -1,12 +1,10 @@
 package launcher.service;
 
-import com.sun.org.apache.regexp.internal.RE;
 import launcher.domain.*;
 import launcher.task.AsyncTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;

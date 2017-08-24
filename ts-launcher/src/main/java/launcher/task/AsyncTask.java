@@ -92,7 +92,7 @@ public class AsyncTask {
         HttpHeaders requestHeadersInsidePayment = new HttpHeaders();
         requestHeadersInsidePayment.add("Cookie","loginId=" + loginId);
         requestHeadersInsidePayment.add("Cookie","loginToken=" + loginToken);
-        HttpEntity<PaymentInfo> requestEntityInsidePayment = new HttpEntity(requestHeadersInsidePayment);
+        HttpEntity<PaymentInfo> requestEntityInsidePayment = new HttpEntity(paymentInfo,requestHeadersInsidePayment);
         ResponseEntity rssResponseInsidePayment = restTemplate.exchange(
                 "http://ts-inside-payment-service:18673/inside_payment/pay",
                 HttpMethod.POST,requestEntityInsidePayment, Boolean.class
