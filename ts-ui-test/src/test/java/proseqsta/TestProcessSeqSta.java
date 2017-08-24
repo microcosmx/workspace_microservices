@@ -47,7 +47,7 @@ public class TestProcessSeqSta {
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = "http://10.141.212.24/";
+        baseUrl = "http://10.141.212.23/";
 
         trainType = "1"; //设定票类型为高铁
         bookingNumAax = 5;
@@ -61,8 +61,8 @@ public class TestProcessSeqSta {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse101@163.com","DefaultPassword"},
-                {"fdse102@163.com","DefaultPassword"},
+                {"fdse201@163.com","DefaultPassword"},
+                {"fdse202@163.com","DefaultPassword"},
                 {"fdse103@163.com","DefaultPassword"},
                 {"fdse104@163.com","DefaultPassword"},
                 {"fdse105@163.com","DefaultPassword"},
