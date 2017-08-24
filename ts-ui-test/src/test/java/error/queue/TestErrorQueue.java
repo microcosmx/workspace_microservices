@@ -2,6 +2,7 @@ package error.queue;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.List;
@@ -35,11 +36,11 @@ public class TestErrorQueue {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse301@163.com","DefaultPassword"},
-                {"fdse302@163.com","DefaultPassword"},
-                {"fdse303@163.com","DefaultPassword"},
-                {"fdse304@163.com","DefaultPassword"},
-                {"fdse305@163.com","DefaultPassword"},
+                {"fdse401@163.com","DefaultPassword"},
+                {"fdse402@163.com","DefaultPassword"},
+                {"fdse403@163.com","DefaultPassword"},
+                {"fdse404@163.com","DefaultPassword"},
+                {"fdse405@163.com","DefaultPassword"},
                 {"fdse306@163.com","DefaultPassword"},
                 {"fdse307@163.com","DefaultPassword"},
                 {"fdse308@163.com","DefaultPassword"},
@@ -73,8 +74,10 @@ public class TestErrorQueue {
 
     @Test (dataProvider="user")
     public void testCancelTickets(String userid,String password) throws Exception{
-        baseUrl = "http://10.141.212.24:12898/doErrorQueue/1/"+userid+"/"+password;
-        driver.get(baseUrl + "/");
+        baseUrl = "http://10.141.212.22:12898/doErrorQueue/1/"+userid+"/"+password;
+        driver.get(baseUrl);
+        //String status = driver.findElement(By.xpath("//html/body/text()")).getText();
+        //Assert.assertEquals(status.startsWith("[Do"),true);
     }
 
     @AfterClass
