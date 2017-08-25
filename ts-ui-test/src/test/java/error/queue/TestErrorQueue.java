@@ -8,6 +8,23 @@ import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *错误内容：用来重现连续多次操作速度过快导致的错误问题
+ *正确过程：登录、预定、退票
+ *错误流程：登录、点完预定迅速点退票，预定流程还没跑完就开始退票导致退票出错
+ *触发流程：由于操作起来太麻烦所以我把三个步骤整合在了一个服务里，
+ *        想要触发操作只要访问这个链接即可
+ *        http://10.141.212.24:12898/doErrorQueue
+ *        http://10.141.212.22:12898/doErrorQueue/1/注册邮箱/密码
+ *        访问时，有一定概率是正确流程，有一定概率错误
+ *正确流程，最终日志中会出现【登录完成】，【预定完成】【退票完成】
+ *错误流程会出现【登录完成】【Order Not Found】【预定完成】
+ *测试：设定30个用户名、密码，输入到网址中，测试，收集日志
+ *
+ * Date：2017-8-25
+ * update by zdh
+ */
+
 public class TestErrorQueue {
     private WebDriver driver;
     private String baseUrl;
