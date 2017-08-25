@@ -18,13 +18,21 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 前置条件：按照预定的流程来预订高铁动车的车票，最后预订是点击Confirm Ticket，这里不是，按照操作中描述的来进行点击。
+ *操作：正确：点击Reproduct Confirm Ticket按钮
+ *     错误：先点击Long Connection，再点击Reproduct Confirm Ticket，中间间隔差不多两三秒
+ *结果：正确：正常返回
+ *     错误：TimoutException
+ *
  *测试order service访问Timeout bug：限定订单微服务访问数量限制，当超过一定数量时，访问订单微服务会出现timeout问题。
  *系统初始化状态：order微服务一次访问数量限定为2个。（为方便模拟，设定为2，其他数量同理）
- *测试流程：正常下单两次，但两次confirm时，后台处理存在差异：
- *       correct情况：cifirm后，后台正常处理，能很快的完成order的访问，下单成功，order服务会很快释放。
- *                   此时进行第二次下单，会成功
- *       error情况：cifirm后，后台处理延迟，order微服务会长时间占用，才能下单成功。
- *                 在order被占用的情况下，此时进行第二次下单（需要访问order微服务），则不能完成下单，会抛Timeout，下单失败
+ *测试流程：单次：正常下单，在确认时，以一定概率点击确认的两个按钮。
+ *           correct情况：oder服务有可用数量，confirm后，后台正常处理，能很快的完成order的访问，下单成功。
+ *           error情况：oder服务可用数量不够，confirm后，后台处理等待order延迟，访问不到，出现timeout，下单失败。
+ *        30测试，30个用户，30测试
+ *
+ * Date：2017-8-25
+ * Update by zdh
  */
 public class TestErrorCroTimOutStaCha {
     private WebDriver driver;
@@ -41,6 +49,17 @@ public class TestErrorCroTimOutStaCha {
         driver.findElement(By.id("flow_preserve_login_password")).clear();
         driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
+    }
+    //获取指定位数的随机字符串(包含数字,0<length)
+    public static String getRandomString(int length) {
+        //随机字符串的随机字符库
+        String KeyString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb = new StringBuffer();
+        int len = KeyString.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
     }
     @BeforeClass
     public void setUp() throws Exception {
@@ -162,7 +181,9 @@ public class TestErrorCroTimOutStaCha {
         String bookDate = "";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Calendar newDate = Calendar.getInstance();
-        newDate.add(Calendar.DATE, 20);//定20天以后的
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(25); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
         bookDate=sdf.format(newDate.getTime());
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -214,24 +235,22 @@ public class TestErrorCroTimOutStaCha {
             System.out.println("Show Contacts failed!");
         Assert.assertEquals(contactsList.size() > 0, true);
 
-        if (contactsList.size() == 1) {
-            contactsList.get(0).findElement(By.xpath("td[2]/input")).sendKeys("Contacts_Test");
+        int contact_i=contactsList.size()-1;
 
-            WebElement elementContactstype = contactsList.get(0).findElement(By.xpath("td[3]/select"));
-            Select selTraintype = new Select(elementContactstype);
-            selTraintype.selectByValue("1"); //ID type:ID Card
+        String contactName = getRandomString(5);
+        String documentType = "1";//ID Card
+        String idNumber = getRandomString(8);
+        String phoneNumber = getRandomString(11);
+        contactsList.get(contact_i).findElement(By.xpath("td[2]/input")).sendKeys(contactName);
 
-            contactsList.get(0).findElement(By.xpath("td[4]/input")).sendKeys("DocumentNumber_Test");
-            contactsList.get(0).findElement(By.xpath("td[5]/input")).sendKeys("ContactsPhoneNum_Test");
-            contactsList.get(0).findElement(By.xpath("td[6]/label/input")).click();
-        }
+        WebElement elementContactstype = contactsList.get(contact_i).findElement(By.xpath("td[3]/select"));
+        Select selTraintype = new Select(elementContactstype);
+        selTraintype.selectByValue(documentType); //ID type
 
-        if (contactsList.size() > 1) {
+        contactsList.get(contact_i).findElement(By.xpath("td[4]/input")).sendKeys(idNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[5]/input")).sendKeys(phoneNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[6]/label/input")).click();
 
-            Random rand = new Random();
-            int i = rand.nextInt(100) % (contactsList.size() - 1); //int范围类的随机数
-            contactsList.get(i).findElement(By.xpath("td[6]/label/input")).click();
-        }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
         System.out.println("Ticket contacts selected btn is clicked");
         Thread.sleep(1000);
@@ -282,6 +301,7 @@ public class TestErrorCroTimOutStaCha {
                 //statusAlert = driver.switchTo().alert().getText();
                 //System.out.println("The Alert information of Confirming Ticket："+statusAlert);
                 javascriptConfirm.accept();
+                Thread.sleep(1000);
             } catch (NoAlertPresentException NofindAlert) {
                 NofindAlert.printStackTrace();
             }
@@ -305,6 +325,7 @@ public class TestErrorCroTimOutStaCha {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
