@@ -20,6 +20,10 @@ import java.util.concurrent.TimeUnit;
 /**
  *测试退票bug：退非高铁票时，由于退票操作时，退款进程延迟，导致订单状态已更改为cancel，无法退款，导致退票失败
  *测试流程：先定一张非高铁票，并付款。然后cancel该订单。测试能够成功
+ *        设定30个用户，各自下单，测试
+ *
+ *Date：2017-8-25
+ *Update by zdh
  */
 public class TestErrorProSeqSta {
     private WebDriver driver;
@@ -37,7 +41,17 @@ public class TestErrorProSeqSta {
         driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
     }
-
+    //获取指定位数的随机字符串(包含数字,0<length)
+    public static String getRandomString(int length) {
+        //随机字符串的随机字符库
+        String KeyString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb = new StringBuffer();
+        int len = KeyString.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
+    }
     @BeforeClass
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
@@ -162,7 +176,9 @@ public class TestErrorProSeqSta {
         String bookDate = "";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Calendar newDate = Calendar.getInstance();
-        newDate.add(Calendar.DATE, 20);//定20天以后的
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(26); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
         bookDate=sdf.format(newDate.getTime());
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -211,24 +227,22 @@ public class TestErrorProSeqSta {
             System.out.println("Show Contacts failed!");
         Assert.assertEquals(contactsList.size() > 0,true);
 
-        if (contactsList.size() == 1){
-            contactsList.get(0).findElement(By.xpath("td[2]/input")).sendKeys("Contacts_Test");
+        int contact_i=contactsList.size()-1;
 
-            WebElement elementContactstype = contactsList.get(0).findElement(By.xpath("td[3]/select"));
-            Select selTraintype = new Select(elementContactstype);
-            selTraintype.selectByValue("1"); //ID type:ID Card
+        String contactName = getRandomString(5);
+        String documentType = "1";//ID Card
+        String idNumber = getRandomString(8);
+        String phoneNumber = getRandomString(11);
+        contactsList.get(contact_i).findElement(By.xpath("td[2]/input")).sendKeys(contactName);
 
-            contactsList.get(0).findElement(By.xpath("td[4]/input")).sendKeys("DocumentNumber_Test");
-            contactsList.get(0).findElement(By.xpath("td[5]/input")).sendKeys("ContactsPhoneNum_Test");
-            contactsList.get(0).findElement(By.xpath("td[6]/label/input")).click();
-        }
+        WebElement elementContactstype = contactsList.get(contact_i).findElement(By.xpath("td[3]/select"));
+        Select selTraintype = new Select(elementContactstype);
+        selTraintype.selectByValue(documentType); //ID type
 
-        if (contactsList.size() > 1) {
+        contactsList.get(contact_i).findElement(By.xpath("td[4]/input")).sendKeys(idNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[5]/input")).sendKeys(phoneNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[6]/label/input")).click();
 
-            Random rand = new Random();
-            int i = rand.nextInt(100) % (contactsList.size() - 1); //int范围类的随机数
-            contactsList.get(i).findElement(By.xpath("td[6]/label/input")).click();
-        }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
         System.out.println("Ticket contacts selected btn is clicked");
         Thread.sleep(1000);
@@ -273,6 +287,7 @@ public class TestErrorProSeqSta {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
@@ -350,6 +365,7 @@ public class TestErrorProSeqSta {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
