@@ -26,12 +26,13 @@ import java.util.concurrent.TimeUnit;
 
  *执行过程：
  *第一次订票：联系人是空的，填写并选择联系人
- *第二次订票：联系人有一条了但是不管它，继续填写并选择联系人，注意证件号要写的一样，写的一样
- *第三次订票：联系人有两条了但是不管它，继续填写并选择联系人，注意证件号要写的一样，写的一样
+ *第二次订票：联系人有一条了但是不管它，继续填写并选择联系人，注意证件号ID要写的一样，写的一样
 
- *理论上只有第一次订票应该成功，因为后边两次证件号重复但是人不重复不应该创建成功
- *主要就是要收集这三次操作的日志
+ *理论上只有第一次订票应该成功，因为后边证件号重复但是人不重复不应该创建成功
+ *主要收集这二次操作的日志
  *
+ *测试：正常购票，第一次输入联系人信息，第二次也输入联系人信息，但有一定概率和第一次联系ID重复，
+ *     测试能否下单成功
  */
 public class TestErrorNormal {
     private WebDriver driver;
@@ -180,6 +181,7 @@ public class TestErrorNormal {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
@@ -244,7 +246,9 @@ public class TestErrorNormal {
         String bookDate = "";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Calendar newDate = Calendar.getInstance();
-        newDate.add(Calendar.DATE, 20);//定20天以后的
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(26); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
         bookDate=sdf.format(newDate.getTime());
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
