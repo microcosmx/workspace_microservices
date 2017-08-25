@@ -17,6 +17,22 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 错误说明：
+ *在对订单进行支付，但站内余额不足的时候，会跳转到一个第三方的非java写的服务
+ *正常流程：站内余额不足，调用rest-external-service，这个服务返回true或者false，表示付款通过第三方的服务正常完成
+ *错误流程：站内余额不足，调用rest-external-service，这个服务在规定规定时间内不返回，导致调用超时
+ *触发流程：第三方服务有延迟，有一定的机率超时或者不超时，多试几次就行
+ *正常流程：控制台输出[Inside Payment][Turn to Outside Payment] 外部服务调用正常，页面返回支付成功
+ *错误流程：[Inside Payment][Turn to Outside Payment] 外部服务调用超时，页面返回支付失败
+ *
+ * 测试：设定账户余额为0，购票时，由于余额不足，触发调用第三方支付，有一定概率触发故障
+ *      30个用户，30次测试
+ *
+ *Date：2017-8-25
+ *Update by zdh
+ */
+
 public class TestErrorExtNormal {
     private WebDriver driver;
     private String baseUrl;
@@ -32,6 +48,17 @@ public class TestErrorExtNormal {
         driver.findElement(By.id("flow_preserve_login_password")).clear();
         driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
+    }
+    //获取指定位数的随机字符串(包含数字,0<length)
+    public static String getRandomString(int length) {
+        //随机字符串的随机字符库
+        String KeyString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb = new StringBuffer();
+        int len = KeyString.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
     }
     @BeforeClass
     public void setUp() throws Exception {
@@ -150,7 +177,9 @@ public class TestErrorExtNormal {
         String bookDate = "";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Calendar newDate = Calendar.getInstance();
-        newDate.add(Calendar.DATE, 20);//定20天以后的
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(26); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
         bookDate=sdf.format(newDate.getTime());
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -199,24 +228,22 @@ public class TestErrorExtNormal {
             System.out.println("Show Contacts failed!");
         Assert.assertEquals(contactsList.size() > 0,true);
 
-        if (contactsList.size() == 1){
-            contactsList.get(0).findElement(By.xpath("td[2]/input")).sendKeys("Contacts_Test");
+        int contact_i=contactsList.size()-1;
 
-            WebElement elementContactstype = contactsList.get(0).findElement(By.xpath("td[3]/select"));
-            Select selTraintype = new Select(elementContactstype);
-            selTraintype.selectByValue("1"); //ID type:ID Card
+        String contactName = getRandomString(5);
+        String documentType = "1";//ID Card
+        String idNumber = getRandomString(8);
+        String phoneNumber = getRandomString(11);
+        contactsList.get(contact_i).findElement(By.xpath("td[2]/input")).sendKeys(contactName);
 
-            contactsList.get(0).findElement(By.xpath("td[4]/input")).sendKeys("DocumentNumber_Test");
-            contactsList.get(0).findElement(By.xpath("td[5]/input")).sendKeys("ContactsPhoneNum_Test");
-            contactsList.get(0).findElement(By.xpath("td[6]/label/input")).click();
-        }
+        WebElement elementContactstype = contactsList.get(contact_i).findElement(By.xpath("td[3]/select"));
+        Select selTraintype = new Select(elementContactstype);
+        selTraintype.selectByValue(documentType); //ID type
 
-        if (contactsList.size() > 1) {
+        contactsList.get(contact_i).findElement(By.xpath("td[4]/input")).sendKeys(idNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[5]/input")).sendKeys(phoneNumber);
+        contactsList.get(contact_i).findElement(By.xpath("td[6]/label/input")).click();
 
-            Random rand = new Random();
-            int i = rand.nextInt(100) % (contactsList.size() - 1); //int范围类的随机数
-            contactsList.get(i).findElement(By.xpath("td[6]/label/input")).click();
-        }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
         System.out.println("Ticket contacts selected btn is clicked");
         Thread.sleep(1000);
@@ -248,9 +275,8 @@ public class TestErrorExtNormal {
         Assert.assertEquals(bStatusConfirm,true);
 
         driver.findElement(By.id("ticket_confirm_confirm_btn")).click();
-        Thread.sleep(1000);
-        System.out.println("Confirm Ticket!");
 
+        System.out.println("Confirm Ticket!");
         Alert javascriptConfirm = null;
         String statusAlert;
 
@@ -261,6 +287,7 @@ public class TestErrorExtNormal {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
@@ -291,6 +318,7 @@ public class TestErrorExtNormal {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
