@@ -18,21 +18,19 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- *测试黄牛检测bug：根据黄牛检测，当达到检测上限时，由于订单confirm提交，但还未返回结果前，
- *              此时如果连续下单并提交confirm，就能下单成功，导致黄牛检测失败
- *系统初始化状态：黄牛检测，一个小时内最多下单5次，仅对高铁有效。默认账户下，已成功4次下单。
- *测试流程：连续购买2张高铁票，即第一次提交confirm后，不等返回结果，再次下单。查询订单数量，测试能否成功订到第6张票或者更多
+ *测试黄牛检测bug：根据黄牛检测，当达到检测上限时，订单confirm提交时，黄牛检测失败，订票信息发出，
+ *              但系统最终还会检测一次，此时检测会出错。
+ *              （故障暂仅对定高铁有效）
+ *系统初始化状态：黄牛检测，一个小时内最多下单5次，
+ *测试流程：连续购买随机1-6张高铁票，测试能否购票成功。共设计30个用户，进行测试。
  */
 public class TestProcessSeqSta {
     private WebDriver driver;
     private String baseUrl;
-    private List<WebElement> myOrdersList;
 
     private String trainType;//0--all,1--GaoTie,2--others
-    private String orderID; //高铁票订单号
-    //private String orderID; //高铁票订单号
+
     private int bookingNumAax;
-    private int bookingTimes;
     private double errorRate;
 
     public static void login(WebDriver driver,String username,String password){
@@ -72,38 +70,38 @@ public class TestProcessSeqSta {
     @DataProvider(name="user")
     public Object[][] Users(){
         return new Object[][]{
-                {"fdse401@163.com","DefaultPassword"},
-                {"fdse402@163.com","DefaultPassword"},
-                {"fdse403@163.com","DefaultPassword"},
-                {"fdse404@163.com","DefaultPassword"},
-                {"fdse405@163.com","DefaultPassword"},
-                {"fdse406@163.com","DefaultPassword"},
-                {"fdse407@163.com","DefaultPassword"},
-                {"fdse408@163.com","DefaultPassword"},
-                {"fdse409@163.com","DefaultPassword"},
-                {"fdse410@163.com","DefaultPassword"},
+                {"fdse501@163.com","DefaultPassword"},
+                {"fdse502@163.com","DefaultPassword"},
+                {"fdse503@163.com","DefaultPassword"},
+                {"fdse504@163.com","DefaultPassword"},
+                {"fdse505@163.com","DefaultPassword"},
+                {"fdse506@163.com","DefaultPassword"},
+                {"fdse507@163.com","DefaultPassword"},
+                {"fdse508@163.com","DefaultPassword"},
+                {"fdse509@163.com","DefaultPassword"},
+                {"fdse510@163.com","DefaultPassword"},
 
-                {"fdse411@163.com","DefaultPassword"},
-                {"fdse412@163.com","DefaultPassword"},
-                {"fdse413@163.com","DefaultPassword"},
-                {"fdse414@163.com","DefaultPassword"},
-                {"fdse415@163.com","DefaultPassword"},
-                {"fdse416@163.com","DefaultPassword"},
-                {"fdse417@163.com","DefaultPassword"},
-                {"fdse418@163.com","DefaultPassword"},
-                {"fdse419@163.com","DefaultPassword"},
-                {"fdse420@163.com","DefaultPassword"},
+                {"fdse511@163.com","DefaultPassword"},
+                {"fdse512@163.com","DefaultPassword"},
+                {"fdse513@163.com","DefaultPassword"},
+                {"fdse514@163.com","DefaultPassword"},
+                {"fdse515@163.com","DefaultPassword"},
+                {"fdse516@163.com","DefaultPassword"},
+                {"fdse517@163.com","DefaultPassword"},
+                {"fdse518@163.com","DefaultPassword"},
+                {"fdse519@163.com","DefaultPassword"},
+                {"fdse520@163.com","DefaultPassword"},
 
-                {"fdse421@163.com","DefaultPassword"},
-                {"fdse422@163.com","DefaultPassword"},
-                {"fdse423@163.com","DefaultPassword"},
-                {"fdse424@163.com","DefaultPassword"},
-                {"fdse425@163.com","DefaultPassword"},
-                {"fdse426@163.com","DefaultPassword"},
-                {"fdse427@163.com","DefaultPassword"},
-                {"fdse428@163.com","DefaultPassword"},
-                {"fdse429@163.com","DefaultPassword"},
-                {"fdse430@163.com","DefaultPassword"},
+                {"fdse521@163.com","DefaultPassword"},
+                {"fdse522@163.com","DefaultPassword"},
+                {"fdse523@163.com","DefaultPassword"},
+                {"fdse524@163.com","DefaultPassword"},
+                {"fdse525@163.com","DefaultPassword"},
+                {"fdse526@163.com","DefaultPassword"},
+                {"fdse527@163.com","DefaultPassword"},
+                {"fdse528@163.com","DefaultPassword"},
+                {"fdse529@163.com","DefaultPassword"},
+                {"fdse530@163.com","DefaultPassword"},
 
         };
     }
@@ -124,10 +122,8 @@ public class TestProcessSeqSta {
             searchTickets();
             selectContacts();
             confirmTicket();
-            Assert.assertEquals(i < bookingNumAax,true);
+            //Assert.assertEquals(i < bookingNumAax,true);
         }
-
-
     }
 
     /**
@@ -188,7 +184,9 @@ public class TestProcessSeqSta {
         String bookDate = "";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Calendar newDate = Calendar.getInstance();
-        newDate.add(Calendar.DATE, 20);//定20天以后的
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(25); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
         bookDate=sdf.format(newDate.getTime());
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -297,46 +295,13 @@ public class TestProcessSeqSta {
             statusAlert = driver.switchTo().alert().getText();
             System.out.println("The Alert information of Confirming Ticket："+statusAlert);
             javascriptConfirm.accept();
+            Thread.sleep(1000);
             Assert.assertEquals(statusAlert.startsWith("Success"),true);
         } catch (NoAlertPresentException NofindAlert) {
             NofindAlert.printStackTrace();
         }
     }
 
-    public void testAlertConfirm() throws Exception{
-        Alert javascriptConfirm = null;
-        String statusAlert;
-        int i=0;
-        while (i++ < bookingTimes){
-            try {
-                new WebDriverWait(driver, 60).until(ExpectedConditions
-                        .alertIsPresent());
-                javascriptConfirm = driver.switchTo().alert();
-                statusAlert = driver.switchTo().alert().getText();
-                System.out.println("The Alert information of Confirming Ticket："+statusAlert);
-                javascriptConfirm.accept();
-                Assert.assertEquals(statusAlert.startsWith("Success"),true);
-            } catch (NoAlertPresentException NofindAlert) {
-                NofindAlert.printStackTrace();
-            }
-        }
-
-    }
-    public void testViewOrders() throws Exception{
-        driver.findElement(By.id("flow_two_page")).click();
-        driver.findElement(By.id("refresh_my_order_list_button")).click();
-        Thread.sleep(1000);
-        //gain my oeders
-        myOrdersList = driver.findElements(By.xpath("//div[@id='my_orders_result']/div"));
-        if (myOrdersList.size() > 0) {
-            System.out.printf("Success to show my orders list，the list size is:%d%n",myOrdersList.size());
-        }
-        else if(myOrdersList.size() > bookingNumAax)
-            System.out.printf("success to test the max order numbers，the list size is:%d%n",myOrdersList.size());
-        else
-            System.out.println("Failed to show my orders list，the list size is 0 or No orders in this user!");
-        Assert.assertEquals(myOrdersList.size() > bookingNumAax,true);
-    }
     @AfterClass
     public void tearDown() throws Exception {
         driver.quit();
