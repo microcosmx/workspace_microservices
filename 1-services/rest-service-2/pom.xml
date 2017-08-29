@@ -31,10 +31,11 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         
-        <!-- <dependency>
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-quartz</artifactId>
-		</dependency> -->
+			<version>2.0.0.BUILD-SNAPSHOT</version>
+		</dependency>
         
     </dependencies>
 
