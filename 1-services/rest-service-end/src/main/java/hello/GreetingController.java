@@ -47,4 +47,13 @@ public class GreetingController {
         log.info(value.toString());
         return value;
     }
+    
+    @RequestMapping("/test")
+    public String test(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
+    	// log.info(cal);
+
+    	double cal2 = Math.abs(Double.valueOf(cal)-50); 
+    	
+        return String.valueOf(cal2);
+    }
 }
