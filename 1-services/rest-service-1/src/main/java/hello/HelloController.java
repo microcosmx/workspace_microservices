@@ -33,30 +33,30 @@ public class HelloController {
 		double rand = Math.random();
 		Value value = new Value();
 
-		// ListenableFuture<ResponseEntity<String>> future =
-		// asyncRestTemplate.getForEntity("http://rest-service-end:16000/test?cal="+cal2,
-		// String.class);
-		// try {
-		// //waits for the result
-		// ResponseEntity<String> entity = future.get();
-		// //prints body source code for the given URL
-		// System.out.println(entity.getBody());
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// } catch (ExecutionException e) {
-		// e.printStackTrace();
-		// }
+		ListenableFuture<ResponseEntity<String>> future = asyncRestTemplate
+				.getForEntity("http://rest-service-end:16000/test?cal=" + cal2, String.class);
+		try {
+			// waits for the result
+			ResponseEntity<String> entity = future.get();
+			// prints body source code for the given URL
+			System.out.println(entity.getBody());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 
 		if (rand < 0.3) {
-			// value =
-			// restTemplate.getForObject("http://rest-service-external:16100/greeting?cal="+cal2,
-			// Value.class);
+			value = restTemplate.getForObject("http://rest-service-external:16100/greeting?cal=" + cal2, Value.class);
 		} else if (rand >= 0.3 && rand < 0.6) {
-			String result = restTemplate.getForObject("http://rest-service-python:16101/test?cal="+cal2, String.class);
+			String result = restTemplate.getForObject("http://rest-service-python:16101/test?cal=" + cal2,
+					String.class);
 			log.info("---------: " + result);
-			value.setContent(result.length()>0);
+			value.setContent(result.length() > 0);
 		} else {
-
+			String result = restTemplate.getForObject("http://rest-service-go:16102/test?cal=" + cal2, String.class);
+			log.info("---------: " + result);
+			value.setContent(result.length() > 0);
 		}
 
 		log.info(value.toString());

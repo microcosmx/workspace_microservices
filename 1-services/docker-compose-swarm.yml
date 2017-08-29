@@ -171,6 +171,20 @@ services:
     networks:
       - my-network
 
+  rest-service-python:
+    build: rest-service-python
+    # image: my-service-cluster/rest-service-python
+    image: 10.141.212.25:5555/rest-service-python
+    restart: always
+    ports:
+      - 16101:16101
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
+
 
 networks:
   my-network:

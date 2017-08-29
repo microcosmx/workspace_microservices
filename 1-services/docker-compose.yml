@@ -172,13 +172,27 @@ services:
   #     - my-network
 
 
-  rest-service-python:
-    build: rest-service-python
-    image: my-service-cluster/rest-service-python
-    # image: 10.141.212.25:5555/rest-service-python
+  # rest-service-python:
+  #   build: rest-service-python
+  #   image: my-service-cluster/rest-service-python
+  #   # image: 10.141.212.25:5555/rest-service-python
+  #   restart: always
+  #   ports:
+  #     - 16101:16101
+  #   deploy:
+  #     replicas: 3
+  #     restart_policy:
+  #       condition: on-failure
+  #   networks:
+  #     - my-network
+
+  rest-service-go:
+    build: rest-service-go
+    image: my-service-cluster/rest-service-go
+    # image: 10.141.212.25:5555/rest-service-go
     restart: always
     ports:
-      - 16101:16101
+      - 16102:16102
     deploy:
       replicas: 3
       restart_policy:
