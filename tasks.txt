@@ -5,8 +5,9 @@
 冀超: 
 SSL性能故障，在分支"ts-error-ssl"中实现，参考"error-ssl"
 docker配置故障，在分支"ts-error-docker-JVM"中实现，参考"error-docker-config"
-徐琛杰: 登录用户验证出错（将token存到redis），在分支"ts-error-redis"中实现，参考实现"1-error-temp-storage-status"
-周代宏: 某种顺序错误导致的故障，在分支"ts-error-reportui"中实现，参考"1-error-reportui-seq-status"
+周代宏: 
+某种顺序错误导致的故障，在分支"ts-error-reportui"中实现，参考"1-error-reportui-seq-status"
+登录用户验证出错（将token存到redis），在分支"ts-error-redis"中实现，参考实现"1-error-temp-storage-status"
 
 
 
