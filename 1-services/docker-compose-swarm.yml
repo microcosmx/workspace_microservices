@@ -185,6 +185,20 @@ services:
     networks:
       - my-network
 
+  rest-service-go:
+    build: rest-service-go
+    image: my-service-cluster/rest-service-go
+    # image: 10.141.212.25:5555/rest-service-go
+    restart: always
+    ports:
+      - 16102:16102
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
+
 
 networks:
   my-network:
