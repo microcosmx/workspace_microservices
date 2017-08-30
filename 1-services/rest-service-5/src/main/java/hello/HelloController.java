@@ -29,4 +29,14 @@ public class HelloController {
         log.info(value.toString());
 		return value;
     }
+    
+    
+    @RequestMapping("/monitor")
+    public String monitor(@RequestParam(value="cal", defaultValue="50") String cal) {
+
+        double cal2 = Math.abs(Double.valueOf(cal)+3)/1.03; 
+        log.info(String.valueOf(cal2));
+        
+		return String.valueOf(cal2);
+    }
 }
