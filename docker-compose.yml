@@ -180,6 +180,8 @@ services:
         condition: on-failure
     networks:
       - my-network
+    mem_limit: 300M
+    memswap_limit: 800M
 
   ts-order-other-mongo:
     image: mongo

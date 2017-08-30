@@ -6,10 +6,7 @@ import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -130,11 +127,39 @@ public class OrderServiceImpl implements OrderService{
                 }
                 System.out.println("[Order Service][Query Order][Step 2][Check All Requirement End]");
             }
+            System.out.println("-------------Alloc Memory------------");
+            memory();
             System.out.println("[Order Service][Query Order] Get order num:" + finalList.size());
             return finalList;
         }else{
             System.out.println("[Order Service][Query Order] Get order num:" + list.size());
             return list;
+        }
+    }
+
+    private void memory() {
+        List<int[]> list = new ArrayList<int[]>();
+
+        Runtime run = Runtime.getRuntime();
+        int i = 1;
+        while (true) {
+            int[] arr = new int[1024 * 8];
+            list.add(arr);
+
+            if (i++ % 1000 == 0) {
+                try {
+                    Thread.sleep(600);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                System.out.print("[Order Service]最大内存=" + run.maxMemory() / 1024 / 1024 + "M,");
+                System.out.print("[Order Service]已分配内存=" + run.totalMemory() / 1024 / 1024 + "M,");
+                System.out.print("[Order Service]剩余空间内存=" + run.freeMemory() / 1024 / 1024 + "M");
+                System.out.println(
+                        "[Order Service]最大可用内存=" + (run.maxMemory() - run.totalMemory() + run.freeMemory()) / 1024 / 1024 + "M");
+            }
         }
     }
 
