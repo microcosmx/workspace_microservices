@@ -1,17 +1,23 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class TestFlowTwoRebook {
     private WebDriver driver;
     private String baseUrl;
+    private String trainType;//0--all,1--GaoTie,2--others
     private List<WebElement> myOrdersList;
     private List<WebElement> changeTicketsSearchList;
     public static void login(WebDriver driver,String username,String password){
@@ -27,6 +33,7 @@ public class TestFlowTwoRebook {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://10.141.212.24/";
+        trainType = "1";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     @Test
@@ -77,8 +84,6 @@ public class TestFlowTwoRebook {
             statusOrder = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
             if(statusOrder.startsWith("Paid"))
                 break;
-            else
-                i++;
         }
         if(i == myOrdersList.size() || i > myOrdersList.size())
             System.out.printf("Failed,there is no paid order!");
@@ -96,12 +101,20 @@ public class TestFlowTwoRebook {
             System.out.println("Step-Change Your Order,The input is null!!");
         Assert.assertEquals(bchangeStatus,true);
 
+        String bookDate = "";
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Calendar newDate = Calendar.getInstance();
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(25); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
+        bookDate=sdf.format(newDate.getTime());
+
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementById('travel_rebook_date').value='2017-08-31'");
+        js.executeScript("document.getElementById('travel_rebook_date').value='"+bookDate+"'");
 
         WebElement elementRebookTraintype = driver.findElement(By.id("search_rebook_train_type"));
         Select selTraintype = new Select(elementRebookTraintype);
-        selTraintype.selectByValue("1"); //All
+        selTraintype.selectByValue("trainType"); //All
 
         driver.findElement(By.id("travel_rebook_button")).click();
         Thread.sleep(1000);
@@ -169,11 +182,22 @@ public class TestFlowTwoRebook {
 
             driver.findElement(By.id("ticket_rebook_pay_panel_confirm")).click();
             Thread.sleep(1000);
-            Alert javascriptPay = driver.switchTo().alert();
-            String statusPayAlert = driver.switchTo().alert().getText();
-            System.out.println("Rebook payment status:"+statusPayAlert);
-            Assert.assertEquals(statusPayAlert.startsWith("Success"), true);
-            javascriptPay.accept();
+
+            Alert javascriptPay = null;
+            String statusPayAlert;
+
+            try {
+                new WebDriverWait(driver, 30).until(ExpectedConditions
+                        .alertIsPresent());
+                javascriptPay = driver.switchTo().alert();
+                statusPayAlert = driver.switchTo().alert().getText();
+                System.out.println("Rebook payment status:"+statusPayAlert);
+                javascriptPay.accept();
+                Thread.sleep(1000);
+                Assert.assertEquals(statusPayAlert.startsWith("Success"),true);
+            } catch (NoAlertPresentException NofindAlert) {
+                NofindAlert.printStackTrace();
+            }
         }
         else
             System.out.println("Failed,Rebook status:" + statusAlert);

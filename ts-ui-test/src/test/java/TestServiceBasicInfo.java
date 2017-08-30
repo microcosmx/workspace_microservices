@@ -8,7 +8,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class TestServiceBasicInfo {
@@ -39,7 +42,16 @@ public class TestServiceBasicInfo {
         js.executeScript("document.getElementById('basic_information_startingPlace').value='Shang Hai'");
         js.executeScript("document.getElementById('basic_information_endPlace').value='Tai Yuan'");
 
-        js.executeScript("document.getElementById('basic_information_departureTime').value='2017-08-20'");
+        String bookDate = "";
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Calendar newDate = Calendar.getInstance();
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(25); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
+        bookDate=sdf.format(newDate.getTime());
+
+        js.executeScript("document.getElementById('basic_information_departureTime').value='"+bookDate+"'");
+
         driver.findElement(By.id("basic_information_button")).click();
         Thread.sleep(1000);
 
