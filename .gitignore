@@ -1,6 +1,5 @@
 .idea
 *.jar
 *.original
-*.jar
-*.lst
 *.iml
+*.lst

@@ -21,31 +21,19 @@ public class HelloController {
     private RestbackService restbackService;
 
     @RequestMapping("/hello3")
-    public Value hello3(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
+    public String hello3(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
 
-        double cal2 = Math.pow(Double.valueOf(cal), 2)/100; 
+        double cal2 = Math.abs(Double.valueOf(cal)); 
         log.info(String.valueOf(cal2));
 
-        Value value2 = restTemplate.getForObject("http://rest-service-2:16002/hello2?cal="+cal, Value.class);
-        Value value1 = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal="+cal, Value.class);
-        
-        
-    	Value value = null;
-        if(cal2 < 80){
-            value = restTemplate.getForObject("http://rest-service-2:16002/hello2?cal="+cal2, Value.class);
+        String value = null;
+        if(cal2 < 60){
+            value = restTemplate.getForObject("http://rest-service-2:16002/hello2?cal="+cal2, String.class);
         }else if(cal2 < 100){
-        	long start = System.currentTimeMillis();
-    		try {
-    			Future<Boolean> rest_callback = restbackService.callbackResult(cal2);
-    		} catch (InterruptedException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    		log.info("Elapsed time: " + (System.currentTimeMillis() - start));
-            value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal="+cal2, Value.class);
+        	value = restTemplate.getForObject("http://rest-service-1:16001/hello1?cal="+cal2, String.class);
         }else{
         	// throw new Exception("unexpected input scope");
-            value = restTemplate.getForObject("http://rest-service-end:16000/greeting?cal="+cal2, Value.class);
+            value = restTemplate.getForObject("http://rest-service-end:16000/greeting?cal="+cal2, String.class);
         }
         
 		log.info(value.toString());
