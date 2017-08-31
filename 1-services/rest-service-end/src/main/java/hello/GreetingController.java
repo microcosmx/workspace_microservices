@@ -26,13 +26,13 @@ public class GreetingController {
     	double cal2 = Math.abs(Double.valueOf(cal)-50); 
     	log.info(String.valueOf(cal2));
     	
-    	//inside_payment.async messaging
-    	log.info("message 1");
-    	sendingBean.sayHello("message 1:" + cal2);
-    	log.info("message 2");
-    	sendingBean.sayHello("message 2:" + cal2*2);
-    	log.info("message 3");
-    	sendingBean.sayHello("message 3:" + cal2*3);
+    	//async messaging
+//    	log.info("message 1");
+//    	sendingBean.sayHello("message 1:" + cal2);
+//    	log.info("message 2");
+//    	sendingBean.sayHello("message 2:" + cal2*2);
+//    	log.info("message 3");
+//    	sendingBean.sayHello("message 3:" + cal2*3);
         
     	Greeting value = null;
         if(cal2 < 6){
@@ -46,14 +46,5 @@ public class GreetingController {
         log.info("--------service end-----------");
         log.info(value.toString());
         return value;
-    }
-    
-    @RequestMapping("/test")
-    public String test(@RequestParam(value="cal", defaultValue="50") String cal) throws Exception {
-    	// log.info(cal);
-
-    	double cal2 = Math.abs(Double.valueOf(cal)-50); 
-    	
-        return String.valueOf(cal2);
     }
 }

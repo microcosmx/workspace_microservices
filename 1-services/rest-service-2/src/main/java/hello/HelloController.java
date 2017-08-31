@@ -24,7 +24,7 @@ public class HelloController {
         log.info(String.valueOf(cal2));
         
     	Value value = restTemplate.getForObject(
-				"http://rest-service-1:16001/hello1?cal="+cal2, Value.class);
+				"https://rest-service-1:16001/hello1?cal="+cal2, Value.class);
         
 		log.info(value.toString());
 		return value;
