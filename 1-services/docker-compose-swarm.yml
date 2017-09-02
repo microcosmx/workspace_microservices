@@ -2,7 +2,6 @@ version: '3'
 services:
 
 
-
   rest-service-dashboard:
     build: dashboard_x
     # image: my-service-cluster/rest-service-dashboard
@@ -17,6 +16,16 @@ services:
     networks:
       - my-network
 
+  # mysql:
+  #   image: mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #   networks:
+  #     - my-network
 
   mongodb:
     image: mongo
