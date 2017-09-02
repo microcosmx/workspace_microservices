@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestFlowOne {
     private WebDriver driver;
+    private String trainType;//0--all,1--GaoTie,2--others
     private String baseUrl;
     public static void login(WebDriver driver,String username,String password){
         driver.findElement(By.id("flow_one_page")).click();
@@ -25,11 +28,23 @@ public class TestFlowOne {
         driver.findElement(By.id("flow_preserve_login_password")).sendKeys(password);
         driver.findElement(By.id("flow_preserve_login_button")).click();
     }
+    //获取指定位数的随机字符串(包含数字,0<length)
+    public static String getRandomString(int length) {
+        //随机字符串的随机字符库
+        String KeyString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb = new StringBuffer();
+        int len = KeyString.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(KeyString.charAt((int) Math.round(Math.random() * (len - 1))));
+        }
+        return sb.toString();
+    }
     @BeforeClass
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:/Program/chromedriver_win32/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://10.141.212.24/";
+        trainType = "1";//all
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     @Test
@@ -69,13 +84,22 @@ public class TestFlowOne {
         elementBookingTerminalPlace.sendKeys("Tai Yuan");
 
         //locate booking Date input
+        String bookDate = "";
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Calendar newDate = Calendar.getInstance();
+        Random randDate = new Random();
+        int randomDate = randDate.nextInt(26); //int范围类的随机数
+        newDate.add(Calendar.DATE, randomDate+5);//随机定5-30天后的票
+        bookDate=sdf.format(newDate.getTime());
+
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementById('travel_booking_date').value='2017-08-31'");
+        js.executeScript("document.getElementById('travel_booking_date').value='"+bookDate+"'");
+
 
         //locate Train Type input
         WebElement elementBookingTraintype = driver.findElement(By.id("search_select_train_type"));
         Select selTraintype = new Select(elementBookingTraintype);
-        selTraintype.selectByValue("1"); //ALL
+        selTraintype.selectByValue("trainType"); //ALL
 
         //locate Train search button
         WebElement elementBookingSearchBtn = driver.findElement(By.id("travel_booking_button"));
@@ -118,19 +142,25 @@ public class TestFlowOne {
         Assert.assertEquals(contactsList.size() > 0,true);
 
         if (contactsList.size() == 1){
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("document.getElementByClassName('booking_contacts_name').value='Contacts_Test'");
-            js.executeScript("document.getElementByClassName('booking_contacts_documentType').value='ID Card'");
-            js.executeScript("document.getElementByClassName('booking_contacts_documentNumber').value='DocumentNumber_Test'");
-            js.executeScript("document.getElementByClassName('booking_contacts_phoneNumber').value='ContactsPhoneNum_Test'");
-            contactsList.get(0).findElement(By.xpath("td[7]/label/input")).click();
+            String contactName = getRandomString(5);
+            String documentType = "1";//ID Card
+            String idNumber = getRandomString(8);
+            String phoneNumber = getRandomString(11);
+            contactsList.get(0).findElement(By.xpath("td[2]/input")).sendKeys(contactName);
+
+            WebElement elementContactstype = contactsList.get(0).findElement(By.xpath("td[3]/select"));
+            Select selTraintype = new Select(elementContactstype);
+            selTraintype.selectByValue(documentType); //ID type
+
+            contactsList.get(0).findElement(By.xpath("td[4]/input")).sendKeys(idNumber);
+            contactsList.get(0).findElement(By.xpath("td[5]/input")).sendKeys(phoneNumber);
+            contactsList.get(0).findElement(By.xpath("td[6]/label/input")).click();
         }
 
         if (contactsList.size() > 1) {
-
             Random rand = new Random();
             int i = rand.nextInt(100) % (contactsList.size() - 1); //int范围类的随机数
-            contactsList.get(i).findElement(By.xpath("td[7]/label/input")).click();
+            contactsList.get(i).findElement(By.xpath("td[6]/label/input")).click();
         }
         driver.findElement(By.id("ticket_select_contacts_confirm_btn")).click();
         System.out.println("Ticket contacts selected btn is clicked");

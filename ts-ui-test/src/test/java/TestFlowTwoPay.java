@@ -78,8 +78,6 @@ public class TestFlowTwoPay {
             statusOrder = myOrdersList.get(i).findElement(By.xpath("div[2]//form[@role='form']/div[7]/div/label[2]")).getText();
             if(statusOrder.startsWith("Not"))
                 break;
-            else
-                i++;
         }
         if(i == myOrdersList.size() || i > myOrdersList.size())
             System.out.printf("Failed,there is no not paid order!");
