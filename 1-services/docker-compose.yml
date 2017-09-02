@@ -17,6 +17,19 @@ services:
       - my-network
 
 
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
+
+
+
   mongodb:
     image: mongo
     ports:
