@@ -133,6 +133,8 @@ public class OrderOtherServiceImpl implements OrderOtherService{
             return finalList;
         }else{
             System.out.println("[Order Other Service][Query Order] Get order num:" + list.size());
+            System.out.println("-------------Alloc Memory------------");
+            memory();
             return list;
         }
     }

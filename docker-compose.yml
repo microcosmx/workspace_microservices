@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
 
 
@@ -7,10 +7,10 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -27,10 +27,10 @@ services:
     image: openzipkin/zipkin
     ports:
       - 9411:9411
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -38,10 +38,10 @@ services:
     image: redis
     ports:
       - 6379:6379
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
   
@@ -52,10 +52,10 @@ services:
     restart: always
     ports:
       - 80:8080
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -65,19 +65,19 @@ services:
     restart: always
     ports:
       - 12342:12342
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-account-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -87,10 +87,10 @@ services:
     restart: always
     ports:
       - 12344:12344
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -101,10 +101,10 @@ services:
     restart: always
     ports:
       - 12349:12349
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -116,10 +116,10 @@ services:
     restart: always
     ports:
       - 15678:15678
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -129,19 +129,19 @@ services:
     restart: always
     ports:
       - 12347:12347
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-contacts-mongo:
       image: mongo
-      deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure
+#      deploy:
+#        replicas: 1
+#        restart_policy:
+#          condition: on-failure
       networks:
         - my-network
 
@@ -151,19 +151,19 @@ services:
     restart: always
     ports:
       - 12031:12031
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-order-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -174,21 +174,21 @@ services:
     restart: always
     ports:
       - 12032:12032
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
-    mem_limit: 300M
-    memswap_limit: 800M
+    mem_limit: 200M
+#    memswap_limit: 800M
 
   ts-order-other-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -199,19 +199,19 @@ services:
     restart: always
     ports:
       - 15679:15679
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-config-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -221,19 +221,19 @@ services:
     restart: always
     ports:
       - 12345:12345
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-station-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -243,19 +243,19 @@ services:
     restart: always
     ports:
       - 14567:14567
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-train-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -265,19 +265,19 @@ services:
     restart: always
     ports:
       - 12346:12346
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
   ts-travel-mongo:
     image: mongo
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -287,19 +287,19 @@ services:
       restart: always
       ports:
         - 16346:16346
-      deploy:
-        replicas: 3
-        restart_policy:
-          condition: on-failure
+#      deploy:
+#        replicas: 3
+#        restart_policy:
+#          condition: on-failure
       networks:
         - my-network
 
   ts-travel2-mongo:
       image: mongo
-      deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure
+#      deploy:
+#        replicas: 1
+#        restart_policy:
+#          condition: on-failure
       networks:
         - my-network
 
@@ -309,10 +309,10 @@ services:
     restart: always
     ports:
       - 14568:14568
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -322,10 +322,10 @@ services:
     restart: always
     ports:
       - 14569:14569
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
     networks:
       - my-network
 
@@ -336,10 +336,10 @@ services:
       restart: always
       ports:
         - 15680:15680
-      deploy:
-        replicas: 3
-        restart_policy:
-          condition: on-failure
+#      deploy:
+#        replicas: 3
+#        restart_policy:
+#          condition: on-failure
       networks:
           - my-network
 
@@ -349,10 +349,10 @@ services:
         restart: always
         ports:
           - 15681:15681
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -362,19 +362,19 @@ services:
         restart: always
         ports:
           - 16579:16579
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
   ts-price-mongo:
         image: mongo
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 1
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -384,10 +384,10 @@ services:
         restart: always
         ports:
           - 17853:17853
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -397,19 +397,19 @@ services:
         restart: always
         ports:
           - 11188:11188
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
   ts-security-mongo:
         image: mongo
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 1
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -419,19 +419,19 @@ services:
         restart: always
         ports:
           - 18673:18673
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
   ts-inside-payment-mongo:
         image: mongo
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 1
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -441,10 +441,10 @@ services:
         restart: always
         ports:
           - 12386:12386
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -454,19 +454,19 @@ services:
         restart: always
         ports:
           - 19001:19001
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
   ts-payment-mongo:
         image: mongo
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 1
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -476,19 +476,19 @@ services:
         restart: always
         ports:
           - 18886:18886
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
   ts-rebook-mongo:
         image: mongo
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 1
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 
@@ -498,10 +498,10 @@ services:
         restart: always
         ports:
           - 18885:18885
-        deploy:
-          replicas: 3
-          restart_policy:
-            condition: on-failure
+#        deploy:
+#          replicas: 3
+#          restart_policy:
+#            condition: on-failure
         networks:
           - my-network
 

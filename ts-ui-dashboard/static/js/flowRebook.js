@@ -39,11 +39,13 @@ function queryMyOrder(){
     myOrdersQueryInfo.boughtDateEnd = null;
     var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
     $("#my_orders_result").html("");
-    queryForMyOrder("/order/query",myOrdersQueryData);
     queryForMyOrder("/orderOther/query",myOrdersQueryData);
+    queryForMyOrder("/order/query",myOrdersQueryData);
+
 }
 
 function queryForMyOrder(path,data){
+    alert("Path:" + path);
     $.ajax({
         type: "post",
         url: path,
@@ -163,6 +165,12 @@ function queryForMyOrder(path,data){
             addListenerToOrderCancel();
             addListenerToOrderChange();
             addListenerToPayOrderButton();
+        },
+        error: function () {
+            
+        },
+        complete: function () {
+
         }
     });
 }
