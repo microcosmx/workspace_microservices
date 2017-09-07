@@ -10,3 +10,12 @@ docker配置故障，在分支"ts-error-docker-JVM"中实现，参考"error-dock
 登录用户验证出错（将token存到redis），在分支"ts-error-redis"中实现，参考实现"1-error-temp-storage-status"
 
 
+
+9.11 - 9.15:
+冀超：
+同一微服务多个实例，故障代码排查修改
+李文海：
+登录用户验证出错（将token存到redis），在分支"ts-error-redis"中实现，参考实现"1-error-temp-storage-status"
+丁丹：
+某种顺序错误导致的故障，在分支"ts-error-reportui"中实现，参考"1-error-reportui-seq-status"
+

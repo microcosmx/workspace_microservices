@@ -3,6 +3,10 @@ package com.lightbend.akka.sample;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.lightbend.akka.sample.Greeter.*;
+import com.lightbend.akka.sample.Printer.Greeting;
+import com.lightbend.akka.sample.Printer.Greeting2;
+import akka.routing.Broadcast;
+import akka.routing.RoundRobinPool;
 
 import java.io.IOException;
 
@@ -11,6 +15,8 @@ public class AkkaQuickstart {
     final ActorSystem system = ActorSystem.create("helloakka");
     try {
       //#create-actors
+//      final ActorRef printerActor = 
+//        system.actorOf(Printer.props().withRouter(RoundRobinPool(6)), "printerActor");
       final ActorRef printerActor = 
         system.actorOf(Printer.props(), "printerActor");
       final ActorRef howdyGreeter = 
@@ -33,6 +39,13 @@ public class AkkaQuickstart {
 
       goodDayGreeter.tell(new WhoToGreet("Play"), ActorRef.noSender());
       goodDayGreeter.tell(new Greet(), ActorRef.noSender());
+      
+      printerActor.tell(new Greeting("111111"), ActorRef.noSender());
+      printerActor.tell(new Greeting("222222"), ActorRef.noSender());
+      printerActor.tell(new Greeting("333333"), ActorRef.noSender());
+      printerActor.tell(new Greeting2("444444"), ActorRef.noSender());
+      printerActor.tell(new Greeting2("555555"), ActorRef.noSender());
+      printerActor.tell(new Greeting2("666666"), ActorRef.noSender());
       //#main-send-messages
 
       System.out.println(">>> Press ENTER to exit <<<");
