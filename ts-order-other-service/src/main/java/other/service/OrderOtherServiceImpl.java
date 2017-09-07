@@ -76,6 +76,9 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public ArrayList<Order> queryOrders(QueryInfo qi,String accountId){
+
+        memory();
+
         //1.Get all orders of the user
         ArrayList<Order> list = orderOtherRepository.findByAccountId(UUID.fromString(accountId));
         System.out.println("[Order Other Service][Query Order][Step 1] Get Orders Number of Account:" + list.size());
@@ -127,14 +130,14 @@ public class OrderOtherServiceImpl implements OrderOtherService{
                 }
                 System.out.println("[Order Other Service][Query Order][Step 2][Check All Requirement End]");
             }
-            System.out.println("-------------Alloc Memory------------");
-            memory();
+            //System.out.println("-------------Alloc Memory------------");
+            //memory();
             System.out.println("[Order Other Service][Query Order] Get order num:" + finalList.size());
             return finalList;
         }else{
             System.out.println("[Order Other Service][Query Order] Get order num:" + list.size());
             System.out.println("-------------Alloc Memory------------");
-            memory();
+
             return list;
         }
     }

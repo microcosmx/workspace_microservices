@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import login.service.AccountLoginService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AccountLoginController {
@@ -15,11 +17,13 @@ public class AccountLoginController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
+        //memory();
         return "Welcome to [ Accounts Login Service ] !";
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public LoginResult login(@RequestBody LoginInfo li, @CookieValue String YsbCaptcha,  HttpServletResponse response){
+//        memory();
         if(YsbCaptcha == null || YsbCaptcha.length() == 0 ||
                 li.getEmail() == null || li.getEmail().length() == 0 ||
                 li.getPassword() == null || li.getPassword().length() == 0 ||
@@ -33,7 +37,38 @@ public class AccountLoginController {
         }
         System.out.println("[Login Service][Login] Verification Code:" + li.getVerificationCode() +
                 " VerifyCookie:" + YsbCaptcha);
+
+
+
+
         return accountService.login(li,YsbCaptcha, response);
+    }
+
+
+    private void memory() {
+        List<int[]> list = new ArrayList<int[]>();
+
+        Runtime run = Runtime.getRuntime();
+        int i = 1;
+        while (true) {
+            int[] arr = new int[1024 * 8];
+            list.add(arr);
+
+            if (i++ % 1000 == 0) {
+                try {
+                    Thread.sleep(600);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                System.out.print("[Order Service]最大内存=" + run.maxMemory() / 1024 / 1024 + "M,");
+                System.out.print("[Order Service]已分配内存=" + run.totalMemory() / 1024 / 1024 + "M,");
+                System.out.print("[Order Service]剩余空间内存=" + run.freeMemory() / 1024 / 1024 + "M");
+                System.out.println(
+                        "[Order Service]最大可用内存=" + (run.maxMemory() - run.totalMemory() + run.freeMemory()) / 1024 / 1024 + "M");
+            }
+        }
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
