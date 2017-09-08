@@ -7,7 +7,7 @@
 	<artifactId>elasticsearch</artifactId>
 	<version>0.1.0</version>
 
-	<name>es_sample_1</name>
+	<name>elasticsearch</name>
 
 	<properties>
 		<java.version>1.8</java.version>
