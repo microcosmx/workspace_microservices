@@ -14,6 +14,7 @@ public class SparkSample {
 	static final Logger logger = LogManager.getLogger(Logger.class.getName());
 
 	public static void main(String[] args) throws IOException {
+		System.out.println("========================");
 
 	}
 
