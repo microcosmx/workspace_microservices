@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.myproject</groupId>
-	<artifactId>es_sample</artifactId>
+	<artifactId>elasticsearch</artifactId>
 	<version>0.1.0</version>
 
 	<name>es_sample_1</name>
@@ -31,33 +31,7 @@
 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-									<mainClass>org.es.sample.DocSample</mainClass>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-eclipse-plugin</artifactId> 
-				<configuration> <additionalConfig> <file> <name>.project</name> <location>project.xml</location> 
-				</file> </additionalConfig> </configuration> </plugin> -->
-		</plugins>
-	</build>
+	
 
 
 </project>
