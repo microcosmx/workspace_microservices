@@ -39,6 +39,8 @@
 		<module>ts-payment-service</module>
 		<module>ts-rebook-service</module>
 		<module>ts-cancel-service</module>
+        <module>ts-example-service</module>
+        <module>ts-example-second-service</module>
         <!--<module>1_services_analysis_mvn</module>-->
     </modules>
 

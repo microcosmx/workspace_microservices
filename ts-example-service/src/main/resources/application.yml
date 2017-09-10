@@ -1,0 +1,11 @@
+server:
+  port: 12388
+
+spring:
+  application:
+    name: ts-example-service
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
