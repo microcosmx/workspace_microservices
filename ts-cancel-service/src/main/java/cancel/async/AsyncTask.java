@@ -29,7 +29,7 @@ public class AsyncTask {
         Thread.sleep(2000);
 
         System.out.println("[Cancel Order Service][Change Order Status] Getting....");
-        ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
+        ChangeOrderResult result = restTemplate.postForObject("https://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
         return new AsyncResult<>(result);
     }
 
@@ -40,7 +40,7 @@ public class AsyncTask {
         GetOrderByIdInfo getOrderInfo = new GetOrderByIdInfo();
         getOrderInfo.setOrderId(orderId);
         GetOrderResult cor = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/orderOther/getById/"
+                "https://ts-order-other-service:12032/orderOther/getById/"
                 ,getOrderInfo,GetOrderResult.class);
         Order order = cor.getOrder();
         if(order.getStatus() == OrderStatus.NOTPAID.getCode()
@@ -50,7 +50,7 @@ public class AsyncTask {
             DrawBackInfo info = new DrawBackInfo();
             info.setMoney(money);
             info.setUserId(userId);
-            String result = restTemplate.postForObject("http://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
+            String result = restTemplate.postForObject("https://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
             if(result.equals("true")){
                 return new AsyncResult<>(true);
             }else{

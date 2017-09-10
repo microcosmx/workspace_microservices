@@ -136,7 +136,7 @@ public class OrderOtherController {
     private VerifyResult verifySsoLogin(String loginToken){
         System.out.println("[Order Other Service][Verify Login] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
-                "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,
+                "https://ts-sso-service:12349/verifyLoginToken/" + loginToken,
                 VerifyResult.class);
         return tokenResult;
     }

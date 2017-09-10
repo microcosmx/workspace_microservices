@@ -8,13 +8,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
-import travel.domain.Information;
-import travel.service.TravelService;
-import travel.service.TravelServiceImpl;
 
 /**
  * Created by Chenjie Xu on 2017/5/9.
  */
+
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync

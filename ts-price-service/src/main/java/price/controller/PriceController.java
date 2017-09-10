@@ -10,7 +10,6 @@ import price.domain.DeleteInfo;
 import price.domain.QueryInfo;
 import price.domain.ResultPrice;
 import price.service.PriceService;
-
 import java.util.List;
 
 /**

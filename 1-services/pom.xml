@@ -31,7 +31,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
             <version>1.2.2.BUILD-SNAPSHOT</version>
-            <scope>system</scope>  
+            <scope>system</scope>
             <systemPath>${project.basedir}/../dependencies/spring-cloud-sleuth-zipkin-1.2.2.BUILD-SNAPSHOT.jar</systemPath>
         </dependency>  -->
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import price.domain.*;
 import price.repository.DistanceRepository;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,7 +34,7 @@ public class PriceServiceImpl implements PriceService{
     public String query(QueryInfo info){
         System.out.println("[Price Service] From:" + info.getStartingPlaceId() + " To:" + info.getEndPlaceId());
         Distance distance = repository.findByPlaceAAndPlaceB(info.getStartingPlaceId(),info.getEndPlaceId());
-        String priceRate = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+        String priceRate = restTemplate.postForObject("https://ts-config-service:15679/config/query",
                 new QueryConfig(info.getTrainTypeId() + "_" + info.getSeatClass()+ "_priceRate"), String.class
         );
         System.out.println("[Price Service][Query] Price Rate:" + priceRate);
@@ -49,7 +48,7 @@ public class PriceServiceImpl implements PriceService{
         List<ResultPrice> prices = new ArrayList<ResultPrice>();
         Iterator<Distance> iterator = distances.iterator();
 //        List<TrainType> trainTypes = restTemplate.getForObject("http://ts-train-service:14567/train/query", List.class);
-        List<LinkedHashMap> trainTypes = restTemplate.getForObject("http://ts-train-service:14567/train/query", List.class);
+        List<LinkedHashMap> trainTypes = restTemplate.getForObject("https://ts-train-service:14567/train/query", List.class);
 
         while(iterator.hasNext()){
             Distance distance = iterator.next();
@@ -60,7 +59,7 @@ public class PriceServiceImpl implements PriceService{
                 Iterator<Map.Entry> iterator1= type.entrySet().iterator();
                 Map.Entry entry = iterator1.next();
 
-                String priceRateConfort = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+                String priceRateConfort = restTemplate.postForObject("https://ts-config-service:15679/config/query",
                         new QueryConfig((String)entry.getValue() + "_confortClass_priceRate"), String.class
                 );
                 ResultPrice priceConfort = new ResultPrice();
@@ -71,7 +70,7 @@ public class PriceServiceImpl implements PriceService{
                 priceConfort.setPrice(price(distance,priceRateConfort));
                 prices.add(priceConfort);
 
-                String priceRateEconomy = restTemplate.postForObject("http://ts-config-service:15679/config/query",
+                String priceRateEconomy = restTemplate.postForObject("https://ts-config-service:15679/config/query",
                         new QueryConfig((String)entry.getValue() + "_economyClass_priceRate"), String.class
                 );
                 ResultPrice priceEconomy = new ResultPrice();

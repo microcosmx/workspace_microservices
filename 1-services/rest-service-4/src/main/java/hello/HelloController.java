@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class HelloController {
     
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+
     @Autowired
 	private RestTemplate restTemplate;
 

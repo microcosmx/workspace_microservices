@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import security.domain.*;
 import security.repository.SecurityRepository;
-
-import java.security.Security;
 import java.util.Date;
 import java.util.UUID;
 
@@ -119,7 +117,7 @@ public class SecurityServiceImpl implements SecurityService{
     private GetOrderInfoForSecurityResult getSecurityOrderInfoFromOrder(GetOrderInfoForSecurity info){
         System.out.println("[Security Service][Get Order Info For Security] Getting....");
         GetOrderInfoForSecurityResult result = restTemplate.postForObject(
-                "http://ts-order-service:12031/getOrderInfoForSecurity",info,
+                "https://ts-order-service:12031/getOrderInfoForSecurity",info,
                 GetOrderInfoForSecurityResult.class);
         System.out.println("[Security Service][Get Order Info For Security] Last One Hour:" + result.getOrderNumInLastOneHour()
         + " Total Valid Order:" + result.getOrderNumOfValidOrder());
@@ -129,7 +127,7 @@ public class SecurityServiceImpl implements SecurityService{
     private GetOrderInfoForSecurityResult getSecurityOrderOtherInfoFromOrder(GetOrderInfoForSecurity info){
         System.out.println("[Security Service][Get Order Other Info For Security] Getting....");
         GetOrderInfoForSecurityResult result = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/getOrderOtherInfoForSecurity",info,
+                "https://ts-order-other-service:12032/getOrderOtherInfoForSecurity",info,
                 GetOrderInfoForSecurityResult.class);
         System.out.println("[Security Service][Get Order Other Info For Security] Last One Hour:" + result.getOrderNumInLastOneHour()
                 + " Total Valid Order:" + result.getOrderNumOfValidOrder());

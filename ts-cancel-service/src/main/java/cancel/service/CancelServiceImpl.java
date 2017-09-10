@@ -292,13 +292,13 @@ public class CancelServiceImpl implements CancelService{
 
     private ChangeOrderResult cancelFromOrder(ChangeOrderInfo info){
         System.out.println("[Cancel Order Service][Change Order Status] Changing....");
-        ChangeOrderResult result = restTemplate.postForObject("http://ts-order-service:12031/order/update",info,ChangeOrderResult.class);
+        ChangeOrderResult result = restTemplate.postForObject("https://ts-order-service:12031/order/update",info,ChangeOrderResult.class);
         return result;
     }
 
     private ChangeOrderResult cancelFromOtherOrder(ChangeOrderInfo info){
         System.out.println("[Cancel Order Service][Change Order Status] Changing....");
-        ChangeOrderResult result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
+        ChangeOrderResult result = restTemplate.postForObject("https://ts-order-other-service:12032/orderOther/update",info,ChangeOrderResult.class);
         return result;
     }
 
@@ -307,7 +307,7 @@ public class CancelServiceImpl implements CancelService{
         DrawBackInfo info = new DrawBackInfo();
         info.setMoney(money);
         info.setUserId(userId);
-        String result = restTemplate.postForObject("http://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
+        String result = restTemplate.postForObject("https://ts-inside-payment-service:18673/inside_payment/drawBack",info,String.class);
         if(result.equals("true")){
             return true;
         }else{
@@ -319,7 +319,7 @@ public class CancelServiceImpl implements CancelService{
     private GetOrderResult getOrderByIdFromOrder(GetOrderByIdInfo info){
         System.out.println("[Cancel Order Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
-                "http://ts-order-service:12031/order/getById/"
+                "https://ts-order-service:12031/order/getById/"
                 ,info,GetOrderResult.class);
         return cor;
     }
@@ -327,7 +327,7 @@ public class CancelServiceImpl implements CancelService{
     private GetOrderResult getOrderByIdFromOrderOther(GetOrderByIdInfo info){
         System.out.println("[Cancel Order Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/orderOther/getById/"
+                "https://ts-order-other-service:12032/orderOther/getById/"
                 ,info,GetOrderResult.class);
         return cor;
     }

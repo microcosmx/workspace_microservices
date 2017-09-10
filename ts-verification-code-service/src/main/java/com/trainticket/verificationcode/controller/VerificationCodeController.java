@@ -4,13 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
-
 import com.trainticket.verificationcode.service.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.imageio.*;
@@ -22,13 +18,11 @@ public class VerificationCodeController {
 	@Autowired
 	private VerificationCodeService verificationCodeService;
 
-
 	@RequestMapping(value="/error",method=RequestMethod.GET)
 	public String welcome(){
 		return "error";
 	}
 
-	
 	@RequestMapping(value = "/verification/generate", method = RequestMethod.GET)
 	public void imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    OutputStream os = response.getOutputStream();
@@ -52,7 +46,6 @@ public class VerificationCodeController {
 		//System.out.println("receivedCode"+receivedCode);
 		//boolean result = verificationCodeService.verifyCode(request, response, receivedCode);
 		//return result;
-
 	}
 
 }

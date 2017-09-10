@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import travel.domain.Information;
 import travel.service.TravelService;
-
 import java.util.Date;
 
 /**

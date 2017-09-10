@@ -3,8 +3,6 @@ package travel.repository;
 import org.springframework.data.repository.CrudRepository;
 import travel.domain.Trip;
 import travel.domain.TripId;
-import travel.domain.TripResponse;
-
 import java.util.List;
 
 /**

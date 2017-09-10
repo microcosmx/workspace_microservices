@@ -139,7 +139,7 @@ public class ExecuteServiceImpl implements ExecuteService{
     private ModifyOrderStatusResult executeOrder(ModifyOrderStatusInfo info){
         System.out.println("[Execute Service][Execute Order] Executing....");
         ModifyOrderStatusResult cor = restTemplate.postForObject(
-                "http://ts-order-service:12031/order/modifyOrderStatus"
+                "https://ts-order-service:12031/order/modifyOrderStatus"
                 ,info,ModifyOrderStatusResult.class);
         return cor;
     }
@@ -147,7 +147,7 @@ public class ExecuteServiceImpl implements ExecuteService{
     private ModifyOrderStatusResult executeOrderOther(ModifyOrderStatusInfo info){
         System.out.println("[Execute Service][Execute Order] Executing....");
         ModifyOrderStatusResult cor = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/order/modifyOrderStatus"
+                "https://ts-order-other-service:12032/order/modifyOrderStatus"
                 ,info,ModifyOrderStatusResult.class);
         return cor;
     }
@@ -155,7 +155,7 @@ public class ExecuteServiceImpl implements ExecuteService{
     private GetOrderResult getOrderByIdFromOrder(GetOrderByIdInfo info){
         System.out.println("[Execute Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
-                "http://ts-order-service:12031/order/getById/"
+                "https://ts-order-service:12031/order/getById/"
                 ,info,GetOrderResult.class);
         return cor;
     }
@@ -163,7 +163,7 @@ public class ExecuteServiceImpl implements ExecuteService{
     private GetOrderResult getOrderByIdFromOrderOther(GetOrderByIdInfo info){
         System.out.println("[Execute Service][Get Order] Getting....");
         GetOrderResult cor = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/orderOther/getById/"
+                "https://ts-order-other-service:12032/orderOther/getById/"
                 ,info,GetOrderResult.class);
         return cor;
     }

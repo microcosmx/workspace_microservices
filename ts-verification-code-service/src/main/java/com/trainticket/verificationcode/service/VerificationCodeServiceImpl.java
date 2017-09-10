@@ -7,14 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
-
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.trainticket.verificationcode.util.CookieUtil;
+
 @Service
 public class VerificationCodeServiceImpl implements VerificationCodeService{
 

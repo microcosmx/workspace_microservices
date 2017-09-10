@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class SslConfiguration {
-	
+
 	@Value("${http.client.ssl.key-store}")
 	private Resource keyStore;
 

@@ -6,7 +6,6 @@ import train.domain.Information;
 import train.domain.Information2;
 import train.domain.TrainType;
 import train.repository.TrainTypeRepository;
-
 import java.util.List;
 
 @Service

@@ -14,11 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
 
 @Service
 public class AccountLoginServiceImpl implements AccountLoginService {
@@ -37,7 +34,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
         body.add("verificationCode", li.getVerificationCode());
         HttpEntity requestEntity = new HttpEntity(body,requestHeaders);
         ResponseEntity rssResponse = restTemplate.exchange(
-                "http://ts-verification-code-service:15678/verification/verify",
+                "https://ts-verification-code-service:15678/verification/verify",
                 HttpMethod.POST,
                 requestEntity,
                 String.class
@@ -53,7 +50,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
             return verifyCodeLr;
         }
         LoginResult lr = restTemplate.postForObject(
-                "http://ts-sso-service:12349/account/login",
+                "https://ts-sso-service:12349/account/login",
                 li,LoginResult.class);
         //将cookie放到response中
         System.out.println("[Login Service] Status:" + lr.getStatus());
@@ -69,7 +66,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
 
     @Override
     public LogoutResult logout(LogoutInfo li,HttpServletRequest request,HttpServletResponse response){
-        LogoutResult lr = restTemplate.postForObject("http://ts-sso-service:12349/logout",li,LogoutResult.class);
+        LogoutResult lr = restTemplate.postForObject("https://ts-sso-service:12349/logout",li,LogoutResult.class);
         if(lr.isStatus()){
             System.out.println("[Login Service][Logout] Success");
         }else{

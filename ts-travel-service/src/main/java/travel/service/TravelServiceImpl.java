@@ -145,7 +145,7 @@ public class TravelServiceImpl implements TravelService{
         query.setDepartureTime(departureTime);
 
         ResultForTravel resultForTravel = restTemplate.postForObject(
-                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
+                "https://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
         double percent = 1.0;
         TrainType trainType;
         if(resultForTravel.isStatus()){
@@ -158,7 +158,7 @@ public class TravelServiceImpl implements TravelService{
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
-                "http://ts-order-service:12031/order/calculate", information ,ResultSoldTicket.class);
+                "https://ts-order-service:12031/order/calculate", information ,ResultSoldTicket.class);
         if(result == null){
             System.out.println("soldticket Info doesn't exist");
             return null;
@@ -224,7 +224,7 @@ public class TravelServiceImpl implements TravelService{
         QueryForStationId query = new QueryForStationId();
         query.setName(stationName);
         String id = restTemplate.postForObject(
-                "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
+                "https://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
         return id;
     }
 }

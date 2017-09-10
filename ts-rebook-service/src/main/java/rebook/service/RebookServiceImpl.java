@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -275,7 +274,7 @@ public class RebookServiceImpl implements RebookService{
 
     private VerifyResult verifySsoLogin(String loginToken){
         VerifyResult tokenResult = restTemplate.getForObject(
-                "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,
+                "https://ts-sso-service:12349/verifyLoginToken/" + loginToken,
                 VerifyResult.class);
         return tokenResult;
     }
@@ -315,11 +314,11 @@ public class RebookServiceImpl implements RebookService{
         GetTripAllDetailResult gtdr;
         if(tripId.startsWith("G") || tripId.startsWith("D")){
             gtdr = restTemplate.postForObject(
-                    "http://ts-travel-service:12346/travel/getTripAllDetailInfo"
+                    "https://ts-travel-service:12346/travel/getTripAllDetailInfo"
                     ,gtdi,GetTripAllDetailResult.class);
         }else{
             gtdr = restTemplate.postForObject(
-                    "http://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
+                    "https://ts-travel2-service:16346/travel2/getTripAllDetailInfo"
                     ,gtdi,GetTripAllDetailResult.class);
         }
         return gtdr;
@@ -332,11 +331,11 @@ public class RebookServiceImpl implements RebookService{
         CreateOrderResult createOrderResult;
         if(tripId.startsWith("G") || tripId.startsWith("D")){
             createOrderResult = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/create"
+                    "https://ts-order-service:12031/order/create"
                     ,createOrderInfo,CreateOrderResult.class);
         }else{
             createOrderResult = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/orderOther/create"
+                    "https://ts-order-other-service:12032/orderOther/create"
                     ,createOrderInfo,CreateOrderResult.class);
         }
         return createOrderResult;
@@ -345,10 +344,10 @@ public class RebookServiceImpl implements RebookService{
     private ChangeOrderResult updateOrder(ChangeOrderInfo info, String tripId){
         ChangeOrderResult result;
         if(tripGD(tripId)){
-            result = restTemplate.postForObject("http://ts-order-service:12031/order/update",
+            result = restTemplate.postForObject("https://ts-order-service:12031/order/update",
                     info,ChangeOrderResult.class);
         }else{
-            result = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/update",
+            result = restTemplate.postForObject("https://ts-order-other-service:12032/orderOther/update",
                     info,ChangeOrderResult.class);
         }
         return result;
@@ -359,10 +358,10 @@ public class RebookServiceImpl implements RebookService{
         deleteOrderInfo.setOrderId(orderId);
         DeleteOrderResult deleteOrderResult;
         if(tripGD(tripId)){
-            deleteOrderResult = restTemplate.postForObject("http://ts-order-service:12031/order/delete",
+            deleteOrderResult = restTemplate.postForObject("https://ts-order-service:12031/order/delete",
                     deleteOrderInfo,DeleteOrderResult.class);
         }else{
-            deleteOrderResult = restTemplate.postForObject("http://ts-order-other-service:12032/orderOther/delete",
+            deleteOrderResult = restTemplate.postForObject("https://ts-order-other-service:12032/orderOther/delete",
                     deleteOrderInfo,DeleteOrderResult.class);
         }
         return deleteOrderResult;
@@ -373,10 +372,10 @@ public class RebookServiceImpl implements RebookService{
         //改签只能改签一次，查询订单状态来判断是否已经改签过
         if(info.getOldTripId().startsWith("G") || info.getOldTripId().startsWith("D")){
             queryOrderResult = restTemplate.postForObject(
-                    "http://ts-order-service:12031/order/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+                    "https://ts-order-service:12031/order/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }else{
             queryOrderResult = restTemplate.postForObject(
-                    "http://ts-order-other-service:12032/orderOther/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
+                    "https://ts-order-other-service:12032/orderOther/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
         }
         return queryOrderResult;
     }
@@ -385,14 +384,14 @@ public class RebookServiceImpl implements RebookService{
         QueryById query = new QueryById();
         query.setStationId(stationId);
         QueryStation station = restTemplate.postForObject(
-                "http://ts-station-service:12345/station/queryById"
+                "https://ts-station-service:12345/station/queryById"
                 ,query,QueryStation.class);
         return station.getName();
     }
 
     private String getPrice(QueryPriceInfo info){
         System.out.println("[Preserve Service][Get Price] Checking....");
-        String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
+        String price = restTemplate.postForObject("https://ts-price-service:16579/price/query",info,String.class);
         return price;
     }
 
@@ -403,7 +402,7 @@ public class RebookServiceImpl implements RebookService{
         info.setUserId(userId);
         info.setPrice(money);
         boolean result = restTemplate.postForObject(
-                "http://ts-inside-payment-service:18673/inside_payment/payDifference"
+                "https://ts-inside-payment-service:18673/inside_payment/payDifference"
                 ,info,Boolean.class);
         return result;
     }
@@ -413,7 +412,7 @@ public class RebookServiceImpl implements RebookService{
         info.setUserId(userId);
         info.setMoney(money);
         boolean result = restTemplate.postForObject(
-                "http://ts-inside-payment-service:18673/inside_payment/drawBack"
+                "https://ts-inside-payment-service:18673/inside_payment/drawBack"
                 ,info,Boolean.class);
         return result;
     }

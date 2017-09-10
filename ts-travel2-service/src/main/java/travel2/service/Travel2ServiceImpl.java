@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import travel2.domain.*;
 import travel2.repository.TripRepository;
-
 import java.util.*;
-
 
 /**
  * Created by Chenjie Xu on 2017/6/7.
@@ -146,7 +144,7 @@ public class Travel2ServiceImpl implements Travel2Service{
         query.setDepartureTime(departureTime);
 
         ResultForTravel resultForTravel = restTemplate.postForObject(
-                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
+                "https://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
         double percent = 1.0;
         TrainType trainType;
         if(resultForTravel.isStatus()){
@@ -159,7 +157,7 @@ public class Travel2ServiceImpl implements Travel2Service{
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
-                "http://ts-order-other-service:12032/orderOther/calculate", information ,ResultSoldTicket.class);
+                "https://ts-order-other-service:12032/orderOther/calculate", information ,ResultSoldTicket.class);
         if(result == null){
             System.out.println("soldticketInfo doesn't exist");
             return null;
@@ -225,7 +223,7 @@ public class Travel2ServiceImpl implements Travel2Service{
         QueryForStationId query = new QueryForStationId();
         query.setName(stationName);
         String id = restTemplate.postForObject(
-                "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
+                "https://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
         return id;
     }
 }
