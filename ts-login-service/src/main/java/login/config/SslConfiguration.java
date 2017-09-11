@@ -57,7 +57,7 @@ public class SslConfiguration {
 					// https://stackoverflow.com/a/22901289/3890673
 					.setSSLSocketFactory(new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier()))
 					.build();
-
+			System.out.println("[SSL配置]");
 			return new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
 		} catch (IOException | GeneralSecurityException e) {
 			throw new RuntimeException(e);
