@@ -44,7 +44,7 @@ services:
 #        condition: on-failure
     networks:
       - my-network
-  
+
 
   ts-ui-dashboard:
     build: ts-ui-dashboard
@@ -508,25 +508,26 @@ services:
         networks:
           - my-network
 
-  ts-example-service:
-        build: ts-example-service
-        image: ts/ts-example-service
-        restart: always
-        ports:
-          - 12388:12388
-        networks:
-          - my-network
+#  ts-example-service:
+#        build: ts-example-service
+#        image: ts/ts-example-service
+#        restart: always
+#        ports:
+#          - 12388:12388
+#        networks:
+#          - my-network
+#        mem_limit: 300M
+#        memswap_limit: 800M
+#
+#  ts-example-second-service:
+#        build: ts-example-second-service
+#        image: ts/ts-example-second-service
+#        restart: always
+#        ports:
+#          - 12389:12389
+#        networks:
+#          - my-network
 
-  ts-example-second-service:
-        build: ts-example-second-service
-        image: ts/ts-example-second-service
-        restart: always
-        ports:
-          - 18889:18889
-        networks:
-          - my-network
-        mem_limit: 300M
-        memswap_limit: 800M
 
 
 networks:
