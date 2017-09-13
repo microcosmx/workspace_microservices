@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sso.domain.*;
 import sso.repository.AccountRepository;
+import sso.repository.LoginUserListRepository;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -15,7 +14,10 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Autowired
     private AccountRepository accountRepository;
 
-    private static HashMap<String,String > loginUserList = new HashMap<>();
+    @Autowired
+    private LoginUserListRepository loginUserListRepository;
+
+    //private static HashMap<String,String > loginUserList = new HashMap<>();
 
     @Override
     public Account createAccount(Account account){
@@ -95,14 +97,18 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Override
     public PutLoginResult loginPutToken(String loginId){
         PutLoginResult plr = new PutLoginResult();
-        if(loginUserList.keySet().contains(loginId)){
+        LoginValue loginValue = loginUserListRepository.findById(loginId);
+
+        //if(loginUserList.keySet().contains(loginId)){
+        if(loginValue != null){
             System.out.println("[SSO Service][Login] Already Login. Old login session will be kick off");
 //            plr.setStatus(false);
 //            plr.setLoginId(loginId);
 //            plr.setMsg("Already Login");
 //            plr.setToken(null);
             String token = UUID.randomUUID().toString();
-            loginUserList.put(loginId,token);
+            loginUserListRepository.save(new LoginValue(loginId,token));
+            //loginUserList.put(loginId,token);
             plr.setStatus(true);
             plr.setLoginId(loginId);
             plr.setMsg("Success.Other login session has been kick off.");
@@ -110,7 +116,8 @@ public class AccountSsoServiceImpl implements AccountSsoService{
 
         }else{
             String token = UUID.randomUUID().toString();
-            loginUserList.put(loginId,token);
+            loginUserListRepository.save(new LoginValue(loginId,token));
+            //loginUserList.put(loginId,token);
             System.out.println("[SSO Service][Login] Login Success. Id:" + loginId + " Token:" + token);
             plr.setStatus(true);
             plr.setLoginId(loginId);
@@ -123,14 +130,15 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Override
     public LogoutResult logoutDeleteToken(LogoutInfo li){
         LogoutResult lr = new LogoutResult();
-        if(!loginUserList.keySet().contains(li.getId())){
+        if(loginUserListRepository.findById(li.getId()) == null){
             System.out.println("[SSO Service][Logout] Already Logout. LogoutId:" + li.getId());
            lr.setStatus(false);
            lr.setMessage("Not Login");
         }else{
-            String savedToken = loginUserList.get(li.getId());
+            String savedToken = loginUserListRepository.findById(li.getId()).getLoginToken();
             if(savedToken.equals(li.getToken())){
-                loginUserList.remove(li.getId());
+                loginUserListRepository.delete(li.getId());
+                //loginUserList.remove(li.getId());
                 lr.setStatus(true);
                 lr.setMessage("Success");
             }else{
@@ -145,7 +153,7 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     public VerifyResult verifyLoginToken(String verifyToken){
         System.out.println("[SSO Service][Verify] Verify token:" + verifyToken);
         VerifyResult vr = new VerifyResult();
-        if(loginUserList.values().contains(verifyToken) || verifyToken.equals("admin")){
+        if(loginUserListRepository.findByloginToken(verifyToken) != null || verifyToken.equals("admin")){
             vr.setStatus(true);
             vr.setMessage("Verify Success.");
             System.out.println("[SSO Service][Verify] Success.Token:" + verifyToken);
@@ -173,8 +181,8 @@ public class AccountSsoServiceImpl implements AccountSsoService{
     @Override
     public GetLoginAccountList findAllLoginAccount(){
         ArrayList<LoginAccountValue> values = new ArrayList<>();
-        for(Map.Entry<String,String> entry : loginUserList.entrySet()){
-            LoginAccountValue value = new LoginAccountValue(entry.getKey(),entry.getValue());
+        for(LoginValue lv : loginUserListRepository.findAll()){
+            LoginAccountValue value = new LoginAccountValue(lv.getId(),lv.getLoginToken());
             values.add(value);
         }
         GetLoginAccountList getLoginAccountList = new GetLoginAccountList();
