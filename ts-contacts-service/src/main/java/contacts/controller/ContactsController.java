@@ -14,6 +14,7 @@ public class ContactsController {
     @Autowired
     private ContactsService contactsService;
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
@@ -21,13 +22,36 @@ public class ContactsController {
         return "Welcome to [ Contacts Service ] !";
     }
 
+    /***************For super admin(Single Service Test*******************/
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.POST)
-    public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
-        VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
+    @RequestMapping(path = "/contacts/findAll", method = RequestMethod.GET)
+    public GetAllContactsResult getAllContacts(){
+        System.out.println("[Contacts Service][Get All Contacts]");
+        return contactsService.getAllContacts();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/contacts/modifyContacts", method = RequestMethod.POST)
+    public ModifyContactsResult modifyContacts(@RequestBody ModifyContactsInfo info){
+        System.out.println("[Contacts Service][Modify Contacts] ContactsId:" + info.getContactsId());
+        return contactsService.modify(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/contacts/deleteContacts", method = RequestMethod.POST)
+    public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo info){
+        return contactsService.delete(UUID.fromString(info.getContactsId()));
+    }
+
+    /***************************For Normal Use***************************/
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.GET)
+    public ArrayList<Contacts> findContactsByAccountId(@CookieValue String loginId,@CookieValue String loginToken){
+        System.out.println("[Contacts Service][Find Contacts By Account Id:" + loginId);
+        VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
-            return contactsService.findContactsByAccountId(UUID.fromString(qci.getAccountId()));
+            return contactsService.findContactsByAccountId(UUID.fromString(loginId));
         }else {
             System.out.println("[ContactsService][VerifyLogin] Fail");
             return new ArrayList<Contacts>();
@@ -41,6 +65,7 @@ public class ContactsController {
         GetContactsResult gcr = new GetContactsResult();
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success.");
+            System.out.println("[ContactsService][Contacts Id Print] " + gci.getContactsId());
             Contacts contacts = contactsService.findContactsById(UUID.fromString(gci.getContactsId()));
             if(contacts == null){
                 gcr.setStatus(false);
@@ -62,11 +87,11 @@ public class ContactsController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
-    public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
-        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
+    public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci,@CookieValue String loginId,@CookieValue String loginToken){
+        VerifyResult tokenResult = verifySsoLogin(loginToken);
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
-            return contactsService.create(aci);
+            return contactsService.create(aci,loginId);
         }else{
             System.out.println("[ContactsService][VerifyLogin] Fail");
             AddContactsResult acr = new AddContactsResult();
@@ -77,41 +102,40 @@ public class ContactsController {
         }
     }
 
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/contacts/delete", method = RequestMethod.DELETE)
-    public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo dci){
-        VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
-        if(tokenResult.isStatus() == true){
-            System.out.println("[ContactsService][VerifyLogin] Success");
-            return contactsService.delete(UUID.fromString(dci.getContactsId()));
-        }else{
-            System.out.println("[ContactsService][VerifyLogin] Fail");
-            DeleteContactsResult dcr = new DeleteContactsResult();
-            dcr.setMessage("Not Login");
-            dcr.setStatus(false);
-            return dcr;
-        }
-    }
-
-    @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/contacts/update", method = RequestMethod.PUT)
-    public ModifyContactsResult saveContactsInfo(@RequestBody ModifyContactsInfo contactsInfo){
-        VerifyResult tokenResult = verifySsoLogin(contactsInfo.getLoginToken());
-        if(tokenResult.isStatus() == true){
-            System.out.println("[ContactsService][VerifyLogin] Success");
-            return contactsService.saveChanges(contactsInfo.getContacts());
-        }else{
-            System.out.println("[ContactsService][VerifyLogin] Fail");
-            ModifyContactsResult mcr = new ModifyContactsResult();
-            mcr.setStatus(false);
-            mcr.setMessage("Not Login");
-            mcr.setContacts(null);
-            return mcr;
-        }
-    }
+//    @CrossOrigin(origins = "*")
+//    @RequestMapping(path = "/contacts/delete", method = RequestMethod.DELETE)
+//    public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo dci){
+//        VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[ContactsService][VerifyLogin] Success");
+//            return contactsService.delete(UUID.fromString(dci.getContactsId()));
+//        }else{
+//            System.out.println("[ContactsService][VerifyLogin] Fail");
+//            DeleteContactsResult dcr = new DeleteContactsResult();
+//            dcr.setMessage("Not Login");
+//            dcr.setStatus(false);
+//            return dcr;
+//        }
+//    }
+//
+//    @CrossOrigin(origins = "*")
+//    @RequestMapping(path = "/contacts/update", method = RequestMethod.PUT)
+//    public ModifyContactsResult saveContactsInfo(@RequestBody ModifyContactsInfo contactsInfo){
+//        VerifyResult tokenResult = verifySsoLogin(contactsInfo.getLoginToken());
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[ContactsService][VerifyLogin] Success");
+//            return contactsService.saveChanges(contactsInfo.getContacts());
+//        }else{
+//            System.out.println("[ContactsService][VerifyLogin] Fail");
+//            ModifyContactsResult mcr = new ModifyContactsResult();
+//            mcr.setStatus(false);
+//            mcr.setMessage("Not Login");
+//            mcr.setContacts(null);
+//            return mcr;
+//        }
+//    }
 
     private VerifyResult verifySsoLogin(String loginToken){
-        restTemplate = new RestTemplate();
         System.out.println("[ContactsService][VerifyLogin] Verifying....");
         VerifyResult tokenResult = restTemplate.getForObject(
                 "http://ts-sso-service:12349/verifyLoginToken/" + loginToken,

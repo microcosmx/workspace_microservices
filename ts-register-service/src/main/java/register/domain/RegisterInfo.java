@@ -15,7 +15,7 @@ public class RegisterInfo {
 
     private String documentNum;
 
-    private String phoneNum;
+    private String email;
 
     private String verificationCode;
 
@@ -25,7 +25,7 @@ public class RegisterInfo {
         password = "defaultPassword";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
-        phoneNum = "352323";
+        email = "352323";
     }
 
     public String getPassword() {
@@ -68,12 +68,12 @@ public class RegisterInfo {
         this.documentNum = documentNum;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getVerificationCode() {

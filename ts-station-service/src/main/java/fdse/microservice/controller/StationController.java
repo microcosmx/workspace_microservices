@@ -1,7 +1,6 @@
 package fdse.microservice.controller;
 
-import fdse.microservice.domain.Information;
-import fdse.microservice.domain.Station;
+import fdse.microservice.domain.*;
 import fdse.microservice.service.StationService;
 import javafx.application.Application;
 import org.slf4j.Logger;
@@ -25,33 +24,40 @@ public class StationController {
     @Autowired
     private StationService stationService;
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/create",method= RequestMethod.POST)
     public boolean create(@RequestBody Information info){
         return stationService.create(info);
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/exist",method= RequestMethod.POST)
-    public boolean exist(@RequestBody Information info){
+    public boolean exist(@RequestBody QueryStation info){
         return stationService.exist(info);
     }
 
-    /*
     @RequestMapping(value="/station/update",method= RequestMethod.POST)
     public boolean update(@RequestBody Information info){
         return stationService.update(info);
-    }*/
+    }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/delete",method= RequestMethod.POST)
     public boolean delete(@RequestBody Information info){
         return stationService.delete(info);
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping(value="/station/query",method= RequestMethod.GET)
     public List<Station> query(){
         return stationService.query();
+    }
+
+    @RequestMapping(value="/station/queryForId",method= RequestMethod.POST)
+    public String queryForId(@RequestBody QueryForId info){
+        return stationService.queryForId(info);
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/station/queryById",method = RequestMethod.POST)
+    public QueryStation queryById(@RequestBody QueryById queryById){
+        System.out.println("[Station Service] Query By Id:" + queryById.getStationId());
+        return stationService.queryById(queryById.getStationId());
     }
 }

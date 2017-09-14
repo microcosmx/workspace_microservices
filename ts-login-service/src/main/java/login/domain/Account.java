@@ -1,15 +1,11 @@
 package login.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.UUID;
 
-@Document(collection = "accounts")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
 
-    @Id
     private UUID id;
 
     private String password;
@@ -22,7 +18,7 @@ public class Account {
 
     private String documentNum;
 
-    private String phoneNum;
+    private String email;
 
     public Account(){
         gender = Gender.OTHER.getCode();
@@ -30,7 +26,7 @@ public class Account {
         name = "None";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
-        phoneNum = "0123456789";
+        email = "0123456789";
     }
 
     public UUID getId() {
@@ -81,11 +77,11 @@ public class Account {
         this.documentNum = documentNum;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

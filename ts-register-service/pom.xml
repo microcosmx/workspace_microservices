@@ -12,10 +12,10 @@
     <name>ts-register-service</name>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.3.RELEASE</version>
-        <relativePath/>
+        <groupId>org.services</groupId>
+        <artifactId>ts-service</artifactId>
+        <version>0.1.0</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <properties>
@@ -23,17 +23,7 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-parent</artifactId>
-                <version>Brixton.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    
 
     <dependencies>
         <dependency>

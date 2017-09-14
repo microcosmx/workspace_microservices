@@ -16,6 +16,10 @@ public class TripResponse {
 
     @Valid
     @NotNull
+    private String trainTypeId;
+
+    @Valid
+    @NotNull
     private String startingStation;
 
     @Valid
@@ -38,6 +42,16 @@ public class TripResponse {
     @NotNull
     private int confortClass;   //商务座的座位数量
 
+    @Valid
+    @NotNull
+    private String priceForEconomyClass;
+
+    @Valid
+    @NotNull
+    private String priceForConfortClass;
+
+    public TripResponse(){}
+
 
     public TripId getTripId() {
         return tripId;
@@ -45,6 +59,14 @@ public class TripResponse {
 
     public void setTripId(TripId tripId) {
         this.tripId = tripId;
+    }
+
+    public String getTrainTypeId() {
+        return trainTypeId;
+    }
+
+    public void setTrainTypeId(String trainTypeId) {
+        this.trainTypeId = trainTypeId;
     }
 
     public String getStartingStation() {
@@ -94,4 +116,21 @@ public class TripResponse {
     public void setConfortClass(int confortClass) {
         this.confortClass = confortClass;
     }
+
+    public String getPriceForEconomyClass() {
+        return priceForEconomyClass;
+    }
+
+    public void setPriceForEconomyClass(String priceForEconomyClass) {
+        this.priceForEconomyClass = priceForEconomyClass;
+    }
+
+    public String getPriceForConfortClass() {
+        return priceForConfortClass;
+    }
+
+    public void setPriceForConfortClass(String priceForConfortClass) {
+        this.priceForConfortClass = priceForConfortClass;
+    }
+
 }

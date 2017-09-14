@@ -12,17 +12,19 @@ import java.util.*;
  */
 @Service
 public class TravelServiceImpl implements TravelService{
+
     @Autowired
     TripRepository repository;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public String create(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) == null){
-            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStation(),
-                    info.getStations(),info.getTerminalStation(),info.getStartingTime(),info.getEndTime());
+            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
+                    info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
             repository.save(trip);
             return "Create trip:" + ti.toString() + ".";
         }else{
@@ -44,8 +46,8 @@ public class TravelServiceImpl implements TravelService{
     public String update(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) != null){
-            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStation(),
-                    info.getStations(),info.getTerminalStation(),info.getStartingTime(),info.getEndTime());
+            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
+                    info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
             repository.save(trip);
             return "Update trip:" + ti.toString();
         }else{
@@ -69,10 +71,13 @@ public class TravelServiceImpl implements TravelService{
         List<TripResponse> list = new ArrayList<TripResponse>();
         String startingPlace = info.getStartingPlace();
         String endPlace = info.getEndPlace();
+        String startingPlaceId = queryForStationId(startingPlace);
+        String endPlaceId = queryForStationId(endPlace);
+
         Date departureTime = info.getDepartureTime();
-        List<Trip> list1 = repository.findByStartingStationAndTerminalStation(startingPlace,endPlace);
-        List<Trip> list2 = repository.findByStartingStationAndStations(startingPlace,endPlace);
-        List<Trip> list3 = repository.findByStationsAndTerminalStation(startingPlace,endPlace);
+        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
+        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
+        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
 
         Iterator<Trip> sListIterator1 = list1.iterator();
         Iterator<Trip> sListIterator2 = list2.iterator();
@@ -102,66 +107,65 @@ public class TravelServiceImpl implements TravelService{
     @Override
     public GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi){
         GetTripAllDetailResult gtdr = new GetTripAllDetailResult();
+        System.out.println("[TravelService] [GetTripAllDetailInfo] TripId:" + gtdi.getTripId());
         Trip trip = repository.findByTripId(new TripId(gtdi.getTripId()));
         if(trip == null){
             gtdr.setStatus(false);
             gtdr.setMessage("Trip Not Exist");
             gtdr.setTripResponse(null);
+            gtdr.setTrip(null);
         }else{
             TripResponse tripResponse = getTickets(trip,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
             if(tripResponse == null){
                 gtdr.setStatus(false);
                 gtdr.setMessage("Cannot found TripResponse");
                 gtdr.setTripResponse(null);
+                gtdr.setTrip(null);
             }else{
                 gtdr.setStatus(true);
                 gtdr.setMessage("Success");
                 gtdr.setTripResponse(tripResponse);
+                gtdr.setTrip(repository.findByTripId(new TripId(gtdi.getTripId())));
             }
         }
         return gtdr;
     }
 
     private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
-        //车次查询_高铁动车（sso） －》 车站站名服务 －》 配置 －》 车服务 －》 车票订单_高铁动车（已购票数）
-        //车站站名服务
-        Boolean startingPlaceExist = restTemplate.postForObject(
-                "http://ts-station-service:12345/station/exist", new QueryStation(startingPlace), Boolean.class);
-        Boolean endPlaceExist = restTemplate.postForObject(
-                "http://ts-station-service:12345/station/exist", new QueryStation(endPlace),  Boolean.class);
-        if(!startingPlaceExist || !endPlaceExist){
+
+        //判断所查日期是否在当天及之后
+        if(!afterToday(departureTime)){
             return null;
         }
-        //配置
-        //查询车票配比，以车站ABC为例，A是始发站，B是途径的车站，C是终点站，分配AC 50%，如果总票数100，那么AC有50张票，AB和BC也各有
-        //50张票，因为AB和AC拼起来正好是一张AC。
-        String proportion = restTemplate.postForObject("http://ts-config-service:15679/config/query",
-                new QueryConfig("DirectTicketAllocationProportion"), String.class
-        );
+
+        QueryForTravel query = new QueryForTravel();
+        query.setTrip(trip);
+        query.setStartingPlace(startingPlace);
+        query.setEndPlace(endPlace);
+        query.setDepartureTime(departureTime);
+
+        ResultForTravel resultForTravel = restTemplate.postForObject(
+                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
         double percent = 1.0;
-        if(proportion.contains("%")) {
-            proportion = proportion.replaceAll("%", "");
-            percent = Double.valueOf(proportion)/100;
-        }
-        //车服务
-        TrainType trainType = restTemplate.postForObject(
-                "http://ts-train-service:14567/train/retrieve", new QueryTrainType(trip.getTrainTypeId()), TrainType.class
-        );
-        if(trainType == null){
-            System.out.println("traintype doesn't exist");
+        TrainType trainType;
+        if(resultForTravel.isStatus()){
+            percent = resultForTravel.getPercent();
+            trainType = resultForTravel.getTrainType();
+        }else{
             return null;
         }
+
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
         ResultSoldTicket result = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/calculate", information ,ResultSoldTicket.class);
         if(result == null){
-            System.out.println("soldticketInfo doesn't exist");
+            System.out.println("soldticket Info doesn't exist");
             return null;
         }
         //设置返回的车票信息
         TripResponse response = new TripResponse();
-        if(startingPlace.equals(trip.getStartingStation()) && endPlace.equals(trip.getTerminalStation())){
+        if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
             int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
             int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
             response.setConfortClass(confort);
@@ -177,11 +181,50 @@ public class TravelServiceImpl implements TravelService{
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
+        response.setTrainTypeId(trainType.getId());
+        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
+        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+
         return response;
-    }
+}
 
     @Override
     public List<Trip> queryAll(){
         return repository.findAll();
+    }
+
+    private static boolean afterToday(Date date) {
+        Calendar calDateA = Calendar.getInstance();
+        Date today = new Date();
+        calDateA.setTime(today);
+
+        Calendar calDateB = Calendar.getInstance();
+        calDateB.setTime(date);
+
+        if(calDateA.get(Calendar.YEAR) > calDateB.get(Calendar.YEAR)){
+            return false;
+        }else if(calDateA.get(Calendar.YEAR) == calDateB.get(Calendar.YEAR)){
+            if(calDateA.get(Calendar.MONTH) > calDateB.get(Calendar.MONTH)){
+                return false;
+            }else if(calDateA.get(Calendar.MONTH) == calDateB.get(Calendar.MONTH)){
+                if(calDateA.get(Calendar.DAY_OF_MONTH) > calDateB.get(Calendar.DAY_OF_MONTH)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+
+    private String queryForStationId(String stationName){
+        QueryForStationId query = new QueryForStationId();
+        query.setName(stationName);
+        String id = restTemplate.postForObject(
+                "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
+        return id;
     }
 }

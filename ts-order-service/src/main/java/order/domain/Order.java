@@ -45,7 +45,7 @@ public class Order {
 
     private int status;
 
-    private double price;
+    private String price;
 
     public Order(){
         boughtDate = new Date(System.currentTimeMillis());
@@ -57,7 +57,7 @@ public class Order {
         from = "上海";
         to = "太原";
         status = OrderStatus.PAID.getCode();
-        price = 0.0;
+        price = "0.0";
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Order {
                 && from.equals(other.getFrom())
                 && to.equals(other.getTo())
                 && status == other.getStatus()
-                && price == other.price;
+                && price.equals(other.price);
     }
 
     public UUID getId() {
@@ -194,11 +194,11 @@ public class Order {
         this.status = status;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

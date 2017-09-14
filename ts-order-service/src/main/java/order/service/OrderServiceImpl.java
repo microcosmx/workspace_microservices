@@ -5,7 +5,10 @@ import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -21,7 +24,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public CreateOrderResult create(Order order){
-        System.out.println("[OrderService][CreateOrder] Ready Create Order" + new Gson().toJson(order));
+        System.out.println("[Order Service][Create Order] Ready Create Order" + new Gson().toJson(order));
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
         if(accountOrders.contains(order)){
@@ -33,6 +36,7 @@ public class OrderServiceImpl implements OrderService{
             order.setId(UUID.randomUUID());
             orderRepository.save(order);
             System.out.println("[Order Service][Order Create] Success.");
+            System.out.println("[Order Service][Order Create] Price:" + order.getPrice());
             cor.setStatus(true);
             cor.setMessage("Success");
             cor.setOrder(order);
@@ -74,9 +78,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public ArrayList<Order> queryOrders(QueryInfo qi){
+    public ArrayList<Order> queryOrders(QueryInfo qi,String accountId){
         //1.Get all orders of the user
-        ArrayList<Order> list = orderRepository.findByAccountId(qi.getAccountId());
+        ArrayList<Order> list = orderRepository.findByAccountId(UUID.fromString(accountId));
+        System.out.println("[Order Service][Query Order][Step 1] Get Orders Number of Account:" + list.size());
         //2.Check is these orders fit the requirement/
         if(qi.isEnableStateQuery() || qi.isEnableBoughtDateQuery() || qi.isEnableTravelDateQuery()){
             ArrayList<Order> finalList = new ArrayList<>();
@@ -94,6 +99,7 @@ public class OrderServiceImpl implements OrderService{
                 }else{
                     statePassFlag = true;
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check Status Fits End]");
                 //4.Check order travel date requirement.
                 if(qi.isEnableTravelDateQuery()){
                     if(tempOrder.getTravelDate().before(qi.getTravelDateEnd()) &&
@@ -105,6 +111,7 @@ public class OrderServiceImpl implements OrderService{
                 }else{
                     travelDatePassFlag = true;
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check Travel Date End]");
                 //5.Check order bought date requirement.
                 if(qi.isEnableBoughtDateQuery()){
                     if(tempOrder.getBoughtDate().before(qi.getBoughtDateEnd()) &&
@@ -116,10 +123,12 @@ public class OrderServiceImpl implements OrderService{
                 }else{
                     boughtDatePassFlag = true;
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check Bought Date End]");
                 //6.check if all requirement fits.
                 if(statePassFlag && boughtDatePassFlag && travelDatePassFlag){
                     finalList.add(tempOrder);
                 }
+                System.out.println("[Order Service][Query Order][Step 2][Check All Requirement End]");
             }
             System.out.println("[Order Service][Query Order] Get order num:" + finalList.size());
             return finalList;
@@ -151,6 +160,9 @@ public class OrderServiceImpl implements OrderService{
             oldOrder.setStatus(order.getStatus());
             oldOrder.setTrainNumber(order.getTrainNumber());
             oldOrder.setPrice(order.getPrice());
+            oldOrder.setContactsName(order.getContactsName());
+            oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
+            oldOrder.setDocumentType(order.getDocumentType());
             orderRepository.save(oldOrder);
             System.out.println("[Order Service] Success.");
             cor.setOrder(oldOrder);
@@ -218,5 +230,128 @@ public class OrderServiceImpl implements OrderService{
         return cstr;
     }
 
+    @Override
+    public QueryOrderResult getAllOrders(){
+        ArrayList<Order> orders = orderRepository.findAll();
+        QueryOrderResult result = new QueryOrderResult(true,"Success.",orders);
+        return result;
+    }
+
+    @Override
+    public ModifyOrderStatusResult modifyOrder(ModifyOrderStatusInfo info){
+        Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
+        ModifyOrderStatusResult result = new ModifyOrderStatusResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setOrder(null);
+        }else{
+            order.setStatus(info.getStatus());
+            orderRepository.save(order);
+            result.setStatus(true);
+            result.setMessage("Success");
+            result.setOrder(order);
+        }
+        return result;
+    }
+
+    @Override
+    public GetOrderPriceResult getOrderPrice(GetOrderPrice info){
+        Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
+        GetOrderPriceResult result = new GetOrderPriceResult();
+        if(order == null){
+            System.out.println("[Other Service][Get Order Price] Order Not Found.");
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setPrice("-1.0");
+        }else{
+            result.setStatus(true);
+            result.setMessage("Success");
+            System.out.println("[Order Service][Get Order Price] Price:" + order.getPrice());
+            result.setPrice(order.getPrice());
+        }
+        return result;
+    }
+
+    @Override
+    public PayOrderResult payOrder(PayOrderInfo info){
+        Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
+        PayOrderResult result = new PayOrderResult();
+        if(result == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setOrder(null);
+        }else{
+            order.setStatus(OrderStatus.PAID.getCode());
+            orderRepository.save(order);
+            result.setStatus(true);
+            result.setMessage("Success.");
+            result.setOrder(order);
+        }
+        return result;
+    }
+
+    @Override
+    public GetOrderResult getOrderById(GetOrderByIdInfo info){
+        Order order = orderRepository.findById(UUID.fromString(info.getOrderId()));
+        GetOrderResult result = new GetOrderResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setOrder(null);
+        }else{
+            result.setStatus(true);
+            result.setMessage("Success.");
+            result.setOrder(order);
+        }
+        return result;
+    }
+
+    @Override
+    public void initOrder(Order order){
+        orderRepository.save(order);
+    }
+
+    @Override
+    public GetOrderInfoForSecurityResult checkSecurityAboutOrder(GetOrderInfoForSecurity info){
+        GetOrderInfoForSecurityResult result = new GetOrderInfoForSecurityResult();
+        ArrayList<Order> orders = orderRepository.findByAccountId(UUID.fromString(info.getAccountId()));
+        int countOrderInOneHour = 0;
+        int countTotalValidOrder = 0;
+        Date dateFrom = info.getCheckDate();
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(dateFrom );
+        ca.add(Calendar.HOUR_OF_DAY, -1);
+        dateFrom = ca.getTime();
+        for(Order order : orders){
+            if(order.getStatus() == OrderStatus.NOTPAID.getCode() ||
+                    order.getStatus() == OrderStatus.PAID.getCode() ||
+                    order.getStatus() == OrderStatus.COLLECTED.getCode()){
+                countTotalValidOrder += 1;
+            }
+            if(order.getBoughtDate().after(dateFrom)){
+                countOrderInOneHour += 1;
+            }
+        }
+        result.setOrderNumInLastOneHour(countOrderInOneHour);
+        result.setOrderNumOfValidOrder(countTotalValidOrder);
+        return result;
+    }
+
+    @Override
+    public DeleteOrderResult deleteOrder(DeleteOrderInfo info){
+        UUID orderUuid = UUID.fromString(info.getOrderId());
+        Order order = orderRepository.findById(orderUuid);
+        DeleteOrderResult result = new DeleteOrderResult();
+        if(order == null){
+            result.setStatus(false);
+            result.setMessage("Order Not Exist.");
+        }else{
+            orderRepository.deleteById(orderUuid);
+            result.setStatus(true);
+            result.setMessage("Success.");
+        }
+        return result;
+    }
 }
 

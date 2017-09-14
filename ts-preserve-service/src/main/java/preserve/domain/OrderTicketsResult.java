@@ -6,6 +6,8 @@ public class OrderTicketsResult {
 
     private String message;
 
+    private Order order;
+
     public OrderTicketsResult(){
         //Default Constructor
     }
@@ -24,5 +26,13 @@ public class OrderTicketsResult {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

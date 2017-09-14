@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ts-station-service
   data:
     mongodb:
       host: ts-station-mongo
@@ -6,6 +8,12 @@ spring:
 #      password: ${MONGODB_PASSWORD}
       database: ts
       port: 27017
+
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
 
 # HTTP Server
 server:

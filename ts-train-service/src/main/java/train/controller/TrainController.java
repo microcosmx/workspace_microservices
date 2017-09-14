@@ -48,7 +48,6 @@ public class TrainController {
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/train/query",method= RequestMethod.GET)
     public List<TrainType> query(){
-        System.out.println("train:query()");
         return trainService.query();
     }
 }

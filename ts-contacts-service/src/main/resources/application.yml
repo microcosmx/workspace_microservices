@@ -1,4 +1,9 @@
+server:
+  port: 12347
+
 spring:
+  application:
+    name: ts-contacts-service
   data:
     mongodb:
       host: ts-contacts-mongo
@@ -6,7 +11,9 @@ spring:
 #      password: ${MONGODB_PASSWORD}
       database: ts
       port: 27017
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
 
-# HTTP Server
-server:
-  port: 12347  # HTTP (Tomcat) port

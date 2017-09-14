@@ -1,5 +1,17 @@
 package security.service;
 
-public class SecurityService {
+import security.domain.*;
+
+public interface SecurityService {
+
+    GetAllSecurityConfigResult findAllSecurityConfig();
+
+    CreateSecurityConfigResult addNewSecurityConfig(CreateSecurityConfigInfo info);
+
+    UpdateSecurityConfigResult modifySecurityConfig(UpdateSecurityConfigInfo info);
+
+    DeleteConfigResult deleteSecurityConfig(DeleteConfigInfo info);
+
+    CheckResult check(CheckInfo info);
 
 }

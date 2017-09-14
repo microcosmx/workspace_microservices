@@ -22,29 +22,47 @@ public class InitData implements CommandLineRunner{
 
         info.setTripId("G1234");
         info.setTrainTypeId("GaoTieOne");
-        info.setStartingStation("ShangHai");
-        info.setStations("BeiJing");
-        info.setTerminalStation("TaiYuan");
-        info.setStartingTime(new Date("Mon May 04 09:51:52 CDT 2013"));
-        info.setEndTime(new Date("Mon May 04 15:51:52 CDT 2013"));
+        info.setStartingStationId("shanghai");
+        info.setStationsId("beijing");
+        info.setTerminalStationId("taiyuan");
+        info.setStartingTime(new Date("Mon May 04 09:00:00 GMT+0800 2013"));
+        info.setEndTime(new Date("Mon May 04 15:51:52 GMT+0800 2013"));
         service.create(info);
 
         info.setTripId("G1235");
+        info.setTrainTypeId("GaoTieOne");
+        info.setStartingStationId("shanghai");
+        info.setStationsId("beijing");
+        info.setTerminalStationId("taiyuan");
+        info.setStartingTime(new Date("Mon May 04 12:00:00 GMT+0800 2013"));
+        info.setEndTime(new Date("Mon May 04 17:51:52 GMT+0800 2013"));
+        service.create(info);
+
+        info.setTripId("G1236");
+        info.setTrainTypeId("GaoTieOne");
+        info.setStartingStationId("shanghai");
+        info.setStationsId("beijing");
+        info.setTerminalStationId("taiyuan");
+        info.setStartingTime(new Date("Mon May 04 14:00:00 GMT+0800 2013"));
+        info.setEndTime(new Date("Mon May 04 20:51:52 GMT+0800 2013"));
+        service.create(info);
+
+        info.setTripId("G1237");
         info.setTrainTypeId("GaoTieTwo");
-        info.setStartingStation("NanJing");
-        info.setStations("ShangHaiHongQiao");
-        info.setTerminalStation("BeiJing");
-        info.setStartingTime(new Date("Mon May 04 08:31:52 CDT 2013"));
-        info.setEndTime(new Date("Mon May 04 17:21:52 CDT 2013"));
+        info.setStartingStationId("nanjing");
+        info.setStationsId("shanghaihongqiao");
+        info.setTerminalStationId("beijing");
+        info.setStartingTime(new Date("Mon May 04 08:00:00 GMT+0800 2013"));
+        info.setEndTime(new Date("Mon May 04 17:21:52 GMT+0800 2013"));
         service.create(info);
 
         info.setTripId("D1345");
         info.setTrainTypeId("DongCheOne");
-        info.setStartingStation("TaiYua ");
-        info.setStations("NanJing");
-        info.setTerminalStation("ShangHai");
-        info.setStartingTime(new Date("Mon May 04 07:51:52 CDT 2013"));
-        info.setEndTime(new Date("Mon May 04 19:59:52 CDT 2013"));
+        info.setStartingStationId("taiyuan");
+        info.setStationsId("nanjing");
+        info.setTerminalStationId("shanghai");
+        info.setStartingTime(new Date("Mon May 04 07:00:00 GMT+0800 2013"));
+        info.setEndTime(new Date("Mon May 04 19:59:52 GMT+0800 2013"));
         service.create(info);
     }
 }

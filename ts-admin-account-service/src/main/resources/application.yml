@@ -1,3 +1,0 @@
-# HTTP Server
-server:
-  port: 12343  # HTTP (Tomcat) port

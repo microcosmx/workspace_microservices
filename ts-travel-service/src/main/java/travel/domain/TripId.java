@@ -23,12 +23,12 @@ public class TripId implements Serializable{
                 break;
             case 'D': this.type = Type.D;
                 break;
-            case 'Z': this.type = Type.Z;
-                break;
-            case 'T': this.type = Type.T;
-                break;
-            case 'K': this.type = Type.K;
-                break;
+//            case 'Z': this.type = Type.Z;
+//                break;
+//            case 'T': this.type = Type.T;
+//                break;
+//            case 'K': this.type = Type.K;
+//                break;
             default:break;
         }
 

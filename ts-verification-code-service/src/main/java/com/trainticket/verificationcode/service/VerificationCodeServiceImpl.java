@@ -82,10 +82,14 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
             cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             CookieUtil.addCookie(response, "YsbCaptcha", cookieId, CAPTCHA_EXPIRED);
         }else{
-            cookieId = cookie.getValue();
+            if(cookie.getValue() != null){
+                cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+                CookieUtil.addCookie(response, "YsbCaptcha", cookieId, CAPTCHA_EXPIRED);
+            }else {
+                cookieId = cookie.getValue();
+            }
         }
 
-        //把校验码、是否已经通过校验（缺省不设置为0）保存到redis中，以cookie ID 为key
         map.put(cookieId,strEnsure);
 
         return returnMap;
@@ -102,9 +106,8 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
             cookieId = cookie.getValue();
         }
         String code = map.get(cookieId);
-        System.out.println("code: "+code);
-        System.out.println("receivedCode: "+receivedCode);
-        if(code.equals(receivedCode)){
+
+        if(code.equals(receivedCode.toUpperCase())){
             result = true;
         }
         return result;
@@ -120,3 +123,5 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
         return new Color(r, g, b);
     }
 }
+
+

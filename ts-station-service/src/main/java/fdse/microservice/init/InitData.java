@@ -18,19 +18,24 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) throws Exception{
         Information info = new Information();
 
-        info.setName("ShangHai");
+        info.setId("shanghai");
+        info.setName("Shang Hai");
         service.create(info);
 
-        info.setName("ShangHaiHongQiao");
+        info.setId("shanghaihongqiao");
+        info.setName("Shang Hai Hong Qiao");
         service.create(info);
 
-        info.setName("TaiYuan");
+        info.setId("taiyuan");
+        info.setName("Tai Yuan");
         service.create(info);
 
-        info.setName("BeiJing");
+        info.setId("beijing");
+        info.setName("Bei Jing");
         service.create(info);
 
-        info.setName("NanJing");
+        info.setId("nanjing");
+        info.setName("Nan Jing");
         service.create(info);
     }
 }

@@ -11,7 +11,10 @@ import java.util.UUID;
 @Repository
 public interface OrderRepository extends MongoRepository<Order, String> {
 
+    @Query("{ 'id': ?0 }")
     Order findById(UUID id);
+
+    ArrayList<Order> findAll();
 
     @Query("{ 'accountId' : ?0 }")
     ArrayList<Order> findByAccountId(UUID accountId);
@@ -19,4 +22,5 @@ public interface OrderRepository extends MongoRepository<Order, String> {
     @Query("{ 'travelDate' : ?0 , trainNumber : ?1 }")
     ArrayList<Order> findByTravelDateAndTrainNumber(Date travelDate,String trainNumber);
 
+    void deleteById(UUID id);
 }
