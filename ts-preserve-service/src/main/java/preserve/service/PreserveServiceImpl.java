@@ -1,11 +1,14 @@
 package preserve.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import preserve.domain.*;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.Future;
 
 @Service
 public class PreserveServiceImpl implements PreserveService{
@@ -14,7 +17,17 @@ public class PreserveServiceImpl implements PreserveService{
     private RestTemplate restTemplate;
 
     @Override
-    public OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken){
+    @Async("myAsync")
+    public Future<OrderTicketsResult> preserve(OrderTicketsInfo oti, String accountId, String loginToken){
+
+        //random sleep
+        long sleep = (long) (Math.random() * 10000);
+        try {
+            Thread.sleep(sleep);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+
         VerifyResult tokenResult = verifySsoLogin(loginToken);
         OrderTicketsResult otr = new OrderTicketsResult();
         if(tokenResult.isStatus() == true){
@@ -28,7 +41,7 @@ public class PreserveServiceImpl implements PreserveService{
                 otr.setStatus(false);
                 otr.setMessage(result.getMessage());
                 otr.setOrder(null);
-                return otr;
+                return new AsyncResult<>(otr);
             }
             System.out.println("[Preserve Service] [Step 1] Check Security Complete");
             //2.查询联系人信息 -- 修改，通过基础信息微服务作为中介
@@ -43,7 +56,7 @@ public class PreserveServiceImpl implements PreserveService{
                 otr.setStatus(false);
                 otr.setMessage(gcr.getMessage());
                 otr.setOrder(null);
-                return otr;
+                return new AsyncResult<>(otr);
             }
             System.out.println("[Preserve Service][Step 2] Complete");
             //3.查询座位余票信息和车次的详情
@@ -62,7 +75,7 @@ public class PreserveServiceImpl implements PreserveService{
                 otr.setStatus(false);
                 otr.setMessage(gcr.getMessage());
                 otr.setOrder(null);
-                return otr;
+                return new AsyncResult<>(otr);
             }else{
                 TripResponse tripResponse = gtdr.getTripResponse();
                 if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
@@ -71,7 +84,7 @@ public class PreserveServiceImpl implements PreserveService{
                         otr.setStatus(false);
                         otr.setMessage("Seat Not Enough");
                         otr.setOrder(null);
-                        return otr;
+                        return new AsyncResult<>(otr);
                     }
                 }else{
                     if(tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode()){
@@ -80,7 +93,7 @@ public class PreserveServiceImpl implements PreserveService{
                             otr.setStatus(false);
                             otr.setMessage("Seat Not Enough");
                             otr.setOrder(null);
-                            return otr;
+                            return new AsyncResult<>(otr);
                         }
                     }
                 }
@@ -143,7 +156,7 @@ public class PreserveServiceImpl implements PreserveService{
                 otr.setStatus(false);
                 otr.setMessage(cor.getMessage());
                 otr.setOrder(null);
-                return otr;
+                return new AsyncResult<>(otr);
             }
             System.out.println("[Preserve Service] [Step 4] Do Order Complete");
             otr.setStatus(true);
@@ -178,10 +191,9 @@ public class PreserveServiceImpl implements PreserveService{
             otr.setMessage("Not Login");
             otr.setOrder(null);
         }
-        return otr;
+
+        return new AsyncResult<>(otr);
     }
-
-
 
     private boolean postForNotification(NotifyInfo info){
         System.out.println("[Preserve Other Service][Post For Notification]");
