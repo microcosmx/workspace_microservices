@@ -8,6 +8,10 @@ public class ChangeOrderResult {
 
     private Order order;
 
+    public ChangeOrderResult() {
+        //Default Constructor
+    }
+
     public boolean isStatus() {
         return status;
     }

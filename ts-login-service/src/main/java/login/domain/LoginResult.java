@@ -3,9 +3,16 @@ package login.domain;
 public class LoginResult {
 
     private boolean status;
+
     private String message;
+
     private Account account;
+
     private String token;
+
+    public LoginResult(){
+        //Default Constructor
+    }
 
     public boolean getStatus() {
         return status;

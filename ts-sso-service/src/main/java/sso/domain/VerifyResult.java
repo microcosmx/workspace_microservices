@@ -6,6 +6,10 @@ public class VerifyResult {
 
     private String message;
 
+    public VerifyResult(){
+        //Default Constructor
+    }
+
     public boolean isStatus() {
         return status;
     }

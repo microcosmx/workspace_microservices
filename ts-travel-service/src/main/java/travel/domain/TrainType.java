@@ -19,7 +19,7 @@ public class TrainType {
     private int confortClass;   //一等的座位数量
 
     public TrainType(){
-
+        //Default Constructor
     }
 
     public TrainType(String id, int economyClass, int confortClass) {

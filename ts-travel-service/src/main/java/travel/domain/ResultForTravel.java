@@ -6,13 +6,18 @@ import java.util.HashMap;
  * Created by Chenjie Xu on 2017/6/6.
  */
 public class ResultForTravel {
+
     private boolean status;
+
     private double percent;
+
     private TrainType trainType;
 
     private HashMap<String,String> prices;
 
-    public ResultForTravel(){}
+    public ResultForTravel(){
+        //Default Constructor
+    }
 
     public boolean isStatus() {
         return status;

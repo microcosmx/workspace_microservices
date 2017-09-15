@@ -5,13 +5,17 @@ package rebook.domain;
  */
 public class PaymentDifferenceInfo {
 
-    public PaymentDifferenceInfo(){}
-
     private String orderId;
+
     private String tripId;
+
     private String userId;
 
     private String price;
+
+    public PaymentDifferenceInfo(){
+        //Default Constructor
+    }
 
     public String getOrderId() {
         return orderId;

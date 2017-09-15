@@ -54,8 +54,6 @@ public class Trip {
         //Default Constructor
     }
 
-
-
     public TripId getTripId() {
         return tripId;
     }

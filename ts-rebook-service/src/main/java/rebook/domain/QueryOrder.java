@@ -7,7 +7,9 @@ public class QueryOrder {
 
     private String orderId;
 
-    public QueryOrder(){}
+    public QueryOrder(){
+        //Default Constructor
+    }
 
     public QueryOrder(String orderId) {
         this.orderId = orderId;

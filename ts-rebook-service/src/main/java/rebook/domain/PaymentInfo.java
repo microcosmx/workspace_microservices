@@ -4,10 +4,14 @@ package rebook.domain;
  * Created by Administrator on 2017/6/20.
  */
 public class PaymentInfo {
-    public PaymentInfo(){}
 
     private String orderId;
+
     private String tripId;
+
+    public PaymentInfo(){
+        //Default Constructor
+    }
 
     public String getOrderId() {
         return orderId;

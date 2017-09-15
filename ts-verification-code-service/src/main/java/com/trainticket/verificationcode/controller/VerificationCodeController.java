@@ -4,13 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
-
 import com.trainticket.verificationcode.service.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.imageio.*;
@@ -47,11 +43,11 @@ public class VerificationCodeController {
 
 	@RequestMapping(value = "/verification/verify", method = RequestMethod.POST)
 	public boolean verifyCode(HttpServletRequest request, HttpServletResponse response ) {
-		return true;
-		//String receivedCode = request.getParameter("verificationCode");
-		//System.out.println("receivedCode"+receivedCode);
-		//boolean result = verificationCodeService.verifyCode(request, response, receivedCode);
-		//return result;
+		//return true;
+		String receivedCode = request.getParameter("verificationCode");
+		System.out.println("receivedCode"+receivedCode);
+		boolean result = verificationCodeService.verifyCode(request, response, receivedCode);
+		return result;
 
 	}
 

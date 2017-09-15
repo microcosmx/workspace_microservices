@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import travel.domain.*;
 import travel.service.TravelService;
-
 import java.util.ArrayList;
 import java.util.List;
 

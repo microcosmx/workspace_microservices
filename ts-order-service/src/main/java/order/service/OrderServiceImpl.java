@@ -5,7 +5,6 @@ import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -309,7 +308,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void initOrder(Order order){
-        orderRepository.save(order);
+        Order orderTemp = orderRepository.findById(order.getId());
+        if(orderTemp == null){
+            orderRepository.save(order);
+        }else{
+            System.out.println("[Order Service][Init Order] Order Already Exists ID:" + order.getId());
+        }
     }
 
     @Override

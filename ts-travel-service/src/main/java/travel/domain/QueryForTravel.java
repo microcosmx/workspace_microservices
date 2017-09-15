@@ -6,12 +6,18 @@ import java.util.Date;
  * Created by Chenjie Xu on 2017/6/6.
  */
 public class QueryForTravel {
+
     private Trip trip;
+
     private String startingPlace;
+
     private String endPlace;
+
     private Date departureTime;
 
-    public QueryForTravel(){}
+    public QueryForTravel(){
+        //Default Constructor
+    }
 
     public Trip getTrip() {
         return trip;

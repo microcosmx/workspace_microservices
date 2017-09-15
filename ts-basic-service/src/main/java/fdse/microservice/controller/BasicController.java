@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class BasicController {
+
     @Autowired
     BasicService service;
 

@@ -12,6 +12,10 @@ public class Information2 {
     @Id
     private String id;      //车型ID，每个车型一个ID，比如某个型号的动车
 
+    public Information2(){
+        //Default Constructor
+    }
+
     public String getId() {
         return id;
     }

@@ -20,7 +20,9 @@ public class TrainType {
     @Valid
     private int confortClass;   //商务座的座位数量
 
-    public TrainType(){}
+    public TrainType(){
+        //Default Constructor
+    }
 
     public TrainType(String id, int economyClass, int confortClass) {
         this.id = id;

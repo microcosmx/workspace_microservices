@@ -14,7 +14,9 @@ public class TripId implements Serializable{
 //        this.number = number;
 //    }
 
-    public TripId(){}
+    public TripId(){
+        //Default Constructor
+    }
 
     public TripId(String trainNumber){
         char type = trainNumber.charAt(0);

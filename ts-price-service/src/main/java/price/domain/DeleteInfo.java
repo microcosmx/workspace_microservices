@@ -7,7 +7,9 @@ public class DeleteInfo {
     private String placeA;
     private String placeB;
 
-    public DeleteInfo(){}
+    public DeleteInfo(){
+        //Default Constructor
+    }
 
     public DeleteInfo(String placeA, String placeB) {
         this.placeA = placeA;

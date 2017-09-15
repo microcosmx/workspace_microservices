@@ -19,7 +19,9 @@ public class Information {
     @NotNull
     private String name;
 
-    public Information(){}
+    public Information(){
+        //Default Constructor
+    }
 
     public String getId() {
         return id;

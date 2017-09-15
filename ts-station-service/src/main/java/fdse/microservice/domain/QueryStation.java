@@ -13,7 +13,9 @@ public class QueryStation {
     @NotNull
     private String name;
 
-    public QueryStation(){}
+    public QueryStation(){
+        //Default Constructor
+    }
 
     public QueryStation(String name) {
         this.name = name;

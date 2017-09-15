@@ -9,7 +9,9 @@ public class CreateAccountInfo {
 
     private String money;
 
-    public CreateAccountInfo(){}
+    public CreateAccountInfo(){
+        //Default Constructor
+    }
 
     public String getUserId() {
         return userId;

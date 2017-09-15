@@ -29,8 +29,6 @@ public class Information {
     @NotNull
     private String terminalStationId;
 
-
-
     @Valid
     @NotNull
     private Date startingTime;
@@ -38,6 +36,10 @@ public class Information {
     @Valid
     @NotNull
     private Date endTime;
+
+    public Information(){
+        //Default Constructor
+    }
 
     public String getTripId() {
         return tripId;

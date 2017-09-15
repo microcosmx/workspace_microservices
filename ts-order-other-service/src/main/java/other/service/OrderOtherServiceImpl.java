@@ -44,6 +44,17 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     }
 
     @Override
+    public void initOrder(Order order){
+        Order orderTemp = orderOtherRepository.findById(order.getId());
+        if(orderTemp == null){
+            orderOtherRepository.save(order);
+        }else{
+            System.out.println("[Order Other Service][Init Order] Order Already Exists ID:" + order.getId());
+        }
+    }
+
+
+    @Override
     public OrderAlterResult alterOrder(OrderAlterInfo oai){
         OrderAlterResult oar = new OrderAlterResult();
         UUID oldOrderId = oai.getPreviousOrderId();
