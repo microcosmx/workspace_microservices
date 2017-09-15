@@ -57,9 +57,9 @@ docker run -d --name myredis -p 6379:6379 redis
 
 docker ui:
 docker rm portainer-ui-local
-docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-http://10.141.212.22:9000/
-http://10.141.211.161:9000
+docker run -d -p 9100:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+http://10.141.212.22:9100/
+http://10.141.211.161:9100
 
 
 
@@ -167,7 +167,7 @@ docker node ls
 docker node rm 0pvy8v3sugtmcbqualswp1rv5
 
 swarm ui:
-http://10.141.211.160:9000/
+http://10.141.211.160:9100/
 zipkin:
 http://10.141.211.160:9411/
 app:
