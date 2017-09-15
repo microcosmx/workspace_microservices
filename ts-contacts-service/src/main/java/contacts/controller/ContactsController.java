@@ -63,7 +63,8 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
     public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
-        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
+//        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken()());
+        VerifyResult tokenResult = verifySsoLogin("");//传入空的token导致验证出错
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
             return contactsService.create(aci);
@@ -80,7 +81,8 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/delete", method = RequestMethod.DELETE)
     public DeleteContactsResult deleteContacts(@RequestBody DeleteContactsInfo dci){
-        VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
+//        VerifyResult tokenResult = verifySsoLogin(dci.getLoginToken());
+        VerifyResult tokenResult = verifySsoLogin("");//传入空的token导致验证出错
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
             return contactsService.delete(UUID.fromString(dci.getContactsId()));
