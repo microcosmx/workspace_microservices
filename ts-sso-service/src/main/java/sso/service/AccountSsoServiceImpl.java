@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import sso.domain.LogoutInfo;
 import sso.domain.LogoutResult;
 import sso.domain.PutLoginResult;
 import sso.domain.VerifyResult;
 import sso.repository.AccountRepository;
-import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,9 +18,6 @@ public class AccountSsoServiceImpl implements AccountSsoService{
 
     @Autowired
     private AccountRepository accountRepository;
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private StringRedisTemplate template;

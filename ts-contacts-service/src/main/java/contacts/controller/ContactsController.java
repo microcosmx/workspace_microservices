@@ -24,7 +24,8 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/findContacts", method = RequestMethod.POST)
     public ArrayList<Contacts> findContactsByAccountId(@RequestBody QueryContactsInfo qci){
-        VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
+        VerifyResult tokenResult = verifySsoLogin("null");//传入空的token导致验证出错
+//        VerifyResult tokenResult = verifySsoLogin(qci.getLoginToken());
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
             return contactsService.findContactsByAccountId(UUID.fromString(qci.getAccountId()));
@@ -63,8 +64,8 @@ public class ContactsController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
     public AddContactsResult createNewContacts(@RequestBody AddContactsInfo aci){
-//        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken()());
-        VerifyResult tokenResult = verifySsoLogin("");//传入空的token导致验证出错
+        VerifyResult tokenResult = verifySsoLogin(aci.getLoginToken());
+//        VerifyResult tokenResult = verifySsoLogin("null");//传入空的token导致验证出错
         if(tokenResult.isStatus() == true){
             System.out.println("[ContactsService][VerifyLogin] Success");
             return contactsService.create(aci);
