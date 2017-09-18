@@ -19,3 +19,18 @@ docker配置故障，在分支"ts-error-docker-JVM"中实现，参考"error-dock
 丁丹：
 某种顺序错误导致的故障，在分支"ts-error-reportui"中实现，参考"1-error-reportui-seq-status"
 
+
+
+9.18 - 9.22:
+冀超：
+Route, news(go)
+李文海：
+seat
+丁丹：
+assurance
+麒麟：
+notify 服务整合
+何小v：
+测试系统问题。
+
+
