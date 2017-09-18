@@ -44,7 +44,7 @@ services:
         condition: on-failure
     networks:
       - my-network
-  
+
 
   ts-ui-dashboard:
     build: ts-ui-dashboard
@@ -122,6 +122,15 @@ services:
         condition: on-failure
     networks:
       - my-network
+
+  ts-verification-code-mongo:
+    image: mongo
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+        - my-network
 
   ts-contacts-service:
     build: ts-contacts-service

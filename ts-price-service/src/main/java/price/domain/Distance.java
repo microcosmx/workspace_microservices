@@ -24,16 +24,15 @@ public class Distance {
     @Valid
     private double distance;
 
-
-    public Distance(){}
-
+    public Distance(){
+        //Default Constructor
+    }
 
     public Distance(String placeA, String placeB, double distance) {
         this.placeA = placeA;
         this.placeB = placeB;
         this.distance = distance;
     }
-
 
     public String getPlaceA() {
         return placeA;

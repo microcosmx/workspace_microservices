@@ -7,11 +7,14 @@ import javax.validation.constraints.NotNull;
  * Created by Chenjie Xu on 2017/5/19.
  */
 public class QueryStation {
+
     @Valid
     @NotNull
     private String name;
 
-    public QueryStation(){}
+    public QueryStation(){
+        //Default Constructor
+    }
 
     public QueryStation(String name) {
         this.name = name;

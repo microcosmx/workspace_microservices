@@ -2,9 +2,10 @@ package sso.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import sso.domain.*;
 import sso.service.AccountSsoService;
+
+import java.util.UUID;
 
 @RestController
 public class AccountSsoController {
@@ -15,6 +16,15 @@ public class AccountSsoController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
+        Account acc = new Account();
+        acc.setDocumentType(DocumentType.ID_CARD.getCode());
+        acc.setDocumentNum("DefaultDocumentNumber");
+        acc.setEmail("fdse_microservices@163.com");
+        acc.setPassword("DefaultPassword");
+        acc.setName("Default User");
+        acc.setGender(Gender.MALE.getCode());
+        acc.setId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
+        ssoService.createAccount(acc);
         return "Welcome to [ Accounts SSO Service ] !";
     }
 
@@ -65,7 +75,6 @@ public class AccountSsoController {
             return lr;
         }
     }
-
 
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public LogoutResult logoutDeleteToken(@RequestBody LogoutInfo li){

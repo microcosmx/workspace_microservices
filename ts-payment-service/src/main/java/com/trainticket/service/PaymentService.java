@@ -10,7 +10,13 @@ import java.util.List;
  * Created by Chenjie Xu on 2017/4/5.
  */
 public interface PaymentService {
+
     boolean pay(PaymentInfo info);
+
     boolean addMoney(AddMoneyInfo info);
+
     List<Payment> query();
+
+    void initPayment(Payment payment);
+
 }

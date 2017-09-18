@@ -7,7 +7,9 @@ public class QueryForId {
 
     private String name;
 
-    public QueryForId(){}
+    public QueryForId(){
+        //Default Constructor
+    }
 
     public String getName() {
         return name;

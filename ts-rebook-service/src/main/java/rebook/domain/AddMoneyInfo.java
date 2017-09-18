@@ -6,11 +6,14 @@ import javax.xml.ws.soap.Addressing;
  * Created by Administrator on 2017/6/20.
  */
 public class AddMoneyInfo {
+
     private String userId;
+
     private String money;
 
-
-    public AddMoneyInfo(){}
+    public AddMoneyInfo(){
+        //Default Constructor
+    }
 
     public String getUserId() {
         return userId;

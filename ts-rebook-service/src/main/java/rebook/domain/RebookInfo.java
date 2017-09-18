@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by Administrator on 2017/6/26.
  */
 public class RebookInfo {
+
     @Valid
     @NotNull
     private String orderId;
@@ -28,7 +29,9 @@ public class RebookInfo {
     @NotNull
     private Date date;//具体到哪一天
 
-    public RebookInfo(){}
+    public RebookInfo(){
+        //Default Constructor
+    }
 
     public String getOrderId() {
         return orderId;

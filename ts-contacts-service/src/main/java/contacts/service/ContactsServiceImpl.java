@@ -27,7 +27,12 @@ public class ContactsServiceImpl implements ContactsService{
 
     @Override
     public Contacts createContacts(Contacts contacts){
-        contactsRepository.save(contacts);
+        Contacts contactsTemp = contactsRepository.findById(contacts.getId());
+        if(contactsTemp != null){
+            System.out.println("[Contacts Service][Init Contacts] Already Exists Id:" + contacts.getId());
+        }else{
+            contactsRepository.save(contacts);
+        }
         return contacts;
     }
 

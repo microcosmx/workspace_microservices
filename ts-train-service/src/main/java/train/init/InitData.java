@@ -11,6 +11,7 @@ import train.service.TrainService;
  */
 @Component
 public class InitData implements CommandLineRunner{
+
     @Autowired
     TrainService service;
 

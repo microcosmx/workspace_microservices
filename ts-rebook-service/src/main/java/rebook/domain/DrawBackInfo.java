@@ -8,7 +8,9 @@ public class DrawBackInfo {
     private String userId;
     private String money;
 
-    public DrawBackInfo(){}
+    public DrawBackInfo(){
+        //Default Constructor
+    }
 
     public String getUserId() {
         return userId;

@@ -35,11 +35,12 @@ public class InitData implements CommandLineRunner {
 //        info2.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
 //        service.pay(info2);
         Payment payment = new Payment();
+        payment.setId("5ad7750ba68b49c0a8c035276b321701");
         payment.setOrderId("5ad7750b-a68b-49c0-a8c0-32776b067702");
         payment.setPrice("100.0");
         payment.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
         payment.setType(PaymentType.P);
-        paymentRepository.save(payment);
+        service.initPayment(payment);
     }
 }
 

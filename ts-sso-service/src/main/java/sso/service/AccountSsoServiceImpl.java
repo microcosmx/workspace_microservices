@@ -21,10 +21,15 @@ public class AccountSsoServiceImpl implements AccountSsoService{
 
     @Override
     public Account createAccount(Account account){
-        System.out.println("[SSO Service][Create Account] Before:" + account.getId());
+
+        if(accountRepository.findById(account.getId()) != null){
+            System.out.println("[SSO Service][Init Account] Account Already Exists.");
+            return account;
+        }
+        System.out.println("[SSO Service][Init Account] Before:" + account.getId());
         Account resultAcc = accountRepository.save(account);
         Account oldAcc = accountRepository.findByEmail(account.getEmail());
-        System.out.println("[SSO Service][Create Account] After:" + oldAcc.getId());
+        System.out.println("[SSO Service][Init Account] After:" + oldAcc.getId());
         return resultAcc;
     }
 

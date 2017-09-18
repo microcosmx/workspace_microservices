@@ -8,17 +8,20 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import com.trainticket.verificationcode.domain.VerificationCodeValue;
+import com.trainticket.verificationcode.repository.VerificationCodeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.trainticket.verificationcode.util.CookieUtil;
 @Service
 public class VerificationCodeServiceImpl implements VerificationCodeService{
 
-    private Map<String, String> map = new HashMap<String, String>();
+    //private Map<String, String> map = new HashMap<String, String>();
+    @Autowired
+    public VerificationCodeRepository verificationCodeRepository;
 
     private static char mapTable[] = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -90,7 +93,8 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
             }
         }
 
-        map.put(cookieId,strEnsure);
+        verificationCodeRepository.save(new VerificationCodeValue(cookieId,strEnsure));
+        //map.put(cookieId,strEnsure);
 
         return returnMap;
     }
@@ -105,7 +109,14 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
         }else{
             cookieId = cookie.getValue();
         }
-        String code = map.get(cookieId);
+
+        VerificationCodeValue value = verificationCodeRepository.findByCookie(cookieId);
+        if(value == null){
+            return false;
+        }
+
+        String code = value.getVerificationCode();
+        //String code = map.get(cookieId);
 
         if(code.equals(receivedCode.toUpperCase())){
             result = true;

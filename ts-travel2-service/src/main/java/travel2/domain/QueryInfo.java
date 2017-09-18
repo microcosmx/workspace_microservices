@@ -20,6 +20,10 @@ public class QueryInfo {
     @NotNull
     private Date departureTime;
 
+    public QueryInfo(){
+        //Default Constructor
+    }
+
     public String getStartingPlace() {
         return startingPlace;
     }

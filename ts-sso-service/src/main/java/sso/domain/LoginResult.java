@@ -10,6 +10,10 @@ public class LoginResult {
 
     private String token;
 
+    public LoginResult(){
+        //Default Constructor
+    }
+
     public boolean getStatus() {
         return status;
     }

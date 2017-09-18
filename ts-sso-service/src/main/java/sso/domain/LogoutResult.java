@@ -6,6 +6,10 @@ public class LogoutResult {
 
     private String message;
 
+    public LogoutResult(){
+        //Default Constructor
+    }
+
     public boolean isStatus() {
         return status;
     }

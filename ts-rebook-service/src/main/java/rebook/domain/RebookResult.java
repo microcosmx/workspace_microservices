@@ -13,7 +13,9 @@ public class RebookResult {
 
     private Order order;
 
-    public RebookResult(){}
+    public RebookResult(){
+        //Default Constructor
+    }
 
     public boolean isStatus() {
         return status;

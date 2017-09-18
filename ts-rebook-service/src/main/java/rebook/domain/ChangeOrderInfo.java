@@ -7,6 +7,10 @@ public class ChangeOrderInfo {
 
     private String loginToken;
 
+    public ChangeOrderInfo() {
+        //Default Constructor
+    }
+
     public Order getOrder() {
         return order;
     }

@@ -7,7 +7,9 @@ public class QueryForStationId {
 
     private String name;
 
-    public QueryForStationId(){}
+    public QueryForStationId(){
+        //Default Constructor
+    }
 
     public String getName() {
         return name;

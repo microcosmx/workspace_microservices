@@ -10,6 +10,10 @@ public class PutLoginResult {
 
     private String msg;
 
+    public PutLoginResult(){
+        //Default Constructor
+    }
+
     public String getLoginId() {
         return loginId;
     }

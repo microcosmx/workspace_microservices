@@ -8,6 +8,10 @@ public class QuerySoldTicket {
 
     private String trainNumber;
 
+    public QuerySoldTicket(){
+        //Default Constructor
+    }
+
     public QuerySoldTicket(Date travelDate, String trainNumber) {
         this.travelDate = travelDate;
         this.trainNumber = trainNumber;

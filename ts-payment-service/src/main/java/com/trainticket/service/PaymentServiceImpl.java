@@ -23,6 +23,7 @@ public class PaymentServiceImpl implements PaymentService{
     @Autowired
     AddMoneyRepository addMoneyRepository;
 
+    @Override
     public boolean pay(PaymentInfo info){
         if(paymentRepository.findByOrderId(info.getOrderId()) == null){
             Payment payment = new Payment();
@@ -36,6 +37,7 @@ public class PaymentServiceImpl implements PaymentService{
         }
     }
 
+    @Override
     public boolean addMoney(AddMoneyInfo info){
         AddMoney addMoney = new AddMoney();
         addMoney.setUserId(info.getUserId());
@@ -44,7 +46,18 @@ public class PaymentServiceImpl implements PaymentService{
         return true;
     }
 
+    @Override
     public List<Payment> query(){
         return paymentRepository.findAll();
+    }
+
+    @Override
+    public void initPayment(Payment payment){
+        Payment paymentTemp = paymentRepository.findById(payment.getId());
+        if(paymentTemp == null){
+            paymentRepository.save(payment);
+        }else{
+            System.out.println("[Payment Service][Init Payment] Already Exists:" + payment.getId());
+        }
     }
 }

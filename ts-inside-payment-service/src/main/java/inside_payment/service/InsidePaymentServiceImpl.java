@@ -314,6 +314,16 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
         return result;
     }
 
+    @Override
+    public void initPayment(Payment payment){
+        Payment paymentTemp = paymentRepository.findById(payment.getId());
+        if(paymentTemp == null){
+            paymentRepository.save(payment);
+        }else{
+            System.out.println("[Inside Payment Service][Init Payment] Already Exists:" + payment.getId());
+        }
+    }
+
 //    private boolean sendOrderCreateEmail(){
 //        result = restTemplate.postForObject(
 //                "http://ts-notification-service:12031/order/modifyOrderStatus", info, ModifyOrderStatusResult.class);

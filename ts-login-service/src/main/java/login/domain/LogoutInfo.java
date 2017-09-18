@@ -6,6 +6,10 @@ public class LogoutInfo {
 
     private String token;
 
+    public LogoutInfo(){
+        //Default Constructor
+    }
+
     public String getId() {
         return id;
     }

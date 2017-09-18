@@ -6,12 +6,18 @@ package price.domain;
 public class ResultPrice {
 
     private String placeA;
+
     private String placeB;
+
     private String trainTypeId;
+
     private String seatClass;
+
     private String price;
 
-    public ResultPrice(){}
+    public ResultPrice(){
+        //Default Constructor
+    }
 
     public ResultPrice(String placeA, String placeB, String trainTypeId, String seatClass, String price) {
         this.placeA = placeA;

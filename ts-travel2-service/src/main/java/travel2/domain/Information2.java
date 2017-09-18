@@ -12,6 +12,10 @@ public class Information2 {
     @Id
     private String tripId;
 
+    public Information2(){
+        //Default Constructor
+    }
+
     public String getTripId() {
         return tripId;
     }

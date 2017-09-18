@@ -5,12 +5,15 @@ package price.domain;
  */
 public class CreateInfo {
 
-
     private String placeA;
+
     private String placeB;
+
     private double distance;
 
-    public CreateInfo(){}
+    public CreateInfo(){
+        //Default Constructor
+    }
 
     public String getPlaceA() {
         return placeA;

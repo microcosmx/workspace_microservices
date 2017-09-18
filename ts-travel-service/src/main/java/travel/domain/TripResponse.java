@@ -50,8 +50,9 @@ public class TripResponse {
     @NotNull
     private String priceForConfortClass;
 
-    public TripResponse(){}
-
+    public TripResponse(){
+        //Default Constructor
+    }
 
     public TripId getTripId() {
         return tripId;

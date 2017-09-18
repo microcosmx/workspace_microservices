@@ -20,7 +20,9 @@ public class Station {
     @NotNull
     private String name;
 
-    public Station(){}
+    public Station(){
+        //Default Constructor
+    }
 
     public Station(String id, String name) {
         this.id = id;

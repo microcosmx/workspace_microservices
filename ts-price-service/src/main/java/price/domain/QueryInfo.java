@@ -5,13 +5,18 @@ package price.domain;
  */
 
 public class QueryInfo {
-    public QueryInfo(){
-    }
 
     private String startingPlaceId;
+
     private String endPlaceId;
+
     private String trainTypeId;
+
     private String seatClass;
+
+    public QueryInfo(){
+        //Default Constructor
+    }
 
     public String getStartingPlaceId() {
         return startingPlaceId;

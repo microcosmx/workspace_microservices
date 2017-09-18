@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by Chenjie Xu on 2017/5/15.
  */
 public class QueryInfo {
+
     @Valid
     @NotNull
     private String startingPlace;
@@ -19,6 +20,10 @@ public class QueryInfo {
     @Valid
     @NotNull
     private Date departureTime;
+
+    public QueryInfo(){
+        //Default Constructor
+    }
 
     public String getStartingPlace() {
         return startingPlace;

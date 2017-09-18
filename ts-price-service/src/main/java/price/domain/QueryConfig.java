@@ -12,7 +12,9 @@ public class QueryConfig {
     @NotNull
     private String name;
 
-    public QueryConfig(){};
+    public QueryConfig(){
+        //Default Constructor
+    }
 
     public QueryConfig(String name) {
         this.name = name;
