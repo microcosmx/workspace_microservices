@@ -512,6 +512,28 @@ services:
         networks:
           - my-network
 
+  ts-assurance-service:
+        build: ts-assurance-service
+        image: ts/ts-assurance-service
+        restart: always
+        ports:
+          - 18888:18888
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-assurance-mongo:
+        image: mongo
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
 
 networks:
   my-network:
