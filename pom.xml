@@ -40,6 +40,7 @@
 		<module>ts-rebook-service</module>
 		<module>ts-cancel-service</module>
         <module>ts-route-service</module>
+		<module>ts-assurance-service</module>
         <!--<module>1_services_analysis_mvn</module>-->
     </modules>
 
