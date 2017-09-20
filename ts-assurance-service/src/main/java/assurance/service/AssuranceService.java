@@ -6,13 +6,13 @@ import java.util.UUID;
 
 public interface AssuranceService {
 
-    Assurance createAssurance(Assurance assurance);
+//    Assurance createAssurance(Assurance assurance);
 
     Assurance findAssuranceById(UUID id);
 
     Assurance findAssuranceByOrderId(UUID orderId);
 
-    AddAssuranceResult create(AddAssuranceInfo aai, String orderId);
+    AddAssuranceResult create(AddAssuranceInfo aai);
 
     DeleteAssuranceResult deleteById(UUID assuranceId);
 

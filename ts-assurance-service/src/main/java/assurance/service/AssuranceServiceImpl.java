@@ -3,25 +3,27 @@ package assurance.service;
 import assurance.domain.*;
 import assurance.repository.AssuranceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
+@Service
 public class AssuranceServiceImpl implements AssuranceService {
 
     @Autowired
     private AssuranceRepository assuranceRepository;
 
-    @Override
-    public Assurance createAssurance(Assurance assurance) {
-        Assurance assuranceTemp = assuranceRepository.findById(assurance.getId());
-        if(assuranceTemp != null){
-            System.out.println("[Assurance Service][Init Assurance] Already Exists Id:" + assurance.getId());
-        } else {
-            assuranceRepository.save(assurance);
-        }
-        return assurance;
-    }
+//    @Override
+//    public Assurance createAssurance(Assurance assurance) {
+//        Assurance assuranceTemp = assuranceRepository.findById(assurance.getId());
+//        if(assuranceTemp != null){
+//            System.out.println("[Assurance Service][Init Assurance] Already Exists Id:" + assurance.getId());
+//        } else {
+//            assuranceRepository.save(assurance);
+//        }
+//        return assurance;
+//    }
 
     @Override
     public Assurance findAssuranceById(UUID id) {
@@ -34,23 +36,29 @@ public class AssuranceServiceImpl implements AssuranceService {
     }
 
     @Override
-    public AddAssuranceResult create(AddAssuranceInfo aai, String orderId) {
-        Assurance a = assuranceRepository.findByOrderId(UUID.fromString(orderId));
+    public AddAssuranceResult create(AddAssuranceInfo aai) {
+        Assurance a = assuranceRepository.findByOrderId(UUID.fromString(aai.getOrderId()));
         AddAssuranceResult aar = new AddAssuranceResult();
         AssuranceType at = AssuranceType.getTypeByIndex(aai.getTypeIndex());
-        if(a != null || at == null){
+        if(a != null){
             System.out.println("[Assurance-Add&Delete-Service][AddAssurance] Fail.Assurance already exists");
             aar.setStatus(false);
-            aar.setMessage("Contacts Already Exists");
+            aar.setMessage("Assurance Already Exists");
             aar.setAssurance(null);
-        }else{
-            Assurance assurance = new Assurance(UUID.randomUUID(), UUID.fromString(orderId), at);
+        } else if(at == null){
+            System.out.println("[Assurance-Add&Delete-Service][AddAssurance] Fail.Assurance type doesn't exist");
+            aar.setStatus(false);
+            aar.setMessage("Assurance type doesn't exist");
+            aar.setAssurance(null);
+        } else{
+            Assurance assurance = new Assurance(UUID.randomUUID(), UUID.fromString(aai.getOrderId()), at);
+            assuranceRepository.save(assurance);
             System.out.println("[Assurance-Add&Delete-Service][AddAssurance] Success.");
             aar.setStatus(true);
             aar.setMessage("Success");
             aar.setAssurance(assurance);
         }
-        return null;
+        return aar;
     }
 
     @Override
