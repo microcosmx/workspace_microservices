@@ -15,7 +15,7 @@ public class Route {
 
     private ArrayList<String> stations;
 
-    private ArrayList<Integer> distaces;
+    private ArrayList<Integer> distances;
 
     private String startStationId;
 
@@ -41,12 +41,12 @@ public class Route {
         this.stations = stations;
     }
 
-    public ArrayList<Integer> getDistaces() {
-        return distaces;
+    public ArrayList<Integer> getDistances() {
+        return distances;
     }
 
-    public void setDistaces(ArrayList<Integer> distaces) {
-        this.distaces = distaces;
+    public void setDistances(ArrayList<Integer> distances) {
+        this.distances = distances;
     }
 
     public String getStartStationId() {

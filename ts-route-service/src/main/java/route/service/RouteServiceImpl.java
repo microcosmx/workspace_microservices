@@ -28,7 +28,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public DeleteRouteResult deleteRoute(DeleteRouteInfo info){
-        routeRepository.delete(info.getRouteId());
+        routeRepository.removeRouteById(UUID.fromString(info.getRouteId()));
         DeleteRouteResult result = new DeleteRouteResult(true,"Success");
         return result;
     }

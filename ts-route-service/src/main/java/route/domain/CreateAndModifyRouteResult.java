@@ -18,5 +18,4 @@ public class CreateAndModifyRouteResult {
         this.route = route;
     }
 
-
 }
