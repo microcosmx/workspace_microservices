@@ -22,6 +22,10 @@ public class Contacts {
 
     private String phoneNumber;
 
+    public Contacts() {
+        //Default Constructor
+    }
+
     public UUID getId() {
         return id;
     }

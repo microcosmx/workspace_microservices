@@ -15,6 +15,7 @@ $("#create_route_button").click(function(){
     var distances = passByDistace.split(",");
 
     var newRoute = new Object();
+    newRoute.id = "5ad7750b-a68b-49c0-a8c0-32776b067703";
     newRoute.startStationId = startId;
     newRoute.terminalStationId = terminalId;
     newRoute.stations = stations;

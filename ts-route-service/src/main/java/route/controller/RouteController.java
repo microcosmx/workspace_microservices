@@ -16,6 +16,7 @@ public class RouteController {
 
     @RequestMapping(path = "/welcome", method = RequestMethod.GET)
     public String home() {
+
         return "Welcome to [ Route Service ] !";
     }
 
