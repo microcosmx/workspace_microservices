@@ -268,6 +268,40 @@ function refresh_booking_contacts() {
     });
 }
 
+$(function () {
+    getAssuranceType();
+});
+
+//获取保险的类型
+function getAssuranceType(){
+    $.ajax({
+        type: "get",
+        url: "/assurance/getAllAssuranceType",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            var obj = result;
+            var types = document.getElementById ("assurance_type");
+            var opt0 = document.createElement ("option");
+            opt0.value = 0;
+            opt0.innerText = "No Assurance";
+            types.appendChild (opt);
+            for (var i = 0, l = obj.length; i < l; i++) {
+                var opt = document.createElement ("option");
+                opt.value = obj[i]["index"];
+                opt.innerText = obj[i]["name"];
+                types.appendChild (opt);
+            }
+        },
+        complete: function(){
+
+        }
+    });
+}
+
 $("#ticket_select_contacts_cancel_btn").click(function(){
     location.hash="anchor_flow_preserve_select_trip";
 })

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public enum AssuranceType implements Serializable{
 
-    TRAFFIC_ACCIDENT (1, "交通意外险", 3.0);
+    TRAFFIC_ACCIDENT (1, "Traffic Accident Assurance", 3.0);
 
     //index of assurance type
     private  int index;
