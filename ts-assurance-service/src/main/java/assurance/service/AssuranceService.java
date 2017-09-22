@@ -23,5 +23,5 @@ public interface AssuranceService {
 
     GetAllAssuranceResult getAllAssurances();
 
-    GetAllAssuranceTypeResult getAllAssuranceTypes();
+    List<AssuranceTypeBean> getAllAssuranceTypes();
 }

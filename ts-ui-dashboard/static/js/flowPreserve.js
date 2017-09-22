@@ -288,7 +288,7 @@ function getAssuranceType(){
             var opt0 = document.createElement ("option");
             opt0.value = 0;
             opt0.innerText = "No Assurance";
-            types.appendChild (opt);
+            types.appendChild (opt0);
             for (var i = 0, l = obj.length; i < l; i++) {
                 var opt = document.createElement ("option");
                 opt.value = obj[i]["index"];

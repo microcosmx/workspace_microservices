@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,7 +32,7 @@ public class AssuranceController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/assurance/getAllAssuranceType", method = RequestMethod.GET)
-    public GetAllAssuranceTypeResult getAllAssuranceType(){
+    public List<AssuranceTypeBean> getAllAssuranceType(){
         System.out.println("[Assurances Service][Get Assurance Type]");
         return assuranceService.getAllAssuranceTypes();
     }

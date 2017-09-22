@@ -128,12 +128,15 @@ public class AssuranceServiceImpl implements AssuranceService {
     }
 
     @Override
-    public GetAllAssuranceTypeResult getAllAssuranceTypes() {
-        List<AssuranceType> atlist = Arrays.asList(AssuranceType.values());
-        GetAllAssuranceTypeResult gaatr = new GetAllAssuranceTypeResult();
-        gaatr.setStatus(true);
-        gaatr.setMessage("Success");
-        gaatr.setAssuranceTypes(atlist);
-        return gaatr;
+    public  List<AssuranceTypeBean> getAllAssuranceTypes() {
+        List<AssuranceTypeBean> atlist = new ArrayList<AssuranceTypeBean>();
+        for(AssuranceType at : AssuranceType.values()){
+            AssuranceTypeBean atb = new AssuranceTypeBean();
+            atb.setIndex(at.getIndex());
+            atb.setName(at.getName());
+            atb.setPrice(at.getPrice());
+            atlist.add(atb);
+        }
+        return atlist;
     }
 }
