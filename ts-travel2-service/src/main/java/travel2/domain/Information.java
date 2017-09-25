@@ -1,40 +1,28 @@
 package travel2.domain;
 
 import org.springframework.data.annotation.Id;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * Created by Chenjie Xu on 2017/5/15.
  */
 public class Information {
-    @Valid
+
     @Id
     private String tripId;
 
-    @Valid
-    @NotNull
     private String trainTypeId;
 
-    @Valid
-    @NotNull
+    private String routeId;
+
     private String startingStationId;
 
-    @Valid
     private String stationsId;
 
-    @Valid
-    @NotNull
     private String terminalStationId;
 
-    @Valid
-    @NotNull
     private Date startingTime;
 
-    @Valid
-    @NotNull
     private Date endTime;
 
     public Information(){
@@ -95,5 +83,13 @@ public class Information {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 }

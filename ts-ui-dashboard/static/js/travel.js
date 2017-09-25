@@ -54,6 +54,7 @@ $("#travel_queryAll_button").click(function(){
                     "<tr>" +
                     "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
                     "<td>" + result[i]["trainTypeId"]     + "</td>" +
+                    "<td>" + result[i]["routeId"]     + "</td>" +
                     "<td>" + result[i]["startingStationId"]     + "</td>" +
                     "<td>" + result[i]["stationsId"]     + "</td>" +
                     "<td>" + result[i]["terminalStationId"]     + "</td>" +
@@ -89,6 +90,7 @@ $("#travel2_queryAll_button").click(function(){
                     "<tr>" +
                     "<td>" + result[i]["tripId"]["type"] + result[i]["tripId"]["number"] + "</td>" +
                     "<td>" + result[i]["trainTypeId"]     + "</td>" +
+                    "<td>" + result[i]["routeId"]     + "</td>" +
                     "<td>" + result[i]["startingStationId"]     + "</td>" +
                     "<td>" + result[i]["stationsId"]     + "</td>" +
                     "<td>" + result[i]["terminalStationId"]     + "</td>" +
@@ -118,31 +120,36 @@ $("#travel_update_button").click(function(){
         alert("Please input the ID of the train type.");
         return;
     }
-    travelInfo.startingStationId =  $("#travel_update_startingStationId").val();
-    if(travelInfo.startingStationId == null || travelInfo.startingStationId== ""){
-        alert("Please input the ID of the starting station.");
+    travelInfo.routeId = $("#travel_update_routeId").val();
+    if(travelInfo.routeId == null || travelInfo.routeId == ""){
+        alert("Please input the ID of the route.");
         return;
     }
-    travelInfo.stationsId = $("#travel_update_stationsId").val();
-    if(travelInfo.stationsId == null || travelInfo.stationsId == ""){
-        alert("Please input the ID of the middle station.");
-        return;
-    }
-    travelInfo.terminalStationId = $("#travel_update_terminalStationId").val();
-    if(travelInfo.terminalStationId == null || travelInfo.terminalStationId == ""){
-        alert("Please input the ID of the terminal station.");
-        return;
-    }
-    travelInfo.startingTime = convertStringToTime($("#travel_update_startingTime").val());
-    if(travelInfo.startingTime == null || travelInfo.startingTime == ""){
-        alert("Please input the starting time of the trip.");
-        return;
-    }
-    travelInfo.endTime = convertStringToTime($("#travel_update_endTime").val());
-    if(travelInfo.endTime == null || travelInfo.endTime == ""){
-        alert("Please input the arrival time of the trip.");
-        return;
-    }
+    // travelInfo.startingStationId =  $("#travel_update_startingStationId").val();
+    // if(travelInfo.startingStationId == null || travelInfo.startingStationId== ""){
+    //     alert("Please input the ID of the starting station.");
+    //     return;
+    // }
+    // travelInfo.stationsId = $("#travel_update_stationsId").val();
+    // if(travelInfo.stationsId == null || travelInfo.stationsId == ""){
+    //     alert("Please input the ID of the middle station.");
+    //     return;
+    // }
+    // travelInfo.terminalStationId = $("#travel_update_terminalStationId").val();
+    // if(travelInfo.terminalStationId == null || travelInfo.terminalStationId == ""){
+    //     alert("Please input the ID of the terminal station.");
+    //     return;
+    // }
+    // travelInfo.startingTime = convertStringToTime($("#travel_update_startingTime").val());
+    // if(travelInfo.startingTime == null || travelInfo.startingTime == ""){
+    //     alert("Please input the starting time of the trip.");
+    //     return;
+    // }
+    // travelInfo.endTime = convertStringToTime($("#travel_update_endTime").val());
+    // if(travelInfo.endTime == null || travelInfo.endTime == ""){
+    //     alert("Please input the arrival time of the trip.");
+    //     return;
+    // }
     var data = JSON.stringify(travelInfo);
     $("#travel_update_button").attr("disabled",true);
     $("#single_travel_update_status").text("false");
@@ -177,31 +184,36 @@ $("#travel2_update_button").click(function(){
         alert("Please input the ID of the train type.");
         return;
     }
-    travelInfo.startingStationId =  $("#travel2_update_startingStationId").val();
-    if(travelInfo.trainTypeId == null || travelInfo.trainTypeId == ""){
-        alert("Please input the ID of the starting station.");
+    travelInfo.routeId = $("#travel2_update_routeId").val();
+    if(travelInfo.routeId == null || travelInfo.routeId == ""){
+        alert("Please input the ID of the route.");
         return;
     }
-    travelInfo.stationsId = $("#travel2_update_stationsId").val();
-    if(travelInfo.stationsId == null || travelInfo.stationsId == ""){
-        alert("Please input the ID of the middle station.");
-        return;
-    }
-    travelInfo.terminalStationId = $("#travel2_update_terminalStationId").val();
-    if(travelInfo.terminalStationId == null || travelInfo.terminalStationId == ""){
-        alert("Please input the ID of the terminal station.");
-        return;
-    }
-    travelInfo.startingTime = convertStringToTime($("#travel2_update_startingTime").val());
-    if(travelInfo.startingTime == null || travelInfo.startingTime == ""){
-        alert("Please input the starting time of the trip.");
-        return;
-    }
-    travelInfo.endTime = convertStringToTime($("#travel2_update_endTime").val());
-    if(travelInfo.endTime == null || travelInfo.endTime == ""){
-        alert("Please input the arrival time of the trip.");
-        return;
-    }
+    // travelInfo.startingStationId =  $("#travel2_update_startingStationId").val();
+    // if(travelInfo.trainTypeId == null || travelInfo.trainTypeId == ""){
+    //     alert("Please input the ID of the starting station.");
+    //     return;
+    // }
+    // travelInfo.stationsId = $("#travel2_update_stationsId").val();
+    // if(travelInfo.stationsId == null || travelInfo.stationsId == ""){
+    //     alert("Please input the ID of the middle station.");
+    //     return;
+    // }
+    // travelInfo.terminalStationId = $("#travel2_update_terminalStationId").val();
+    // if(travelInfo.terminalStationId == null || travelInfo.terminalStationId == ""){
+    //     alert("Please input the ID of the terminal station.");
+    //     return;
+    // }
+    // travelInfo.startingTime = convertStringToTime($("#travel2_update_startingTime").val());
+    // if(travelInfo.startingTime == null || travelInfo.startingTime == ""){
+    //     alert("Please input the starting time of the trip.");
+    //     return;
+    // }
+    // travelInfo.endTime = convertStringToTime($("#travel2_update_endTime").val());
+    // if(travelInfo.endTime == null || travelInfo.endTime == ""){
+    //     alert("Please input the arrival time of the trip.");
+    //     return;
+    // }
     var data = JSON.stringify(travelInfo);
     $("#travel2_update_button").attr("disabled",true);
     $("#single_travel_other_update_status").text("false");

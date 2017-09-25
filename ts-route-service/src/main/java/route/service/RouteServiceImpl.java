@@ -48,6 +48,9 @@ public class RouteServiceImpl implements RouteService {
             );
         }else{
             Route route = routeRepository.findById(info.getId());
+            if(route == null){
+                route = new Route();
+            }
             route.setStartStationId(info.getStartStation());
             route.setTerminalStationId(info.getEndStation());
             route.setStations(stationList);

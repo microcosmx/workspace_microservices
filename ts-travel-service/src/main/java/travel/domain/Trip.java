@@ -19,6 +19,9 @@ public class Trip {
     @NotNull
     private String trainTypeId;
 
+    private String routeId;
+
+    //-------------------------------以下变量暂时停用-----------------------
     @Valid
     @NotNull
     private String startingStationId;
@@ -47,6 +50,12 @@ public class Trip {
         this.terminalStationId = terminalStationId;
         this.startingTime = startingTime;
         this.endTime = endTime;
+    }
+
+    public Trip(TripId tripId, String trainTypeId, String routeId) {
+        this.tripId = tripId;
+        this.trainTypeId = trainTypeId;
+        this.routeId = routeId;
     }
 
     public Trip(){
@@ -107,5 +116,13 @@ public class Trip {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 }
