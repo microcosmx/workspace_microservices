@@ -2,6 +2,7 @@ package assurance.service;
 
 import assurance.domain.*;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AssuranceService {
@@ -21,4 +22,6 @@ public interface AssuranceService {
     ModifyAssuranceResult modify(ModifyAssuranceInfo info);
 
     GetAllAssuranceResult getAllAssurances();
+
+    List<AssuranceTypeBean> getAllAssuranceTypes();
 }

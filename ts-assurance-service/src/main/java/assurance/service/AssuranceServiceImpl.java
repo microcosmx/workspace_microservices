@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -123,5 +125,18 @@ public class AssuranceServiceImpl implements AssuranceService {
         gar.setMessage("Success");
         gar.setAssurances(as);
         return gar;
+    }
+
+    @Override
+    public  List<AssuranceTypeBean> getAllAssuranceTypes() {
+        List<AssuranceTypeBean> atlist = new ArrayList<AssuranceTypeBean>();
+        for(AssuranceType at : AssuranceType.values()){
+            AssuranceTypeBean atb = new AssuranceTypeBean();
+            atb.setIndex(at.getIndex());
+            atb.setName(at.getName());
+            atb.setPrice(at.getPrice());
+            atlist.add(atb);
+        }
+        return atlist;
     }
 }

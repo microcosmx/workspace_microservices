@@ -2,9 +2,7 @@ package assurance.domain;
 
 import java.io.Serializable;
 
-public enum AssuranceType implements Serializable{
-
-    TRAFFIC_ACCIDENT (1, "Traffic Accident Assurance", 3.0);
+public class AssuranceTypeBean implements Serializable{
 
     //index of assurance type
     private  int index;
@@ -12,12 +10,6 @@ public enum AssuranceType implements Serializable{
     private String name;
     //the price of this type of assurence
     private double price;
-
-     AssuranceType(int index, String name, double price){
-         this.index = index;
-        this.name = name;
-        this.price  = price;
-    }
 
     public int getIndex() {
         return index;
@@ -43,15 +35,7 @@ public enum AssuranceType implements Serializable{
         this.price = price;
     }
 
-    public static AssuranceType getTypeByIndex(int index){
-         AssuranceType[] ats = AssuranceType.values();
-         for(AssuranceType at : ats){
-             if(at.getIndex() == index){
-                 return at;
-             }
-         }
-         return null;
-    }
+
 
 
 }
