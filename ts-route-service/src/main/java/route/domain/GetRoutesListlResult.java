@@ -2,7 +2,7 @@ package route.domain;
 
 import java.util.ArrayList;
 
-public class GetRouteByStartAndTerminalResult {
+public class GetRoutesListlResult {
 
     private boolean status;
 
@@ -10,11 +10,11 @@ public class GetRouteByStartAndTerminalResult {
 
     private ArrayList<Route> routes;
 
-    public GetRouteByStartAndTerminalResult() {
+    public GetRoutesListlResult() {
         //Default Constructor
     }
 
-    public GetRouteByStartAndTerminalResult(boolean status, String message, ArrayList<Route> routes) {
+    public GetRoutesListlResult(boolean status, String message, ArrayList<Route> routes) {
         this.status = status;
         this.message = message;
         this.routes = routes;

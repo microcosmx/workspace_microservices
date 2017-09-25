@@ -4,9 +4,11 @@ import route.domain.*;
 
 public interface RouteService {
 
-    GetRouteByStartAndTerminalResult getRouteByStartAndTerminal(GetRouteByStartAndTerminalInfo info);
+    GetRoutesListlResult getRouteByStartAndTerminal(GetRouteByStartAndTerminalInfo info);
 
-    GetRouteByIdResult getRouteById(GetRouteByIdInfo info);
+    GetRoutesListlResult getAllRoutes();
+
+    GetRouteByIdResult getRouteById(String routeId);
 
     DeleteRouteResult deleteRoute(DeleteRouteInfo info);
 
