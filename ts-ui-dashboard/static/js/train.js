@@ -19,6 +19,11 @@ $("#train_update_button").click(function(){
         alert("Please input the number of the confort class seat.");
         return;
     }
+    trainInfo.averageSpeed = $("#train_update_averageSpeed").val();
+    if(trainInfo.averageSpeed == null || trainInfo.averageSpeed == ""){
+        alert("Please input the number of the average speed.");
+        return;
+    }
     var data = JSON.stringify(trainInfo);
     $("#train_update_button").attr("disabled",true);
     $("#single_update_train_status").text("false");
@@ -69,6 +74,7 @@ $("#train_query_button").click(function(){
                     "<td>" + result[i]["id"]     + "</td>" +
                     "<td>" + result[i]["confortClass"]     + "</td>" +
                     "<td>" + result[i]["economyClass"]     + "</td>" +
+                    "<td>" + result[i]["averageSpeed"]     + "</td>" +
                     "</tr>"
                 );
             }

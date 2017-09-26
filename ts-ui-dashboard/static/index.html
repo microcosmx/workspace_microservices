@@ -947,6 +947,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">Stay Time: </label>
+                                <div class="col-sm-10">
+                                    <input id="station_update_stayTime" class="form-control" type='number' value='shang hai'>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button id="station_update_button" type="button" class="btn btn-primary">Update Station</button>
                                     <label id="station_update_status" class="noshow_component"></label>
@@ -967,6 +973,7 @@
                             <tr>
                                 <th>Station Id</th>
                                 <th>Station Name</th>
+                                <th>Stay Time</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -997,14 +1004,21 @@
                             <label class="col-sm-2 control-label">Economy Class: </label>
                             <div class="col-sm-10">
                                 <input id="train_update_economyClass" class="form-control" name='economyClass'
-                                       value='120'>
+                                       value='120' type='number'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Confort Class: </label>
                             <div class="col-sm-10">
                                 <input id="train_update_confortClass" class="form-control" name='confortClass'
-                                       value='60'>
+                                       value='60' type='number'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Average Speed: </label>
+                            <div class="col-sm-10">
+                                <input id="train_update_averageSpeed" class="form-control"
+                                       value='120' type='number'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1029,6 +1043,7 @@
                             <th>Train Id</th>
                             <th>First Class Seat Number</th>
                             <th>Second Class Seat Number</th>
+                            <th>Average Speed(km/h)</th>
                         </tr>
                         </thead>
                         <tbody>
