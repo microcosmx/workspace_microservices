@@ -79,31 +79,44 @@ public class TravelServiceImpl implements TravelService{
         String endPlaceId = queryForStationId(endPlace);
 
         Date departureTime = info.getDepartureTime();
-        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
-        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
-        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
 
-        Iterator<Trip> sListIterator1 = list1.iterator();
-        Iterator<Trip> sListIterator2 = list2.iterator();
-        Iterator<Trip> sListIterator3 = list3.iterator();
-
-        while(sListIterator1.hasNext()) {
-            Trip trip = sListIterator1.next();
-            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-            list.add(response);
+        ArrayList<Trip> allTripList = repository.findAll();
+        for(Trip tempTrip : allTripList){
+            String routeId = tempTrip.getRouteId();
+            Route tempRoute = getRouteByRouteId(routeId);
+            if(tempRoute.getStations().contains(startingPlaceId) &&
+                    tempRoute.getStations().contains(endPlaceId) &&
+                    tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)){
+                TripResponse response = getTickets(tempTrip,startingPlace,endPlace,departureTime);
+                list.add(response);
+            }
         }
 
-        while(sListIterator2.hasNext()) {
-            Trip trip = sListIterator2.next();
-            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-            list.add(response);
-        }
+//        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
+//        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
+//        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
 
-        while(sListIterator3.hasNext()) {
-            Trip trip = sListIterator3.next();
-            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-            list.add(response);
-        }
+//        Iterator<Trip> sListIterator1 = list1.iterator();
+//        Iterator<Trip> sListIterator2 = list2.iterator();
+//        Iterator<Trip> sListIterator3 = list3.iterator();
+//
+//        while(sListIterator1.hasNext()) {
+//            Trip trip = sListIterator1.next();
+//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+//            list.add(response);
+//        }
+//
+//        while(sListIterator2.hasNext()) {
+//            Trip trip = sListIterator2.next();
+//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+//            list.add(response);
+//        }
+//
+//        while(sListIterator3.hasNext()) {
+//            Trip trip = sListIterator3.next();
+//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+//            list.add(response);
+//        }
 
         return list;
     }
@@ -148,16 +161,16 @@ public class TravelServiceImpl implements TravelService{
         query.setEndPlace(endPlace);
         query.setDepartureTime(departureTime);
 
-        ResultForTravel resultForTravel = restTemplate.postForObject(
-                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
+//        ResultForTravel resultForTravel = restTemplate.postForObject(
+//                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
         double percent = 1.0;
         TrainType trainType;
-        if(resultForTravel.isStatus()){
-            percent = resultForTravel.getPercent();
-            trainType = resultForTravel.getTrainType();
-        }else{
-            return null;
-        }
+//        if(resultForTravel.isStatus()){
+//            percent = resultForTravel.getPercent();
+//            trainType = resultForTravel.getTrainType();
+//        }else{
+//            return null;
+//        }
 
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
@@ -170,24 +183,30 @@ public class TravelServiceImpl implements TravelService{
         //设置返回的车票信息
         TripResponse response = new TripResponse();
         if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
-            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
-            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
-            response.setConfortClass(confort);
-            response.setEconomyClass(economy);
+//            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
+//            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
+//            response.setConfortClass(confort);
+//            response.setEconomyClass(economy);
+            response.setConfortClass(50);
+            response.setEconomyClass(50);
         }else{
-            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
-            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
-            response.setConfortClass(confort);
-            response.setEconomyClass(economy);
+//            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
+//            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
+//            response.setConfortClass(confort);
+//            response.setEconomyClass(economy);
+            response.setConfortClass(50);
+            response.setEconomyClass(50);
         }
         response.setStartingStation(startingPlace);
         response.setTerminalStation(endPlace);
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
         response.setTripId(new TripId(result.getTrainNumber()));
-        response.setTrainTypeId(trainType.getId());
-        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
-        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+        response.setTrainTypeId(trip.getTrainTypeId());
+//        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
+//        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+        response.setPriceForConfortClass("500");
+        response.setPriceForEconomyClass("300");
 
         return response;
 }
@@ -230,5 +249,19 @@ public class TravelServiceImpl implements TravelService{
         String id = restTemplate.postForObject(
                 "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
         return id;
+    }
+
+    private Route getRouteByRouteId(String routeId){
+        System.out.println("[Travel Service][Get Route By Id] Route ID：" + routeId);
+        GetRouteByIdResult result = restTemplate.getForObject(
+                "http://ts-route-service:11178/route/queryById/" + routeId,
+                GetRouteByIdResult.class);
+        if(result.isStatus() == false){
+            System.out.println("[Travel Service][Get Route By Id] Fail." + result.getMessage());
+            return null;
+        }else{
+            System.out.println("[Travel Service][Get Route By Id] Success.");
+            return result.getRoute();
+        }
     }
 }

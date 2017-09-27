@@ -81,31 +81,44 @@ public class Travel2ServiceImpl implements Travel2Service{
         String endPlaceId = queryForStationId(endPlace);
 
         Date departureTime = info.getDepartureTime();
-        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
-        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
-        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
 
-        Iterator<Trip> sListIterator1 = list1.iterator();
-        Iterator<Trip> sListIterator2 = list2.iterator();
-        Iterator<Trip> sListIterator3 = list3.iterator();
-
-        while(sListIterator1.hasNext()) {
-            Trip trip = sListIterator1.next();
-            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-            list.add(response);
+        ArrayList<Trip> allTripList = repository.findAll();
+        for(Trip tempTrip : allTripList){
+            String routeId = tempTrip.getRouteId();
+            Route tempRoute = getRouteByRouteId(routeId);
+            if(tempRoute.getStations().contains(startingPlaceId) &&
+                    tempRoute.getStations().contains(endPlaceId) &&
+                    tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)){
+                TripResponse response = getTickets(tempTrip,startingPlace,endPlace,departureTime);
+                list.add(response);
+            }
         }
 
-        while(sListIterator2.hasNext()) {
-            Trip trip = sListIterator2.next();
-            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-            list.add(response);
-        }
-
-        while(sListIterator3.hasNext()) {
-            Trip trip = sListIterator3.next();
-            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-            list.add(response);
-        }
+//        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
+//        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
+//        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
+//
+//        Iterator<Trip> sListIterator1 = list1.iterator();
+//        Iterator<Trip> sListIterator2 = list2.iterator();
+//        Iterator<Trip> sListIterator3 = list3.iterator();
+//
+//        while(sListIterator1.hasNext()) {
+//            Trip trip = sListIterator1.next();
+//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+//            list.add(response);
+//        }
+//
+//        while(sListIterator2.hasNext()) {
+//            Trip trip = sListIterator2.next();
+//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+//            list.add(response);
+//        }
+//
+//        while(sListIterator3.hasNext()) {
+//            Trip trip = sListIterator3.next();
+//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
+//            list.add(response);
+//        }
 
         return list;
     }
@@ -231,6 +244,20 @@ public class Travel2ServiceImpl implements Travel2Service{
         String id = restTemplate.postForObject(
                 "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
         return id;
+    }
+
+    private Route getRouteByRouteId(String routeId){
+        System.out.println("[Travel Service][Get Route By Id] Route ID：" + routeId);
+        GetRouteByIdResult result = restTemplate.getForObject(
+                "http://ts-route-service:11178/route/queryById/" + routeId,
+                GetRouteByIdResult.class);
+        if(result.isStatus() == false){
+            System.out.println("[Travel Other Service][Get Route By Id] Fail." + result.getMessage());
+            return null;
+        }else{
+            System.out.println("[Travel Other Service][Get Route By Id] Success.");
+            return result.getRoute();
+        }
     }
 }
 
