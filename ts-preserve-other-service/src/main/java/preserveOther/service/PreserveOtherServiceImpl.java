@@ -3,25 +3,7 @@ package preserveOther.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import preserveOther.domain.QueryPriceInfo;
-import preserveOther.domain.CheckInfo;
-import preserveOther.domain.CheckResult;
-import preserveOther.domain.Contacts;
-import preserveOther.domain.CreateOrderInfo;
-import preserveOther.domain.CreateOrderResult;
-import preserveOther.domain.GetContactsInfo;
-import preserveOther.domain.GetContactsResult;
-import preserveOther.domain.GetTripAllDetailInfo;
-import preserveOther.domain.GetTripAllDetailResult;
-import preserveOther.domain.Order;
-import preserveOther.domain.OrderStatus;
-import preserveOther.domain.OrderTicketsInfo;
-import preserveOther.domain.OrderTicketsResult;
-import preserveOther.domain.QueryForId;
-import preserveOther.domain.SeatClass;
-import preserveOther.domain.Trip;
-import preserveOther.domain.TripResponse;
-import preserveOther.domain.VerifyResult;
+import preserveOther.domain.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -168,7 +150,42 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             otr.setStatus(true);
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
-            //5.发送notification
+            //5.检查保险的选择
+            if(oti.getAssurance() == 0){
+                System.out.println("[Preserve Service][Step 5] Do not need to buy assurance");
+            }else{
+                AddAssuranceResult addAssuranceResult = addAssuranceForOrder(
+                        oti.getAssurance(),cor.getOrder().getId().toString());
+                if(addAssuranceResult.isStatus() == true){
+                    System.out.println("[Preserve Service][Step 5] Buy Assurance Success");
+                }else{
+                    System.out.println("[Preserve Service][Step 5] Buy Assurance Fail.");
+                    otr.setMessage("Success.But Buy Assurance Fail.");
+                }
+            }
+            //6.发送notification
+            System.out.println("[Preserve Service]");
+            GetAccountByIdInfo getAccountByIdInfo = new GetAccountByIdInfo();
+            getAccountByIdInfo.setAccountId(order.getAccountId().toString());
+            GetAccountByIdResult getAccountByIdResult = getAccount(getAccountByIdInfo);
+            if(result.isStatus() == false){
+                return null;
+            }
+
+            NotifyInfo notifyInfo = new NotifyInfo();
+            notifyInfo.setDate(new Date().toString());
+
+            notifyInfo.setEmail(getAccountByIdResult.getAccount().getEmail());
+            notifyInfo.setStartingPlace(order.getFrom());
+            notifyInfo.setEndPlace(order.getTo());
+            notifyInfo.setUsername(getAccountByIdResult.getAccount().getName());
+            notifyInfo.setSeatNumber(order.getSeatNumber());
+            notifyInfo.setOrderNumber(order.getId().toString());
+            notifyInfo.setPrice(order.getPrice());
+            notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
+            notifyInfo.setStartingTime(order.getTravelTime().toString());
+
+            sendEmail(notifyInfo);
         }else{
             System.out.println("[Preserve Other Service][Verify Login] Fail");
             otr.setStatus(false);
@@ -177,6 +194,39 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
         }
         return otr;
     }
+    public boolean sendEmail(NotifyInfo notifyInfo){
+        System.out.println("[Preserve Service][Send Email]");
+        boolean result = restTemplate.postForObject(
+                "http://ts-notification-service:17853/notification/order_cancel_success",
+                notifyInfo,
+                Boolean.class
+        );
+        return result;
+    }
+
+    public GetAccountByIdResult getAccount(GetAccountByIdInfo info){
+        System.out.println("[Cancel Order Service][Get By Id]");
+        GetAccountByIdResult result = restTemplate.postForObject(
+                "http://ts-sso-service:12349/account/findById",
+                info,
+                GetAccountByIdResult.class
+        );
+        return result;
+    }
+
+    private AddAssuranceResult addAssuranceForOrder(int assuranceType,String orderId){
+        System.out.println("[Preserve Service][Add Assurance For Order]");
+        AddAssuranceInfo info = new AddAssuranceInfo();
+        info.setOrderId(orderId);
+        info.setTypeIndex(assuranceType);
+        AddAssuranceResult result = restTemplate.postForObject(
+                "http://ts-assurance-service:18888/assurance/create",
+                info,
+                AddAssuranceResult.class
+        );
+        return result;
+    }
+
 
     private String queryForStationId(String stationName){
         System.out.println("[Preserve Other Service][Get Station Name]");

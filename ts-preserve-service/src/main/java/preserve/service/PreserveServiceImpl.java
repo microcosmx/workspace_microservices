@@ -106,19 +106,20 @@ public class PreserveServiceImpl implements PreserveService{
             order.setContactsName(contacts.getName());
             order.setDocumentType(contacts.getDocumentType());
 
-            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-            queryPriceInfo.setStartingPlaceId(fromStationId);
-            queryPriceInfo.setEndPlaceId(toStationId);
-            if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
-                queryPriceInfo.setSeatClass("confortClass");
-                System.out.println("[Preserve Service][Seat Class] Confort Class.");
-            }else if(oti.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
-                queryPriceInfo.setSeatClass("economyClass");
-                System.out.println("[Preserve Service][Seat Class] Economy Class.");
-            }
-            queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
-            String ticketPrice = getPrice(queryPriceInfo);
-            order.setPrice(ticketPrice);//Set ticket price
+//            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+//            queryPriceInfo.setStartingPlaceId(fromStationId);
+//            queryPriceInfo.setEndPlaceId(toStationId);
+//            if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+//                queryPriceInfo.setSeatClass("confortClass");
+//                System.out.println("[Preserve Service][Seat Class] Confort Class.");
+//            }else if(oti.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
+//                queryPriceInfo.setSeatClass("economyClass");
+//                System.out.println("[Preserve Service][Seat Class] Economy Class.");
+//            }
+//            queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
+//            String ticketPrice = getPrice(queryPriceInfo);
+//            order.setPrice(ticketPrice);//Set ticket price
+            order.setPrice("100");
             System.out.println("[Preserve Service][Order Price] Price is: " + order.getPrice());
 
             order.setSeatClass(oti.getSeatType());
@@ -149,29 +150,42 @@ public class PreserveServiceImpl implements PreserveService{
             otr.setStatus(true);
             otr.setMessage("Success");
             otr.setOrder(cor.getOrder());
-//            //5.发送notification
-//            NotifyInfo info = new NotifyInfo();
-//
-//
-//
-//            info.setEmail(null);
-//            info.setOrderNumber(cor.getOrder().getId().toString());
-//            info.setUsername(null);
-//            info.setStartingPlace(oti.getFrom());
-//            info.setEndPlace(oti.getTo());
-//
-//            Date startingTime = new Date(cor.getOrder().getTravelDate().getYear(),
-//                                         cor.getOrder().getTravelDate().getMonth(),
-//                                         cor.getOrder().getTravelDate().getDay(),
-//                                         cor.getOrder().getTravelTime().getHours(),
-//                                         cor.getOrder().getTravelTime().getMinutes());
-//            info.setStartingTime(startingTime.toString());
-//            info.setDate(otr.getOrder().getBoughtDate().toString());
-//            info.setSeatClass("" + cor.getOrder().getSeatClass());
-//            info.setSeatNumber(cor.getOrder().getSeatNumber());
-//            info.setPrice(cor.getOrder().getPrice());
-//
-//            postForNotification(null);
+            //5.检查保险的选择
+            if(oti.getAssurance() == 0){
+                System.out.println("[Preserve Service][Step 5] Do not need to buy assurance");
+            }else{
+                AddAssuranceResult addAssuranceResult = addAssuranceForOrder(
+                        oti.getAssurance(),cor.getOrder().getId().toString());
+                if(addAssuranceResult.isStatus() == true){
+                    System.out.println("[Preserve Service][Step 5] Buy Assurance Success");
+                }else{
+                    System.out.println("[Preserve Service][Step 5] Buy Assurance Fail.");
+                    otr.setMessage("Success.But Buy Assurance Fail.");
+                }
+            }
+            //6.发送notification
+            System.out.println("[Preserve Service]");
+            GetAccountByIdInfo getAccountByIdInfo = new GetAccountByIdInfo();
+            getAccountByIdInfo.setAccountId(order.getAccountId().toString());
+            GetAccountByIdResult getAccountByIdResult = getAccount(getAccountByIdInfo);
+            if(result.isStatus() == false){
+                return null;
+            }
+
+            NotifyInfo notifyInfo = new NotifyInfo();
+            notifyInfo.setDate(new Date().toString());
+
+            notifyInfo.setEmail(getAccountByIdResult.getAccount().getEmail());
+            notifyInfo.setStartingPlace(order.getFrom());
+            notifyInfo.setEndPlace(order.getTo());
+            notifyInfo.setUsername(getAccountByIdResult.getAccount().getName());
+            notifyInfo.setSeatNumber(order.getSeatNumber());
+            notifyInfo.setOrderNumber(order.getId().toString());
+            notifyInfo.setPrice(order.getPrice());
+            notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
+            notifyInfo.setStartingTime(order.getTravelTime().toString());
+
+            sendEmail(notifyInfo);
         }else{
             System.out.println("[Preserve Service][Verify Login] Fail");
             otr.setStatus(false);
@@ -181,20 +195,41 @@ public class PreserveServiceImpl implements PreserveService{
         return otr;
     }
 
+    public boolean sendEmail(NotifyInfo notifyInfo){
+        System.out.println("[Preserve Service][Send Email]");
+        boolean result = restTemplate.postForObject(
+                "http://ts-notification-service:17853/notification/order_cancel_success",
+                notifyInfo,
+                Boolean.class
+        );
+        return result;
+    }
 
+    public GetAccountByIdResult getAccount(GetAccountByIdInfo info){
+        System.out.println("[Cancel Order Service][Get By Id]");
+        GetAccountByIdResult result = restTemplate.postForObject(
+                "http://ts-sso-service:12349/account/findById",
+                info,
+                GetAccountByIdResult.class
+        );
+        return result;
+    }
 
-    private boolean postForNotification(NotifyInfo info){
-        System.out.println("[Preserve Other Service][Post For Notification]");
-        String notificationResult = restTemplate.postForObject("http://ts-notification-service:17853//notification/preserve_success",info,String.class);
-        if(notificationResult.equals("true")){
-            return true;
-        }else{
-            return false;
-        }
+    private AddAssuranceResult addAssuranceForOrder(int assuranceType,String orderId){
+        System.out.println("[Preserve Service][Add Assurance For Order]");
+        AddAssuranceInfo info = new AddAssuranceInfo();
+        info.setOrderId(orderId);
+        info.setTypeIndex(assuranceType);
+        AddAssuranceResult result = restTemplate.postForObject(
+                "http://ts-assurance-service:18888/assurance/create",
+                info,
+                AddAssuranceResult.class
+        );
+        return result;
     }
 
     private String queryForStationId(String stationName){
-        System.out.println("[Preserve Other Service][Get Station Name]");
+        System.out.println("[Preserve Service][Get Station Name]");
         QueryForId queryForId = new QueryForId();
         queryForId.setName(stationName);
         String stationId = restTemplate.postForObject("http://ts-station-service:12345/station/queryForId",queryForId,String.class);

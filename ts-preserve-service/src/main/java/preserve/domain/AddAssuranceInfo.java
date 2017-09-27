@@ -1,9 +1,9 @@
-package assurance.domain;
+package preserve.domain;
 
 public class AddAssuranceInfo {
 
     private int typeIndex;
-
+    
     private String orderId;
 
     public String getOrderId() {

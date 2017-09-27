@@ -5,7 +5,6 @@ import assurance.service.AssuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -62,44 +61,44 @@ public class AssuranceController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/assurance/create", method = RequestMethod.POST)
-    public AddAssuranceResult createNewAssurance(@RequestBody AddAssuranceInfo addAssuranceInfo, @CookieValue String loginId, @CookieValue String loginToken){
-        VerifyResult tokenResult = verifySsoLogin(loginToken);
-        if(tokenResult.isStatus() == true){
-            System.out.println("[AssuranceService][VerifyLogin] Success.");
+    public AddAssuranceResult createNewAssurance(@RequestBody AddAssuranceInfo addAssuranceInfo){
+//        VerifyResult tokenResult = verifySsoLogin(loginToken);
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[AssuranceService][VerifyLogin] Success.");
             return assuranceService.create(addAssuranceInfo);
-        }else {
-            System.out.println("[AssuranceService][VerifyLogin] Fail.");
-            AddAssuranceResult aar = new AddAssuranceResult();
-            return aar;
-        }
+//        }else {
+//            System.out.println("[AssuranceService][VerifyLogin] Fail.");
+//            AddAssuranceResult aar = new AddAssuranceResult();
+//            return aar;
+//        }
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/assurance/getAssuranceById", method = RequestMethod.GET)
     public Assurance getAssuranceById(@RequestBody GetAssuranceById gabi, @CookieValue String loginId, @CookieValue String loginToken){
-        VerifyResult tokenResult = verifySsoLogin(loginToken);
-        if(tokenResult.isStatus() == true){
-            System.out.println("[AssuranceService][VerifyLogin] Success.");
+//        VerifyResult tokenResult = verifySsoLogin(loginToken);
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[AssuranceService][VerifyLogin] Success.");
             return assuranceService.findAssuranceById(UUID.fromString(gabi.getAssuranceId()));
-        }else {
-            System.out.println("[AssuranceService][VerifyLogin] Fail.");
-            Assurance resultAssurance = new Assurance();
-            return resultAssurance;
-        }
+//        }else {
+//            System.out.println("[AssuranceService][VerifyLogin] Fail.");
+//            Assurance resultAssurance = new Assurance();
+//            return resultAssurance;
+//        }
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/assurance/findAssuranceByOrderId", method = RequestMethod.GET)
     public Assurance findAssuranceByOrderId(@RequestBody FindAssuranceByOrderId gabi){
-        VerifyResult tokenResult = verifySsoLogin(gabi.getLoginToken());
-        if(tokenResult.isStatus() == true){
-            System.out.println("[AssuranceService][VerifyLogin] Success.");
+//        VerifyResult tokenResult = verifySsoLogin(gabi.getLoginToken());
+//        if(tokenResult.isStatus() == true){
+//            System.out.println("[AssuranceService][VerifyLogin] Success.");
             return assuranceService.findAssuranceByOrderId(UUID.fromString(gabi.getOrderId()));
-        }else {
-            System.out.println("[AssuranceService][VerifyLogin] Fail.");
-            Assurance resultAssurance = new Assurance();
-            return resultAssurance;
-        }
+//        }else {
+//            System.out.println("[AssuranceService][VerifyLogin] Fail.");
+//            Assurance resultAssurance = new Assurance();
+//            return resultAssurance;
+//        }
     }
 
     private VerifyResult verifySsoLogin(String loginToken){

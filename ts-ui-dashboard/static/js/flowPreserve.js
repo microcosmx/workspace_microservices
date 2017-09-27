@@ -407,6 +407,7 @@ $("#ticket_confirm_confirm_btn").click(function () {
     orderTicketInfo.date = $("#ticket_confirm_travel_date").text();
     orderTicketInfo.from = $("#ticket_confirm_from").text();
     orderTicketInfo.to = $("#ticket_confirm_to").text();
+    orderTicketInfo.assurance = $("#assurance_type").val();
     var orderTicketsData = JSON.stringify(orderTicketInfo);
     var tripType = orderTicketInfo.tripId.charAt(0);
     if(tripType == 'G' || tripType == 'D'){
