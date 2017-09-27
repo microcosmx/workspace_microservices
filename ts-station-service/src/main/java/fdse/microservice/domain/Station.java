@@ -20,6 +20,8 @@ public class Station {
     @NotNull
     private String name;
 
+    private int stayTime;
+
     public Station(){
         //Default Constructor
     }
@@ -27,6 +29,13 @@ public class Station {
     public Station(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+
+    public Station(String id, String name, int stayTime) {
+        this.id = id;
+        this.name = name;
+        this.stayTime = stayTime;
     }
 
     public String getId() {
@@ -43,5 +52,13 @@ public class Station {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getStayTime() {
+        return stayTime;
+    }
+
+    public void setStayTime(int stayTime) {
+        this.stayTime = stayTime;
     }
 }

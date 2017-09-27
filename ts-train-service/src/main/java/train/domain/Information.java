@@ -19,6 +19,8 @@ public class Information {
     @Valid
     private int confortClass;   //商务座的座位数量
 
+    private int averageSpeed;
+
     public Information(){
         //Default Constructor
     }
@@ -45,5 +47,13 @@ public class Information {
 
     public void setConfortClass(int confortClass) {
         this.confortClass = confortClass;
+    }
+
+    public int getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public void setAverageSpeed(int averageSpeed) {
+        this.averageSpeed = averageSpeed;
     }
 }

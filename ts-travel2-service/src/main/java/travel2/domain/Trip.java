@@ -20,11 +20,14 @@ public class Trip {
     @NotNull
     private String trainTypeId;
 
+    private String routeId;
+
+    //-------------------------------以下变量暂时停用-----------------------
+    //中间停靠站，最开始的版本只设置一站，也就是说只有起始站、一个停靠站、终点站，在之后的版本中，停靠站扩展为若干站
     @Valid
     @NotNull
     private String startingStationId;
 
-    //中间停靠站，最开始的版本只设置一站，也就是说只有起始站、一个停靠站、终点站，在之后的版本中，停靠站扩展为若干站
     @Valid
     private String stationsId;
 
@@ -48,6 +51,12 @@ public class Trip {
         this.terminalStationId = terminalStationId;
         this.startingTime = startingTime;
         this.endTime = endTime;
+    }
+
+    public Trip(TripId tripId, String trainTypeId, String routeId) {
+        this.tripId = tripId;
+        this.trainTypeId = trainTypeId;
+        this.routeId = routeId;
     }
 
     public Trip(){
@@ -108,5 +117,13 @@ public class Trip {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 }

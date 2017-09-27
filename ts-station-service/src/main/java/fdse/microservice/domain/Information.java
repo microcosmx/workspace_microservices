@@ -19,6 +19,8 @@ public class Information {
     @NotNull
     private String name;
 
+    private int stayTime;
+
     public Information(){
         //Default Constructor
     }
@@ -37,5 +39,13 @@ public class Information {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getStayTime() {
+        return stayTime;
+    }
+
+    public void setStayTime(int stayTime) {
+        this.stayTime = stayTime;
     }
 }

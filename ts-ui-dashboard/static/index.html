@@ -78,10 +78,11 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>ID</th>
+                                <!--<th>ID</th>-->
                                 <th>From ID</th>
                                 <th>End ID</th>
                                 <th>Pass By</th>
+                                <th>Distance</th>
                                 <th>Operation</th>
                             </tr>
                         </thead>
@@ -125,6 +126,13 @@
                                     <button id="create_route_button" type="button" class="btn btn-primary">
                                         Add
                                     </button>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Message:</label>
+                                    <span id="create_route_create_message"></span>
                                     <span id="create_route_status" class="noshow_component"></span>
                                 </div>
                             </div>
@@ -740,34 +748,40 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">Route ID: </label>
+                            <div class="col-sm-10">
+                                <input id="travel_update_routeId" class="form-control" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group noshow_component">
                             <label class="col-sm-2 control-label">startingStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="travel_update_startingStationId" class="form-control" name='startingStationId'
                                        value='shanghai'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">Station Id: </label>
                             <div class="col-sm-10">
                                 <input id="travel_update_stationsId" class="form-control" name='stationsId'
                                        value='beijing'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">TerminalStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="travel_update_terminalStationId" class="form-control" name='terminalStationId'
                                        value='taiyuan'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">StartingTime: </label>
                             <div class="col-sm-10">
                                 <input id="travel_update_startingTime" type="time" class="form-control"
                                        name='startingTime' value='11:17'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">EndTime: </label>
                             <div class="col-sm-10">
                                 <input id="travel_update_endTime" type="time" class="form-control"
@@ -795,11 +809,12 @@
                         <tr>
                             <th>Trip Id</th>
                             <th>Train Type</th>
-                            <th>Starting Station Id</th>
-                            <th>Middle Station Id</th>
-                            <th>Terminal Station Id</th>
-                            <th>Starting Time</th>
-                            <th>End Time</th>
+                            <th>Route Id</th>
+                            <th class="noshow_component">Starting Station Id</th>
+                            <th class="noshow_component">Middle Station Id</th>
+                            <th class="noshow_component">Terminal Station Id</th>
+                            <th class="noshow_component">Starting Time</th>
+                            <th class="noshow_component">End Time</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -833,34 +848,40 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">Route ID: </label>
+                            <div class="col-sm-10">
+                                <input id="travel2_update_routeId" class="form-control" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">startingStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="travel2_update_startingStationId" class="form-control" name='startingStationId'
                                        value='shanghai'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">Station Id: </label>
                             <div class="col-sm-10">
                                 <input id="travel2_update_stationsId" class="form-control" name='stationsId'
                                        value='beijing'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">TerminalStation Id: </label>
                             <div class="col-sm-10">
                                 <input id="travel2_update_terminalStationId" class="form-control" name='terminalStationId'
                                        value='taiyuan'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">StartingTime: </label>
                             <div class="col-sm-10">
                                 <input id="travel2_update_startingTime" type="time" class="form-control"
                                        name='startingTime' value='11:17'>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group noshow_component">
                             <label class="col-sm-2 control-label">EndTime: </label>
                             <div class="col-sm-10">
                                 <input id="travel2_update_endTime" type="time" class="form-control"
@@ -888,11 +909,12 @@
                         <tr>
                             <th>Trip Id</th>
                             <th>Train Type</th>
-                            <th>Starting Station Id</th>
-                            <th>Middle Station Id</th>
-                            <th>Terminal Station Id</th>
-                            <th>Starting Time</th>
-                            <th>End Time</th>
+                            <th>Route Id</th>
+                            <th class="noshow_component">Starting Station Id</th>
+                            <th class="noshow_component">Middle Station Id</th>
+                            <th class="noshow_component">Terminal Station Id</th>
+                            <th class="noshow_component">Starting Time</th>
+                            <th class="noshow_component">End Time</th>
                         </tr>
                         </thead>
                         <tbody id="query_travel2_list_table_result">
@@ -925,6 +947,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">Stay Time: </label>
+                                <div class="col-sm-10">
+                                    <input id="station_update_stayTime" class="form-control" type='number' value='shang hai'>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button id="station_update_button" type="button" class="btn btn-primary">Update Station</button>
                                     <label id="station_update_status" class="noshow_component"></label>
@@ -945,6 +973,7 @@
                             <tr>
                                 <th>Station Id</th>
                                 <th>Station Name</th>
+                                <th>Stay Time</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -975,14 +1004,21 @@
                             <label class="col-sm-2 control-label">Economy Class: </label>
                             <div class="col-sm-10">
                                 <input id="train_update_economyClass" class="form-control" name='economyClass'
-                                       value='120'>
+                                       value='120' type='number'>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Confort Class: </label>
                             <div class="col-sm-10">
                                 <input id="train_update_confortClass" class="form-control" name='confortClass'
-                                       value='60'>
+                                       value='60' type='number'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Average Speed: </label>
+                            <div class="col-sm-10">
+                                <input id="train_update_averageSpeed" class="form-control"
+                                       value='120' type='number'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1007,6 +1043,7 @@
                             <th>Train Id</th>
                             <th>First Class Seat Number</th>
                             <th>Second Class Seat Number</th>
+                            <th>Average Speed(km/h)</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -1,42 +1,65 @@
 package preserve.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.Id;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * Created by Chenjie Xu on 2017/5/9.
  */
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Trip {
-
+    @Valid
+    @Id
     private TripId tripId;
 
+    @Valid
+    @NotNull
     private String trainTypeId;
 
-    private String startingStation;
+    private String routeId;
+
+    //-------------------------------以下变量暂时停用-----------------------
+    @Valid
+    @NotNull
+    private String startingStationId;
 
     //中间停靠站，最开始的版本只设置一站，也就是说只有起始站、一个停靠站、终点站，在之后的版本中，停靠站扩展为若干站
-    private String stations;
+    @Valid
+    private String stationsId;
 
-    private String terminalStation;
+    @Valid
+    @NotNull
+    private String terminalStationId;
 
+    @Valid
+    @NotNull
     private Date startingTime;
 
+    @Valid
+    @NotNull
     private Date endTime;
+
+    public Trip(TripId tripId, String trainTypeId, String startingStationId, String stationsId, String terminalStationId, Date startingTime, Date endTime) {
+        this.tripId = tripId;
+        this.trainTypeId = trainTypeId;
+        this.startingStationId = startingStationId;
+        this.stationsId = stationsId;
+        this.terminalStationId = terminalStationId;
+        this.startingTime = startingTime;
+        this.endTime = endTime;
+    }
+
+    public Trip(TripId tripId, String trainTypeId, String routeId) {
+        this.tripId = tripId;
+        this.trainTypeId = trainTypeId;
+        this.routeId = routeId;
+    }
 
     public Trip(){
         //Default Constructor
-    }
-
-    public Trip(TripId tripId, String trainTypeId, String startingStation, String stations, String terminalStation, Date startingTime, Date endTime) {
-        this.tripId = tripId;
-        this.trainTypeId = trainTypeId;
-        this.startingStation = startingStation;
-        this.stations = stations;
-        this.terminalStation = terminalStation;
-        this.startingTime = startingTime;
-        this.endTime = endTime;
     }
 
     public TripId getTripId() {
@@ -55,28 +78,28 @@ public class Trip {
         this.trainTypeId = trainTypeId;
     }
 
-    public String getStartingStation() {
-        return startingStation;
+    public String getStartingStationId() {
+        return startingStationId;
     }
 
-    public void setStartingStation(String startingStation) {
-        this.startingStation = startingStation;
+    public void setStartingStationId(String startingStationId) {
+        this.startingStationId = startingStationId;
     }
 
-    public String getStations() {
-        return stations;
+    public String getStationsId() {
+        return stationsId;
     }
 
-    public void setStations(String stations) {
-        this.stations = stations;
+    public void setStationsId(String stationsId) {
+        this.stationsId = stationsId;
     }
 
-    public String getTerminalStation() {
-        return terminalStation;
+    public String getTerminalStationId() {
+        return terminalStationId;
     }
 
-    public void setTerminalStation(String terminalStation) {
-        this.terminalStation = terminalStation;
+    public void setTerminalStationId(String terminalStationId) {
+        this.terminalStationId = terminalStationId;
     }
 
     public Date getStartingTime() {
@@ -93,5 +116,13 @@ public class Trip {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 }

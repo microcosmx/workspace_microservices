@@ -21,6 +21,7 @@ public class StationServiceImpl implements StationService {
         boolean result = false;
         if(repository.findById(info.getId()) == null){
             Station station = new Station(info.getId(), info.getName());
+            station.setStayTime(info.getStayTime());
             repository.save(station);
             result = true;
         }
@@ -42,6 +43,7 @@ public class StationServiceImpl implements StationService {
         boolean result = false;
 
         Station station = new Station(info.getId(), info.getName());
+        station.setStayTime(info.getStayTime());
         repository.save(station);
         result = true;
 

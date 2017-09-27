@@ -3,6 +3,7 @@ package cancel.service;
 import cancel.async.AsyncTask;
 import cancel.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
@@ -49,9 +50,36 @@ public class CancelServiceImpl implements CancelService{
                     boolean status = drawbackMoney(money,loginId);
                     if(status == true){
                         System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+
+                        GetAccountByIdInfo getAccountByIdInfo = new GetAccountByIdInfo();
+                        getAccountByIdInfo.setAccountId(order.getAccountId().toString());
+                        GetAccountByIdResult result = getAccount(getAccountByIdInfo);
+                        if(result.isStatus() == false){
+                            return null;
+                        }
+
+                        NotifyInfo notifyInfo = new NotifyInfo();
+                        notifyInfo.setDate(new Date().toString());
+
+
+                        notifyInfo.setEmail(result.getAccount().getEmail());
+                        notifyInfo.setStartingPlace(order.getFrom());
+                        notifyInfo.setEndPlace(order.getTo());
+                        notifyInfo.setUsername(result.getAccount().getName());
+                        notifyInfo.setSeatNumber(order.getSeatNumber());
+                        notifyInfo.setOrderNumber(order.getId().toString());
+                        notifyInfo.setPrice(order.getPrice());
+                        notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
+                        notifyInfo.setStartingTime(order.getTravelTime().toString());
+
+                        sendEmail(notifyInfo);
+
                     }else{
                         System.out.println("[Cancel Order Service][Draw Back Money] Fail.");
                     }
+
+
+
                     return finalResult;
                 }else{
                     CancelOrderResult finalResult = new CancelOrderResult();
@@ -114,6 +142,31 @@ public class CancelServiceImpl implements CancelService{
                         finalResult.setMessage("Success.");
                         System.out.println("[Cancel Order Service][Cancel Order] Success.");
                         System.out.println("[Cancel Order Service][Draw Back Money] Success.");
+
+                        GetAccountByIdInfo getAccountByIdInfo = new GetAccountByIdInfo();
+                        getAccountByIdInfo.setAccountId(order.getAccountId().toString());
+                        GetAccountByIdResult result = getAccount(getAccountByIdInfo);
+                        if(result.isStatus() == false){
+                            return null;
+                        }
+
+                        NotifyInfo notifyInfo = new NotifyInfo();
+                        notifyInfo.setDate(new Date().toString());
+
+
+                        notifyInfo.setEmail(result.getAccount().getEmail());
+                        notifyInfo.setStartingPlace(order.getFrom());
+                        notifyInfo.setEndPlace(order.getTo());
+                        notifyInfo.setUsername(result.getAccount().getName());
+                        notifyInfo.setSeatNumber(order.getSeatNumber());
+                        notifyInfo.setOrderNumber(order.getId().toString());
+                        notifyInfo.setPrice(order.getPrice());
+                        notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
+                        notifyInfo.setStartingTime(order.getTravelTime().toString());
+
+                        sendEmail(notifyInfo);
+
+
                         return finalResult;
                     }else if(changeOrderResult.isStatus() == true && drawBackMoneyStatus == false){
                         CancelOrderResult finalResult = new CancelOrderResult();
@@ -175,6 +228,16 @@ public class CancelServiceImpl implements CancelService{
                 return result;
             }
         }
+    }
+
+    public boolean sendEmail(NotifyInfo notifyInfo){
+        System.out.println("[Cancel Order Service][Send Email]");
+        boolean result = restTemplate.postForObject(
+                "http://ts-notification-service:17853/notification/order_cancel_success",
+                notifyInfo,
+                Boolean.class
+        );
+        return result;
     }
 
 
@@ -315,6 +378,15 @@ public class CancelServiceImpl implements CancelService{
         }
     }
 
+    public GetAccountByIdResult getAccount(GetAccountByIdInfo info){
+        System.out.println("[Cancel Order Service][Get By Id]");
+        GetAccountByIdResult result = restTemplate.postForObject(
+                "http://ts-sso-service:12349/account/findById",
+                info,
+                GetAccountByIdResult.class
+        );
+        return result;
+    }
 
     private GetOrderResult getOrderByIdFromOrder(GetOrderByIdInfo info){
         System.out.println("[Cancel Order Service][Get Order] Getting....");

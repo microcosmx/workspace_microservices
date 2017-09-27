@@ -25,8 +25,10 @@ public class Travel2ServiceImpl implements Travel2Service{
     public String create(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) == null){
+            //Trip trip = new Trip(ti,info.getTrainTypeId(),info.getRouteId());
             Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
                     info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
+            trip.setRouteId(info.getRouteId());
             repository.save(trip);
             return "Create trip:" + ti.toString() + ".";
         }else{
@@ -48,8 +50,10 @@ public class Travel2ServiceImpl implements Travel2Service{
     public String update(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) != null){
+            //Trip trip = new Trip(ti,info.getTrainTypeId(),info.getRouteId());
             Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
                     info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
+            trip.setRouteId(info.getRouteId());
             repository.save(trip);
             return "Update trip:" + ti.toString();
         }else{

@@ -15,6 +15,11 @@ $("#station_update_button").click(function(){
         alert("Please input the station name.");
         return;
     }
+    stationInfo.stayTime = $("#station_update_stayTime").val();
+    if(stationInfo.stayTime == null || stationInfo.stayTime == ""){
+        alert("Please input the stay time.");
+        return;
+    }
     var data = JSON.stringify(stationInfo);
     $("#station_update_button").attr("disabled",true);
     $("#station_update_status").text("false");
@@ -58,6 +63,7 @@ $("#station_query_button").click(function(){
                     "<tr>" +
                     "<td>" + result[i]["id"]     + "</td>" +
                     "<td>" + result[i]["name"]     + "</td>" +
+                    "<td>" + result[i]["stayTime"]     + "</td>" +
                     "</tr>"
                 );
             }

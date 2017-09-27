@@ -20,6 +20,7 @@ public class TrainServiceImpl implements TrainService {
         boolean result = false;
         if(repository.findById(info.getId()) == null){
             TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
+            type.setAverageSpeed(info.getAverageSpeed());
             repository.save(type);
             result = true;
         }
@@ -39,10 +40,12 @@ public class TrainServiceImpl implements TrainService {
         boolean result = false;
         if(repository.findById(info.getId()) != null){
             TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
+            type.setAverageSpeed(info.getAverageSpeed());
             repository.save(type);
             result = true;
         }else{
             TrainType type = new TrainType(info.getId(),info.getEconomyClass(),info.getConfortClass());
+            type.setAverageSpeed(info.getAverageSpeed());
             repository.save(type);
             //log.info("ts-train-service:update "+id+ " and there doesn't exist TrainType with the id:" +id);
             //log.info("ts-train-service:update "+id+ " create now!");
