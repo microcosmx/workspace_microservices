@@ -14,7 +14,7 @@ public class SeatController {
     //分配座位
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/seat/getSeat", method= RequestMethod.POST)
-    public String create(@RequestBody SeatRequest seatRequest){
+    public int create(@RequestBody SeatRequest seatRequest){
         return seatService.distributeSeat(seatRequest);
     }
 }
