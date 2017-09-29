@@ -20,10 +20,26 @@ docker attach mycdh
 cloudera manager:
 /home/cloudera/cloudera-manager
 
+
+mysql:
+mysql -u retail_dba -p
+cloudera
+
+
 sqoop:
 sqoop import-all-tables \
     -m 1 \
-    --connect jdbc:mysql://172.17.0.1:3306/mysql \
+    --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+    --username=retail_dba \
+    --password=cloudera \
+    --compression-codec=snappy \
+    --as-parquetfile \
+    --warehouse-dir=/user/hive/warehouse \
+    --hive-import
+
+sqoop import-all-tables \
+    -m 1 \
+    --connect jdbc:mysql://172.17.0.3:3306/mysql \
     --username=root \
     --password=root \
     --compression-codec=snappy \
@@ -34,11 +50,33 @@ sqoop import-all-tables \
 hadoop:
 hadoop fs -ls /user/hive/warehouse/
 hadoop fs -ls /user/hive/warehouse/categories/
+access:
+http://127.0.0.1:50070/explorer.html#/
 
 
 hue:
 http://127.0.0.1:8888/accounts/login/?next=/
 cloudera/cloudera
+
+
+impala:
+http://127.0.0.1:8888/impala/#query
+invalidate metadata;
+show tables;
+	select p.product_id, p.product_name, r.revenue
+	from products p inner join
+	(select oi.order_item_product_id, sum(cast(oi.order_item_subtotal as float)) as revenue
+	from order_items oi inner join orders o
+	on oi.order_item_order_id = o.order_id
+	where o.order_status <> 'CANCELED'
+	and o.order_status <> 'SUSPECTED_FRAUD'
+	group by order_item_product_id) r
+	on p.product_id = r.order_item_product_id
+	order by r.revenue desc
+	limit 10;
+
+
+
 
 
 access:
