@@ -123,7 +123,17 @@ public class AssuranceServiceImpl implements AssuranceService {
         GetAllAssuranceResult gar = new GetAllAssuranceResult();
         gar.setStatus(true);
         gar.setMessage("Success");
-        gar.setAssurances(as);
+        ArrayList<PlainAssurance> result = new ArrayList<PlainAssurance>();
+        for(Assurance a : as){
+            PlainAssurance pa = new PlainAssurance();
+            pa.setId(a.getId());
+            pa.setOrderId(a.getOrderId());
+            pa.setTypeIndex(a.getType().getIndex());
+            pa.setTypeName(a.getType().getName());
+            pa.setTypePrice(a.getType().getPrice());
+            result.add(pa);
+        }
+        gar.setAssurances(result);
         return gar;
     }
 

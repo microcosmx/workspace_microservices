@@ -8,7 +8,7 @@ public class GetAllAssuranceResult {
 
     private String message;
 
-    private ArrayList<Assurance> assurances;
+    private ArrayList<PlainAssurance> assurances;
 
     public GetAllAssuranceResult() {
         //Default Constructor
@@ -30,11 +30,11 @@ public class GetAllAssuranceResult {
         this.message = message;
     }
 
-    public ArrayList<Assurance> getAssurances() {
+    public ArrayList<PlainAssurance> getAssurances() {
         return assurances;
     }
 
-    public void setAssurances(ArrayList<Assurance> assurances) {
+    public void setAssurances(ArrayList<PlainAssurance> assurances) {
         this.assurances = assurances;
     }
 }
