@@ -41,7 +41,8 @@
 		<module>ts-cancel-service</module>
         <module>ts-route-service</module>
 		<module>ts-assurance-service</module>
-        <!--<module>1_services_analysis_mvn</module>-->
+		<module>ts-seat-service</module>
+		<!--<module>1_services_analysis_mvn</module>-->
     </modules>
 
 	<!--<dependencyManagement>-->

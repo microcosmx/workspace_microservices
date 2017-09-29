@@ -1,14 +1,11 @@
 package fdse.microservice.service;
 
-import fdse.microservice.domain.Contacts;
-import fdse.microservice.domain.QueryForStationId;
-import fdse.microservice.domain.QueryForTravel;
-import fdse.microservice.domain.ResultForTravel;
+import fdse.microservice.domain.*;
 
 /**
  * Created by Chenjie Xu on 2017/6/6.
  */
 public interface BasicService {
     ResultForTravel queryForTravel(QueryForTravel info);
-    String queryForStationId(QueryForStationId info);
+    String queryForStationId(QueryStation info);
 }

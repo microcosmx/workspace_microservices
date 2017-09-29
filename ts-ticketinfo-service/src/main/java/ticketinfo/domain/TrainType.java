@@ -4,22 +4,18 @@ import org.springframework.data.annotation.Id;
 
 import javax.validation.Valid;
 
-/**
- * Created by Chenjie Xu on 2017/5/23.
- */
 public class TrainType {
-    @Valid
-    @Id
+
     private String id;      //车型ID，每个车型一个ID，比如某个型号的动车
 
-    @Valid
     private int economyClass;   //普通座的座位数量
 
-    @Valid
     private int confortClass;   //商务座的座位数量
 
+    private int averageSpeed;
+
     public TrainType(){
-        //Default Constructor
+
     }
 
     public TrainType(String id, int economyClass, int confortClass) {
@@ -50,5 +46,13 @@ public class TrainType {
 
     public void setConfortClass(int confortClass) {
         this.confortClass = confortClass;
+    }
+
+    public int getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public void setAverageSpeed(int averageSpeed) {
+        this.averageSpeed = averageSpeed;
     }
 }

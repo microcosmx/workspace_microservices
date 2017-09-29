@@ -16,6 +16,8 @@ public class OrderTicketsInfo {
 
     private String to;
 
+    private int assurance;
+
     public OrderTicketsInfo(){
         //Default Constructor
     }
@@ -68,5 +70,13 @@ public class OrderTicketsInfo {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public int getAssurance() {
+        return assurance;
+    }
+
+    public void setAssurance(int assurance) {
+        this.assurance = assurance;
     }
 }

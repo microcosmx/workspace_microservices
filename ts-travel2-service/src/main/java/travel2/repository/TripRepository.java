@@ -3,6 +3,9 @@ package travel2.repository;
 import org.springframework.data.repository.CrudRepository;
 import travel2.domain.Trip;
 import travel2.domain.TripId;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,5 +23,5 @@ public interface TripRepository extends CrudRepository<Trip,TripId> {
 
     List<Trip> findByStationsIdAndTerminalStationId(String stationsId,String terminalStationId);
 
-    List<Trip> findAll();
+    ArrayList<Trip> findAll();
 }
