@@ -557,6 +557,19 @@ services:
         networks:
           - my-network
 
+  ts-seat-service:
+        build: ts-seat-service
+        image: ts/ts-seat-service
+        restart: always
+        ports:
+          - 18898:18898
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
 
 
 networks:
