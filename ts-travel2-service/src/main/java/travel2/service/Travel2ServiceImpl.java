@@ -5,13 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import travel2.domain.*;
 import travel2.repository.TripRepository;
-
 import java.util.*;
 
-
-/**
- * Created by Chenjie Xu on 2017/6/7.
- */
 @Service
 public class Travel2ServiceImpl implements Travel2Service{
 
@@ -94,32 +89,6 @@ public class Travel2ServiceImpl implements Travel2Service{
             }
         }
 
-//        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
-//        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
-//        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
-//
-//        Iterator<Trip> sListIterator1 = list1.iterator();
-//        Iterator<Trip> sListIterator2 = list2.iterator();
-//        Iterator<Trip> sListIterator3 = list3.iterator();
-//
-//        while(sListIterator1.hasNext()) {
-//            Trip trip = sListIterator1.next();
-//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-//            list.add(response);
-//        }
-//
-//        while(sListIterator2.hasNext()) {
-//            Trip trip = sListIterator2.next();
-//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-//            list.add(response);
-//        }
-//
-//        while(sListIterator3.hasNext()) {
-//            Trip trip = sListIterator3.next();
-//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-//            list.add(response);
-//        }
-
         return list;
     }
 
@@ -164,14 +133,14 @@ public class Travel2ServiceImpl implements Travel2Service{
 
         ResultForTravel resultForTravel = restTemplate.postForObject(
                 "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
-        double percent = 1.0;
-        TrainType trainType;
-        if(resultForTravel.isStatus()){
-            percent = resultForTravel.getPercent();
-            trainType = resultForTravel.getTrainType();
-        }else{
-            return null;
-        }
+//        double percent = 1.0;
+//        TrainType trainType;
+//        if(resultForTravel.isStatus()){
+//            percent = resultForTravel.getPercent();
+//            trainType = resultForTravel.getTrainType();
+//        }else{
+//            return null;
+//        }
 
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
@@ -182,28 +151,59 @@ public class Travel2ServiceImpl implements Travel2Service{
             return null;
         }
         //设置返回的车票信息
+        //设置返回的车票信息
         TripResponse response = new TripResponse();
         if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
-            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
-            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
-            response.setConfortClass(confort);
-            response.setEconomyClass(economy);
+//            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
+//            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
+//            response.setConfortClass(confort);
+//            response.setEconomyClass(economy);
+            response.setConfortClass(50);
+            response.setEconomyClass(50);
         }else{
-            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
-            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
-            response.setConfortClass(confort);
-            response.setEconomyClass(economy);
+//            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
+//            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
+//            response.setConfortClass(confort);
+//            response.setEconomyClass(economy);
+            response.setConfortClass(50);
+            response.setEconomyClass(50);
         }
         response.setStartingStation(startingPlace);
         response.setTerminalStation(endPlace);
+
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
+
         response.setTripId(new TripId(result.getTrainNumber()));
-        response.setTrainTypeId(trainType.getId());
+        response.setTrainTypeId(trip.getTrainTypeId());
         response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
         response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+//        response.setPriceForConfortClass("500");
+//        response.setPriceForEconomyClass("300");
 
         return response;
+//        TripResponse response = new TripResponse();
+//        if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
+//            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
+//            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
+//            response.setConfortClass(confort);
+//            response.setEconomyClass(economy);
+//        }else{
+//            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
+//            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
+//            response.setConfortClass(confort);
+//            response.setEconomyClass(economy);
+//        }
+//        response.setStartingStation(startingPlace);
+//        response.setTerminalStation(endPlace);
+//        response.setStartingTime(trip.getStartingTime());
+//        response.setEndTime(trip.getEndTime());
+//        response.setTripId(new TripId(result.getTrainNumber()));
+//        response.setTrainTypeId(trainType.getId());
+//        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
+//        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+
+//        return response;
     }
 
     @Override

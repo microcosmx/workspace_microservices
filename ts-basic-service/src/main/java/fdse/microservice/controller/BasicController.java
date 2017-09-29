@@ -2,6 +2,7 @@ package fdse.microservice.controller;
 
 import fdse.microservice.domain.QueryForStationId;
 import fdse.microservice.domain.QueryForTravel;
+import fdse.microservice.domain.QueryStation;
 import fdse.microservice.domain.ResultForTravel;
 import fdse.microservice.service.BasicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class BasicController {
     }
 
     @RequestMapping(value="/basic/queryForStationId", method= RequestMethod.POST)
-    public String queryForStationId(@RequestBody QueryForStationId info){
+    public String queryForStationId(@RequestBody QueryStation info){
         return service.queryForStationId(info);
     }
 }

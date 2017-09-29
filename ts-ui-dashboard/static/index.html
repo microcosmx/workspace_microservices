@@ -1123,28 +1123,35 @@
                 <div class="input-box panel-body">
                     <form role="form" class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Starting Place: </label>
+                            <label class="col-sm-2 control-label">Route Id: </label>
                             <div class="col-sm-10">
-                                <input id="price_update_startingPlace" class="form-control" name='startingPlace' value='shanghai'>
+                                <input id="price_create_routeId" class="form-control" value=''>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">End Place: </label>
+                            <label class="col-sm-2 control-label">Train Type: </label>
                             <div class="col-sm-10">
-                                <input id="price_update_endPlace" class="form-control" name='endPlace' value='beijing'>
+                                <input id="price_create_trainType" class="form-control" value=''>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Distance:</label>
+                            <label class="col-sm-2 control-label">Basic Price Rate:</label>
                             <div class="col-sm-10">
-                                <input id="price_update_distance" class="form-control" name='distance'
-                                       value='300'>
+                                <input id="price_create_basicPriceRate" class="form-control" name='distance'
+                                       value='0.5'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">First Class Price Rate:</label>
+                            <div class="col-sm-10">
+                                <input id="price_create_firstClassPriceRate" class="form-control" name='distance'
+                                       value='0.5'>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button id="price_update_button" type="button" class="btn btn-primary">Update Distance</button>
-                                <label id="single_update_price_status" class="noshow_component"></label>
+                                <button id="price_create_button" type="button" class="btn btn-primary">Add Price Config</button>
+                                <label id="single_create_price_status" class="noshow_component"></label>
                             </div>
                         </div>
                     </form>
@@ -1160,11 +1167,13 @@
                     <table id="query_price_list_table" class="table table-striped">
                         <thead>
                         <tr>
-                            <th>PlaceA</th>
-                            <th>PlaceB</th>
-                            <th>TrainType Id</th>
-                            <th>Seat Class</th>
-                            <th>Price</th>
+                            <th>No.</th>
+                            <th>ID.</th>
+                            <th>Route Id</th>
+                            <th>Train Type</th>
+                            <th>Basic Price Rate</th>
+                            <th>First Class Price Rate</th>
+                            <!--<th>Operation</th>-->
                         </tr>
                         </thead>
                         <tbody>

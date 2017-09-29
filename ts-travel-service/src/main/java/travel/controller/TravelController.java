@@ -7,9 +7,6 @@ import travel.service.TravelService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Chenjie Xu on 2017/5/9.
- */
 @RestController
 public class TravelController {
 

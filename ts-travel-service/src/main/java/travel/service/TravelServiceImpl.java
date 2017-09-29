@@ -7,23 +7,19 @@ import travel.domain.*;
 import travel.repository.TripRepository;
 import java.util.*;
 
-/**
- * Created by Chenjie Xu on 2017/5/9.
- */
 @Service
 public class TravelServiceImpl implements TravelService{
 
     @Autowired
-    TripRepository repository;
+    private TripRepository repository;
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Override
     public String create(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) == null){
-//            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getRouteId());
             Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
                     info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
             trip.setRouteId(info.getRouteId());
@@ -48,7 +44,6 @@ public class TravelServiceImpl implements TravelService{
     public String update(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) != null){
-//            Trip trip = new Trip(ti,info.getTrainTypeId(),info.getRouteId());
             Trip trip = new Trip(ti,info.getTrainTypeId(),info.getStartingStationId(),
                     info.getStationsId(),info.getTerminalStationId(),info.getStartingTime(),info.getEndTime());
             trip.setRouteId(info.getRouteId());
@@ -91,33 +86,6 @@ public class TravelServiceImpl implements TravelService{
                 list.add(response);
             }
         }
-
-//        List<Trip> list1 = repository.findByStartingStationIdAndStationsId(startingPlaceId,endPlaceId);
-//        List<Trip> list2 = repository.findByStartingStationIdAndTerminalStationId(startingPlaceId,endPlaceId);
-//        List<Trip> list3 = repository.findByStationsIdAndTerminalStationId(startingPlaceId,endPlaceId);
-
-//        Iterator<Trip> sListIterator1 = list1.iterator();
-//        Iterator<Trip> sListIterator2 = list2.iterator();
-//        Iterator<Trip> sListIterator3 = list3.iterator();
-//
-//        while(sListIterator1.hasNext()) {
-//            Trip trip = sListIterator1.next();
-//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-//            list.add(response);
-//        }
-//
-//        while(sListIterator2.hasNext()) {
-//            Trip trip = sListIterator2.next();
-//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-//            list.add(response);
-//        }
-//
-//        while(sListIterator3.hasNext()) {
-//            Trip trip = sListIterator3.next();
-//            TripResponse response = getTickets(trip,startingPlace,endPlace,departureTime);
-//            list.add(response);
-//        }
-
         return list;
     }
 
@@ -161,10 +129,10 @@ public class TravelServiceImpl implements TravelService{
         query.setEndPlace(endPlace);
         query.setDepartureTime(departureTime);
 
-//        ResultForTravel resultForTravel = restTemplate.postForObject(
-//                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
-        double percent = 1.0;
-        TrainType trainType;
+        ResultForTravel resultForTravel = restTemplate.postForObject(
+                "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
+//        double percent = 1.0;
+//        TrainType trainType;
 //        if(resultForTravel.isStatus()){
 //            percent = resultForTravel.getPercent();
 //            trainType = resultForTravel.getTrainType();
@@ -199,14 +167,16 @@ public class TravelServiceImpl implements TravelService{
         }
         response.setStartingStation(startingPlace);
         response.setTerminalStation(endPlace);
+
         response.setStartingTime(trip.getStartingTime());
         response.setEndTime(trip.getEndTime());
+
         response.setTripId(new TripId(result.getTrainNumber()));
         response.setTrainTypeId(trip.getTrainTypeId());
-//        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
-//        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
-        response.setPriceForConfortClass("500");
-        response.setPriceForEconomyClass("300");
+        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
+        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+//        response.setPriceForConfortClass("500");
+//        response.setPriceForEconomyClass("300");
 
         return response;
 }
