@@ -11,7 +11,7 @@ public class LeftTicketInfo {
 
     @Valid
     @NotNull
-    private Set<Integer> soldTickets;
+    private Set<Ticket> soldTickets;
 
     public LeftTicketInfo(){
 
@@ -25,11 +25,12 @@ public class LeftTicketInfo {
         this.seatNum = seatNum;
     }
 
-    public Set<Integer> getSoldTickets() {
+    public Set<Ticket> getSoldTickets() {
         return soldTickets;
     }
 
-    public void setSoldTickets(Set<Integer> soldTickets) {
+    public void setSoldTickets(Set<Ticket> soldTickets) {
         this.soldTickets = soldTickets;
     }
+
 }

@@ -1,8 +1,9 @@
 package seat.service;
 
 import seat.domain.SeatRequest;
+import seat.domain.Ticket;
 
 public interface SeatService {
 
-    int distributeSeat(SeatRequest seatRequest);
+    Ticket distributeSeat(SeatRequest seatRequest);
 }

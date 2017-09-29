@@ -15,6 +15,14 @@ public class SeatRequest {
 
     @Valid
     @NotNull
+    private String startStation;
+
+    @Valid
+    @NotNull
+    private String destStation;
+
+    @Valid
+    @NotNull
     private int seatType;
 
     public SeatRequest(){
@@ -35,6 +43,22 @@ public class SeatRequest {
 
     public void setTrainNumber(String trainNumber) {
         this.trainNumber = trainNumber;
+    }
+
+    public String getStartStation() {
+        return startStation;
+    }
+
+    public void setStartStation(String startStation) {
+        this.startStation = startStation;
+    }
+
+    public String getDestStation() {
+        return destStation;
+    }
+
+    public void setDestStation(String destStation) {
+        this.destStation = destStation;
     }
 
     public int getSeatType() {
