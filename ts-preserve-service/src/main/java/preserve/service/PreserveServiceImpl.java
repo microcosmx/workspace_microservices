@@ -94,33 +94,23 @@ public class PreserveServiceImpl implements PreserveService{
             order.setId(UUID.randomUUID());
             order.setTrainNumber(oti.getTripId());
             order.setAccountId(UUID.fromString(accountId));
-
-            String fromStationId = queryForStationId(oti.getFrom());
-            String toStationId = queryForStationId(oti.getTo());
-
-            order.setFrom(fromStationId);
-            order.setTo(toStationId);
+            order.setFrom(queryForStationId(oti.getFrom()));
+            order.setTo(queryForStationId(oti.getTo()));
             order.setBoughtDate(new Date());
             order.setStatus(OrderStatus.NOTPAID.getCode());
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
             order.setContactsName(contacts.getName());
             order.setDocumentType(contacts.getDocumentType());
 
-//            QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-//            queryPriceInfo.setStartingPlaceId(fromStationId);
-//            queryPriceInfo.setEndPlaceId(toStationId);
-//            if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
-//                queryPriceInfo.setSeatClass("confortClass");
-//                System.out.println("[Preserve Service][Seat Class] Confort Class.");
-//            }else if(oti.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
-//                queryPriceInfo.setSeatClass("economyClass");
-//                System.out.println("[Preserve Service][Seat Class] Economy Class.");
-//            }
-//            queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
-//            String ticketPrice = getPrice(queryPriceInfo);
-//            order.setPrice(ticketPrice);//Set ticket price
-            order.setPrice("100");
-            System.out.println("[Preserve Service][Order Price] Price is: " + order.getPrice());
+            QueryForTravel query = new QueryForTravel();
+            query.setTrip(trip);
+            query.setStartingPlace(oti.getFrom());
+            query.setEndPlace(oti.getTo());
+            query.setDepartureTime(new Date());
+
+            ResultForTravel resultForTravel = restTemplate.postForObject(
+                    "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
+
 
             order.setSeatClass(oti.getSeatType());
             System.out.println("[Preserve Service][Order] Order Travel Date:" + oti.getDate().toString());
@@ -130,10 +120,13 @@ public class PreserveServiceImpl implements PreserveService{
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
                 int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
                 order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+                order.setPrice(resultForTravel.getPrices().get("confortClass"));
             }else{
                 int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
                 order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+                order.setPrice(resultForTravel.getPrices().get("economyClass"));
             }
+            System.out.println("[Preserve Service][Order Price] Price is: " + order.getPrice());
             CreateOrderInfo coi = new CreateOrderInfo();//Send info to create the order.
             coi.setLoginToken(loginToken);
             coi.setOrder(order);
@@ -234,12 +227,6 @@ public class PreserveServiceImpl implements PreserveService{
         queryForId.setName(stationName);
         String stationId = restTemplate.postForObject("http://ts-station-service:12345/station/queryForId",queryForId,String.class);
         return stationId;
-    }
-
-    private String getPrice(QueryPriceInfo info){
-        System.out.println("[Preserve Service][Get Price] Checking....");
-        String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
-        return price;
     }
 
     private CheckResult checkSecurity(CheckInfo info){
