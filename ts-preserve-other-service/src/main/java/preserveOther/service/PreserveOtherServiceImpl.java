@@ -118,9 +118,20 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
                 System.out.println("[Preserve Other Service][Seat Class] Economy Class.");
             }
             queryPriceInfo.setTrainTypeId(gtdr.getTrip().getTrainTypeId());//----------------------------
-            String ticketPrice = getPrice(queryPriceInfo);
-            order.setPrice(ticketPrice);//Set ticket price
-            System.out.println("[Preserve Other Service][Order Price] Price is: " + order.getPrice());
+
+            QueryForTravel query = new QueryForTravel();
+            query.setTrip(trip);
+            query.setStartingPlace(oti.getFrom());
+            query.setEndPlace(oti.getTo());
+            query.setDepartureTime(new Date());
+
+            ResultForTravel resultForTravel = restTemplate.postForObject(
+                    "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
+
+
+//            String ticketPrice = getPrice(queryPriceInfo);
+//            order.setPrice(ticketPrice);//Set ticket price
+
 
             order.setSeatClass(oti.getSeatType());
             System.out.println("[Preserve Other Service][Order] Order Travel Date:" + oti.getDate().toString());
@@ -130,10 +141,13 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
                 int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
                 order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+                order.setPrice(resultForTravel.getPrices().get("confortClass"));
             }else{
                 int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
                 order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+                order.setPrice(resultForTravel.getPrices().get("economyClass"));
             }
+            System.out.println("[Preserve Other Service][Order Price] Price is: " + order.getPrice());
             CreateOrderInfo coi = new CreateOrderInfo();//Send info to create the order.
             coi.setLoginToken(loginToken);
             coi.setOrder(order);

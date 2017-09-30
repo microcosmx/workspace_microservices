@@ -107,12 +107,20 @@ public class AssuranceServiceImpl implements AssuranceService {
             mcr.setMessage("Contacts not found");
             mcr.setAssurance(null);
         }else{
-            oldAssurance.setType(AssuranceType.getTypeByIndex(info.getTypeIndex()));
-            assuranceRepository.save(oldAssurance);
-            System.out.println("[Assurance-Modify-Service][ModifyAssurance] Success.");
-            mcr.setStatus(true);
-            mcr.setMessage("Success");
-            mcr.setAssurance(oldAssurance);
+            AssuranceType at = AssuranceType.getTypeByIndex(info.getTypeIndex());
+            if(at != null){
+                oldAssurance.setType(at);
+                assuranceRepository.save(oldAssurance);
+                System.out.println("[Assurance-Modify-Service][ModifyAssurance] Success.");
+                mcr.setStatus(true);
+                mcr.setMessage("Success");
+                mcr.setAssurance(oldAssurance);
+            } else {
+                System.out.println("[Assurance-Modify-Service][ModifyAssurance] Fail.Assurance Type not exist.");
+                mcr.setStatus(false);
+                mcr.setMessage("Assurance Type not exist");
+                mcr.setAssurance(null);
+            }
         }
         return mcr;
     }
@@ -123,7 +131,17 @@ public class AssuranceServiceImpl implements AssuranceService {
         GetAllAssuranceResult gar = new GetAllAssuranceResult();
         gar.setStatus(true);
         gar.setMessage("Success");
-        gar.setAssurances(as);
+        ArrayList<PlainAssurance> result = new ArrayList<PlainAssurance>();
+        for(Assurance a : as){
+            PlainAssurance pa = new PlainAssurance();
+            pa.setId(a.getId());
+            pa.setOrderId(a.getOrderId());
+            pa.setTypeIndex(a.getType().getIndex());
+            pa.setTypeName(a.getType().getName());
+            pa.setTypePrice(a.getType().getPrice());
+            result.add(pa);
+        }
+        gar.setAssurances(result);
         return gar;
     }
 

@@ -131,14 +131,6 @@ public class TravelServiceImpl implements TravelService{
 
         ResultForTravel resultForTravel = restTemplate.postForObject(
                 "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
-//        double percent = 1.0;
-//        TrainType trainType;
-//        if(resultForTravel.isStatus()){
-//            percent = resultForTravel.getPercent();
-//            trainType = resultForTravel.getTrainType();
-//        }else{
-//            return null;
-//        }
 
         //车票订单_高铁动车（已购票数）
         QuerySoldTicket information = new QuerySoldTicket(departureTime,trip.getTripId().toString());
@@ -151,17 +143,9 @@ public class TravelServiceImpl implements TravelService{
         //设置返回的车票信息
         TripResponse response = new TripResponse();
         if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
-//            int confort = (int)(trainType.getConfortClass()*percent - result.getFirstClassSeat());
-//            int economy = (int)(trainType.getEconomyClass()*percent - result.getSecondClassSeat());
-//            response.setConfortClass(confort);
-//            response.setEconomyClass(economy);
             response.setConfortClass(50);
             response.setEconomyClass(50);
         }else{
-//            int confort = (int)(trainType.getConfortClass()*(1-percent) - result.getFirstClassSeat());
-//            int economy = (int)(trainType.getEconomyClass()*(1-percent) - result.getSecondClassSeat());
-//            response.setConfortClass(confort);
-//            response.setEconomyClass(economy);
             response.setConfortClass(50);
             response.setEconomyClass(50);
         }
@@ -175,8 +159,6 @@ public class TravelServiceImpl implements TravelService{
         response.setTrainTypeId(trip.getTrainTypeId());
         response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
         response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
-//        response.setPriceForConfortClass("500");
-//        response.setPriceForEconomyClass("300");
 
         return response;
 }
