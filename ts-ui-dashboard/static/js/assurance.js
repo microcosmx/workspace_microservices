@@ -22,16 +22,16 @@ $("#refresh_assurance_button").click(function(){
                     "<td>" + i + "</td>" +
                     "<td class='all_assurance_id '>" + result[i]["id"] + "</td>" +
                     "<td>" +
-                    "<input class='all_assurance_order_id form-control' value='" + result[i]["orderId"] + "'>" +
+                    "<input class='all_assurance_order_id' value='" + result[i]["orderId"] + "'>" +
                     "</td>" +
                     "<td>" +
                     "<input class='all_assurance_type_index form-control' value='" + result[i]["typeIndex"] + "'>" +
                     "</td>" +
                     "<td>" +
-                    "<input class='all_assurance_type_name form-control' value='" + result[i]["typeName"] + "'>" +
+                    "<input class='all_assurance_type_name' value='" + result[i]["typeName"] + "'>" +
                     "</td>" +
                     "<td>" +
-                    "<input class='all_assurance_type_price form-control' value='" + result[i]["typePrice"] + "'>" +
+                    "<input class='all_assurance_type_price' value='" + result[i]["typePrice"] + "'>" +
                     "</td>" +
                     "<td>" + "<button class='all_assurance_update btn btn-primary'>Update</button>" + "</td>" +
                     "</tr>"
@@ -52,7 +52,7 @@ function addListenerToAllAssuranceTable(){
         allAssuranceUpdateBtnSet[i].onclick = function(){
 
             var assurance = new Object();
-            assurance.id = $(this).parents("tr").find(".all_assurance_id").text();;
+            assurance.assuranceId = $(this).parents("tr").find(".all_assurance_id").text();;
             assurance.orderId = $(this).parents("tr").find(".all_assurance_order_id").val();
             assurance.typeIndex = $(this).parents("tr").find(".all_assurance_type_index").val();
 
