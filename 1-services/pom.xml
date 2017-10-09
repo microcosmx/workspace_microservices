@@ -35,7 +35,7 @@
             <systemPath>${project.basedir}/../dependencies/spring-cloud-sleuth-zipkin-1.2.2.BUILD-SNAPSHOT.jar</systemPath>
         </dependency>  -->
 
-        <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-core</artifactId>
             <version>1.2.2.BUILD-SNAPSHOT</version>
@@ -44,9 +44,9 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
             <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency> -->
+        </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>myproject.microservices</groupId>
             <artifactId>micro-service-monitoring-core</artifactId>
             <version>1.2.2.BUILD-SNAPSHOT</version>
@@ -55,7 +55,7 @@
             <groupId>myproject.microservices</groupId>
             <artifactId>micro-service-monitoring-zipkin</artifactId>
             <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency>
+        </dependency> -->
 
         
         <dependency>
