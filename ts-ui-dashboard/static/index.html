@@ -35,6 +35,7 @@
         <script type="text/javascript" src="js/flowRebook.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/order.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/route.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/assurance.js" defer charset="utf-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -64,6 +65,70 @@
         </div>
 
         <div id="microservices">
+            <!----------------------------Assurance----------------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Assurance List
+                        <button id="refresh_assurance_button" type="button" class="btn btn-default btn-sm">List All</button>
+                        <label id="assurance_list_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table id="assurance_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>ID</th>
+                            <th>Order ID</th>
+                            <th>Type Index</th>
+                            <th>Type Name</th>
+                            <th>Type Price</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!----An empty table----->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Assurance</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-2 control-label">Assurance Order Id:</label>-->
+                                <!--<div class="col-sm-10">-->
+                                    <!--<input id="assurance_order_id" class="form-control" value=''>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Assurance Type Index:</label>
+                                <div class="col-sm-10">
+                                    <input id="assurance_type_index" class="form-control" value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="create_assurance_button" type="button" class="btn btn-primary">
+                                        Add
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Message:</label>
+                                    <span id="create_assurance_create_message"></span>
+                                    <span id="create_assurance_status" class="noshow_component"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!----------------------------Route----------------------------------->
             <div class="step panel panel-default">
                 <div class="panel-heading">

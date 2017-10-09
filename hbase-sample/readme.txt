@@ -1,9 +1,20 @@
 
 
-run:
-docker run -d --name myhbase -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 -p 16010:16010 dajobe/hbase
-docker run -d --name myhbase -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 -p 16000:16000 -p 16010:16010 -p 16201:16201 -p 16301:16301 harisekhon/hbase
-docker run -d --name myhbase -p 2181:2181 -p 60000:60000 -p 60010:60010 -p 60020:60020 -p 60030:60030 -p 65000:65000 -p 65010:65010 -p 65020:65020 -p 65030:65030 -h hbase oddpoet/hbase-cdh5
+cdh access:
+http://quickstart.cloudera
+hbase: 
+http://127.0.0.1:60010
+http://127.0.0.1:8085
+http://127.0.0.1:9095
+hdfs: 
+http://127.0.0.1:50070
+yarn:
+http://127.0.0.1:8088/
+
+
+cdh image:
+docker commit 967c9ae85d29 cloudera/quickstart_local
+
 
 
 cdh:
@@ -11,14 +22,25 @@ docker run -d --name mycdh --hostname=mycdh factual/docker-cdh5-dev
 docker run --name mycdh --hostname=quickstart.cloudera --privileged=true -t -i -p 7180:7180 cloudera/quickstart:latest /usr/bin/docker-quickstart
 docker run -t -i -d --name mycdh --hostname=quickstart.cloudera --privileged=true -p 7180:7180 cloudera/quickstart:latest /usr/bin/docker-quickstart
 docker run --name mycdh --hostname=quickstart.cloudera --privileged=true -t -i -d \
-	-p 80:80 -p 2181:2181 -p 7180:7180 -p 8888:8888 -p 8032:8032 -p 8020:8020 -p 50010:50010 -p 50070:50070 -p 8033:8033 -p 8088:8088 -p 8090:8090 \
+	-p 80:80 -p 2181:2181 -p 7180:7180 -p 8888:8888 -p 9000:9000 -p 7182:7182 -p 8086:8086 -p 5678:5678 \
 	-p 60000:60000 -p 60010:60010 -p 60020:60020 -p 60030:60030 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 \
 	-p 7077:7077 -p 7078:7078 -p 18080:18080 -p 18081:18081 -p 16000:16000 -p 8005:8005 -p 21000:21000 -p 21050:21050 \
+	-p 8032:8032 -p 8020:8020 -p 50010:50010 -p 50070:50070 -p 8033:8033 -p 8088:8088 -p 8090:8090 -p 19888:19888 \
 	cloudera/quickstart:latest /usr/bin/docker-quickstart
 docker attach mycdh
+docker run --name mycdh --hostname=quickstart.cloudera --privileged=true -t -i -d \
+	-p 80:80 -p 2181:2181 -p 7180:7180 -p 8888:8888 -p 9000:9000 -p 7182:7182 -p 8086:8086 -p 5678:5678 \
+	-p 60000:60000 -p 60010:60010 -p 60020:60020 -p 60030:60030 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 \
+	-p 7077:7077 -p 7078:7078 -p 18080:18080 -p 18081:18081 -p 16000:16000 -p 8005:8005 -p 21000:21000 -p 21050:21050 \
+	-p 8032:8032 -p 8020:8020 -p 50010:50010 -p 50070:50070 -p 8033:8033 -p 8088:8088 -p 8090:8090 -p 19888:19888 \
+	-v /Users/admin/work/workspace_data:/opt/workspace_data \
+	cloudera/quickstart_local /usr/bin/docker-quickstart
 
 cloudera manager:
 /home/cloudera/cloudera-manager
+/home/cloudera/cloudera-manager --express
+http://quickstart.cloudera:7180
+admin/admin
 
 
 mysql:
@@ -63,6 +85,7 @@ impala:
 http://127.0.0.1:8888/impala/#query
 invalidate metadata;
 show tables;
+DML SQL:
 	select p.product_id, p.product_name, r.revenue
 	from products p inner join
 	(select oi.order_item_product_id, sum(cast(oi.order_item_subtotal as float)) as revenue
@@ -76,14 +99,44 @@ show tables;
 	limit 10;
 
 
+unstructured:
+[cloudera@quickstart ~]$ sudo -u hdfs hadoop fs -mkdir /user/hive/warehouse/original_access_logs
+[cloudera@quickstart ~]$ sudo -u hdfs hadoop fs -copyFromLocal /opt/examples/log_files/access.log.2 /user/hive/warehouse/original_access_logs
+
+Hive Query Editor:
+	CREATE EXTERNAL TABLE intermediate_access_logs (
+	    ip STRING,
+	    date STRING,
+	    method STRING,
+	    url STRING,
+	    http_version STRING,
+	    code1 STRING,
+	    code2 STRING,
+	    dash STRING,
+	    user_agent STRING)
+	ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe'
+	WITH SERDEPROPERTIES (
+	    'input.regex' = '([^ ]*) - - \\[([^\\]]*)\\] "([^\ ]*) ([^\ ]*) ([^\ ]*)" (\\d*) (\\d*) "([^"]*)" "([^"]*)"',
+	    'output.format.string' = "%1$$s %2$$s %3$$s %4$$s %5$$s %6$$s %7$$s %8$$s %9$$s")
+	LOCATION '/user/hive/warehouse/original_access_logs';
+	
+	CREATE EXTERNAL TABLE tokenized_access_logs (
+	    ip STRING,
+	    date STRING,
+	    method STRING,
+	    url STRING,
+	    http_version STRING,
+	    code1 STRING,
+	    code2 STRING,
+	    dash STRING,
+	    user_agent STRING)
+	ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+	LOCATION '/user/hive/warehouse/tokenized_access_logs';
+	
+	ADD JAR /usr/lib/hive/lib/hive-contrib.jar;
+	
+	INSERT OVERWRITE TABLE tokenized_access_logs SELECT * FROM intermediate_access_logs;
 
 
-
-access:
-hbase: http://127.0.0.1:60010
-hdfs: http://127.0.0.1:50070
-localhost:8085
-localhost:9095
-localhost:16010
-
-
+spark:
+spark-shell --master yarn-client

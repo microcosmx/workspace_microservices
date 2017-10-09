@@ -6,18 +6,18 @@ public class ModifyAssuranceInfo {
     private String orderId;
     private  int typeIndex;
 
-    private String loginToken;
+//    private String loginToken;
 
     public ModifyAssuranceInfo() {
     }
 
-    public String getLoginToken() {
-        return loginToken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
-    }
+//    public String getLoginToken() {
+//        return loginToken;
+//    }
+//
+//    public void setLoginToken(String loginToken) {
+//        this.loginToken = loginToken;
+//    }
 
     public String getAssuranceId() {
         return assuranceId;

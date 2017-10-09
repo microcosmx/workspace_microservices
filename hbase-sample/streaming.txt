@@ -1,0 +1,29 @@
+
+access:
+http://quickstart.cloudera
+
+
+flume:
+/opt/examples/flume/solr_configs
+solrctl --zk quickstart.cloudera:2181/solr instancedir --generate solr_configs
+upload config:
+solrctl --zk quickstart.cloudera:2181/solr instancedir --create live_logs ./solr_configs
+create collection:
+solrctl --zk quickstart.cloudera:2181/solr collection --create live_logs -s 1
+
+
+log stream:
+start_logs
+tail_logs
+stop_logs
+(/opt/gen_logs/logs/access.log)
+
+
+flume:
+/opt/examples/flume/conf/flume.conf (point to access.log)
+flume-ng agent \
+    --conf /opt/examples/flume/conf \
+    --conf-file /opt/examples/flume/conf/flume.conf \
+    --name agent1 \
+    -Dflume.root.logger=DEBUG,INFO,console
+
