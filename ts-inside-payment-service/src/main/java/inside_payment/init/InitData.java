@@ -26,7 +26,7 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) throws Exception{
         CreateAccountInfo info1 = new CreateAccountInfo();
         info1.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
-        info1.setMoney("100");
+        info1.setMoney("10000");
         service.createAccount(info1);
 
 //        PaymentInfo info2 = new PaymentInfo();

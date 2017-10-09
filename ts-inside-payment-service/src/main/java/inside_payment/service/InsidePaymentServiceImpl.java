@@ -92,19 +92,19 @@ public class InsidePaymentServiceImpl implements InsidePaymentService{
 
 
                 /****这里异步调用第三方支付***/
-//                boolean outsidePaySuccess = restTemplate.postForObject(
-//                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
-                boolean outsidePaySuccess = false;
-                try{
-                    System.out.println("[Payment Service][Turn To Outside Patment] Async Task Begin");
-                    Future<Boolean> task = asyncTask.sendAsyncCallToPaymentService(outsidePaymentInfo);
-                    outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
-
-                }catch (Exception e){
-                    System.out.println("[Inside Payment][Turn to Outside Payment] Time Out.");
-                    //e.printStackTrace();
-                    return false;
-                }
+                boolean outsidePaySuccess = restTemplate.postForObject(
+                        "http://ts-payment-service:19001/payment/pay", outsidePaymentInfo,Boolean.class);
+//                boolean outsidePaySuccess = false;
+//                try{
+//                    System.out.println("[Payment Service][Turn To Outside Patment] Async Task Begin");
+//                    Future<Boolean> task = asyncTask.sendAsyncCallToPaymentService(outsidePaymentInfo);
+//                    outsidePaySuccess = task.get(2000,TimeUnit.MILLISECONDS).booleanValue();
+//
+//                }catch (Exception e){
+//                    System.out.println("[Inside Payment][Turn to Outside Payment] Time Out.");
+//                    //e.printStackTrace();
+//                    return false;
+//                }
 
 
 
