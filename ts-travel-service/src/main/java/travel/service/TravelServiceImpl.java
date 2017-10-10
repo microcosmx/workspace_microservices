@@ -67,22 +67,27 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public List<TripResponse> query(QueryInfo info){
-        List<TripResponse> list = new ArrayList<TripResponse>();
-        String startingPlace = info.getStartingPlace();
-        String endPlace = info.getEndPlace();
-        String startingPlaceId = queryForStationId(startingPlace);
-        String endPlaceId = queryForStationId(endPlace);
 
-        Date departureTime = info.getDepartureTime();
+        //获取要查询的车次的起始站和到达站。这里收到的起始站和到达站都是站的名称，所以需要发两个请求转换成站的id
+        String startingPlaceName = info.getStartingPlace();
+        String endPlaceName = info.getEndPlace();
+        String startingPlaceId = queryForStationId(startingPlaceName);
+        String endPlaceId = queryForStationId(endPlaceName);
 
+        //这个是最终的结果
+        List<TripResponse> list = new ArrayList<>();
+
+        //查询所有的车次信息
         ArrayList<Trip> allTripList = repository.findAll();
         for(Trip tempTrip : allTripList){
-            String routeId = tempTrip.getRouteId();
-            Route tempRoute = getRouteByRouteId(routeId);
+            //拿到这个车次的具体路线表
+            Route tempRoute = getRouteByRouteId(tempTrip.getRouteId());
+            //检查这个车次的路线表。检查要求的起始站和到达站在不在车次路线的停靠站列表中
+            //并检查起始站的位置在到达站之前。满足以上条件的车次被加入返回列表
             if(tempRoute.getStations().contains(startingPlaceId) &&
                     tempRoute.getStations().contains(endPlaceId) &&
                     tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)){
-                TripResponse response = getTickets(tempTrip,startingPlace,endPlace,departureTime);
+                TripResponse response = getTickets(tempTrip,tempRoute,startingPlaceId,endPlaceId,startingPlaceName,endPlaceName,info.getDepartureTime());
                 list.add(response);
             }
         }
@@ -100,7 +105,14 @@ public class TravelServiceImpl implements TravelService{
             gtdr.setTripResponse(null);
             gtdr.setTrip(null);
         }else{
-            TripResponse tripResponse = getTickets(trip,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
+
+            String startingPlaceName = gtdi.getFrom();
+            String endPlaceName = gtdi.getTo();
+            String startingPlaceId = queryForStationId(startingPlaceName);
+            String endPlaceId = queryForStationId(endPlaceName);
+            Route tempRoute = getRouteByRouteId(trip.getRouteId());
+
+            TripResponse tripResponse = getTickets(trip,tempRoute,startingPlaceId,endPlaceId,gtdi.getFrom(),gtdi.getTo(),gtdi.getTravelDate());
             if(tripResponse == null){
                 gtdr.setStatus(false);
                 gtdr.setMessage("Cannot found TripResponse");
@@ -116,7 +128,7 @@ public class TravelServiceImpl implements TravelService{
         return gtdr;
     }
 
-    private TripResponse getTickets(Trip trip,String startingPlace, String endPlace, Date departureTime){
+    private TripResponse getTickets(Trip trip,Route route,String startingPlaceId,String endPlaceId,String startingPlaceName, String endPlaceName, Date departureTime){
 
         //判断所查日期是否在当天及之后
         if(!afterToday(departureTime)){
@@ -125,8 +137,8 @@ public class TravelServiceImpl implements TravelService{
 
         QueryForTravel query = new QueryForTravel();
         query.setTrip(trip);
-        query.setStartingPlace(startingPlace);
-        query.setEndPlace(endPlace);
+        query.setStartingPlace(startingPlaceName);
+        query.setEndPlace(endPlaceName);
         query.setDepartureTime(departureTime);
 
         ResultForTravel resultForTravel = restTemplate.postForObject(
@@ -142,18 +154,38 @@ public class TravelServiceImpl implements TravelService{
         }
         //设置返回的车票信息
         TripResponse response = new TripResponse();
-        if(queryForStationId(startingPlace).equals(trip.getStartingStationId()) && queryForStationId(endPlace).equals(trip.getTerminalStationId())){
+        if(queryForStationId(startingPlaceName).equals(trip.getStartingStationId()) &&
+                queryForStationId(endPlaceName).equals(trip.getTerminalStationId())){
             response.setConfortClass(50);
             response.setEconomyClass(50);
         }else{
             response.setConfortClass(50);
             response.setEconomyClass(50);
         }
-        response.setStartingStation(startingPlace);
-        response.setTerminalStation(endPlace);
+        response.setStartingStation(startingPlaceName);
+        response.setTerminalStation(endPlaceName);
 
-        response.setStartingTime(trip.getStartingTime());
-        response.setEndTime(trip.getEndTime());
+        //计算车从起始站开出的距离
+        int indexStart = route.getStations().indexOf(startingPlaceId);
+        int indexEnd = route.getStations().indexOf(endPlaceId);
+        int distanceStart = route.getDistances().get(indexStart) - route.getDistances().get(0);
+        int distanceEnd = route.getDistances().get(indexEnd) - route.getDistances().get(0);
+        TrainType trainType = getTrainType(trip.getTrainTypeId());
+        //根据列车平均运行速度计算列车运行时间
+        int minutesStart = 60 * distanceStart / trainType.getAverageSpeed();
+        int minutesEnd = 60 * distanceEnd / trainType.getAverageSpeed();
+
+        Calendar calendarStart = Calendar.getInstance();
+        calendarStart.setTime(trip.getStartingTime());
+        calendarStart.add(Calendar.MINUTE,minutesStart);
+        response.setStartingTime(calendarStart.getTime());
+        System.out.println("[Train Service]计算时间：" + minutesStart  + " 时间:" + calendarStart.getTime().toString());
+
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarEnd.setTime(trip.getStartingTime());
+        calendarEnd.add(Calendar.MINUTE,minutesEnd);
+        response.setEndTime(calendarEnd.getTime());
+        System.out.println("[Train Service]计算时间：" + minutesEnd  + " 时间:" + calendarEnd.getTime().toString());
 
         response.setTripId(new TripId(result.getTrainNumber()));
         response.setTrainTypeId(trip.getTrainTypeId());
@@ -193,6 +225,14 @@ public class TravelServiceImpl implements TravelService{
         }else{
             return true;
         }
+    }
+
+    private TrainType getTrainType(String trainTypeId){
+        GetTrainTypeInformation info = new GetTrainTypeInformation();
+        info.setId(trainTypeId);
+        TrainType trainType = restTemplate.postForObject(
+                "http://ts-train-service:14567/train/retrieve", info, TrainType.class);
+        return trainType;
     }
 
     private String queryForStationId(String stationName){

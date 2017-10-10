@@ -1,8 +1,11 @@
 package seat.domain;
 
 public class Ticket {
+
     private int seatNo;
+
     private String startStation;
+
     private String destStation;
 
     public Ticket(){

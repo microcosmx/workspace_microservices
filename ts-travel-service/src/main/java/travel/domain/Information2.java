@@ -1,6 +1,7 @@
 package travel.domain;
 
 import org.springframework.data.annotation.Id;
+
 import javax.validation.Valid;
 
 /**
