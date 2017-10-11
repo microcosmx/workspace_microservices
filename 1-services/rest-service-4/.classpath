@@ -46,12 +46,12 @@
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.12/junit-4.12.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/h2database/h2/1.3.176/h2-1.3.176.jar"/>
-  <classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar"/>
-  <classpathentry kind="var" path="M2_REPO/myproject/microservices/micro-service-monitoring-core/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-core-1.2.2.BUILD-SNAPSHOT.jar" sourcepath="M2_REPO/myproject/microservices/micro-service-monitoring-core/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-core-1.2.2.BUILD-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.43/mysql-connector-java-5.1.43.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-sleuth-core/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-core-1.2.2.BUILD-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-commons/1.2.3.BUILD-SNAPSHOT/spring-cloud-commons-1.2.3.BUILD-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-crypto/4.2.2.RELEASE/spring-security-crypto-4.2.2.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.8.10/aspectjrt-1.8.10.jar"/>
-  <classpathentry kind="var" path="M2_REPO/myproject/microservices/micro-service-monitoring-zipkin/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-zipkin-1.2.2.BUILD-SNAPSHOT.jar" sourcepath="M2_REPO/myproject/microservices/micro-service-monitoring-zipkin/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-zipkin-1.2.2.BUILD-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-sleuth-zipkin/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-zipkin-1.2.2.BUILD-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/io/zipkin/java/zipkin/1.28.0/zipkin-1.28.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/io/zipkin/reporter/zipkin-reporter/1.0.0/zipkin-reporter-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-aop/1.5.3.RELEASE/spring-boot-starter-aop-1.5.3.RELEASE.jar"/>

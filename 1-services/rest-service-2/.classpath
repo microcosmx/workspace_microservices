@@ -41,11 +41,11 @@
   <classpathentry kind="var" path="M2_REPO/com/mchange/c3p0/0.9.5.2/c3p0-0.9.5.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/mchange/mchange-commons-java/0.2.11/mchange-commons-java-0.2.11.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13.jar"/>
-  <classpathentry kind="var" path="M2_REPO/myproject/microservices/micro-service-monitoring-core/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-core-1.2.2.BUILD-SNAPSHOT.jar" sourcepath="M2_REPO/myproject/microservices/micro-service-monitoring-core/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-core-1.2.2.BUILD-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-sleuth-core/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-core-1.2.2.BUILD-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-commons/1.2.3.BUILD-SNAPSHOT/spring-cloud-commons-1.2.3.BUILD-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-crypto/4.2.2.RELEASE/spring-security-crypto-4.2.2.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.8.10/aspectjrt-1.8.10.jar"/>
-  <classpathentry kind="var" path="M2_REPO/myproject/microservices/micro-service-monitoring-zipkin/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-zipkin-1.2.2.BUILD-SNAPSHOT.jar" sourcepath="M2_REPO/myproject/microservices/micro-service-monitoring-zipkin/1.2.2.BUILD-SNAPSHOT/micro-service-monitoring-zipkin-1.2.2.BUILD-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/cloud/spring-cloud-sleuth-zipkin/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-zipkin-1.2.2.BUILD-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/io/zipkin/java/zipkin/1.28.0/zipkin-1.28.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/io/zipkin/reporter/zipkin-reporter/1.0.0/zipkin-reporter-1.0.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/boot/spring-boot-starter-aop/1.5.3.RELEASE/spring-boot-starter-aop-1.5.3.RELEASE.jar"/>
