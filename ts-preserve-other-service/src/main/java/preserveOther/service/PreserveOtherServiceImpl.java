@@ -136,15 +136,27 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
             order.setSeatClass(oti.getSeatType());
             System.out.println("[Preserve Other Service][Order] Order Travel Date:" + oti.getDate().toString());
             order.setTravelDate(oti.getDate());
-            order.setTravelTime(trip.getStartingTime());
+            order.setTravelTime(gtdr.getTripResponse().getStartingTime());
 
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
-                int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
-                order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+                Ticket ticket =
+                        dipatchSeat(oti.getDate(),
+                                order.getTrainNumber(),fromStationId,toStationId,
+                                SeatClass.FIRSTCLASS.getCode());
+                order.setSeatClass(SeatClass.FIRSTCLASS.getCode());
+                order.setSeatNumber("" + ticket.getSeatNo());
+//                int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
+//                order.setSeatNumber("FirstClass-" + firstClassRemainNum);
                 order.setPrice(resultForTravel.getPrices().get("confortClass"));
             }else{
-                int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
-                order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+                Ticket ticket =
+                        dipatchSeat(oti.getDate(),
+                                order.getTrainNumber(),fromStationId,toStationId,
+                                SeatClass.SECONDCLASS.getCode());
+                order.setSeatClass(SeatClass.SECONDCLASS.getCode());
+                order.setSeatNumber("" + ticket.getSeatNo());
+//                int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
+//                order.setSeatNumber("SecondClass-" + secondClassRemainNum);
                 order.setPrice(resultForTravel.getPrices().get("economyClass"));
             }
             System.out.println("[Preserve Other Service][Order Price] Price is: " + order.getPrice());
@@ -208,6 +220,20 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
         }
         return otr;
     }
+
+    public Ticket dipatchSeat(Date date,String tripId,String startStationId,String endStataionId,int seatType){
+        SeatRequest seatRequest = new SeatRequest();
+        seatRequest.setTravelDate(date);
+        seatRequest.setTrainNumber(tripId);
+        seatRequest.setStartStation(startStationId);
+        seatRequest.setDestStation(endStataionId);
+        seatRequest.setSeatType(seatType);
+        Ticket ticket = restTemplate.postForObject(
+                "http://ts-seat-service:18898/seat/getSeat"
+                ,seatRequest,Ticket.class);
+        return ticket;
+    }
+
     public boolean sendEmail(NotifyInfo notifyInfo){
         System.out.println("[Preserve Service][Send Email]");
         boolean result = restTemplate.postForObject(
