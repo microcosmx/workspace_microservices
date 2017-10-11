@@ -5,3 +5,10 @@
 *.lst
 *.iml
 *.class
+1-services/rest-service-1/target/
+1-services/rest-service-2/target/
+1-services/rest-service-3/target/
+1-services/rest-service-4/target/
+1-services/rest-service-5/target/
+1-services/rest-service-6/target/
+1-services/rest-service-end/target/
