@@ -17,6 +17,54 @@ public class TravelServiceImpl implements TravelService{
     private RestTemplate restTemplate;
 
     @Override
+    public GetRouteResult getRouteByTripId(String tripId){
+        TripId tripId1 = new TripId(tripId);
+        GetRouteResult result = new GetRouteResult();
+        Trip trip = repository.findByTripId(tripId1);
+        if(trip == null){
+            result.setStatus(false);
+            result.setMessage("Trip Not Found");
+            result.setRoute(null);
+        }else{
+            Route route = getRouteByRouteId(trip.getRouteId());
+            if(route == null){
+                result.setStatus(false);
+                result.setMessage("Route Not Found");
+                result.setRoute(null);
+            }else{
+                result.setStatus(true);
+                result.setMessage("Success");
+                result.setRoute(route);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public GetTrainTypeResult getTrainTypeByTripId(String tripId){
+        TripId tripId1 = new TripId(tripId);
+        GetTrainTypeResult result = new GetTrainTypeResult();
+        Trip trip = repository.findByTripId(tripId1);
+        if(trip == null){
+            result.setStatus(false);
+            result.setMessage("Trip Not Found");
+            result.setTrainType(null);
+        }else{
+            TrainType train = getTrainType(trip.getTrainTypeId());
+            if(train == null){
+                result.setStatus(false);
+                result.setMessage("Route Not Found");
+                result.setTrainType(null);
+            }else{
+                result.setStatus(true);
+                result.setMessage("Success");
+                result.setTrainType(train);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public String create(Information info){
         TripId ti = new TripId(info.getTripId());
         if(repository.findByTripId(ti) == null){
@@ -245,9 +293,9 @@ public class TravelServiceImpl implements TravelService{
 
     private Route getRouteByRouteId(String routeId){
         System.out.println("[Travel Service][Get Route By Id] Route ID：" + routeId);
-        GetRouteByIdResult result = restTemplate.getForObject(
+        GetRouteResult result = restTemplate.getForObject(
                 "http://ts-route-service:11178/route/queryById/" + routeId,
-                GetRouteByIdResult.class);
+                GetRouteResult.class);
         if(result.isStatus() == false){
             System.out.println("[Travel Service][Get Route By Id] Fail." + result.getMessage());
             return null;

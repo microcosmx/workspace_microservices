@@ -23,6 +23,12 @@ public class OrderController {
 
     /***************************For Normal Use***************************/
 
+    @RequestMapping(value="/order/getTicketListByDateAndTripId", method = RequestMethod.POST)
+    public LeftTicketInfo getTicketListByDateAndTripId(@RequestBody SeatRequest seatRequest){
+        System.out.println("[Order Service][Get Sold Ticket] Date:" + seatRequest.getTravelDate().toString());
+        return orderService.getSoldTickets(seatRequest);
+    }
+
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/create", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){

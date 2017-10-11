@@ -7,14 +7,21 @@ import travel2.service.Travel2Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Chenjie Xu on 2017/6/7.
- */
 @RestController
 public class Travel2Controller {
 
     @Autowired
     private Travel2Service service;
+
+    @RequestMapping(value="/travel2/getTrainTypeByTripId/{tripId}", method = RequestMethod.GET)
+    public GetTrainTypeResult getTrainTypeByTripId(@PathVariable String tripId){
+        return service.getTrainTypeByTripId(tripId);
+    }
+
+    @RequestMapping(value = "/travel2/getRouteByTripUd/{tripId}", method = RequestMethod.GET)
+    public GetRouteResult getRouteByTripId(@PathVariable String tripId){
+        return service.getRouteByTripId(tripId);
+    }
 
     @RequestMapping(value="/travel2/create", method= RequestMethod.POST)
     public String create(@RequestBody Information info){

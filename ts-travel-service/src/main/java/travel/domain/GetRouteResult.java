@@ -1,6 +1,6 @@
-package travel2.domain;
+package travel.domain;
 
-public class GetRouteByIdResult {
+public class GetRouteResult {
 
     private boolean status;
 
@@ -8,11 +8,11 @@ public class GetRouteByIdResult {
 
     private Route route;
 
-    public GetRouteByIdResult() {
+    public GetRouteResult() {
         //Default Constructor
     }
 
-    public GetRouteByIdResult(boolean status, String message, Route route) {
+    public GetRouteResult(boolean status, String message, Route route) {
         this.status = status;
         this.message = message;
         this.route = route;

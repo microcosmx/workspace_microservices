@@ -1,21 +1,15 @@
 package travel.domain;
 
-public class GetRouteByIdResult {
+public class GetTrainTypeResult {
 
     private boolean status;
 
     private String message;
 
-    private Route route;
+    private TrainType trainType;
 
-    public GetRouteByIdResult() {
+    public GetTrainTypeResult() {
         //Default Constructor
-    }
-
-    public GetRouteByIdResult(boolean status, String message, Route route) {
-        this.status = status;
-        this.message = message;
-        this.route = route;
     }
 
     public boolean isStatus() {
@@ -34,11 +28,11 @@ public class GetRouteByIdResult {
         this.message = message;
     }
 
-    public Route getRoute() {
-        return route;
+    public TrainType getTrainType() {
+        return trainType;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setTrainType(TrainType trainType) {
+        this.trainType = trainType;
     }
 }

@@ -94,8 +94,12 @@ public class PreserveServiceImpl implements PreserveService{
             order.setId(UUID.randomUUID());
             order.setTrainNumber(oti.getTripId());
             order.setAccountId(UUID.fromString(accountId));
-            order.setFrom(queryForStationId(oti.getFrom()));
-            order.setTo(queryForStationId(oti.getTo()));
+
+            String fromStationId = queryForStationId(oti.getFrom());
+            String toStationId = queryForStationId(oti.getTo());
+
+            order.setFrom(fromStationId);
+            order.setTo(toStationId);
             order.setBoughtDate(new Date());
             order.setStatus(OrderStatus.NOTPAID.getCode());
             order.setContactsDocumentNumber(contacts.getDocumentNumber());
@@ -111,21 +115,33 @@ public class PreserveServiceImpl implements PreserveService{
             ResultForTravel resultForTravel = restTemplate.postForObject(
                     "http://ts-ticketinfo-service:15681/ticketinfo/queryForTravel", query ,ResultForTravel.class);
 
-
             order.setSeatClass(oti.getSeatType());
             System.out.println("[Preserve Service][Order] Order Travel Date:" + oti.getDate().toString());
             order.setTravelDate(oti.getDate());
-            order.setTravelTime(trip.getStartingTime());
+            order.setTravelTime(gtdr.getTripResponse().getStartingTime());
 
             if(oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
-                int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
-                order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+                Ticket ticket =
+                        dipatchSeat(oti.getDate(),
+                                order.getTrainNumber(),fromStationId,toStationId,
+                                SeatClass.FIRSTCLASS.getCode());
+                order.setSeatClass(SeatClass.FIRSTCLASS.getCode());
+                order.setSeatNumber("" + ticket.getSeatNo());
+//                int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
+//                order.setSeatNumber("FirstClass-" + firstClassRemainNum);
                 order.setPrice(resultForTravel.getPrices().get("confortClass"));
             }else{
-                int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
-                order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+                Ticket ticket =
+                        dipatchSeat(oti.getDate(),
+                                order.getTrainNumber(),fromStationId,toStationId,
+                                SeatClass.SECONDCLASS.getCode());
+                order.setSeatClass(SeatClass.SECONDCLASS.getCode());
+                order.setSeatNumber("" + ticket.getSeatNo());
+//                int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
+//                order.setSeatNumber("SecondClass-" + secondClassRemainNum);
                 order.setPrice(resultForTravel.getPrices().get("economyClass"));
             }
+
             System.out.println("[Preserve Service][Order Price] Price is: " + order.getPrice());
             CreateOrderInfo coi = new CreateOrderInfo();//Send info to create the order.
             coi.setLoginToken(loginToken);
@@ -186,6 +202,19 @@ public class PreserveServiceImpl implements PreserveService{
             otr.setOrder(null);
         }
         return otr;
+    }
+
+    public Ticket dipatchSeat(Date date,String tripId,String startStationId,String endStataionId,int seatType){
+        SeatRequest seatRequest = new SeatRequest();
+        seatRequest.setTravelDate(date);
+        seatRequest.setTrainNumber(tripId);
+        seatRequest.setStartStation(startStationId);
+        seatRequest.setDestStation(endStataionId);
+        seatRequest.setSeatType(seatType);
+        Ticket ticket = restTemplate.postForObject(
+                "http://ts-seat-service:18898/seat/getSeat"
+                ,seatRequest,Ticket.class);
+        return ticket;
     }
 
     public boolean sendEmail(NotifyInfo notifyInfo){
