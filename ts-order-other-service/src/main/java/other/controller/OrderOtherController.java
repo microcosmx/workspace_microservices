@@ -23,6 +23,11 @@ public class OrderOtherController {
 
     /***************************For Normal Use***************************/
 
+    @RequestMapping(value="/orderOther/getTicketListByDateAndTripId", method = RequestMethod.POST)
+    public void getTicketListByDateAndTripId(){
+
+    }
+
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/orderOther/create", method = RequestMethod.POST)
     public CreateOrderResult createNewOrder(@RequestBody CreateOrderInfo coi){

@@ -13,6 +13,16 @@ public class TravelController {
     @Autowired
     private TravelService travelService;
 
+    @RequestMapping(value="/travel/getTrainTypeByTripId/{tripId}", method = RequestMethod.GET)
+    public GetTrainTypeResult getTrainTypeByTripId(@PathVariable String tripId){
+        return travelService.getTrainTypeByTripId(tripId);
+    }
+
+    @RequestMapping(value = "/travel/getRouteByTripUd/{tripId}", method = RequestMethod.GET)
+    public GetRouteResult getRouteByTripId(@PathVariable String tripId){
+        return travelService.getRouteByTripId(tripId);
+    }
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel/create", method= RequestMethod.POST)
     public String create(@RequestBody Information info){

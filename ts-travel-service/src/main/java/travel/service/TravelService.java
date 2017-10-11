@@ -21,5 +21,9 @@ public interface TravelService {
 
     GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi);
 
+    GetRouteResult getRouteByTripId(String tripId);
+
+    GetTrainTypeResult getTrainTypeByTripId(String tripId);
+
     List<Trip> queryAll();
 }
