@@ -20,13 +20,17 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public Ticket distributeSeat(SeatRequest seatRequest){
 
-        //调用微服务，查询获得车次的所有站点信息
+        //调用微服务，查询获得车次的所有站点信息（区分G和D开头以及其它类型的）
         List stationList = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/calculate : to modify", seatRequest.getTrainNumber() ,ArrayList.class);
 
-        //调用微服务，查询获得余票信息：该车次指定座型总数量以及已售Ticket的set集合
+        //调用微服务，查询该车次指定座型总数量
         LeftTicketInfo leftTicketInfo = restTemplate.postForObject(
                 "http://ts-order-service:12031/order/calculate : to modify", seatRequest ,LeftTicketInfo.class);
+
+        //调用微服务，查询获得余票信息：该车次指定座型已售Ticket的set集合（区分G和D开头以及其它类型的）
+        int seatTotalNum = restTemplate.postForObject(
+                "http://ts-order-service:12031/order/calculate : to modify", seatRequest ,Integer.class);
 
         //分配座位
         String startStation = seatRequest.getStartStation();
@@ -47,7 +51,7 @@ public class SeatServiceImpl implements SeatService {
 
         //分配新的票
         Random rand = new Random();
-        int range = leftTicketInfo.getSeatNum();
+        int range = seatTotalNum;
         int seat = rand.nextInt(range) + 1;
         while (soldTickets.contains(seat)){
             seat = rand.nextInt(range) + 1;
