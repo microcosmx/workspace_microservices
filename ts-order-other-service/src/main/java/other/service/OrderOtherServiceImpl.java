@@ -5,10 +5,7 @@ import other.domain.*;
 import other.repository.OrderOtherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderOtherServiceImpl implements OrderOtherService{
@@ -16,6 +13,22 @@ public class OrderOtherServiceImpl implements OrderOtherService{
     @Autowired
     private OrderOtherRepository orderOtherRepository;
 
+    @Override
+    public LeftTicketInfo getSoldTickets(SeatRequest seatRequest){
+        ArrayList<Order> list = orderOtherRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(),
+                seatRequest.getTrainNumber());
+        Set ticketSet = new HashSet();
+        for(Order tempOrder : list){
+            Ticket ticket = new Ticket();
+            ticket.setSeatNo(Integer.parseInt(tempOrder.getSeatNumber()));
+            ticket.setStartStation(tempOrder.getFrom());
+            ticket.setDestStation(tempOrder.getTo());
+            ticketSet.add(ticket);
+        }
+        LeftTicketInfo leftTicketInfo = new LeftTicketInfo();
+        leftTicketInfo.setSoldTickets(ticketSet);
+        return leftTicketInfo;
+    }
     @Override
     public Order findOrderById(UUID id){
         return orderOtherRepository.findById(id);

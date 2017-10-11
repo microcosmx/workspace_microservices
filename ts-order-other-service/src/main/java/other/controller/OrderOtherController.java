@@ -24,8 +24,9 @@ public class OrderOtherController {
     /***************************For Normal Use***************************/
 
     @RequestMapping(value="/orderOther/getTicketListByDateAndTripId", method = RequestMethod.POST)
-    public void getTicketListByDateAndTripId(){
-
+    public LeftTicketInfo getTicketListByDateAndTripId(@RequestBody SeatRequest seatRequest){
+        System.out.println("[Order Other Service][Get Sold Ticket] Date:" + seatRequest.getTravelDate().toString());
+        return orderService.getSoldTickets(seatRequest);
     }
 
     @CrossOrigin(origins = "*")

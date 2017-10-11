@@ -35,4 +35,6 @@ public interface OrderOtherService {
     DeleteOrderResult deleteOrder(DeleteOrderInfo info);
 
     void initOrder(Order order);
+
+    LeftTicketInfo getSoldTickets(SeatRequest seatRequest);
 }

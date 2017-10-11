@@ -5,16 +5,30 @@ import order.domain.*;
 import order.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Override
+    public LeftTicketInfo getSoldTickets(SeatRequest seatRequest){
+        ArrayList<Order> list = orderRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(),
+                seatRequest.getTrainNumber());
+        Set ticketSet = new HashSet();
+        for(Order tempOrder : list){
+            Ticket ticket = new Ticket();
+            ticket.setSeatNo(Integer.parseInt(tempOrder.getSeatNumber()));
+            ticket.setStartStation(tempOrder.getFrom());
+            ticket.setDestStation(tempOrder.getTo());
+            ticketSet.add(ticket);
+        }
+        LeftTicketInfo leftTicketInfo = new LeftTicketInfo();
+        leftTicketInfo.setSoldTickets(ticketSet);
+        return leftTicketInfo;
+    }
 
     @Override
     public Order findOrderById(UUID id){
