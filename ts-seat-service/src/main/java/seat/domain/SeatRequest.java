@@ -13,6 +13,9 @@ public class SeatRequest {
     @NotNull
     private String trainNumber;
 
+    /**
+     * station ID
+     */
     @Valid
     @NotNull
     private String startStation;

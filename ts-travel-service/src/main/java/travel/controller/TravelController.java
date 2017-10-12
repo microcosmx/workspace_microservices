@@ -18,7 +18,7 @@ public class TravelController {
         return travelService.getTrainTypeByTripId(tripId);
     }
 
-    @RequestMapping(value = "/travel/getRouteByTripUd/{tripId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/travel/getRouteByTripId/{tripId}", method = RequestMethod.GET)
     public GetRouteResult getRouteByTripId(@PathVariable String tripId){
         return travelService.getRouteByTripId(tripId);
     }
