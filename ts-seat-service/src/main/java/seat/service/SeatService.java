@@ -6,4 +6,5 @@ import seat.domain.Ticket;
 public interface SeatService {
 
     Ticket distributeSeat(SeatRequest seatRequest);
+    int getLeftTicketOfInterval(SeatRequest seatRequest);
 }
