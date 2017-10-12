@@ -1,6 +1,28 @@
 
 工作计划:
 
+10.12 -- 10.20
+
+冀超：
+Advanced travel(route info + ticket)
+route plan(price, change, time)
+news(go)
+李文海：
+consign
+consign price
+丁丹：
+ticket office(nodejs)
+Food service
+Food map
+
+
+
+
+
+
+
+
+
 8.29 - 9.1:
 冀超: 
 SSL性能故障，在分支"ts-error-ssl"中实现，参考"error-ssl"
@@ -9,8 +31,6 @@ docker配置故障，在分支"ts-error-docker-JVM"中实现，参考"error-dock
 某种顺序错误导致的故障，在分支"ts-error-reportui"中实现，参考"1-error-reportui-seq-status"
 登录用户验证出错（将token存到redis），在分支"ts-error-redis"中实现，参考实现"1-error-temp-storage-status"
 
-
-
 9.11 - 9.15:
 冀超：
 同一微服务多个实例，故障代码排查修改
@@ -18,8 +38,6 @@ docker配置故障，在分支"ts-error-docker-JVM"中实现，参考"error-dock
 登录用户验证出错（将token存到redis），在分支"ts-error-redis"中实现，参考实现"1-error-temp-storage-status"
 丁丹：
 某种顺序错误导致的故障，在分支"ts-error-reportui"中实现，参考"1-error-reportui-seq-status"
-
-
 
 9.18 - 9.22:
 冀超：
@@ -32,5 +50,25 @@ assurance
 notify 服务整合
 何小v：
 测试系统问题。
+
+
+九月工作（微服务组）：
+周翔：
+修复遗留购票微服务的问题
+指导并完成11个工业故障的重现
+引入额外开发语言nodejs，python，go
+论文写作总结ppt以及接下来研究方向的introduction
+微服务调用链异步顺序问题的研究方向ppt
+微服务故障运行时故障环境抽取的节解决方案ppt
+冀超：
+故障重现：SSL性能故障，docker配置故障
+同一微服务多个实例，故障代码排查修改
+微服务开发：Route, news(go语言)
+李文海：
+故障重现：登录用户验证出错
+微服务开发：seat
+丁丹：
+故障重现：请求顺序错误导致的故障
+微服务开发：assurance
 
 
