@@ -6,14 +6,10 @@ import org.springframework.web.client.RestTemplate;
 import rebook.domain.*;
 import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by Administrator on 2017/6/26.
- */
 @Service
 public class RebookServiceImpl implements RebookService{
 
@@ -24,26 +20,7 @@ public class RebookServiceImpl implements RebookService{
     public RebookResult rebook(RebookInfo info, String loginId, String loginToken){
         RebookResult rebookResult = new RebookResult();
 
-        //黄牛检测
-//        CheckInfo checkInfo = new CheckInfo();
-//        checkInfo.setAccountId(loginId);
-//        CheckResult checkResult = checkSecurity(checkInfo);
-//        if(checkResult.isStatus() == false){
-//            rebookResult.setStatus(false);
-//            rebookResult.setMessage(checkResult.getMessage());
-//            rebookResult.setOrder(null);
-//            return rebookResult;
-//        }
-
         QueryOrderResult queryOrderResult = getOrderByRebookInfo(info);
-//        //改签只能改签一次，查询订单状态来判断是否已经改签过
-//        if(info.getOldTripId().startsWith("G") || info.getOldTripId().startsWith("D")){
-//            queryOrderResult = restTemplate.postForObject(
-//                    "http://ts-order-service:12031/order/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
-//        }else{
-//            queryOrderResult = restTemplate.postForObject(
-//                    "http://ts-order-other-service:12032/orderOther/getById", new QueryOrder(info.getOrderId()),QueryOrderResult.class);
-//        }
 
         if(!queryOrderResult.isStatus()){
             rebookResult.setStatus(false);
@@ -102,7 +79,7 @@ public class RebookServiceImpl implements RebookService{
         }else{
             TripResponse tripResponse = gtdr.getTripResponse();
             if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
-                if(tripResponse.getConfortClass() == 0){
+                if(tripResponse.getConfortClass() <= 0){
                     rebookResult.setStatus(false);
                     rebookResult.setMessage("Seat Not Enough");
                     rebookResult.setOrder(null);
@@ -110,7 +87,7 @@ public class RebookServiceImpl implements RebookService{
                 }
             }else{
                 if(tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode()){
-                    if(tripResponse.getConfortClass() == 0){
+                    if(tripResponse.getConfortClass() <= 0){
                         rebookResult.setStatus(false);
                         rebookResult.setMessage("Seat Not Enough");
                         rebookResult.setOrder(null);
@@ -122,17 +99,25 @@ public class RebookServiceImpl implements RebookService{
 
         //处理差价，多退少补
         //退掉原有的票，让其他人可以订到对应的位置
-        QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-        queryPriceInfo.setStartingPlaceId(order.getFrom());
-        queryPriceInfo.setEndPlaceId(order.getTo());
-        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
-            queryPriceInfo.setSeatClass("confortClass");
-        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
-            queryPriceInfo.setSeatClass("economyClass");
-        }
-        queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());
+//        QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+//        queryPriceInfo.setStartingPlaceId(order.getFrom());
+//        queryPriceInfo.setEndPlaceId(order.getTo());
+//
+//        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+//            queryPriceInfo.setSeatClass("confortClass");
+//        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
+//            queryPriceInfo.setSeatClass("economyClass");
+//        }
+//        queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());
+//
+//        String ticketPrice = getPrice(queryPriceInfo);
 
-        String ticketPrice = getPrice(queryPriceInfo);
+        String ticketPrice =  "0";
+        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+            ticketPrice = gtdr.getTripResponse().getPriceForConfortClass();
+        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
+            ticketPrice = gtdr.getTripResponse().getPriceForEconomyClass();
+        }
         String oldPrice = order.getPrice();
         BigDecimal priceOld = new BigDecimal(oldPrice);
         BigDecimal priceNew = new BigDecimal(ticketPrice);
@@ -190,18 +175,24 @@ public class RebookServiceImpl implements RebookService{
         gtdi.setTripId(info.getTripId());
         GetTripAllDetailResult gtdr = getTripAllDetailInformation(gtdi,info.getTripId());
 
-        QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
-        queryPriceInfo.setStartingPlaceId(order.getFrom());
-        queryPriceInfo.setEndPlaceId(order.getTo());
-        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
-            queryPriceInfo.setSeatClass("confortClass");
-        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
-            queryPriceInfo.setSeatClass("economyClass");
-        }
-        Trip trip = gtdr.getTrip();
-        queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());
+//        QueryPriceInfo queryPriceInfo = new QueryPriceInfo();
+//        queryPriceInfo.setStartingPlaceId(order.getFrom());
+//        queryPriceInfo.setEndPlaceId(order.getTo());
+//        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+//            queryPriceInfo.setSeatClass("confortClass");
+//        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
+//            queryPriceInfo.setSeatClass("economyClass");
+//        }
+//        Trip trip = gtdr.getTrip();
+//        queryPriceInfo.setTrainTypeId(trip.getTrainTypeId());
 
-        String ticketPrice = getPrice(queryPriceInfo);
+        //String ticketPrice = getPrice(queryPriceInfo);
+        String ticketPrice =  "0";
+        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){
+            ticketPrice = gtdr.getTripResponse().getPriceForConfortClass();
+        }else if(info.getSeatType() == SeatClass.SECONDCLASS.getCode()) {
+            ticketPrice = gtdr.getTripResponse().getPriceForEconomyClass();
+        }
         String oldPrice = order.getPrice();
         BigDecimal priceOld = new BigDecimal(oldPrice);
         BigDecimal priceNew = new BigDecimal(ticketPrice);
@@ -228,13 +219,32 @@ public class RebookServiceImpl implements RebookService{
         order.setSeatClass(info.getSeatType());
         order.setTravelDate(info.getDate());
         order.setTravelTime(trip.getStartingTime());
+
         if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
-            int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
-            order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+            Ticket ticket =
+                    dipatchSeat(info.getDate(),
+                            order.getTrainNumber(),order.getFrom(),order.getTo(),
+                            SeatClass.FIRSTCLASS.getCode());
+            order.setSeatClass(SeatClass.FIRSTCLASS.getCode());
+            order.setSeatNumber("" + ticket.getSeatNo());
         }else{
-            int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
-            order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+            Ticket ticket =
+                    dipatchSeat(info.getDate(),
+                            order.getTrainNumber(),order.getFrom(),order.getTo(),
+                            SeatClass.SECONDCLASS.getCode());
+            order.setSeatClass(SeatClass.SECONDCLASS.getCode());
+            order.setSeatNumber("" + ticket.getSeatNo());
         }
+
+//        if(info.getSeatType() == SeatClass.FIRSTCLASS.getCode()){//Dispatch the seat
+//            int firstClassRemainNum = gtdr.getTripResponse().getConfortClass();
+//            order.setSeatNumber("FirstClass-" + firstClassRemainNum);
+//        }else{
+//            int secondClassRemainNum = gtdr.getTripResponse().getEconomyClass();
+//            order.setSeatNumber("SecondClass-" + secondClassRemainNum);
+//        }
+
+
         //更新订单信息
         //原订单和新订单如果分别位于高铁动车和其他订单，应该删掉原订单，在另一边新建，用新的id
         if((tripGD(oldTripId) && tripGD(info.getTripId())) || (!tripGD(oldTripId) && !tripGD(info.getTripId()))){
@@ -263,6 +273,19 @@ public class RebookServiceImpl implements RebookService{
             rebookResult.setOrder(order); //order id是不对的，因为新创建的时候，会创建新的order id
             return rebookResult;
         }
+    }
+
+    public Ticket dipatchSeat(Date date,String tripId,String startStationId,String endStataionId,int seatType){
+        SeatRequest seatRequest = new SeatRequest();
+        seatRequest.setTravelDate(date);
+        seatRequest.setTrainNumber(tripId);
+        seatRequest.setStartStation(startStationId);
+        seatRequest.setDestStation(endStataionId);
+        seatRequest.setSeatType(seatType);
+        Ticket ticket = restTemplate.postForObject(
+                "http://ts-seat-service:18898/seat/getSeat"
+                ,seatRequest,Ticket.class);
+        return ticket;
     }
 
     private boolean tripGD(String tripId){
@@ -388,12 +411,6 @@ public class RebookServiceImpl implements RebookService{
                 "http://ts-station-service:12345/station/queryById"
                 ,query,QueryStation.class);
         return station.getName();
-    }
-
-    private String getPrice(QueryPriceInfo info){
-        System.out.println("[Preserve Service][Get Price] Checking....");
-        String price = restTemplate.postForObject("http://ts-price-service:16579/price/query",info,String.class);
-        return price;
     }
 
     private boolean payDifferentMoney(String orderId, String tripId, String userId, String money){

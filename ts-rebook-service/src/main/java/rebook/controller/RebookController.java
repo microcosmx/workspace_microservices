@@ -6,9 +6,6 @@ import rebook.domain.RebookInfo;
 import rebook.domain.RebookResult;
 import rebook.service.RebookService;
 
-/**
- * Created by Administrator on 2017/6/26.
- */
 @RestController
 public class RebookController {
 
