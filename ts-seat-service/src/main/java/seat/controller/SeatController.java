@@ -18,4 +18,11 @@ public class SeatController {
     public Ticket create(@RequestBody SeatRequest seatRequest){
         return seatService.distributeSeat(seatRequest);
     }
+
+    //查询特定区间余票
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/seat/getLeftTicketOfInterval", method= RequestMethod.POST)
+    public int getLeftTicketOfInterval(@RequestBody SeatRequest seatRequest){
+        return seatService.getLeftTicketOfInterval(seatRequest);
+    }
 }
