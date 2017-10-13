@@ -8,6 +8,14 @@ var app = require('../app');
 var debug = require('debug')('ts-ticket-office-service:server');
 var http = require('http');
 
+//初始化数据库
+var db = require('./db');
+db.initMongo(function (result) {
+    if(result.result.ok){
+      console.log("init successed");
+    }
+});
+
 /**
  * Get port from environment and store in Express.
  */
