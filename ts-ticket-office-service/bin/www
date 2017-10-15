@@ -12,7 +12,7 @@ var http = require('http');
 var db = require('./db');
 db.initMongo(function (result) {
     if(result.result.ok){
-      console.log("init successed");
+      console.log("init data successful!");
     }
 });
 

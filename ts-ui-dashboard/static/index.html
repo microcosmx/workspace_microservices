@@ -36,6 +36,7 @@
         <script type="text/javascript" src="js/order.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/route.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/assurance.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/ticketOffice.js" defer charset="utf-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -65,6 +66,108 @@
         </div>
 
         <div id="microservices">
+            <!----------------------------ticket office----------------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Ticket Office List
+                        <label id="office_list_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Province:</label>
+                            <div class="col-sm-2">
+                                <select id="office_province" name="office_province" class="form-control" onchange="changeProvince()">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">City:</label>
+                            <div class="col-sm-2">
+                                <select id="office_city" name="office_city" class="form-control" onchange="changeCity()">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Region:</label>
+                            <div class="col-sm-2">
+                                <select id="office_region" name="office_city" class="form-control" onchange="changeRegion()">
+                                </select>
+                            </div>
+                        </div>
+                        <button id="query_office_button" type="button" class="btn btn-primary">
+                            Query
+                        </button>
+                    </form>
+
+                    <table id="office_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Office Name</th>
+                            <th>Address</th>
+                            <th>WorkTime</th>
+                            <th>WindowNum</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!----An empty table----->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Office</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Office Name:</label>
+                                <div class="col-sm-10">
+                                    <input id="add_office_name" class="form-control" value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Address:</label>
+                                <div class="col-sm-10">
+                                    <input id="add_office_address" class="form-control" value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">WorkTime:</label>
+                                <div class="col-sm-10">
+                                    <input id="add_office_work_time" class="form-control" value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">WindowNum:</label>
+                                <div class="col-sm-10">
+                                    <input id="add_office_window_num" class="form-control" value=''>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="create_office_button" type="button" class="btn btn-primary">
+                                        Add
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2">
+                                    <label class="control-label">Message:</label>
+                                    <span id="create_office_create_message"></span>
+                                    <span id="create_office_status" class="noshow_component"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <!----------------------------Assurance----------------------------------->
             <div class="step panel panel-default">
                 <div class="panel-heading">
@@ -99,10 +202,10 @@
                     <div class="input-box">
                         <form role="form" class="form-horizontal">
                             <!--<div class="form-group">-->
-                                <!--<label class="col-sm-2 control-label">Assurance Order Id:</label>-->
-                                <!--<div class="col-sm-10">-->
-                                    <!--<input id="assurance_order_id" class="form-control" value=''>-->
-                                <!--</div>-->
+                            <!--<label class="col-sm-2 control-label">Assurance Order Id:</label>-->
+                            <!--<div class="col-sm-10">-->
+                            <!--<input id="assurance_order_id" class="form-control" value=''>-->
+                            <!--</div>-->
                             <!--</div>-->
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Assurance Type Index:</label>
@@ -129,6 +232,7 @@
                     </div>
                 </div>
             </div>
+
             <!----------------------------Route----------------------------------->
             <div class="step panel panel-default">
                 <div class="panel-heading">
