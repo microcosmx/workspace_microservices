@@ -570,6 +570,27 @@ services:
         networks:
           - my-network
 
+  ts-ticket-office-service:
+        build: ts-ticket-office-service
+        image: ts/ts-ticket-office-service
+        restart: always
+        ports:
+          - 16108:16108
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-ticket-office-mongo:
+          image: mongo
+          deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
 
 
 networks:
