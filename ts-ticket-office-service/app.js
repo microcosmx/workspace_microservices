@@ -21,6 +21,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//初始化数据库
+var db = require('./bin/db');
+db.initMongo(function (result) {
+    if(result.result.ok){
+        console.log("init data successful!");
+    }
+});
+
 app.use('/office', router);
 
 

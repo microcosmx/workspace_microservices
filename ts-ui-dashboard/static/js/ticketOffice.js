@@ -27,7 +27,7 @@ function changeProvince(){
                 opt11.value = j + 1;
                 opt11.innerText = regionList[i]['cities'][j]['city'];
                 city.appendChild (opt11);
-                console.log(regionList[i]['cities'][j]['city']);
+                // console.log(regionList[i]['cities'][j]['city']);
             }
             city.value = 0;
             // selectCity = 0;
@@ -80,7 +80,6 @@ function getRegionList(){
             regionList = result;
             var province = document.getElementById ("office_province");
 
-
             var opt0 = document.createElement ("option");
             opt0.value = 0;
             opt0.innerText = "-- --";
@@ -92,7 +91,6 @@ function getRegionList(){
                 province.appendChild (opt00);
             }
             province.value = 0;
-
         },
         complete: function(){
 
@@ -100,133 +98,213 @@ function getRegionList(){
     });
 }
 
-
+//获取特定省市区的代售点列表
 $("#query_office_button").click(function(){
-    $("#query_office_button").attr("disabled",true);
-    $("#assurance_list_status").text("false");
-    $.ajax({
-        type: "get",
-        url: "/assurance/findAll",
-        contentType: "application/json",
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function (obj) {
-            var result = obj["assurances"];
-            var size = result.length;
-            $("#assurance_list_table").find("tbody").html("");
-            for (var i = 0; i < size; i++) {
-                $("#assurance_list_table").find("tbody").append(
+    if($('#office_province').val() != 0 && $('#office_city').val() != 0 && $('#office_region').val() != 0){
+        $("#query_office_button").attr("disabled",true);
+        $("#office_list_status").text("false");
+
+        var data = new Object();
+        data.province = $('#office_province').find("option:selected").text();
+        data.city = $('#office_city').find("option:selected").text();
+        data.region = $('#office_region').find("option:selected").text();
+
+        $.ajax({
+            type: "post",
+            url: "/office/getSpecificOffices",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(data),
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (obj) {
+                // console.log(obj);
+                var result = obj[0]['offices'];
+                var size = result.length;
+                $("#office_list_table").find("tbody").html("");
+                for (var i = 0; i < size; i++) {
+                    $("#office_list_table").find("tbody").append(
+                        "<tr>" +
+                        "<td>" + (i + 1) + "</td>" +
+                        "<td >" +
+                        "<input class='all_office_name form-control' value='" + result[i]["officeName"] + "'>" +
+                        "</td>" +
+                        "<td>" +
+                        "<input class='all_office_address form-control' value='" + result[i]["address"] + "'>" +
+                        "</td>" +
+                        "<td>" +
+                        "<input class='all_office_work_time form-control' value='" + result[i]["workTime"] + "'>" +
+                        "</td>" +
+                        "<td>" +
+                        "<input class='all_office_window_num form-control' value='" + result[i]["windowNum"] + "'>" +
+                        "</td>" +
+                        "<td>" + "<button class='all_office_update btn btn-primary'>Update</button>" +
+                        "   <button class='all_office_delete btn btn-primary'>Delete</button>" + "</td>" +
+                        "<td>" +
+                        "<input class='all_office_oldName noshow_component' value='" + result[i]["officeName"] + "'>" +
+                        "</td>" +
+                        "</tr>"
+                    );
+                }
+                $("#office_list_table").find("tbody").append(
                     "<tr>" +
-                    "<td>" + i + "</td>" +
-                    "<td class='all_assurance_id '>" + result[i]["id"] + "</td>" +
+                    "<td>new: </td>" +
                     "<td>" +
-                    "<input class='all_assurance_order_id' value='" + result[i]["orderId"] + "'>" +
+                    "<input class='add_office_name form-control'>" +
                     "</td>" +
                     "<td>" +
-                    "<input class='all_assurance_type_index form-control' value='" + result[i]["typeIndex"] + "'>" +
+                    "<input class='add_office_address form-control'>" +
                     "</td>" +
                     "<td>" +
-                    "<input class='all_assurance_type_name' value='" + result[i]["typeName"] + "'>" +
+                    "<input class='add_office_work_time form-control'>" +
                     "</td>" +
                     "<td>" +
-                    "<input class='all_assurance_type_price' value='" + result[i]["typePrice"] + "'>" +
+                    "<input class='add_office_window_num form-control'>" +
                     "</td>" +
-                    "<td>" + "<button class='all_assurance_update btn btn-primary'>Update</button>" + "</td>" +
+                    "<td>" + "<button id='create_office_button' onclick='createOffice()' class='btn btn-primary'>Add</button>" + "</td>" +
                     "</tr>"
                 );
+                addListenerToAllOfficeTable();
+                $("#office_list_status").text("true");
+            },
+            complete: function(){
+                $("#query_office_button").attr("disabled",false);
             }
-            addListenerToAllAssuranceTable();
-            $("#office_list_status").text("true");
-        },
-        complete: function(){
-            $("#query_office_button").attr("disabled",false);
-        }
-    });
+        });
+
+    } else {
+        alert("Please select the province, city and province first!");
+    }
+
 });
 
-function addListenerToAllAssuranceTable(){
-    var allAssuranceUpdateBtnSet = $(".all_assurance_update");
-    for(var i = 0;i < allAssuranceUpdateBtnSet.length;i++){
-        allAssuranceUpdateBtnSet[i].onclick = function(){
 
-            var assurance = new Object();
-            assurance.assuranceId = $(this).parents("tr").find(".all_assurance_id").text();;
-            assurance.orderId = $(this).parents("tr").find(".all_assurance_order_id").val();
-            assurance.typeIndex = $(this).parents("tr").find(".all_assurance_type_index").val();
+function addListenerToAllOfficeTable(){
+    var allOfficeUpdateBtnSet = $(".all_office_update");
+    for(var i = 0;i < allOfficeUpdateBtnSet.length;i++){
 
-            var assuranceData = JSON.stringify(assurance);
-            alert(assuranceData);
+        allOfficeUpdateBtnSet[i].onclick = function(){
+            var data = new Object();
+            data.province = $('#office_province').find("option:selected").text();
+            data.city = $('#office_city').find("option:selected").text();
+            data.region = $('#office_region').find("option:selected").text();
+            data.oldOfficeName = $(this).parents("tr").find(".all_office_oldName").val();
+
+            var newOffice = new Object();
+            newOffice.officeName = $(this).parents("tr").find(".all_office_name").val();
+            newOffice.address = $(this).parents("tr").find(".all_office_address").val();
+            newOffice.workTime = $(this).parents("tr").find(".all_office_work_time").val();
+            newOffice.windowNum = $(this).parents("tr").find(".all_office_window_num").val();
+
+            data.newOffice = newOffice;
+
+            data = JSON.stringify(data);
+            alert(data);
 
             $.ajax({
                 type: "post",
-                url: "/assurance/modifyAssurance",
+                url: "/office/updateOffice",
                 contentType: "application/json",
                 dataType: "json",
-                data:assuranceData,
+                data:data,
                 xhrFields: {
                     withCredentials: true
                 },
                 success: function(result){
-                    var obj = result;
-                    if(obj["status"] == true){
-                        alert("Success");
-                    }else{
-                        alert("Update Fail");
+                    console.log(JSON.stringify(result));
+                    if(result.ok){
+                        alert("Update Office Success!");
                     }
                 },
                 complete: function(){
                 }
             });
+        }
+    }
 
+
+    var allOfficeDeleteBtnSet = $(".all_office_delete");
+
+    for(var i = 0;i < allOfficeDeleteBtnSet.length;i++){
+        allOfficeDeleteBtnSet[i].onclick = function(){
+
+            var data = new Object();
+            data.province = $('#office_province').find("option:selected").text();
+            data.city = $('#office_city').find("option:selected").text();
+            data.region = $('#office_region').find("option:selected").text();
+            data.officeName = $(this).parents("tr").find(".all_office_oldName").val();
+
+            data = JSON.stringify(data);
+            alert(data);
+
+            $.ajax({
+                type: "post",
+                url: "/office/deleteOffice",
+                contentType: "application/json",
+                dataType: "json",
+                data:data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(result){
+                    console.log(JSON.stringify(result));
+                    if(result.ok){
+                        alert("Update Office Success!");
+                    }
+                },
+                complete: function(){
+                    $("#query_office_button").click();
+                }
+            });
         }
     }
 }
 
-$("#create_assurance_button").click(function(){
+function createOffice(){
+    // alert($(".add_office_name").val() + $(".add_office_address").val() + $(".add_office_work_time").val() + $(".add_office_window_num").val());
 
-    // var orderId = $("#assurance_order_id").val();
-    var typeIndex = $("#assurance_type_index").val();
+    if($(".add_office_name").val() && $(".add_office_address").val() && $(".add_office_work_time").val() && $(".add_office_window_num").val()){
+        var data = new Object();
+        data.province = $('#office_province').find("option:selected").text();
+        data.city = $('#office_city').find("option:selected").text();
+        data.region = $('#office_region').find("option:selected").text();
+        var office = new Object();
+        office.officeName = $(".add_office_name").val();
+        office.address = $(".add_office_address").val();
+        office.workTime = $(".add_office_work_time").val();
+        office.windowNum = $(".add_office_window_num").val();
 
-    var newAssurance = new Object();
-    newAssurance.id = "";
-    newAssurance.orderId = guid();
-    newAssurance.typeIndex = typeIndex;
+        data.office = office;
 
-    var assuranceData = JSON.stringify(newAssurance);
+        data = JSON.stringify(data);
+        // alert(data);
 
-    $("#create_assurance_button").attr("disabled",true);
-    $("#create_assurance_status").html("false");
+        $("#create_office_button").attr("disabled",true);
 
-    $.ajax({
-        type: "post",
-        url: "/assurance/create",
-        contentType: "application/json",
-        dataType: "json",
-        data: assuranceData,
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(result){
-            var obj = result;
-            if(obj["status"] == true){
-                $("#create_assurance_create_message").html(obj["message"]);
-            }else{
-                $("#create_assurance_create_message").html(obj["message"]);
+        $.ajax({
+            type: "post",
+            url: "/office/addOffice",
+            contentType: "application/json",
+            dataType: "json",
+            data: data,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(result){
+                // console.log(JSON.stringify(result));
+                if(result.ok){
+                    alert("Add Office Success!");
+                }
+            },
+            complete: function(){
+                // $("#create_office_button").attr("disabled",false);
+                $("#query_office_button").click();
             }
-            $("#create_assurance_status").html("true");
-        },
-        complete: function(){
-            $("#create_assurance_button").attr("disabled",false);
-        }
-    });
+        });
 
-});
+    } else {
+        alert("Please fill all the blank input!");
+    }
 
-function guid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-    });
-}
+};

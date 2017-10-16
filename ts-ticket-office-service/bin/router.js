@@ -66,7 +66,7 @@ router.post('/updateOffice', function(req, res, next) {
     db.updateOffice(req.body.province, req.body.city, req.body.region, req.body.oldOfficeName, req.body.newOffice, function(result){
         res.set({'Content-Type':'text/json','Encodeing':'utf8'});
         console.log("updateOffice=" + JSON.stringify(result));
-        res.end(result);
+        res.json(result);
     });
 });
 
