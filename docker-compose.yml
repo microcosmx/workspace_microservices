@@ -570,6 +570,20 @@ services:
         networks:
           - my-network
 
+  ts-news-service:
+    build: ts-news-service
+    image: ts/ts-news-service
+    # image: 10.141.212.25:5555/rest-service-go
+    restart: always
+    ports:
+      - 12862:12862
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
+
 
 
 networks:
