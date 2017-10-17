@@ -17,4 +17,39 @@
 4. 微服务监控
 -- 跨语言的底层微服务运行时调用链监控
 
+5. 自动化故障诊断思路
+	自动化测试收集调用链
+	聚类调用链
+		Request trace
+		Scenario trace
+	自动重构运行环境
+		微服务提取
+		相关数据提取
+	同类调用链自动比对
+		S vs F1 vs F2
+		SBFL
+			ESHS(Execution Statement)
+			Path Hit/Count Spectrum
+			MCSHS(Method Calls Seq)
+		Program State-Based
+			Replace the state in error execution with the state in successful execution
+	故障顺序分析
+		Obj  MS Service Instance
+		Class  MS Service
+	自动化故障诊断思路
+		试探性的修复
+		回滚commit
+		故障pattern
+		测试用例验证修复
+
+6. 故障环境提取
+	服务提取(6)
+	数据提取
+	服务深度提取
+		Login… (6 request traces  3 request  traces)
+		Request context (3  x)
+	运行时快照
+
+
+
 
