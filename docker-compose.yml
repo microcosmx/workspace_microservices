@@ -592,6 +592,18 @@ services:
           networks:
             - my-network
 
+  ts-vouncher-service:
+          build: ts-voucher-service
+          image: ts/ts-voucher-service
+          restart: always
+          ports:
+            - 16101:16101
+          deploy:
+            replicas: 3
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
 
 networks:
   my-network:
