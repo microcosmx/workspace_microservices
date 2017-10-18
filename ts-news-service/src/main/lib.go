@@ -1,5 +1,5 @@
 package main
 
-func sayHello(address string) string {
+func sayHello2(address string) string {
 	return "[Ts-News-Service] Get Message From Client: " + address
 }
