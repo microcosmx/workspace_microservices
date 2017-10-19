@@ -1,0 +1,13 @@
+# HTTP Server
+server:
+  port: 14321  # HTTP (Tomcat) port
+
+spring:
+  application:
+    name: ts-ticket-advance-service
+
+  zipkin:
+    baseUrl: http://zipkin:9411/
+  sleuth:
+    sampler:
+      percentage: 1.0
