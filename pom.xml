@@ -42,10 +42,8 @@
         <module>ts-route-service</module>
 		<module>ts-assurance-service</module>
 		<module>ts-seat-service</module>
-        <module>ts-travel-advance-service</module>
-        <module>ts-trave-lplan-service</module>
 		<module>ts-travel-plan-service</module>
-		<module>ts-ticket-advance-service</module>
+		<!--<module>ts-ticket-advance-service</module>-->
 		<!--<module>1_services_analysis_mvn</module>-->
     </modules>
 

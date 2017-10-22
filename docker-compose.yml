@@ -570,6 +570,19 @@ services:
         networks:
           - my-network
 
+  ts-travel-plan-service:
+        build: ts-travel-plan-service
+        image: ts-travel-plan-service
+        restart: always
+        ports:
+          - 14322:14322
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
   ts-ticket-office-service:
         build: ts-ticket-office-service
         image: ts/ts-ticket-office-service

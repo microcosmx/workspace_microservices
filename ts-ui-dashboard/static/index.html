@@ -37,6 +37,7 @@
         <script type="text/javascript" src="js/route.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/assurance.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/ticketOffice.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/travelTransit.js" defer charset="utf-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -66,6 +67,111 @@
         </div>
 
         <div id="microservices">
+
+
+            <!----------------------Flow Preserve Select Ticket-------------->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        中转查询
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">出发站:</label>
+                            <div class="col-sm-10">
+                                <input id="transit_start_station" class="form-control" name='' value='南京'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">中转站:</label>
+                            <div class="col-sm-10">
+                                <input id="transit_middle_station" class="form-control" name='' value='苏州'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">到达站:</label>
+                            <div class="col-sm-10">
+                                <input id="transit_end_station" class="form-control" name='' value='上海'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">出发日期:</label>
+                            <div class="col-sm-10">
+                                <input id="transit_end_station_date" class="form-control" type="date" name='' value='' min="2017-07-13">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-2 control-label">Train Type:</label>-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<select id="search_select_train_type" class="form-control" name="train_type">-->
+                                    <!--<option value="0">All</option>-->
+                                    <!--<option value="1" selected = "selected">GaoTie DongChe</option>-->
+                                    <!--<option value="2">Others</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="transit_search_button" type="button" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading booking">
+                    <h3 class="panel-title">
+                        Tickets Searching Result
+                    </h3>
+                </div>
+                <div class="panel-body booking">
+                    <table id="transit_search_list_table_first_section_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>2rd Class Seat Number</th>
+                            <th>1st Class Seat Number</th>
+                            <th>Select Seat</th>
+                            <!--<th>Operation</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-body booking">
+                    <table id="transit_search_list_table_second_section_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>2rd Class Seat Number</th>
+                            <th>1st Class Seat Number</th>
+                            <th>Select Seat</th>
+                            <!--<th>Operation</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
             <!----------------------------ticket office----------------------------------->
             <div class="step panel panel-default">
                 <div class="panel-heading">
@@ -1940,33 +2046,33 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="panel-heading noshow_component" id="payment_panel_heading">
-                    <h3 class="panel-title">
-                        Payment
-                    </h3>
-                </div>
-                <div class="panel-body noshow_component" id="payment_panel_body">
-                    <table id="payment_table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Order Number</th>
-                            <th>Trip Id</th>
-                            <th>Train Type Id</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Starting Time</th>
-                            <th>End Time</th>
-                            <th>Seat Class</th>
-                            <th>Seat Number</th>
-                            <th>Price</th>
-                            <th>Operation</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--This is an empty table body-->
-                        </tbody>
-                    </table>
-                </div>
+                <!--<div class="panel-heading noshow_component" id="payment_panel_heading">-->
+                    <!--<h3 class="panel-title">-->
+                        <!--Payment-->
+                    <!--</h3>-->
+                <!--</div>-->
+                <!--<div class="panel-body noshow_component" id="payment_panel_body">-->
+                    <!--<table id="payment_table" class="table table-striped">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th>Order Number</th>-->
+                            <!--<th>Trip Id</th>-->
+                            <!--<th>Train Type Id</th>-->
+                            <!--<th>From</th>-->
+                            <!--<th>To</th>-->
+                            <!--<th>Starting Time</th>-->
+                            <!--<th>End Time</th>-->
+                            <!--<th>Seat Class</th>-->
+                            <!--<th>Seat Number</th>-->
+                            <!--<th>Price</th>-->
+                            <!--<th>Operation</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--&lt;!&ndash;This is an empty table body&ndash;&gt;-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
             </div>
 
             <!----------------------Select contacts for ticket--------------->
