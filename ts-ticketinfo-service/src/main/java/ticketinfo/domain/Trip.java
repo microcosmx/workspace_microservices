@@ -1,8 +1,5 @@
 package ticketinfo.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -10,10 +7,8 @@ import java.util.Date;
 /**
  * Created by Chenjie Xu on 2017/5/9.
  */
-@Document(collection="trip")
 public class Trip {
     @Valid
-    @Id
     private TripId tripId;
 
     @Valid

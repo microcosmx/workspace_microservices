@@ -43,9 +43,8 @@
 		<module>ts-assurance-service</module>
 		<module>ts-seat-service</module>
 		<module>ts-travel-plan-service</module>
-		<!--<module>ts-ticket-advance-service</module>-->
-		<!--<module>1_services_analysis_mvn</module>-->
-    </modules>
+		<module>ts-route-plan-service</module>
+	</modules>
 
 	<!--<dependencyManagement>-->
 		<!--<dependencies>-->
@@ -67,6 +66,10 @@
 		<!--</dependency>-->
 
 		<!--分界线-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
         <dependency>
             <groupId>myproject.microservices</groupId>
             <artifactId>micro-service-monitoring-core</artifactId>

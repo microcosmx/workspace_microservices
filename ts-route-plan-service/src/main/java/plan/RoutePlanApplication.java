@@ -1,4 +1,4 @@
-package route;
+package plan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +13,10 @@ import org.springframework.web.client.RestTemplate;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
 @IntegrationComponentScan
-public class RouteApplication {
+public class RoutePlanApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(RouteApplication.class, args);
+        SpringApplication.run(RoutePlanApplication.class, args);
     }
 
     @Bean

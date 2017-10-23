@@ -1,7 +1,5 @@
 package fdse.microservice.domain;
 
-import org.springframework.data.annotation.Id;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 

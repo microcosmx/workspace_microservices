@@ -1,17 +1,9 @@
 package seat.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.Valid;
 
-/**
- * Created by Chenjie Xu on 2017/5/8.
- */
-@Document(collection="trainType")
 public class TrainType {
     @Valid
-    @Id
     private String id;      //车型ID，每个车型一个ID，比如某个型号的动车
 
     @Valid

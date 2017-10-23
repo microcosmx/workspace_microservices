@@ -1,6 +1,5 @@
 package other.service;
 
-import com.google.gson.Gson;
 import other.domain.*;
 import other.repository.OrderOtherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class OrderOtherServiceImpl implements OrderOtherService{
 
     @Override
     public CreateOrderResult create(Order order){
-        System.out.println("[Order Other Service][Create Order] Ready Create Order" + new Gson().toJson(order));
+        System.out.println("[Order Other Service][Create Order] Ready Create Order");
         ArrayList<Order> accountOrders = orderOtherRepository.findByAccountId(order.getAccountId());
         CreateOrderResult cor = new CreateOrderResult();
         if(accountOrders.contains(order)){
