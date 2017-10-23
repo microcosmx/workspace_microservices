@@ -44,7 +44,10 @@
 		<module>ts-seat-service</module>
 		<module>ts-travel-plan-service</module>
 		<module>ts-route-plan-service</module>
-	</modules>
+		<module>ts-food-map-service</module>
+		<!--<module>ts-ticket-advance-service</module>-->
+		<!--<module>1_services_analysis_mvn</module>-->
+    </modules>
 
 	<!--<dependencyManagement>-->
 		<!--<dependencies>-->
