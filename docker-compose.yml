@@ -591,22 +591,6 @@ services:
           networks:
             - my-network
 
-  ts-vouncher-service:
-          build: ts-voucher-service
-          image: ts/ts-voucher-service
-          restart: always
-          ports:
-            - 16101:16101
-          deploy:
-            replicas: 3
-            restart_policy:
-              condition: on-failure
-#          links:
-#            - ts-vouncher-mysql
-          volumes:
-            - /var/lib/mysql
-          networks:
-            - my-network
 
   ts-vouncher-mysql:
          image: mysql
@@ -620,6 +604,23 @@ services:
              condition: on-failure
          networks:
            - my-network
+
+  ts-vouncher-service:
+          build: ts-voucher-service
+          image: ts/ts-voucher-service
+          restart: always
+          ports:
+            - 16101:16101
+          deploy:
+            replicas: 3
+            restart_policy:
+              condition: on-failure
+          depends_on:
+            - ts-vouncher-mysql
+          volumes:
+            - /var/lib/mysql
+          networks:
+            - my-network
 
   ts-news-service:
     build: ts-news-service
