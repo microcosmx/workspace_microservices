@@ -20,7 +20,7 @@ public class TrainFood {
     private UUID id;
 
     @NotNull
-    private UUID travelId;
+    private String tripId;
 
     private List<Food> foodList;
 
@@ -32,13 +32,14 @@ public class TrainFood {
         this.id = id;
     }
 
-    public UUID getTravelId() {
-        return travelId;
+    public String getTripId() {
+        return tripId;
     }
 
-    public void setTravelId(UUID travelId) {
-        this.travelId = travelId;
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
     }
+
 
     public List<Food> getFoodList() {
         return foodList;

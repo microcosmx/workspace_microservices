@@ -1,9 +1,6 @@
 package food.service;
 
-import food.domain.FoodStore;
-import food.domain.TrainFood;
-
-import java.util.List;
+import food.domain.*;
 
 public interface FoodMapService {
 
@@ -11,9 +8,14 @@ public interface FoodMapService {
 
     TrainFood createTrainFood(TrainFood tf);
 
-    List<FoodStore> listFoodStores();
+    GetFoodStoresListResult listFoodStores();
 
-    List<TrainFood> listTrainFood();
+    GetTrainFoodListResult listTrainFood();
+
+    GetFoodStoresListResult listFoodStoresByStationId(String stationId);
+
+    GetTrainFoodListResult listTrainFoodByTripId(String tripId);
+
 
 
 }

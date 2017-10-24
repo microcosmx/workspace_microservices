@@ -1,32 +1,33 @@
 package food.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//import org.springframework.data.annotation.Id;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
+import java.io.Serializable;
+//import java.util.UUID;
 
-@Document(collection = "foods")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Food {
+//@Document(collection = "foods")
+//@JsonIgnoreProperties(ignoreUnknown = true)
+public class Food implements Serializable{
 
     public Food(){
 
     }
 
-    @Id
-    private UUID id;
+//    @Id
+//    private UUID id;
     private String foodName;
     private double price;
 
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+//    public UUID getId() {
+//        return id;
+//    }
+//
+//    public void setId(UUID id) {
+//        this.id = id;
+//    }
 
     public String getFoodName() {
         return foodName;
