@@ -625,7 +625,7 @@ services:
         ports:
           - 18855:18855
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
