@@ -640,6 +640,19 @@ services:
           networks:
             - my-network
 
+    ts-food-service:
+          build: ts-food-service
+          image: ts/ts-food-service
+          restart: always
+          ports:
+            - 18856:18856
+          deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
+
 
 networks:
   my-network:
