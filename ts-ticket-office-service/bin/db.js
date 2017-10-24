@@ -58,11 +58,16 @@ var addOffice = function(province, city, region, office, db, callback){
                         "city": city ,
                         "region": region};
     var updateString = {$push:{
-                            "offices": JSON.stringify(office)
+                            "offices": {
+                                'officeName':office.officeName,
+                                'address': office.address,
+                                'workTime': office.workTime,
+                                'windowNum': office.windowNum
+                            }
                         }};
-    collection.update(findString, updateString).toArray(function(err, result){
+    collection.update(findString, updateString, function(err, result){
         if(err){
-            console.log("Error:" + err);
+            console.log("Update Error:" + err);
             return;
         }
         callback(result);
@@ -84,7 +89,7 @@ var deleteOffice = function(province, city, region, officeName, db, callback){
             }
         }
     };
-    collection.update(findString, updateString).toArray(function(err, result){
+    collection.update(findString, updateString, function(err, result){
         if(err){
             console.log("Error:" + err);
             return;
@@ -111,7 +116,7 @@ var updateOffice = function(province, city, region, oldOfficeName, newOffice, db
         'offices.$.windowNum': newOffice.windowNum
         }
     };
-    collection.update(findString, updateString).toArray(function(err, result){
+    collection.update(findString, updateString, function(err, result){
         if(err){
             console.log("Error:" + err);
             return;

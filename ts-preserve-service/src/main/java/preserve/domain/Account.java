@@ -1,14 +1,11 @@
 package preserve.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
 
-    @Id
     private UUID id;
 
     private String password;
