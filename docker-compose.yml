@@ -625,7 +625,7 @@ services:
         ports:
           - 18855:18855
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -633,6 +633,19 @@ services:
 
   ts-food-map-mongo:
           image: mongo
+          deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
+
+    ts-food-service:
+          build: ts-food-service
+          image: ts/ts-food-service
+          restart: always
+          ports:
+            - 18856:18856
           deploy:
             replicas: 1
             restart_policy:
