@@ -1,6 +1,4 @@
 
-sc.parallelize(new Array((1 to 50), (51 to 100))).map(_ => func(_))
-
 
 研究思路：
 
