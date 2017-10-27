@@ -15,17 +15,24 @@ public class RoutePlanController {
     @Autowired
     private RoutePlanService routePlanService;
 
-    @RequestMapping(value="/routePlan/cheapestRoute", method= RequestMethod.POST)
+    @RequestMapping(value = "/routePlan/cheapestRoute", method = RequestMethod.POST)
     public RoutePlanResults getCheapestRoutes(@RequestBody GetRoutePlanInfo info){
-        System.out.println("[Route Plan Service][Get Cheapest Routes] From:" + info.getFormStationId() +
-            " to:" + info.getToStationId() + " Num:" + info.getNum() + " Date:" + info.getTravelDate());
+        System.out.println("[Route Plan Service][Get Cheapest Routes] From:" + info.getFormStationName() +
+            " to:" + info.getToStationName() + " Num:" + info.getNum() + " Date:" + info.getTravelDate());
         return routePlanService.searchCheapestResult(info);
     }
 
-    @RequestMapping(value="/routePlan/quickestRoute", method= RequestMethod.POST)
+    @RequestMapping(value = "/routePlan/quickestRoute", method = RequestMethod.POST)
     public RoutePlanResults getQuickestRoutes(@RequestBody GetRoutePlanInfo info){
-        System.out.println("[Route Plan Service][Get Quickest Routes] From:" + info.getFormStationId() +
-                " to:" + info.getToStationId() + " Num:" + info.getNum() + " Date:" + info.getTravelDate());
+        System.out.println("[Route Plan Service][Get Quickest Routes] From:" + info.getFormStationName() +
+                " to:" + info.getToStationName() + " Num:" + info.getNum() + " Date:" + info.getTravelDate());
         return routePlanService.searchQuickestResult(info);
+    }
+
+    @RequestMapping(value = "/routePlan/minStopStations", method = RequestMethod.POST)
+    public RoutePlanResults getMinStopStations(@RequestBody GetRoutePlanInfo info){
+        System.out.println("[Route Plan Service][Get Min Stop Stations] From:" + info.getFormStationName() +
+                " to:" + info.getToStationName() + " Num:" + info.getNum() + " Date:" + info.getTravelDate());
+        return routePlanService.searchMinStopStations(info);
     }
 }

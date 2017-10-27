@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class GetRoutePlanInfo {
 
-    private String formStationId;
+    private String formStationName;
 
-    private String toStationId;
+    private String toStationName;
 
     private Date travelDate;
 
@@ -16,27 +16,27 @@ public class GetRoutePlanInfo {
         //Empty Constructor
     }
 
-    public GetRoutePlanInfo(String formStationId, String toStationId, Date travelDate, int num) {
-        this.formStationId = formStationId;
-        this.toStationId = toStationId;
+    public GetRoutePlanInfo(String formStationName, String toStationName, Date travelDate, int num) {
+        this.formStationName = formStationName;
+        this.toStationName = toStationName;
         this.travelDate = travelDate;
         this.num = num;
     }
 
-    public String getFormStationId() {
-        return formStationId;
+    public String getFormStationName() {
+        return formStationName;
     }
 
-    public void setFormStationId(String formStationId) {
-        this.formStationId = formStationId;
+    public void setFormStationName(String formStationName) {
+        this.formStationName = formStationName;
     }
 
-    public String getToStationId() {
-        return toStationId;
+    public String getToStationName() {
+        return toStationName;
     }
 
-    public void setToStationId(String toStationId) {
-        this.toStationId = toStationId;
+    public void setToStationName(String toStationName) {
+        this.toStationName = toStationName;
     }
 
     public Date getTravelDate() {

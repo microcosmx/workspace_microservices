@@ -23,6 +23,11 @@ public class TravelController {
         return travelService.getRouteByTripId(tripId);
     }
 
+    @RequestMapping(value = "/travel/getTripsByRouteId", method = RequestMethod.POST)
+    public GetTripsByRouteIdResult getTripsByRouteId(@RequestBody GetTripsByRouteIdInfo info){
+        return travelService.getTripByRoute(info);
+    }
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel/create", method= RequestMethod.POST)
     public String create(@RequestBody Information info){

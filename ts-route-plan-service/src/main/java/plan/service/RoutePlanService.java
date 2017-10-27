@@ -9,4 +9,6 @@ public interface RoutePlanService {
 
     RoutePlanResults searchQuickestResult(GetRoutePlanInfo info);
 
+    RoutePlanResults searchMinStopStations(GetRoutePlanInfo info);
+
 }

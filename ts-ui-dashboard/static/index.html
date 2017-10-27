@@ -38,6 +38,7 @@
         <script type="text/javascript" src="js/assurance.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/ticketOffice.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/travelTransit.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/routePlan.js" defer charset="utf-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -68,8 +69,79 @@
 
         <div id="microservices">
 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Search min stop station.
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Starting Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_min_stop_fromPlace" class="form-control" name='' value='上海'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Terminal Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_min_stop_toPlace" class="form-control" name='' value='苏州'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Date:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_min_stop_date" class="form-control" type="date" name='' value='' min="2017-07-13">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-2 control-label">Train Type:</label>-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<select id="search_select_train_type" class="form-control" name="train_type">-->
+                                    <!--<option value="0">All</option>-->
+                                    <!--<option value="1" selected = "selected">GaoTie DongChe</option>-->
+                                    <!--<option value="2">Others</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="travel_min_stop_button" type="button" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading booking">
+                    <h3 class="panel-title">
+                        Tickets Searching Result
+                    </h3>
+                </div>
+                <div class="panel-body booking">
+                    <table id="tickets_min_stop_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>2rd Class Seat Number</th>
+                            <th>1st Class Seat Number</th>
+                            <th>Select Seat</th>
+                            <!--<th>Operation</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-            <!----------------------Flow Preserve Select Ticket-------------->
+            <!----------------------Flow Transit -------------->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -2046,33 +2118,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!--<div class="panel-heading noshow_component" id="payment_panel_heading">-->
-                    <!--<h3 class="panel-title">-->
-                        <!--Payment-->
-                    <!--</h3>-->
-                <!--</div>-->
-                <!--<div class="panel-body noshow_component" id="payment_panel_body">-->
-                    <!--<table id="payment_table" class="table table-striped">-->
-                        <!--<thead>-->
-                        <!--<tr>-->
-                            <!--<th>Order Number</th>-->
-                            <!--<th>Trip Id</th>-->
-                            <!--<th>Train Type Id</th>-->
-                            <!--<th>From</th>-->
-                            <!--<th>To</th>-->
-                            <!--<th>Starting Time</th>-->
-                            <!--<th>End Time</th>-->
-                            <!--<th>Seat Class</th>-->
-                            <!--<th>Seat Number</th>-->
-                            <!--<th>Price</th>-->
-                            <!--<th>Operation</th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
-                        <!--<tbody>-->
-                        <!--&lt;!&ndash;This is an empty table body&ndash;&gt;-->
-                        <!--</tbody>-->
-                    <!--</table>-->
-                <!--</div>-->
             </div>
 
             <!----------------------Select contacts for ticket--------------->

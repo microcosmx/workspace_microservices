@@ -64,6 +64,24 @@ public class Travel2ServiceImpl implements Travel2Service{
         return result;
     }
 
+
+    @Override
+    public GetTripsByRouteIdResult getTripByRoute(GetTripsByRouteIdInfo info) {
+        ArrayList<String> routeIds = info.getRouteIds();
+        ArrayList<ArrayList<Trip>> tripList = new ArrayList<>();
+        for(String routeId : routeIds){
+            ArrayList<Trip> tempTripList = repository.findByRouteId(routeId);
+            if(tempTripList == null){
+                tempTripList = new ArrayList<>();
+            }
+            tripList.add(tempTripList);
+        }
+        GetTripsByRouteIdResult result = new GetTripsByRouteIdResult();
+        result.setMessage("Success.");
+        result.setTripsSet(tripList);
+        return result;
+    }
+
     @Override
     public String create(Information info){
         TripId ti = new TripId(info.getTripId());
