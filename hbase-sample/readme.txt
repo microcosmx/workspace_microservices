@@ -1,4 +1,7 @@
 
+clean images:
+docker volume rm $(docker volume ls -qf dangling=true)
+docker images|grep none|awk '{print $3 }'|xargs docker rmi
 
 cdh access:
 http://quickstart.cloudera
@@ -13,7 +16,8 @@ http://127.0.0.1:8088/
 
 
 cdh image:
-docker commit 967c9ae85d29 cloudera/quickstart_local
+docker ps
+docker commit mycdh cloudera/quickstart_local
 
 
 
@@ -26,6 +30,7 @@ docker run --name mycdh --hostname=quickstart.cloudera --privileged=true -t -i -
 	-p 60000:60000 -p 60010:60010 -p 60020:60020 -p 60030:60030 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 \
 	-p 7077:7077 -p 7078:7078 -p 18080:18080 -p 18081:18081 -p 16000:16000 -p 8005:8005 -p 21000:21000 -p 21050:21050 \
 	-p 8032:8032 -p 8020:8020 -p 50010:50010 -p 50070:50070 -p 8033:8033 -p 8088:8088 -p 8090:8090 -p 19888:19888 \
+	-p 3306:3306 -p 8030:8030 -p 10020:10020 -p 25000:25000 \
 	cloudera/quickstart:latest /usr/bin/docker-quickstart
 docker attach mycdh
 docker run --name mycdh --hostname=quickstart.cloudera --privileged=true -t -i -d \
@@ -33,6 +38,7 @@ docker run --name mycdh --hostname=quickstart.cloudera --privileged=true -t -i -
 	-p 60000:60000 -p 60010:60010 -p 60020:60020 -p 60030:60030 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 \
 	-p 7077:7077 -p 7078:7078 -p 18080:18080 -p 18081:18081 -p 16000:16000 -p 8005:8005 -p 21000:21000 -p 21050:21050 \
 	-p 8032:8032 -p 8020:8020 -p 50010:50010 -p 50070:50070 -p 8033:8033 -p 8088:8088 -p 8090:8090 -p 19888:19888 \
+	-p 3306:3306 -p 8030:8030 -p 10020:10020 -p 25000:25000 \
 	-v /Users/admin/work/workspace_data:/opt/workspace_data \
 	cloudera/quickstart_local /usr/bin/docker-quickstart
 
@@ -40,7 +46,7 @@ cloudera manager:
 /home/cloudera/cloudera-manager
 /home/cloudera/cloudera-manager --express
 http://quickstart.cloudera:7180
-admin/admin
+cloudera/cloudera
 
 
 mysql:

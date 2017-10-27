@@ -1,5 +1,0 @@
-tripId:G1234
-foodList:Pork Chop with rice$9.5|Egg Soup$3.2
-
-tripId:G1235
-foodList:Beef with rice$9.5|Soup$3.7
