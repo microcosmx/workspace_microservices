@@ -9,7 +9,6 @@ $("#travel_min_stop_button").click(function(){
         return;
     }
     var minStopSearchData = JSON.stringify(minStopSearchInfo);
-    alert(minStopSearchData);
     $("#tickets_min_stop_table").find("tbody").html("");
     queryForMinStopInfo(minStopSearchData,"/routePlan/minStopStations");
 });
@@ -38,8 +37,8 @@ function queryForMinStopInfo(data,path) {
                         "<td >" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + To-Do + "</td>" +
-                        "<td>" + To-Do + "</td>" +
+                        "<td>" + "" + "</td>" +
+                        "<td>" + "" + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
