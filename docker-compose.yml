@@ -618,27 +618,27 @@ services:
     networks:
       - my-network
 
-#  ts-food-map-service:
-#        build: ts-food-map-service
-#        image: ts/ts-food-map-service
-#        restart: always
-#        ports:
-#          - 18855:18855
-#        deploy:
-#          replicas: 3
-#          restart_policy:
-#            condition: on-failure
-#        networks:
-#          - my-network
-#
-#  ts-food-map-mongo:
-#          image: mongo
-#          deploy:
-#            replicas: 1
-#            restart_policy:
-#              condition: on-failure
-#          networks:
-#            - my-network
+  ts-food-map-service:
+        build: ts-food-map-service
+        image: ts/ts-food-map-service
+        restart: always
+        ports:
+          - 18855:18855
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-food-map-mongo:
+          image: mongo
+          deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
 
   ts-route-plan-service:
         build: ts-route-plan-service
@@ -654,24 +654,24 @@ services:
           - my-network
 
 
-    ts-food-service:
-          build: ts-food-service
-          image: ts/ts-food-service
-          restart: always
-          ports:
-            - 18856:18856
-          deploy:
-            replicas: 1
-            restart_policy:
-              condition: on-failure
-          networks:
-            - my-network
+  ts-food-service:
+      build: ts-food-service
+      image: ts/ts-food-service
+      restart: always
+      ports:
+        - 18856:18856
+      deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure
+      networks:
+        - my-network
 
 
 networks:
-  my-network:
-    # driver: overlay
-    driver: bridge
+    my-network:
+      # driver: overlay
+      driver: bridge
 
 
 
