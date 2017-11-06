@@ -5,12 +5,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
 
 @Repository
 public interface ConsignPriceConfigRepository extends MongoRepository<PriceConfig, String> {
-    @Query("{ 'id': ?0 }")
-    PriceConfig findById(UUID id);
+    @Query("{ 'index': ?0 }")
+    PriceConfig findByIndex(int index);
 
-    PriceConfig find();
 }

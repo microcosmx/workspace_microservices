@@ -16,4 +16,4 @@ spring:
 
 # HTTP Server
 server:
-  port: 16579
+  port: 16110

@@ -16,7 +16,7 @@ public class ConsignPriceServiceImpl implements ConsignPriceService {
     //计价
     @Override
     public double getPriceByWeightAndRegion(GetPriceDomain domain) {
-        PriceConfig priceConfig = repository.find();
+        PriceConfig priceConfig = repository.findByIndex(0);
         double initialPrice = priceConfig.getInitialPrice();
         if(domain.getWeight() <= priceConfig.getInitialWeight()){
             return initialPrice;
@@ -34,7 +34,7 @@ public class ConsignPriceServiceImpl implements ConsignPriceService {
     @Override
     public String queryPriceInformation() {
         StringBuilder sb = new StringBuilder();
-        PriceConfig price = repository.find();
+        PriceConfig price = repository.findByIndex(0);
         sb.append("The price of weight within ");
         sb.append(price.getInitialWeight());
         sb.append(" is ");
@@ -51,21 +51,24 @@ public class ConsignPriceServiceImpl implements ConsignPriceService {
     @Override
     public boolean createAndModifyPrice(PriceConfig config) {
         System.out.println("[Consign Price Service][Create New Price Config]");
-        //新建price
-        if(config == null){
-            config.setId(UUID.randomUUID());
-            repository.save(config);
-            return true;
-        }
         //更新price
-        else{
-            PriceConfig originalConfig = repository.findById(config.getId());
-            originalConfig.setInitialPrice(config.getInitialPrice());
-            originalConfig.setInitialWeight(config.getInitialWeight());
-            originalConfig.setWithinPrice(config.getWithinPrice());
-            originalConfig.setBeyondPrice(config.getBeyondPrice());
-            repository.save(originalConfig);
-            return true;
-        }
+        PriceConfig originalConfig;
+        if(repository.findByIndex(0) != null)
+            originalConfig = repository.findByIndex(0);
+        else
+            originalConfig = new PriceConfig();
+        originalConfig.setId(config.getId());
+        originalConfig.setIndex(0);
+        originalConfig.setInitialPrice(config.getInitialPrice());
+        originalConfig.setInitialWeight(config.getInitialWeight());
+        originalConfig.setWithinPrice(config.getWithinPrice());
+        originalConfig.setBeyondPrice(config.getBeyondPrice());
+        repository.save(originalConfig);
+        return true;
+    }
+
+    @Override
+    public PriceConfig getPriceConfig() {
+        return repository.findByIndex(0);
     }
 }

@@ -9,6 +9,7 @@ import java.util.UUID;
 public class PriceConfig {
     @Id
     private UUID id;
+    private int index;
     private double initialWeight;//起步重量
     private double initialPrice;//起步价
     private double withinPrice;//省内超出以后单价
@@ -24,6 +25,14 @@ public class PriceConfig {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public double getInitialWeight() {
