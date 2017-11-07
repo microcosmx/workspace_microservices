@@ -1,72 +1,50 @@
 
-build:
-mvn clean package
+复旦大学软件工程实验室，微服务项目
 
-docker-compose:
+该项目为购票微服务应用项目，包括40+微服务
+
+
+
+
+
+
+1. 本地运行环境：
+
+本地打包命令：
+mvn build：
+mvn -Dmaven.test.skip=true clean package
+docker-compose -f docker-compose.yml build
+
+docker build:
 docker-compose build
+（docker-compose -f docker-compose.yml build）
 docker-compose up -d
 docker-compose down
 
 
-   
 
-
-mvn repo:
-https://repo1.maven.org/maven2/
-
-
-clean images:
-docker volume rm $(docker volume ls -qf dangling=true)
-docker images|grep none|awk '{print $3 }'|xargs docker rmi
-
-
-build:
-mvn -Dmaven.test.skip=true clean package
-docker-compose -f docker-compose.yml build
-
-
-run:
+微服务应用系统运行（单机）:
 docker-compose -f docker-compose.yml up -d
 docker-compose down
 docker-compose logs -f
 
 
-rest url:
-http://localhost:16006/hello6?cal=50
-http://rest-service-6:16006/hello6?cal=50
 
-
-rabbit mq queue:
-docker run -d -p 5672:5672 -p 15672:15672 --name rest-service-queue rabbitmq:management
-http://localhost:15672
-
-
-zipkin:
-docker run -d -p 9411:9411 --name myzipkin openzipkin/zipkin
-http://zipkin:9411/
-http://172.16.0.1:9411/
-http://10.141.212.25:9411/
-traces:
-http://localhost:9411/api/v1/traces?annotationQuery=&endTs=1496377639992&limit=100&lookback=3600000&minDuration=&serviceName=rest-service-6&sortOrder=duration-desc&spanName=all
-http://localhost:9411/api/v1/traces?annotationQuery=&minDuration=&serviceName=rest-service-6&sortOrder=duration-desc&spanName=all
-
-
-redis:
-docker run -d --name myredis -p 6379:6379 redis
-
-
-docker ui:
+docker运行时监控:
 docker rm portainer-ui-local
-docker run -d -p 9100:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-http://10.141.212.22:9100/
-http://10.141.211.161:9100
+docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+http://localhost:9000/
+
+清理镜像:
+docker volume rm $(docker volume ls -qf dangling=true)
+docker images|grep none|awk '{print $3 }'|xargs docker rmi
 
 
 
-swarm:
 
-test sample:
-http://10.141.211.161/
+
+
+2. 集群环境运行（docker swarm）:
 
 build:
 mvn clean package
@@ -76,16 +54,8 @@ docker swarm init --advertise-addr 10.141.211.161
 docker swarm join-token manager
 docker swarm join-token worker
 
-ansible:
-/etc/ansible/hosts
-ansible docker-masters -a "/bin/echo hello" -u root
-ansible docker-machines -a "/bin/echo hello" -u root
-ansible docker-masters -a "docker pull mongo" -u root
-ansible docker-machines -a "docker pull mongo" -u root
-rabbitmq:management, openzipkin/zipkin:latest
-docker pull 10.141.212.25:5555/cluster-ts-ui-dashboard
 
-docker:
+app tag:
 docker tag ts/ts-ui-dashboard 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker tag ts/ts-login-service 10.141.212.25:5555/cluster-ts-login-service
 docker tag ts/ts-register-service 10.141.212.25:5555/cluster-ts-register-service
@@ -117,6 +87,7 @@ docker tag redis 10.141.212.25:5555/cluster-ts-redis
 docker tag openzipkin/zipkin 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
 
 
+app local registry：
 docker push 10.141.212.25:5555/cluster-ts-ui-dashboard
 docker push 10.141.212.25:5555/cluster-ts-login-service
 docker push 10.141.212.25:5555/cluster-ts-register-service
@@ -151,6 +122,8 @@ docker network prune
 docker network rm ingress
 docker network create --ingress --driver overlay ingress
 
+
+deploy app （docker swarm）：
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 docker stack ls
 docker stack services my-compose-swarm
@@ -166,25 +139,16 @@ docker swarm leave --force
 docker node ls
 docker node rm 0pvy8v3sugtmcbqualswp1rv5
 
-swarm ui:
-http://10.141.211.160:9100/
-zipkin:
-http://10.141.211.160:9411/
-app:
-http://10.141.211.160/
+
+
+集群运行时监控界面：
+docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+http://10.141.211.161:9000
 
 
 
-
-selenium:
+测试：（selenium）
 http://www.seleniumhq.org
 docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:3.4.0-bismuth
-10.141.212.21
-10.141.212.23
-10.141.212.24
 
-monitoring:
-ps auxw --sort=%cpu
-ps auxw --sort=rss
-ps auxw --sort=vsz
 
