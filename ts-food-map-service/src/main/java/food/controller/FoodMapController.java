@@ -2,6 +2,8 @@ package food.controller;
 
 import food.domain.GetFoodStoresListResult;
 import food.domain.GetTrainFoodListResult;
+import food.domain.QueryFoodStoresInfo;
+import food.domain.QueryTrainFoodInfo;
 import food.service.FoodMapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,16 +39,16 @@ public class FoodMapController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/foodmap/getFoodStoresOfStation", method = RequestMethod.POST)
-    public GetFoodStoresListResult getFoodStoresOfStation(@RequestParam(value="stationId",required = true) String stationId){
+    public GetFoodStoresListResult getFoodStoresOfStation(@RequestBody QueryFoodStoresInfo qfs){
         System.out.println("[Food Map Service][Get FoodStores By StationId]");
-        return foodMapService.listFoodStoresByStationId(stationId);
+        return foodMapService.listFoodStoresByStationId(qfs.getStationId());
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/foodmap/getTrainFoodOfTrip", method = RequestMethod.POST)
-    public GetTrainFoodListResult getTrainFoodOfTrip(@RequestParam(value="tripId",required = true) String tripId){
+    public GetTrainFoodListResult getTrainFoodOfTrip(@RequestBody QueryTrainFoodInfo qtf){
         System.out.println("[Food Map Service][Get TrainFoods By TripId]");
-        return foodMapService.listTrainFoodByTripId(tripId);
+        return foodMapService.listTrainFoodByTripId(qtf.getTripId());
     }
 
 

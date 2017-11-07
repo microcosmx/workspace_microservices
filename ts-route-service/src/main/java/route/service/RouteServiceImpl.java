@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import route.domain.*;
 import route.repository.RouteRepository;
-import sun.java2d.pipe.AAShapePipe;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -91,19 +89,19 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public GetRoutesListlResult getRouteByStartAndTerminal(GetRouteByStartAndTerminalInfo info){
 //        ArrayList<Route> routes = routeRepository.findByStartStationIdAndTerminalStationId(info.getStartId(),info.getTerminalId());
-       ArrayList<Route> routes = routeRepository.findAll();
-       ArrayList<Route> resultList = new ArrayList<>();
-       for(Route route : routes){
-           int indexStart = route.getStations().indexOf(info.getStartId());
-           int indexEnd = route.getStations().indexOf(info.getTerminalId());
-           if(indexStart >= 0 && indexStart < indexEnd){
-               resultList.add(route);
-           }
-
+        ArrayList<Route> routes = routeRepository.findAll();
+        System.out.println("[Route Service] Find All:" + routes.size());
+        ArrayList<Route> resultList = new ArrayList<>();
+        for(Route route : routes){
+            if(route.getStations().contains(info.getStartId()) &&
+                    route.getStations().contains(info.getTerminalId()) &&
+                    route.getStations().indexOf(info.getStartId()) < route.getStations().indexOf(info.getTerminalId())) {
+                resultList.add(route);
+            }
        }
        GetRoutesListlResult result = new GetRoutesListlResult(
                 true, "Success", resultList
-        );
+       );
         return result;
     }
 

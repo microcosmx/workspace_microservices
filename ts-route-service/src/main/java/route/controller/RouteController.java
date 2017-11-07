@@ -37,7 +37,7 @@ public class RouteController {
     }
 
     @RequestMapping(path = "/route/queryByStartAndTerminal", method = RequestMethod.POST)
-    public GetRoutesListlResult queryByStartAndTerminal(GetRouteByStartAndTerminalInfo getRouteByStartAndTerminalInfo){
+    public GetRoutesListlResult queryByStartAndTerminal(@RequestBody GetRouteByStartAndTerminalInfo getRouteByStartAndTerminalInfo){
         return routeService.getRouteByStartAndTerminal(getRouteByStartAndTerminalInfo);
     }
 
