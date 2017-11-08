@@ -13,8 +13,8 @@ public class ConsignRecord {
     @Id
     private UUID id;
     private UUID accountId;//办理托运的账户ID
-    private Date handleDate;//办理日期，一般早于order日期
-    private Date targetDate;//行李托运日期，和order上的日期一致
+    private String handleDate;//办理日期，一般早于order日期
+    private String targetDate;//行李托运日期，和order上的日期一致
     private String from;//托运起始站，和order一致
     private String to;//托运终点站，和order一致
     private String consignee;//收件人
@@ -42,19 +42,19 @@ public class ConsignRecord {
         this.accountId = accountId;
     }
 
-    public Date getHandleDate() {
+    public String getHandleDate() {
         return handleDate;
     }
 
-    public void setHandleDate(Date handleDate) {
+    public void setHandleDate(String handleDate) {
         this.handleDate = handleDate;
     }
 
-    public Date getTargetDate() {
+    public String getTargetDate() {
         return targetDate;
     }
 
-    public void setTargetDate(Date targetDate) {
+    public void setTargetDate(String targetDate) {
         this.targetDate = targetDate;
     }
 

@@ -19,12 +19,15 @@ public class ConsignServiceImpl implements ConsignService {
     RestTemplate restTemplate;
 
     @Override
-    public boolean insertConsignRecord(ConsignRequest consignRequest) {
+    public boolean insertConsignRecord(ConsignRequest consignRequest){
         System.out.println("[Consign servie] [ Insert new consign record]");
+
         ConsignRecord consignRecord = new ConsignRecord();
         //设置record属性
         consignRecord.setId(UUID.randomUUID());
         consignRecord.setAccountId(consignRequest.getAccountId());
+        System.out.printf("The handle date is %s", consignRequest.getHandleDate());
+        System.out.printf("The target date is %s", consignRequest.getTargetDate());
         consignRecord.setHandleDate(consignRequest.getHandleDate());
         consignRecord.setTargetDate(consignRequest.getTargetDate());
         consignRecord.setFrom(consignRequest.getFrom());
@@ -48,8 +51,9 @@ public class ConsignServiceImpl implements ConsignService {
     }
 
     @Override
-    public boolean updateConsignRecord(ConsignRequest consignRequest) {
+    public boolean updateConsignRecord(ConsignRequest consignRequest){
         System.out.println("[Consign servie] [ Update consign record]");
+
         ConsignRecord originalRecord = repository.findById(consignRequest.getId());
         if(originalRecord == null)
             return false;
