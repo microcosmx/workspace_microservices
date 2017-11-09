@@ -1,7 +1,0 @@
-foreign_file('~/LT/CODE/math.o',[sqrt,compute_ideal_breadth,f,fprime]).
-foreign(sqrt,c,sqrt(+float,[-float])).
-foreign(compute_ideal_breadth,c,
-	compute_ideal_breadth(+float, +integer, +integer, +float, [-float])).
-foreign(fprime,c,fprime(+float,+float,+float,[-float])).
-foreign(f,c,f(+float,+float,+float,[-float])).
-:- load_foreign_files(['~/LT/CODE/math.o'],['-lm']).

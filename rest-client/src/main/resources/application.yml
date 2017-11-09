@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: rest-client
-
-server:
-  port: 15001

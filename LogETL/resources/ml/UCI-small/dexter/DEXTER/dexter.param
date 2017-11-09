@@ -1,8 +1,0 @@
-Data type: sparse-integer
-Number of features: 20000
-Number of examples and check-sums:
-     	Pos_ex	Neg_ex	Tot_ex	Check_sum
-Train	  150	  150	  300	2816528.00
-Valid	  150	  150	  300	2820952.00
-Test	 1000	 1000	 2000	19127295.00
-All  	 1300	 1300	 2600	24764775.00

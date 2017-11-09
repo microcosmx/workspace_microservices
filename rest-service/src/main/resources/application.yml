@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: rest-service
-
-server:
-  port: 15000
-
