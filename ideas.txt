@@ -2,16 +2,24 @@
 
 研究思路：
 
-new：
+1. 注入故障（travel explorer）
 
-1. 容错
+2. 入口微服务（preserve）故障输入，infer出所有可能的故障输入json（1 --> x）
 
-2. 环境提取
+3. 其他入口微服务(n)造成同样异常的故障输入（change）。(n-->nx)
 
-3. 智能定位
+4. check所有下行微服务（order，travel explorer，route。。）的输入(m->mx)，infer可能的故障输入json
+
+-- path的变动（version），异常消失
 
 
-
+TODO：
+1. inject
+2. 入口微服务url+json (3)
+http://localhost:16006/hello6?cal=50
+post: {x:aa, y:bb}
+3. 其他同级微服务url+json (3)
+4. dependent微服务url+json (2+1)
 
 
 
