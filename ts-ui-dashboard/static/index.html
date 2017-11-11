@@ -39,6 +39,7 @@
         <script type="text/javascript" src="js/ticketOffice.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/travelTransit.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/routePlan.js" defer charset="utf-8"></script>
+        <script type="text/javascript" src="js/food.js" defer charset="UTF-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -140,6 +141,92 @@
                     </table>
                 </div>
             </div>
+
+            <!----------------------------Food----------------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Food List
+                        <label id="food_list_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Date:</label>
+                            <div class="col-sm-2">
+                                <input id="food_date" name="office_province" class="form-control" type="date"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Start Station:</label>
+                            <div class="col-sm-1">
+                                <input id="food_start_station" name="food_stat_station" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">End Station:</label>
+                            <div class="col-sm-1">
+                                <input id="food_end_station"  name="food_end_station" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Train Number:</label>
+                            <div class="col-sm-2">
+                                <input id="food_trip_id"  name="food_end_station" class="form-control" />
+                            </div>
+                        </div>
+                        <button id="query_food_button" type="button" class="btn btn-primary">
+                            Query
+                        </button>
+                    </form>
+
+                    <table id="train_food_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip ID</th>
+                            <th>Food Name</th>
+                            <th>Price</th>
+                            <th class="noshow_component"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!----An empty table----->
+                        </tbody>
+                    </table>
+
+                    <div class="panel">
+                        <div class="panel-heading">stationID</div>
+                        <select id="food_station_select" name="food_station_select" class="form-control" onchange="changeFoodStation()">
+
+                        </select>
+                        <table id="food_stores_of_station_list" class="table table-striped">
+                            <thead>
+                                <th>No.</th>
+                                <th>Store Name</th>
+                                <th>Telephone</th>
+                                <th>Bussiness Time</th>
+                                <th>Delivery Fee</th>
+                                <th>Operation</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <table id="food_of_store" class="table table-striped">
+                            <thead>
+                                <th>No.</th>
+                                <th>Food Name</th>
+                                <th>Price</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
 
             <!----------------------Flow Transit -------------->
             <div class="panel panel-default">

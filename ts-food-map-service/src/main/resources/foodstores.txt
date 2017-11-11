@@ -1,13 +1,20 @@
-stationId=Shanghai
+stationId=shanghai
 storeName=KFC
 telephone=01-234567
 businessTime=10:00-20:00
 deliveryFee=20
 foodList=Hamburger,5_Cola,2_Chicken,10.5
 
-stationId=Shanghai
+stationId=shanghai
 storeName=Good Taste
 telephone=6228480012
 businessTime=08:00-21:00
 deliveryFee=10
 foodList=Rice,1.2_Chicken Soup,2.5
+
+stationId=nanjing
+storeName=Burger King
+telephone=88348215681
+businessTime=08:00-23:00
+deliveryFee=15
+foodList=Big Burger,1.2_Bone Soup,2.5
