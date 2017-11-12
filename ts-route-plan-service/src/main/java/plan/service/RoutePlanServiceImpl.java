@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import plan.domain.*;
+import sun.java2d.pipe.AAShapePipe;
+
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RoutePlanServiceImpl implements RoutePlanService{
@@ -13,13 +16,57 @@ public class RoutePlanServiceImpl implements RoutePlanService{
     private RestTemplate restTemplate;
 
     @Override
-    public RoutePlanResults searchCheapestResult(GetRoutePlanInfo info) {
-        return null;
+    public ArrayList<TripResponse> searchCheapestResult(GetRoutePlanInfo info) {
+
+        //1.暴力取出travel-service和travle2-service的所有结果
+        QueryInfo queryInfo = new QueryInfo();
+        queryInfo.setStartingPlace(info.getFormStationName());
+        queryInfo.setEndPlace(info.getToStationName());
+        queryInfo.setDepartureTime(info.getTravelDate());
+
+        ArrayList<TripResponse> highSpeed = getTripFromHighSpeedTravelServive(queryInfo);
+        ArrayList<TripResponse> normalTrain = getTripFromNormalTrainTravelService(queryInfo);
+
+        //2.按照二等座位结果排序
+        ArrayList<TripResponse> finalResult = new ArrayList<>();
+        finalResult.addAll(highSpeed);
+        finalResult.addAll(normalTrain);
+
+        if(finalResult.size() >= 5){
+            ArrayList<TripResponse> list = new ArrayList<>();
+            list.addAll(finalResult.subList(0,5));
+            return list;
+        }else{
+            return finalResult;
+        }
+
+
     }
 
     @Override
-    public RoutePlanResults searchQuickestResult(GetRoutePlanInfo info) {
-        return null;
+    public ArrayList<TripResponse> searchQuickestResult(GetRoutePlanInfo info) {
+
+        //1.暴力取出travel-service和travel2-service的所有结果
+        QueryInfo queryInfo = new QueryInfo();
+        queryInfo.setStartingPlace(info.getFormStationName());
+        queryInfo.setEndPlace(info.getToStationName());
+        queryInfo.setDepartureTime(info.getTravelDate());
+
+        ArrayList<TripResponse> highSpeed = getTripFromHighSpeedTravelServive(queryInfo);
+        ArrayList<TripResponse> normalTrain = getTripFromNormalTrainTravelService(queryInfo);
+
+        //2.按照时间排序
+        ArrayList<TripResponse> finalResult = new ArrayList<>();
+        finalResult.addAll(highSpeed);
+        finalResult.addAll(normalTrain);
+
+        if(finalResult.size() >= 5){
+            ArrayList<TripResponse> list = new ArrayList<>();
+            list.addAll(finalResult.subList(0,5));
+            return list;
+        }else{
+            return finalResult;
+        }
     }
 
     @Override
@@ -153,5 +200,27 @@ public class RoutePlanServiceImpl implements RoutePlanService{
             System.out.println("[Travel Service][Get Route By Id] Success.");
             return result.getRoute();
         }
+    }
+
+    private ArrayList<TripResponse> getTripFromHighSpeedTravelServive(QueryInfo info){
+
+        ArrayList<TripResponse> tp = new ArrayList<>();
+
+        ArrayList<TripResponse> list = restTemplate.postForObject(
+                "http://ts-travel-service:12346/travel/query",
+                info, tp.getClass());
+
+        return list;
+    }
+
+    private ArrayList<TripResponse> getTripFromNormalTrainTravelService(QueryInfo info){
+
+        ArrayList<TripResponse> tp = new ArrayList<>();
+
+        ArrayList<TripResponse> list = restTemplate.postForObject(
+                "http://ts-travel2-service:16346/travel2/query",
+                info, tp.getClass());
+
+        return list;
     }
 }
