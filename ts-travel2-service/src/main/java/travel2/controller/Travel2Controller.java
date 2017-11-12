@@ -23,6 +23,12 @@ public class Travel2Controller {
         return service.getRouteByTripId(tripId);
     }
 
+    @RequestMapping(value = "/travel2/getTripsByRouteId", method = RequestMethod.POST)
+    public GetTripsByRouteIdResult getTripsByRouteId(@RequestBody GetTripsByRouteIdInfo info){
+        return service.getTripByRoute(info);
+    }
+
+
     @RequestMapping(value="/travel2/create", method= RequestMethod.POST)
     public String create(@RequestBody Information info){
         return service.create(info);

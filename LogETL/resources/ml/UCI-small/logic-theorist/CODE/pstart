@@ -1,6 +1,0 @@
-:-op(190,xfx,<==>).
-:-op(180,xfx,=>).
-:-op(150,fx,~).
-:-op(160,xfx,and).
-:-op(170,xfx,or).
-:-dynamic learned_theorem/2.

@@ -1,7 +1,5 @@
 package preserve.domain;
 
-import org.springframework.data.annotation.Id;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -12,7 +10,6 @@ import java.util.Date;
  */
 public class TripResponse {
     @Valid
-    @Id
     private TripId tripId;
 
     @Valid

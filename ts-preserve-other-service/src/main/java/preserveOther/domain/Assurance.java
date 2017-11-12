@@ -1,17 +1,12 @@
 package preserveOther.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Document(collection = "assurance")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Assurance {
 
-    @Id
     private UUID id;
 
     @NotNull

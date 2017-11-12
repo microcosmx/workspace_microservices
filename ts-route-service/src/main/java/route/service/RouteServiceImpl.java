@@ -88,13 +88,20 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public GetRoutesListlResult getRouteByStartAndTerminal(GetRouteByStartAndTerminalInfo info){
-        ArrayList<Route> routes = routeRepository.findByStartStationIdAndTerminalStationId(info.getStartId(),info.getTerminalId());
-        if(routes == null){
-            routes = new ArrayList<>();
-        }
-        GetRoutesListlResult result = new GetRoutesListlResult(
-                true, "Success", routes
-        );
+//        ArrayList<Route> routes = routeRepository.findByStartStationIdAndTerminalStationId(info.getStartId(),info.getTerminalId());
+        ArrayList<Route> routes = routeRepository.findAll();
+        System.out.println("[Route Service] Find All:" + routes.size());
+        ArrayList<Route> resultList = new ArrayList<>();
+        for(Route route : routes){
+            if(route.getStations().contains(info.getStartId()) &&
+                    route.getStations().contains(info.getTerminalId()) &&
+                    route.getStations().indexOf(info.getStartId()) < route.getStations().indexOf(info.getTerminalId())) {
+                resultList.add(route);
+            }
+       }
+       GetRoutesListlResult result = new GetRoutesListlResult(
+                true, "Success", resultList
+       );
         return result;
     }
 
