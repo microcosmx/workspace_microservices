@@ -46,6 +46,8 @@
 		<module>ts-route-plan-service</module>
 		<module>ts-food-map-service</module>
         <module>ts-food-service</module>
+		<module>ts-consign-price-service</module>
+        <module>ts-consign-service</module>
         <!--<module>ts-ticket-advance-service</module>-->
 		<!--<module>1_services_analysis_mvn</module>-->
     </modules>
