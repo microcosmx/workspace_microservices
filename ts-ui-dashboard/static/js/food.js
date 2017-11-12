@@ -47,24 +47,29 @@ $("#query_food_button").click(function(){
                     );
                 }
 
-                var stationIds = new Array();
-                foodStoreListMap = result.foodStoreListMap;
-                for(var key in foodStoreListMap){
-                    stationIds.push(key);
-                    var fslist = foodStoreListMap[key];
-                    showFoodStores(key, fslist);
-                }
                 var stationSelect = document.getElementById ("food_station_select");
                 var opt1 = document.createElement ("option");
                 opt1.value = 0;
                 opt1.innerText = "-- --";
                 stationSelect.appendChild(opt1);
-                for(var k = 0; k < stationIds.length; k++){
+
+                // var stationIds = new Array();
+                foodStoreListMap = result.foodStoreListMap;
+                var k = 1;
+                for(var key in foodStoreListMap){
+                    // stationIds.push(key);
+                    // var fslist = foodStoreListMap[key];
+                    // showFoodStores(key, fslist);
                     var opt2 = document.createElement ("option");
-                    opt2.value = k + 1;
-                    opt2.innerText = stationIds[k];
+                    opt2.value = k;
+                    k++;
+                    opt2.innerText = key;
                     stationSelect.appendChild (opt2);
                 }
+
+                // for(var k = 0; k < stationIds.length; k++){
+                //
+                // }
             } else {
                 alert(result.status + ":" + result.message);
             }
