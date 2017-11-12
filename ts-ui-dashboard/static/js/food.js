@@ -55,6 +55,9 @@ $("#query_food_button").click(function(){
 
                 // var stationIds = new Array();
                 foodStoreListMap = result.foodStoreListMap;
+                console.log("foodStoreListMap:");
+                console.log(foodStoreListMap);
+
                 var k = 1;
                 for(var key in foodStoreListMap){
                     // stationIds.push(key);
@@ -99,7 +102,7 @@ function showFoodStores(station, list){
     for(var j = 0; j < list.length; j++){
         $("#food_stores_of_station_list").find("tbody").append(
             "<tr>" +
-            "<td ><input class='food_index_of_store' type='text' value='G1234" + (j+1) + "'/></td>" +
+            "<td ><input class='food_index_of_store' type='text' value='" + (j+1) + "'/></td>" +
             "<td>" + list[j]["storeName"] + "</td>" +
             "<td>" + list[j]['telephone'] + "</td>" +
             "<td>" + list[j]['businessTime']  + "</td>" +
