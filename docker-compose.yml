@@ -641,17 +641,17 @@ services:
             - my-network
 
   ts-route-plan-service:
-        build: ts-route-plan-service
-        image: ts/ts-route-plan-service
-        restart: always
-        ports:
-          - 14578:14578
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
-        networks:
-          - my-network
+          build: ts-route-plan-service
+          image: ts/ts-route-plan-service
+          restart: always
+          ports:
+            - 14578:14578
+          deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
 
 
   ts-food-service:
@@ -666,6 +666,50 @@ services:
           condition: on-failure
       networks:
         - my-network
+
+  ts-consign-service:
+            build: ts-consign-service
+            image: ts/ts-consign-service
+            restart: always
+            ports:
+              - 16111:16111
+            deploy:
+              replicas: 3
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-consign-mongo:
+            image: mongo
+            deploy:
+              replicas: 1
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-consign-price-service:
+            build: ts-consign-price-service
+            image: ts/ts-consign-price-service
+            restart: always
+            ports:
+              - 16110:16110
+            deploy:
+              replicas: 3
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-consign-price-mongo:
+            image: mongo
+            deploy:
+              replicas: 1
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
 
 
 networks:
