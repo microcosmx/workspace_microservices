@@ -40,6 +40,7 @@
         <script type="text/javascript" src="js/travelTransit.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/routePlan.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/food.js" defer charset="UTF-8"></script>
+        <script type="text/javascript" src="js/myflow.js" defer charset="UTF-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -70,6 +71,127 @@
 
         <div id="microservices">
 
+            <!----------------------------Cheapest Route----------------------------------->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Search Cheapest Route.
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Starting Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_cheapest_route_fromPlace" class="form-control" name='' value='上海'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Terminal Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_cheapest_route_toPlace" class="form-control" name='' value='苏州'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Date:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_cheapest_route_date" class="form-control" type="date" name='' value='' min="2017-07-13">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="travel_cheapest_route_button" type="button" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading booking">
+                    <h3 class="panel-title">
+                        Tickets Searching Result
+                    </h3>
+                </div>
+                <div class="panel-body booking">
+                    <table id="tickets_cheapest_route_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!----------------------------Quickest Route ----------------------------------->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Search Quickest Route.
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Starting Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_quickest_route_fromPlace" class="form-control" name='' value='上海'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Terminal Place:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_quickest_route_toPlace" class="form-control" name='' value='苏州'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Date:</label>
+                            <div class="col-sm-10">
+                                <input id="travel_quickest_route_date" class="form-control" type="date" name='' value='' min="2017-07-13">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button id="travel_quickest_route_button" type="button" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading booking">
+                    <h3 class="panel-title">
+                        Tickets Searching Result
+                    </h3>
+                </div>
+                <div class="panel-body booking">
+                    <table id="tickets_quickest_route_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!----------------------------Min Stop Station----------------------------------->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -129,9 +251,7 @@
                             <th>To</th>
                             <th>Starting Time</th>
                             <th>End Time</th>
-                            <th>2rd Class Seat Number</th>
-                            <th>1st Class Seat Number</th>
-                            <th>Select Seat</th>
+                            <th>Price</th>
                             <!--<th>Operation</th>-->
                         </tr>
                         </thead>
@@ -2681,10 +2801,36 @@
             </div>
         </div>
 
-        <!-------------------------------------------------------------------------------------------------- -->
-        <!--<div id="flow_three">-->
-            <!--&lt;!&ndash;-Still Empty Now&#45;&#45;&ndash;&gt;-->
-        <!--</div>-->
+        <!-- Consign and voucher -->
+        <div id="flow_three">
+            <!---My Order Pane---->
+            <a name="anchor_flow_rebook_orders"></a>
+            <div class="flow_rebook panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                            Step 1: - View My Orders
+                        <button id="refresh_my_order_list_button3" type="button" class="btn btn-default btn-sm">Refresh Orders</button>
+                    </h3>
+                </div>
+                <div class="panel-body" id="my_orders_result3">
+                    <!-----Empty Body-------->
+                </div>
+            </div>
+
+            <!---My Order Pane---->
+            <a name="anchor_flow_rebook_orders"></a>
+            <div class="flow_rebook panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Step 2: - View My Consigns
+                        <button id="refresh_my_consign_list_button3" type="button" class="btn btn-default btn-sm">Refresh Consigns</button>
+                    </h3>
+                </div>
+                <div class="panel-body" id="my_consigns_result3">
+                    <!-----Empty Body-------->
+                </div>
+            </div>
+        </div>
     </div>
     </div>
     </body>

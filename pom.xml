@@ -46,6 +46,8 @@
 		<module>ts-route-plan-service</module>
 		<module>ts-food-map-service</module>
         <module>ts-food-service</module>
+		<module>ts-consign-price-service</module>
+        <module>ts-consign-service</module>
         <!--<module>ts-ticket-advance-service</module>-->
 		<!--<module>1_services_analysis_mvn</module>-->
     </modules>
@@ -97,6 +99,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+		<!-- swagger-mvc -->
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.6</version>
+		</dependency>
+		<!-- swagger-mvc -->
 
     </dependencies>
 
