@@ -4,6 +4,8 @@ import fdse.microservice.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Calendar;
 import java.util.HashMap;
 
 @Service
@@ -91,6 +93,28 @@ public class BasicServiceImpl implements BasicService{
 
         double priceForEconomyClass = distance * priceConfig.getBasicPriceRate();//需要price Rate和距离（起始站）
         double priceForConfortClass= distance * priceConfig.getFirstClassPriceRate();
+
+
+        /**错误注入：检查触发日期 太离谱的话就会返回-1的价格**/
+
+        Calendar now = Calendar.getInstance();//得到当前时间
+        now.add(Calendar.DATE, 30);
+
+        Calendar depature = Calendar.getInstance();
+        depature.setTime(info.getDepartureTime());
+
+        int compreResult = now.compareTo(depature);
+
+        System.out.println("[NOW]" + now.toString());
+        System.out.println("[Departure]" + depature.toString());
+
+        if(compreResult == -1){
+            priceForEconomyClass = -1;
+            priceForConfortClass = -1;
+            System.out.println("[错误出现]");
+        }else{
+            System.out.println("[错误未出现]");
+        }
 
         HashMap<String,String> prices = new HashMap<String,String>();
         prices.put("economyClass","" + priceForEconomyClass);

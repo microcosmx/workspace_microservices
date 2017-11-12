@@ -605,18 +605,18 @@ services:
           networks:
             - my-network
 
-  ts-news-service:
-    build: ts-news-service
-    image: ts/ts-news-service
-    restart: always
-    ports:
-      - 12862:12862
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-    networks:
-      - my-network
+#  ts-news-service:
+#    build: ts-news-service
+#    image: ts/ts-news-service
+#    restart: always
+#    ports:
+#      - 12862:12862
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
+#    networks:
+#      - my-network
 
   ts-food-map-service:
         build: ts-food-map-service
