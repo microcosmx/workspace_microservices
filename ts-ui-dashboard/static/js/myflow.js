@@ -24,6 +24,114 @@ $("#refresh_my_order_list_button3").click(function(){
     queryMyOrder();
 });
 
+$("#refresh_my_consign_list_button3").click(function(){
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
+    queryMyConsign();
+});
+
+function queryMyConsign() {
+    var accountid = getCookie("loginId");
+    $("#my_consigns_result3").html("");
+    $.ajax({
+        type: "get",
+        url: "/consign/findByAccountId/" + accountid,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            var size = result.length;
+            for(var i = 0; i < size;i++){
+                var order = result[i];
+                var fromString = getStationNameById(order['from']);
+                var toString  = getStationNameById(order['to']);
+                $("#my_consigns_result3").append(
+                    "<div class='panel panel-default'>" +
+                    "<div class='panel-heading'>" +
+                    "<h4 class='panel-title'>" +
+                    "<label>" +
+                    // "<a data-toggle='collapse' href='#collapse" + i + "'>" +
+                    "From:" + fromString + "    ----->    To:" + toString +
+                    // "</a>" +
+                    "</label>" +
+                    "</h4>" +
+                    "</div>" +
+                    "<div>" +
+                    "<div id='collapse" + i + "' class='panel-collapse collapse in'>" +
+                    "<div class='panel-body'>" +
+                    "<form role='form' class='form-horizontal'>" +
+                    "<div class='div form-group'>" +
+                    "<label class='col-sm-2 control-label'>Consign ID: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label my_consign_list_id'>" + order["id"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='div form-group'>" +
+                    "<label class='col-sm-2 control-label'>From: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label my_consign_list_from'>" + fromString + "</label>" +
+                    "<label class='control-label noshow_component my_consign_list_from_id'>" + order["from"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='div form-group'>" +
+                    "<label class='col-sm-2 control-label'>To: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label my_consign_list_to'>" + toString + "</label>" +
+                    "<label class='control-label noshow_component my_consign_list_to_id'>" + order["to"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='form-group'>" +
+                    "<label class='col-sm-2 control-label'>Handle Date: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label my_consign_list_handle_date'>" + convertNumberToDateTimeString(order["handleDate"]) + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='form-group'>" +
+                    "<label class='col-sm-2 control-label'>Target Date: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label my_consign_list_target_date'>" + convertNumberToDateTimeString(order["targetDate"]) + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='form-group'>" +
+                    "<label class='col-sm-2 control-label'>Consignee: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label'>" + order["consignee"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='form-group'>" +
+                    "<label class='col-sm-2 control-label'>Phone: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label'>" + order["phone"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='form-group'>" +
+                    "<label class='col-sm-2 control-label'>Price: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label my_consign_list_price'>" + order["price"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='form-group'>" +
+                    "<label class='col-sm-2 control-label'>Weight: </label>" +
+                    "<div class='col-sm-10'>" +
+                    "<label class='control-label'>" + order["weight"] + "</label>" +
+                    "</div>" +
+                    "</div>" +
+                    "</form>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>"
+                );
+            }
+            addListenerToOrderCancel();
+            addListenerToOrderChange();
+            addListenerToPayOrderButton();
+            addListenerToOrderConsign();
+        }
+    });
+}
+
 function queryMyOrder(){
     var myOrdersQueryInfo = new Object();
     myOrdersQueryInfo.enableStateQuery = false;
@@ -194,13 +302,21 @@ function addConsignButtonOrNot(order){
     if(order["status"] == 0 || order['status'] == 1 || order["status"] == 2){
         str += "<button type='button' class='ticket_consign_btn btn btn-primary'>" + "Consign" + "</button>";
     }
+    else{
+        str = "Not operable";
+    }
+    return str;
 }
 
 function addVoucherButtonOrNot(order){
     var str = "";
     if(order["status"] == 6){
-        str += "<button type='button' class='voucher_print_btn btn btn-primary'>" + "Print Voucher" + "</button>";
+        str = "<button type='button' class='voucher_print_btn btn btn-primary'>" + "Print Voucher" + "</button>";
     }
+    else{
+        str = "Not operable";
+    }
+    return str;
 }
 
 function addListenerToOrderConsign(){
@@ -223,8 +339,8 @@ function addListenerToOrderConsign(){
             var currentdate = year + seperator1 + month + seperator1 + strDate;
             consignInfo.handleDate = currentdate;
             consignInfo.targetDate = $(this).parents("form").find(".my_order_list_bought_date").text();
-            consignInfo.from = $(this).parents("form").find(".my_order_list_from").text();
-            consignInfo.to = $(this).parents("form").find(".my_order_list_to").text();
+            consignInfo.from = $(this).parents("form").find(".my_order_list_from_id").text();
+            consignInfo.to = $(this).parents("form").find(".my_order_list_to_id").text();
             var consignee = prompt("Please input the name of consignee:");
             if(consignee != null){
                 var phone = prompt("Please input the phone of consignee:");

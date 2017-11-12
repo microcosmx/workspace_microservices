@@ -3,6 +3,7 @@ package consign.service;
 import consign.domain.ConsignRecord;
 import consign.domain.ConsignRequest;
 import consign.domain.GetPriceDomain;
+import consign.domain.InsertConsignRecordResult;
 import consign.repository.ConsignRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class ConsignServiceImpl implements ConsignService {
     RestTemplate restTemplate;
 
     @Override
-    public boolean insertConsignRecord(ConsignRequest consignRequest){
+    public InsertConsignRecordResult insertConsignRecord(ConsignRequest consignRequest){
         System.out.println("[Consign servie] [ Insert new consign record]");
 
         ConsignRecord consignRecord = new ConsignRecord();
@@ -44,10 +45,17 @@ public class ConsignServiceImpl implements ConsignService {
         consignRecord.setPrice(price);
         //存储
         ConsignRecord result = repository.save(consignRecord);
-        if(result != null)
-            return true;
-        else
-            return false;
+
+        InsertConsignRecordResult returnResult = new InsertConsignRecordResult();
+        if(result != null){
+            returnResult.setStatus(true);
+            returnResult.setMessage("You have consigned successfully! The price is " + result.getPrice());
+        }
+        else{
+            returnResult.setStatus(false);
+            returnResult.setMessage("Consign failed! Please try again later!");
+        }
+        return returnResult;
     }
 
     @Override

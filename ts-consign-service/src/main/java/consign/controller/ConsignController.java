@@ -2,6 +2,7 @@ package consign.controller;
 
 import consign.domain.ConsignRecord;
 import consign.domain.ConsignRequest;
+import consign.domain.InsertConsignRecordResult;
 import consign.service.ConsignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class ConsignController {
     ConsignService service;
 
     @RequestMapping(value = "/consign/insertConsign", method= RequestMethod.POST)
-    public boolean insertConsign(@RequestBody ConsignRequest request){
+    public InsertConsignRecordResult insertConsign(@RequestBody ConsignRequest request){
         return service.insertConsignRecord(request);
     }
 
@@ -24,9 +25,10 @@ public class ConsignController {
         return service.updateConsignRecord(request);
     }
 
-    @RequestMapping(value = "/consign/findByAccountId", method= RequestMethod.POST)
-    public List<ConsignRecord> findByAccountId(@RequestParam(value = "accountid", required = true) UUID id){
-        return service.queryByAccountId(id);
+    @RequestMapping(value = "/consign/findByAccountId/{id}", method= RequestMethod.GET)
+    public List<ConsignRecord> findByAccountId(@PathVariable String id){
+        UUID newid = UUID.fromString(id);
+        return service.queryByAccountId(newid);
     }
 
     @RequestMapping(value = "/consign/findByConsignee", method= RequestMethod.POST)
