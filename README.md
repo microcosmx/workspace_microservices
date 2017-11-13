@@ -1,36 +1,18 @@
-# workspace_microservices
+# Fault Reproduction of Train Ticket System.
+## F13 : ts-error-queue
 
-this is a online-ticket application based on microservices architecture.
+**Description**
 
-application dev is based on:
-spring boot
-spring cloud
+F13 is a fault that occurs in a usage scenario involving multiple requests. A user may click
+and send many requests shortly. However, due to some reasons like network congestion, some requests
+have a delay in execution, leading to the unexpected execution order of these requests. As a result,
+the user will get a wrong response, then the fault occurs.
 
+**Approach to Fault Reproduce**
 
-runtime environment:
-docker swarm
-
-
-
-build: (in specific service folder)
-mvn -Dmaven.test.skip=true clean package
-
-build compose:
-docker-compose -f docker-compose.yml build
-
-run:
-docker-compose -f docker-compose.yml up -d
-docker-compose down
-
-
-
-docker swarm:
-https://docs.docker.com/compose/compose-file/#replicas
-compose v3:
-docker stack deploy --compose-file=docker-compose-swarm-v3.yml my-compose-swarm
-docker service scale my-compose-swarm_rest-client=5
-compose v2:
-docker-compose -f docker-compose-swarm-v2.yml up -d
-
-url:
-http://10.141.212.22:15001/hello?name=jay
+In our Train Ticket System, we send 3 requests to reserve ticket, pay for a ticket, and cancel a ticket, respectively. 
+Each of the requests uses message queue to communicate with other microservices. 
+Sometimes, a user clicks too fast even the previous request has not completed. 
+In this case, the ticket cancellation process may completed before the ticket payment, 
+leading to a failure. This fault is similar to F1. The difference is that F1 only involves a single request with many
+asynchronous tasks, while F13 involves multiple requests.
