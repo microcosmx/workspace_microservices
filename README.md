@@ -1,36 +1,21 @@
-# workspace_microservices
+# Fault Reproduction of Train Ticket System.
+## F1 : ts-error-process-seq
 
-this is a online-ticket application based on microservices architecture.
+**Description**
 
-application dev is based on:
-spring boot
-spring cloud
-
-
-runtime environment:
-docker swarm
-
-
-
-build: (in specific service folder)
-mvn -Dmaven.test.skip=true clean package
-
-build compose:
-docker-compose -f docker-compose.yml build
-
-run:
-docker-compose -f docker-compose.yml up -d
-docker-compose down
+F1 is a fault that occurs in using asynchronous tasks.
+If two business events have before-after relationship, which means that 
+the 2nd event must complete after the completion of the 1st event, we must use message 
+sequence control when we trying to apply the technique of asynchronous tasks to process these two events. 
+In this scenario, if we send asynchronous messages without message sequence control, this 
+kind of fault may occur.
 
 
+**Approach to Fault Reproduce**
 
-docker swarm:
-https://docs.docker.com/compose/compose-file/#replicas
-compose v3:
-docker stack deploy --compose-file=docker-compose-swarm-v3.yml my-compose-swarm
-docker service scale my-compose-swarm_rest-client=5
-compose v2:
-docker-compose -f docker-compose-swarm-v2.yml up -d
-
-url:
-http://10.141.212.22:15001/hello?name=jay
+We reproduce this fault in the ticket cancellation process in our Train Ticket System. 
+In our ticket cancellation process, our system return the ticket fee to user account firstly and 
+then set the ticket status to CANCEL. The event of refunding and the event of setting ticket
+status are doing asynchronously. If the first event is delayed due to some reason, the ticket status 
+will be set to CANCEL before the user get the refund, the the refunding process will fail. In 
+this scenario, this fault occurs.
