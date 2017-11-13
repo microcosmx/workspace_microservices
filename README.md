@@ -3,7 +3,7 @@
 
 **Description**
 
-F1 is a fault that occurs in a third-party service.
+F7 is a fault that occurs in a third-party service.
 A microservices-based system always invoke a third-party service. Developers always knows nothing 
 about the implementation details about this kind of service. When a failure occurs in a third-party
 service, a wrong answer will return, or no response, and we cannot trace what happened behind a 
