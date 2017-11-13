@@ -1,36 +1,17 @@
-# workspace_microservices
+# Fault Reproduction of Train Ticket System.
+## F7 : ts-error-external-normal
 
-this is a online-ticket application based on microservices architecture.
+**Description**
 
-application dev is based on:
-spring boot
-spring cloud
-
-
-runtime environment:
-docker swarm
-
+F1 is a fault that occurs in a third-party service.
+A microservices-based system always invoke a third-party service. Developers always knows nothing 
+about the implementation details about this kind of service. When a failure occurs in a third-party
+service, a wrong answer will return, or no response, and we cannot trace what happened behind a 
+third-party service. 
 
 
-build: (in specific service folder)
-mvn -Dmaven.test.skip=true clean package
+**Approach to Fault Reproduce**
 
-build compose:
-docker-compose -f docker-compose.yml build
-
-run:
-docker-compose -f docker-compose.yml up -d
-docker-compose down
-
-
-
-docker swarm:
-https://docs.docker.com/compose/compose-file/#replicas
-compose v3:
-docker stack deploy --compose-file=docker-compose-swarm-v3.yml my-compose-swarm
-docker service scale my-compose-swarm_rest-client=5
-compose v2:
-docker-compose -f docker-compose-swarm-v2.yml up -d
-
-url:
-http://10.141.212.22:15001/hello?name=jay
+In our Train Ticket System, we use an external payment service as a third-party service which is 
+implemented in Javascript. When we invoke this service, there may be some long delay in payment service,
+leading to a timeout exception in ticket system. 
