@@ -1,9 +1,6 @@
 
-复旦大学软件工程实验室，微服务项目
 
-该项目为购票微服务应用项目，包括40+微服务
-
-技术：
+This project is ticket seller application in microservice architecture, including 30+ microservices
 
 java，spring boot，spring cloud
 
@@ -17,9 +14,9 @@ go，webgo
 
 ------------------------------------------------------------------
 
-1. 本地运行环境：
+1. local runtime environment
 
-本地打包命令：
+build:
 
 mvn build：
 
@@ -39,7 +36,7 @@ docker-compose down
 
 
 
-微服务应用系统运行（单机）:
+start the ticket microservice applciation (single node):
 
 docker-compose -f docker-compose.yml up -d
 
@@ -49,27 +46,10 @@ docker-compose logs -f
 
 
 
-docker运行时监控:
-
-docker rm portainer-ui-local
-
-docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-
-http://localhost:9000/
-
-
-清理镜像:
-
-docker volume rm $(docker volume ls -qf dangling=true)
-
-docker images|grep none|awk '{print $3 }'|xargs docker rmi
-
-
-
 
 ------------------------------------------------------------------
 
-2. 集群环境运行（docker swarm）:
+2. clustering runtime environment（docker swarm）:
 
 build:
 
@@ -108,7 +88,7 @@ docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 
 
 
-集群运行时监控界面：
+monitoring:
 
 docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 
