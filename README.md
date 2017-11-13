@@ -1,36 +1,16 @@
-# workspace_microservices
+# Fault Reproduction of Train Ticket System.
+## F11 : ts-error-bomupdate
 
-this is a online-ticket application based on microservices architecture.
+**Description**
 
-application dev is based on:
-spring boot
-spring cloud
+F11 is a fault due to the lack of sequence control. Note that such a fault may not always occur, making 
+it difficult to analyze. Sometimes if a return value is too far from the normal value, the microsevice 
+will recheck the correctness of the value and correct it. But this process is not always happen, making 
+the result sometimes wrong but sometimes right.
 
+**Approach to Fault Reproduce**
 
-runtime environment:
-docker swarm
-
-
-
-build: (in specific service folder)
-mvn -Dmaven.test.skip=true clean package
-
-build compose:
-docker-compose -f docker-compose.yml build
-
-run:
-docker-compose -f docker-compose.yml up -d
-docker-compose down
-
-
-
-docker swarm:
-https://docs.docker.com/compose/compose-file/#replicas
-compose v3:
-docker stack deploy --compose-file=docker-compose-swarm-v3.yml my-compose-swarm
-docker service scale my-compose-swarm_rest-client=5
-compose v2:
-docker-compose -f docker-compose-swarm-v2.yml up -d
-
-url:
-http://10.141.212.22:15001/hello?name=jay
+In out train ticket system, there are two microservices set the some value in the database in ticket cancellation
+process. Due to the lack of control like F1, the two microservices may set the value in a wrong sequence. However,
+the second microservice that set the value may recheck the value and correct the value. The recheck process is not always 
+happen. If two microservices set the value in a wrong sequence but the recheck process is not executed, this fault occurs.
