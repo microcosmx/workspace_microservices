@@ -1,36 +1,19 @@
-# workspace_microservices
+# Fault Reproduction of Train Ticket System.
+## F12 : ts-error-processes-seq-status(chance)
 
-this is a online-ticket application based on microservices architecture.
+**Description**
 
-application dev is based on:
-spring boot
-spring cloud
+F12 is one kind of faults that occurs due to the specific status of some microservice.
+The word "status" has a wide range of meanings, for example, a global value in one microservice.
+If a microservice is in some specific "status", the fault occurs. This kind of faults only occurs in 
+some specific status of a microservice.
 
+**Approach to Fault Reproduce**
 
-runtime environment:
-docker swarm
+?
 
-
-
-build: (in specific service folder)
-mvn -Dmaven.test.skip=true clean package
-
-build compose:
-docker-compose -f docker-compose.yml build
-
-run:
-docker-compose -f docker-compose.yml up -d
-docker-compose down
-
-
-
-docker swarm:
-https://docs.docker.com/compose/compose-file/#replicas
-compose v3:
-docker stack deploy --compose-file=docker-compose-swarm-v3.yml my-compose-swarm
-docker service scale my-compose-swarm_rest-client=5
-compose v2:
-docker-compose -f docker-compose-swarm-v2.yml up -d
-
-url:
-http://10.141.212.22:15001/hello?name=jay
+In our train ticket system, one user cannot reserve more than 5 tickets in one hour. The system checks 
+the number of not used tickets of the user before he/she successfully reserve a ticket. If the number of 
+the tickets exceeds 5, the request for booking ticket should be denied. However, when the microservice
+responsible for checking the number of the tickets stays on a pecific status, the microservice will cause
+a failure by letting the request pass the checking.
