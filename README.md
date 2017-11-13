@@ -99,7 +99,7 @@ http://10.141.211.161:9000
 
 ----------------------------------------------------------------
 
-fault replication (11):
+3. Fault Replication Branches list (11): You can check the fault replication details on following branches of this git repository
 
 
 
