@@ -19,6 +19,13 @@ public class FoodServiceImpl implements FoodService{
     public GetAllFoodOfTripResult getAllFood(String date, String startStation, String endStation, String tripId) {
         System.out.println("data=" + date + "start=" + startStation + "end=" + endStation + "tripid=" + tripId);
         GetAllFoodOfTripResult result = new GetAllFoodOfTripResult();
+
+        if(null == tripId || tripId.length() <= 2){
+            result.setStatus(false);
+            result.setMessage("The tripId is null or too short");
+            return result;
+        }
+
         List<TrainFood> trainFoodList = null;
         Map<String, List<FoodStore>> foodStoreListMap = new HashMap<String, List<FoodStore>>();
 
@@ -34,7 +41,7 @@ public class FoodServiceImpl implements FoodService{
         } else {
             System.out.println("[Food Service]Get the Get Food Request Failed!");
             result.setStatus(false);
-            result.setMessage("Get Train Food failed!");
+            result.setMessage(trainFoodListResult.getMessage());
             return result;
         }
        //车次途经的车站
@@ -56,13 +63,13 @@ public class FoodServiceImpl implements FoodService{
                     }
                 } else {
                     result.setStatus(false);
-                    result.setMessage("Get Food Stores Failed!");
+                    result.setMessage(foodStoresListResult.getMessage());
                     return result;
                 }
             }
         } else {
             result.setStatus(false);
-            result.setMessage("Get Station List Failed!");
+            result.setMessage(stationResult.getMessage());
             return result;
         }
 

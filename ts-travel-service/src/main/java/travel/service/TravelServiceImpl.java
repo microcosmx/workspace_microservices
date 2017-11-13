@@ -18,25 +18,33 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public GetRouteResult getRouteByTripId(String tripId){
-        TripId tripId1 = new TripId(tripId);
         GetRouteResult result = new GetRouteResult();
-        Trip trip = repository.findByTripId(tripId1);
-        if(trip == null){
-            result.setStatus(false);
-            result.setMessage("Trip Not Found");
-            result.setRoute(null);
-        }else{
-            Route route = getRouteByRouteId(trip.getRouteId());
-            if(route == null){
+
+        if(null != tripId && tripId.length() >= 2){
+            TripId tripId1 = new TripId(tripId);
+            Trip trip = repository.findByTripId(tripId1);
+            if(trip == null){
                 result.setStatus(false);
-                result.setMessage("Route Not Found");
+                result.setMessage("Trip Not Found");
                 result.setRoute(null);
             }else{
-                result.setStatus(true);
-                result.setMessage("Success");
-                result.setRoute(route);
+                Route route = getRouteByRouteId(trip.getRouteId());
+                if(route == null){
+                    result.setStatus(false);
+                    result.setMessage("Route Not Found");
+                    result.setRoute(null);
+                }else{
+                    result.setStatus(true);
+                    result.setMessage("Success");
+                    result.setRoute(route);
+                }
             }
+        } else {
+            result.setStatus(false);
+            result.setMessage("TripId is invaild");
+            result.setRoute(null);
         }
+
         return result;
     }
 
