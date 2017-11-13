@@ -13,7 +13,7 @@ func hello(val string) string {
 }
 
 func fetch() string {
-	urls := []string{"http://www.163.com", "http://www.csdn.net"}
+	urls := []string{"http://www.163.com"}
 	var result string
 	result = ""
 	for _, url := range urls {
@@ -37,6 +37,6 @@ func fetch() string {
 
 
 func main() {
-	web.Get("/(.*)", hello)
+	web.Get("/news", hello)
 	web.Run("0.0.0.0:12862")
 }

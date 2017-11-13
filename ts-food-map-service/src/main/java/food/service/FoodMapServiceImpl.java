@@ -69,6 +69,7 @@ public class FoodMapServiceImpl implements FoodMapService{
         result.setStatus(true);
         result.setMessage("Success");
         result.setFoodStoreList(fsList);
+
         return result;
     }
 
@@ -79,6 +80,7 @@ public class FoodMapServiceImpl implements FoodMapService{
         result.setStatus(true);
         result.setMessage("Success");
         result.setTrainFoodList(tfList);
+
         return result;
     }
 }
