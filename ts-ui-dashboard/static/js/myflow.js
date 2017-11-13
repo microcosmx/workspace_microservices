@@ -17,11 +17,11 @@ function setTodayDateRebook(){
     document.getElementById("travel_booking_date").setAttribute("min", today);
 }
 
-$("#refresh_my_order_list_button3").click(function(){
+$("#refresh_my_order_list_button_three").click(function(){
     if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
         alert("Please Login");
     }
-    queryMyOrder();
+    queryMyOrderThree();
 });
 
 $("#refresh_my_consign_list_button3").click(function(){
@@ -132,7 +132,7 @@ function queryMyConsign() {
     });
 }
 
-function queryMyOrder(){
+function queryMyOrderThree(){
     var myOrdersQueryInfo = new Object();
     myOrdersQueryInfo.enableStateQuery = false;
     myOrdersQueryInfo.enableTravelDateQuery = false;
@@ -142,12 +142,12 @@ function queryMyOrder(){
     myOrdersQueryInfo.boughtDateStart = null;
     myOrdersQueryInfo.boughtDateEnd = null;
     var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
-    $("#my_orders_result3").html("");
-    queryForMyOrder("/order/query",myOrdersQueryData);
-    queryForMyOrder("/orderOther/query",myOrdersQueryData);
+    $("#my_orders_result_three").html("");
+    queryForMyOrderThree("/order/query",myOrdersQueryData);
+    queryForMyOrderThree("/orderOther/query",myOrdersQueryData);
 }
 
-function queryForMyOrder(path,data){
+function queryForMyOrderThree(path,data){
     $.ajax({
         type: "post",
         url: path,
@@ -163,7 +163,7 @@ function queryForMyOrder(path,data){
                 var order = result[i];
                 var fromString = getStationNameById(order['from']);
                 var toString  = getStationNameById(order['to']);
-                $("#my_orders_result3").append(
+                $("#my_orders_result_three").append(
                     "<div class='panel panel-default'>" +
                     "<div class='panel-heading'>" +
                     "<h4 class='panel-title'>" +
@@ -661,7 +661,7 @@ $("#ticket_rebook_confirm_confirm_btn").click(function(){
             if(result["status"] == true){
                 alert(result["message"]);
                 location.hash="anchor_flow_rebook_orders";
-                queryMyOrder();
+                queryMyOrderThree();
             }else{
                 alert(result["message"]);
                 if(result['price'] != null || result['price'] != 'null'){
@@ -707,7 +707,7 @@ $("#ticket_rebook_pay_panel_confirm").click(function(){
         success: function (result) {
             alert(result['message']);
             location.hash="anchor_flow_rebook_orders";
-            queryMyOrder();
+            queryMyOrderThree();
         }
     });
 
@@ -761,7 +761,7 @@ $("#pay_for_not_paid_pay_button").click(function(){
             if(result == "true"){
                 alert("Success");
                 location.hash="anchor_flow_rebook_orders";
-                queryMyOrder();
+                queryMyOrderThree();
             }else{
                 alert("Some thing error");
             }
