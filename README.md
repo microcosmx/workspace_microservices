@@ -1,5 +1,5 @@
 # Fault Reproduction of Train Ticket System.
-## F18 : ts-error-repoortUI
+## F2 : ts-error-repoortUI
 
 **Description**
 
