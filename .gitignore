@@ -3,3 +3,5 @@
 *.original
 *.iml
 *.lst
+*.yml
+*.class
