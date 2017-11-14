@@ -104,6 +104,9 @@ http://10.141.211.161:9000
 F1 
 ts-error-process-seq
 
+F2
+ts-error-reportui
+
 F3
 ts-error-docker-JVM
 
@@ -127,9 +130,6 @@ ts-error-processes-seq-status(chance)
 
 F13 
 ts-error-queue
-
-F?
-ts-error-reportui
 
 F?
 ts-error-redis
