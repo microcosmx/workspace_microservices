@@ -119,6 +119,9 @@ ts-error-cross-timeout-status(chance)
 F7
 ts-external-normal
 
+F8
+ts-error-redis
+
 F10
 ts-error-normal
 
@@ -131,8 +134,7 @@ ts-error-processes-seq-status(chance)
 F13 
 ts-error-queue
 
-F?
-ts-error-redis
+
 
 
 
