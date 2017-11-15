@@ -1,5 +1,5 @@
 # Fault Reproduction of Train Ticket System.
-## F18 : ts-error-redis
+## F8 : ts-error-redis
 
 **Description**
 This fault is caused by the error of redis in the operation
