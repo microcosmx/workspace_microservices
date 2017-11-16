@@ -60,19 +60,12 @@ $("#query_food_button").click(function(){
 
                 var k = 1;
                 for(var key in foodStoreListMap){
-                    // stationIds.push(key);
-                    // var fslist = foodStoreListMap[key];
-                    // showFoodStores(key, fslist);
                     var opt2 = document.createElement ("option");
                     opt2.value = k;
                     k++;
                     opt2.innerText = key;
                     stationSelect.appendChild (opt2);
                 }
-
-                // for(var k = 0; k < stationIds.length; k++){
-                //
-                // }
             } else {
                 alert(result.status + ":" + result.message);
             }

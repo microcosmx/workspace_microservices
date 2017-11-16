@@ -5,6 +5,7 @@ $("#microservice_page").click(function(){
     $("#flow_one").css('display','none');
     $("#flow_two").css('display','none');
     $("#flow_three").css('display','none');
+    $("#flow_four").css('display','none');
 });
 
 $("#flow_one_page").click(function(){
@@ -12,6 +13,7 @@ $("#flow_one_page").click(function(){
     $("#flow_one").css('display','block');
     $("#flow_two").css('display','none');
     $("#flow_three").css('display','none');
+    $("#flow_four").css('display','none');
     location.hash="anchor_flow_preserve_login";
 });
 
@@ -20,6 +22,7 @@ $("#flow_two_page").click(function(){
     $("#flow_one").css('display','none');
     $("#flow_two").css('display','block');
     $("#flow_three").css('display','none');
+    $("#flow_four").css('display','none');
 });
 
 $("#flow_three_page").click(function(){
@@ -27,6 +30,15 @@ $("#flow_three_page").click(function(){
     $("#flow_one").css('display','none');
     $("#flow_two").css('display','none');
     $("#flow_three").css('display','block');
+    $("#flow_four").css('display','none');
+});
+
+$("#flow_four_page").click(function(){
+    $("#microservices").css('display','none');
+    $("#flow_one").css('display','none');
+    $("#flow_two").css('display','none');
+    $("#flow_three").css('display','none');
+    $("#flow_four").css('display','block');
 });
 
 
