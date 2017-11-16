@@ -80,4 +80,10 @@ public class TravelController {
     public List<Trip> queryAll(){
         return travelService.queryAll();
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel/getDistance", method= RequestMethod.POST)
+    public SearchForDistanceResult searchForDistance(@RequestBody SearchForDistance info){
+        return travelService.searchForDistance(info);
+    }
 }

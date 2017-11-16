@@ -54,7 +54,6 @@ public class InitData implements CommandLineRunner {
         info.setStayTime(7);
         service.create(info);
 
-
         info.setId("jinan");
         info.setName("济南");
         info.setStayTime(5);
@@ -83,6 +82,11 @@ public class InitData implements CommandLineRunner {
         info.setId("suzhou");
         info.setName("苏州");
         info.setStayTime(3);
+        service.create(info);
+
+        info.setId("harbin");
+        info.setName("哈尔滨");
+        info.setStayTime(5);
         service.create(info);
 
     }

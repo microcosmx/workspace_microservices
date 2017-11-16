@@ -54,6 +54,13 @@ public class InitData implements CommandLineRunner {
         priceConfig.setFirstClassPriceRate(1.0);
         service.createNewPriceConfig(priceConfig);
 
+        priceConfig.setId("d5c4523a-5647c-428c-95be-e9028a40572e");
+        priceConfig.setRouteId("f3d4d4ef-653b-4456-99ed-59c0d717dd08");
+        priceConfig.setTrainType("DongCheOne");
+        priceConfig.setBasicPriceRate(0.5);
+        priceConfig.setFirstClassPriceRate(1.1);
+        service.createNewPriceConfig(priceConfig);
+
         priceConfig.setId("b90a6ad7-ffad-4624-9655-48e9e185fa6c");
         priceConfig.setRouteId("0b23bd3e-876a-4af3-b920-c50a90c90b04");
         priceConfig.setTrainType("ZhiDa");

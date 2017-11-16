@@ -17,6 +17,33 @@ public class TravelServiceImpl implements TravelService{
     private RestTemplate restTemplate;
 
     @Override
+    public SearchForDistanceResult searchForDistance(SearchForDistance searchForDistance){
+        TripId tripId = new TripId(searchForDistance.getTripId());
+        Trip trip = repository.findByTripId(tripId);
+        String routeId = trip.getRouteId();
+
+        Route route = getRouteByRouteId(routeId);
+        String stationOneId = queryForStationId(searchForDistance.getFromStaionName());
+        String stationTwoId = queryForStationId(searchForDistance.getToStationName());
+
+        int indexStationOne = route.getStations().indexOf(stationOneId);
+        int indexStationTwo = route.getStations().indexOf(stationTwoId);
+
+        int distance = 0;
+        if(indexStationOne >= 0 && indexStationTwo >= 0){
+            distance = route.getDistances().get(indexStationTwo) - route.getDistances().get(indexStationOne);
+        }
+
+        SearchForDistanceResult result = new SearchForDistanceResult();
+        result.setStatus(true);
+        result.setMessage("True");
+        result.setDistance(distance);
+        result.setRoute(route);
+
+        return result;
+    }
+
+    @Override
     public GetRouteResult getRouteByTripId(String tripId){
         GetRouteResult result = new GetRouteResult();
 

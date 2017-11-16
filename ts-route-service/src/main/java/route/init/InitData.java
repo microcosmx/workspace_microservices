@@ -86,6 +86,13 @@ public class InitData implements CommandLineRunner {
         info.setDistanceList("0,50");
         routeService.createAndModify(info);
 
+        info.setId("f3d4d4ef-653b-4456-99ed-59c0d717dd08");
+        info.setStartStation("shanghai");
+        info.setEndStation("harbin");
+        info.setStationList("shanghai,beijing,harbin");
+        info.setDistanceList("0,1200,1300");
+        routeService.createAndModify(info);
+
     }
 
 }
