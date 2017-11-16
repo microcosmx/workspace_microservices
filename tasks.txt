@@ -1,6 +1,32 @@
 
 工作计划:
 
+
+11.15 - 11.22
+
+冀超：
+news(go)
+Advanced travel(route info + ticket): 流程4
+route plan（1，2，3）
+config配置
+index页面
+李文海：
+consign加入流程
+travel admin:
+travel, order, route, regis-user
+丁丹：
+food service加入流程
+travel admin:
+basic info admin(config, station, train, contact, price)
+
+
+
+
+
+
+
+
+
 10.12 -- 10.20
 
 冀超：

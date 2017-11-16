@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script  type="text/javascript"src="js/bootstrap.js"></script>
+        <script type="text/javascript"src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/postData.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/securityCheck.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/executeTicket.js" defer charset="utf-8"></script>
@@ -52,8 +52,9 @@
                     <ul class="nav navbar-nav">
                         <li><a id="microservice_page">Single Microservice Test</a></li>
                         <li><a id="flow_one_page">Flow One - Ticket Reserve</a></li>
-                        <li><a id="flow_two_page">Flow Two - Ticket Cancel and Ticket Change</a></li>
-                        <li><a id="flow_three_page">Flow Three - Advanced Search</a></li>
+                        <li><a id="flow_two_page">Flow Two - Ticket Cancel & Ticket Change</a></li>
+                        <li><a id="flow_three_page">Flow Three - Consign & Voucher</a></li>
+                        <li><a id="flow_four_page">Flow Four - Advanced Search</a></li>
                     </ul>
                 </div>
             </div>
@@ -437,7 +438,6 @@
                 </div>
 
             </div>
-
 
             <!----------------------------ticket office----------------------------------->
             <div class="step panel panel-default">
@@ -2194,7 +2194,7 @@
             <div class="flow_preserve panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Flow Preserve Step 1: - Login
+                        Ticket Reserve Step 1: - Login
                     </h3>
                 </div>
                 <div class="group panel-body">
@@ -2246,7 +2246,7 @@
             <div class="flow_preserve panel panel-default">
                 <div class="panel-heading booking">
                     <h3 class="panel-title">
-                        Flow Preserve Step 2: - Ticket Booking
+                        Ticket Reserve Step 2: - Ticket Booking
                     </h3>
                 </div>
                 <div class="input-box panel-body booking">
@@ -2320,7 +2320,7 @@
             <div id="preserve_select_contacts_panel" class="flow_preserve panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Flow Preserve Step 3: - Select Contacts
+                        Ticket Reserve Step 3: - Select Contacts
                         <button id="refresh_booking_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
                     </h3>
                 </div>
@@ -2398,7 +2398,7 @@
             <div id="preserve_ticket_confirm_panel" class='flow_preserve panel panel-default'>
                 <div class='panel-heading'>
                     <h4 class='panel-title'>
-                        Flow Preserve Step 4: - Confirm Your Ticket Information
+                        Ticket Reserve Step 4: - Confirm Your Ticket Information
                     </h4>
                 </div>
                 <div class='panel-body'>
@@ -2510,7 +2510,7 @@
             <div id="preserve_pay_panel" class="step panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Flow Preserve Step 5: - Pay for Preserve Ticket
+                        Ticket Reserve Step 5: - Pay for Preserve Ticket
                     </h3>
                 </div>
                 <div class="input-box panel-body">
@@ -2551,7 +2551,7 @@
             <div class="flow_preserve panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Flow Preserve Step 6: - Ticket Collect
+                        Ticket Reserve Step 6: - Ticket Collect
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -2568,12 +2568,6 @@
                                     <button id="preserve_collect_button" type="button" class="btn btn-primary">Collect Tickets</button>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2">
-                                    <label class="control-label">Collect Status:</label>
-                                    <span id="preserve_collect_order_status"></span>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -2584,7 +2578,7 @@
             <div class="flow_preserve panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Flow Preserve Step 7: - Enter Station
+                        Ticket Reserve Step 7: - Enter Station
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -2882,6 +2876,201 @@
                     <!-----Empty Body-------->
                 </div>
             </div>
+        </div>
+
+        <div id="flow_four">
+            <a name="anchor_flow_advance_reserve_login"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Advanced Ticket Reserve Step 1: - Login
+                    </h3>
+                </div>
+                <div class="panel-body">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-offset-1 col-sm-1 control-label">Email: </label>
+                                <div class="col-sm-4">
+                                    <input id="flow_advance_reserve_login_email" class="form-control" value='fdse_microservices@163.com'>
+                                </div>
+                                <label class="col-sm-1 control-label">Password: </label>
+                                <div class="col-sm-4">
+                                    <input id="flow_advance_reserve_login_password" class="form-control" value='DefaultPassword' >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class=" col-sm-offset-1 col-sm-1 control-label">Verification Code</label>
+                                <div class="col-sm-1">
+                                    <input id="flow_advance_reserve_login_verification_code" class="form-control" type="text" value="abcd"/>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img id="flow_advance_reserve_login_verification_code_img" class="captcha_img" src="/verification/generate">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button id="flow_advance_reserve_login_button" type="button" class="btn btn-primary">Login</button>
+                                </div>
+                            </div >
+                        </form>
+                    <br>
+                </div>
+            </div>
+
+            <a name="anchor_flow_advance_reserve_select_trip"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading booking">
+                    <h3 class="panel-title">
+                        Advanced Ticket Reserve 2: - Advanced Ticket Searching
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-offset-1 col-sm-1 control-label">Starting Place:</label>
+                            <div class="col-sm-2">
+                                <input id="flow_advance_reserve_startingPlace" class="form-control" value='Shang Hai'>
+                            </div>
+                            <label class="col-sm-1 control-label">Terminal Place:</label>
+                            <div class="col-sm-2">
+                                <input id="flow_advance_reserve_terminalPlace" class="form-control" value='Su Zhou'>
+                            </div>
+                            <label class="col-sm-1 control-label">Date:</label>
+                            <div class="col-sm-3">
+                                <input id="flow_advance_reserve_booking_date" class="form-control" type="date" value='' min="2017-07-13">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-offset-1 col-sm-1 control-label">Search Type:</label>
+                            <div class="col-sm-3">
+                                <select id="flow_advance_reserve_select_searchType" class="form-control">
+                                    <option value="0" selected = "selected">Minimum Station Number</option>
+                                    <option value="1">Cheapest</option>
+                                    <option value="2">Quickest</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-offset-5 col-sm-1">
+                                <button id="flow_advance_reserve_booking_button" type="button" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-heading booking">
+                    <h3 class="panel-title">
+                        Tickets Searching Result
+                    </h3>
+                </div>
+                <div class="panel-body booking">
+                    <table id="flow_advance_reserve_booking_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Trip Id</th>
+                            <th>Train Type Id</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Starting Time</th>
+                            <th>End Time</th>
+                            <th>2rd Class Seat Number</th>
+                            <th>1st Class Seat Number</th>
+                            <th>Select Seat</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--This is an empty table body-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--Step 3 && Step 4 -->
+
+            <a name="anchor_flow_advance_reserve_pay"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Advanced Ticket Reserve Step 5: - Pay for Preserve Ticket
+                    </h3>
+                </div>
+                <div class="input-box panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-offset-1 col-sm-1 control-label">Order Id: </label>
+                            <div class="col-sm-4">
+                                <input id="flow_advance_reserve_pay_orderId" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                            <label class="col-sm-1 control-label">Price: </label>
+                            <div class="col-sm-2">
+                                <input id="flow_advance_reserve_pay_price" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                            <label class="col-sm-1 control-label">Trip Id: </label>
+                            <div class="col-sm-1">
+                                <input id="flow_advance_reserve_pay_tripId" class="form-control"
+                                       readonly="readonly" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-1">
+                                <button id="flow_advance_reserve_pay_button" type="button" class="btn btn-primary">Pay</button>
+                            </div>
+                            <div class="col-sm-1">
+                                <button id="flow_advance_reserve_pay_later_button" type="button" class="btn btn-default">No.Pay it later.</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <a name="anchor_flow_advance_reserve_collect"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Advanced Ticket Reserve Step 6: - Ticket Collect
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-offset-1 col-sm-1 control-label">Order Id:</label>
+                                <div class="col-sm-5">
+                                    <input id="flow_advanced_reserve_collect_order_id" class="form-control" value=''>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button id="flow_advanced_reserve_collect_button" type="button" class="btn btn-primary">Collect Tickets</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <a name="anchor_flow_advance_reserve_execute"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Advanced Ticket Reserve Step 7: - Enter Station
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-box">
+                        <form role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-offset-1 col-sm-1 control-label">Order Id:</label>
+                                <div class="col-sm-5">
+                                    <input id="advanced_reserve_execute_order_id" class="form-control" value=''>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button id="flow_advanced_reserve_execute_order_button" type="button" class="btn btn-primary">Enter Station</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     </div>
