@@ -196,10 +196,138 @@ function addListenerToBookingTable(){
                 $("#ticket_confirm_seatType_String").text("economy seat");
             }
             refresh_booking_contacts();
+            initFoodSelect(tripId);
             location.hash="anchor_flow_preserve_select_contacts";
         }
     }
 }
+
+function needFoodOrNot(){
+    if($('#need-food-or-not').attr('checked')){
+        $('#food-preserve-select').css("display", "block");
+    } else {
+        $('#food-preserve-select').css("display", "none");
+    }
+}
+
+function changeFoodType(){
+    var type = $('#preserve_food_type').find("option:selected").val();
+    if(type == 1){
+        $('#train-food-selected').css("display", "block");
+        $('#food-store-selected').css("display", "none");
+    } else {
+        $('#train-food-selected').css("display", "none");
+        $('#food-store-selected').css("display", "block");
+    }
+}
+
+var  preserveFoodStoreListMap = null;
+
+function initFoodSelect(tripId){
+    var data = new Object();
+    data.date = $('#travel_booking_date').val() || "";
+    data.startStation = $('#travel_booking_startingPlace').val() || "";
+    data.endStation = $('#travel_booking_terminalPlace').val() || "";
+    data.tripId = tripId;
+
+    alert(JSON.stringify(data));
+    $.ajax({
+        type: "post",
+        url: "/food/getFood",
+        contentType: "application/json",
+        dataType: "json",
+        data:JSON.stringify(data),
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            console.log(result);
+            if(result.status){
+                var trainFoodList = result.trainFoodList[0]['foodList'];
+                console.log("trainFoodList:" );
+                console.log(trainFoodList[0]);
+
+                $("#train-food-type-list").html("");
+                $("#food-station-list").html("");
+                $("#food-stores-list").html("");
+                $("#food-store-food-list").html("");
+
+                var trainFoodSelect = document.getElementById ("train-food-type-list");
+                var opt1 = document.createElement ("option");
+                opt1.value = 0;
+                opt1.innerText = "-- --";
+                trainFoodSelect.appendChild(opt1);
+                for(var k = 0; k < trainFoodList.length; k++){
+                    var opt2 = document.createElement ("option");
+                    opt2.value = k + 1;
+                    k++;
+                    opt2.innerText = trainFoodList[k]['foodName'] + " $" + trainFoodList[k]['price'];
+                    trainFoodSelect.appendChild (opt2);
+                }
+
+                preserveFoodStoreListMap = result.foodStoreListMap;
+                console.log(" preserveFoodStoreListMap:");
+                console.log( preserveFoodStoreListMap);
+                var foodStationSelect = document.getElementById ("food-station-list");
+                var opt3 = document.createElement ("option");
+                opt3.value = 0;
+                opt3.innerText = "-- --";
+                foodStationSelect.appendChild(opt1);
+                var fsindex = 1;
+                for(var key in  preserveFoodStoreListMap){
+                    var opt4 = document.createElement ("option");
+                    opt4.value = fsindex;
+                    fsindex++;
+                    opt4.innerText = key;
+                    foodStationSelect.appendChild (opt4);
+                }
+
+            } else {
+                alert(result.status + ":" + result.message);
+            }
+
+        }
+    });
+
+}
+
+function preserveChangeFoodStation(){
+    var station = $('#food-station-list').find("option:selected").text();
+    var  foodStoreList = preserveFoodStoreListMap[station];
+
+    var foodStoreSelect = document.getElementById ("food-stores-list");
+    foodStoreSelect.html("");
+    var opt5 = document.createElement ("option");
+    opt5.value = 0;
+    opt5.innerText = "-- --";
+    foodStoreSelect.appendChild(opt5);
+    for(var j = 0; j < foodStoreList.length; j++){
+        var opt6 = document.createElement ("option");
+        opt6.value = j+1;
+        opt6.innerText = foodStoreList[j]["storeName"];
+        foodStoreSelect.appendChild (opt6);
+    }
+}
+
+function preserveChangeFoodStore(){
+    var station = $('#food-station-list').find("option:selected").text();
+    var storeIndex = $('#food-stores-list').find("option:selected").val();
+    var  foodList = preserveFoodStoreListMap[station][storeIndex-1];
+    
+    var foodStoreFoodSelect = document.getElementById ("food-store-food-list");
+    foodStoreFoodSelect.html("");
+    var opt5 = document.createElement ("option");
+    opt5.value = 0;
+    opt5.innerText = "-- --";
+    foodStoreFoodSelect.appendChild(opt5);
+    for(var j = 0; j < foodList.length; j++){
+        var opt6 = document.createElement ("option");
+        opt6.value = j+1;
+        opt6.innerText = foodList[j]['foodName'] +" $" + foodList[j]['price'];
+        foodStoreFoodSelect.appendChild (opt6);
+    }
+}
+
 
 function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);

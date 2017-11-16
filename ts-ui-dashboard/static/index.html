@@ -2360,6 +2360,39 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="checkbox col-sm-4">
+                                <label>
+                                    <input id="need-food-or-not" type="checkbox" class="control-label" onchange="needFoodOrNot()">Need Food
+                                </label>
+                            </div>
+                            <div id="food-preserve-select" class="checkbox col-sm-4" style="display: none">
+                                <label>
+                                    <select id="preserve_food_type" name="preserve_food_type" class="form-control" onchange="changeFoodType()">
+                                        <option value="1">Train Food</option>
+                                        <option value="2">Station Food Stores</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="train-food-selected" class="form-group" style="display: none">
+                            <select id="train-food-type-list" name="train-food-type-list" class="form-control" >
+                            </select>
+                        </div>
+                        <div  id="food-store-selected" class="form-group" style="display: none">
+                            <div class="col-sm-3">
+                                <select id="food-station-list" name="food-station-list" class="form-control" onchange="preserveChangeFoodStation()">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="food-stores-list" name="food-stores-list" class="form-control" onchange="preserveChangeFoodStore()">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="food-store-food-list" name="food-store-food-list" class="form-control" >
+                                </select>
+                            </div>
+                        </div>
                         <div class='form-group'>
                             <label class='col-sm-2 control-label'></label>
                             <div class='col-sm-10'>
