@@ -2351,14 +2351,15 @@
                         <div class="form-group">
                             <div class="checkbox col-sm-4">
                                 <label>
-                                    <input id="need-food-or-not" type="checkbox" class="control-label" onchange="needFoodOrNot()">Need Food
+                                    <input id="need-food-or-not" type="checkbox" class="control-label" onclick="needFoodOrNot()">Need Food
                                 </label>
                             </div>
                             <div id="food-preserve-select" class="checkbox col-sm-4" style="display: none">
                                 <label>
                                     <select id="preserve_food_type" name="preserve_food_type" class="form-control" onchange="changeFoodType()">
-                                        <option value="1">Train Food</option>
-                                        <option value="2">Station Food Stores</option>
+                                        <option value="0" id="no-food">-- --</option>
+                                        <option value="1" id="train-food-option">Train Food</option>
+                                        <option value="2" id="station-food-option">Station Food Stores</option>
                                     </select>
                                 </label>
                             </div>
@@ -2455,6 +2456,36 @@
                             <label class='col-sm-2 control-label'>DocumentNumber: </label>
                             <div class='col-sm-10'>
                                 <label id='ticket_confirm_documentNumber' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="ticket_confirm_food_type_div">
+                            <label class='col-sm-2 control-label'>Food Type: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_food_type' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="ticket_confirm_food_station_div">
+                            <label class='col-sm-2 control-label'>Food Station: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_food_station' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="ticket_confirm_food_store_div">
+                            <label class='col-sm-2 control-label'>Store Name: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_food_store' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="ticket_confirm_food_name_div">
+                            <label class='col-sm-2 control-label'>Food Name: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_food_name' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="ticket_confirm_food_price_div">
+                            <label class='col-sm-2 control-label'>Food Price: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_food_price' class='control-label'></label>
                             </div>
                         </div>
                         <div class='form-group noshow_component'>

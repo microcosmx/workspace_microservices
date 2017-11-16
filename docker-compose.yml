@@ -739,6 +739,15 @@ services:
             networks:
               - my-network
 
+  ts-food-mongo:
+            image: mongo
+            deploy:
+              replicas: 1
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
 networks:
     my-network:
       # driver: overlay
