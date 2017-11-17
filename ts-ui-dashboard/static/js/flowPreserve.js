@@ -610,13 +610,15 @@ $("#ticket_confirm_confirm_btn").click(function () {
         if($('#ticket_confirm_food_type').val() == 1){
             orderTicketInfo.foodType = 1;
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
-            orderTicketInfo.price = $('#ticket_confirm_food_price').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
+            orderTicketInfo.stationName = "";
+            orderTicketInfo.storeName = "";
         } else if ($('#ticket_confirm_food_type').val()== 2){
             orderTicketInfo.foodType = 2;
             orderTicketInfo.stationName = $('#ticket_confirm_food_station').text();
             orderTicketInfo.storeName = $('#ticket_confirm_food_store').text();
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
-            orderTicketInfo.price = $('#ticket_confirm_food_price').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
         }
     }
 
@@ -624,7 +626,7 @@ $("#ticket_confirm_confirm_btn").click(function () {
     if($('#need-consign-or-not').is(":checked")){
         orderTicketInfo.consigneeName = $("#name_of_consignee ").val();
         orderTicketInfo.consigneePhone = $("#phone_of_consignee ").val();
-        orderTicketInfo.consigneeWeight = $("#weight_of_consign ").val();
+        orderTicketInfo.consigneeWeight = parseFloat($("#weight_of_consign ").val());
         orderTicketInfo.isWithin = false;
     }
 

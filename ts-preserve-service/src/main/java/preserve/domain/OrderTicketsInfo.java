@@ -18,8 +18,101 @@ public class OrderTicketsInfo {
 
     private int assurance;
 
+    //food
+    private int foodType = 0;
+
+    private String stationName;
+
+    private String storeName;
+
+    private String foodName;
+
+    private double foodPrice;
+
+    //consign
+    private String consigneeName="";
+
+    private String consigneePhone="";
+
+    private double consigneeWeight;
+
+    private boolean isWithin;
+
+
     public OrderTicketsInfo(){
         //Default Constructor
+    }
+
+    public int getFoodType() {
+        return foodType;
+    }
+
+    public void setFoodType(int foodType) {
+        this.foodType = foodType;
+    }
+
+    public String getStationName() {
+        return stationName;
+    }
+
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public double getFoodPrice() {
+        return foodPrice;
+    }
+
+    public void setFoodPrice(double foodPrice) {
+        this.foodPrice = foodPrice;
+    }
+
+    public String getConsigneeName() {
+        return consigneeName;
+    }
+
+    public void setConsigneeName(String consigneeName) {
+        this.consigneeName = consigneeName;
+    }
+
+    public String getConsigneePhone() {
+        return consigneePhone;
+    }
+
+    public void setConsigneePhone(String consigneePhone) {
+        this.consigneePhone = consigneePhone;
+    }
+
+    public double getConsigneeWeight() {
+        return consigneeWeight;
+    }
+
+    public void setConsigneeWeight(double consigneeWeight) {
+        this.consigneeWeight = consigneeWeight;
+    }
+
+    public boolean isWithin() {
+        return isWithin;
+    }
+
+    public void setWithin(boolean within) {
+        isWithin = within;
     }
 
     public String getContactsId() {

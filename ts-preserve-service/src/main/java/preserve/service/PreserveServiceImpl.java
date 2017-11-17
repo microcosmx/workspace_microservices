@@ -172,7 +172,37 @@ public class PreserveServiceImpl implements PreserveService{
                     otr.setMessage("Success.But Buy Assurance Fail.");
                 }
             }
-            //6.发送notification
+
+            //6.增加订餐
+            if(oti.getFoodType() != 0){
+                AddFoodOrderInfo afoi = new AddFoodOrderInfo();
+                afoi.setOrderId(cor.getOrder().getId().toString());
+                afoi.setFoodType(oti.getFoodType());
+                afoi.setFoodName(oti.getFoodName());
+                afoi.setPrice(oti.getFoodPrice());
+                if(oti.getFoodType() == 2){
+                    afoi.setStationName(oti.getStationName());
+                    afoi.setStoreName(oti.getStoreName());
+                }
+                AddFoodOrderResult afor = createFoodOrder(afoi);
+                if(afor.isStatus()){
+                    System.out.println("[Preserve Service][Step 6] Buy Food Success");
+                } else {
+                    System.out.println("[Preserve Service][Step 6] Buy Food Fail.");
+                    otr.setMessage("Success.But Buy Food Fail.");
+                }
+            } else {
+                System.out.println("[Preserve Service][Step 6] Do not need to buy food");
+            }
+
+            //7.增加托运
+            if(null != oti.getConsigneeName() && !"".equals(oti.getConsigneeName())){
+
+            } else {
+
+            }
+
+            //8.发送notification
             System.out.println("[Preserve Service]");
             GetAccountByIdInfo getAccountByIdInfo = new GetAccountByIdInfo();
             getAccountByIdInfo.setAccountId(order.getAccountId().toString());
@@ -294,6 +324,22 @@ public class PreserveServiceImpl implements PreserveService{
                 "http://ts-order-service:12031/order/create/"
                 ,coi,CreateOrderResult.class);
         return cor;
+    }
+
+    private AddFoodOrderResult createFoodOrder(AddFoodOrderInfo afi){
+        System.out.println("[Preserve Service][Add food Order] Creating....");
+        AddFoodOrderResult afr = restTemplate.postForObject(
+                "http://ts-food-service:18856/food/createFoodOrder"
+                ,afi,AddFoodOrderResult.class);
+        return afr;
+    }
+
+    private InsertConsignRecordResult createConsign(ConsignRequest cr){
+        System.out.println("[Preserve Service][Add Condign] Creating....");
+        InsertConsignRecordResult icr = restTemplate.postForObject(
+                "http://ts-consign-service:16111/consign/insertConsign"
+                ,cr,InsertConsignRecordResult.class);
+        return icr;
     }
 
 }
