@@ -30,16 +30,17 @@ function onLoadBody(){
         data:data,
         success: function(result){
             var obj = result;
-            alert(JSON.stringify(obj));
-            // document.getElementById("voucher_id").innerText = "10000" + num;
-            // document.getElementById("order_id").innerText = request["orderId"];
-            // document.getElementById("travel_date").innerText = request["bought_date"];
-            // document.getElementById("passenger_name").innerText = request["passenger"];
-            // document.getElementById("train_number").innerText = request["train_number"];
-            // document.getElementById("seat_number").innerText = request["seat"];
-            // document.getElementById("start_station").innerText = request["from"];
-            // document.getElementById("dest_station").innerText = request["to"];
-            // document.getElementById("price").innerText = request["price"];
+            obj = JSON.stringify(obj);
+            alert(obj);
+            document.getElementById("voucher_id").innerText = "10000" + obj["voucher_id"];
+            document.getElementById("order_id").innerText = obj["order_id"];
+            document.getElementById("travel_date").innerText = obj["travelDate"];;
+            document.getElementById("passenger_name").innerText = obj["contactName"];;
+            document.getElementById("train_number").innerText = obj["trainNumber"];;
+            document.getElementById("seat_number").innerText = obj["seatNumber"];;
+            document.getElementById("start_station").innerText = obj["startStation"];;
+            document.getElementById("dest_station").innerText = obj["destStation"];;
+            document.getElementById("price").innerText = obj["price"];;
         },
         complete: function(){
 

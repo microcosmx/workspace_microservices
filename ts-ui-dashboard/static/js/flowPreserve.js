@@ -624,6 +624,19 @@ $("#ticket_confirm_confirm_btn").click(function () {
 
     //Add the consign information
     if($('#need-consign-or-not').is(":checked")){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        orderTicketInfo.handleDate = currentdate;
         orderTicketInfo.consigneeName = $("#name_of_consignee ").val();
         orderTicketInfo.consigneePhone = $("#phone_of_consignee ").val();
         orderTicketInfo.consigneeWeight = parseFloat($("#weight_of_consign ").val());
