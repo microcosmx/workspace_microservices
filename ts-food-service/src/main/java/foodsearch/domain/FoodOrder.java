@@ -18,7 +18,7 @@ public class FoodOrder {
     //1:train food;2:food store
     private int foodType;
 
-    private String station;
+    private String stationName;
 
     private String storeName;
 
@@ -54,12 +54,12 @@ public class FoodOrder {
         this.foodType = foodType;
     }
 
-    public String getStation() {
-        return station;
+    public String getStationName() {
+        return stationName;
     }
 
-    public void setStation(String station) {
-        this.station = station;
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
     }
 
     public String getStoreName() {

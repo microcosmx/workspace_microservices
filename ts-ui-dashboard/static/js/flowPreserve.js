@@ -594,7 +594,7 @@ $("#ticket_confirm_confirm_btn").click(function () {
             orderTicketInfo.price = $('#ticket_confirm_food_price').text();
         } else if ($('#ticket_confirm_food_type').val()== 2){
             orderTicketInfo.foodType = 2;
-            orderTicketInfo.station = $('#ticket_confirm_food_station').text();
+            orderTicketInfo.stationName = $('#ticket_confirm_food_station').text();
             orderTicketInfo.storeName = $('#ticket_confirm_food_store').text();
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
             orderTicketInfo.price = $('#ticket_confirm_food_price').text();
