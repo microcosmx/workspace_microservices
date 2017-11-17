@@ -13,11 +13,12 @@ class GetVoucherHandler(tornado.web.RequestHandler):
         data = json.loads(data)
         orderId = data['orderId']
         type = data['type']
+        print("The order id is %s and the type is %d" % (orderId, type))
         #根据订单id查询是否存在对应的凭证
         queryVoucher = self.fetchVoucherByOrderId(orderId)
         if(queryVoucher == None):
             #根据订单id请求订单的详细信息
-            orderResult = self.queryOrderByIdAndType(self,orderId,type)
+            orderResult = self.queryOrderByIdAndType(orderId,type)
             order = orderResult['order']
 
             #往voucher表中插入报销凭证
@@ -54,7 +55,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
         response = urllib.urlopen(req)        # 发送页面请求
         return json.loads(response)           # 获取服务器返回的页面信息
 
-    def fetchVoucherByOrderId(self,orderId):
+    def fetchVoucherByOrderId(orderId):
         #从voucher表中查询orderId对应的报销凭证
         config = {
             'host':'ts-vouncher-mysql',

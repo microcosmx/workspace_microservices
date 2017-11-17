@@ -346,13 +346,9 @@ function preserveChangeFoodStore(){
 
 function needConsignOrNot(){
     if($('#need-consign-or-not').is(':checked')){
-        $('#consign_name_input').css("display", "block");
-        $('#consign_phone_input').css("display", "block");
-        $('#consign_weight_input').css("display", "block");
+        $('.consign_input').css("display", "block");
     } else {
-        $('#consign_name_input').css("display", "none");
-        $('#consign_phone_input').css("display", "none");
-        $('#consign_weight_input').css("display", "none");
+        $('.consign_input').css("display", "none");
     }
 }
 
@@ -515,6 +511,17 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
                     $('#ticket_confirm_food_price_div').css("display","none");
                 }
 
+                //Show the consign information
+                if($('#need-consign-or-not').is(":checked")){
+                    $('.ticket_confirm_consign_div').css("display", "block");
+                    $('#ticket_confirm_consignee_name').text($(" #name_of_consignee ").val());
+                    $('#ticket_confirm_consignee_phone').text($(" #phone_of_consignee ").val());
+                    $('#ticket_confirm_consign_weight').text($(" #weight_of_consign ").val());
+                }
+                else{
+                    $('.ticket_confirm_consign_div').css("display", "none");
+                }
+
 
                 break;
             }
@@ -611,6 +618,14 @@ $("#ticket_confirm_confirm_btn").click(function () {
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
             orderTicketInfo.price = $('#ticket_confirm_food_price').text();
         }
+    }
+
+    //Add the consign information
+    if($('#need-consign-or-not').is(":checked")){
+        orderTicketInfo.consigneeName = $("#name_of_consignee ").val();
+        orderTicketInfo.consigneePhone = $("#phone_of_consignee ").val();
+        orderTicketInfo.consigneeWeight = $("#weight_of_consign ").val();
+        orderTicketInfo.isWithin = false;
     }
 
     var orderTicketsData = JSON.stringify(orderTicketInfo);
