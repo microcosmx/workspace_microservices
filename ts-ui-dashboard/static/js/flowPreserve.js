@@ -346,12 +346,13 @@ function preserveChangeFoodStore(){
 
 function needConsignOrNot(){
     if($('#need-consign-or-not').is(':checked')){
-        $('#food-preserve-select').css("display", "block");
+        $('#consign_name_input').css("display", "block");
+        $('#consign_phone_input').css("display", "block");
+        $('#consign_weight_input').css("display", "block");
     } else {
-        $('#food-preserve-select').css("display", "none");
-        $('#food-store-selected').css("display", "none");
-        $('#train-food-selected').css("display", "none");
-        $('#preserve_food_type').val(0);
+        $('#consign_name_input').css("display", "none");
+        $('#consign_phone_input').css("display", "none");
+        $('#consign_weight_input').css("display", "none");
     }
 }
 
