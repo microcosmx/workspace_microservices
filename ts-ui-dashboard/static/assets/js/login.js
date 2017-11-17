@@ -8,10 +8,10 @@ controllerModule.controller("loginCtrl", function ($scope,$http) {
         var password = $scope.password;
         $http({
             method:"post",
-            url: "http://api.jiemengshi.com/admin/user/login",
+            url: "/adminbasic/login",
             withCredentials: true,
             data:{
-                username: account,
+                name: account,
                 password: password
             },
             headers: {
@@ -25,10 +25,9 @@ controllerModule.controller("loginCtrl", function ($scope,$http) {
                 return str.substring(0,str.length-1);
             }
         }).success(function(data, status, headers, config){
-            if (data.code == 0) {
-                sessionStorage.setItem("uid",data.data.id);
-                sessionStorage.setItem("admin_name", data.data.username);
-                sessionStorage.setItem("permissionLevel", data.data.permissionLevel);
+            if (data != null) {
+                sessionStorage.setItem("admin_id",data.id);
+                sessionStorage.setItem("admin_name", data.name);
                 //$scope.decodeInfo(data.data);
                 location.href = "../../admin.html";
             }else{

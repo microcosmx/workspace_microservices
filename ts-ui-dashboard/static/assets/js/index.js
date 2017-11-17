@@ -4,16 +4,16 @@
 /*
  * 显示管理员名字
  * */
-// var loadBody = function () {
-//     var username = sessionStorage.getItem("admin_name");
-//     if (username == null) {
-//         alert("Please login first!");
-//         location.href = "login.html";
-//     }
-//     else {
-//         document.getElementById("admin_name").innerHTML = username;
-//     }
-// };
+var loadBody = function () {
+    var username = sessionStorage.getItem("admin_name");
+    if (username == null) {
+        alert("Please login first!");
+        location.href = "login.html";
+    }
+    else {
+        document.getElementById("admin_name").innerHTML = username;
+    }
+};
 
 /*
  * 登出
