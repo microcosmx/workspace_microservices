@@ -344,6 +344,17 @@ function preserveChangeFoodStore(){
     }
 }
 
+function needConsignOrNot(){
+    if($('#need-consign-or-not').is(':checked')){
+        $('#food-preserve-select').css("display", "block");
+    } else {
+        $('#food-preserve-select').css("display", "none");
+        $('#food-store-selected').css("display", "none");
+        $('#train-food-selected').css("display", "none");
+        $('#preserve_food_type').val(0);
+    }
+}
+
 
 function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);
