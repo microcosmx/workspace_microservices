@@ -28,18 +28,15 @@ function onLoadBody(){
         dataType: "json",
         data:data,
         success: function(result){
-            var obj = result;
-            obj = JSON.stringify(obj);
-            alert(obj);
-            document.getElementById("voucher_id").innerText = "10000" + obj["voucher_id"];
-            document.getElementById("order_id").innerText = obj["order_id"];
-            document.getElementById("travel_date").innerText = obj["travelDate"];;
-            document.getElementById("passenger_name").innerText = obj["contactName"];;
-            document.getElementById("train_number").innerText = obj["trainNumber"];;
-            document.getElementById("seat_number").innerText = obj["seatNumber"];;
-            document.getElementById("start_station").innerText = obj["startStation"];;
-            document.getElementById("dest_station").innerText = obj["destStation"];;
-            document.getElementById("price").innerText = obj["price"];;
+            document.getElementById("voucher_id").innerText = "10000" + result.voucher_id;
+            document.getElementById("order_id").innerText = result.order_id;
+            document.getElementById("travel_date").innerText = result.travelDate;;
+            document.getElementById("passenger_name").innerText = result.contactName;
+            document.getElementById("train_number").innerText = result.train_number;
+            document.getElementById("seat_number").innerText = result.seat_number;
+            document.getElementById("start_station").innerText = result.start_station;
+            document.getElementById("dest_station").innerText = result.dest_station;
+            document.getElementById("price").innerText = result.price;
         },
         complete: function(){
 
