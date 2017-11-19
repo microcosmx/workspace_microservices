@@ -39,11 +39,11 @@ class GetVoucherHandler(tornado.web.RequestHandler):
             finally:
                 pass
             #再次查询，可以获得刚刚插入的凭证信息
-            self.write(self.fetchVoucherByOrderId(self,orderId))
+            self.write(self.fetchVoucherByOrderId(orderId))
         else:
             self.write(queryVoucher)
 
-    def queryOrderByIdAndType(orderId,type):
+    def queryOrderByIdAndType(self,orderId,type):
         #普通列车
         if(type == 0):
             url='http://ts-order-other-service:12032/order/getById'
@@ -55,7 +55,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
         response = urllib.urlopen(req)        # 发送页面请求
         return json.loads(response)           # 获取服务器返回的页面信息
 
-    def fetchVoucherByOrderId(orderId):
+    def fetchVoucherByOrderId(self,orderId):
         #从voucher表中查询orderId对应的报销凭证
         config = {
             'host':'ts-vouncher-mysql',
@@ -95,7 +95,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
         finally:
             pass
 
-        self.write("yes")
+        self.write(self.fetchVoucherByOrderId(1))
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):

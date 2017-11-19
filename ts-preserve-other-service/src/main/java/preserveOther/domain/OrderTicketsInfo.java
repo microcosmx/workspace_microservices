@@ -30,6 +30,8 @@ public class OrderTicketsInfo {
     private double foodPrice;
 
     //consign
+    private String handleDate;
+
     private String consigneeName;
 
     private String consigneePhone;
@@ -81,6 +83,14 @@ public class OrderTicketsInfo {
 
     public void setFoodPrice(double foodPrice) {
         this.foodPrice = foodPrice;
+    }
+
+    public String getHandleDate() {
+        return handleDate;
+    }
+
+    public void setHandleDate(String handleDate) {
+        this.handleDate = handleDate;
     }
 
     public String getConsigneeName() {

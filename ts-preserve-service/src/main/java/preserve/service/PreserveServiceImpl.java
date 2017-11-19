@@ -197,9 +197,25 @@ public class PreserveServiceImpl implements PreserveService{
 
             //7.增加托运
             if(null != oti.getConsigneeName() && !"".equals(oti.getConsigneeName())){
-
+                ConsignRequest consignRequest = new ConsignRequest();
+                consignRequest.setAccountId(cor.getOrder().getAccountId());
+                consignRequest.setHandleDate(oti.getHandleDate());
+                consignRequest.setTargetDate(cor.getOrder().getTravelDate().toString());
+                consignRequest.setFrom(cor.getOrder().getFrom());
+                consignRequest.setTo(cor.getOrder().getTo());
+                consignRequest.setConsignee(oti.getConsigneeName());
+                consignRequest.setPhone(oti.getConsigneePhone());
+                consignRequest.setWeight(oti.getConsigneeWeight());
+                consignRequest.setWithin(oti.isWithin());
+                InsertConsignRecordResult icresult = createConsign(consignRequest);
+                if(icresult.isStatus()){
+                    System.out.println("[Preserve Service][Step 7] Consign Success");
+                } else {
+                    System.out.println("[Preserve Service][Step 7] Consign Fail.");
+                    otr.setMessage("Consign Fail.");
+                }
             } else {
-
+                System.out.println("[Preserve Service][Step 7] Do not need to consign");
             }
 
             //8.发送notification

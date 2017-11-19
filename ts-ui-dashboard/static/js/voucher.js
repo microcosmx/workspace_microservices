@@ -18,7 +18,6 @@ function onLoadBody(){
     }else{
         requestInfo.type = 0;
     }
-    requestInfo.type = getQueryString('type');
     var data = JSON.stringify(requestInfo);
 
     //发送请求
