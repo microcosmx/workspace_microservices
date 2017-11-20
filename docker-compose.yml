@@ -761,6 +761,19 @@ services:
 #        networks:
 #          - my-network
 
+  ts-admin-order-service:
+            build: ts-admin-order-service
+            image: ts/ts-admin-order-service
+            restart: always
+            ports:
+              - 16112:16112
+            deploy:
+              replicas: 1
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
 networks:
     my-network:
       # driver: overlay

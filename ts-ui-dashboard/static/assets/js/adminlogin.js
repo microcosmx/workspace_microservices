@@ -13,22 +13,11 @@ controllerModule.controller("loginCtrl", function ($scope,$http) {
             data:{
                 name: account,
                 password: password
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            transformRequest: function ( data ) {
-                var str = '';
-                for( var i in data ) {
-                    str += i + '=' + data[i] + '&';
-                }
-                return str.substring(0,str.length-1);
             }
         }).success(function(data, status, headers, config){
             if (data != null) {
                 sessionStorage.setItem("admin_id",data.id);
                 sessionStorage.setItem("admin_name", data.name);
-                $scope.decodeInfo(data);
                 location.href = "../../admin.html";
             }else{
                 alert("Wrong user name and password!");
