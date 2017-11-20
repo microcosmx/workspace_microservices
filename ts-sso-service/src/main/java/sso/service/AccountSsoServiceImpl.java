@@ -242,5 +242,15 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         return result;
     }
 
+    @Override
+    public Contacts adminLogin(String name, String password) {
+        Contacts c = null;
+        if("adminroot".equals(name) && "adminroot".equals(password)){
+            c = new Contacts();
+            c.setId(UUID.fromString("1d1a11c1-11cb-1cf1-b1bb-b11111d1da1f"));
+            c.setName("adminroot");
+        }
+        return c;
+    }
 }
 

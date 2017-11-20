@@ -40,14 +40,13 @@ app.factory('loadDataService', function ($http, $q) {
 
         $http({
             method: "post",
-            url: "http://api.jiemengshi.com/admin/feedback/list",
+            url: "/adminorder/getAllOrders",
             withCredentials: true,
             data:{
-                start: param.cur_page,
-                limit: param.per_page
+                id: param.id
             },
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             transformRequest: function (data) {
                 var str = '';
@@ -63,11 +62,11 @@ app.factory('loadDataService', function ($http, $q) {
                 deferred.resolve(information);
             }
             else if(data.code == 20005){
-                alert("请重新登录");
+                alert("The session has expired, please log in again!");
                 location.href = "../../admin.html";
             }
             else{
-                alert("请求梦境列表失败");
+                alert("Request the order list fail!");
                 alert(data.code + data.message);
             }
         });

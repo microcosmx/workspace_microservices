@@ -8,14 +8,14 @@ controllerModule.controller("loginCtrl", function ($scope,$http) {
         var password = $scope.password;
         $http({
             method:"post",
-            url: "/adminbasic/login",
+            url: "/account/adminlogin",
             withCredentials: true,
             data:{
                 name: account,
                 password: password
             },
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             transformRequest: function ( data ) {
                 var str = '';
@@ -28,7 +28,7 @@ controllerModule.controller("loginCtrl", function ($scope,$http) {
             if (data != null) {
                 sessionStorage.setItem("admin_id",data.id);
                 sessionStorage.setItem("admin_name", data.name);
-                //$scope.decodeInfo(data.data);
+                $scope.decodeInfo(data);
                 location.href = "../../admin.html";
             }else{
                 alert("Wrong user name and password!");
