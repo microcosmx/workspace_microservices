@@ -55,7 +55,8 @@
                         <li><a id="flow_one_page">Flow One - Ticket Reserve</a></li>
                         <li><a id="flow_two_page">Flow Two - Ticket Cancel & Ticket Change</a></li>
                         <li><a id="flow_three_page">Flow Three - Consign & Voucher</a></li>
-                        <li><a id="flow_four_page">Flow Four - Advanced Search</a></li>
+                        <li><a id="flow_four_page">Flow Four - Advanced Search</a>
+                        <li><a href="login.html">Admin Management</a> </li>
                     </ul>
                 </div>
             </div>
@@ -2383,6 +2384,28 @@
                                 </select>
                             </div>
                         </div>
+
+                        <!-- Consign Panel -->
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label>
+                                    <input id="need-consign-or-not" type="checkbox" class="control-label" onclick="needConsignOrNot()">&nbsp;&nbsp;Consign
+                                </label>
+                            </div>
+
+                            <div class="col-sm-3 consign_input" style="display: none">
+                                <input id="name_of_consignee" class="form-control" name='' placeholder="Consignee">
+                            </div>
+
+                            <div class="col-sm-3 consign_input" style="display: none">
+                                <input id="phone_of_consignee" class="form-control" name='' placeholder="Phone">
+                            </div>
+
+                            <div class="col-sm-3 consign_input" style="display: none">
+                                <input id="weight_of_consign" class="form-control" name='' placeholder="Weight">
+                            </div>
+                        </div>
+
                         <div class='form-group'>
                             <label class='col-sm-2 control-label'></label>
                             <div class='col-sm-10'>
@@ -2489,6 +2512,27 @@
                                 <label id='ticket_confirm_food_price' class='control-label'></label>
                             </div>
                         </div>
+
+                        <!--Consign Information-->
+                        <div class='form-group ticket_confirm_consign_div' style="display: none">
+                            <label class='col-sm-2 control-label'>Consignee Name: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_consignee_name' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group ticket_confirm_consign_div' style="display: none">
+                            <label class='col-sm-2 control-label'>Consignee Phone: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_consignee_phone' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group ticket_confirm_consign_div' style="display: none">
+                            <label class='col-sm-2 control-label'>Consign Weight: </label>
+                            <div class='col-sm-10'>
+                                <label id='ticket_confirm_consign_weight' class='control-label'></label>
+                            </div>
+                        </div>
+
                         <div class='form-group noshow_component'>
                             <label class='col-sm-2 control-label'>Contact Id: </label>
                             <div class='col-sm-10'>

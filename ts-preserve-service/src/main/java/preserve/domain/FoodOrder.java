@@ -1,16 +1,10 @@
-package foodsearch.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package preserve.domain;
 
 import java.util.UUID;
 
-@Document(collection = "foodorder")
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class FoodOrder {
 
-    @Id
     private UUID id;
 
     private UUID orderId;

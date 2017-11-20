@@ -344,6 +344,14 @@ function preserveChangeFoodStore(){
     }
 }
 
+function needConsignOrNot(){
+    if($('#need-consign-or-not').is(':checked')){
+        $('.consign_input').css("display", "block");
+    } else {
+        $('.consign_input').css("display", "none");
+    }
+}
+
 
 function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);
@@ -503,6 +511,17 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
                     $('#ticket_confirm_food_price_div').css("display","none");
                 }
 
+                //Show the consign information
+                if($('#need-consign-or-not').is(":checked")){
+                    $('.ticket_confirm_consign_div').css("display", "block");
+                    $('#ticket_confirm_consignee_name').text($(" #name_of_consignee ").val());
+                    $('#ticket_confirm_consignee_phone').text($(" #phone_of_consignee ").val());
+                    $('#ticket_confirm_consign_weight').text($(" #weight_of_consign ").val());
+                }
+                else{
+                    $('.ticket_confirm_consign_div').css("display", "none");
+                }
+
 
                 break;
             }
@@ -591,14 +610,37 @@ $("#ticket_confirm_confirm_btn").click(function () {
         if($('#ticket_confirm_food_type').val() == 1){
             orderTicketInfo.foodType = 1;
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
-            orderTicketInfo.price = $('#ticket_confirm_food_price').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
+            orderTicketInfo.stationName = "";
+            orderTicketInfo.storeName = "";
         } else if ($('#ticket_confirm_food_type').val()== 2){
             orderTicketInfo.foodType = 2;
-            orderTicketInfo.station = $('#ticket_confirm_food_station').text();
+            orderTicketInfo.stationName = $('#ticket_confirm_food_station').text();
             orderTicketInfo.storeName = $('#ticket_confirm_food_store').text();
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
-            orderTicketInfo.price = $('#ticket_confirm_food_price').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
         }
+    }
+
+    //Add the consign information
+    if($('#need-consign-or-not').is(":checked")){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        orderTicketInfo.handleDate = currentdate;
+        orderTicketInfo.consigneeName = $("#name_of_consignee ").val();
+        orderTicketInfo.consigneePhone = $("#phone_of_consignee ").val();
+        orderTicketInfo.consigneeWeight = parseFloat($("#weight_of_consign ").val());
+        orderTicketInfo.isWithin = false;
     }
 
     var orderTicketsData = JSON.stringify(orderTicketInfo);

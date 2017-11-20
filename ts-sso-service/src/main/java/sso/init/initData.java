@@ -26,6 +26,16 @@ public class initData implements CommandLineRunner {
         acc.setGender(Gender.MALE.getCode());
         acc.setId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
         ssoService.createAccount(acc);
+
+        acc = new Account();
+        acc.setDocumentType(DocumentType.ID_CARD.getCode());
+        acc.setDocumentNum("DefaultDocumentNumber");
+        acc.setEmail("root@163.com");
+        acc.setPassword("adminroot");
+        acc.setName("adminroot");
+        acc.setGender(Gender.MALE.getCode());
+        acc.setId(UUID.fromString("1d1a11c1-11cb-1cf1-b1bb-b11111d1da1f"));
+        ssoService.createAccount(acc);
     }
 
 }

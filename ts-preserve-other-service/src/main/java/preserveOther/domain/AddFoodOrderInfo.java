@@ -1,48 +1,29 @@
-package foodsearch.domain;
+package preserveOther.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class AddFoodOrderInfo {
 
-import java.util.UUID;
-
-@Document(collection = "foodorder")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class FoodOrder {
-
-    @Id
-    private UUID id;
-
-    private UUID orderId;
+    private String orderId;
 
     //1:train food;2:food store
     private int foodType;
 
-    private String stationName;
+    private String stationName = "";
 
-    private String storeName;
+    private String storeName = "";
 
     private String foodName;
 
     private double price;
 
-    public FoodOrder(){
+    public AddFoodOrderInfo(){
 
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(UUID orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -85,7 +66,6 @@ public class FoodOrder {
     public void setPrice(double price) {
         this.price = price;
     }
-
 
 
 }

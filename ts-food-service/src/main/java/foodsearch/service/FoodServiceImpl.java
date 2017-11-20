@@ -131,7 +131,7 @@ public class FoodServiceImpl implements FoodService{
             fo.setOrderId(UUID.fromString(afoi.getOrderId()));
             fo.setFoodType(afoi.getFoodType());
             if(afoi.getFoodType() == 1){
-                fo.setStation(afoi.getStation());
+                fo.setStationName(afoi.getStationName());
                 fo.setStoreName(afoi.getStoreName());
             }
             fo.setFoodName(afoi.getFoodName());
@@ -179,7 +179,7 @@ public class FoodServiceImpl implements FoodService{
 //            fo.setOrderId(UUID.fromString(ufoi.getOrderId()));
             fo.setFoodType(ufoi.getFoodType());
             if(ufoi.getFoodType() == 1){
-                fo.setStation(ufoi.getStation());
+                fo.setStationName(ufoi.getStationName());
                 fo.setStoreName(ufoi.getStoreName());
             }
             fo.setFoodName(ufoi.getFoodName());
