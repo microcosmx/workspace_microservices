@@ -40,6 +40,7 @@
         <script type="text/javascript" src="js/routePlan.js" defer charset="utf-8"></script>
         <script type="text/javascript" src="js/food.js" defer charset="UTF-8"></script>
         <script type="text/javascript" src="js/myflow.js" defer charset="UTF-8"></script>
+        <script type="text/javascript" src="js/flowAdvancedSearch.js" defer charset="UTF-8"></script>
     </head>
     <body onload="onLoadBody()">
     <div class="container">
@@ -2963,7 +2964,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading booking">
                     <h3 class="panel-title">
-                        Advanced Ticket Reserve 2: - Advanced Ticket Searching
+                        Advanced Ticket Reserve Step 2: - Advanced Ticket Searching
                     </h3>
                 </div>
                 <div class="input-box panel-body">
@@ -3026,7 +3027,195 @@
                 </div>
             </div>
 
-            <!--Step 3 && Step 4 -->
+            <!----------------------Select contacts for ticket--------------->
+            <a name="anchor_flow_advance_reserve_select_contacts"></a>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Advanced Ticket Reserve Step 3: - Select Contacts
+                        <button id="flow_advance_reserve_refresh_booking_contacts_button" type="button" class="btn btn-default btn-sm">Refresh Contacts</button>
+                    </h3>
+                </div>
+                <div class="panel-body booking">
+                    <form role='form' class='form-horizontal'>
+                        <table id="flow_advance_reserve_contacts_booking_list_table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Document Type</th>
+                                <th>Document Number</th>
+                                <th>Phone Number</th>
+                                <th>Operation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!----An empty table----->
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Assurance:</label>
+                            <div class="col-sm-4">
+                                <select id="flow_advance_reserve_assurance_type" class="form-control" >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox col-sm-4">
+                                <label>
+                                    <input id="flow_advance_reserve_need_food_or_not" type="checkbox" class="control-label" onclick="flow_advance_search_needFoodOrNot()">Need Food
+                                </label>
+                            </div>
+                            <div id="flow_advance_reserve_food_preserve_select" class="checkbox col-sm-4" style="display: none">
+                                <label>
+                                    <select id="flow_advance_reserve_food_type" class="form-control" onchange="flow_advance_search_changeFoodType()">
+                                        <option value="0" id="flow_advance_reserve_no_food">-- --</option>
+                                        <option value="1" id="flow_advance_reserve_train_food_option">Train Food</option>
+                                        <option value="2" id="flow_advance_reserve_station_food_option">Station Food Stores</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="flow_advance_reserve_train_food_selected" class="form-group" style="display: none">
+                            <select id="flow_advance_reserve_train_food_type_list" class="form-control" >
+                            </select>
+                        </div>
+                        <div  id="flow_advance_reserve_food_store_selected" class="form-group" style="display: none">
+                            <div class="col-sm-3">
+                                <select id="flow_advance_reserve_food_station_list" class="form-control" onchange="flow_advance_search_preserveChangeFoodStation()">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="flow_advance_reserve_food_stores_list" class="form-control" onchange="flow_advance_search_preserveChangeFoodStore()">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="flow_advance_reserve_food_store_food_list" class="form-control" >
+                                </select>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'></label>
+                            <div class='col-sm-10'>
+                                <button id='flow_advance_reserve_select_contacts_cancel_btn' type='button' class='btn btn-default'> Cancel </button>
+                                <button id='flow_advance_reserve_select_contacts_confirm_btn' type='button' class='btn btn-primary'> Select </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-----------------Preserve Information Confirm------------------>
+            <a name="anchor_flow_advance_reserve_confirm"></a>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>
+                    <h4 class='panel-title'>
+                        Advanced Ticket Reserve Step 4: - Confirm Your Ticket Information
+                    </h4>
+                </div>
+                <div class='panel-body'>
+                    <form role='form' class='form-horizontal'>
+                        <div class='div form-group'>
+                            <label class='col-sm-2 control-label'>From: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_from' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='div form-group'>
+                            <label class='col-sm-2 control-label'>To: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_to' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Trip Id: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_tripId' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Price: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_price' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Date: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_travel_date' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Name: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_contactsName' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Seat Type: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_seatType' class='noshow_component control-label'></label>
+                                <label id='flow_advance_reserve_confirm_seatType_String' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>Document Type: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_documentType' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'>DocumentNumber: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_documentNumber' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="flow_advance_reserve_confirm_food_type_div">
+                            <label class='col-sm-2 control-label'>Food Type: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_food_type' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="flow_advance_reserve_confirm_food_station_div">
+                            <label class='col-sm-2 control-label'>Food Station: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_food_station' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="flow_advance_reserve_confirm_food_store_div">
+                            <label class='col-sm-2 control-label'>Store Name: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_food_store' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="flow_advance_reserve_confirm_food_name_div">
+                            <label class='col-sm-2 control-label'>Food Name: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_food_name' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group' style="display: none" id="flow_advance_reserve_confirm_food_price_div">
+                            <label class='col-sm-2 control-label'>Food Price: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_food_price' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group noshow_component'>
+                            <label class='col-sm-2 control-label'>Contact Id: </label>
+                            <div class='col-sm-10'>
+                                <label id='flow_advance_reserve_confirm_contactsId' class='control-label'></label>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-sm-2 control-label'></label>
+                            <div class='col-sm-10'>
+                                <button id='flow_advance_reserve_confirm_cancel_btn' type='button' class='btn btn-default'> No, some information wrong </button>
+                                <button id='flow_advance_reserve_confirm_confirm_btn' type='button' class='btn btn-primary'> Confirm Ticket </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             <a name="anchor_flow_advance_reserve_pay"></a>
             <div class="panel panel-default">
