@@ -42,7 +42,7 @@ $("#flow_four_page").click(function(){
 });
 
 $("#admin_page").click(function(){
-    location.hash = "login.html";
+    location.hash = "adminlogin.html";
 });
 
 

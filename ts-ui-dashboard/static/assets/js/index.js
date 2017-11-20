@@ -68,8 +68,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
     //首次加载显示数据
     loadDataService.loadRecordList(param).then(function (result) {
         $scope.records = result.orderRecords;
-        $scope.decodeInfo(result.orderRecords[0]);
-
+        //$scope.decodeInfo(result.orderRecords[0]);
     });
 
     $scope.decodeInfo = function (obj) {

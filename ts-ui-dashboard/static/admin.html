@@ -192,23 +192,23 @@
                                             <th class="table-set">Operation</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody ng-repeat=" record in records">
                                         <tr>
-                                            <td>2017-11-20</td>
-                                            <td>2017-11-20</td>
-                                            <td>20:45</td>
-                                            <td>Account1</td>
-                                            <td>Lab401</td>
-                                            <td>ID Card</td>
-                                            <td>39274938948459582045</td>
-                                            <td>G1234</td>
-                                            <td>9</td>
-                                            <td>Second Class</td>
-                                            <td>31</td>
-                                            <td>ShangHai</td>
-                                            <td>NanJing</td>
-                                            <td>Used</td>
-                                            <td>900</td>
+                                            <td>{{record.boughtDate}}</td>
+                                            <td>{{record.travelDate}}</td>
+                                            <td>{{record.travelTime}}</td>
+                                            <td>{{record.accountId}}</td>
+                                            <td>{{record.contactsName}}</td>
+                                            <td>{{record.documentType}}</td>
+                                            <td>{{record.contactsDocumentNumber}}</td>
+                                            <td>{{record.trainNumber}}</td>
+                                            <td>{{record.coachNumber}}</td>
+                                            <td>{{record.seatClass}}</td>
+                                            <td>{{record.seatNumber}}</td>
+                                            <td>{{record.from}}</td>
+                                            <td>{{record.to}}</td>
+                                            <td>{{record.status}}</td>
+                                            <td>{{record.price}}</td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
