@@ -388,14 +388,15 @@ function addListenerToVoucherPrint() {
     var voucherButtonSet = $(".voucher_print_btn");
     for (var i = 0; i < voucherButtonSet.length; i++) {
         voucherButtonSet[i].onclick = function () {
-            var url = "voucher.html?orderId=" + escape($(this).parents("form").find(".my_order_list_id").text());
-            url += "&from=" + escape($(this).parents("form").find(".my_order_list_from").text());
-            url += "&to=" + escape($(this).parents("form").find(".my_order_list_to").text());
-            url += "&bought_date=" + escape($(this).parents("form").find(".my_order_list_bought_date").text());
-            url += "&price=" + escape($(this).parents("form").find(".my_order_list_price").text());
-            url += "&passenger=" + escape($(this).parents("form").find(".my_order_list_contactname").text());
-            url += "&seat=" + escape($(this).parents("form").find(".my_order_list_seat").text());
-            url += "&train_number=" + escape($(this).parents("form").find(".my_order_list_train_number").text());
+            var url = "login.html";
+            //var url = "voucher.html?orderId=" + escape($(this).parents("form").find(".my_order_list_id").text());
+            // url += "&from=" + escape($(this).parents("form").find(".my_order_list_from").text());
+            // url += "&to=" + escape($(this).parents("form").find(".my_order_list_to").text());
+            // url += "&bought_date=" + escape($(this).parents("form").find(".my_order_list_bought_date").text());
+            // url += "&price=" + escape($(this).parents("form").find(".my_order_list_price").text());
+            // url += "&passenger=" + escape($(this).parents("form").find(".my_order_list_contactname").text());
+            // url += "&seat=" + escape($(this).parents("form").find(".my_order_list_seat").text());
+            //url += "&train_number=" + escape($(this).parents("form").find(".my_order_list_train_number").text());
             location.href = url;
         }
     }

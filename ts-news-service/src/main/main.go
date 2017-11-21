@@ -9,7 +9,8 @@ import (
 )
 
 func hello(val string) string {
-	return fetch()
+	str := "[Title] Welcome to Our Train Ticket System. [Content] Hello World. This service is for news"
+	return str
 }
 
 func fetch() string {
@@ -37,6 +38,6 @@ func fetch() string {
 
 
 func main() {
-	web.Get("/news", hello)
+	web.Get("/news-service/news", hello)
 	web.Run("0.0.0.0:12862")
 }

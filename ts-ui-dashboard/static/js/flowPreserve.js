@@ -203,10 +203,13 @@ function addListenerToBookingTable(){
 }
 
 function needFoodOrNot(){
-    if($('#need-food-or-not').attr('checked')){
+    if($('#need-food-or-not').is(':checked')){
         $('#food-preserve-select').css("display", "block");
     } else {
         $('#food-preserve-select').css("display", "none");
+        $('#food-store-selected').css("display", "none");
+        $('#train-food-selected').css("display", "none");
+        $('#preserve_food_type').val(0);
     }
 }
 
@@ -215,9 +218,13 @@ function changeFoodType(){
     if(type == 1){
         $('#train-food-selected').css("display", "block");
         $('#food-store-selected').css("display", "none");
-    } else {
+        $('#food-station-list').val(0);
+    } else if(type == 2){
         $('#train-food-selected').css("display", "none");
         $('#food-store-selected').css("display", "block");
+    } else {
+        $('#train-food-selected').css("display", "none");
+        $('#food-store-selected').css("display", "none");
     }
 }
 
@@ -230,7 +237,7 @@ function initFoodSelect(tripId){
     data.endStation = $('#travel_booking_terminalPlace').val() || "";
     data.tripId = tripId;
 
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
     $.ajax({
         type: "post",
         url: "/food/getFood",
@@ -243,27 +250,33 @@ function initFoodSelect(tripId){
         success: function(result){
             console.log(result);
             if(result.status){
-                var trainFoodList = result.trainFoodList[0]['foodList'];
-                console.log("trainFoodList:" );
-                console.log(trainFoodList[0]);
 
-                $("#train-food-type-list").html("");
-                $("#food-station-list").html("");
-                $("#food-stores-list").html("");
-                $("#food-store-food-list").html("");
+                if(null == result.trainFoodList || result.trainFoodList.length == 0){
+                    //没有
+                    $('#train-food-option').disabled(true);
+                } else {
+                    var trainFoodList = result.trainFoodList[0]['foodList'];
+                    console.log("trainFoodList:" );
+                    console.log(trainFoodList[0]);
 
-                var trainFoodSelect = document.getElementById ("train-food-type-list");
-                var opt1 = document.createElement ("option");
-                opt1.value = 0;
-                opt1.innerText = "-- --";
-                trainFoodSelect.appendChild(opt1);
-                for(var k = 0; k < trainFoodList.length; k++){
-                    var opt2 = document.createElement ("option");
-                    opt2.value = k + 1;
-                    k++;
-                    opt2.innerText = trainFoodList[k]['foodName'] + " $" + trainFoodList[k]['price'];
-                    trainFoodSelect.appendChild (opt2);
+                    $("#train-food-type-list").html("");
+                    $("#food-station-list").html("");
+                    $("#food-stores-list").html("");
+                    $("#food-store-food-list").html("");
+
+                    var trainFoodSelect = document.getElementById ("train-food-type-list");
+                    var opt1 = document.createElement ("option");
+                    opt1.value = 0;
+                    opt1.innerText = "-- --";
+                    trainFoodSelect.appendChild(opt1);
+                    for(var k = 0; k < trainFoodList.length; k++){
+                        var opt2 = document.createElement ("option");
+                        opt2.value = k + 1;
+                        opt2.innerText = trainFoodList[k]['foodName'] + ":$" + trainFoodList[k]['price'];
+                        trainFoodSelect.appendChild (opt2);
+                    }
                 }
+
 
                 preserveFoodStoreListMap = result.foodStoreListMap;
                 console.log(" preserveFoodStoreListMap:");
@@ -296,7 +309,7 @@ function preserveChangeFoodStation(){
     var  foodStoreList = preserveFoodStoreListMap[station];
 
     var foodStoreSelect = document.getElementById ("food-stores-list");
-    foodStoreSelect.html("");
+    foodStoreSelect.innerHTML = "";
     var opt5 = document.createElement ("option");
     opt5.value = 0;
     opt5.innerText = "-- --";
@@ -311,11 +324,14 @@ function preserveChangeFoodStation(){
 
 function preserveChangeFoodStore(){
     var station = $('#food-station-list').find("option:selected").text();
-    var storeIndex = $('#food-stores-list').find("option:selected").val();
-    var  foodList = preserveFoodStoreListMap[station][storeIndex-1];
+    var storeIndex = parseInt($('#food-stores-list').find("option:selected").val());
+    console.log("storeIndex=" +storeIndex);
+    var  foodList = preserveFoodStoreListMap[station][storeIndex-1]['foodList'];
+    console.log("preserveChangeFoodStore: foodList: ");
+    console.log(foodList);
     
     var foodStoreFoodSelect = document.getElementById ("food-store-food-list");
-    foodStoreFoodSelect.html("");
+    foodStoreFoodSelect.innerHTML = "";
     var opt5 = document.createElement ("option");
     opt5.value = 0;
     opt5.innerText = "-- --";
@@ -323,8 +339,16 @@ function preserveChangeFoodStore(){
     for(var j = 0; j < foodList.length; j++){
         var opt6 = document.createElement ("option");
         opt6.value = j+1;
-        opt6.innerText = foodList[j]['foodName'] +" $" + foodList[j]['price'];
+        opt6.innerText = foodList[j]['foodName'] +":$" + foodList[j]['price'];
         foodStoreFoodSelect.appendChild (opt6);
+    }
+}
+
+function needConsignOrNot(){
+    if($('#need-consign-or-not').is(':checked')){
+        $('.consign_input').css("display", "block");
+    } else {
+        $('.consign_input').css("display", "none");
     }
 }
 
@@ -456,6 +480,49 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
                 $("#ticket_confirm_contactsName").text(contactsName);
                 $("#ticket_confirm_documentType").text(documentType);
                 $("#ticket_confirm_documentNumber").text(documentNumber);
+                //show th food information
+                if($('#need-food-or-not').is(":checked")){
+                    $('#ticket_confirm_food_type_div').css("display","block");
+                    $('#ticket_confirm_food_name_div').css("display","block");
+                    $('#ticket_confirm_food_price_div').css("display","block");
+                    var type = $('#preserve_food_type').find("option:selected").text();
+                    $('#ticket_confirm_food_type').text(type);
+                    if($('#preserve_food_type').find("option:selected").val() == 1){
+                        var fp =  $('#train-food-type-list').find("option:selected").text().split(":");
+                        $('#ticket_confirm_food_name').text(fp[0]);
+                        $('#ticket_confirm_food_price').text(fp[1]);
+                        $('#ticket_confirm_food_station_div').css("display","none");
+                        $('#ticket_confirm_food_store_div').css("display","none");
+                    } else {
+                        var fp2 =  $('#food-store-food-list').find("option:selected").text().split(":");
+                        $('#ticket_confirm_food_name').text(fp2[0]);
+                        $('#ticket_confirm_food_price').text(fp2[1]);
+                        $('#ticket_confirm_food_station_div').css("display","block");
+                        $('#ticket_confirm_food_store_div').css("display","block");
+                        $('#ticket_confirm_food_station').text($('#food-station-list').find("option:selected").text());
+                        $('#ticket_confirm_food_store').text($('#food-stores-list').find("option:selected").text());
+                    }
+
+                } else {
+                    $('#ticket_confirm_food_type_div').css("display","none");
+                    $('#ticket_confirm_food_station_div').css("display","none");
+                    $('#ticket_confirm_food_store_div').css("display","none");
+                    $('#ticket_confirm_food_name_div').css("display","none");
+                    $('#ticket_confirm_food_price_div').css("display","none");
+                }
+
+                //Show the consign information
+                if($('#need-consign-or-not').is(":checked")){
+                    $('.ticket_confirm_consign_div').css("display", "block");
+                    $('#ticket_confirm_consignee_name').text($(" #name_of_consignee ").val());
+                    $('#ticket_confirm_consignee_phone').text($(" #phone_of_consignee ").val());
+                    $('#ticket_confirm_consign_weight').text($(" #weight_of_consign ").val());
+                }
+                else{
+                    $('.ticket_confirm_consign_div').css("display", "none");
+                }
+
+
                 break;
             }
         }
@@ -527,6 +594,7 @@ $("#ticket_confirm_confirm_btn").click(function () {
     if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
         alert("Please Login");
     }
+
     $("#ticket_confirm_confirm_btn").attr("disabled",true);
     var orderTicketInfo = new Object();
     orderTicketInfo.contactsId = $("#ticket_confirm_contactsId").text();
@@ -536,7 +604,49 @@ $("#ticket_confirm_confirm_btn").click(function () {
     orderTicketInfo.from = $("#ticket_confirm_from").text();
     orderTicketInfo.to = $("#ticket_confirm_to").text();
     orderTicketInfo.assurance = $("#assurance_type").val();
+
+    //add the food information
+    if(null != $('#ticket_confirm_food_type').val() && "" != $('#ticket_confirm_food_type').val()){
+        if($('#ticket_confirm_food_type').val() == 1){
+            orderTicketInfo.foodType = 1;
+            orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
+            orderTicketInfo.stationName = "";
+            orderTicketInfo.storeName = "";
+        } else if ($('#ticket_confirm_food_type').val()== 2){
+            orderTicketInfo.foodType = 2;
+            orderTicketInfo.stationName = $('#ticket_confirm_food_station').text();
+            orderTicketInfo.storeName = $('#ticket_confirm_food_store').text();
+            orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
+        }
+    }
+
+    //Add the consign information
+    if($('#need-consign-or-not').is(":checked")){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        orderTicketInfo.handleDate = currentdate;
+        orderTicketInfo.consigneeName = $("#name_of_consignee ").val();
+        orderTicketInfo.consigneePhone = $("#phone_of_consignee ").val();
+        orderTicketInfo.consigneeWeight = parseFloat($("#weight_of_consign ").val());
+        orderTicketInfo.isWithin = false;
+    }
+
     var orderTicketsData = JSON.stringify(orderTicketInfo);
+    // console.log("orderTicketsData:");
+    // concole.log(orderTicketsData);
+
     var tripType = orderTicketInfo.tripId.charAt(0);
     if(tripType == 'G' || tripType == 'D'){
         path = "/preserve";

@@ -24,4 +24,6 @@ public interface AccountSsoService {
 
     GetAccountByIdResult getAccountById(GetAccountByIdInfo info);
 
+    Contacts adminLogin(String name, String password);
+
 }

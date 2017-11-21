@@ -97,4 +97,12 @@ public class AccountSsoController {
         return ssoService.loginPutToken(loginId);
     }
 
+    //Admin login
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/adminlogin", method = RequestMethod.POST)
+    public Contacts adminLogin(@RequestBody AdminLoginInfo ali){
+        System.out.println("[SSO Service][Admin Login]");
+        return ssoService.adminLogin(ali.getName(), ali.getPassword());
+    }
+
 }

@@ -41,6 +41,10 @@ $("#flow_four_page").click(function(){
     $("#flow_four").css('display','block');
 });
 
+$("#admin_page").click(function(){
+    location.hash = "adminlogin.html";
+});
+
 
 // function addListenerToPaymentTable(){
 //     var ticketPaymentButtonSet = $(".ticket_payment_button");
