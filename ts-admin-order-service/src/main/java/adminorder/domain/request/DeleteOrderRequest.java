@@ -3,19 +3,19 @@ package adminorder.domain.request;
 import adminorder.domain.bean.Order;
 
 public class DeleteOrderRequest {
-    private String id;
+    private String loginid;
     private Order order;
 
     public DeleteOrderRequest(){
 
     }
 
-    public String getId() {
-        return id;
+    public String getLoginid() {
+        return loginid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLoginid(String loginid) {
+        this.loginid = loginid;
     }
 
     public Order getOrder() {

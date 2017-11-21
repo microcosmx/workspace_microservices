@@ -20,8 +20,8 @@
     <script type="text/javascript" src="assets/js/index.js"></script>
 </head>
 
-<body data-type="generalComponents" onload="loadBody()">
-
+<!--<body data-type="generalComponents" onload="loadBody()">-->
+<body data-type="generalComponents">
     <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
         <a href="javascript:;" class="tpl-logo">
@@ -139,7 +139,7 @@
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> Add</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-success" ng-click="addNewOrder()"><span class="am-icon-plus"></span> Add</button>
                                     <!--<button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> Save</button>-->
                                     <!--<button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> Check</button>-->
                                     <!--<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> Delete</button>-->
@@ -194,6 +194,15 @@
                                     </thead>
                                     <tbody ng-repeat=" record in records">
                                         <tr>
+                                            <td>
+                                                <div class="am-btn-toolbar my-am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary" ng-click="updateOrder(record)"><span class="am-icon-pencil-square-o"></span> Update</button>
+                                                        <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>-->
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteOrder(record.id)"><span class="am-icon-trash-o"></span> Delete</button>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>{{record.boughtDate}}</td>
                                             <td>{{record.travelDate}}</td>
                                             <td>{{record.travelTime}}</td>
@@ -209,17 +218,233 @@
                                             <td>{{record.to}}</td>
                                             <td>{{record.status}}</td>
                                             <td>{{record.price}}</td>
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> Update</button>
-                                                        <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>-->
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> Delete</button>
-                                                    </div>
-                                                </div>
-                                            </td>
                                         </tr>
                                     </tbody>
+
+                                    <!-- Prompt Update Order -->
+                                    <div class="am-modal am-modal-prompt" tabindex="-1" id="update_prompt">
+                                        <div class="am-modal-dialog my-modal-dialog">
+                                            <div class="am-modal-hd">Update Order</div>
+                                            <div class="am-modal-bd">
+                                                <div class="am-g tpl-amazeui-form">
+                                                    <div class="am-u-sm-12">
+                                                        <form class="am-form am-form-horizontal">
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_id" class="am-u-sm-5 am-form-label">Order Id: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" readonly="readonly" id="update_order_id" class="am-modal-prompt-input" ng-model="update_order_id">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_bought_date" class="am-u-sm-5 am-form-label">Bought Date: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_bought_date" class="am-modal-prompt-input" ng-model="update_order_bought_date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_travel_date" class="am-u-sm-5 am-form-label">Travel Date: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_travel_date" class="am-modal-prompt-input" ng-model="update_order_travel_date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_travel_time" class="am-u-sm-5 am-form-label">Travel Time: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_travel_time" class="am-modal-prompt-input" ng-model="update_order_travel_time">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_account" class="am-u-sm-5 am-form-label">Account: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_account" class="am-modal-prompt-input" ng-model="update_order_account">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_passenger" class="am-u-sm-5 am-form-label">Passenger: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_passenger" class="am-modal-prompt-input" ng-model="update_order_passenger">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_add_order_document_type" class="am-u-sm-5 am-form-label">Document Type: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_add_order_document_type" class="am-modal-prompt-input" ng-model="update_add_order_document_type">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_document_number" class="am-u-sm-5 am-form-label">Document Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_document_number" class="am-modal-prompt-input" ng-model="update_order_document_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_train_number" class="am-u-sm-5 am-form-label">Train Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_train_number" class="am-modal-prompt-input" ng-model="update_order_train_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_coach_number" class="am-u-sm-5 am-form-label">Coach Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_coach_number" class="am-modal-prompt-input" ng-model="update_order_coach_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_seat_class" class="am-u-sm-5 am-form-label">Seat Class: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_seat_class" class="am-modal-prompt-input" ng-model="update_order_seat_class">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_seat_number" class="am-u-sm-5 am-form-label">Seat Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_seat_number" class="am-modal-prompt-input" ng-model="update_order_seat_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_from" class="am-u-sm-5 am-form-label">From: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_from" class="am-modal-prompt-input" ng-model="update_order_from">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_to" class="am-u-sm-5 am-form-label">To: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_to" class="am-modal-prompt-input" ng-model="update_order_to">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_status" class="am-u-sm-5 am-form-label">Status: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_status" class="am-modal-prompt-input" ng-model="update_order_status">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_order_price" class="am-u-sm-5 am-form-label">Price: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_order_price" class="am-modal-prompt-input" ng-model="update_order_price">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="am-modal-footer">
+                                                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                                                <span class="am-modal-btn" data-am-modal-confirm>Update</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Prompt Add Order -->
+                                    <div class="am-modal am-modal-prompt" tabindex="-1" id="add_prompt">
+                                        <div class="am-modal-dialog my-modal-dialog">
+                                            <div class="am-modal-hd">Add Order</div>
+                                            <div class="am-modal-bd">
+                                                <div class="am-g tpl-amazeui-form">
+                                                    <div class="am-u-sm-12">
+                                                        <form class="am-form am-form-horizontal">
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_bought_date" class="am-u-sm-5 am-form-label">Bought Date: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_bought_date" class="am-modal-prompt-input" ng-model="add_order_bought_date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_travel_date" class="am-u-sm-5 am-form-label">Travel Date: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_travel_date" class="am-modal-prompt-input" ng-model="add_order_travel_date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_travel_time" class="am-u-sm-5 am-form-label">Travel Time: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_travel_time" class="am-modal-prompt-input" ng-model="add_order_travel_time">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_account" class="am-u-sm-5 am-form-label">Account: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_account" class="am-modal-prompt-input" ng-model="add_order_account">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_passenger" class="am-u-sm-5 am-form-label">Passenger: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_passenger" class="am-modal-prompt-input" ng-model="add_order_passenger">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_document_type" class="am-u-sm-5 am-form-label">Document Type: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_document_type" class="am-modal-prompt-input" ng-model="add_order_document_type">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_document_number" class="am-u-sm-5 am-form-label">Document Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_document_number" class="am-modal-prompt-input" ng-model="add_order_document_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_train_number" class="am-u-sm-5 am-form-label">Train Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_train_number" class="am-modal-prompt-input" ng-model="add_order_train_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_coach_number" class="am-u-sm-5 am-form-label">Coach Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_coach_number" class="am-modal-prompt-input" ng-model="add_order_coach_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_seat_class" class="am-u-sm-5 am-form-label">Seat Class: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_seat_class" class="am-modal-prompt-input" ng-model="add_order_seat_class">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_seat_number" class="am-u-sm-5 am-form-label">Seat Number: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_seat_number" class="am-modal-prompt-input" ng-model="add_order_seat_number">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_from" class="am-u-sm-5 am-form-label">From: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_from" class="am-modal-prompt-input" ng-model="add_order_from">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_to" class="am-u-sm-5 am-form-label">To: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_to" class="am-modal-prompt-input" ng-model="add_order_to">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_status" class="am-u-sm-5 am-form-label">Status: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_status" class="am-modal-prompt-input" ng-model="add_order_status">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_order_price" class="am-u-sm-5 am-form-label">Price: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_order_price" class="am-modal-prompt-input" ng-model="add_order_price">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="am-modal-footer">
+                                                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                                                <span class="am-modal-btn" data-am-modal-confirm>Add</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </table>
 
                             </form>
