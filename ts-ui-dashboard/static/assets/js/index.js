@@ -84,28 +84,29 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         $('#add_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
-                alert('你输入的是：' + $scope.add_order_bought_date + $scope.add_order_travel_date);
                 $http({
                     method: "post",
                     url: "/adminorder/addOrder",
                     withCredentials: true,
                     data:{
                         loginid: sessionStorage.getItem("admin_id"),
-                        boughtDate: $scope.add_order_bought_date,
-                        travelDate: $scope.add_order_travel_date,
-                        travelTime: $scope.add_order_travel_time,
-                        accountId: $scope.add_order_account,
-                        contactsName: $scope.add_order_passenger,
-                        documentType: $scope.add_order_document_type,
-                        contactsDocumentNumber: $scope.add_order_document_number,
-                        trainNumber: $scope.add_order_train_number,
-                        coachNumber: $scope.add_order_coach_number,
-                        seatClass: $scope.add_order_seat_class,
-                        seatNumber: $scope.add_order_seat_number,
-                        from: $scope.add_order_from,
-                        to: $scope.add_order_to,
-                        status: $scope.add_order_status,
-                        price: $scope.add_order_price
+                        order:{
+                            boughtDate: $scope.add_order_bought_date,
+                            travelDate: $scope.add_order_travel_date,
+                            travelTime: $scope.add_order_travel_time,
+                            accountId: $scope.add_order_account,
+                            contactsName: $scope.add_order_passenger,
+                            documentType: $scope.add_order_document_type,
+                            contactsDocumentNumber: $scope.add_order_document_number,
+                            trainNumber: $scope.add_order_train_number,
+                            coachNumber: $scope.add_order_coach_number,
+                            seatClass: $scope.add_order_seat_class,
+                            seatNumber: $scope.add_order_seat_number,
+                            from: $scope.add_order_from,
+                            to: $scope.add_order_to,
+                            status: $scope.add_order_status,
+                            price: $scope.add_order_price
+                        }
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -144,29 +145,30 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         $('#update_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
-                alert('你输入的是：' + $scope.add_order_bought_date + $scope.add_order_travel_date);
                 $http({
                     method: "post",
                     url: "/adminorder/updateOrder",
                     withCredentials: true,
                     data:{
                         loginid: sessionStorage.getItem("admin_id"),
-                        id: $scope.update_order_id,
-                        boughtDate: $scope.update_order_bought_date,
-                        travelDate: $scope.update_order_travel_date,
-                        travelTime: $scope.update_order_travel_time,
-                        accountId: $scope.update_order_account,
-                        contactsName: $scope.update_order_passenger,
-                        documentType: $scope.update_add_order_document_type,
-                        contactsDocumentNumber: $scope.update_order_document_number,
-                        trainNumber: $scope.update_order_train_number,
-                        coachNumber: $scope.update_order_coach_number,
-                        seatClass: $scope.update_order_seat_class,
-                        seatNumber: $scope.update_order_seat_number,
-                        from: $scope.update_order_from,
-                        to: $scope.update_order_to,
-                        status: $scope.update_order_status,
-                        price: $scope.update_order_price
+                        order:{
+                            id: $scope.update_order_id,
+                            boughtDate: $scope.update_order_bought_date,
+                            travelDate: $scope.update_order_travel_date,
+                            travelTime: $scope.update_order_travel_time,
+                            accountId: $scope.update_order_account,
+                            contactsName: $scope.update_order_passenger,
+                            documentType: $scope.update_add_order_document_type,
+                            contactsDocumentNumber: $scope.update_order_document_number,
+                            trainNumber: $scope.update_order_train_number,
+                            coachNumber: $scope.update_order_coach_number,
+                            seatClass: $scope.update_order_seat_class,
+                            seatNumber: $scope.update_order_seat_number,
+                            from: $scope.update_order_from,
+                            to: $scope.update_order_to,
+                            status: $scope.update_order_status,
+                            price: $scope.update_order_price
+                        }
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
