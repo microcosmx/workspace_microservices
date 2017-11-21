@@ -26,8 +26,12 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照二等座位结果排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
-        finalResult.addAll(highSpeed);
-        finalResult.addAll(normalTrain);
+        for(TripResponse tr : highSpeed){
+            finalResult.add(tr);
+        }
+        for(TripResponse tr : normalTrain){
+            finalResult.add(tr);
+        }
 
         float minPrice = Float.MAX_VALUE;
         int minIndex = -1;
@@ -35,7 +39,8 @@ public class RoutePlanServiceImpl implements RoutePlanService{
         ArrayList<TripResponse> returnResult = new ArrayList<>();
         for(int i = 0;i < size;i++){
             for(int j = 0;j < finalResult.size();j++){
-                if(Float.parseFloat(finalResult.get(j).getPriceForEconomyClass()) < minPrice){
+                TripResponse thisRes = finalResult.get(j);
+                if(Float.parseFloat(thisRes.getPriceForEconomyClass()) < minPrice){
                     minPrice = Float.parseFloat(finalResult.get(j).getPriceForEconomyClass());
                     minIndex = j;
                 }
@@ -64,8 +69,12 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照时间排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
-        finalResult.addAll(highSpeed);
-        finalResult.addAll(normalTrain);
+        for(TripResponse tr : highSpeed){
+            finalResult.add(tr);
+        }
+        for(TripResponse tr : normalTrain){
+            finalResult.add(tr);
+        }
 
         long minTime = Long.MAX_VALUE;
         int minIndex = -1;
@@ -73,8 +82,9 @@ public class RoutePlanServiceImpl implements RoutePlanService{
         ArrayList<TripResponse> returnResult = new ArrayList<>();
         for(int i = 0;i < size;i++){
             for(int j = 0;j < finalResult.size();j++){
-                if(finalResult.get(j).getEndTime().getTime() - finalResult.get(j).getStartingTime().getTime() < minTime){
-                    minTime = finalResult.get(j).getEndTime().getTime() - finalResult.get(j).getStartingTime().getTime();
+                TripResponse thisRes = finalResult.get(j);
+                if(thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime() < minTime){
+                    minTime = thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime();
                     minIndex = j;
                 }
             }
