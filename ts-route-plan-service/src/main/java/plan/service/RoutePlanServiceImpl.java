@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import plan.domain.*;
-import sun.java2d.pipe.AAShapePipe;
-
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class RoutePlanServiceImpl implements RoutePlanService{
@@ -32,13 +29,23 @@ public class RoutePlanServiceImpl implements RoutePlanService{
         finalResult.addAll(highSpeed);
         finalResult.addAll(normalTrain);
 
-        if(finalResult.size() >= 5){
-            ArrayList<TripResponse> list = new ArrayList<>();
-            list.addAll(finalResult.subList(0,5));
-            return list;
-        }else{
-            return finalResult;
+        float minPrice = Float.MAX_VALUE;
+        int minIndex = -1;
+        int size = Math.min(5,finalResult.size());
+        ArrayList<TripResponse> returnResult = new ArrayList<>();
+        for(int i = 0;i < size;i++){
+            for(int j = 0;j < finalResult.size();j++){
+                if(Float.parseFloat(finalResult.get(j).getPriceForEconomyClass()) < minPrice){
+                    minPrice = Float.parseFloat(finalResult.get(j).getPriceForEconomyClass());
+                    minIndex = j;
+                }
+            }
+            returnResult.add(finalResult.get(minIndex));
+            finalResult.remove(minIndex);
         }
+
+        return returnResult;
+
 
 
     }
@@ -60,13 +67,22 @@ public class RoutePlanServiceImpl implements RoutePlanService{
         finalResult.addAll(highSpeed);
         finalResult.addAll(normalTrain);
 
-        if(finalResult.size() >= 5){
-            ArrayList<TripResponse> list = new ArrayList<>();
-            list.addAll(finalResult.subList(0,5));
-            return list;
-        }else{
-            return finalResult;
+        long minTime = Long.MAX_VALUE;
+        int minIndex = -1;
+        int size = Math.min(finalResult.size(),5);
+        ArrayList<TripResponse> returnResult = new ArrayList<>();
+        for(int i = 0;i < size;i++){
+            for(int j = 0;j < finalResult.size();j++){
+                if(finalResult.get(j).getEndTime().getTime() - finalResult.get(j).getStartingTime().getTime() < minTime){
+                    minTime = finalResult.get(j).getEndTime().getTime() - finalResult.get(j).getStartingTime().getTime();
+                    minIndex = j;
+                }
+            }
+            returnResult.add(finalResult.get(minIndex));
+            finalResult.remove(minIndex);
         }
+
+        return returnResult;
     }
 
     @Override
