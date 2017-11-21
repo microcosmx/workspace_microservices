@@ -49,6 +49,12 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/order/adminAddOrder", method = RequestMethod.POST)
+    public AddOrderResult addcreateNewOrder(@RequestBody Order order){
+        return orderService.addNewOrder(order);
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/order/query", method = RequestMethod.POST)
     public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi,@CookieValue String loginId,@CookieValue String loginToken){
         System.out.println("[Order Service][Query Orders] Query Orders for " + loginId);
@@ -120,6 +126,12 @@ public class OrderController {
             cor.setOrder(null);
             return cor;
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/order/adminUpdate", method = RequestMethod.POST)
+    public UpdateOrderResult updateOrder(@RequestBody Order order){
+        return orderService.updateOrder(order);
     }
 
     @CrossOrigin(origins = "*")

@@ -65,24 +65,52 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     @Override
     public UpdateOrderResult updateOrder(UpdateOrderRequest request) {
-        return null;
+        if(checkId(request.getLoginid())){
+            UpdateOrderResult updateOrderResult = new UpdateOrderResult();
+            if(request.getOrder().getTrainNumber().startsWith("G") || request.getOrder().getTrainNumber().startsWith("D") ){
+                System.out.println("[Admin Order Service][Update Order]");
+                updateOrderResult = restTemplate.postForObject(
+                        "http://ts-order-service:12031/order/adminUpdate", request.getOrder() ,UpdateOrderResult.class);
+            }
+            else{
+                System.out.println("[Admin Order Service][Add New Order Other]");
+                updateOrderResult = restTemplate.postForObject(
+                        "http://ts-order-other-service:12032/orderOther/adminUpdate", request.getOrder() ,UpdateOrderResult.class);
+            }
+            return updateOrderResult;
+        }
+        else{
+            System.out.println("[Admin Order Service][Wrong Admin ID]");
+            UpdateOrderResult result = new UpdateOrderResult();
+            result.setStatus(false);
+            result.setMessage("The loginId is Wrong: " + request.getLoginid());
+            return result;
+        }
     }
 
     @Override
     public AddOrderResult addOrder(AddOrderRequest request) {
-        if(checkId(request.getId())){
-            AddOrderResult addOrderResult = restTemplate.getForObject(
-                    "http://ts-order-other-service:12032/order/findAll",
-                    AddOrderResult.class);
+        if(checkId(request.getLoginid())){
+            AddOrderResult addOrderResult;
+            if(request.getOrder().getTrainNumber().startsWith("G") || request.getOrder().getTrainNumber().startsWith("D") ){
+                System.out.println("[Admin Order Service][Add New Order]");
+                addOrderResult = restTemplate.postForObject(
+                        "http://ts-order-service:12031/order/adminAddOrder", request.getOrder() ,AddOrderResult.class);
+            }
+            else{
+                System.out.println("[Admin Order Service][Add New Order Other]");
+                addOrderResult = restTemplate.postForObject(
+                        "http://ts-order-other-service:12032/orderOther/adminAddOrder", request.getOrder() ,AddOrderResult.class);
+            }
+            return addOrderResult;
         }
         else{
             System.out.println("[Admin Order Service][Wrong Admin ID]");
             AddOrderResult result = new AddOrderResult();
             result.setStatus(false);
-            result.setMessage("The loginId is Wrong: " + request.getId());
+            result.setMessage("The loginId is Wrong: " + request.getLoginid());
             return result;
         }
-        return null;
     }
 
     private boolean checkId(String id){

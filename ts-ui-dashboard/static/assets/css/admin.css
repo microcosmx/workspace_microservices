@@ -371,3 +371,30 @@ gallery.html css
   width: 200px;
   margin: 0 auto;
 }
+
+.my-modal-dialog{
+    width: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+    top:80px;
+    margin-bottom: 15px;
+}
+
+.am-form-group{
+    height: 34px !important;
+}
+
+.am-form-label{
+    position: relative;
+    top: 10px;
+}
+
+.am-modal-prompt-input{
+    position: relative;
+    right: 20px;
+}
+
+.my-am-btn-toolbar{
+    width: 162px;
+}

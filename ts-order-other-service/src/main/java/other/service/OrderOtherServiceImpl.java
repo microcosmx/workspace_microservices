@@ -370,5 +370,60 @@ public class OrderOtherServiceImpl implements OrderOtherService{
         return result;
     }
 
+    @Override
+    public AddOrderResult addNewOrder(Order order) {
+        System.out.println("[Order Service][Admin Add Order] Ready Add Order.");
+        ArrayList<Order> accountOrders = orderOtherRepository.findByAccountId(order.getAccountId());
+        AddOrderResult result = new AddOrderResult();
+        if(accountOrders.contains(order)){
+            System.out.println("[Order Service][Admin Add Order] Fail.Order already exists.");
+            result.setStatus(false);
+            result.setMessage("Order already exist");
+            result.setOrder(null);
+        }else{
+            order.setId(UUID.randomUUID());
+            orderOtherRepository.save(order);
+            System.out.println("[Order Service][Admin Add Order] Success.");
+            System.out.println("[Order Service][Admin Add Order] Price:" + order.getPrice());
+            result.setStatus(true);
+            result.setMessage("Success");
+            result.setOrder(order);
+        }
+        return result;
+    }
+
+    @Override
+    public UpdateOrderResult updateOrder(Order order) {
+        Order oldOrder = findOrderById(order.getId());
+        UpdateOrderResult result = new UpdateOrderResult();
+        if(oldOrder == null){
+            System.out.println("[Order Service][Admin Update Order] Fail.Order not found.");
+            result.setStatus(false);
+            result.setMessage("Order Not Found");
+            result.setOrder(null);
+        }else{
+            oldOrder.setAccountId(order.getAccountId());
+            oldOrder.setBoughtDate(order.getBoughtDate());
+            oldOrder.setTravelDate(order.getTravelDate());
+            oldOrder.setTravelTime(order.getTravelTime());
+            oldOrder.setCoachNumber(order.getCoachNumber());
+            oldOrder.setSeatClass(order.getSeatClass());
+            oldOrder.setSeatNumber(order.getSeatNumber());
+            oldOrder.setFrom(order.getFrom());
+            oldOrder.setTo(order.getTo());
+            oldOrder.setStatus(order.getStatus());
+            oldOrder.setTrainNumber(order.getTrainNumber());
+            oldOrder.setPrice(order.getPrice());
+            oldOrder.setContactsName(order.getContactsName());
+            oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
+            oldOrder.setDocumentType(order.getDocumentType());
+            orderOtherRepository.save(oldOrder);
+            System.out.println("[Order Service] [Admin Update Order] Success.");
+            result.setOrder(oldOrder);
+            result.setStatus(true);
+            result.setMessage("Success");
+        }
+        return result;
+    }
 }
 
