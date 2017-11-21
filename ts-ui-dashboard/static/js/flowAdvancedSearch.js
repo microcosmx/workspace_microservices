@@ -116,6 +116,8 @@ function advanceSearchForCheapestInfo(data,path) {
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
+                        "<td>" + obj[i]["economyClass"] + "</td>" +
+                        "<td>" + obj[i]["confortClass"] + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
                         "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
@@ -124,6 +126,8 @@ function advanceSearchForCheapestInfo(data,path) {
                         "</td>" +
                         "<td class='noshow_component'>" + obj[i]["priceForConfortClass"] + "</td>"+
                         "<td class='noshow_component'>" + obj[i]["priceForEconomyClass"] + "</td>"+
+                        "<td>" + "<button>" + "Booking" + "</button>" + "</td>" +
+
                         "</tr>"
                     );
                 }
@@ -159,6 +163,8 @@ function advanceSearchForQuickestInfo(data,path) {
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
+                        "<td>" + obj[i]["economyClass"] + "</td>" +
+                        "<td>" + obj[i]["confortClass"] + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
                         "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
@@ -167,6 +173,7 @@ function advanceSearchForQuickestInfo(data,path) {
                         "</td>" +
                         "<td class='noshow_component'>" + obj[i]["priceForConfortClass"] + "</td>"+
                         "<td class='noshow_component'>" + obj[i]["priceForEconomyClass"] + "</td>"+
+                        "<td>" + "<button>" + "Booking" + "</button>" + "</td>" +
                         "</tr>"
                     );
                 }
@@ -202,6 +209,8 @@ function advanceSearchForMinStopInfo(data,path) {
                         "<td >" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
+                        "<td>" + 50 + "</td>" +
+                        "<td>" + 50 + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
@@ -210,6 +219,7 @@ function advanceSearchForMinStopInfo(data,path) {
                         "</td>" +
                         "<td class='noshow_component'>" + obj[i]["priceForFirstClassSeat"] + "</td>"+
                         "<td class='noshow_component'>" + obj[i]["priceForSecondClassSeat"] + "</td>"+
+                        "<td>" + "<button>" + "Booking" + "</button>" + "</td>" +
                         "</tr>"
                     );
                 }
