@@ -2,6 +2,21 @@
 工作计划:
 
 
+11.22 - 11.29
+
+All:
+10.141.211.160-164, 171-181
+冀超：
+istio(go)
+kubenetes/consul
+李文海：
+envoy(c++)
+docker swarm
+丁丹：
+linkerd(scala)
+docker swarm
+
+
 11.15 - 11.22
 
 冀超：
@@ -21,12 +36,6 @@ basic info admin(config, station, train, contact, price)
 
 
 
-
-
-
-
-
-
 10.12 -- 10.20
 
 冀超：
@@ -40,12 +49,6 @@ consign price
 ticket office(nodejs)
 Food service
 Food map
-
-
-
-
-
-
 
 
 
