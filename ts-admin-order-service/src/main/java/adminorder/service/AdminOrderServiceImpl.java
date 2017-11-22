@@ -1,5 +1,6 @@
 package adminorder.service;
 
+import adminorder.domain.bean.DeleteOrderInfo;
 import adminorder.domain.bean.Order;
 import adminorder.domain.request.AddOrderRequest;
 import adminorder.domain.request.DeleteOrderRequest;
@@ -60,7 +61,31 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 
     @Override
     public DeleteOrderResult deleteOrder(DeleteOrderRequest request) {
-        return null;
+        if(checkId(request.getLoginid())){
+            DeleteOrderResult deleteOrderResult = new DeleteOrderResult();
+
+            DeleteOrderInfo deleteOrderInfo = new DeleteOrderInfo();
+            deleteOrderInfo.setOrderId(request.getOrderId());
+
+            if(request.getTrainNumber().startsWith("G") || request.getTrainNumber().startsWith("D") ){
+                System.out.println("[Admin Order Service][Delete Order]");
+                deleteOrderResult = restTemplate.postForObject(
+                        "http://ts-order-service:12031/order/delete", deleteOrderInfo,DeleteOrderResult.class);
+            }
+            else{
+                System.out.println("[Admin Order Service][Delete Order Other]");
+                deleteOrderResult = restTemplate.postForObject(
+                        "http://ts-order-other-service:12032/orderOther/delete", deleteOrderInfo,DeleteOrderResult.class);
+            }
+            return deleteOrderResult;
+        }
+        else{
+            System.out.println("[Admin Order Service][Wrong Admin ID]");
+            DeleteOrderResult result = new DeleteOrderResult();
+            result.setStatus(false);
+            result.setMessage("The loginId is Wrong: " + request.getLoginid());
+            return result;
+        }
     }
 
     @Override

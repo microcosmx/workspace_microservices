@@ -1,16 +1,13 @@
 package adminorder.domain.response;
 
-import adminorder.domain.bean.Order;
-
 public class DeleteOrderResult {
-    private boolean status;
 
-    private String message;
+    public boolean status;
 
-    private Order order;
+    public String message;
 
-    public DeleteOrderResult(){
-
+    public DeleteOrderResult() {
+        //Default Constructor
     }
 
     public boolean isStatus() {
@@ -27,13 +24,5 @@ public class DeleteOrderResult {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 }

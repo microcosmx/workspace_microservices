@@ -20,8 +20,7 @@
     <script type="text/javascript" src="assets/js/index.js"></script>
 </head>
 
-<!--<body data-type="generalComponents" onload="loadBody()">-->
-<body data-type="generalComponents">
+<body data-type="generalComponents" onload="loadBody()">
     <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
         <a href="javascript:;" class="tpl-logo">
@@ -64,21 +63,21 @@
                         </a>
                     </li>
                     <li class="tpl-left-nav-item">
-                        <a href="chart.html" class="nav-link tpl-left-nav-link-list">
+                        <a href="admin_route.html" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-line-chart"></i>
                             <span>Route</span>
                         </a>
                     </li>
 
                     <li class="tpl-left-nav-item">
-                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <a href="admin_travel.html" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-bar-chart"></i>
                             <span>Travel</span>
                         </a>
                     </li>
 
                     <li class="tpl-left-nav-item">
-                        <a href="adminlogin.html" class="nav-link tpl-left-nav-link-list">
+                        <a href="admin_user.html" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-key"></i>
                             <span>User</span>
                         </a>
@@ -199,7 +198,7 @@
                                                     <div class="am-btn-group am-btn-group-xs">
                                                         <button class="am-btn am-btn-default am-btn-xs am-text-secondary" ng-click="updateOrder(record)"><span class="am-icon-pencil-square-o"></span> Update</button>
                                                         <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>-->
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteOrder(record.id)"><span class="am-icon-trash-o"></span> Delete</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteOrder(record.id,record.trainNumber)"><span class="am-icon-trash-o"></span> Delete</button>
                                                     </div>
                                                 </div>
                                             </td>
