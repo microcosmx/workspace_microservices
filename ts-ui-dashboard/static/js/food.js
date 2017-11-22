@@ -135,3 +135,53 @@ function showFoods(station, j){
        );
    }
 }
+
+//////////////////////////////////////food order////////////////////////////////////////////
+$("#query_food_order_button").click(function(){
+    $("#query_food_order_button").attr("disabled",true);
+
+    // alert(JSON.stringify(data));
+    $.ajax({
+        type: "get",
+        url: "/food/findAllFoodOrder",
+        contentType: "application/json",
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function(result){
+            console.log(result);
+                $("#food_order_list_table").find("tbody").html("");
+                for(var i = 0;  result && result.length && i < result.length; i++){
+                    console.log("get food order"+ i + ":");
+                    console.log(result[i]);
+                    var type,stationName,storeName;
+                    if(result[i]['foodType'] == 1){
+                        type = "train food";
+                        stationName = "-";
+                        storeName = "-";
+                    } else {
+                        type = "station food store";
+                        stationName = result[i]['stationName'];
+                        storeName = result[i]['storeName'];
+                    }
+                    $("#food_order_list_table").find("tbody").append(
+                        "<tr>" +
+                        "<td>" + (i+1) + "</td>" +
+                        "<td>" + result[i]["id"] + "</td>" +
+                        "<td>" + result[i]['orderId'] + "</td>" +
+                        "<td>" + type + "</td>" +
+                        "<td>" + stationName + "</td>" +
+                        "<td>" + storeName + "</td>" +
+                        "<td>" + result[i]['foodName'] + "</td>" +
+                        "<td>" + result[i]['price'] + "</td>" +
+                        "</tr>"
+                    );
+                }
+        },
+        complete: function(){
+            $("#query_food_order_button").attr("disabled",false);
+        }
+    });
+
+});

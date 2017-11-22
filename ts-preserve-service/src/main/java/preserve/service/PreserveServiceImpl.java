@@ -174,6 +174,7 @@ public class PreserveServiceImpl implements PreserveService{
             }
 
             //6.增加订餐
+//            System.out.println("[Food Service]!!!!!!!!!!!!!!!foodstorename=" + oti.getStationName()+"   "+oti.getStoreName());
             if(oti.getFoodType() != 0){
                 AddFoodOrderInfo afoi = new AddFoodOrderInfo();
                 afoi.setOrderId(cor.getOrder().getId().toString());
@@ -183,6 +184,7 @@ public class PreserveServiceImpl implements PreserveService{
                 if(oti.getFoodType() == 2){
                     afoi.setStationName(oti.getStationName());
                     afoi.setStoreName(oti.getStoreName());
+                    System.out.println("[Food Service]!!!!!!!!!!!!!!!foodstore=" + afoi.getFoodType() + "   " + afoi.getStationName()+"   "+afoi.getStoreName());
                 }
                 AddFoodOrderResult afor = createFoodOrder(afoi);
                 if(afor.isStatus()){
