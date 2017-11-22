@@ -37,4 +37,8 @@ public interface OrderService {
     DeleteOrderResult deleteOrder(DeleteOrderInfo info);
 
     LeftTicketInfo getSoldTickets(SeatRequest seatRequest);
+
+    AddOrderResult addNewOrder(Order order);
+
+    UpdateOrderResult updateOrder(Order order);
 }

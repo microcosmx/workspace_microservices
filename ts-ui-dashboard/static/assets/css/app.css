@@ -1415,7 +1415,8 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
     background-color: #fff;
     margin-top: 0;
     margin-bottom: 25px;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .tpl-portlet-components .portlet-title {

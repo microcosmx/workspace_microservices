@@ -37,4 +37,8 @@ public interface OrderOtherService {
     void initOrder(Order order);
 
     LeftTicketInfo getSoldTickets(SeatRequest seatRequest);
+
+    AddOrderResult addNewOrder(Order order);
+
+    UpdateOrderResult updateOrder(Order order);
 }
