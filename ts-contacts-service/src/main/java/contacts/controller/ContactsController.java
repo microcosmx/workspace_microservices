@@ -24,6 +24,19 @@ public class ContactsController {
 
     /***************For super admin(Single Service Test*******************/
     @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
+    public AddContactsResult createNewContactsAdmin(@RequestBody Contacts aci){
+        aci.setId(UUID.randomUUID());
+        System.out.println("[ContactsService][Create Contacts In Admin]");
+        aci = contactsService.createContacts(aci);
+        AddContactsResult acr = new AddContactsResult();
+        acr.setStatus(true);
+        acr.setContacts(aci);
+        acr.setMessage("Success");
+        return acr;
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/contacts/findAll", method = RequestMethod.GET)
     public GetAllContactsResult getAllContacts(){
         System.out.println("[Contacts Service][Get All Contacts]");
