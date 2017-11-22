@@ -604,18 +604,18 @@ services:
           networks:
             - my-network
 
-  ts-news-service:
-    build: ts-news-service
-    image: ts/ts-news-service
-    restart: always
-    ports:
-      - 12862:12862
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-    networks:
-      - my-network
+#  ts-news-service:
+#    build: ts-news-service
+#    image: ts/ts-news-service
+#    restart: always
+#    ports:
+#      - 12862:12862
+#    deploy:
+#      replicas: 3
+#      restart_policy:
+#        condition: on-failure
+#    networks:
+#      - my-network
 
   ts-vouncher-mysql:
          image: mysql
@@ -748,18 +748,18 @@ services:
             networks:
               - my-network
 
-#  ts-admin-basic-info-service:
-#        build: ts-admin-basic-info-service
-#        image: ts/ts-admin-basic-info-service
-#        restart: always
-#        ports:
-#          - 18767:18767
-#        deploy:
-#          replicas: 1
-#          restart_policy:
-#            condition: on-failure
-#        networks:
-#          - my-network
+  ts-admin-basic-info-service:
+        build: ts-admin-basic-info-service
+        image: ts/ts-admin-basic-info-service
+        restart: always
+        ports:
+          - 18767:18767
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
 
   ts-admin-order-service:
             build: ts-admin-order-service

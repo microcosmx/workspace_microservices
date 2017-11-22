@@ -130,7 +130,7 @@ public class FoodServiceImpl implements FoodService{
             fo.setId(UUID.randomUUID());
             fo.setOrderId(UUID.fromString(afoi.getOrderId()));
             fo.setFoodType(afoi.getFoodType());
-            if(afoi.getFoodType() == 1){
+            if(afoi.getFoodType() == 2){
                 fo.setStationName(afoi.getStationName());
                 fo.setStoreName(afoi.getStoreName());
             }

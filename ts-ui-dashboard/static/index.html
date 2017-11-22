@@ -56,7 +56,7 @@
                         <li><a id="flow_two_page">Flow Two - Ticket Cancel & Ticket Change</a></li>
                         <li><a id="flow_three_page">Flow Three - Consign & Voucher</a></li>
                         <li><a id="flow_four_page">Flow Four - Advanced Search</a>
-                        <li><a id="admin_page">Admin Management</a> </li>
+                        <li><a href="adminlogin.html">Admin Management</a></li>
                     </ul>
                 </div>
             </div>
@@ -250,6 +250,43 @@
                         <!--This is an empty table body-->
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!----------------------------Food Order----------------------------------->
+            <div class="step panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Food Order List
+                        <label id="food_order_list_status" class="noshow_component"></label>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <button id="query_food_order_button" type="button" class="btn btn-primary">
+                            Query
+                        </button>
+                    </form>
+
+                    <table id="food_order_list_table" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>ID</th>
+                            <th>Order ID</th>
+                            <th>Food Type</th>
+                            <th>Station Name</th>
+                            <th>Store Name</th>
+                            <th>Food Name</th>
+                            <th>Food Price</th>
+                            <th class="noshow_component"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!----An empty table----->
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
 

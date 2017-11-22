@@ -1,8 +1,10 @@
 package adminorder.controller;
 
 import adminorder.domain.request.AddOrderRequest;
+import adminorder.domain.request.UpdateOrderRequest;
 import adminorder.domain.response.AddOrderResult;
 import adminorder.domain.response.GetAllOrderResult;
+import adminorder.domain.response.UpdateOrderResult;
 import adminorder.service.AdminOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,11 @@ public class AdminOrderController {
     @RequestMapping(value = "/adminorder/addOrder", method= RequestMethod.POST)
     public AddOrderResult addOrder(@RequestBody AddOrderRequest request){
         return adminOrderService.addOrder(request);
+    }
+
+    @RequestMapping(value = "/adminorder/updateOrder", method= RequestMethod.POST)
+    public UpdateOrderResult updateOrder(@RequestBody UpdateOrderRequest request){
+        return adminOrderService.updateOrder(request);
     }
 
 }

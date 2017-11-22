@@ -49,6 +49,12 @@ public class OrderOtherController {
     }
 
     @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/orderOther/adminAddOrder", method = RequestMethod.POST)
+    public AddOrderResult addcreateNewOrder(@RequestBody Order order){
+        return orderService.addNewOrder(order);
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/orderOther/query", method = RequestMethod.POST)
     public ArrayList<Order> queryOrders(@RequestBody QueryInfo qi,@CookieValue String loginId,@CookieValue String loginToken){
         System.out.println("[Order Other Service][Query Orders] Query Orders for " + loginId);
@@ -120,6 +126,12 @@ public class OrderOtherController {
             cor.setOrder(null);
             return cor;
         }
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/orderOther/adminUpdate", method = RequestMethod.POST)
+    public UpdateOrderResult updateOrder(@RequestBody Order order){
+        return orderService.updateOrder(order);
     }
 
     @CrossOrigin(origins = "*")

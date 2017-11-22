@@ -606,20 +606,24 @@ $("#ticket_confirm_confirm_btn").click(function () {
     orderTicketInfo.assurance = $("#assurance_type").val();
 
     //add the food information
-    if(null != $('#ticket_confirm_food_type').val() && "" != $('#ticket_confirm_food_type').val()){
-        if($('#ticket_confirm_food_type').val() == 1){
+    if(null != $('#ticket_confirm_food_type').text() && "" != $('#ticket_confirm_food_type').text()){
+        if($('#ticket_confirm_food_type').text() == "Train Food"){
             orderTicketInfo.foodType = 1;
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
-            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text().substr(1));
             orderTicketInfo.stationName = "";
             orderTicketInfo.storeName = "";
-        } else if ($('#ticket_confirm_food_type').val()== 2){
+        } else if ($('#ticket_confirm_food_type').text()== "Station Food Stores"){
             orderTicketInfo.foodType = 2;
             orderTicketInfo.stationName = $('#ticket_confirm_food_station').text();
             orderTicketInfo.storeName = $('#ticket_confirm_food_store').text();
             orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
-            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text());
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text().substr(1));
+        } else {
+            orderTicketInfo.foodType = 0;
         }
+    } else {
+        orderTicketInfo.foodType = 0;
     }
 
     //Add the consign information
@@ -644,8 +648,8 @@ $("#ticket_confirm_confirm_btn").click(function () {
     }
 
     var orderTicketsData = JSON.stringify(orderTicketInfo);
-    // console.log("orderTicketsData:");
-    // concole.log(orderTicketsData);
+    console.log("orderTicketsData:");
+    console.log(orderTicketsData);
 
     var tripType = orderTicketInfo.tripId.charAt(0);
     if(tripType == 'G' || tripType == 'D'){
