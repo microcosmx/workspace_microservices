@@ -12,7 +12,7 @@ contactsModule.factory('loadDataService', function ($http, $q) {
 
         $http({
             method: "get",
-            url: url,
+            url: url + "/" + sessionStorage.getItem("admin_id"),
             withCredentials: true
         }).success(function (data, status, headers, config) {
             if (data.status) {
@@ -29,12 +29,12 @@ contactsModule.factory('loadDataService', function ($http, $q) {
     return service;
 });
 
-contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService) {
+contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService, $window) {
 
-    // //首次加载显示数据
-    // loadDataService.loadAdminBasic("/adminbasic/getAllContacts").then(function (result) {
-    //     $scope.contacts = result.contacts;
-    // });
+    //首次加载显示数据
+    loadDataService.loadAdminBasic("/adminbasic/getAllContacts").then(function (result) {
+        $scope.contacts = result.contacts;
+    });
 
     $scope.deleteContact = function(contact) {
         $('#delete-contact-confirm').modal({
@@ -47,6 +47,7 @@ contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService
                     url: "/adminbasic/deleteContacts",
                     withCredentials: true,
                     data:{
+                        loginId:sessionStorage.getItem("admin_id"),
                         contactsId:contact.id
                     }
                 }).success(function(data, status, headers, config){
@@ -80,10 +81,11 @@ contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService
                 data.documentType = $('#update-contact-document-type').val();
                 data.documentNumber = $('#update-contact-document-number').val();
                 data.phoneNumber = $('#update-contact-phone-number').val();
+                data.loginId=sessionStorage.getItem("admin_id");
                 alert(JSON.stringify(data));
                 $http({
                     method:"post",
-                    url: "/adminbasic/updateContacts",
+                    url: "/adminbasic/modifyContacts",
                     withCredentials: true,
                     data:data
                 }).success(function(data, status, headers, config){
@@ -110,46 +112,66 @@ contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService
         $('#add-contact-table').modal({
             relatedTarget: this,
             onConfirm: function (options) {
-                var data = new Object();
-                data.accountId = $('#add-contact-account-id').val();
-                data.name =  $('#add-contact-name').val();
-                data.documentType = $('#add-contact-document-type').val();
-                data.documentNumber = $('#add-contact-document-number').val();
-                data.phoneNumber = $('#add-contact-phone-number').val();
-                alert(JSON.stringify(data));
+                if(parseInt( $('#add-contact-document-type').val())){
+                    var data = new Object();
+                    data.accountId = $('#add-contact-account-id').val();
+                    data.name =  $('#add-contact-name').val();
+                    data.documentType = $('#add-contact-document-type').val();
+                    data.documentNumber = $('#add-contact-document-number').val();
+                    data.phoneNumber = $('#add-contact-phone-number').val();
+                    data.loginId=sessionStorage.getItem("admin_id");
+                    alert(JSON.stringify(data));
+                    $http({
+                        method:"post",
+                        url: "/adminbasic/addContacts",
+                        withCredentials: true,
+                        data:data
+                    }).success(function(data, status, headers, config){
+                        if (data.status) {
+                            alert("Add contact successfully!");
+                        }else{
+                            alert(data.message);
+                        }
+                        $window.location.reload();
+                    })
+                } else{
+                    alert("The documentType must be an integer!");
+                }
+
+
             },
             onCancel: function () {
                 // alert('算求，不弄了');
-            },
+            }
         });
     };
 
 
 
-    $scope.contacts = [
-        {
-            "id":"123",
-            "accountId":"123",
-            "name":"Tom",
-            "documentType":"credit card",
-            "documentNumber":"12343467",
-            "phoneNumber":"13821643927"
-        },
-        {
-            "id":"234",
-            "accountId":"234",
-            "name":"Jerry",
-            "documentType":"credit card",
-            "documentNumber":"12343467",
-            "phoneNumber":"13821643927"
-        },
-        {
-            "id":"345",
-            "accountId":"234",
-            "name":"Kally",
-            "documentType":"credit card",
-            "documentNumber":"12343467",
-            "phoneNumber":"13821643927"
-        }
-    ]
+    // $scope.contacts = [
+    //     {
+    //         "id":"123",
+    //         "accountId":"123",
+    //         "name":"Tom",
+    //         "documentType":"credit card",
+    //         "documentNumber":"12343467",
+    //         "phoneNumber":"13821643927"
+    //     },
+    //     {
+    //         "id":"234",
+    //         "accountId":"234",
+    //         "name":"Jerry",
+    //         "documentType":"credit card",
+    //         "documentNumber":"12343467",
+    //         "phoneNumber":"13821643927"
+    //     },
+    //     {
+    //         "id":"345",
+    //         "accountId":"234",
+    //         "name":"Kally",
+    //         "documentType":"credit card",
+    //         "documentNumber":"12343467",
+    //         "phoneNumber":"13821643927"
+    //     }
+    // ]
 });
