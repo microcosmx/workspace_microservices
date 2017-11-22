@@ -44,7 +44,7 @@ app.factory('loadDataService', function ($http, $q) {
             withCredentials: true,
         }).success(function (data, status, headers, config) {
             if (data.status) {
-                information.orderRecords = data.orders;
+                information.routeRecords = data.routes;
                 deferred.resolve(information);
             }
             else{
@@ -72,7 +72,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
 
     //首次加载显示数据
     loadDataService.loadRecordList(param).then(function (result) {
-        $scope.records = result.orderRecords;
+        $scope.records = result.routeRecords;
         //$scope.decodeInfo(result.orderRecords[0]);
     });
 
@@ -85,22 +85,20 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
     }
     
     //Add new route
-    $scope.addNewOrder = function () {
+    $scope.addNewRoute = function () {
         $('#add_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/adminroute/addRoute",
+                    url: "/adminroute/createAndModifyRoute",
                     withCredentials: true,
                     data:{
-                        loginid: sessionStorage.getItem("admin_id"),
-                        route:{
-                            stations: $scope.add_order_bought_date,
-                            distances: $scope.add_order_travel_date,
-                            startStationId: $scope.add_order_travel_time,
-                            terminalStationId: $scope.add_order_account
-                        }
+                        loginId: sessionStorage.getItem("admin_id"),
+                        stationList: $scope.add_order_bought_date,
+                        distanceList: $scope.add_order_travel_date,
+                        startStation: $scope.add_order_travel_time,
+                        endStation: $scope.add_order_account
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -118,8 +116,8 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         });
     }
     
-    //Update exist order
-    $scope.updateOrder = function (record) {
+    //Update exist route
+    $scope.updateRoute = function (record) {
         $scope.update_route_id = record.id;
         $scope.update_route_stations = record.stations;
         $scope.update_route_distances = record.distances;
@@ -131,17 +129,15 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/adminroute/updateRoute",
+                    url: "/adminroute/createAndModifyRoute",
                     withCredentials: true,
                     data:{
-                        loginid: sessionStorage.getItem("admin_id"),
-                        order:{
-                            id: $scope.update_route_id,
-                            boughtDate: $scope.update_route_stations,
-                            travelDate: $scope.update_route_distances,
-                            travelTime: $scope.update_route_start_station,
-                            accountId: $scope.update_route_terminal_station
-                        }
+                        loginId: sessionStorage.getItem("admin_id"),
+                        id: $scope.update_route_id,
+                        stationList: $scope.update_route_stations,
+                        distanceList: $scope.update_route_distances,
+                        startStation: $scope.update_route_start_station,
+                        endStation: $scope.update_route_terminal_station
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -159,8 +155,8 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         });
     }
 
-    //Delete order
-    $scope.deleteOrder = function(orderId,trainNumber){
+    //Delete route
+    $scope.deleteRoute = function(routeId){
         $('#delete_confirm').modal({
             relatedTarget: this,
             onConfirm: function(options) {
@@ -169,9 +165,8 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
                     url: "/adminroute/deleteRoute",
                     withCredentials: true,
                     data: {
-                        loginid: sessionStorage.getItem("admin_id"),
-                        orderId: orderId,
-                        trainNumber: trainNumber
+                        loginId: sessionStorage.getItem("admin_id"),
+                        routeId: routeId
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {

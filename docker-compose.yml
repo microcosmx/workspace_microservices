@@ -774,6 +774,19 @@ services:
             networks:
               - my-network
 
+  ts-admin-route-service:
+              build: ts-admin-route-service
+              image: ts/ts-admin-route-service
+              restart: always
+              ports:
+                - 16113:16113
+              deploy:
+                replicas: 1
+                restart_policy:
+                  condition: on-failure
+              networks:
+                - my-network
+
 networks:
     my-network:
       # driver: overlay
