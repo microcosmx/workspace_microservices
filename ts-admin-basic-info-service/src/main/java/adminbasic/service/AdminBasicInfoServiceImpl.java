@@ -1,7 +1,9 @@
 package adminbasic.service;
 
+import adminbasic.domin.bean.Contacts;
 import adminbasic.domin.info.DeleteContactsInfo;
 import adminbasic.domin.info.ModifyContactsInfo;
+import adminbasic.domin.reuslt.AddContactsResult;
 import adminbasic.domin.reuslt.DeleteContactsResult;
 import adminbasic.domin.reuslt.GetAllContactsResult;
 import adminbasic.domin.reuslt.ModifyContactsResult;
@@ -64,27 +66,21 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
         return result;
     }
 
-//    @Override
-//    public AddContactsResult addContact(String loginId, AddContactsInfo aci) {
-//        AddContactsResult result;
-//        if (adminID.equals(loginId)) {
-//            HttpHeaders headers = new HttpHeaders();
-//            List<String> cookies = new ArrayList<>();
-//            cookies.add("loginId=" + Strings.nullToEmpty("2"));
-//            cookies.add("loginToken=" + Strings.nullToEmpty("1"));
-//            headers.put(HttpHeaders.COOKIE,cookies);
-//            HttpEntity request = new HttpEntity(aci, headers);
-//            result = restTemplate.postForObject(
-//                    "http://ts-contacts-service:12347/contacts/create",request,
-//                    AddContactsResult.class);
-//
-//        } else {
-//            result = new AddContactsResult();
-//            result.setStatus(false);
-//            result.setMessage("The Contact add operation failed.");
-//        }
-//        return null;
-//    }
+    @Override
+    public AddContactsResult addContact(String loginId, Contacts c) {
+        AddContactsResult result;
+        if (adminID.equals(loginId)) {
+            result = restTemplate.postForObject(
+                    "http://ts-contacts-service:12347/contacts/admincreate",c,
+                    AddContactsResult.class);
+
+        } else {
+            result = new AddContactsResult();
+            result.setStatus(false);
+            result.setMessage("The Contact add operation failed.");
+        }
+        return result;
+    }
 
 
 

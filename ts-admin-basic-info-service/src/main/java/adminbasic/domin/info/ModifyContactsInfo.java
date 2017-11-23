@@ -15,6 +15,16 @@ public class ModifyContactsInfo {
     /***If you use as Single Service test,you do not need this var, just let it null***/
     private String loginToken;
 
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    private String loginId;
+
     public ModifyContactsInfo() {
         //Default Constructor
     }

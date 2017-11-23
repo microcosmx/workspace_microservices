@@ -4,7 +4,8 @@ import adminorder.domain.bean.Order;
 
 public class DeleteOrderRequest {
     private String loginid;
-    private Order order;
+    private String orderId;
+    private String trainNumber;
 
     public DeleteOrderRequest(){
 
@@ -18,11 +19,19 @@ public class DeleteOrderRequest {
         this.loginid = loginid;
     }
 
-    public Order getOrder() {
-        return order;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getTrainNumber() {
+        return trainNumber;
+    }
+
+    public void setTrainNumber(String trainNumber) {
+        this.trainNumber = trainNumber;
     }
 }
