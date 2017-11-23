@@ -1,4 +1,4 @@
-package sso.domain;
+package adminuser.domain.bean;
 
 public class ModifyAccountInfo {
 

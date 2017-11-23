@@ -105,4 +105,11 @@ public class AccountSsoController {
         return ssoService.adminLogin(ali.getName(), ali.getPassword());
     }
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(path = "/account/admindelete", method = RequestMethod.GET)
+    public DeleteAccountResult adminDelete(@RequestBody AdminDeleteAccountRequest request){
+        System.out.println("[SSO Service][Admin Delete Account]");
+        return ssoService.deleteAccount(request.getAccountId());
+    }
+
 }

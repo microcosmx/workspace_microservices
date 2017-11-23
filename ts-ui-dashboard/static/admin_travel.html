@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <script type="text/javascript" src="assets/js/angular.js"></script>
-    <script type="text/javascript" src="assets/js/admin_route.js"></script>
+    <script type="text/javascript" src="assets/js/admin_travel.js"></script>
 </head>
 
 <body data-type="generalComponents" onload="loadBody()">
@@ -61,18 +61,18 @@
                             <span>Order</span>
                         </a>
                     </li>
-                    <li class="tpl-left-nav-item" class="nav-link active">
-                        <a href="#" class="nav-link tpl-left-nav-link-list">
+                    <li class="tpl-left-nav-item">
+                        <a href="admin_travel.html" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-line-chart"></i>
                             <span>Route</span>
-                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
                         </a>
                     </li>
 
-                    <li class="tpl-left-nav-item">
-                        <a href="admin_travel.html" class="nav-link tpl-left-nav-link-list">
+                    <li class="tpl-left-nav-item" class="nav-link active">
+                        <a href="#" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-globe"></i>
                             <span>Travel</span>
+                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
                         </a>
                     </li>
 
@@ -129,7 +129,7 @@
             <div class="tpl-portlet-components">
                 <div class="portlet-title">
                     <div class="caption font-green bold">
-                        Route List
+                        Travel List
                     </div>
 
                 </div>
@@ -175,10 +175,16 @@
                                         <tr>
                                             <th class="table-set">Operation</th>
                                             <th class="table-title">Id</th>
-                                            <th class="table-title">Stations</th>
-                                            <th class="table-title">Distances</th>
-                                            <th class="table-title">StartStationId</th>
-                                            <th class="table-title">terminalStationId</th>
+                                            <th class="table-title">TrainTypeId</th>
+                                            <th class="table-title">RouteId</th>
+                                            <th class="table-title">StartingStation</th>
+                                            <th class="table-title">TerminalStation</th>
+                                            <th class="table-title">StartingTime</th>
+                                            <th class="table-title">EndTime</th>
+                                            <th class="table-title">EconomyNumber</th>
+                                            <th class="table-title">ConfortNumber</th>
+                                            <th class="table-title">EconomyPrice</th>
+                                            <th class="table-title">ConfortPrice</th>
                                         </tr>
                                     </thead>
                                     <tbody>

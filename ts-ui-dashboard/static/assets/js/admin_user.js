@@ -40,11 +40,11 @@ app.factory('loadDataService', function ($http, $q) {
 
         $http({
             method: "get",
-            url: "/adminroute/findAll/" + param.id,
+            url: "/adminuser/findAll/" + param.id,
             withCredentials: true,
         }).success(function (data, status, headers, config) {
             if (data.status) {
-                information.routeRecords = data.routes;
+                information.userRecords = data.accountArrayList;
                 deferred.resolve(information);
             }
             else{
@@ -72,7 +72,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
 
     //首次加载显示数据
     loadDataService.loadRecordList(param).then(function (result) {
-        $scope.records = result.routeRecords;
+        $scope.records = result.userRecords;
         //$scope.decodeInfo(result.orderRecords[0]);
     });
 
@@ -84,21 +84,23 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         alert(des);
     }
     
-    //Add new route
-    $scope.addNewRoute = function () {
+    //Add new user
+    $scope.addNewUser = function () {
         $('#add_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/adminroute/createAndModifyRoute",
+                    url: "/adminuser/addUser",
                     withCredentials: true,
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
-                        stationList: $scope.add_route_stations,
-                        distanceList: $scope.add_route_distances,
-                        startStation: $scope.add_route_start_station,
-                        endStation: $scope.add_route_terminal_station
+                        name: $scope.add_user_name,
+                        password: $scope.add_user_password,
+                        gender: $scope.add_user_gender,
+                        email: $scope.add_user_email,
+                        documentType: $scope.add_user_document_type,
+                        documentNum: $scope.add_user_document_number
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -116,28 +118,34 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         });
     }
     
-    //Update exist route
-    $scope.updateRoute = function (record) {
-        $scope.update_route_id = record.id;
-        $scope.update_route_stations = record.stations;
-        $scope.update_route_distances = record.distances;
-        $scope.update_route_start_station = record.startStationId;
-        $scope.update_route_terminal_station = record.terminalStationId;
+    //Update exist user
+    $scope.updateUser = function (record) {
+        $scope.update_user_id = record.id;
+        $scope.update_user_name = record.name;
+        $scope.update_user_password = record.password;
+        $scope.update_user_gender = record.gender;
+        $scope.update_user_email = record.email;
+        $scope.update_user_document_type = record.documentType;
+        $scope.update_user_document_number = record.documentNum;
 
         $('#update_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/adminroute/createAndModifyRoute",
+                    url: "/adminuser/updateUser",
                     withCredentials: true,
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
-                        id: $scope.update_route_id,
-                        stationList: $scope.update_route_stations,
-                        distanceList: $scope.update_route_distances,
-                        startStation: $scope.update_route_start_station,
-                        endStation: $scope.update_route_terminal_station
+                        modifyAccountInfo:{
+                            id: $scope.update_user_id,
+                            name: $scope.update_user_name,
+                            password: $scope.update_user_password,
+                            gender: $scope.update_user_gender,
+                            email: $scope.update_user_email,
+                            documentType: $scope.update_user_document_type,
+                            documentNum: $scope.update_user_document_number
+                        }
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -145,7 +153,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
                         $scope.reloadRoute();
                     }
                     else{
-                        alert("Update the route fail!" + data.message);
+                        alert("Update the user fail!" + data.message);
                     }
                 });
             },
@@ -155,18 +163,18 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         });
     }
 
-    //Delete route
-    $scope.deleteRoute = function(routeId){
+    //Delete user
+    $scope.deleteUser = function(accountId){
         $('#delete_confirm').modal({
             relatedTarget: this,
             onConfirm: function(options) {
                 $http({
                     method: "post",
-                    url: "/adminroute/deleteRoute",
+                    url: "/adminuser/deleteUser",
                     withCredentials: true,
                     data: {
                         loginId: sessionStorage.getItem("admin_id"),
-                        routeId: routeId
+                        accountId: accountId
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
