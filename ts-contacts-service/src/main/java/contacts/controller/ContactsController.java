@@ -24,7 +24,7 @@ public class ContactsController {
 
     /***************For super admin(Single Service Test*******************/
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
+    @RequestMapping(path = "/contacts/createAdmin", method = RequestMethod.POST)
     public AddContactsResult createNewContactsAdmin(@RequestBody Contacts aci){
         aci.setId(UUID.randomUUID());
         System.out.println("[ContactsService][Create Contacts In Admin]");
@@ -67,7 +67,7 @@ public class ContactsController {
             return contactsService.findContactsByAccountId(UUID.fromString(loginId));
         }else {
             System.out.println("[ContactsService][VerifyLogin] Fail");
-            return new ArrayList<Contacts>();
+            return new ArrayList<>();
         }
     }
 

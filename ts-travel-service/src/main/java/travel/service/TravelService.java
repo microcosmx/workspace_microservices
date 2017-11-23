@@ -2,6 +2,7 @@ package travel.service;
 
 import travel.domain.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface TravelService {
 
     String delete(Information2 info);
 
-    List<TripResponse> query(QueryInfo info);
+    ArrayList<TripResponse> query(QueryInfo info);
 
     GetTripAllDetailResult getTripAllDetailInfo(GetTripAllDetailInfo gtdi);
 

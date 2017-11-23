@@ -56,12 +56,12 @@ public class TravelController {
     //返回Trip以及剩余票数
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel/query", method= RequestMethod.POST)
-    public List<TripResponse> query(@RequestBody QueryInfo info){
+    public ArrayList<TripResponse> query(@RequestBody QueryInfo info){
         if(info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
                 info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
                 info.getDepartureTime() == null){
             System.out.println("[Travel Service][Travel Query] Fail.Something null.");
-            List<TripResponse> errorList = new ArrayList<>();
+            ArrayList<TripResponse> errorList = new ArrayList<>();
             return errorList;
         }
         System.out.println("[Travel Service] Query TripResponse");

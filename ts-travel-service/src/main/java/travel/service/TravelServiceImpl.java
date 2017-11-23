@@ -139,7 +139,7 @@ public class TravelServiceImpl implements TravelService{
     }
 
     @Override
-    public List<TripResponse> query(QueryInfo info){
+    public ArrayList<TripResponse> query(QueryInfo info){
 
         //获取要查询的车次的起始站和到达站。这里收到的起始站和到达站都是站的名称，所以需要发两个请求转换成站的id
         String startingPlaceName = info.getStartingPlace();
@@ -148,7 +148,7 @@ public class TravelServiceImpl implements TravelService{
         String endPlaceId = queryForStationId(endPlaceName);
 
         //这个是最终的结果
-        List<TripResponse> list = new ArrayList<>();
+        ArrayList<TripResponse> list = new ArrayList<>();
 
         //查询所有的车次信息
         ArrayList<Trip> allTripList = repository.findAll();

@@ -52,12 +52,12 @@ public class Travel2Controller {
 
     //返回Trip以及剩余票数
     @RequestMapping(value="/travel2/query", method= RequestMethod.POST)
-    public List<TripResponse> query(@RequestBody QueryInfo info){
+    public ArrayList<TripResponse> query(@RequestBody QueryInfo info){
         if(info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
                 info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
                 info.getDepartureTime() == null){
             System.out.println("[Travel Other Service][Travel Query] Fail.Something null.");
-            List<TripResponse> errorList = new ArrayList<>();
+            ArrayList<TripResponse> errorList = new ArrayList<>();
             return errorList;
         }
         System.out.println("[Travel2 Service] Query TripResponse");
