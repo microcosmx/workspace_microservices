@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @RestController
-public class ContactsController {
+public class FuckContactsController {
 
     @Autowired
     private ContactsService contactsService;

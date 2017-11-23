@@ -10,44 +10,25 @@ import java.util.Date;
  * 查询车票的返回信息，模仿12306，有车次、出发站、到达站、出发时间、到达时间、座位等级及相应的余票
  */
 public class TripResponse {
-    @Valid
-    @Id
+
     private TripId tripId;
 
-    @Valid
-    @NotNull
     private String trainTypeId;
 
-    @Valid
-    @NotNull
     private String startingStation;
 
-    @Valid
-    @NotNull
     private String terminalStation;
 
-    @Valid
-    @NotNull
     private Date startingTime;
 
-    @Valid
-    @NotNull
     private Date endTime;
 
-    @Valid
-    @NotNull
     private int economyClass;   //普通座的座位数量
 
-    @Valid
-    @NotNull
     private int confortClass;   //商务座的座位数量
 
-    @Valid
-    @NotNull
     private String priceForEconomyClass;
 
-    @Valid
-    @NotNull
     private String priceForConfortClass;
 
     public TripResponse(){
