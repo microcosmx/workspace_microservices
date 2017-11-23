@@ -99,4 +99,37 @@ public class PriceServiceImpl implements PriceService{
         return result;
     }
 
+    @Override
+    public boolean deletePriceConfig(CreateAndModifyPriceConfig c) {
+        PriceConfig priceConfig = priceConfigRepository.findById(UUID.fromString(c.getId()));
+        if(priceConfig == null){
+            return false;
+        } else {
+            PriceConfig pc = new PriceConfig();
+            pc.setId(UUID.fromString(c.getId()));
+            pc.setRouteId(c.getRouteId());
+            pc.setTrainType(c.getTrainType());
+            pc.setBasicPriceRate(c.getBasicPriceRate());
+            pc.setFirstClassPriceRate(c.getFirstClassPriceRate());
+            priceConfigRepository.delete(pc);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean updatePriceConfig(CreateAndModifyPriceConfig c) {
+        PriceConfig priceConfig = priceConfigRepository.findById(UUID.fromString(c.getId()));
+        if(priceConfig == null){
+            return false;
+        } else {
+            priceConfig.setId(UUID.fromString(c.getId()));
+            priceConfig.setBasicPriceRate(c.getBasicPriceRate());
+            priceConfig.setFirstClassPriceRate(c.getFirstClassPriceRate());
+            priceConfig.setRouteId(c.getRouteId());
+            priceConfig.setTrainType(c.getTrainType());
+            priceConfigRepository.save(priceConfig);
+            return true;
+        }
+    }
+
 }

@@ -14,4 +14,8 @@ public interface PriceService {
 
     ReturnManyPriceConfigResult findAllPriceConfig();
 
+    boolean deletePriceConfig(CreateAndModifyPriceConfig c);
+
+    boolean updatePriceConfig(CreateAndModifyPriceConfig c);
+
 }

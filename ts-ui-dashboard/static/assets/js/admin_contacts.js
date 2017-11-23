@@ -82,7 +82,7 @@ contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService
                 data.documentNumber = $('#update-contact-document-number').val();
                 data.phoneNumber = $('#update-contact-phone-number').val();
                 data.loginId=sessionStorage.getItem("admin_id");
-                alert(JSON.stringify(data));
+                // alert(JSON.stringify(data));
                 $http({
                     method:"post",
                     url: "/adminbasic/modifyContacts",
@@ -120,7 +120,7 @@ contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService
                     data.documentNumber = $('#add-contact-document-number').val();
                     data.phoneNumber = $('#add-contact-phone-number').val();
                     data.loginId=sessionStorage.getItem("admin_id");
-                    alert(JSON.stringify(data));
+                    // alert(JSON.stringify(data));
                     $http({
                         method:"post",
                         url: "/adminbasic/addContacts",
@@ -146,32 +146,4 @@ contactsModule.controller("contactCtrl", function ($scope,$http, loadDataService
         });
     };
 
-
-
-    // $scope.contacts = [
-    //     {
-    //         "id":"123",
-    //         "accountId":"123",
-    //         "name":"Tom",
-    //         "documentType":"credit card",
-    //         "documentNumber":"12343467",
-    //         "phoneNumber":"13821643927"
-    //     },
-    //     {
-    //         "id":"234",
-    //         "accountId":"234",
-    //         "name":"Jerry",
-    //         "documentType":"credit card",
-    //         "documentNumber":"12343467",
-    //         "phoneNumber":"13821643927"
-    //     },
-    //     {
-    //         "id":"345",
-    //         "accountId":"234",
-    //         "name":"Kally",
-    //         "documentType":"credit card",
-    //         "documentNumber":"12343467",
-    //         "phoneNumber":"13821643927"
-    //     }
-    // ]
 });
