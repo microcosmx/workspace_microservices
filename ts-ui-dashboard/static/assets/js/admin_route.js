@@ -127,7 +127,6 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         $('#update_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
-                alert($scope.update_route_id + " " + $scope.update_route_stations+ " " + $scope.update_route_distances+ " " + $scope.update_route_start_station);
                 $http({
                     method: "post",
                     url: "/adminroute/createAndModifyRoute",
@@ -135,8 +134,8 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
                         id: $scope.update_route_id,
-                        stationList: $scope.update_route_stations,
-                        distanceList: $scope.update_route_distances,
+                        stationList: $scope.update_route_stations + "",
+                        distanceList: $scope.update_route_distances + "",
                         startStation: $scope.update_route_start_station,
                         endStation: $scope.update_route_terminal_station
                     }
