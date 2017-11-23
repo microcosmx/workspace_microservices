@@ -26,35 +26,33 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照二等座位结果排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
-        finalResult.addAll(highSpeed);
-        finalResult.addAll(normalTrain);
-        return finalResult;
-//        for(TripResponse tr : highSpeed){
-//            finalResult.add(tr);
-//        }
-//        for(TripResponse tr : normalTrain){
-//            finalResult.add(tr);
-//        }
-//
-//        float minPrice = Float.MAX_VALUE;
-//        int minIndex = -1;
-//        int size = Math.min(5,finalResult.size());
-//        ArrayList<TripResponse> returnResult = new ArrayList<>();
-//        for(int i = 0;i < size;i++){
-//            for(int j = 0;j < finalResult.size();j++){
-//                TripResponse thisRes = finalResult.get(j);
-//                if(Float.parseFloat(thisRes.getPriceForEconomyClass()) < minPrice){
-//                    minPrice = Float.parseFloat(finalResult.get(j).getPriceForEconomyClass());
-//                    minIndex = j;
-//                }
-//            }
-//            returnResult.add(finalResult.get(minIndex));
-//            finalResult.remove(minIndex);
-//        }
-//
-//        return returnResult;
+//        finalResult.addAll(highSpeed);
+//        finalResult.addAll(normalTrain);
+//        return finalResult;
+        for(TripResponse tr : highSpeed){
+            finalResult.add(tr);
+        }
+        for(TripResponse tr : normalTrain){
+            finalResult.add(tr);
+        }
 
+        float minPrice = Float.MAX_VALUE;
+        int minIndex = -1;
+        int size = Math.min(5,finalResult.size());
+        ArrayList<TripResponse> returnResult = new ArrayList<>();
+        for(int i = 0;i < size;i++){
+            for(int j = 0;j < finalResult.size();j++){
+                TripResponse thisRes = finalResult.get(j);
+                if(Float.parseFloat(thisRes.getPriceForEconomyClass()) < minPrice){
+                    minPrice = Float.parseFloat(finalResult.get(j).getPriceForEconomyClass());
+                    minIndex = j;
+                }
+            }
+            returnResult.add(finalResult.get(minIndex));
+            finalResult.remove(minIndex);
+        }
 
+        return returnResult;
 
     }
 
@@ -72,34 +70,33 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照时间排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
-        finalResult.addAll(highSpeed);
-        finalResult.addAll(normalTrain);
-        return finalResult;
-//        ArrayList<TripResponse> finalResult = new ArrayList<>();
-//        for(TripResponse tr : highSpeed){
-//            finalResult.add(tr);
-//        }
-//        for(TripResponse tr : normalTrain){
-//            finalResult.add(tr);
-//        }
-//
-//        long minTime = Long.MAX_VALUE;
-//        int minIndex = -1;
-//        int size = Math.min(finalResult.size(),5);
-//        ArrayList<TripResponse> returnResult = new ArrayList<>();
-//        for(int i = 0;i < size;i++){
-//            for(int j = 0;j < finalResult.size();j++){
-//                TripResponse thisRes = finalResult.get(j);
-//                if(thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime() < minTime){
-//                    minTime = thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime();
-//                    minIndex = j;
-//                }
-//            }
-//            returnResult.add(finalResult.get(minIndex));
-//            finalResult.remove(minIndex);
-//        }
-//
-//        return returnResult;
+//        finalResult.addAll(highSpeed);
+//        finalResult.addAll(normalTrain);
+//        return finalResult;
+        for(TripResponse tr : highSpeed){
+            finalResult.add(tr);
+        }
+        for(TripResponse tr : normalTrain){
+            finalResult.add(tr);
+        }
+
+        long minTime = Long.MAX_VALUE;
+        int minIndex = -1;
+        int size = Math.min(finalResult.size(),5);
+        ArrayList<TripResponse> returnResult = new ArrayList<>();
+        for(int i = 0;i < size;i++){
+            for(int j = 0;j < finalResult.size();j++){
+                TripResponse thisRes = finalResult.get(j);
+                if(thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime() < minTime){
+                    minTime = thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime();
+                    minIndex = j;
+                }
+            }
+            returnResult.add(finalResult.get(minIndex));
+            finalResult.remove(minIndex);
+        }
+
+        return returnResult;
     }
 
     @Override
@@ -237,27 +234,23 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
     private ArrayList<TripResponse> getTripFromHighSpeedTravelServive(QueryInfo info){
 
-        ArrayList<TripResponse> tp = new ArrayList<>();
+        QueryTripResponsePackage list = restTemplate.postForObject(
+                "http://ts-travel-service:12346/travel/queryWithPackage",
+                info,  QueryTripResponsePackage.class);
 
-        ArrayList<TripResponse> list = restTemplate.postForObject(
-                "http://ts-travel-service:12346/travel/query",
-                info, tp.getClass());
+        System.out.println("[Route Plan Get Trip][Size]" + list.getResponses().size());
 
-        System.out.println("[Route Plan Get Trip][Size]" + list.size());
-
-        return list;
+        return list.getResponses();
     }
 
     private ArrayList<TripResponse> getTripFromNormalTrainTravelService(QueryInfo info){
 
-        ArrayList<TripResponse> tp = new ArrayList<>();
+        QueryTripResponsePackage list = restTemplate.postForObject(
+                "http://ts-travel2-service:16346/travel2/queryWithPackage",
+                info,  QueryTripResponsePackage.class);
 
-        ArrayList<TripResponse> list = restTemplate.postForObject(
-                "http://ts-travel2-service:16346/travel2/query",
-                info, tp.getClass());
+        System.out.println("[Route Plan Get TripOther][Size]" + list.getResponses().size());
 
-        System.out.println("[Route Plan Get TripOther][Size]" + list.size());
-
-        return list;
+        return list.getResponses();
     }
 }

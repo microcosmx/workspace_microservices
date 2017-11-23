@@ -64,6 +64,21 @@ public class Travel2Controller {
         return service.query(info);
     }
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel2/queryWithPackage", method= RequestMethod.POST)
+    public QueryTripResponsePackage queryPackage(@RequestBody QueryInfo info){
+        if(info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
+                info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
+                info.getDepartureTime() == null){
+            System.out.println("[Travel Other Service][Travel Query] Fail.Something null.");
+            ArrayList<TripResponse> errorList = new ArrayList<>();
+            return new QueryTripResponsePackage(false,"Fail.",errorList);
+        }
+        System.out.println("[Travel Other Servicee] Query TripResponse");
+        ArrayList<TripResponse> responses = service.query(info);
+        return new QueryTripResponsePackage(true,"Success.",responses);
+    }
+
     //返回Trip以及剩余票数
     @CrossOrigin(origins = "*")
     @RequestMapping(value="/travel2/getTripAllDetailInfo", method= RequestMethod.POST)

@@ -21,6 +21,8 @@ public class Trip {
 
     private String routeId;
 
+    private Date startingTime;
+
     //-------------------------------以下变量暂时停用-----------------------
     @Valid
     @NotNull
@@ -34,9 +36,7 @@ public class Trip {
     @NotNull
     private String terminalStationId;
 
-    @Valid
-    @NotNull
-    private Date startingTime;
+
 
     @Valid
     @NotNull

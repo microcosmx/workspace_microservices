@@ -80,7 +80,6 @@ $("#flow_advance_reserve_booking_button").click(function() {
     var advanceSearchData = JSON.stringify(advanceSearchInfo);
     $("#flow_advance_reserve_booking_list_table").find("tbody").html("");
     var selectType = $("#flow_advance_reserve_select_searchType").val();
-    alert(selectType);
     if(selectType == 0){
         advanceSearchForMinStopInfo(advanceSearchData,"/routePlan/minStopStations");
     }else if(selectType == 1){
@@ -139,37 +138,6 @@ function advanceSearchForCheapestInfo(data,path) {
     });
 }
 
-function flow_advance_addListenerToBookingTable(){
-    var ticketBookingButtonSet = $(".advance_ticket_booking_button");
-    for(var i = 0;i < ticketBookingButtonSet.length;i++){
-        ticketBookingButtonSet[i].onclick = function(){
-            var tripId = $(this).parents("tr").find(".booking_tripId").text();
-            var from = $(this).parents("tr").find(".booking_from").text();
-            var to = $(this).parents("tr").find(".booking_to").text();
-            var seatType = $(this).parents("tr").find(".booking_seat_class").val();
-            var date = $("#travel_booking_date").val();
-            $("#flow_advance_reserve_ticket_confirm_from").text(from);
-            $("#flow_advance_reserve_ticket_confirm_to").text(to);
-            $("#flow_advance_reserve_ticket_confirm_tripId").text(tripId);
-            if(seatType == 2){
-                $("#flow_advance_reserve_ticket_confirm_price").text($(this).parents("tr").find(".booking_seat_price_confort").text());
-            }else if(seatType == 3){
-                $("#flow_advance_reserve_ticket_confirm_price").text($(this).parents("tr").find(".booking_seat_price_economy").text());
-            }
-            $("#flow_advance_reserve_ticket_confirm_travel_date").text(date);
-            $("#flow_advance_reserve_ticket_confirm_seatType").text(seatType);
-            if(seatType == 2){
-                $("#flow_advance_reserve_ticket_confirm_seatType_String").text("confort seat");
-            }else if(seatType == 3){
-                $("#flow_advance_reserve_ticket_confirm_seatType_String").text("economy seat");
-            }
-            flow_advance_refresh_booking_contacts();
-            flow_advance_initFoodSelect(tripId);
-            location.hash="anchor_flow_preserve_select_contacts";
-        }
-    }
-}
-
 function advanceSearchForQuickestInfo(data,path) {
     $("#flow_advance_reserve_booking_button").attr("disabled",true);
     $.ajax({
@@ -188,22 +156,22 @@ function advanceSearchForQuickestInfo(data,path) {
                     $("#flow_advance_reserve_booking_list_table").find("tbody").append(
                         "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
-                        "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
-                        "<td >" + obj[i]["terminalStation"] + "</td>" +
+                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                        "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startingStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["terminalStation"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["economyClass"] + "</td>" +
                         "<td>" + obj[i]["confortClass"] + "</td>" +
                         "<td>" +
-                        "<select class='form-control'>" +
+                        "<select class='form-control booking_seat_class'>" +
                         "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
                         "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
                         "</select>" +
                         "</td>" +
-                        "<td class='noshow_component'>" + obj[i]["priceForConfortClass"] + "</td>"+
-                        "<td class='noshow_component'>" + obj[i]["priceForEconomyClass"] + "</td>"+
+                        "<td class='booking_seat_price_confort noshow_component'>" + obj[i]["priceForConfortClass"] + "</td>"+
+                        "<td class='booking_seat_price_economy noshow_component'>" + obj[i]["priceForEconomyClass"] + "</td>"+
                         "<td>" + "<button class='btn btn-primary advance_ticket_booking_button'>" + "Booking" + "</button>" + "</td>" +
                         "</tr>"
                     );
@@ -235,22 +203,22 @@ function advanceSearchForMinStopInfo(data,path) {
                     $("#flow_advance_reserve_booking_list_table").find("tbody").append(
                         "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td >" + obj[i]["tripId"] + "</td>" +
-                        "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["fromStationName"] + "</td>" +
-                        "<td >" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
+                        "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + 50 + "</td>" +
                         "<td>" + 50 + "</td>" +
                         "<td>" +
-                        "<select class='form-control'>" +
+                        "<select class='form-control booking_seat_class'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
                         "<option value='3'>2st - " + obj[i]["priceForSecondClassSeat"] + "</option>" +
                         "</select>" +
                         "</td>" +
-                        "<td class='noshow_component'>" + obj[i]["priceForFirstClassSeat"] + "</td>"+
-                        "<td class='noshow_component'>" + obj[i]["priceForSecondClassSeat"] + "</td>"+
+                        "<td class='booking_seat_price_confort noshow_component'>" + obj[i]["priceForFirstClassSeat"] + "</td>"+
+                        "<td class='booking_seat_price_economy noshow_component'>" + obj[i]["priceForSecondClassSeat"] + "</td>"+
                         "<td>" + "<button class='btn btn-primary advance_ticket_booking_button'>" + "Booking" + "</button>" + "</td>" +
                         "</tr>"
                     );
@@ -262,6 +230,37 @@ function advanceSearchForMinStopInfo(data,path) {
             $("#flow_advance_reserve_booking_button").attr("disabled",false);
         }
     });
+}
+
+function flow_advance_addListenerToBookingTable(){
+    var ticketBookingButtonSet = $(".advance_ticket_booking_button");
+    for(var i = 0;i < ticketBookingButtonSet.length;i++){
+        ticketBookingButtonSet[i].onclick = function(){
+            var tripId = $(this).parents("tr").find(".booking_tripId").text();
+            var from = $(this).parents("tr").find(".booking_from").text();
+            var to = $(this).parents("tr").find(".booking_to").text();
+            var seatType = $(this).parents("tr").find(".booking_seat_class").val();
+            var date = $("#flow_advance_reserve_booking_date").val();
+            $("#flow_advance_reserve_ticket_confirm_from").text(from);
+            $("#flow_advance_reserve_ticket_confirm_to").text(to);
+            $("#flow_advance_reserve_ticket_confirm_tripId").text(tripId);
+            if(seatType == 2){
+                $("#flow_advance_reserve_ticket_confirm_price").text($(this).parents("tr").find(".booking_seat_price_confort").text());
+            }else if(seatType == 3){
+                $("#flow_advance_reserve_ticket_confirm_price").text($(this).parents("tr").find(".booking_seat_price_economy").text());
+            }
+            $("#flow_advance_reserve_ticket_confirm_travel_date").text(date);
+            $("#flow_advance_reserve_ticket_confirm_seatType").text(seatType);
+            if(seatType == 2){
+                $("#flow_advance_reserve_ticket_confirm_seatType_String").text("confort seat");
+            }else if(seatType == 3){
+                $("#flow_advance_reserve_ticket_confirm_seatType_String").text("economy seat");
+            }
+            flow_advance_refresh_booking_contacts();
+            flow_advance_initFoodSelect(tripId);
+            location.hash="anchor_flow_preserve_select_contacts";
+        }
+    }
 }
 
 /**
@@ -384,50 +383,52 @@ $("#flow_advance_reserve_ticket_select_contacts_confirm_btn").click(function(){
                 $("#flow_advance_reserve_ticket_confirm_contactsName").text(contactsName);
                 $("#flow_advance_reserve_ticket_confirm_documentType").text(documentType);
                 $("#flow_advance_reserve_ticket_confirm_documentNumber").text(documentNumber);
-                //show th food information
-                if($('#flow_advance_reserve_need_food_or_not').is(":checked")){
-                    $('#flow_advance_reserve_ticket_confirm_food_type_div').css("display","block");
-                    $('#flow_advance_reserve_ticket_confirm_food_name_div').css("display","block");
-                    $('#flow_advance_reserve_ticket_confirm_food_price_div').css("display","block");
-                    var type = $('#flow_advance_reserve_preserve_food_type').find("option:selected").text();
-                    $('#flow_advance_reserve_ticket_confirm_food_type').text(type);
-                    if($('#flow_advance_reserve_preserve_food_type').find("option:selected").val() == 1){
-                        var fp =  $('#flow_advance_reserve_train_food_type_list').find("option:selected").text().split(":");
-                        $('#flow_advance_reserve_ticket_confirm_food_name').text(fp[0]);
-                        $('#flow_advance_reserve_ticket_confirm_food_price').text(fp[1]);
-                        $('#flow_advance_reserve_ticket_confirm_food_station_div').css("display","none");
-                        $('#flow_advance_reserve_ticket_confirm_food_store_div').css("display","none");
-                    } else {
-                        var fp2 =  $('#flow_advance_reserve_food_store_food_list').find("option:selected").text().split(":");
-                        $('#flow_advance_reserve_ticket_confirm_food_name').text(fp2[0]);
-                        $('#flow_advance_reserve_ticket_confirm_food_price').text(fp2[1]);
-                        $('#flow_advance_reserve_ticket_confirm_food_station_div').css("display","block");
-                        $('#flow_advance_reserve_ticket_confirm_food_store_div').css("display","block");
-                        $('#flow_advance_reserve_ticket_confirm_food_station').text($('#food-station-list').find("option:selected").text());
-                        $('#flow_advance_reserve_ticket_confirm_food_store').text($('#food-stores-list').find("option:selected").text());
-                    }
 
-                } else {
-                    $('#flow_advance_reserve_ticket_confirm_food_type_div').css("display","none");
-                    $('#flow_advance_reserve_ticket_confirm_food_station_div').css("display","none");
-                    $('#flow_advance_reserve_ticket_confirm_food_store_div').css("display","none");
-                    $('#flow_advance_reserve_ticket_confirm_food_name_div').css("display","none");
-                    $('#flow_advance_reserve_ticket_confirm_food_price_div').css("display","none");
-                }
-
-                //Show the consign information
-                if($('#low_advance_reserve_need_consign_or_not').is(":checked")){
-                    $('.flow_advance_reserve_ticket_confirm_consign_div').css("display", "block");
-                    $('#flow_advance_reserve_name_of_consignee').text($(" #name_of_consignee ").val());
-                    $('#flow_advance_reserve_phone_of_consignee').text($(" #phone_of_consignee ").val());
-                    $('#flow_advance_reserve_weight_of_consign').text($(" #weight_of_consign ").val());
-                }
-                else{
-                    $('.flow_advance_reserve_ticket_confirm_consign_div').css("display", "none");
-                }
                 break;
             }
         }
+
+    }
+    //show th food information
+    if($('#flow_advance_reserve_need_food_or_not').is(":checked")){
+        $('#flow_advance_reserve_ticket_confirm_food_type_div').css("display","block");
+        $('#flow_advance_reserve_ticket_confirm_food_name_div').css("display","block");
+        $('#flow_advance_reserve_ticket_confirm_food_price_div').css("display","block");
+        var type = $('#flow_advance_reserve_preserve_food_type').find("option:selected").text();
+        $('#flow_advance_reserve_ticket_confirm_food_type').text(type);
+        if($('#flow_advance_reserve_preserve_food_type').find("option:selected").val() == 1){
+            var fp =  $('#flow_advance_reserve_train_food_type_list').find("option:selected").text().split(":");
+            $('#flow_advance_reserve_ticket_confirm_food_name').text(fp[0]);
+            $('#flow_advance_reserve_ticket_confirm_food_price').text(fp[1]);
+            $('#flow_advance_reserve_ticket_confirm_food_station_div').css("display","none");
+            $('#flow_advance_reserve_ticket_confirm_food_store_div').css("display","none");
+        } else {
+            var fp2 =  $('#flow_advance_reserve_food_store_food_list').find("option:selected").text().split(":");
+            $('#flow_advance_reserve_ticket_confirm_food_name').text(fp2[0]);
+            $('#flow_advance_reserve_ticket_confirm_food_price').text(fp2[1]);
+            $('#flow_advance_reserve_ticket_confirm_food_station_div').css("display","block");
+            $('#flow_advance_reserve_ticket_confirm_food_store_div').css("display","block");
+            $('#flow_advance_reserve_ticket_confirm_food_station').text($('#food-station-list').find("option:selected").text());
+            $('#flow_advance_reserve_ticket_confirm_food_store').text($('#food-stores-list').find("option:selected").text());
+        }
+
+    } else {
+        $('#flow_advance_reserve_ticket_confirm_food_type_div').css("display","none");
+        $('#flow_advance_reserve_ticket_confirm_food_station_div').css("display","none");
+        $('#flow_advance_reserve_ticket_confirm_food_store_div').css("display","none");
+        $('#flow_advance_reserve_ticket_confirm_food_name_div').css("display","none");
+        $('#flow_advance_reserve_ticket_confirm_food_price_div').css("display","none");
+    }
+
+    //Show the consign information
+    if($('#flow_advance_reserve_need_consign_or_not').is(":checked")){
+        $('.flow_advance_reserve_ticket_confirm_consign_div').css("display", "block");
+        $('#flow_advance_reserve_ticket_confirm_consignee_name').text($(" #flow_advance_reserve_name_of_consignee ").val());
+        $('#flow_advance_reserve_ticket_confirm_consignee_phone').text($(" #flow_advance_reserve_phone_of_consignee").val());
+        $('#flow_advance_reserve_ticket_confirm_consign_weight').text($(" #flow_advance_reserve_weight_of_consign ").val());
+    }
+    else{
+        $('.flow_advance_reserve_ticket_confirm_consign_div').css("display", "none");
     }
     if(selectContactsStatus == false){
         alert("Please select contacts.");
@@ -623,7 +624,102 @@ function flow_advance_convertNumberToTimeString(timeNumber) {
 /**
  *  Flow Preserve - Step 4 - Confirm Your Order
  **/
+$("#flow_advance_reserve_ticket_confirm_cancel_btn").click(function () {
+    location.hash="anchor_flow_preserve_select_contacts";
+})
 
+$("#flow_advance_reserve_ticket_confirm_confirm_btn").click(function () {
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
+
+    $("#flow_advance_reserve_ticket_select_contacts_confirm_btn").attr("disabled",true);
+    var orderTicketInfo = new Object();
+    orderTicketInfo.contactsId = $("#flow_advance_reserve_ticket_confirm_contactsId").text();
+    orderTicketInfo.tripId = $("#flow_advance_reserve_ticket_confirm_tripId").text();
+    orderTicketInfo.seatType = $("#flow_advance_reserve_ticket_confirm_seatType").text();
+    orderTicketInfo.date = $("#flow_advance_reserve_ticket_confirm_travel_date").text();
+    orderTicketInfo.from = $("#flow_advance_reserve_ticket_confirm_from").text();
+    orderTicketInfo.to = $("#flow_advance_reserve_ticket_confirm_to").text();
+    orderTicketInfo.assurance = $("#flow_advance_reserve_assurance_type").val();
+
+    //add the food information
+    if(null != $('#flow_advance_reserve_ticket_confirm_food_type').text() && "" != $('#flow_advance_reserve_ticket_confirm_food_type').text()){
+        if($('#flow_advance_reserve_ticket_confirm_food_type').text() == "Train Food"){
+            orderTicketInfo.foodType = 1;
+            orderTicketInfo.foodName = $('#flow_advance_reserve_ticket_confirm_food_name').text();
+            orderTicketInfo.foodPrice = parseFloat($('#flow_advance_reserve_ticket_confirm_food_price').text().substr(1));
+            orderTicketInfo.stationName = "";
+            orderTicketInfo.storeName = "";
+        } else if ($('#flow_advance_reserve_ticket_confirm_food_type').text()== "Station Food Stores"){
+            orderTicketInfo.foodType = 2;
+            orderTicketInfo.stationName = $('#flow_advance_reserve_ticket_confirm_food_station').text();
+            orderTicketInfo.storeName = $('#flow_advance_reserve_ticket_confirm_food_store').text();
+            orderTicketInfo.foodName = $('#flow_advance_reserve_ticket_confirm_food_name').text();
+            orderTicketInfo.foodPrice = parseFloat($('#low_advance_reserve_ticket_confirm_food_price').text().substr(1));
+        } else {
+            orderTicketInfo.foodType = 0;
+        }
+    } else {
+        orderTicketInfo.foodType = 0;
+    }
+
+    //Add the consign information
+    if($('#flow_advance_reserve_need_consign_or_not').is(":checked")){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        orderTicketInfo.handleDate = currentdate;
+        orderTicketInfo.consigneeName = $("#flow_advance_reserve_name_of_consignee").val();
+        orderTicketInfo.consigneePhone = $("#flow_advance_reserve_phone_of_consignee").val();
+        orderTicketInfo.consigneeWeight = parseFloat($("#flow_advance_reserve_weight_of_consign").val());
+        orderTicketInfo.isWithin = false;
+    }
+
+    var orderTicketsData = JSON.stringify(orderTicketInfo);
+    console.log("orderTicketsData:");
+    console.log(orderTicketsData);
+
+    var tripType = orderTicketInfo.tripId.charAt(0);
+    if(tripType == 'G' || tripType == 'D'){
+        path = "/preserve";
+    }else{
+        path = "/preserveOther";
+    }
+    $.ajax({
+        type: "post",
+        url: path,
+        contentType: "application/json",
+        dataType: "json",
+        data: orderTicketsData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            alert(result["message"]);
+            if(result['status'] == true){
+                //$("#preserve_pay_panel").css('display','block');
+                $("#flow_advance_reserve_pay_orderId").val(result["order"]["id"]);
+                $("#flow_advance_reserve_pay_price").val(result["order"]["price"]);
+                //$("#preserve_pay_userId").val(result["order"]["accountId"]);
+                $("#flow_advance_reserve_pay_tripId").val(result["order"]["trainNumber"]);
+                location.hash="anchor_flow_advance_reserve_pay";
+            }
+        },
+        complete: function(){
+            $("#flow_advance_reserve_ticket_select_contacts_confirm_btn").attr("disabled",false);
+        }
+    })
+})
 
 /**
  * Flow Preserve - Step 5 - Pay For Your Ticket
