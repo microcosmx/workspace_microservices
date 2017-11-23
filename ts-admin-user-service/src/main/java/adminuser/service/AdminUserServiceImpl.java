@@ -1,6 +1,7 @@
 package adminuser.service;
 
 import adminuser.domain.request.AddAccountRequest;
+import adminuser.domain.request.AdminDeleteAccountRequest;
 import adminuser.domain.request.DeleteAccountRequest;
 import adminuser.domain.request.UpdateAccountRequest;
 import adminuser.domain.response.DeleteAccountResult;
@@ -36,8 +37,11 @@ public class AdminUserServiceImpl implements AdminUserService {
     public DeleteAccountResult deleteUser(DeleteAccountRequest request) {
         DeleteAccountResult result = new DeleteAccountResult();
         if(checkId(request.getLoginId())){
+            AdminDeleteAccountRequest adminDeleteAccountRequest = new AdminDeleteAccountRequest();
+            adminDeleteAccountRequest.setAccountId(request.getAccountId());
+
             result = restTemplate.postForObject(
-                    "http://ts-sso-service:12349/account/admindelete", request.getAccountId(),DeleteAccountResult.class);
+                    "http://ts-sso-service:12349/account/admindelete", adminDeleteAccountRequest,DeleteAccountResult.class);
         }
         else{
             System.out.println("[Admin User Service][Wrong Admin ID]");

@@ -127,6 +127,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         $('#update_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
+                alert($scope.update_route_id + " " + $scope.update_route_stations+ " " + $scope.update_route_distances+ " " + $scope.update_route_start_station);
                 $http({
                     method: "post",
                     url: "/adminroute/createAndModifyRoute",

@@ -106,7 +106,7 @@ public class AccountSsoController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/account/admindelete", method = RequestMethod.GET)
+    @RequestMapping(path = "/account/admindelete", method = RequestMethod.POST)
     public DeleteAccountResult adminDelete(@RequestBody AdminDeleteAccountRequest request){
         System.out.println("[SSO Service][Admin Delete Account]");
         return ssoService.deleteAccount(request.getAccountId());
