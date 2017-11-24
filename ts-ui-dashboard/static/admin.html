@@ -20,8 +20,7 @@
     <script type="text/javascript" src="assets/js/index.js"></script>
 </head>
 
-<!--<body data-type="generalComponents" onload="loadBody()">-->
-<body data-type="generalComponents">
+<body data-type="generalComponents" onload="loadBody()">
     <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
         <a href="javascript:;" class="tpl-logo">
@@ -64,22 +63,22 @@
                         </a>
                     </li>
                     <li class="tpl-left-nav-item">
-                        <a href="chart.html" class="nav-link tpl-left-nav-link-list">
+                        <a href="admin_route.html" class="nav-link tpl-left-nav-link-list">
                             <i class="am-icon-line-chart"></i>
                             <span>Route</span>
                         </a>
                     </li>
 
                     <li class="tpl-left-nav-item">
-                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-bar-chart"></i>
+                        <a href="admin_travel.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-globe"></i>
                             <span>Travel</span>
                         </a>
                     </li>
 
                     <li class="tpl-left-nav-item">
-                        <a href="adminlogin.html" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-key"></i>
+                        <a href="admin_user.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-users"></i>
                             <span>User</span>
                         </a>
                     </li>
@@ -95,27 +94,27 @@
                             <li>
                                 <!-- 打开状态 a 标签添加 active 即可   -->
                                 <a href="admin_contacts.html" class="active">
-                                    <i class="am-icon-envira"></i>
+                                    <i class="am-icon-user"></i>
                                     <span>Contact</span>
                                 </a>
 
                                 <a href="admin_station.html">
-                                    <i class="am-icon-dollar"></i>
+                                    <i class="am-icon-institution"></i>
                                     <span>Station</span>
                                 </a>
 
                                 <a href="admin_train.html">
-                                    <i class="am-icon-male"></i>
+                                    <i class="am-icon-train"></i>
                                     <span>Train</span>
                                 </a>
 
                                 <a href="admin_price.html">
-                                    <i class="am-icon-envira"></i>
+                                    <i class="am-icon-dollar"></i>
                                     <span>Price</span>
                                 </a>
 
                                 <a href="admin_config.html">
-                                    <i class="am-icon-envira"></i>
+                                    <i class="am-icon-cog"></i>
                                     <span>Config</span>
                                 </a>
                             </li>
@@ -192,14 +191,14 @@
                                             <th class="table-title">Price</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat=" record in records">
-                                        <tr>
+                                    <tbody>
+                                        <tr ng-repeat=" record in records">
                                             <td>
                                                 <div class="am-btn-toolbar my-am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
                                                         <button class="am-btn am-btn-default am-btn-xs am-text-secondary" ng-click="updateOrder(record)"><span class="am-icon-pencil-square-o"></span> Update</button>
                                                         <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>-->
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteOrder(record.id)"><span class="am-icon-trash-o"></span> Delete</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteOrder(record.id,record.trainNumber)"><span class="am-icon-trash-o"></span> Delete</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -332,6 +331,20 @@
                                             <div class="am-modal-footer">
                                                 <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
                                                 <span class="am-modal-btn" data-am-modal-confirm>Update</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Prompt Delete Confirm-->
+                                    <div class="am-modal am-modal-confirm" tabindex="-1" id="delete_confirm">
+                                        <div class="am-modal-dialog">
+                                            <div class="am-modal-hd">Delete Order</div>
+                                            <div class="am-modal-bd">
+                                                Are you sure to delete this order record?
+                                            </div>
+                                            <div class="am-modal-footer">
+                                                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                                                <span class="am-modal-btn" data-am-modal-confirm>Delete</span>
                                             </div>
                                         </div>
                                     </div>

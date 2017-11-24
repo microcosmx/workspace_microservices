@@ -26,6 +26,9 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照二等座位结果排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
+//        finalResult.addAll(highSpeed);
+//        finalResult.addAll(normalTrain);
+//        return finalResult;
         for(TripResponse tr : highSpeed){
             finalResult.add(tr);
         }
@@ -51,8 +54,6 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         return returnResult;
 
-
-
     }
 
     @Override
@@ -69,6 +70,9 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照时间排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
+//        finalResult.addAll(highSpeed);
+//        finalResult.addAll(normalTrain);
+//        return finalResult;
         for(TripResponse tr : highSpeed){
             finalResult.add(tr);
         }
@@ -230,23 +234,23 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
     private ArrayList<TripResponse> getTripFromHighSpeedTravelServive(QueryInfo info){
 
-        ArrayList<TripResponse> tp = new ArrayList<>();
+        QueryTripResponsePackage list = restTemplate.postForObject(
+                "http://ts-travel-service:12346/travel/queryWithPackage",
+                info,  QueryTripResponsePackage.class);
 
-        ArrayList<TripResponse> list = restTemplate.postForObject(
-                "http://ts-travel-service:12346/travel/query",
-                info, tp.getClass());
+        System.out.println("[Route Plan Get Trip][Size]" + list.getResponses().size());
 
-        return list;
+        return list.getResponses();
     }
 
     private ArrayList<TripResponse> getTripFromNormalTrainTravelService(QueryInfo info){
 
-        ArrayList<TripResponse> tp = new ArrayList<>();
+        QueryTripResponsePackage list = restTemplate.postForObject(
+                "http://ts-travel2-service:16346/travel2/queryWithPackage",
+                info,  QueryTripResponsePackage.class);
 
-        ArrayList<TripResponse> list = restTemplate.postForObject(
-                "http://ts-travel2-service:16346/travel2/query",
-                info, tp.getClass());
+        System.out.println("[Route Plan Get TripOther][Size]" + list.getResponses().size());
 
-        return list;
+        return list.getResponses();
     }
 }

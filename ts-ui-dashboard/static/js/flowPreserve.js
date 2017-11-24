@@ -352,13 +352,11 @@ function needConsignOrNot(){
     }
 }
 
-
 function convertNumberToTimeString(timeNumber) {
     var str = new Date(timeNumber);
     var newStr = str.getHours() + ":" + str.getMinutes() + "";
     return newStr;
 }
-
 
 /**
  *  Flow Preserve - Step 3 - Query/Add Contacts
@@ -521,8 +519,6 @@ $("#ticket_select_contacts_confirm_btn").click(function(){
                 else{
                     $('.ticket_confirm_consign_div').css("display", "none");
                 }
-
-
                 break;
             }
         }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @RestController
-public class ContactsController {
+public class FuckContactsController {
 
     @Autowired
     private ContactsService contactsService;
@@ -24,7 +24,7 @@ public class ContactsController {
 
     /***************For super admin(Single Service Test*******************/
     @CrossOrigin(origins = "*")
-    @RequestMapping(path = "/contacts/create", method = RequestMethod.POST)
+    @RequestMapping(path = "/contacts/admincreate", method = RequestMethod.POST)
     public AddContactsResult createNewContactsAdmin(@RequestBody Contacts aci){
         aci.setId(UUID.randomUUID());
         System.out.println("[ContactsService][Create Contacts In Admin]");

@@ -32,5 +32,15 @@ public class PriceController {
         return service.createNewPriceConfig(info);
     }
 
+    @RequestMapping(value="/price/delete", method= RequestMethod.POST)
+    public boolean delete(@RequestBody CreateAndModifyPriceConfig info){
+        return service.deletePriceConfig(info);
+    }
+
+    @RequestMapping(value="/price/update", method= RequestMethod.POST)
+    public boolean update(@RequestBody CreateAndModifyPriceConfig info){
+        return service.updatePriceConfig(info);
+    }
+
 
 }
