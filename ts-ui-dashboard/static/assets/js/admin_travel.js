@@ -40,7 +40,7 @@ app.factory('loadDataService', function ($http, $q) {
 
         $http({
             method: "get",
-            url: "/adminroute/findAll/" + param.id,
+            url: "/admintravel/findAll/" + param.id,
             withCredentials: true,
         }).success(function (data, status, headers, config) {
             if (data.status) {
@@ -91,7 +91,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/adminroute/createAndModifyRoute",
+                    url: "/admintravel/createAndModifyTravel",
                     withCredentials: true,
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
@@ -129,7 +129,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/adminroute/createAndModifyRoute",
+                    url: "/admintravel/createAndModifyTravel",
                     withCredentials: true,
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
@@ -162,7 +162,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
             onConfirm: function(options) {
                 $http({
                     method: "post",
-                    url: "/adminroute/deleteRoute",
+                    url: "/admintravel/deleteTravel",
                     withCredentials: true,
                     data: {
                         loginId: sessionStorage.getItem("admin_id"),

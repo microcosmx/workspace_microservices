@@ -28,4 +28,6 @@ public interface TravelService {
     List<Trip> queryAll();
 
     GetTripsByRouteIdResult getTripByRoute(GetTripsByRouteIdInfo info);
+
+    AdminFindAllResult adminQueryAll();
 }

@@ -27,4 +27,6 @@ public interface Travel2Service {
     List<Trip> queryAll();
 
     GetTripsByRouteIdResult getTripByRoute(GetTripsByRouteIdInfo info);
+
+    AdminFindAllResult adminQueryAll();
 }
