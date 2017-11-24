@@ -1,2 +1,12 @@
 
 bug list:
+
+# Cannot read the HTTP response of the restTemplate call for other microservices——
+The last parameter of restTemplate's postForObject/getForObject method must be the class of the return object
+of the request url, the properties' name must be the same.
+
+# The url mapping is ambiguous——
+Two paths of the RequestMapping annotation is the same
+
+# When executing the "ADD ./target/ts-food-service-1.0.jar /app/",  cannot find the jar package——
+Change the version of pom.xml to 1.0
