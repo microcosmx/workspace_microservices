@@ -18,4 +18,6 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 
     ArrayList<Account> findAll();
 
+    void deleteById(UUID id);
+
 }

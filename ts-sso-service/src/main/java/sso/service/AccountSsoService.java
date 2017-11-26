@@ -26,4 +26,6 @@ public interface AccountSsoService {
 
     Contacts adminLogin(String name, String password);
 
+    DeleteAccountResult deleteAccount(String accountId);
+
 }

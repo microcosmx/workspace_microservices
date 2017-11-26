@@ -50,7 +50,10 @@
         <module>ts-consign-service</module>
 		<module>ts-admin-order-service</module>
 		<module>ts-admin-basic-info-service</module>
-        <!--<module>ts-ticket-advance-service</module>-->
+        <module>ts-admin-route-service</module>
+        <module>ts-admin-travel-service</module>
+		<module>ts-admin-user-service</module>
+		<!--<module>ts-ticket-advance-service</module>-->
 		<!--<module>1_services_analysis_mvn</module>-->
     </modules>
 
