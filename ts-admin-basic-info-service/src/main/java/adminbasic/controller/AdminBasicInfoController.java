@@ -21,13 +21,6 @@ public class AdminBasicInfoController {
         return "Welcome to [ AdminBasicInfo Service ] !";
     }
 
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(path = "/adminbasic/login", method = RequestMethod.POST)
-//    public Contacts getAllContacts(@RequestBody AdminLoginInfo ali){
-//        System.out.println("[Admin Basic Info Service][Login]");
-//        return adminBasicInfoService.login(ali.getName(), ali.getPassword());
-//    }
-
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/adminbasic/getAllContacts/{id}", method = RequestMethod.GET)
     public GetAllContactsResult getAllContacts(@PathVariable String id){

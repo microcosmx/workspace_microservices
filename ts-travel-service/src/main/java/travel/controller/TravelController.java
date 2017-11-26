@@ -95,4 +95,10 @@ public class TravelController {
     public List<Trip> queryAll(){
         return travelService.queryAll();
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel/adminQueryAll", method= RequestMethod.GET)
+    public AdminFindAllResult adminQueryAll(){
+        return travelService.adminQueryAll();
+    }
 }

@@ -329,4 +329,22 @@ public class TravelServiceImpl implements TravelService{
             return result.getRoute();
         }
     }
+
+    @Override
+    public AdminFindAllResult adminQueryAll() {
+        List<Trip> trips = repository.findAll();
+        ArrayList<AdminTrip> adminTrips = new ArrayList<AdminTrip>();
+        for(Trip trip : trips){
+            AdminTrip adminTrip = new AdminTrip();
+            adminTrip.setTrip(trip);
+            adminTrip.setRoute(getRouteByRouteId(trip.getRouteId()));
+            adminTrip.setTrainType(getTrainType(trip.getTrainTypeId()));
+            adminTrips.add(adminTrip);
+        }
+        AdminFindAllResult result = new AdminFindAllResult();
+        result.setStatus(true);
+        result.setMessage("Travel Service Admin Query All Travel Success");
+        result.setTrips(adminTrips);
+        return result;
+    }
 }

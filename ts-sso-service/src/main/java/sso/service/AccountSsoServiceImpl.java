@@ -218,8 +218,12 @@ public class AccountSsoServiceImpl implements AccountSsoService{
         }else{
             oldAccount.setEmail(modifyAccountInfo.getNewEmail());
             oldAccount.setPassword(modifyAccountInfo.getNewPassword());
+            oldAccount.setName(modifyAccountInfo.getNewName());
+            oldAccount.setGender(modifyAccountInfo.getNewGender());
+            oldAccount.setDocumentType(modifyAccountInfo.getNewDocumentType());
+            oldAccount.setDocumentNum(modifyAccountInfo.getNewDocumentNumber());
             accountRepository.save(oldAccount);
-            oldAccount.setPassword("");
+            //oldAccount.setPassword("");
             System.out.println("[SSO Service][ModifyInfo] Success.");
             result.setStatus(true);
             result.setMessage("Success.");
@@ -254,6 +258,24 @@ public class AccountSsoServiceImpl implements AccountSsoService{
             System.out.println("[SSO Service][Admin Login fail!]");
         }
         return c;
+    }
+
+    @Override
+    public DeleteAccountResult deleteAccount(String accountId) {
+        Account account = accountRepository.findById(UUID.fromString(accountId));
+        DeleteAccountResult result = new DeleteAccountResult();
+        if(account == null){
+            result.setStatus(false);
+            result.setMessage("Delete account failed!");
+            result.setAccount(null);
+        }
+        else{
+            accountRepository.deleteById(account.getId());
+            result.setStatus(true);
+            result.setMessage("Delete account successfully!");
+            result.setAccount(account);
+        }
+        return result;
     }
 }
 
