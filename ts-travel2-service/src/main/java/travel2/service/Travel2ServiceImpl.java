@@ -24,16 +24,20 @@ public class Travel2ServiceImpl implements Travel2Service{
         if(trip == null){
             result.setStatus(false);
             result.setMessage("Trip Not Found");
+            System.out.println("[Get Route By Trip ID] Trip Not Found:" + tripId);
             result.setRoute(null);
         }else{
             Route route = getRouteByRouteId(trip.getRouteId());
             if(route == null){
                 result.setStatus(false);
                 result.setMessage("Route Not Found");
+                System.out.println("[Get Route By Trip ID] Route Not Found:" + trip.getRouteId());
                 result.setRoute(null);
             }else{
                 result.setStatus(true);
                 result.setMessage("Success");
+                System.out.println("[Get Route By Trip ID] Success");
+
                 result.setRoute(route);
             }
         }

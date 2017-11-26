@@ -20,6 +20,7 @@ public class TravelController {
 
     @RequestMapping(value = "/travel/getRouteByTripId/{tripId}", method = RequestMethod.GET)
     public GetRouteResult getRouteByTripId(@PathVariable String tripId){
+        System.out.println("[Get Route By Trip ID] TripId:" + tripId);
         return travelService.getRouteByTripId(tripId);
     }
 

@@ -69,11 +69,10 @@ $("#flow_advance_reserve_login_button").click(function() {
 
 $("#flow_advance_reserve_booking_button").click(function() {
     var advanceSearchInfo = new Object();
-    advanceSearchInfo.formStationName = $("#flow_advance_reserve_startingPlace").val();
-    advanceSearchInfo.toStationName = $("#flow_advance_reserve_terminalPlace").val();
-    advanceSearchInfo.travelDate = $("#flow_advance_reserve_booking_date").val();
-    advanceSearchInfo.num = 5;
-    if(advanceSearchInfo.travelDate  == null || checkDateFormat(advanceSearchInfo.travelDate ) == false){
+    advanceSearchInfo.startingPlace = $("#flow_advance_reserve_startingPlace").val();
+    advanceSearchInfo.endPlace = $("#flow_advance_reserve_terminalPlace").val();
+    advanceSearchInfo.departureTime = $("#flow_advance_reserve_booking_date").val();
+    if(advanceSearchInfo.departureTime  == null || checkDateFormat(advanceSearchInfo.departureTime ) == false){
         alert("Departure Date Format Wrong.");
         return;
     }
@@ -81,11 +80,11 @@ $("#flow_advance_reserve_booking_button").click(function() {
     $("#flow_advance_reserve_booking_list_table").find("tbody").html("");
     var selectType = $("#flow_advance_reserve_select_searchType").val();
     if(selectType == 0){
-        advanceSearchForMinStopInfo(advanceSearchData,"/routePlan/minStopStations");
+        advanceSearchForMinStopInfo(advanceSearchData,"/travelPlan/getMinStation");
     }else if(selectType == 1){
-        advanceSearchForCheapestInfo(advanceSearchData,"/routePlan/cheapestRoute");
+        advanceSearchForCheapestInfo(advanceSearchData,"/travelPlan/getCheapest");
     }else if(selectType == 2){
-        advanceSearchForQuickestInfo(advanceSearchData,"/routePlan/quickestRoute");
+        advanceSearchForQuickestInfo(advanceSearchData,"/travelPlan/getQuickest");
     }else{
         alert("Select Search Type Wrong");
     }
@@ -104,27 +103,27 @@ function advanceSearchForCheapestInfo(data,path) {
         },
         success: function (result) {
             if (result.status = true) {
-                var obj = result;
+                var obj = result["travelAdvanceResultUnits"];
                 for (var i = 0, l = obj.length; i < l; i++) {
                     $("#flow_advance_reserve_booking_list_table").find("tbody").append(
                         "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                        "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["terminalStation"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + obj[i]["economyClass"] + "</td>" +
-                        "<td>" + obj[i]["confortClass"] + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketSecondClass"]) + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketFirstClass"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control booking_seat_class'>" +
-                        "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
-                        "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
+                        "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
+                        "<option value='3'>2st - " + obj[i]["priceForSecondClassSeat"] + "</option>" +
                         "</select>" +
                         "</td>" +
-                        "<td class='booking_seat_price_confort noshow_component'>" + obj[i]["priceForConfortClass"] + "</td>"+
-                        "<td class='booking_seat_price_economy noshow_component'>" + obj[i]["priceForEconomyClass"] + "</td>"+
+                        "<td class='booking_seat_price_confort noshow_component'>" + obj[i]["priceForFirstClassSeat"] + "</td>"+
+                        "<td class='booking_seat_price_economy noshow_component'>" + obj[i]["priceForSecondClassSeat"] + "</td>"+
                         "<td>" + "<button class='btn btn-primary advance_ticket_booking_button'>" + "Booking" + "</button>" + "</td>" +
                         "</tr>"
                     );
@@ -151,27 +150,27 @@ function advanceSearchForQuickestInfo(data,path) {
         },
         success: function (result) {
             if (result.status = true) {
-                var obj = result;
+                var obj = result["travelAdvanceResultUnits"];
                 for (var i = 0, l = obj.length; i < l; i++) {
                     $("#flow_advance_reserve_booking_list_table").find("tbody").append(
                         "<tr>" +
                         "<td>" + i + "</td>" +
-                        "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
+                        "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["terminalStation"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + obj[i]["economyClass"] + "</td>" +
-                        "<td>" + obj[i]["confortClass"] + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketSecondClass"]) + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketFirstClass"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control booking_seat_class'>" +
-                        "<option value='2'>1st - " + obj[i]["priceForConfortClass"] + "</option>" +
-                        "<option value='3'>2st - " + obj[i]["priceForEconomyClass"] + "</option>" +
+                        "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
+                        "<option value='3'>2st - " + obj[i]["priceForSecondClassSeat"] + "</option>" +
                         "</select>" +
                         "</td>" +
-                        "<td class='booking_seat_price_confort noshow_component'>" + obj[i]["priceForConfortClass"] + "</td>"+
-                        "<td class='booking_seat_price_economy noshow_component'>" + obj[i]["priceForEconomyClass"] + "</td>"+
+                        "<td class='booking_seat_price_confort noshow_component'>" + obj[i]["priceForFirstClassSeat"] + "</td>"+
+                        "<td class='booking_seat_price_economy noshow_component'>" + obj[i]["priceForSecondClassSeat"] + "</td>"+
                         "<td>" + "<button class='btn btn-primary advance_ticket_booking_button'>" + "Booking" + "</button>" + "</td>" +
                         "</tr>"
                     );
@@ -198,7 +197,7 @@ function advanceSearchForMinStopInfo(data,path) {
         },
         success: function (result) {
             if (result.status = true) {
-                var obj = result["results"];
+                var obj = result["travelAdvanceResultUnits"];
                 for (var i = 0, l = obj.length; i < l; i++) {
                     $("#flow_advance_reserve_booking_list_table").find("tbody").append(
                         "<tr>" +
@@ -209,8 +208,8 @@ function advanceSearchForMinStopInfo(data,path) {
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + 50 + "</td>" +
-                        "<td>" + 50 + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketSecondClass"]) + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketFirstClass"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control booking_seat_class'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +

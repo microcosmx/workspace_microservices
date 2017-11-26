@@ -21,8 +21,8 @@ public class TravelPlanServiceImpl implements TravelPlanService{
         queryInfoFirstSection.setStartingPlace(info.getFromStationName());
         queryInfoFirstSection.setEndPlace(info.getViaStationName());
 
-        ArrayList<TripResponse> firstSectionFromHighSpeed = new ArrayList<>();
-        ArrayList<TripResponse> firstSectionFromNormal = new ArrayList<>();
+        ArrayList<TripResponse> firstSectionFromHighSpeed;
+        ArrayList<TripResponse> firstSectionFromNormal;
         firstSectionFromHighSpeed = tripsFromHighSpeed(queryInfoFirstSection);
         firstSectionFromNormal = tripsFromNormal(queryInfoFirstSection);
 
@@ -31,8 +31,8 @@ public class TravelPlanServiceImpl implements TravelPlanService{
         queryInfoSecondSectoin.setStartingPlace(info.getViaStationName());
         queryInfoSecondSectoin.setEndPlace(info.getToStationName());
 
-        ArrayList<TripResponse> secondSectionFromHighSpeed = new ArrayList<>();
-        ArrayList<TripResponse> secondSectionFromNormal = new ArrayList<>();
+        ArrayList<TripResponse> secondSectionFromHighSpeed;
+        ArrayList<TripResponse> secondSectionFromNormal;
         secondSectionFromHighSpeed = tripsFromHighSpeed(queryInfoSecondSectoin);
         secondSectionFromNormal = tripsFromNormal(queryInfoSecondSectoin);
 
@@ -53,13 +53,166 @@ public class TravelPlanServiceImpl implements TravelPlanService{
         return result;
     }
 
-    ArrayList<TripResponse> tripsFromHighSpeed(QueryInfo info){
+    @Override
+    public TravelAdvanceResult getCheapest(QueryInfo info) {
+        GetRoutePlanInfo routePlanInfo = new GetRoutePlanInfo();
+        routePlanInfo.setNum(5);
+        routePlanInfo.setFormStationName(info.getStartingPlace());
+        routePlanInfo.setToStationName(info.getEndPlace());
+        routePlanInfo.setTravelDate(info.getDepartureTime());
+        RoutePlanResults routePlanResults = getRoutePlanResultCheapest(routePlanInfo);
+
+        TravelAdvanceResult travelAdvanceResult = new TravelAdvanceResult();
+
+        if(routePlanResults.isStatus() == true){
+            ArrayList<RoutePlanResultUnit> routePlanResultUnits = routePlanResults.getResults();
+            travelAdvanceResult.setStatus(true);
+            travelAdvanceResult.setMessage("Success");
+            ArrayList<TravelAdvanceResultUnit> lists = new ArrayList<>();
+            for(int i = 0; i < routePlanResultUnits.size(); i++){
+                RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);
+                TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();
+                newUnit.setTripId(tempUnit.getTripId());
+                newUnit.setTrainTypeId(tempUnit.getTrainTypeId());
+                newUnit.setFromStationName(tempUnit.getFromStationName());
+                newUnit.setToStationName(tempUnit.getToStationName());
+                newUnit.setStopStations(tempUnit.getStopStations());
+                newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
+                newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
+                newUnit.setStartingTime(tempUnit.getStartingTime());
+                newUnit.setEndTime(tempUnit.getEndTime());
+                newUnit.setNumberOfRestTicketFirstClass(50);
+                newUnit.setNumberOfRestTicketFirstClass(50);
+                lists.add(newUnit);
+            }
+            travelAdvanceResult.setTravelAdvanceResultUnits(lists);
+        }else{
+            travelAdvanceResult.setStatus(false);
+            travelAdvanceResult.setMessage("Cannot Find");
+            travelAdvanceResult.setTravelAdvanceResultUnits(new ArrayList<>());
+        }
+
+        return travelAdvanceResult;
+}
+
+    @Override
+    public TravelAdvanceResult getQuickest(QueryInfo info) {
+        GetRoutePlanInfo routePlanInfo = new GetRoutePlanInfo();
+        routePlanInfo.setNum(5);
+        routePlanInfo.setFormStationName(info.getStartingPlace());
+        routePlanInfo.setToStationName(info.getEndPlace());
+        routePlanInfo.setTravelDate(info.getDepartureTime());
+        RoutePlanResults routePlanResults = getRoutePlanResultQuickest(routePlanInfo);
+
+        TravelAdvanceResult travelAdvanceResult = new TravelAdvanceResult();
+
+        if(routePlanResults.isStatus() == true){
+            ArrayList<RoutePlanResultUnit> routePlanResultUnits = routePlanResults.getResults();
+            travelAdvanceResult.setStatus(true);
+            travelAdvanceResult.setMessage("Success");
+            ArrayList<TravelAdvanceResultUnit> lists = new ArrayList<>();
+            for(int i = 0; i < routePlanResultUnits.size(); i++){
+                RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);
+                TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();
+                newUnit.setTripId(tempUnit.getTripId());
+                newUnit.setTrainTypeId(tempUnit.getTrainTypeId());
+                newUnit.setFromStationName(tempUnit.getFromStationName());
+                newUnit.setToStationName(tempUnit.getToStationName());
+                newUnit.setStopStations(tempUnit.getStopStations());
+                newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
+                newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
+                newUnit.setStartingTime(tempUnit.getStartingTime());
+                newUnit.setEndTime(tempUnit.getEndTime());
+                newUnit.setNumberOfRestTicketFirstClass(50);
+                newUnit.setNumberOfRestTicketFirstClass(50);
+                lists.add(newUnit);
+            }
+            travelAdvanceResult.setTravelAdvanceResultUnits(lists);
+        }else{
+            travelAdvanceResult.setStatus(false);
+            travelAdvanceResult.setMessage("Cannot Find");
+            travelAdvanceResult.setTravelAdvanceResultUnits(new ArrayList<>());
+        }
+
+        return travelAdvanceResult;
+
+    }
+
+    @Override
+    public TravelAdvanceResult getMinStation(QueryInfo info) {
+        GetRoutePlanInfo routePlanInfo = new GetRoutePlanInfo();
+        routePlanInfo.setNum(5);
+        routePlanInfo.setFormStationName(info.getStartingPlace());
+        routePlanInfo.setToStationName(info.getEndPlace());
+        routePlanInfo.setTravelDate(info.getDepartureTime());
+        RoutePlanResults routePlanResults = getRoutePlanResultMinStation(routePlanInfo);
+        TravelAdvanceResult travelAdvanceResult = new TravelAdvanceResult();
+
+        if(routePlanResults.isStatus() == true){
+            ArrayList<RoutePlanResultUnit> routePlanResultUnits = routePlanResults.getResults();
+            travelAdvanceResult.setStatus(true);
+            travelAdvanceResult.setMessage("Success");
+            ArrayList<TravelAdvanceResultUnit> lists = new ArrayList<>();
+            for(int i = 0; i < routePlanResultUnits.size(); i++){
+                RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);
+                TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();
+                newUnit.setTripId(tempUnit.getTripId());
+                newUnit.setTrainTypeId(tempUnit.getTrainTypeId());
+                newUnit.setFromStationName(tempUnit.getFromStationName());
+                newUnit.setToStationName(tempUnit.getToStationName());
+                newUnit.setStopStations(tempUnit.getStopStations());
+                newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
+                newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
+                newUnit.setStartingTime(tempUnit.getStartingTime());
+                newUnit.setEndTime(tempUnit.getEndTime());
+                newUnit.setNumberOfRestTicketFirstClass(50);
+                newUnit.setNumberOfRestTicketFirstClass(50);
+                lists.add(newUnit);
+            }
+            travelAdvanceResult.setTravelAdvanceResultUnits(lists);
+        }else{
+            travelAdvanceResult.setStatus(false);
+            travelAdvanceResult.setMessage("Cannot Find");
+            travelAdvanceResult.setTravelAdvanceResultUnits(new ArrayList<>());
+        }
+
+        return travelAdvanceResult;
+    }
+
+    private RoutePlanResults getRoutePlanResultCheapest(GetRoutePlanInfo info){
+        RoutePlanResults routePlanResults =
+                restTemplate.postForObject(
+                        "http://ts-route-plan-service:14578/routePlan/cheapestRoute",
+                        info,RoutePlanResults.class
+                );
+        return routePlanResults;
+    }
+
+    private RoutePlanResults getRoutePlanResultQuickest(GetRoutePlanInfo info){
+        RoutePlanResults routePlanResults =
+                restTemplate.postForObject(
+                        "http://ts-route-plan-service:14578/routePlan/quickestRoute",
+                        info,RoutePlanResults.class
+                );
+        return routePlanResults;
+    }
+
+    private RoutePlanResults getRoutePlanResultMinStation(GetRoutePlanInfo info){
+        RoutePlanResults routePlanResults =
+                restTemplate.postForObject(
+                        "http://ts-route-plan-service:14578/routePlan/minStopStations",
+                        info,RoutePlanResults.class
+                );
+        return routePlanResults;
+    }
+
+    private ArrayList<TripResponse> tripsFromHighSpeed(QueryInfo info){
         ArrayList<TripResponse> result = new ArrayList<>();
         result = restTemplate.postForObject("http://ts-travel-service:12346/travel/query",info,result.getClass());
         return result;
     }
 
-    ArrayList<TripResponse> tripsFromNormal(QueryInfo info){
+    private ArrayList<TripResponse> tripsFromNormal(QueryInfo info){
         ArrayList<TripResponse> result = new ArrayList<>();
         result = restTemplate.postForObject("http://ts-travel2-service:16346/travel2/query",info,result.getClass());
         return result;

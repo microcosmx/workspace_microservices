@@ -13,7 +13,7 @@ public class RoutePlanServiceImpl implements RoutePlanService{
     private RestTemplate restTemplate;
 
     @Override
-    public ArrayList<TripResponse> searchCheapestResult(GetRoutePlanInfo info) {
+    public RoutePlanResults searchCheapestResult(GetRoutePlanInfo info) {
 
         //1.暴力取出travel-service和travle2-service的所有结果
         QueryInfo queryInfo = new QueryInfo();
@@ -52,12 +52,34 @@ public class RoutePlanServiceImpl implements RoutePlanService{
             finalResult.remove(minIndex);
         }
 
-        return returnResult;
+        RoutePlanResults result = new RoutePlanResults();
+        result.setStatus(true);
+        result.setMessage("Success.");
+        ArrayList<RoutePlanResultUnit> units = new ArrayList<>();
+        for(int i = 0;i < returnResult.size();i++){
+            TripResponse tempResponse = returnResult.get(i);
 
+            RoutePlanResultUnit tempUnit = new RoutePlanResultUnit();
+            tempUnit.setTripId(tempResponse.getTripId().toString());
+            tempUnit.setTrainTypeId(tempResponse.getTrainTypeId());
+            tempUnit.setFromStationName(tempResponse.getStartingStation());
+            tempUnit.setToStationName(tempResponse.getTerminalStation());
+
+            tempUnit.setStopStations(getStationList(tempResponse.getTripId().toString()));
+
+            tempUnit.setPriceForSecondClassSeat(tempResponse.getPriceForEconomyClass());
+            tempUnit.setPriceForFirstClassSeat(tempResponse.getPriceForConfortClass());
+            tempUnit.setStartingTime(tempResponse.getStartingTime());
+            tempUnit.setEndTime(tempResponse.getEndTime());
+            units.add(tempUnit);
+        }
+        result.setResults(units);
+
+        return result;
     }
 
     @Override
-    public ArrayList<TripResponse> searchQuickestResult(GetRoutePlanInfo info) {
+    public RoutePlanResults searchQuickestResult(GetRoutePlanInfo info) {
 
         //1.暴力取出travel-service和travel2-service的所有结果
         QueryInfo queryInfo = new QueryInfo();
@@ -96,7 +118,30 @@ public class RoutePlanServiceImpl implements RoutePlanService{
             finalResult.remove(minIndex);
         }
 
-        return returnResult;
+        RoutePlanResults result = new RoutePlanResults();
+        result.setStatus(true);
+        result.setMessage("Success.");
+        ArrayList<RoutePlanResultUnit> units = new ArrayList<>();
+        for(int i = 0;i < returnResult.size();i++){
+            TripResponse tempResponse = returnResult.get(i);
+
+            RoutePlanResultUnit tempUnit = new RoutePlanResultUnit();
+            tempUnit.setTripId(tempResponse.getTripId().toString());
+            tempUnit.setTrainTypeId(tempResponse.getTrainTypeId());
+            tempUnit.setFromStationName(tempResponse.getStartingStation());
+            tempUnit.setToStationName(tempResponse.getTerminalStation());
+
+            tempUnit.setStopStations(getStationList(tempResponse.getTripId().toString()));
+
+            tempUnit.setPriceForSecondClassSeat(tempResponse.getPriceForEconomyClass());
+            tempUnit.setPriceForFirstClassSeat(tempResponse.getPriceForConfortClass());
+            tempUnit.setStartingTime(tempResponse.getStartingTime());
+            tempUnit.setEndTime(tempResponse.getEndTime());
+            units.add(tempUnit);
+        }
+        result.setResults(units);
+
+        return result;
     }
 
     @Override
@@ -252,5 +297,23 @@ public class RoutePlanServiceImpl implements RoutePlanService{
         System.out.println("[Route Plan Get TripOther][Size]" + list.getResponses().size());
 
         return list.getResponses();
+    }
+
+    private ArrayList<String> getStationList(String tripId){
+        //首先获取
+
+        String path;
+        if(tripId.charAt(0) == 'G' || tripId.charAt(0) == 'D'){
+            path = "http://ts-travel-service:12346/travel/getRouteByTripId/" + tripId;
+        }else{
+            path = "http://ts-travel2-service:16346/travel2/getRouteByTripId/" + tripId;
+        }
+
+        GetRouteResult route = restTemplate.getForObject(
+                path,
+                GetRouteResult.class
+        );
+
+        return route.getRoute().getStations();
     }
 }
