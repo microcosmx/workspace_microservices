@@ -409,6 +409,11 @@ services:
     networks:
       - my-network
 
+  ts-news-mongo:
+        image: mongo
+        networks:
+          - my-network
+
   ts-vouncher-mysql:
          image: mysql
          expose:
