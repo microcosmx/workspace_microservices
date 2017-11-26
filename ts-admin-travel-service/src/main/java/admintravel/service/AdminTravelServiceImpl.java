@@ -1,11 +1,10 @@
 package admintravel.service;
 
 import admintravel.domain.bean.AdminTrip;
-import admintravel.domain.bean.GetTrainTypeRequest;
-import admintravel.domain.bean.TrainType;
 import admintravel.domain.request.AddAndModifyTravelRequest;
 import admintravel.domain.request.DeleteTravelRequest;
 import admintravel.domain.response.AdminFindAllResult;
+import admintravel.domain.response.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -46,26 +45,82 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         }
         else{
             result.setStatus(false);
-            result.setMessage("Admin find all travel result fail");
+            result.setMessage("Admin find all travel result fail: wrong login id");
             result.setTrips(null);
         }
         return result;
     }
 
     @Override
-    public String addTravel(AddAndModifyTravelRequest request) {
-        String trainNumber = getTrainNumberByTrainTypeId(request.getTrainTypeId());
-        return null;
+    public ResponseBean addTravel(AddAndModifyTravelRequest request) {
+        ResponseBean responseBean = new ResponseBean();
+        String result;
+        if(checkId(request.getLoginId())){
+            if(request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D'){
+                result = restTemplate.postForObject(
+                        "http://ts-travel-service:12346/travel/create", request ,String.class);
+            }else{
+                result = restTemplate.postForObject(
+                        "http://ts-travel2-service:16346/travel2/create", request ,String.class);
+
+            }
+            System.out.println("[Admin Travel Service][Admin add new travel]");
+            responseBean.setStatus(true);
+        }else{
+            result = "Admin add new travel fail: wrong login id";
+            System.out.println("[Admin Travel Service][Admin add new travel fail]");
+            responseBean.setStatus(false);
+        }
+        responseBean.setMessage(result);
+        return responseBean;
     }
 
     @Override
-    public String updateTravel(AddAndModifyTravelRequest request) {
-        return null;
+    public ResponseBean updateTravel(AddAndModifyTravelRequest request) {
+        ResponseBean responseBean = new ResponseBean();
+        String result;
+        if(checkId(request.getLoginId())){
+            if(request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D'){
+                result = restTemplate.postForObject(
+                        "http://ts-travel-service:12346/travel/update", request ,String.class);
+            }else{
+                result = restTemplate.postForObject(
+                        "http://ts-travel2-service:16346/travel2/update", request ,String.class);
+
+            }
+            System.out.println("[Admin Travel Service][Admin update travel]");
+            responseBean.setStatus(true);
+        }else{
+            result = "Admin update travel fail: wrong login id";
+            System.out.println("[Admin Travel Service][Admin update travel fail]");
+            responseBean.setStatus(false);
+        }
+        responseBean.setMessage(result);
+        return responseBean;
     }
 
     @Override
-    public String deleteTravel(DeleteTravelRequest request) {
-        return null;
+    public ResponseBean deleteTravel(DeleteTravelRequest request) {
+        ResponseBean responseBean = new ResponseBean();
+        String result;
+        if(checkId(request.getLoginId())){
+            if(request.getTripId().charAt(0) == 'G' || request.getTripId().charAt(0) == 'D'){
+                result = restTemplate.postForObject(
+                        "http://ts-travel-service:12346/travel/delete", request ,String.class);
+            }else{
+                result = restTemplate.postForObject(
+                        "http://ts-travel2-service:16346/travel2/delete", request ,String.class);
+
+            }
+            System.out.println("[Admin Travel Service][Admin delete travel]");
+            responseBean.setStatus(true);
+        }else{
+            result = "Admin delete travel fail: wrong login id";
+            System.out.println("[Admin Travel Service][Admin delete travel fail]");
+            responseBean.setStatus(false);
+        }
+        responseBean.setMessage(result);
+        return responseBean;
     }
 
     private boolean checkId(String id){
@@ -77,11 +132,4 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         }
     }
 
-    private String getTrainNumberByTrainTypeId(String trainTypeId){
-        GetTrainTypeRequest request = new GetTrainTypeRequest();
-        request.setId(trainTypeId);
-        TrainType trainType = restTemplate.postForObject(
-                "http://ts-train-service:14567/train/retrieve", request,TrainType.class);
-        return trainType.getId();
-    }
 }

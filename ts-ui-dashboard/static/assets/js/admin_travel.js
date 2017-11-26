@@ -44,7 +44,7 @@ app.factory('loadDataService', function ($http, $q) {
             withCredentials: true,
         }).success(function (data, status, headers, config) {
             if (data.status) {
-                information.routeRecords = data.routes;
+                information.travelRecords = data.trips;
                 deferred.resolve(information);
             }
             else{
@@ -72,7 +72,7 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
 
     //首次加载显示数据
     loadDataService.loadRecordList(param).then(function (result) {
-        $scope.records = result.routeRecords;
+        $scope.records = result.travelRecords;
         //$scope.decodeInfo(result.orderRecords[0]);
     });
 
@@ -84,29 +84,29 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         alert(des);
     }
     
-    //Add new route
-    $scope.addNewRoute = function () {
+    //Add new travel
+    $scope.addNewTravel = function () {
         $('#add_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/admintravel/createAndModifyTravel",
+                    url: "/admintravel/addTravel",
                     withCredentials: true,
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
-                        stationList: $scope.add_route_stations,
-                        distanceList: $scope.add_route_distances,
-                        startStation: $scope.add_route_start_station,
-                        endStation: $scope.add_route_terminal_station
+                        tripId: $scope.add_travel_id,
+                        trainTypeId: $scope.add_travel_train_type_id,
+                        routeId: $scope.add_travel_route_id,
+                        startingTime: $scope.add_travel_start_time
                     }
                 }).success(function (data, status, headers, config) {
-                    if (data.status) {
+                    if(data.status){
                         alert(data.message);
                         $scope.reloadRoute();
                     }
                     else{
-                        alert("Add the route fail!" + data.message);
+                        alert(data.message);
                     }
                 });
             },
@@ -116,36 +116,34 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         });
     }
     
-    //Update exist route
-    $scope.updateRoute = function (record) {
-        $scope.update_route_id = record.id;
-        $scope.update_route_stations = record.stations;
-        $scope.update_route_distances = record.distances;
-        $scope.update_route_start_station = record.startStationId;
-        $scope.update_route_terminal_station = record.terminalStationId;
+    //Update exist travel
+    $scope.updateTravel = function (record) {
+        $scope.update_travel_id = record.trip.tripId.type + "" + record.trip.tripId.number;
+        $scope.update_travel_train_type_id = record.trip.trainTypeId;
+        $scope.update_travel_route_id = record.trip.routeId;
+        $scope.update_travel_start_time = record.trip.startingTime;
 
         $('#update_prompt').modal({
             relatedTarget: this,
             onConfirm: function(e) {
                 $http({
                     method: "post",
-                    url: "/admintravel/createAndModifyTravel",
+                    url: "/admintravel/updateTravel",
                     withCredentials: true,
                     data:{
                         loginId: sessionStorage.getItem("admin_id"),
-                        id: $scope.update_route_id,
-                        stationList: $scope.update_route_stations,
-                        distanceList: $scope.update_route_distances,
-                        startStation: $scope.update_route_start_station,
-                        endStation: $scope.update_route_terminal_station
+                        tripId: $scope.update_travel_id,
+                        trainTypeId: $scope.update_travel_train_type_id,
+                        routeId: $scope.update_travel_route_id,
+                        startingTime: $scope.update_travel_start_time
                     }
                 }).success(function (data, status, headers, config) {
-                    if (data.status) {
+                    if(data.status){
                         alert(data.message);
                         $scope.reloadRoute();
                     }
                     else{
-                        alert("Update the route fail!" + data.message);
+                        alert(data.message);
                     }
                 });
             },
@@ -155,8 +153,9 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
         });
     }
 
-    //Delete route
-    $scope.deleteRoute = function(routeId){
+    //Delete travel
+    $scope.deleteTravel = function(travelId){
+        var tripId = travelId.type + "" + travelId.number;
         $('#delete_confirm').modal({
             relatedTarget: this,
             onConfirm: function(options) {
@@ -166,15 +165,15 @@ app.controller('indexCtrl', function ($scope, $http,$window,loadDataService) {
                     withCredentials: true,
                     data: {
                         loginId: sessionStorage.getItem("admin_id"),
-                        routeId: routeId
+                        tripId: tripId
                     }
                 }).success(function (data, status, headers, config) {
-                    if (data.status) {
+                    if(data.status){
                         alert(data.message);
                         $scope.reloadRoute();
                     }
                     else{
-                        alert("Delete the route fail!" + data.message);
+                        alert(data.message);
                     }
                 });
             },

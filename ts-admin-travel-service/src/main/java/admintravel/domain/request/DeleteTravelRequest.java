@@ -8,12 +8,22 @@ import javax.validation.Valid;
  * Created by Chenjie Xu on 2017/5/15.
  */
 public class DeleteTravelRequest {
+    private String loginId;
+
     @Valid
     @Id
     private String tripId;
 
     public DeleteTravelRequest(){
         //Default Constructor
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     public String getTripId() {

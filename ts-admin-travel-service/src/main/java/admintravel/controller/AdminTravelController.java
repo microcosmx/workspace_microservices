@@ -3,6 +3,7 @@ package admintravel.controller;
 import admintravel.domain.request.AddAndModifyTravelRequest;
 import admintravel.domain.request.DeleteTravelRequest;
 import admintravel.domain.response.AdminFindAllResult;
+import admintravel.domain.response.ResponseBean;
 import admintravel.service.AdminTravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +20,17 @@ public class AdminTravelController {
     }
 
     @RequestMapping(value = "/admintravel/addTravel", method= RequestMethod.POST)
-    public String addTravel(@RequestBody AddAndModifyTravelRequest request){
+    public ResponseBean addTravel(@RequestBody AddAndModifyTravelRequest request){
         return adminTravelService.addTravel(request);
     }
 
     @RequestMapping(value = "/admintravel/updateTravel", method= RequestMethod.POST)
-    public String updateTravel(@RequestBody AddAndModifyTravelRequest request){
+    public ResponseBean updateTravel(@RequestBody AddAndModifyTravelRequest request){
         return adminTravelService.updateTravel(request);
     }
 
     @RequestMapping(value = "/admintravel/deleteTravel", method= RequestMethod.POST)
-    public String deleteTravel(@RequestBody DeleteTravelRequest request){
+    public ResponseBean deleteTravel(@RequestBody DeleteTravelRequest request){
         return adminTravelService.deleteTravel(request);
     }
 }

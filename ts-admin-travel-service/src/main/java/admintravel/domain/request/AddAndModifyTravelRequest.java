@@ -8,6 +8,8 @@ import java.util.Date;
  * Created by Chenjie Xu on 2017/5/15.
  */
 public class AddAndModifyTravelRequest {
+    private String loginId;
+
     @Id
     private String tripId;
 
@@ -27,6 +29,14 @@ public class AddAndModifyTravelRequest {
 
     public AddAndModifyTravelRequest(){
         //Default Constructor
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     public String getTripId() {

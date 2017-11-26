@@ -138,7 +138,7 @@
                         <div class="am-u-sm-12 am-u-md-6">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success" ng-click="addNewRoute()"><span class="am-icon-plus"></span> Add</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-success" ng-click="addNewTravel()"><span class="am-icon-plus"></span> Add</button>
                                     <!--<button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> Save</button>-->
                                     <!--<button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> Check</button>-->
                                     <!--<button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> Delete</button>-->
@@ -192,56 +192,56 @@
                                             <td>
                                                 <div class="am-btn-toolbar my-am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary" ng-click="updateRoute(record)"><span class="am-icon-pencil-square-o"></span> Update</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary" ng-click="updateTravel(record)"><span class="am-icon-pencil-square-o"></span> Update</button>
                                                         <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>-->
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteRoute(record.id)"><span class="am-icon-trash-o"></span> Delete</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger" ng-click="deleteTravel(record.trip.tripId)"><span class="am-icon-trash-o"></span> Delete</button>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{record.id}}</td>
-                                            <td>{{record.stations}}</td>
-                                            <td>{{record.distances}}</td>
-                                            <td>{{record.startStationId}}</td>
-                                            <td>{{record.terminalStationId}}</td>
+                                            <td>{{record.trip.tripId.type + "" + record.trip.tripId.number}}</td>
+                                            <td>{{record.trip.trainTypeId}}</td>
+                                            <td>{{record.trip.routeId}}</td>
+                                            <td>{{record.trip.startingTime}}</td>
+                                            <td>{{record.route.startStationId}}</td>
+                                            <td>{{record.route.terminalStationId}}</td>
+                                            <td>{{record.route.stations}}</td>
+                                            <td>{{record.route.distances}}</td>
+                                            <td>{{record.trainType.economyClass}}</td>
+                                            <td>{{record.trainType.confortClass}}</td>
+                                            <td>{{record.trainType.averageSpeed}}</td>
                                         </tr>
                                     </tbody>
 
                                     <!-- Prompt Update Order -->
                                     <div class="am-modal am-modal-prompt" tabindex="-1" id="update_prompt">
                                         <div class="am-modal-dialog my-modal-dialog">
-                                            <div class="am-modal-hd">Update Route</div>
+                                            <div class="am-modal-hd">Update Travel</div>
                                             <div class="am-modal-bd">
                                                 <div class="am-g tpl-amazeui-form">
                                                     <div class="am-u-sm-12">
                                                         <form class="am-form am-form-horizontal">
                                                             <div class="am-form-group">
-                                                                <label for="update_route_id" class="am-u-sm-5 am-form-label">Route Id: </label>
+                                                                <label for="update_travel_id" class="am-u-sm-5 am-form-label">Travel Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" readonly="readonly" id="update_route_id" class="am-modal-prompt-input" ng-model="update_route_id">
+                                                                    <input type="text" readonly="readonly" id="update_travel_id" class="am-modal-prompt-input" ng-model="update_travel_id">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
-                                                                <label for="update_route_stations" class="am-u-sm-5 am-form-label">Stations: </label>
+                                                                <label for="update_travel_train_type_id" class="am-u-sm-5 am-form-label">TrainType Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="update_route_stations" class="am-modal-prompt-input" ng-model="update_route_stations">
+                                                                    <input type="text" id="update_travel_train_type_id" class="am-modal-prompt-input" ng-model="update_travel_train_type_id">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
-                                                                <label for="update_route_distances" class="am-u-sm-5 am-form-label">Distances: </label>
+                                                                <label for="update_travel_route_id" class="am-u-sm-5 am-form-label">Route Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="update_route_distances" class="am-modal-prompt-input" ng-model="update_route_distances">
+                                                                    <input type="text" id="update_travel_route_id" class="am-modal-prompt-input" ng-model="update_travel_route_id">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
-                                                                <label for="update_route_start_station" class="am-u-sm-5 am-form-label">Start Station: </label>
+                                                                <label for="update_travel_start_time" class="am-u-sm-5 am-form-label">Start Time: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="update_route_start_station" class="am-modal-prompt-input" ng-model="update_route_start_station">
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-form-group">
-                                                                <label for="update_route_terminal_station" class="am-u-sm-5 am-form-label">Terminal Station: </label>
-                                                                <div class="am-u-sm-7">
-                                                                    <input type="text" id="update_route_terminal_station" class="am-modal-prompt-input" ng-model="update_route_terminal_station">
+                                                                    <input type="text" id="update_travel_start_time" class="am-modal-prompt-input" ng-model="update_travel_start_time">
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -258,9 +258,9 @@
                                     <!--Prompt Delete Confirm-->
                                     <div class="am-modal am-modal-confirm" tabindex="-1" id="delete_confirm">
                                         <div class="am-modal-dialog">
-                                            <div class="am-modal-hd">Delete Route</div>
+                                            <div class="am-modal-hd">Delete Travel</div>
                                             <div class="am-modal-bd">
-                                                Are you sure to delete this route record?
+                                                Are you sure to delete this travel record?
                                             </div>
                                             <div class="am-modal-footer">
                                                 <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
@@ -272,33 +272,33 @@
                                     <!-- Prompt Add Order -->
                                     <div class="am-modal am-modal-prompt" tabindex="-1" id="add_prompt">
                                         <div class="am-modal-dialog my-modal-dialog">
-                                            <div class="am-modal-hd">Add Route</div>
+                                            <div class="am-modal-hd">Add Travel</div>
                                             <div class="am-modal-bd">
                                                 <div class="am-g tpl-amazeui-form">
                                                     <div class="am-u-sm-12">
                                                         <form class="am-form am-form-horizontal">
                                                             <div class="am-form-group">
-                                                                <label for="add_route_stations" class="am-u-sm-5 am-form-label">Stations: </label>
+                                                                <label for="add_travel_id" class="am-u-sm-5 am-form-label">Travel Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_route_stations" class="am-modal-prompt-input" ng-model="add_route_stations">
+                                                                    <input type="text" id="add_travel_id" class="am-modal-prompt-input" ng-model="add_travel_id">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
-                                                                <label for="add_route_distances" class="am-u-sm-5 am-form-label">Distances: </label>
+                                                                <label for="add_travel_train_type_id" class="am-u-sm-5 am-form-label">TrainType Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_route_distances" class="am-modal-prompt-input" ng-model="add_route_distances">
+                                                                    <input type="text" id="add_travel_train_type_id" class="am-modal-prompt-input" ng-model="add_travel_train_type_id">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
-                                                                <label for="add_route_start_station" class="am-u-sm-5 am-form-label">Start Station: </label>
+                                                                <label for="add_travel_route_id" class="am-u-sm-5 am-form-label">Route Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_route_start_station" class="am-modal-prompt-input" ng-model="add_route_start_station">
+                                                                    <input type="text" id="add_travel_route_id" class="am-modal-prompt-input" ng-model="add_travel_route_id">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
-                                                                <label for="add_route_terminal_station" class="am-u-sm-5 am-form-label">Terminal Station: </label>
+                                                                <label for="add_travel_start_time" class="am-u-sm-5 am-form-label">Start Time: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_route_terminal_station" class="am-modal-prompt-input" ng-model="add_route_terminal_station">
+                                                                    <input type="text" id="add_travel_start_time" class="am-modal-prompt-input" ng-model="add_travel_start_time">
                                                                 </div>
                                                             </div>
                                                         </form>
