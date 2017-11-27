@@ -34,9 +34,8 @@ public class AdminOrderController {
     }
 
     @RequestMapping(value = "/adminorder/deleteOrder", method= RequestMethod.POST)
-    public DeleteOrderResult updateOrder(@RequestBody DeleteOrderRequest request){
+    public DeleteOrderResult deleteOrder(@RequestBody DeleteOrderRequest request){
         return adminOrderService.deleteOrder(request);
-
     }
 
 }

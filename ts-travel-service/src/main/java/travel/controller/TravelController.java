@@ -20,6 +20,7 @@ public class TravelController {
 
     @RequestMapping(value = "/travel/getRouteByTripId/{tripId}", method = RequestMethod.GET)
     public GetRouteResult getRouteByTripId(@PathVariable String tripId){
+        System.out.println("[Get Route By Trip ID] TripId:" + tripId);
         return travelService.getRouteByTripId(tripId);
     }
 
@@ -94,5 +95,11 @@ public class TravelController {
     @RequestMapping(value="/travel/queryAll", method= RequestMethod.GET)
     public List<Trip> queryAll(){
         return travelService.queryAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel/adminQueryAll", method= RequestMethod.GET)
+    public AdminFindAllResult adminQueryAll(){
+        return travelService.adminQueryAll();
     }
 }

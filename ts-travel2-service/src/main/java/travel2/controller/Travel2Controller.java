@@ -18,8 +18,9 @@ public class Travel2Controller {
         return service.getTrainTypeByTripId(tripId);
     }
 
-    @RequestMapping(value = "/travel2/getRouteByTripUd/{tripId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/travel2/getRouteByTripId/{tripId}", method = RequestMethod.GET)
     public GetRouteResult getRouteByTripId(@PathVariable String tripId){
+        System.out.println("[Get Route By Trip ID] TripId:" + tripId);
         return service.getRouteByTripId(tripId);
     }
 
@@ -90,5 +91,11 @@ public class Travel2Controller {
     @RequestMapping(value="/travel2/queryAll", method= RequestMethod.GET)
     public List<Trip> queryAll(){
         return service.queryAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value="/travel2/adminQueryAll", method= RequestMethod.GET)
+    public AdminFindAllResult adminQueryAll(){
+        return service.adminQueryAll();
     }
 }

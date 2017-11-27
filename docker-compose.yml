@@ -409,6 +409,11 @@ services:
     networks:
       - my-network
 
+  ts-news-mongo:
+        image: mongo
+        networks:
+          - my-network
+
   ts-vouncher-mysql:
          image: mysql
          expose:
@@ -513,6 +518,45 @@ services:
               - 16112:16112
             networks:
               - my-network
+
+  ts-admin-route-service:
+              build: ts-admin-route-service
+              image: ts/ts-admin-route-service
+              restart: always
+              ports:
+                - 16113:16113
+              deploy:
+                replicas: 1
+                restart_policy:
+                  condition: on-failure
+              networks:
+                - my-network
+
+  ts-admin-travel-service:
+                build: ts-admin-travel-service
+                image: ts/ts-admin-travel-service
+                restart: always
+                ports:
+                  - 16114:16114
+                deploy:
+                  replicas: 1
+                  restart_policy:
+                    condition: on-failure
+                networks:
+                  - my-network
+
+  ts-admin-user-service:
+                  build: ts-admin-user-service
+                  image: ts/ts-admin-user-service
+                  restart: always
+                  ports:
+                    - 16115:16115
+                  deploy:
+                    replicas: 1
+                    restart_policy:
+                      condition: on-failure
+                  networks:
+                    - my-network
 
 networks:
     my-network:

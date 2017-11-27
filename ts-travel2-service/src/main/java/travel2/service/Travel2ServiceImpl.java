@@ -24,16 +24,20 @@ public class Travel2ServiceImpl implements Travel2Service{
         if(trip == null){
             result.setStatus(false);
             result.setMessage("Trip Not Found");
+            System.out.println("[Get Route By Trip ID] Trip Not Found:" + tripId);
             result.setRoute(null);
         }else{
             Route route = getRouteByRouteId(trip.getRouteId());
             if(route == null){
                 result.setStatus(false);
                 result.setMessage("Route Not Found");
+                System.out.println("[Get Route By Trip ID] Route Not Found:" + trip.getRouteId());
                 result.setRoute(null);
             }else{
                 result.setStatus(true);
                 result.setMessage("Success");
+                System.out.println("[Get Route By Trip ID] Success");
+
                 result.setRoute(route);
             }
         }
@@ -323,6 +327,24 @@ public class Travel2ServiceImpl implements Travel2Service{
             System.out.println("[Travel Other Service][Get Route By Id] Success.");
             return result.getRoute();
         }
+    }
+
+    @Override
+    public AdminFindAllResult adminQueryAll() {
+        List<Trip> trips = repository.findAll();
+        ArrayList<AdminTrip> adminTrips = new ArrayList<AdminTrip>();
+        for(Trip trip : trips){
+            AdminTrip adminTrip = new AdminTrip();
+            adminTrip.setTrip(trip);
+            adminTrip.setRoute(getRouteByRouteId(trip.getRouteId()));
+            adminTrip.setTrainType(getTrainType(trip.getTrainTypeId()));
+            adminTrips.add(adminTrip);
+        }
+        AdminFindAllResult result = new AdminFindAllResult();
+        result.setStatus(true);
+        result.setMessage("Travel Service Admin Query All Travel Success");
+        result.setTrips(adminTrips);
+        return result;
     }
 }
 
