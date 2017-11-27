@@ -1,14 +1,12 @@
 
 
 This project is ticket seller application in microservice architecture, including 30+ microservices
+=========================
 
-java，spring boot，spring cloud
-
-nodejs，express
-
-python，dijango
-
-go，webgo
+- java，spring boot，spring cloud
+- nodejs，express
+- python，dijango
+- go，webgo
 
 
 
