@@ -13,7 +13,6 @@ This project is ticket seller application in microservice architecture, includin
 
 ## local runtime environment
 
-```
 build:
 
 mvn build：
@@ -22,7 +21,6 @@ mvn -Dmaven.test.skip=true clean package
 
 docker-compose -f docker-compose.yml build
 
-```
 docker build:
 
 docker-compose build
@@ -33,7 +31,6 @@ docker-compose up -d
 docker-compose down
 
 
-```
 start the ticket microservice applciation (single node):
 
 docker-compose -f docker-compose.yml up -d
@@ -64,24 +61,21 @@ docker swarm join-token manager
 docker swarm join-token worker
 
 
-```
 app tag:
 
 docker tag ts/ts-ui-dashboard 10.141.212.25:5555/cluster-ts-ui-dashboard
 
-```
+
 app local registry：
 
 docker push 10.141.212.25:5555/cluster-ts-ui-dashboard
 
 
-```
 deploy app （docker swarm）：
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 
 
-```
 monitoring:
 
 docker run -d -p 9000:9000 --name=portainer-ui-local -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
