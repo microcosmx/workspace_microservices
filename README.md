@@ -9,10 +9,9 @@ This project is ticket seller application in microservice architecture, includin
 - go，webgo
 
 
+---
 
-------------------------------------------------------------------
-
-1. local runtime environment
+## local runtime environment
 
 build:
 
@@ -45,9 +44,9 @@ docker-compose logs -f
 
 
 
-------------------------------------------------------------------
+---
 
-2. clustering runtime environment（docker swarm）:
+##  clustering runtime environment（docker swarm）:
 
 build:
 
@@ -95,9 +94,9 @@ http://10.141.211.161:9000
 
 
 
-----------------------------------------------------------------
+---
 
-3. Fault Replication Branches list (11): You can check the fault replication details on following branches of this git repository
+##  Fault Replication Branches list (11): You can check the fault replication details on following branches of this git repository
 
 F1 
 ts-error-process-seq
