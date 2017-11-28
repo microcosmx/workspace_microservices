@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import travelplan.domain.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class TravelPlanServiceImpl implements TravelPlanService{
@@ -81,8 +82,15 @@ public class TravelPlanServiceImpl implements TravelPlanService{
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
                 newUnit.setStartingTime(tempUnit.getStartingTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
-                newUnit.setNumberOfRestTicketFirstClass(50);
-                newUnit.setNumberOfRestTicketFirstClass(50);
+
+                int first = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
+                        tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.FIRSTCLASS.getCode());
+
+                int second = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
+                        tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.SECONDCLASS.getCode());
+                newUnit.setNumberOfRestTicketFirstClass(first);
+                newUnit.setNumberOfRestTicketFirstClass(second);
+
                 lists.add(newUnit);
             }
             travelAdvanceResult.setTravelAdvanceResultUnits(lists);
@@ -123,8 +131,13 @@ public class TravelPlanServiceImpl implements TravelPlanService{
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
                 newUnit.setStartingTime(tempUnit.getStartingTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
-                newUnit.setNumberOfRestTicketFirstClass(50);
-                newUnit.setNumberOfRestTicketFirstClass(50);
+                int first = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
+                        tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.FIRSTCLASS.getCode());
+
+                int second = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
+                        tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.SECONDCLASS.getCode());
+                newUnit.setNumberOfRestTicketFirstClass(first);
+                newUnit.setNumberOfRestTicketFirstClass(second);
                 lists.add(newUnit);
             }
             travelAdvanceResult.setTravelAdvanceResultUnits(lists);
@@ -165,8 +178,13 @@ public class TravelPlanServiceImpl implements TravelPlanService{
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
                 newUnit.setStartingTime(tempUnit.getStartingTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
-                newUnit.setNumberOfRestTicketFirstClass(50);
-                newUnit.setNumberOfRestTicketFirstClass(50);
+                int first = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
+                        tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.FIRSTCLASS.getCode());
+
+                int second = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
+                        tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.SECONDCLASS.getCode());
+                newUnit.setNumberOfRestTicketFirstClass(first);
+                newUnit.setNumberOfRestTicketFirstClass(second);
                 lists.add(newUnit);
             }
             travelAdvanceResult.setTravelAdvanceResultUnits(lists);
@@ -177,6 +195,26 @@ public class TravelPlanServiceImpl implements TravelPlanService{
         }
 
         return travelAdvanceResult;
+    }
+
+    private int getRestTicketNumber(Date travelDate, String trainNumber, String startStationName, String endStationName, int seatType) {
+        SeatRequest seatRequest = new SeatRequest();
+
+        String fromId = queryForStationId(startStationName);
+        String toId = queryForStationId(endStationName);
+
+        seatRequest.setDestStation(toId);
+        seatRequest.setStartStation(fromId);
+        seatRequest.setTrainNumber(trainNumber);
+        seatRequest.setTravelDate(travelDate);
+        seatRequest.setSeatType(seatType);
+
+        int restNumber = restTemplate.postForObject(
+                "http://ts-seat-service:18898/seat/getLeftTicketOfInterval",
+                seatRequest,Integer.class
+                );
+
+        return restNumber;
     }
 
     private RoutePlanResults getRoutePlanResultCheapest(GetRoutePlanInfo info){
@@ -217,4 +255,13 @@ public class TravelPlanServiceImpl implements TravelPlanService{
         result = restTemplate.postForObject("http://ts-travel2-service:16346/travel2/query",info,result.getClass());
         return result;
     }
+
+    private String queryForStationId(String stationName){
+        QueryForStationId query = new QueryForStationId();
+        query.setName(stationName);
+        String id = restTemplate.postForObject(
+                "http://ts-ticketinfo-service:15681/ticketinfo/queryForStationId", query ,String.class);
+        return id;
+    }
+
 }

@@ -114,8 +114,8 @@ function advanceSearchForCheapestInfo(data,path) {
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketSecondClass"]) + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketFirstClass"]) + "</td>" +
+                        "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
+                        "<td>" + obj[i]["numberOfRestTicketFirstClass"] + "</td>" +
                         "<td>" +
                         "<select class='form-control booking_seat_class'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
@@ -161,8 +161,8 @@ function advanceSearchForQuickestInfo(data,path) {
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketSecondClass"]) + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketFirstClass"]) + "</td>" +
+                        "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
+                        "<td>" + obj[i]["numberOfRestTicketFirstClass"] + "</td>" +
                         "<td>" +
                         "<select class='form-control booking_seat_class'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +
@@ -208,8 +208,8 @@ function advanceSearchForMinStopInfo(data,path) {
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketSecondClass"]) + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["numberOfRestTicketFirstClass"]) + "</td>" +
+                        "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
+                        "<td>" + obj[i]["numberOfRestTicketFirstClass"] + "</td>" +
                         "<td>" +
                         "<select class='form-control booking_seat_class'>" +
                         "<option value='2'>1st - " + obj[i]["priceForFirstClassSeat"] + "</option>" +

@@ -20,8 +20,8 @@ public class InitData implements CommandLineRunner{
         Information info = new Information();
 
         info.setName("DirectTicketAllocationProportion");
-        info.setValue("50%");
-        info.setDescription("");
+        info.setValue("0.5");
+        info.setDescription("Allocation Proportion Of The Direct Ticket - From Start To End");
         service.create(info);
 
 //        info.setName("GaoTieOne_economyClass_priceRate");
