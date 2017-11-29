@@ -23,7 +23,7 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
     public  GetAllContactsResult getAllContacts(String loginId) {
         GetAllContactsResult result ;
         if(adminID.equals(loginId)){
-           result = restTemplate.getForObject(
+            result = restTemplate.getForObject(
                     "http://ts-contacts-service:12347/contacts/findAll",
                     GetAllContactsResult.class);
         } else {
@@ -196,10 +196,10 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
     }
 
     @Override
-    public boolean addConfig(Config c) {
-        boolean result = false;
+    public String addConfig(Config c) {
+        String result = null;
         if (adminID.equals(c.getLoginId())) {
-            result = restTemplate.postForObject("http://ts-config-service:15679/config/create",c, Boolean.class);
+            result = restTemplate.postForObject("http://ts-config-service:15679/config/create",c, String.class);
             return result;
         }
         return result;
@@ -273,5 +273,5 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
         return result;
     }
 
-    
+
 }

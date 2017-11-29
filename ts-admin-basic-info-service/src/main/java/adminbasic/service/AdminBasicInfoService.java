@@ -39,7 +39,7 @@ public interface AdminBasicInfoService {
     ////////////////////////////config///////////////////////////////
     GetAllConfigResult getAllConfigs(String loginId);
 
-    boolean addConfig(Config c);
+    String addConfig(Config c);
 
     String deleteConfig(ConfigInfo2 ci);
 

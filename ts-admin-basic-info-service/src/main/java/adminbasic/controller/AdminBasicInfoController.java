@@ -49,7 +49,7 @@ public class AdminBasicInfoController {
         return adminBasicInfoService.addContact(c.getLoginId(), c);
     }
 
-/////////////////////////station/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////station/////////////////////////////////////////////////////////////////////////////////
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/adminbasic/getAllStations/{id}", method = RequestMethod.GET)
     public GetAllStationResult getAllStations(@PathVariable String id){
@@ -131,7 +131,7 @@ public class AdminBasicInfoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/adminbasic/addConfig", method = RequestMethod.POST)
-    public boolean addConfig(@RequestBody Config c){
+    public String addConfig(@RequestBody Config c){
         System.out.println("[Admin Basic Info Service][Modify Config by admin: " + c.getLoginId());
         return adminBasicInfoService.addConfig(c);
     }
