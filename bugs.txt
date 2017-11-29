@@ -26,3 +26,14 @@ I change the name to adminlogin.html and I can access it in the browser. Maybe "
 
 #When I add new angularjs http request, the docker-compose up failed with the information "/xxx/xxx can not find in the nginx"——
 Add the mapping relation in the nginx.conf. It works.
+
+# Throws Type-Convert-Error exception after implemented a new method that get an ArrayList from another service
+This is because the wrong usage of the RestTemplate.postForObject method.
+We package the ArrayList into a new class and use this new class as a return type in RestTemplate.postForObject
+
+# Cannot receive any message from ts-travel2-service
+This is because the name of interfaces in ts-travel2-service is similar but a little different with interfaces ts-travel-service.
+One of the developers made a mistake when implements the path of a request.
+
+# Successfully sent the data but the receiver cannot receive anything
+Forgot to add @RequestBody annotation in controller.
