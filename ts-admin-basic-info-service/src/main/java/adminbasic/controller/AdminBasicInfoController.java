@@ -131,7 +131,7 @@ public class AdminBasicInfoController {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/adminbasic/addConfig", method = RequestMethod.POST)
-    public String addConfig(@RequestBody Config c){
+    public boolean addConfig(@RequestBody Config c){
         System.out.println("[Admin Basic Info Service][Modify Config by admin: " + c.getLoginId());
         return adminBasicInfoService.addConfig(c);
     }

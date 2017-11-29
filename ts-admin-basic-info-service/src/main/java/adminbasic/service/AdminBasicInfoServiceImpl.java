@@ -196,10 +196,10 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
     }
 
     @Override
-    public String addConfig(Config c) {
-        String result = null;
+    public boolean addConfig(Config c) {
+        boolean result = false;
         if (adminID.equals(c.getLoginId())) {
-            result = restTemplate.postForObject("http://ts-config-service:15679/config/create",c, String.class);
+            result = restTemplate.postForObject("http://ts-config-service:15679/config/create",c, Boolean.class);
             return result;
         }
         return result;
