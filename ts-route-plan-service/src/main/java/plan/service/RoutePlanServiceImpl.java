@@ -26,21 +26,16 @@ public class RoutePlanServiceImpl implements RoutePlanService{
 
         //2.按照二等座位结果排序
         ArrayList<TripResponse> finalResult = new ArrayList<>();
-//        finalResult.addAll(highSpeed);
-//        finalResult.addAll(normalTrain);
-//        return finalResult;
-        for(TripResponse tr : highSpeed){
-            finalResult.add(tr);
-        }
-        for(TripResponse tr : normalTrain){
-            finalResult.add(tr);
-        }
+        finalResult.addAll(highSpeed);
+        finalResult.addAll(normalTrain);
 
-        float minPrice = Float.MAX_VALUE;
+        float minPrice;
         int minIndex = -1;
         int size = Math.min(5,finalResult.size());
         ArrayList<TripResponse> returnResult = new ArrayList<>();
         for(int i = 0;i < size;i++){
+
+            minPrice = Float.MAX_VALUE;
             for(int j = 0;j < finalResult.size();j++){
                 TripResponse thisRes = finalResult.get(j);
                 if(Float.parseFloat(thisRes.getPriceForEconomyClass()) < minPrice){
@@ -102,11 +97,13 @@ public class RoutePlanServiceImpl implements RoutePlanService{
             finalResult.add(tr);
         }
 
-        long minTime = Long.MAX_VALUE;
+        long minTime;
         int minIndex = -1;
         int size = Math.min(finalResult.size(),5);
         ArrayList<TripResponse> returnResult = new ArrayList<>();
         for(int i = 0;i < size;i++){
+
+            minTime = Long.MAX_VALUE;
             for(int j = 0;j < finalResult.size();j++){
                 TripResponse thisRes = finalResult.get(j);
                 if(thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime() < minTime){
@@ -116,6 +113,7 @@ public class RoutePlanServiceImpl implements RoutePlanService{
             }
             returnResult.add(finalResult.get(minIndex));
             finalResult.remove(minIndex);
+
         }
 
         RoutePlanResults result = new RoutePlanResults();

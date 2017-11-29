@@ -175,9 +175,30 @@ public class SeatServiceImpl implements SeatService {
             }
         }
         //统计未售出的票
-        int unusedNum = seatTotalNum - soldTickets.size();
+
+        double direstPart = getDirectProportion();
+        Route route = routeResult.getRoute();
+        if(route.getStations().get(0).equals(seatRequest.getStartStation()) &&
+                route.getStations().get(route.getStations().size()-1).equals(seatRequest.getDestStation())){
+            //do nothing
+        }else{
+            direstPart = 1.0 - direstPart;
+        }
+
+        int unusedNum = (int)(seatTotalNum * direstPart) - soldTickets.size();
         numOfLeftTicket += unusedNum;
 
         return numOfLeftTicket;
+    }
+
+    private double getDirectProportion(){
+
+        QueryConfig queryConfig = new QueryConfig("DirectTicketAllocationProportion");
+
+        String configValue = restTemplate.postForObject(
+                "http://ts-config-service:15679//config/query",
+                queryConfig,String.class);
+
+        return Double.parseDouble(configValue);
     }
 }

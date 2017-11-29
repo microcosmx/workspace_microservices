@@ -60,4 +60,11 @@ public class StationController {
         System.out.println("[Station Service] Query By Id:" + queryById.getStationId());
         return stationService.queryById(queryById.getStationId());
     }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/station/queryByIdForName",method = RequestMethod.POST)
+    public String queryByIdForName(@RequestBody QueryById queryById){
+        System.out.println("[Station Service] Query By Id For Name:" + queryById.getStationId());
+        return stationService.queryById(queryById.getStationId()).getName();
+    }
 }

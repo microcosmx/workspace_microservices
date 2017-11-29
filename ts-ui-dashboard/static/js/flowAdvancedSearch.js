@@ -112,6 +112,7 @@ function advanceSearchForCheapestInfo(data,path) {
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
                         "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td>" +  obj[i]["stopStations"]  + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
@@ -159,6 +160,7 @@ function advanceSearchForQuickestInfo(data,path) {
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
                         "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td>" +  obj[i]["stopStations"]  + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
@@ -206,6 +208,7 @@ function advanceSearchForMinStopInfo(data,path) {
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
                         "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
                         "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td>" +  obj[i]["stopStations"]  + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
@@ -632,7 +635,7 @@ $("#flow_advance_reserve_ticket_confirm_confirm_btn").click(function () {
         alert("Please Login");
     }
 
-    $("#flow_advance_reserve_ticket_select_contacts_confirm_btn").attr("disabled",true);
+    $("#flow_advance_reserve_ticket_confirm_confirm_btn").attr("disabled",true);
     var orderTicketInfo = new Object();
     orderTicketInfo.contactsId = $("#flow_advance_reserve_ticket_confirm_contactsId").text();
     orderTicketInfo.tripId = $("#flow_advance_reserve_ticket_confirm_tripId").text();
@@ -715,7 +718,7 @@ $("#flow_advance_reserve_ticket_confirm_confirm_btn").click(function () {
             }
         },
         complete: function(){
-            $("#flow_advance_reserve_ticket_select_contacts_confirm_btn").attr("disabled",false);
+            $("#flow_advance_reserve_ticket_confirm_confirm_btn").attr("disabled",false);
         }
     })
 })
