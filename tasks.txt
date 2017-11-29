@@ -7,14 +7,14 @@ All:
 10.141.211.160-164, 171-181
 冀超：
 issue: 约定不一致
-istio(go): modify http request header/body, timeout control, replica?, router change
+istio(go): get/modify http request header/body, timeout control, replica?, router change
 kubenetes/consul
 李文海：
-envoy(c++): modify http request header/body, timeout control, replica?, router change
+envoy(c++): get/modify http request header/body, timeout control, replica?, router change
 docker swarm
 丁丹：
 issue: 返回类型不一致
-linkerd(scala): modify http request header/body, timeout control, replica?, router change
+linkerd(scala): get/modify http request header/body, timeout control, replica?, router change
 docker swarm
 
 
