@@ -89,7 +89,7 @@ public class TravelPlanServiceImpl implements TravelPlanService{
                 int second = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
                         tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.SECONDCLASS.getCode());
                 newUnit.setNumberOfRestTicketFirstClass(first);
-                newUnit.setNumberOfRestTicketFirstClass(second);
+                newUnit.setNumberOfRestTicketSecondClass(second);
 
                 lists.add(newUnit);
             }
@@ -137,7 +137,7 @@ public class TravelPlanServiceImpl implements TravelPlanService{
                 int second = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
                         tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.SECONDCLASS.getCode());
                 newUnit.setNumberOfRestTicketFirstClass(first);
-                newUnit.setNumberOfRestTicketFirstClass(second);
+                newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
             }
             travelAdvanceResult.setTravelAdvanceResultUnits(lists);
@@ -184,7 +184,7 @@ public class TravelPlanServiceImpl implements TravelPlanService{
                 int second = getRestTicketNumber(info.getDepartureTime(),tempUnit.getTripId(),
                         tempUnit.getFromStationName(),tempUnit.getToStationName(),SeatClass.SECONDCLASS.getCode());
                 newUnit.setNumberOfRestTicketFirstClass(first);
-                newUnit.setNumberOfRestTicketFirstClass(second);
+                newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
             }
             travelAdvanceResult.setTravelAdvanceResultUnits(lists);

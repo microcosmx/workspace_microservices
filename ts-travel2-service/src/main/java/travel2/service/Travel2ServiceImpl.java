@@ -235,6 +235,15 @@ public class Travel2ServiceImpl implements Travel2Service{
             response.setConfortClass(50);
             response.setEconomyClass(50);
         }
+
+        int first = getRestTicketNumber(departureTime,trip.getTripId().toString(),
+                startingPlaceName,endPlaceName,SeatClass.FIRSTCLASS.getCode());
+
+        int second = getRestTicketNumber(departureTime,trip.getTripId().toString(),
+                startingPlaceName,endPlaceName,SeatClass.SECONDCLASS.getCode());
+        response.setConfortClass(first);
+        response.setEconomyClass(second);
+
         response.setStartingStation(startingPlaceName);
         response.setTerminalStation(endPlaceName);
 
@@ -327,6 +336,26 @@ public class Travel2ServiceImpl implements Travel2Service{
             System.out.println("[Travel Other Service][Get Route By Id] Success.");
             return result.getRoute();
         }
+    }
+
+    private int getRestTicketNumber(Date travelDate, String trainNumber, String startStationName, String endStationName, int seatType) {
+        SeatRequest seatRequest = new SeatRequest();
+
+        String fromId = queryForStationId(startStationName);
+        String toId = queryForStationId(endStationName);
+
+        seatRequest.setDestStation(toId);
+        seatRequest.setStartStation(fromId);
+        seatRequest.setTrainNumber(trainNumber);
+        seatRequest.setTravelDate(travelDate);
+        seatRequest.setSeatType(seatType);
+
+        int restNumber = restTemplate.postForObject(
+                "http://ts-seat-service:18898/seat/getLeftTicketOfInterval",
+                seatRequest,Integer.class
+        );
+
+        return restNumber;
     }
 
     @Override
