@@ -1,6 +1,6 @@
 
 
-This project is ticket seller application in microservice architecture, including 30+ microservices
+This project is ticket seller application in microservice architecture, including 40+ microservices
 =========================
 
 - java，spring boot，spring cloud
