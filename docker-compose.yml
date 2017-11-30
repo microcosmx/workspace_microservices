@@ -379,7 +379,7 @@ services:
 
   ts-travel-plan-service:
         build: ts-travel-plan-service
-        image: ts-travel-plan-service
+        image: ts/ts-travel-plan-service
         restart: always
         ports:
           - 14322:14322

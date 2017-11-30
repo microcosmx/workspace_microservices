@@ -75,7 +75,25 @@ docker tag ts/ts-execute-service 10.141.212.25:5555/cluster-ts-execute-service
 docker tag ts/ts-payment-service 10.141.212.25:5555/cluster-ts-payment-service
 docker tag ts/ts-rebook-service 10.141.212.25:5555/cluster-ts-rebook-service
 docker tag ts/ts-cancel-service 10.141.212.25:5555/cluster-ts-cancel-service
+docker tag ts/ts-route-service 10.141.212.25:5555/cluster-ts-route-service
+docker tag ts/ts-assurance-service 10.141.212.25:5555/cluster-ts-assurance-service
+docker tag ts/ts-seat-service 10.141.212.25:5555/cluster-ts-seat-service
+docker tag ts/ts-travel-plan-service 10.141.212.25:5555/cluster-ts-travel-plan-service
+docker tag ts/ts-route-plan-service 10.141.212.25:5555/cluster-ts-route-plan-service
+docker tag ts/ts-food-map-service 10.141.212.25:5555/cluster-ts-food-map-service
+docker tag ts/ts-food-service 10.141.212.25:5555/cluster-ts-food-service
+docker tag ts/ts-consign-price-service 10.141.212.25:5555/cluster-ts-consign-price-service
+docker tag ts/ts-consign-service 10.141.212.25:5555/cluster-ts-consign-service
+docker tag ts/ts-admin-order-service 10.141.212.25:5555/cluster-ts-admin-order-service
+docker tag ts/ts-admin-basic-info-service 10.141.212.25:5555/cluster-ts-admin-basic-info-service
+docker tag ts/ts-admin-route-service 10.141.212.25:5555/cluster-ts-admin-route-service
+docker tag ts/ts-admin-travel-service 10.141.212.25:5555/cluster-ts-admin-travel-service
+docker tag ts/ts-admin-user-service 10.141.212.25:5555/cluster-ts-admin-user-service
+docker tag ts/ts-news-service 10.141.212.25:5555/cluster-ts-news-service
+docker tag ts/ts-ticket-office-service 10.141.212.25:5555/cluster-ts-ticket-office-service
+docker tag ts/ts-voucher-service 10.141.212.25:5555/cluster-ts-voucher-service
 docker tag mongo 10.141.212.25:5555/cluster-ts-mongo
+docker tag mysql 10.141.212.25:5555/cluster-ts-mysql
 docker tag rabbitmq:management 10.141.212.25:5555/cluster-ts-rabbitmq-management
 docker tag redis 10.141.212.25:5555/cluster-ts-redis
 docker tag openzipkin/zipkin 10.141.212.25:5555/cluster-ts-openzipkin-zipkin
@@ -107,7 +125,25 @@ docker push 10.141.212.25:5555/cluster-ts-execute-service
 docker push 10.141.212.25:5555/cluster-ts-payment-service
 docker push 10.141.212.25:5555/cluster-ts-rebook-service
 docker push 10.141.212.25:5555/cluster-ts-cancel-service
+docker push 10.141.212.25:5555/cluster-ts-route-service
+docker push 10.141.212.25:5555/cluster-ts-assurance-service
+docker push 10.141.212.25:5555/cluster-ts-seat-service
+docker push 10.141.212.25:5555/cluster-ts-travel-plan-service
+docker push 10.141.212.25:5555/cluster-ts-route-plan-service
+docker push 10.141.212.25:5555/cluster-ts-food-map-service
+docker push 10.141.212.25:5555/cluster-ts-food-service
+docker push 10.141.212.25:5555/cluster-ts-consign-price-service
+docker push 10.141.212.25:5555/cluster-ts-consign-service
+docker push 10.141.212.25:5555/cluster-ts-admin-order-service
+docker push 10.141.212.25:5555/cluster-ts-admin-basic-info-service
+docker push 10.141.212.25:5555/cluster-ts-admin-route-service
+docker push 10.141.212.25:5555/cluster-ts-admin-travel-service
+docker push 10.141.212.25:5555/cluster-ts-admin-user-service
+docker push 10.141.212.25:5555/cluster-ts-news-service
+docker push 10.141.212.25:5555/cluster-ts-ticket-office-service
+docker push 10.141.212.25:5555/cluster-ts-voucher-service
 docker push 10.141.212.25:5555/cluster-ts-mongo
+docker push 10.141.212.25:5555/cluster-ts-mysql
 docker push 10.141.212.25:5555/cluster-ts-rabbitmq-management
 docker push 10.141.212.25:5555/cluster-ts-redis
 docker push 10.141.212.25:5555/cluster-ts-openzipkin-zipkin

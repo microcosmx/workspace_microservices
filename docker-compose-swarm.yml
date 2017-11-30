@@ -507,8 +507,293 @@ services:
         networks:
           - my-network
 
+  ts-assurance-service:
+          build: ts-assurance-service
+          image: 10.141.212.25:5555/cluster-ts-assurance-service
+          restart: always
+          ports:
+            - 18888:18888
+          deploy:
+            replicas: 3
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
 
+  ts-assurance-mongo:
+        image: 10.141.212.25:5555/cluster-ts-mongo
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
 
+  ts-seat-service:
+        build: ts-seat-service
+        image: 10.141.212.25:5555/cluster-ts-seat-service
+        restart: always
+        ports:
+          - 18898:18898
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-travel-plan-service:
+        build: ts-travel-plan-service
+        image: 10.141.212.25:5555/cluster-ts-travel-plan-service
+        restart: always
+        ports:
+          - 14322:14322
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-ticket-office-service:
+        build: ts-ticket-office-service
+        image: 10.141.212.25:5555/cluster-ts-ticket-office-service
+        restart: always
+        ports:
+          - 16108:16108
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-ticket-office-mongo:
+        image: 10.141.212.25:5555/cluster-ts-mongo
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-news-service:
+        build: ts-news-service
+        image: 10.141.212.25:5555/cluster-ts-news-service
+        restart: always
+        ports:
+          - 12862:12862
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-news-mongo:
+        image: 10.141.212.25:5555/cluster-ts-mongo
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-vouncher-mysql:
+         image: 10.141.212.25:5555/cluster-ts-mysql
+         expose:
+            - "3306"
+         environment:
+            MYSQL_ROOT_PASSWORD: root
+         deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+         networks:
+           - my-network
+
+  ts-vouncher-service:
+          build: ts-voucher-service
+          image: 10.141.212.25:5555/cluster-ts-voucher-service
+          restart: always
+          ports:
+            - 16101:16101
+          depends_on:
+            - ts-vouncher-mysql
+          deploy:
+            replicas: 3
+            restart_policy:
+              condition: on-failure
+          volumes:
+            - /var/lib/mysql
+          networks:
+            - my-network
+
+  ts-food-map-service:
+        build: ts-food-map-service
+        image: 10.141.212.25:5555/cluster-ts-food-map-service
+        restart: always
+        ports:
+          - 18855:18855
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-food-map-mongo:
+          image: 10.141.212.25:5555/cluster-ts-mongo
+          deploy:
+            replicas: 1
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
+
+  ts-route-plan-service:
+          build: ts-route-plan-service
+          image: 10.141.212.25:5555/cluster-ts-route-plan-service
+          restart: always
+          ports:
+            - 14578:14578
+          deploy:
+            replicas: 3
+            restart_policy:
+              condition: on-failure
+          networks:
+            - my-network
+
+  ts-food-service:
+      build: ts-food-service
+      image: 10.141.212.25:5555/cluster-ts-food-service
+      restart: always
+      ports:
+        - 18856:18856
+      deploy:
+        replicas: 3
+        restart_policy:
+          condition: on-failure
+      networks:
+        - my-network
+
+  ts-consign-service:
+      build: ts-consign-service
+      image: 10.141.212.25:5555/cluster-ts-consign-service
+      restart: always
+      ports:
+        - 16111:16111
+      deploy:
+        replicas: 3
+        restart_policy:
+          condition: on-failure
+      networks:
+        - my-network
+
+  ts-consign-mongo:
+      image: 10.141.212.25:5555/cluster-ts-mongo
+      deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure
+      networks:
+        - my-network
+
+  ts-consign-price-service:
+            build: ts-consign-price-service
+            image: 10.141.212.25:5555/cluster-ts-consign-price-service
+            restart: always
+            ports:
+              - 16110:16110
+            deploy:
+              replicas: 3
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-consign-price-mongo:
+            image: 10.141.212.25:5555/cluster-ts-mongo
+            deploy:
+              replicas: 1
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-food-mongo:
+            image: 10.141.212.25:5555/cluster-ts-mongo
+            deploy:
+              replicas: 1
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-admin-basic-info-service:
+        build: ts-admin-basic-info-service
+        image: 10.141.212.25:5555/cluster-ts-admin-basic-info-service
+        restart: always
+        ports:
+          - 18767:18767
+        deploy:
+          replicas: 3
+          restart_policy:
+            condition: on-failure
+        networks:
+          - my-network
+
+  ts-admin-order-service:
+            build: ts-admin-order-service
+            image: 10.141.212.25:5555/cluster-ts-admin-order-service
+            restart: always
+            ports:
+              - 16112:16112
+            deploy:
+              replicas: 3
+              restart_policy:
+                condition: on-failure
+            networks:
+              - my-network
+
+  ts-admin-route-service:
+              build: ts-admin-route-service
+              image: 10.141.212.25:5555/cluster-ts-admin-route-service
+              restart: always
+              ports:
+                - 16113:16113
+              deploy:
+                replicas: 3
+                restart_policy:
+                  condition: on-failure
+              networks:
+                - my-network
+
+  ts-admin-travel-service:
+                build: ts-admin-travel-service
+                image: 10.141.212.25:5555/cluster-ts-admin-travel-service
+                restart: always
+                ports:
+                  - 16114:16114
+                deploy:
+                  replicas: 3
+                  restart_policy:
+                    condition: on-failure
+                networks:
+                  - my-network
+
+  ts-admin-user-service:
+                  build: ts-admin-user-service
+                  image: 10.141.212.25:5555/cluster-ts-admin-user-service
+                  restart: always
+                  ports:
+                    - 16115:16115
+                  deploy:
+                    replicas: 3
+                    restart_policy:
+                      condition: on-failure
+                  networks:
+                    - my-network
 
 networks:
   my-network:
