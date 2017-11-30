@@ -1,7 +1,22 @@
 
 工作计划:
 
-11.22 - 11.29
+
+12.6 - 12.13
+
+All:
+goal: get/modify http request header/body, timeout control, replica?, router change
+
+冀超：
+istio(go) + k8s
+李文海：
+envoy(c++) + k8s
+丁丹：
+linkerd(scala) + docker swarm
+
+
+
+11.30 - 12.6
 
 All:
 10.141.211.160-164, 171-181
