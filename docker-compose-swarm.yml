@@ -55,7 +55,7 @@ services:
     ports:
       - 80:8080
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -69,7 +69,7 @@ services:
     ports:
       - 12342:12342
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -84,6 +84,24 @@ services:
     networks:
       - my-network
 
+  ts-route-service:
+      build: ts-route-service
+      image: 10.141.212.25:5555/cluster-ts-route-service
+      restart: always
+      ports:
+           - 11178:11178
+      networks:
+        - my-network
+
+  ts-route-mongo:
+    image: 10.141.212.25:5555/cluster-ts-mongo
+      deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure
+    networks:
+        - my-network
+
   ts-register-service:
     build: ts-register-service
     # image: 10.141.212.25:5555/cluster-ts-register-service
@@ -92,7 +110,7 @@ services:
     ports:
       - 12344:12344
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -106,7 +124,7 @@ services:
     ports:
       - 12349:12349
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -121,7 +139,7 @@ services:
     ports:
       - 15678:15678
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -134,7 +152,7 @@ services:
     ports:
       - 12347:12347
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -156,7 +174,7 @@ services:
     ports:
       - 12031:12031
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -179,7 +197,7 @@ services:
     ports:
       - 12032:12032
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -202,7 +220,7 @@ services:
     ports:
       - 15679:15679
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -224,7 +242,7 @@ services:
     ports:
       - 12345:12345
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -246,7 +264,7 @@ services:
     ports:
       - 14567:14567
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -268,7 +286,7 @@ services:
     ports:
       - 12346:12346
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -290,7 +308,7 @@ services:
       ports:
         - 16346:16346
       deploy:
-        replicas: 3
+        replicas: 1
         restart_policy:
           condition: on-failure
       networks:
@@ -312,7 +330,7 @@ services:
     ports:
       - 14568:14568
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -325,7 +343,7 @@ services:
     ports:
       - 14569:14569
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     networks:
@@ -339,7 +357,7 @@ services:
       ports:
         - 15680:15680
       deploy:
-        replicas: 3
+        replicas: 1
         restart_policy:
           condition: on-failure
       networks:
@@ -352,7 +370,7 @@ services:
         ports:
           - 15681:15681
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -365,7 +383,7 @@ services:
         ports:
           - 16579:16579
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -387,7 +405,7 @@ services:
         ports:
           - 17853:17853
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -400,7 +418,7 @@ services:
         ports:
           - 11188:11188
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -422,7 +440,7 @@ services:
         ports:
           - 18673:18673
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -444,7 +462,7 @@ services:
         ports:
           - 12386:12386
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -457,7 +475,7 @@ services:
         ports:
           - 19001:19001
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -479,7 +497,7 @@ services:
         ports:
           - 18886:18886
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -501,7 +519,7 @@ services:
         ports:
           - 18885:18885
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -514,7 +532,7 @@ services:
           ports:
             - 18888:18888
           deploy:
-            replicas: 3
+            replicas: 1
             restart_policy:
               condition: on-failure
           networks:
@@ -536,7 +554,7 @@ services:
         ports:
           - 18898:18898
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -549,7 +567,7 @@ services:
         ports:
           - 14322:14322
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -562,7 +580,7 @@ services:
         ports:
           - 16108:16108
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -584,7 +602,7 @@ services:
         ports:
           - 12862:12862
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -621,7 +639,7 @@ services:
           depends_on:
             - ts-vouncher-mysql
           deploy:
-            replicas: 3
+            replicas: 1
             restart_policy:
               condition: on-failure
           volumes:
@@ -636,7 +654,7 @@ services:
         ports:
           - 18855:18855
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -658,7 +676,7 @@ services:
           ports:
             - 14578:14578
           deploy:
-            replicas: 3
+            replicas: 1
             restart_policy:
               condition: on-failure
           networks:
@@ -671,7 +689,7 @@ services:
       ports:
         - 18856:18856
       deploy:
-        replicas: 3
+        replicas: 1
         restart_policy:
           condition: on-failure
       networks:
@@ -684,7 +702,7 @@ services:
       ports:
         - 16111:16111
       deploy:
-        replicas: 3
+        replicas: 1
         restart_policy:
           condition: on-failure
       networks:
@@ -706,7 +724,7 @@ services:
             ports:
               - 16110:16110
             deploy:
-              replicas: 3
+              replicas: 1
               restart_policy:
                 condition: on-failure
             networks:
@@ -737,7 +755,7 @@ services:
         ports:
           - 18767:18767
         deploy:
-          replicas: 3
+          replicas: 1
           restart_policy:
             condition: on-failure
         networks:
@@ -750,7 +768,7 @@ services:
             ports:
               - 16112:16112
             deploy:
-              replicas: 3
+              replicas: 1
               restart_policy:
                 condition: on-failure
             networks:
@@ -763,7 +781,7 @@ services:
               ports:
                 - 16113:16113
               deploy:
-                replicas: 3
+                replicas: 1
                 restart_policy:
                   condition: on-failure
               networks:
@@ -776,7 +794,7 @@ services:
                 ports:
                   - 16114:16114
                 deploy:
-                  replicas: 3
+                  replicas: 1
                   restart_policy:
                     condition: on-failure
                 networks:
@@ -789,7 +807,7 @@ services:
                   ports:
                     - 16115:16115
                   deploy:
-                    replicas: 3
+                    replicas: 1
                     restart_policy:
                       condition: on-failure
                   networks:
