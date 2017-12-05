@@ -95,10 +95,10 @@ services:
 
   ts-route-mongo:
     image: 10.141.212.25:5555/cluster-ts-mongo
-      deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     networks:
         - my-network
 
