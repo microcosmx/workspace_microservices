@@ -49,7 +49,7 @@ public class AdminBasicInfoController {
         return adminBasicInfoService.addContact(c.getLoginId(), c);
     }
 
-/////////////////////////station/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////station/////////////////////////////////////////////////////////////////////////////////
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/adminbasic/getAllStations/{id}", method = RequestMethod.GET)
     public GetAllStationResult getAllStations(@PathVariable String id){

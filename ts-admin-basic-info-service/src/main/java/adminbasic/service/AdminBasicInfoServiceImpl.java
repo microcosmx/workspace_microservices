@@ -23,7 +23,7 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
     public  GetAllContactsResult getAllContacts(String loginId) {
         GetAllContactsResult result ;
         if(adminID.equals(loginId)){
-           result = restTemplate.getForObject(
+            result = restTemplate.getForObject(
                     "http://ts-contacts-service:12347/contacts/findAll",
                     GetAllContactsResult.class);
         } else {
@@ -273,5 +273,5 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
         return result;
     }
 
-    
+
 }
