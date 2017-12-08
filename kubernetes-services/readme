@@ -7,6 +7,20 @@ docker push 10.141.212.25:5555/rest-service-2
 
 #在kubernetes master中执行，以创建pods
 kubectl create -f service2-deployment.yml
+kubectl create -f service1-deployment.yml
 
 #在kubernetes master中执行，以创建service
 kubectl create -f service2-service.yml
+kubectl create -f service1-service.yml
+
+#启动
+kubectl create -f sky-dns-svc.yml
+kubectl create -f sky-dns-rc.yml
+
+kubelet --cluster_dns=10.254.236.67 --cluster_domain=cluster.local restart
+
+kubectl delete deployment rest-service-1-deployment
+
+
+vi /etc/kubernetes/kubelet
+KUBELET_ARGS="--cluster_dns=10.254.236.67 --cluster_domain=cluster.local"

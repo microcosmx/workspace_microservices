@@ -15,7 +15,7 @@ public class HelloController {
 
 	@RequestMapping(value="/hello", method = RequestMethod.GET)
 	public String hello() {
-		String str2 = restTemplate.getForObject("http://test-service-2:16002/hello",String.class);
+		String str2 = restTemplate.getForObject("http://rest-service-2:16002/hello",String.class);
 		return str2 + " | Hello From Rest-Service-1";
 	}
 }
