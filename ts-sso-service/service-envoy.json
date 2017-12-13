@@ -42,7 +42,7 @@
     "clusters": [
       {
         "name": "local_service",
-        "connect_timeout_ms": 250,
+        "connect_timeout_ms": 2500,
         "type": "strict_dns",
         "lb_type": "round_robin",
         "hosts": [
