@@ -1,0 +1,14 @@
+admin:
+  port: 9991
+
+namers:
+- kind: io.l5d.fs
+  rootDir: /disco
+
+routers:
+- protocol: http
+  label: incoming
+  dtab: /svc => /$/inet/ts-contacts--service/12347;
+  servers:
+  - port: 8072
+    ip: 0.0.0.0

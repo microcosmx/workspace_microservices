@@ -26,6 +26,9 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService{
             result = restTemplate.getForObject(
                     "http://ts-contacts-service:12347/contacts/findAll",
                     GetAllContactsResult.class);
+//            result = restTemplate.getForObject(
+//                    "http://linkerd-contacts:8072/contacts/findAll",
+//                    GetAllContactsResult.class);
         } else {
             result = new GetAllContactsResult();
             result.setStatus(false);
