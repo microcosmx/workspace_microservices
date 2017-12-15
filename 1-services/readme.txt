@@ -58,7 +58,7 @@ http://10.141.212.22:9000/
 swarm:
 
 test sample:
-http://localhost:16006/hello6?cal=66
+http://fdc201705:16006/hello6?cal=66
 
 build:
 mvn clean package
@@ -70,6 +70,9 @@ docker tag my-service-cluster/rest-service-3 10.141.212.25:5555/my-rest-service-
 docker tag my-service-cluster/rest-service-4 10.141.212.25:5555/my-rest-service-4
 docker tag my-service-cluster/rest-service-5 10.141.212.25:5555/my-rest-service-5
 docker tag my-service-cluster/rest-service-6 10.141.212.25:5555/my-rest-service-6
+docker tag my-service-cluster/rest-service-go 10.141.212.25:5555/my-rest-service-go
+docker tag my-service-cluster/rest-service-nodejs 10.141.212.25:5555/my-rest-service-nodejs
+docker tag my-service-cluster/rest-service-python 10.141.212.25:5555/my-rest-service-python
 
 docker push 10.141.212.25:5555/my-rest-service-end
 docker push 10.141.212.25:5555/my-rest-service-1
@@ -78,6 +81,9 @@ docker push 10.141.212.25:5555/my-rest-service-3
 docker push 10.141.212.25:5555/my-rest-service-4
 docker push 10.141.212.25:5555/my-rest-service-5
 docker push 10.141.212.25:5555/my-rest-service-6
+docker push 10.141.212.25:5555/my-rest-service-go
+docker push 10.141.212.25:5555/my-rest-service-nodejs
+docker push 10.141.212.25:5555/my-rest-service-python
 
 docker stack deploy --compose-file=docker-compose-swarm.yml my-compose-swarm
 docker stack ls
@@ -98,6 +104,36 @@ swarm ui:
 http://10.141.211.164:9000/
 zipkin:
 http://10.141.211.164:9411/
+
+
+
+k8s:
+kubectl version
+kubectl cluster-info
+kubectl get nodes
+kubectl get clusterroles
+
+### mkdir -p $HOME/.kube
+### sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl create namespace 1-services
+kubectl create -f k8s-cluster.yaml
+kubectl apply -f k8s-cluster.yaml
+kubectl delete -f k8s-cluster.yaml
+
+kubectl get pods --all-namespaces
+kubectl get pods -o wide
+kubectl get services
+kubectl get services -l run=rest-service-1-57d9447f48-76z4d
+kubectl describe pods $POD_NAME
+kubectl get deployments
+kubectl scale deployments/rest-service-6 --replicas=4
+kubectl describe services/rest-service-6
+kubectl expose deployment/rest-service-6 --type="NodePort" --port 16006
+
+url:
+http://fdc201705:32006/hello6?cal=66
+http://fdc201705:32411
 
 
 

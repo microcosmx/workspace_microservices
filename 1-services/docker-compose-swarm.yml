@@ -2,19 +2,19 @@ version: '3'
 services:
 
 
-  rest-service-dashboard:
-    build: dashboard_x
-    # image: my-service-cluster/rest-service-dashboard
-    image: 10.141.212.25:5555/my-rest-service-dashboard
-    restart: always
-    ports:
-      - 16600:16600
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-    networks:
-      - my-network
+  # rest-service-dashboard:
+  #   build: dashboard_x
+  #   # image: my-service-cluster/rest-service-dashboard
+  #   image: 10.141.212.25:5555/my-rest-service-dashboard
+  #   restart: always
+  #   ports:
+  #     - 16600:16600
+  #   deploy:
+  #     replicas: 3
+  #     restart_policy:
+  #       condition: on-failure
+  #   networks:
+  #     - my-network
 
   # mysql:
   #   image: mysql
