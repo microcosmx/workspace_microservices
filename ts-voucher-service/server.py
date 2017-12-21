@@ -26,7 +26,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
 
             #往voucher表中插入报销凭证
             config = {
-                'host':'ts-vouncher-mysql',
+                'host':'ts-voucher-mysql',
                 'port':3306,
                 'user':'root',
                 'password':'root',
@@ -63,7 +63,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
     def fetchVoucherByOrderId(self,orderId):
         #从voucher表中查询orderId对应的报销凭证
         config = {
-            'host':'ts-vouncher-mysql',
+            'host':'ts-voucher-mysql',
             'port':3306,
             'user':'root',
             'password':'root',
@@ -100,7 +100,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
     def get(self):
         #往voucher表中插入报销凭证
         config = {
-            'host':'ts-vouncher-mysql',
+            'host':'ts-voucher-mysql',
             'port':3306,
             'user':'root',
             'password':'root',
@@ -135,7 +135,7 @@ def make_app():
 
 def initDatabase():
     config = {
-        'host':'ts-vouncher-mysql',
+        'host':'ts-voucher-mysql',
         'port':3306,
         'user':'root',
         'password':'root'

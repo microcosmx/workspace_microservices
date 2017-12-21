@@ -342,16 +342,16 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-vouncher-mysql
+  name: ts-voucher-mysql
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-vouncher-mysql
+        app: ts-voucher-mysql
     spec:
       containers:
-      - name: ts-vouncher-mysql
+      - name: ts-voucher-mysql
         image: 10.141.212.25:5555/cluster-ts-mysql
         imagePullPolicy: IfNotPresent
         env:

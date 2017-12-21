@@ -414,7 +414,7 @@ services:
         networks:
           - my-network
 
-  ts-vouncher-mysql:
+  ts-voucher-mysql:
          image: mysql
          expose:
             - "3306"
@@ -423,14 +423,14 @@ services:
          networks:
            - my-network
 
-  ts-vouncher-service:
+  ts-voucher-service:
           build: ts-voucher-service
           image: ts/ts-voucher-service
           restart: always
           ports:
             - 16101:16101
           depends_on:
-            - ts-vouncher-mysql
+            - ts-voucher-mysql
           volumes:
             - /var/lib/mysql
           networks:
