@@ -5,7 +5,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 16001
+    - name: http-service1
+      port: 16001
       nodePort: 30001
   selector:
    app: rest-service-1
@@ -19,7 +20,8 @@ metadata:
 spec:
     type: NodePort
     ports:
-       - port: 16002
+       - name: http-service2
+         port: 16002
          nodePort: 30002
     selector:
         app: rest-service-2

@@ -15,3 +15,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 16001
+      - name: istio-proxy
+        image: docker.io/istio/proxy_debug:0.2.6
+      initContainers:
+      - name: istio-init
+        image: docker.io/istio/proxy_init:0.2.6
+        imagePullPolicy: IfNotPresent
