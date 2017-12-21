@@ -5,6 +5,9 @@
 *.lst
 *.iml
 *.class
+.settings
+.project
+.classpath
 1-services/rest-service-1/target/
 1-services/rest-service-2/target/
 1-services/rest-service-3/target/
