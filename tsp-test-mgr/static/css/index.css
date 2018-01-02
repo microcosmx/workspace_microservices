@@ -1,0 +1,8 @@
+.am-tree-label{
+    color:#FFFFFF;
+    font-size:17px;
+}
+
+.am-tree .am-tree-item.am-tree-selected .am-tree-item-name{
+     background-color: #a2abb6;
+ }
