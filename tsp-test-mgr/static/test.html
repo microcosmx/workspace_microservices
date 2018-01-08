@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/admin.css"/>
+    <link rel="stylesheet" href="css/lib/amazeui.tree.min.css"/>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="js/lib/amazeui.tree.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body data-type="generalComponents" ng-controller="indexCtrl">
+<ul class="am-tree" id="firstTree" >
+    <li class="am-tree-branch am-hide" data-template="treebranch">
+        <div class="am-tree-branch-header">
+            <button class="am-tree-branch-name">
+                <span class="am-tree-icon am-tree-icon-folder"></span>
+                <span class="am-tree-label"></span>
+            </button>
+        </div>
+        <ul class="am-tree-branch-children"></ul>
+        <div class="am-tree-loader"><span class="am-icon-spin am-icon-spinner"></span></div>
+    </li>
+    <li class="am-tree-item am-hide" data-template="treeitem">
+        <button class="am-tree-item-name">
+            <span class="am-tree-icon am-tree-icon-item"></span>
+            <span class="am-tree-label"></span>
+        </button>
+    </li>
+</ul>
+
+<!--<script>-->
+    <!--var data = [-->
+        <!--{-->
+            <!--title: '苹果公司',-->
+            <!--type: 'folder',-->
+            <!--products: [-->
+                <!--{-->
+                    <!--title: 'iPhone',-->
+                    <!--type: 'item'-->
+                <!--},-->
+                <!--{-->
+                    <!--title: 'iMac',-->
+                    <!--type: 'item'-->
+                <!--},-->
+                <!--{-->
+                    <!--title: 'MacBook Pro',-->
+                    <!--type: 'item'-->
+                <!--}-->
+            <!--]-->
+        <!--},-->
+        <!--{-->
+            <!--title: '微软公司',-->
+            <!--type: 'item'-->
+        <!--},-->
+        <!--{-->
+            <!--title: 'GitHub',-->
+            <!--type: 'item',-->
+            <!--attr: {-->
+                <!--icon: 'am-icon-github'-->
+            <!--}-->
+        <!--}-->
+    <!--];-->
+
+    <!--$('#firstTree').tree({-->
+        <!--dataSource: function(options, callback) {-->
+            <!--// 模拟异步加载-->
+            <!--setTimeout(function() {-->
+                <!--callback({data: options.products || data});-->
+            <!--}, 400);-->
+        <!--},-->
+        <!--multiSelect: false,-->
+        <!--cacheItems: true,-->
+        <!--folderSelect: false-->
+    <!--});-->
+<!--</script>-->
+</body>
+</html>

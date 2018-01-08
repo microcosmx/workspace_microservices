@@ -13,7 +13,9 @@ public class HelloController {
 	private RestTemplate restTemplate;
 
     @RequestMapping(value="/hello", method = RequestMethod.GET)
-    public String hello2() {
+    public String hello2() throws Exception{
+
+        Thread.sleep(3000);
 
         return "Hello From Rest-Service-2";
     }

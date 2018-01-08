@@ -205,12 +205,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-vouncher-mysql
+  name: ts-voucher-mysql
 spec:
   ports:
     - port: 3306
   selector:
-   app: ts-vouncher-mysql
+   app: ts-voucher-mysql
 
 ---
 
