@@ -7,7 +7,7 @@ class MainHandler(tornado.web.RequestHandler):
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("testing")
+        self.write("test python: ------")
 
 class Test1Handler(tornado.web.RequestHandler):
     def get(self):

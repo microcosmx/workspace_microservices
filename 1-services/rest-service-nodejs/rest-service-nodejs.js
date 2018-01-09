@@ -64,7 +64,7 @@ http.createServer(function (req, res) {
 
   sleep(arr, function(error, data) {
 
-    console.log("-------service external----------");
+    console.log("-------service nodejs----------");
 
     var req_url = url.parse(req.url, true);
     var params = req_url.query;

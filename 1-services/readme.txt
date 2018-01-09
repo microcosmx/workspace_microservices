@@ -1,8 +1,8 @@
 
 run:
-http://localhost:16006/hello6?cal=66
-http://localhost:16006/hello6?cal=96
-http://localhost:16006/hello6?cal=136
+http://localhost:16006/hello6?cal=30
+http://localhost:16006/hello6?cal=60
+http://localhost:16006/hello6?cal=90
 
 
 mvn repo:
@@ -104,36 +104,6 @@ swarm ui:
 http://10.141.211.164:9000/
 zipkin:
 http://10.141.211.164:9411/
-
-
-
-k8s:
-kubectl version
-kubectl cluster-info
-kubectl get nodes
-kubectl get clusterroles
-
-### mkdir -p $HOME/.kube
-### sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-kubectl create namespace 1-services
-kubectl create -f k8s-cluster.yaml
-kubectl apply -f k8s-cluster.yaml
-kubectl delete -f k8s-cluster.yaml
-
-kubectl get pods --all-namespaces
-kubectl get pods -o wide
-kubectl get services
-kubectl get services -l run=rest-service-1-57d9447f48-76z4d
-kubectl describe pods $POD_NAME
-kubectl get deployments
-kubectl scale deployments/rest-service-6 --replicas=4
-kubectl describe services/rest-service-6
-kubectl expose deployment/rest-service-6 --type="NodePort" --port 16006
-
-url:
-http://fdc201705:32006/hello6?cal=66
-http://fdc201705:32411
 
 
 

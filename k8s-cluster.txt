@@ -14,7 +14,9 @@ yum install docker-ce-17.03.2.ce-1.el7.centos.x86_64.rpm
 
 cat << EOF > /etc/docker/daemon.json
 {
-  "exec-opts": ["native.cgroupdriver=systemd"]
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "registry-mirrors": ["http://c32b78eb.m.daocloud.io"],
+  "insecure-registries":["10.141.212.25:5555"]
 }
 EOF
 service docker restart

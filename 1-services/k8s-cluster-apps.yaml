@@ -379,8 +379,10 @@ kind: Service
 metadata:
   name: rest-service-end
 spec:
+  type: NodePort
   ports:
     - port: 16000
+      nodePort: 32000
   selector:
    app: rest-service-end
 

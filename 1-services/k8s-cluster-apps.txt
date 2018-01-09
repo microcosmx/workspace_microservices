@@ -1,0 +1,59 @@
+
+
+images:
+docker pull 10.141.212.25:5555/my-rest-service-end
+docker pull 10.141.212.25:5555/my-rest-service-1
+docker pull 10.141.212.25:5555/my-rest-service-2
+docker pull 10.141.212.25:5555/my-rest-service-3
+docker pull 10.141.212.25:5555/my-rest-service-4
+docker pull 10.141.212.25:5555/my-rest-service-5
+docker pull 10.141.212.25:5555/my-rest-service-6
+docker pull 10.141.212.25:5555/my-rest-service-go
+docker pull 10.141.212.25:5555/my-rest-service-nodejs
+docker pull 10.141.212.25:5555/my-rest-service-python
+
+
+
+k8s:
+kubectl version
+kubectl cluster-info
+kubectl get nodes
+kubectl get clusterroles
+
+apps deployment:
+### mkdir -p $HOME/.kube
+### sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl create namespace 1-services
+kubectl create -f k8s-cluster.yaml
+kubectl apply -f k8s-cluster.yaml
+kubectl delete -f k8s-cluster.yaml
+kubectl apply -f k8s-cluster-apps.yaml
+kubectl delete -f k8s-cluster-apps.yaml
+kubectl logs rest-service-nodejs-cc9b8ccff-878dl
+
+apps info:
+kubectl get pods --all-namespaces
+kubectl get pods -o wide
+kubectl get services
+kubectl get services -l run=rest-service-1-57d9447f48-76z4d
+kubectl describe pods $POD_NAME
+kubectl get deployments
+kubectl scale deployments/rest-service-6 --replicas=4
+kubectl describe services/rest-service-6
+kubectl expose deployment/rest-service-6 --type="NodePort" --port 16006
+
+url:
+http://fdc201771:32006/hello6?cal=30
+http://fdc201771:32006/hello6?cal=60
+http://fdc201771:32006/hello6?cal=90
+http://fdc201771:32000/test
+
+zipkin:
+http://fdc201771:32411
+
+
+
+
+
+
