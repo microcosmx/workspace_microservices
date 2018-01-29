@@ -20,7 +20,6 @@
       <module fileurl="file://$PROJECT_DIR$/ts-register-service/ts-register-service.iml" filepath="$PROJECT_DIR$/ts-register-service/ts-register-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-security-service/ts-security-service.iml" filepath="$PROJECT_DIR$/ts-security-service/ts-security-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-service.iml" filepath="$PROJECT_DIR$/ts-service.iml" />
-      <module fileurl="file://E:/Users/fdse-jichao/Documents/GitHub/workspace_microservices/ts-service.iml" filepath="E:/Users/fdse-jichao/Documents/GitHub/workspace_microservices/ts-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" filepath="$PROJECT_DIR$/ts-sso-service/ts-sso-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-station-service/ts-station-service.iml" filepath="$PROJECT_DIR$/ts-station-service/ts-station-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/ts-ticketinfo-service/ts-ticketinfo-service.iml" filepath="$PROJECT_DIR$/ts-ticketinfo-service/ts-ticketinfo-service.iml" />
