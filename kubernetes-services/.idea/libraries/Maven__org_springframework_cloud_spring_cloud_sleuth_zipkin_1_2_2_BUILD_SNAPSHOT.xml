@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.cloud:spring-cloud-sleuth-zipkin:1.2.2.BUILD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-sleuth-zipkin/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-zipkin-1.2.2.BUILD-20170721.090428-519.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-sleuth-zipkin/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-zipkin-1.2.2.BUILD-20170721.090428-519-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-sleuth-zipkin/1.2.2.BUILD-SNAPSHOT/spring-cloud-sleuth-zipkin-1.2.2.BUILD-20170721.090428-519-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
