@@ -1,5 +1,5 @@
 FROM envoyproxy/envoy:latest
-MAINTAINER jichao <13302010019@fudan.edu.cn>
+
 
 RUN apt-get update && apt-get -q install -y \
     curl

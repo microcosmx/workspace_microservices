@@ -1,5 +1,5 @@
 FROM envoyproxy/envoy:latest
-MAINTAINER Chenjie Xu <15212010021@fudan.edu.cn>
+
 
 RUN apt-get update && apt-get -q install -y \
     curl
