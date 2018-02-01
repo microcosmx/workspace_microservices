@@ -1,6 +1,6 @@
 # FROM grayzone/beego
 FROM mrrm/web.go
-jay <15110240026@fudan.edu.cn>
+MAINTAINER jay <15110240026@fudan.edu.cn>
 
 RUN mkdir -p /app
 WORKDIR /app

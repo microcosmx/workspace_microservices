@@ -1,6 +1,6 @@
 # FROM grayzone/beego
 FROM mrrm/web.go
-Chao Ji <17212010013@fudan.edu.cn>
+MAINTAINER Chao Ji <17212010013@fudan.edu.cn>
 
 RUN mkdir -p /app
 WORKDIR /app
