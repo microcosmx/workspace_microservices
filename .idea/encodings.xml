@@ -13,9 +13,11 @@
     <file url="file://$PROJECT_DIR$/ts-login-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-order-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-payment-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ts-preserve-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-query-crh-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-query-ordinary-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-register-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ts-security-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-sso-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-station-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ts-train-service" charset="UTF-8" />

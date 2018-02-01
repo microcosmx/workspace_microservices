@@ -40,6 +40,7 @@
         <module name="ts-query-crh-service" />
         <module name="ts-query-ordinary-service" />
         <module name="ts-register-service" />
+        <module name="ts-security-service" />
         <module name="ts-sso-service" />
         <module name="ts-station-service" />
         <module name="ts-train-service" />
@@ -83,11 +84,11 @@
       <module name="ts-login-service" target="1.8" />
       <module name="ts-order-service" target="1.8" />
       <module name="ts-payment-service" target="1.8" />
-      <module name="ts-preserve-service" target="1.5" />
+      <module name="ts-preserve-service" target="1.8" />
       <module name="ts-query-crh-service" target="1.8" />
       <module name="ts-query-ordinary-service" target="1.8" />
       <module name="ts-register-service" target="1.8" />
-      <module name="ts-security-service" target="1.5" />
+      <module name="ts-security-service" target="1.8" />
       <module name="ts-sso-service" target="1.8" />
       <module name="ts-station-service" target="1.8" />
       <module name="ts-train-service" target="1.8" />

@@ -1,9 +1,6 @@
-.idea/workspace.xml
+.idea
 *.jar
-.idea/workspace.xml
 *.original
 *.jar
-ts-register-service/target/ts-register-service-1.0.jar
-.idea/workspace.xml
-ts-config-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 *.lst
+*.iml
