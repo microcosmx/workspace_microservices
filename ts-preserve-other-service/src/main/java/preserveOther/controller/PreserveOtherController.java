@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import preserveOther.domain.OrderTicketsInfo;
 import preserveOther.domain.OrderTicketsResult;
 import preserveOther.domain.ReserveQueueInformation;
+import preserveOther.queue.MsgSendingBean;
 import preserveOther.service.PreserveOtherService;
 import preserveOther.service.PreserveOtherServiceImpl;
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ public class PreserveOtherController {
     @Autowired
     private PreserveOtherServiceImpl preserveOtherServiceImpl;
 
+    @Autowired
+    private MsgSendingBean sendingBean;
+
 
     @RequestMapping(value = "/reserve/queue", method = RequestMethod.POST)
     public ReserveQueueInformation reserveQueue(@RequestBody OrderTicketsInfo oti, @CookieValue String loginId, @CookieValue String loginToken){
@@ -27,8 +31,9 @@ public class PreserveOtherController {
         ReserveQueueInformation info = new ReserveQueueInformation(requestId,loginId);
         preserveOtherServiceImpl.arrayList.add(info);
 
+        sendingBean.sayHello(oti,loginId,loginToken,requestId);
 
-        return null;
+        return info;
     }
 
     @RequestMapping(value = "/reserve/getResult", method = RequestMethod.POST)

@@ -679,6 +679,131 @@ $("#ticket_confirm_confirm_btn").click(function () {
     })
 })
 
+$("#ticket_confirm_reserve_queue").click(function () {
+    if(getCookie("loginId").length < 1 || getCookie("loginToken").length < 1){
+        alert("Please Login");
+    }
+
+    $("#ticket_confirm_confirm_btn").attr("disabled",true);
+    var orderTicketInfo = new Object();
+    orderTicketInfo.contactsId = $("#ticket_confirm_contactsId").text();
+    orderTicketInfo.tripId = $("#ticket_confirm_tripId").text();
+    orderTicketInfo.seatType = $("#ticket_confirm_seatType").text();
+    orderTicketInfo.date = $("#ticket_confirm_travel_date").text();
+    orderTicketInfo.from = $("#ticket_confirm_from").text();
+    orderTicketInfo.to = $("#ticket_confirm_to").text();
+    orderTicketInfo.assurance = $("#assurance_type").val();
+
+    //add the food information
+    if(null != $('#ticket_confirm_food_type').text() && "" != $('#ticket_confirm_food_type').text()){
+        if($('#ticket_confirm_food_type').text() == "Train Food"){
+            orderTicketInfo.foodType = 1;
+            orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text().substr(1));
+            orderTicketInfo.stationName = "";
+            orderTicketInfo.storeName = "";
+        } else if ($('#ticket_confirm_food_type').text()== "Station Food Stores"){
+            orderTicketInfo.foodType = 2;
+            orderTicketInfo.stationName = $('#ticket_confirm_food_station').text();
+            orderTicketInfo.storeName = $('#ticket_confirm_food_store').text();
+            orderTicketInfo.foodName = $('#ticket_confirm_food_name').text();
+            orderTicketInfo.foodPrice = parseFloat($('#ticket_confirm_food_price').text().substr(1));
+        } else {
+            orderTicketInfo.foodType = 0;
+        }
+    } else {
+        orderTicketInfo.foodType = 0;
+    }
+
+    //Add the consign information
+    if($('#need-consign-or-not').is(":checked")){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        orderTicketInfo.handleDate = currentdate;
+        orderTicketInfo.consigneeName = $("#name_of_consignee ").val();
+        orderTicketInfo.consigneePhone = $("#phone_of_consignee ").val();
+        orderTicketInfo.consigneeWeight = parseFloat($("#weight_of_consign ").val());
+        orderTicketInfo.isWithin = false;
+    }
+
+    var orderTicketsData = JSON.stringify(orderTicketInfo);
+    console.log("orderTicketsData:");
+    console.log(orderTicketsData);
+
+    var tripType = orderTicketInfo.tripId.charAt(0);
+    if(tripType == 'G' || tripType == 'D'){
+        //path = "/preserve";
+    }else{
+        path = "/reserve/queue";
+    }
+    $.ajax({
+        type: "post",
+        url: path,
+        contentType: "application/json",
+        dataType: "json",
+        data: orderTicketsData,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            requestId = result["requestId"];
+            userId = result["userId"];
+            alert("requestId:" + requestId + " userId:" + userId);
+        },
+        complete: function(){
+            $("#ticket_confirm_confirm_btn").attr("disabled",false);
+        }
+    })
+})
+
+var requestId = "";
+var userId = "";
+
+$("#ticket_confirm_get_ticket").click(function () {
+
+    $("#ticket_confirm_get_ticket").attr("disabled",true);
+    var reserveQueueInformation = new Object();
+    reserveQueueInformation.requestId = requestId;
+    reserveQueueInformation.userId = userId;
+    reserveQueueInformation.result = null;
+
+    $.ajax({
+        type: "post",
+        url: "/reserve/getResult",
+        contentType: "application/json",
+        dataType: "json",
+        data: reserveQueueInformation,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if(result["result"]["status"] == true){
+                $("#preserve_pay_orderId").val(result["result"]["order"]["id"]);
+                $("#preserve_pay_price").val(result["result"]["order"]["price"]);
+                $("#preserve_pay_userId").val(result["result"]["order"]["accountId"]);
+                $("#preserve_pay_tripId").val(result["result"]["order"]["trainNumber"]);
+                location.hash="anchor_flow_preserve_pay";
+            }else{
+                alert("Result not produced yet...")
+            }
+        },
+        complete: function(){
+            $("#ticket_confirm_get_ticket").attr("disabled",false);
+        }
+    })
+})
+
+
 /**
  * Flow Preserve - Step 5 - Pay For Your Ticket
  */

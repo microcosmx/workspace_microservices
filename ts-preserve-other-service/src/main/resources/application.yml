@@ -14,8 +14,31 @@ server:
 spring:
   application:
     name: ts-preserve-other-service
+  rabbitmq:
+    host: rabbitmq
+    listener:
+      retry:
+        enabled: false
+        max-attempts: 1
+    template:
+      retry:
+        enabled: false
+        max-attempts:
   zipkin:
     baseUrl: http://zipkin:9411/
   sleuth:
     sampler:
       percentage: 1.0
+  cloud:
+    stream:
+      bindings:
+        output:
+          group: queue-group-1
+          destination: reserve-other-queue
+          contentType: text/plain
+          binder: rabbit
+        input:
+          group: queue-group-1
+          destination: reserve-other-queue
+          contentType: text/plain
+          binder: rabbit
