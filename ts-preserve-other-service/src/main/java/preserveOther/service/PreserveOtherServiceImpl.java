@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import preserveOther.domain.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,6 +14,8 @@ public class PreserveOtherServiceImpl implements PreserveOtherService{
 
     @Autowired
     private RestTemplate restTemplate;
+
+    public static ArrayList<ReserveQueueInformation> arrayList = new ArrayList<>();
 
     @Override
     public OrderTicketsResult preserve(OrderTicketsInfo oti,String accountId,String loginToken){
