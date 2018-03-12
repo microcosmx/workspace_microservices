@@ -39,15 +39,29 @@ type News struct {
 	Content string `bson:"Content"`
 }
 
+var isReady int = 0
+
+
 func hello(val string) string {
-	var str = []byte(`[
-                       {"Title": "News Service Complete", "Content": "Congratulations:Your News Service Complete"},
-                       {"Title": "Total Ticket System Complete", "Content": "Just a total test"}
-                    ]`)
-	return string(str)
+    if(isReady > 0){
+    	var str = []byte(`[
+                           {"Title": "News Service Complete", "Content": "Congratulations:Your News Service Complete"},
+                           {"Title": "Total Ticket System Complete", "Content": "Just a total test"}
+                        ]`)
+        isReady = isReady - 1
+    	return string(str)
+    }else{
+        return "No News Prepared"
+    }
+}
+
+func getReady(val string) string {
+    isReady = isReady + 1
+    return "News Ready"
 }
 
 func main() {
-	web.Get("/(.*)", hello)
+	web.Get("/news-service/news", hello)
+	web.Get("/news-service/requestForNews", getReady)
 	web.Run("0.0.0.0:12862")
 }
