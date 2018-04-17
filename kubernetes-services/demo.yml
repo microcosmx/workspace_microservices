@@ -108,3 +108,115 @@ spec:
          nodePort: 30003
     selector:
       app: rest-service-3
+---
+##################################################################################################
+  # Rest Service Sub 1
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rest-service-sub-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rest-service-sub-1
+        version: v1
+    spec:
+      containers:
+      - name: rest-service-sub-1
+        image: 10.141.212.25:5555/rest-service-sub-1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 16101
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rest-service-sub-1
+spec:
+  type: NodePort
+  ports:
+    - name: http-svc-sub1
+      port: 16101
+      nodePort: 30101
+  selector:
+      app: rest-service-sub-1
+---
+##################################################################################################
+# Rest Service Sub 2
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rest-service-sub-2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rest-service-sub-2
+        version: v1
+    spec:
+      containers:
+      - name: rest-service-sub-2
+        image: 10.141.212.25:5555/rest-service-sub-2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 16102
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: rest-service-sub-2
+spec:
+    type: NodePort
+    ports:
+       - name: http-svc-sub2
+         port: 16102
+         nodePort: 30102
+    selector:
+      app: rest-service-sub-2
+---
+##################################################################################################
+# Rest Service Sub 2
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rest-service-sub-3
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rest-service-sub-3
+        version: v1
+    spec:
+      containers:
+      - name: rest-service-sub-3
+        image: 10.141.212.25:5555/rest-service-sub-3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 16103
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: rest-service-sub-3
+spec:
+    type: NodePort
+    ports:
+       - name: http-svc-sub3
+         port: 16103
+         nodePort: 30103
+    selector:
+      app: rest-service-sub-3
+---

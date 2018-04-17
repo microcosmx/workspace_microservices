@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: rest-service-sub-1
+server:
+  port: 16101

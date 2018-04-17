@@ -1,6 +1,34 @@
 version: '3'
 services:
 
+
+  rest-service-sub-1:
+    build: rest-service-sub-1
+    image: my-service-cluster/rest-service-sub-1
+    restart: always
+    ports:
+      - 16101:16101
+    networks:
+      - my-network
+
+  rest-service-sub-2:
+    build: rest-service-sub-2
+    image: my-service-cluster/rest-service-sub-2
+    restart: always
+    ports:
+      - 16102:16102
+    networks:
+      - my-network
+
+  rest-service-sub-3:
+    build: rest-service-sub-3
+    image: my-service-cluster/rest-service-sub-3
+    restart: always
+    ports:
+      - 16103:16103
+    networks:
+      - my-network
+
   rest-service-3:
     build: rest-service-3
     image: my-service-cluster/rest-service-3

@@ -16,7 +16,7 @@ public class HelloController {
     @Autowired
 	private RestTemplate restTemplate;
 
-    @RequestMapping(value="/hello", method = RequestMethod.GET)
+    @RequestMapping(value="/helloRestServiceSubOne", method = RequestMethod.GET)
     public String hello2(@RequestHeader HttpHeaders httpHeaders) throws Exception{
 
         Map<String,String> headerList = httpHeaders.toSingleValueMap();
@@ -27,6 +27,6 @@ public class HelloController {
 
         Thread.sleep(50);
 
-        return "Hello From Rest-Service-2";
+        return "Hello From Rest-Service-Sub-1";
     }
 }

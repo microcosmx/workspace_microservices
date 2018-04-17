@@ -23,6 +23,9 @@
         <module>rest-service-2</module>
         <module>rest-service-1</module>
         <module>rest-service-3</module>
+        <module>rest-service-sub-1</module>
+        <module>rest-service-sub-2</module>
+        <module>rest-service-sub-3</module>
     </modules>
 
 
@@ -41,24 +44,6 @@
             <artifactId>spring-cloud-sleuth-core</artifactId>
             <version>1.2.2.BUILD-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-            <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency>
-
-        <!-- <dependency>
-            <groupId>myproject.microservices</groupId>
-            <artifactId>micro-service-monitoring-core</artifactId>
-            <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>myproject.microservices</groupId>
-            <artifactId>micro-service-monitoring-zipkin</artifactId>
-            <version>1.2.2.BUILD-SNAPSHOT</version>
-        </dependency> -->
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
